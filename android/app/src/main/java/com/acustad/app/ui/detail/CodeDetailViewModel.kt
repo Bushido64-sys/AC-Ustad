@@ -1,6 +1,7 @@
 package com.acustad.app.ui.detail
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -42,15 +43,18 @@ class CodeDetailViewModel(
 
     private val _detail = MutableStateFlow<CodeDetail?>(null)
     private val _loading = MutableStateFlow(true)
+    private val _failed = MutableStateFlow(false)
     private val _notesExpanded = MutableStateFlow(false)
 
     val notesExpanded: StateFlow<Boolean> = _notesExpanded.asStateFlow()
 
     val state: StateFlow<DetailState> =
-        combine(_detail, _loading, _notesExpanded, repo.contentLanguage) { detail, loading, notes, language ->
+        combine(_detail, _loading, _failed, _notesExpanded, repo.contentLanguage) {
+                detail, loading, failed, notes, language ->
             DetailState(
                 detail = detail,
                 isLoading = loading,
+                failed = failed,
                 notesExpanded = notes,
                 language = language,
             )
@@ -58,16 +62,32 @@ class CodeDetailViewModel(
 
     init {
         viewModelScope.launch {
-            val detail = runCatching { repo.codeDetail(codeId) }.getOrNull()
-            _detail.value = detail
-            // Two small lookups to name the machine in the app bar, so a technician always knows
-            // which manual they are reading. Cheaper than putting a name in a route, which is not
-            // even possible: model names contain slashes and brackets.
-            if (detail != null) {
-                seriesName = runCatching { repo.series(detail.seriesId, detail.brandId)?.name }
-                    .getOrNull().orEmpty()
-                brandName = runCatching { repo.brand(detail.brandId)?.name }.getOrNull().orEmpty()
-            }
+            val result = runCatching { repo.codeDetail(codeId) }
+            result
+                .onSuccess { detail ->
+                    _detail.value = detail
+                    // Two small lookups to name the machine in the app bar, so a technician always knows
+                    // which manual they are reading. Cheaper than putting a name in a route, which is not
+                    // even possible: model names contain slashes and brackets.
+                    if (detail != null) {
+                        seriesName = runCatching { repo.series(detail.seriesId, detail.brandId)?.name }
+                            .getOrNull().orEmpty()
+                        brandName = runCatching { repo.brand(detail.brandId)?.name }.getOrNull().orEmpty()
+                    }
+                }
+                .onFailure { cause ->
+                    // A read that BLOWED UP is not the same as a code that is not there, and it
+                    // must never be shown as one.
+                    //
+                    // This is the second half of the bug that kept the whole code-detail screen
+                    // dead: `.getOrNull()` collapsed a thrown exception into `detail == null`,
+                    // and the screen renders null as "This code is not in the knowledge base."
+                    // So an out-of-range cursor read presented itself as missing data, and
+                    // nobody could tell a crash from a data problem. The cause is logged and
+                    // the user gets a Try again, which is at least honest.
+                    Log.e(TAG, "code $codeId could not be read: ${cause.message}", cause)
+                    _failed.value = true
+                }
             _loading.value = false
         }
     }
@@ -95,7 +115,20 @@ class CodeDetailViewModel(
         _notesExpanded.value = !_notesExpanded.value
     }
 
+    /** Re-reads the code. A failed read is retryable; a code that is genuinely absent is not. */
+    fun reload() {
+        _failed.value = false
+        _loading.value = true
+        viewModelScope.launch {
+            runCatching { repo.codeDetail(codeId) }
+                .onSuccess { _detail.value = it }
+                .onFailure { _failed.value = true }
+            _loading.value = false
+        }
+    }
+
     companion object {
+        private const val TAG = "CodeDetail"
         const val ARG_CODE_ID = "codeId"
 
         /** Notes past this length are collapsed. p90 is 202 chars, max 725. */
@@ -106,6 +139,12 @@ class CodeDetailViewModel(
 data class DetailState(
     val detail: CodeDetail? = null,
     val isLoading: Boolean = true,
+    /**
+     * The read threw, as opposed to the code not existing. Kept apart from `detail == null`
+     * on purpose: "This code is not in the knowledge base" is a claim about the data, and it
+     * must never be shown because a cursor read blew up. (RULES.md RULE 17)
+     */
+    val failed: Boolean = false,
     val notesExpanded: Boolean = false,
     val language: ContentLanguage = ContentLanguage.EN,
 )

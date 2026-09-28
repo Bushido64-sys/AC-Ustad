@@ -45,6 +45,24 @@ def _load_norm():
 
 norm = _load_norm()
 
+# The app's code-detail query, mirrored from
+# android/app/src/main/java/com/acustad/app/data/CodeDao.kt (`DETAIL_SQL`), and the column
+# order the DAO is expected to see. If either side changes, change both in the same commit.
+DETAIL_SQL = """
+    SELECT c.id, c.uid, c.code, c.title_en, c.title_ur, c.severity, c.is_fault, c.display,
+           c.meaning_en, c.meaning_ur, c.notes_en, c.notes_ur, c.confidence,
+           c.source_type, c.source_title, c.source_url, c.blink_pattern, c.related_codes,
+           c.series_id, c.brand_id
+      FROM codes c
+     WHERE c.id = ?
+"""
+DETAIL_COLUMNS = (
+    "id", "uid", "code", "title_en", "title_ur", "severity", "is_fault", "display",
+    "meaning_en", "meaning_ur", "notes_en", "notes_ur", "confidence",
+    "source_type", "source_title", "source_url", "blink_pattern", "related_codes",
+    "series_id", "brand_id",
+)
+
 
 def check(label: str, got: object, want: object) -> None:
     ok = got == want
@@ -215,6 +233,33 @@ def main() -> int:
     check("a nonsense word returns nothing rather than everything", db.execute(
         "SELECT COUNT(*) FROM code_fts WHERE code_fts MATCH ?",
         (fts_query("zzzqqxnothing"),)).fetchone()[0], 0)
+
+    # ── CodeDao.detailById(): the detail query's COLUMN LAYOUT ───────────────
+    # This mirrors DETAIL_SQL deliberately. It does not re-test the query's *result*; it pins
+    # the order of its select list, because that is the fragile part. The DAO once read
+    # `meaning_en` from index 9 (which is `meaning_ur`) and `brand_id` from index 20 on a
+    # 20-column cursor. `getString(20)` threw, the view model swallowed it with
+    # `runCatching{}.getOrNull()`, and the entire code-detail screen showed "This code is not
+    # in the knowledge base" instead of crashing. Every code in the app was unreachable and it
+    # looked like missing data.
+    #
+    # The DAO now reads by column NAME, so an off-by-one cannot recur there. This check guards
+    # the other half: if DETAIL_SQL is ever reordered, whoever reordered it has to update the
+    # expected list below rather than discover it on a phone. Update both together.
+    detail_sql = DETAIL_SQL
+    cur = db.execute(detail_sql, ("1",))
+    got_columns = [d[0] for d in cur.description]
+    check("DETAIL_SQL column order is what the app expects", got_columns, list(DETAIL_COLUMNS))
+    check("DETAIL_SQL returns 20 columns, so the last valid index is 19", len(got_columns), 20)
+    # The row a technician is actually looking at must carry real content, or the detail screen
+    # renders empty blocks and the failure looks like a data problem again.
+    probe = cur.fetchone()
+    check("the first code's detail row has a meaning", bool(probe[8]), True)
+    check("the first code's detail row has a confidence", bool(probe[12]), True)
+    check("the first code's detail row names its model line", bool(probe[18]), True)
+    check("the first code's detail row names its brand", bool(probe[19]), True)
+    check("one row per code, keyed on codes.id", db.execute(
+        "SELECT COUNT(*) FROM codes WHERE id = 1").fetchone()[0], 1)
 
     # ── FavouritesDao: the table is two columns, and nothing is stale ────────
     check("favourites columns", [r[1] for r in db.execute("PRAGMA table_info(favourites)")],

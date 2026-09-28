@@ -60,10 +60,18 @@ fun CodeDetailScreen(
     val detail = state.detail
 
     if (detail == null) {
-        if (state.isLoading) {
-            LoadingPanel()
-        } else {
-            EmptyState(
+        when {
+            // The read threw. Say that, offer a retry, and never claim the code is missing.
+            state.failed -> EmptyState(
+                message = stringResource(R.string.error_reading_code),
+                modifier = modifier.fillMaxSize(),
+                actionLabel = stringResource(R.string.action_try_again),
+                onAction = viewModel::reload,
+            )
+            state.isLoading -> LoadingPanel()
+            // Genuinely absent from the database. This is a true statement about the data, and
+            // it is now the only path that makes it.
+            else -> EmptyState(
                 message = stringResource(R.string.empty_code_not_found),
                 modifier = modifier.fillMaxSize(),
             )

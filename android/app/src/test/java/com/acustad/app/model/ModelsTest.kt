@@ -1,5 +1,6 @@
 package com.acustad.app.model
 
+import com.acustad.app.ui.detail.DetailState
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -158,6 +159,32 @@ class ModelsTest {
         val indicator = favourite().copy(code = "P003", codeId = 2L, isFault = false)
         assertFalse(indicator.isFault)
         assertEquals("P003", indicator.code)
+    }
+
+    @Test
+    fun `a detail screen tells a failed read apart from an absent code`() {
+        // The bug that kept the whole code-detail screen unreachable: a cursor read past the
+        // end of the row threw, `runCatching { }.getOrNull()` turned the throw into
+        // `detail == null`, and the screen rendered that as "This code is not in the knowledge
+        // base." A crash must never be dressed as a claim about the data. (RULES.md RULE 17)
+        val absent = DetailState()
+        assertFalse("an absent code is not a failed read", absent.failed)
+        val blew = DetailState(failed = true)
+        assertTrue(blew.failed)
+        assertNull("a failed read has no code to show", blew.detail)
+        assertFalse("a failed read is not still loading", blew.isLoading)
+    }
+
+    @Test
+    fun `a detail screen reads every block from the database or from nothing`() {
+        // Nothing on this screen is invented, so a block with no data is null and the UI hides
+        // it. panasonic/…/H00 is the real example: a code with no causes at all.
+        val d = detail(sourceUrl = null)
+        assertNull(d.notes(ContentLanguage.EN))
+        assertNull(d.notes(ContentLanguage.UR))
+        assertNull("26 codes have no source_url, so no dead link", d.sourceUrl)
+        assertTrue(d.causes.isEmpty())
+        assertTrue(d.solutions.isEmpty())
     }
 
     private fun favourite() = FavouriteItem(

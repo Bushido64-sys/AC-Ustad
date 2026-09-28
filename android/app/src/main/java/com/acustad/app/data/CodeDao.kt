@@ -43,23 +43,36 @@ class CodeDao(private val db: SQLiteDatabase) {
      * The causes and solutions come back as separate lists from LEFT JOINs rather than as
      * one fanned-out result set: a detail screen is read once and held, and splitting the
      * rows here avoids the index arithmetic that de-duplicating a joined result would need.
+     *
+     * The twelve fields this query adds beyond the summary are read **by column name**.
+     *
+     * They used to be read by index, and every one of them was off by one — `meaning_en` was
+     * read from index 9, which is `meaning_ur`, all the way to `brand_id` at index 20 on a
+     * 20-column cursor. `getString(20)` throws, the view model caught it with
+     * `runCatching { }.getOrNull()`, and the crash was presented to the user as
+     * "This code is not in the knowledge base." The whole code-detail screen was therefore
+     * dead, and it looked like missing data rather than a bug, which is the worst way for a
+     * fault to appear. Names cannot be off by one, so this cannot recur.
      */
     suspend fun detailById(id: Long, isFavourite: Boolean): CodeDetail? = io {
         val head = db.rawQuery(DETAIL_SQL, arrayOf(id.toString())).firstRow { c ->
             CodeDetail(
                 summary = c.toSummary(),
-                meaningEn = c.stringOrNull(9),
-                meaningUr = c.stringOrNull(10),
-                notesEn = c.stringOrNull(11),
-                notesUr = c.stringOrNull(12),
-                confidence = c.getString(13),
-                sourceType = c.stringOrNull(14),
-                sourceTitle = c.stringOrNull(15),
-                sourceUrl = c.stringOrNull(16),
-                blinkPattern = c.stringOrNull(17),
-                relatedCodes = c.stringOrNull(18),
-                seriesId = c.getString(19),
-                brandId = c.getString(20),
+                meaningEn = c.col("meaning_en"),
+                meaningUr = c.col("meaning_ur"),
+                notesEn = c.col("notes_en"),
+                notesUr = c.col("notes_ur"),
+                confidence = c.col("confidence").orEmpty(),
+                sourceType = c.col("source_type"),
+                sourceTitle = c.col("source_title"),
+                sourceUrl = c.col("source_url"),
+                blinkPattern = c.col("blink_pattern"),
+                relatedCodes = c.col("related_codes"),
+                // Non-null in the schema, and this is an inner join, so both are always
+                // present. orEmpty() is a net, not a fallback: an empty name makes the app
+                // bar fall back to a generic heading, which is the designed behaviour.
+                seriesId = c.col("series_id").orEmpty(),
+                brandId = c.col("brand_id").orEmpty(),
                 causes = emptyList(),
                 solutions = emptyList(),
                 isFavourite = isFavourite,
@@ -108,3 +121,12 @@ internal fun Cursor.toSummary() = CodeSummary(
 
 /** `getString` returns "" for SQL NULL; the database has a lot of legitimately absent text. */
 internal fun Cursor.stringOrNull(index: Int): String? = getString(index).ifBlank { null }
+
+/**
+ * Reads a column **by name**, and NULL-aware: `getString` turns SQL NULL into "", which would
+ * render an empty box where the UI should hide the whole block. (PHASE_4_CODE_DETAIL.md §4)
+ */
+internal fun Cursor.col(name: String): String? {
+    val index = getColumnIndexOrThrow(name)
+    return if (isNull(index)) null else getString(index).ifBlank { null }
+}

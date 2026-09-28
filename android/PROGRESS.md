@@ -14,7 +14,7 @@
 | 1 · Setup | ✅ | Skeleton, bundled database, 7 IBM Plex fonts, light + dark themes, launcher icon, home screen with live counts |
 | 2 · Data layer | ✅ | 4 DAOs, immutable models, one repository, favourites writes, stale-id sweep |
 | 3 · Browse | ✅ | Home → brands → model lines → codes, with scoped search on every list |
-| 4 · Code detail | ✅ | Severity + meaning → numbered fix steps → causes → notes → source, with a working star |
+| 4 · Code detail | ✅ **fixed 2026-09-29** | Severity + meaning → numbered fix steps → causes → notes → source, with a working star. Was marked ✅ while being **completely dead on a phone** — see trap 15. The build was green throughout; only a human tapping a code found it |
 | 5 · Search polish | 🟡 | The **data layer** is done and tested; the empty-search teaching state is not built |
 | 6 · Saved screen | ✅ | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
 | 7 · Offline & updates | ⬜ | Mostly satisfied already; no verification pass yet |
@@ -44,12 +44,22 @@ Three rules for whoever picks this up, human or AI:
    database is right - and say so instead of quietly working around it.
 2. **Do not trust a number that has not been read.** Every count here was queried, but a data
    release can move them. `python3 app-pipeline/check_app_sql.py` re-checks 40 of them.
-3. **Watch for the four failure modes this project actually produced:** a column name written
-   from memory instead of read from the schema; a claim described as "verified" that was only
-   reasoned about; a text-based check reporting a conclusion it could not see (the dead-code
-   sweep, the self-matching secret scan, and `getValue`, an implicit operator that never
-   appears in the source); and a duplicated instruction drifting from the thing it documents -
-   which is why the prompt now lives in exactly one file.
+3. **Watch for the six failure modes this project actually produced:**
+   - a column name written from memory instead of read from the schema;
+   - **a claim described as "verified" that was only reasoned about.** Phase 4 sat in the table
+     below marked done for days, with a green build and a green test suite, and the screen was
+     dead on the device. A green build proves the app *compiles and its tests pass*. It does not
+     prove the screen renders. Only a human tapping a code found this one;
+   - a text-based check reporting a conclusion it could not see (the dead-code sweep, the
+     self-matching secret scan, and `getValue`, an implicit operator that never appears in the
+     source);
+   - a duplicated instruction drifting from the thing it documents - which is why the prompt now
+     lives in exactly one file;
+   - **an exception swallowed into a user-facing claim.** `runCatching { }.getOrNull()` turned a
+     cursor crash into "This code is not in the knowledge base", i.e. a fault became a fact about
+     the data, and the message was actively misleading while looking entirely reasonable;
+   - **an off-by-one column index.** `detailById` read index 20 on a 20-column cursor. Those
+     fields are read by name now, so it cannot recur.
 
 ## 2. The daily loop
 
@@ -144,6 +154,18 @@ reason several comments in the code look defensive.
    `severity = 'info'`. Without the column the Saved row renders a severity chip for it. It is
    selected last, so it cannot shift the indices the DAO already reads; the full index map is in
    `FavouritesDao`'s KDoc.
+15. **Phase 4 was marked green and was not. The code-detail screen never worked.** `CodeDao.detailById`
+   read `meaning_en` from index 9, `meaning_ur` from 10, and so on — every field after the
+   summary was off by one — and finished at `brandId = c.getString(20)` on a **20-column** cursor,
+   where the last valid index is 19. `getString(20)` throws. `CodeDetailViewModel` then wrapped the
+   read in `runCatching { }.getOrNull()`, so the exception became `detail == null`, and the screen
+   renders null as **"This code is not in the knowledge base."** Every code in the app was
+   unreachable, and a crash presented itself as missing data. Found on a phone, not in CI: the
+   build was green the whole time, because the test suite never opened a detail screen.
+   Two separate faults, and either alone would have been survivable:
+   - the twelve detail fields are now read **by column name**, so an off-by-one is impossible;
+   - a failed read is now a **different state** from an absent code, so a thrown exception can
+     never again be reported as a fact about the data.
 
 ## 5. The gates, and what each one is for
 
@@ -151,9 +173,9 @@ reason several comments in the code look defensive.
 |---|---|
 | `verify data` / `tools/validate.py` | the knowledge base validates against the schema |
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
-| `verify data` / `check_app_sql.py` | **40 checks** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device |
+| `verify data` / `check_app_sql.py` | **45 checks** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order**, added after trap 15 |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | 42 tests, including all 2,139 code strings and the FTS quoting |
+| `build app` / unit tests | 44 tests, including all 2,139 code strings and the FTS quoting |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission |
 | `build app` / database hash | the APK cannot carry a stale database |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
