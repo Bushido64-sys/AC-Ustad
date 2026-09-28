@@ -120,11 +120,17 @@ data class CodeDetail(
     val sourceUrl: String?,
     val blinkPattern: String?,
     val relatedCodes: String?,
+    /** Carried so the screen can name the machine and scope anything it later needs. The uid is
+     *  `brand/series/code`, so these are the same identity in usable pieces. */
+    val seriesId: String,
+    val brandId: String,
     /** In database order. `index` is 0-based; the number a technician reads is `index + 1`. */
     val causes: List<BilingualText>,
     val solutions: List<BilingualText>,
     val isFavourite: Boolean,
 ) {
+    val scope: ScopedSeries get() = ScopedSeries(seriesId, brandId)
+
     fun meaning(language: ContentLanguage): String? = language.pick(meaningEn, meaningUr)
     fun notes(language: ContentLanguage): String? = language.pick(notesEn, notesUr)
 }

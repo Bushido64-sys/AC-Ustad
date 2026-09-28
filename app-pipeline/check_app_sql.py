@@ -136,6 +136,28 @@ def main() -> int:
     check("codes with no source_url", db.execute(
         "SELECT COUNT(*) FROM codes WHERE source_url IS NULL OR source_url=''").fetchone()[0], 26)
 
+    # ── CodeDao.detailById(): the columns the detail screen reads ───────────
+    row = db.execute("""SELECT c.uid, c.series_id, c.brand_id, c.confidence,
+                                c.source_type, c.source_title, c.source_url,
+                                c.blink_pattern, c.related_codes, c.meaning_en, c.meaning_ur
+                             FROM codes c WHERE c.uid = ?""",
+                     ("growatt/growatt-mod-tl3x/Error 200",)).fetchone()
+    check("detail row found", row is not None, True)
+    check("detail uid is brand/series/code", row[0].count("/"), 2)
+    check("detail series_id is the bare slug", row[1], "growatt-mod-tl3x")
+    check("detail brand_id is the brand slug", row[2], "growatt")
+    # every detail row must have a meaning, or the block is hidden and the screen starts empty
+    check("codes with no meaning at all", db.execute(
+        "SELECT COUNT(*) FROM codes WHERE (meaning_en IS NULL OR TRIM(meaning_en)='')"
+        " AND (meaning_ur IS NULL OR TRIM(meaning_ur)='')").fetchone()[0], 0)
+    # confidence and source_type must be from the documented sets, or the chip is a lie
+    check("confidence values", sorted({r[0] for r in db.execute(
+        "SELECT DISTINCT confidence FROM codes")}), ["high", "low", "medium"])
+    check("codes with a source_url but no source_title", db.execute(
+        """SELECT COUNT(*) FROM codes
+             WHERE (source_url IS NOT NULL AND TRIM(source_url) != '')
+               AND (source_title IS NULL OR TRIM(source_title) = '')""").fetchone()[0], 0)
+
     # ── SearchDao.codesExact(): the canonical form, scoped ───────────────────
     check("E6 resolves inside one model line", db.execute(
         """SELECT COUNT(*) FROM aliases a JOIN codes c ON c.id = a.code_id

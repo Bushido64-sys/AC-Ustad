@@ -27,6 +27,8 @@ import com.acustad.app.ui.browse.CodesScreen
 import com.acustad.app.ui.browse.CodesViewModel
 import com.acustad.app.ui.browse.SeriesScreen
 import com.acustad.app.ui.browse.SeriesViewModel
+import com.acustad.app.ui.detail.CodeDetailScreen
+import com.acustad.app.ui.detail.CodeDetailViewModel
 import com.acustad.app.ui.home.HomeScreen
 
 /**
@@ -60,6 +62,10 @@ object Routes {
     const val BRANDS = "brands/{category}"
     const val SERIES = "series/{brandId}"
     const val CODES = "codes/{seriesId}/{brandId}"
+    // The code is identified by codes.id, not by codes.uid: the uid is "brand/series/code" and
+    // a route segment cannot contain slashes. The uid is still the identity used everywhere
+    // else - here the integer key is simply the safe way to carry it between screens.
+    const val DETAIL = "detail/{codeId}"
 
     private fun slug(value: String): String = value.ifEmpty { "-" }
 
@@ -69,6 +75,8 @@ object Routes {
     fun series(brandId: String) = "series/${slug(brandId)}"
 
     fun codes(seriesId: String, brandId: String) = "codes/${slug(seriesId)}/${slug(brandId)}"
+
+    fun detail(codeId: Long) = "detail/$codeId"
 }
 
 @Composable
@@ -142,7 +150,23 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
                     subtitle = vm.brandName,
                     onBack = { nav.popBackStack() },
                 ) {
-                    CodesScreen(onCodeClick = { })
+                    CodesScreen(onCodeClick = { code -> nav.navigate(Routes.detail(code.id)) })
+                }
+            }
+
+            composable(
+                route = Routes.DETAIL,
+                arguments = listOf(
+                    navArgument(CodeDetailViewModel.ARG_CODE_ID) { type = NavType.LongType }
+                ),
+            ) {
+                val vm: CodeDetailViewModel = viewModel()
+                ScreenWithBar(
+                    title = vm.seriesName.ifBlank { stringResource(R.string.heading_code) },
+                    subtitle = vm.brandName.ifBlank { null },
+                    onBack = { nav.popBackStack() },
+                ) {
+                    CodeDetailScreen()
                 }
             }
         }

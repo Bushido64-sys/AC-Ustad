@@ -120,10 +120,13 @@ class KbRepository(
      * One code, in one query, with its causes, fix steps and saved state.
      * Returns null when the uid is not in the database — a normal outcome, not an error.
      */
-    suspend fun codeDetail(uid: String): CodeDetail? {
+    /**
+     * One code by its primary key. The key is used rather than the uid because
+     * `codes.uid` is `brand/series/code` and a route segment cannot contain slashes.
+     */
+    suspend fun codeDetail(id: Long): CodeDetail? {
         val database = db()
-        val codeId = CodeDao(database).idFor(uid) ?: return null
-        return CodeDao(database).detail(uid, FavouritesDao(database).isFavourite(codeId))
+        return CodeDao(database).detailById(id, FavouritesDao(database).isFavourite(id))
     }
 
     // ── favourites ────────────────────────────────────────────────────────────

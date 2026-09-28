@@ -44,8 +44,8 @@ class CodeDao(private val db: SQLiteDatabase) {
      * one fanned-out result set: a detail screen is read once and held, and splitting the
      * rows here avoids the index arithmetic that de-duplicating a joined result would need.
      */
-    suspend fun detail(uid: String, isFavourite: Boolean): CodeDetail? = io {
-        val head = db.rawQuery(DETAIL_SQL, arrayOf(uid)).firstRow { c ->
+    suspend fun detailById(id: Long, isFavourite: Boolean): CodeDetail? = io {
+        val head = db.rawQuery(DETAIL_SQL, arrayOf(id.toString())).firstRow { c ->
             CodeDetail(
                 summary = c.toSummary(),
                 meaningEn = c.stringOrNull(9),
@@ -58,6 +58,8 @@ class CodeDao(private val db: SQLiteDatabase) {
                 sourceUrl = c.stringOrNull(16),
                 blinkPattern = c.stringOrNull(17),
                 relatedCodes = c.stringOrNull(18),
+                seriesId = c.getString(19),
+                brandId = c.getString(20),
                 causes = emptyList(),
                 solutions = emptyList(),
                 isFavourite = isFavourite,
@@ -89,13 +91,14 @@ class CodeDao(private val db: SQLiteDatabase) {
     }
 
     private companion object {
-        /** Column order must match [toSummary] (0–7) and [detail] (8–18). */
+        /** Column order must match [toSummary] (0-7) and [detailById] (8-20). */
         val DETAIL_SQL = """
             SELECT c.id, c.uid, c.code, c.title_en, c.title_ur, c.severity, c.is_fault, c.display,
                    c.meaning_en, c.meaning_ur, c.notes_en, c.notes_ur, c.confidence,
-                   c.source_type, c.source_title, c.source_url, c.blink_pattern, c.related_codes
+                   c.source_type, c.source_title, c.source_url, c.blink_pattern, c.related_codes,
+                   c.series_id, c.brand_id
               FROM codes c
-             WHERE c.uid = ?
+             WHERE c.id = ?
         """.trimIndent()
     }
 }

@@ -92,6 +92,13 @@ class ModelsTest {
     }
 
     @Test
+    fun `a detail carries the two-part scope of the machine it came from`() {
+        // The screen needs this to name the machine, and it is the same pair every scoped query
+        // must bind. "inverter-split" is shared by 14 brands, so the brand is not optional.
+        assertEquals(ScopedSeries("inverter-split", "dawlance"), detail(sourceUrl = null).scope)
+    }
+
+    @Test
     fun `a detail screen hides an absent source rather than showing a dead link`() {
         // 26 codes have no source_url. A link must only be offered when one exists.
         val withUrl = detail(sourceUrl = "https://example.com/manual.pdf")
@@ -132,6 +139,8 @@ class ModelsTest {
         sourceUrl = sourceUrl,
         blinkPattern = null,
         relatedCodes = null,
+        seriesId = "inverter-split",
+        brandId = "dawlance",
         causes = emptyList(),
         solutions = emptyList(),
         isFavourite = false,
