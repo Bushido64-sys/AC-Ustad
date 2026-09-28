@@ -22,6 +22,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 
 /**
@@ -50,8 +52,8 @@ class KbRepository(
     @Volatile
     private var handle: SQLiteDatabase? = null
 
-    @Volatile
-    private var swept = false
+    /** Guards the one-time open. A coroutine Mutex, because the work inside it suspends. */
+    private val openLock = Mutex()
 
     // ── language ──────────────────────────────────────────────────────────────
     // A single flow, so toggling EN/UR re-renders with NO new query: both languages are always
@@ -67,17 +69,22 @@ class KbRepository(
      * Opens the database once, on the IO dispatcher, and sweeps stale saved ids the first
      * time. The sweep matters because `favourites.code_id` is only stable within one data
      * release: after a re-copy, a saved id can point at a different code.
+     *
+     * The lock is a coroutine `Mutex`, **not** `synchronized`. Opening the file and running
+     * the sweep are both suspending, and Kotlin rejects a suspension point inside a
+     * `synchronized` block — that is an error, not a warning. A Mutex is the primitive meant
+     * for a critical section that spans suspension.
+     *
+     * `handle` is `@Volatile` and read outside the lock on the fast path, so the common case
+     * (the database is already open) costs one volatile read and no lock at all.
      */
-    private suspend fun db(): SQLiteDatabase = withContext(dispatcher) {
-        handle?.let { return@withContext it }
-        synchronized(this@KbRepository) {
-            handle ?: kb.open().also { openedDb ->
-                handle = openedDb
-                if (!swept) {
-                    swept = true
-                    // The saved list is keyed on codes.id, which a data release can renumber.
-                    // This is the one moment stale rows have to go. FavouritesDao.sweepStaleIds.
-                    FavouritesDao(openedDb).sweepStaleIds()
+    private suspend fun db(): SQLiteDatabase {
+        handle?.let { return it }
+        return withContext(dispatcher) {
+            openLock.withLock {
+                handle ?: kb.open().also { opened ->
+                    handle = opened
+                    FavouritesDao(opened).sweepStaleIds()
                 }
             }
         }
