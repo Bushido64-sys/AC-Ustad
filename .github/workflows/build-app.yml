@@ -29,6 +29,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: read
+      issues: write
     env:
       ANDROID_HOME: /usr/local/lib/android/sdk
 
@@ -91,13 +94,13 @@ jobs:
       # a log that cannot be read without admin rights. Split, the Actions UI names the
       # failing task exactly, which is all that is needed to fix it.
       - name: Compile the debug APK
-        run: ./gradlew --no-daemon --console=plain assembleDebug
+        run: ./gradlew --no-daemon --console=plain assembleDebug 2>&1 | tee android/build.log
 
       - name: Run Android lint
-        run: ./gradlew --no-daemon --console=plain lintDebug
+        run: ./gradlew --no-daemon --console=plain lintDebug 2>&1 | tee -a android/build.log
 
       - name: Run the unit tests
-        run: ./gradlew --no-daemon --console=plain testDebugUnitTest
+        run: ./gradlew --no-daemon --console=plain testDebugUnitTest 2>&1 | tee -a android/build.log
 
       - name: The app requests no permissions
         run: |
@@ -165,3 +168,37 @@ jobs:
           path: android/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 30
           if-no-files-found: error
+
+      # ---------------------------------------------------------------------------
+      # When anything above fails, publish the reason as an ISSUE on this repository.
+      # GitHub's log-download API requires admin rights, so without this the only
+      # visible signal is a red tick and no message. An issue is readable by anyone and
+      # by tooling, which makes a failure self-describing instead of a dead end.
+      # ---------------------------------------------------------------------------
+      - name: Publish the failure reason
+        if: failure()
+        permissions:
+          issues: write
+        env:
+          # gh authenticates from this, and it is the workflow's own scoped token
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          SHA="$(git rev-parse --short HEAD)"
+          TITLE="CI failure: build app ($SHA)"
+          BODY=$(mktemp)
+          {
+            echo "Automatic report from the \`build app\` workflow."
+            echo
+            echo "- commit: $SHA"
+            echo "- run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo
+            echo '```'
+            if [ -f android/build.log ]; then
+              grep -nE "^e: |error:|FAILURE:|Caused by:|> Task .* FAILED|What went wrong|^\* Exception|^\s+> " android/build.log | head -60
+            else
+              cat android/build-app.log 2>/dev/null | tail -40
+            fi
+            echo '```'
+          } > "$BODY"
+          gh issue create --title "$TITLE" --body-file "$BODY"             --label bug 2>/dev/null             || gh issue create --title "$TITLE" --body-file "$BODY" 2>/dev/null             || echo "could not create the issue (gh unavailable)" 
