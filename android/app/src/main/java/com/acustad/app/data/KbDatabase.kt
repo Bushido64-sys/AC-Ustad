@@ -51,9 +51,14 @@ class KbDatabase private constructor(private val appContext: Context) {
         val asset = runCatching { appContext.assets.open(ASSET_PATH) }.getOrNull()
             ?: throw IllegalStateException("bundled asset $ASSET_PATH is missing from the APK")
 
-        // Re-copy when there is no cache, or when the sizes disagree (a truncated copy
-        // from a kill mid-write, or a new build with a different database).
-        if (!target.exists() || target.length() != asset.available()) {
+        // Re-copy when there is no cache, or when the sizes disagree (a truncated copy from a
+        // kill mid-write, or a new build with a different database).
+        //
+        // `File.length()` is Long and `InputStream.available()` is Int, and Kotlin does not
+        // apply `!=` across those two types - hence the explicit `.toLong()`. Also note
+        // available() is only a lower bound for a general stream, but for a file-backed
+        // asset it is the full length, which is all this check needs.
+        if (!target.exists() || target.length() != asset.available().toLong()) {
             copyAsset(asset, target)
         }
         target
