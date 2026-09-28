@@ -21,6 +21,29 @@
 | 8 · Accessibility & Roman Urdu | ⬜ | Sizes, contrast and semantics are in; the EN/UR toggle itself does not exist yet |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
 
+## 1a. Resume prompt — for a fresh session with no memory of this one
+
+The conversation is disposable; this file is not. A new session starts with zero context, so
+give it pointers rather than recollection:
+
+```
+Working on the AC Ustad Android app. Read ~/AC-Ustad/android/PROGRESS.md first -
+sections 1 (phase table), 4 (the nine traps), 5 (what each CI gate protects) and
+7 (next tasks in order). Verify anything you state against the database or
+app-pipeline/check_app_sql.py before relying on it. Next task: <name it here>.
+```
+
+Three rules for whoever (or whatever) picks this up:
+
+1. **The database wins.** If this file, the build guide and `kb.sqlite` disagree, the
+   database is right — and say so instead of quietly working around it.
+2. **Do not trust a number that has not been read.** Every count here was queried, but a
+   data release can move them. `python3 app-pipeline/check_app_sql.py` re-checks 40 of them.
+3. **Watch for the four failure modes this project actually produced:** a column name written
+   from memory instead of read; a claim described as "verified" that was only reasoned about;
+   a text-based check reporting a result it could not actually see; and an implicit-operator
+   import (`getValue`) that no textual search can detect.
+
 ## 2. The daily loop
 
 ```bash
