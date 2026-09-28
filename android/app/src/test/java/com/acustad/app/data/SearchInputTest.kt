@@ -56,11 +56,28 @@ class SearchInputTest {
     }
 
     @Test
-    fun `canon never leaves a double space or a trailing space`() {
-        assertEquals("E1", SearchInput.canon("  E  1  "))
-        assertEquals("E1", SearchInput.canon("E\t1"))
-        assertEquals("AB", SearchInput.canon("a   b"))
+    fun `canon keeps single spaces but never doubles or trails them`() {
+        // A space is a REAL separator in alias_norm - 'High Temp' is stored as 'HIGH TEMP',
+        // 'LED1 x1 blink; LED2 off' as 'LED1 X1 BLINK LED2 OFF'. So canon must keep one
+        // space and drop any extra. An earlier version of this test expected spaces to be
+        // deleted entirely ('E 1' -> 'E1'), which contradicts the database and would have
+        // broken every multi-word code.
+        assertEquals("E 1", SearchInput.canon("  E  1  "))
+        assertEquals("E 1", SearchInput.canon("E\t1"))
+        assertEquals("A B", SearchInput.canon("a   b"))
         assertEquals("", SearchInput.canon("   "))
+    }
+
+    @Test
+    fun `canon reproduces the stored multi-word forms exactly`() {
+        // These four pairs are copied from the shipped database, not invented.
+        assertEquals("HIGH TEMP", SearchInput.canon("High Temp"))
+        assertEquals("88 ERROR", SearchInput.canon("88 error"))
+        assertEquals(
+            "LED1 X1 BLINK LED2 OFF LED3 OFF",
+            SearchInput.canon("LED1 x1 blink; LED2 off; LED3 off"),
+        )
+        assertEquals("GRID-INTF. 1030 DATA 0000", SearchInput.canon("GRID-INTF. (1030 DATA:0000)"))
     }
 
     @Test
