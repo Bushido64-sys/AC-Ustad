@@ -8,19 +8,18 @@
 
 | Phase | State |
 |---|---|
-| 1 · Setup (skeleton, database, fonts, theme, home) | ✅ code written, **not yet compiled** |
-| 2 · Data layer (DAOs, repository, favourites) | ⬜ not started |
+| 1 · Setup (skeleton, database, fonts, theme, home) | ✅ complete, compiles, installed on a phone |
+| 2 · Data layer (DAOs, models, repository, favourites) | ✅ complete, compiles, 29 tests green |
 | 3 · Browse (categories → brands → models) | ⬜ not started |
 | 4 · Code detail | ⬜ not started |
 | 5 · Search (scoped, 2 jobs) | ⬜ not started |
-| 6 · Favourites | ⬜ not started |
+| 6 · Favourites (UI) | ⬜ not started — the data layer for it is done |
 | 7 · Offline & updates | ⬜ not started |
 | 8 · Accessibility & Roman Urdu | ⬜ not started |
 | 9 · Hardening & release | ⬜ not started |
 
-**The whole app has never been compiled.** No Android SDK exists on this machine, so the
-first real test of this code is the first CI run. Expect a short fix loop: build → read the
-error → fix → push. That loop *is* the workflow here.
+The app compiles, lints clean (0 errors), passes 29 unit tests, and every SQL statement the
+app ships is verified against the real database on every push.
 
 ## What exists
 
@@ -30,12 +29,24 @@ error → fix → push. That loop *is* the workflow here.
 - 7 bundled IBM Plex weights + font-family XMLs
 - Palette in `res/values/colors.xml` + `values-night/colors.xml` (single source of truth)
 - Adaptive launcher icon whose "AU" is real IBM Plex Bold outline data
-- `KbDatabase` (asset → cache, read-only, one repair retry)
-- `BrandRepository` (verified count query: AC 31 brands/1,723 codes, inverter 33/2,695)
-- `SearchInput` (normalise + FTS quoting) with unit tests
-- `SchemaContractTest` pinning the real column names
-- `HomeScreen` reading live counts
-- CI: build + 4 gates + APK artifact
+### Phase 2 — the data layer
+- `model/Models.kt` — `@Immutable` read models, `ContentLanguage`, `CategoryId`
+- `data/CatalogDao.kt` — category counts, brands in a category, model lines, meta
+- `data/CodeDao.kt` — one model line's codes; one code in one query with its causes and steps
+- `data/SearchDao.kt` — two jobs: `aliases` exact/prefix, then `code_fts` free text
+- `data/FavouritesDao.kt` — the only writes, plus the stale-id sweep
+- `data/Io.kt` — the single place the IO guarantee is enforced
+- `repo/KbRepository.kt` — the UI's only door to the database; one connection, opened once
+- `SearchInput.canon()` — upper-casing canonical form, reproduces all 4,124 alias pairs
+- Tests: `SearchInputTest` (21 canon assertions), `ModelsTest`, `SchemaContractTest` — 29 green
+- `app-pipeline/check_app_sql.py` — 23 checks running the app's real SQL against the database
+  on every push, because `android.database.sqlite` is a stub off-device and a JVM test
+  cannot check SQL
+
+### Phase 1
+- `KbDatabase` — asset → cache, one repair retry, handle opened once per process
+- `HomeScreen` reading live counts (AC 31 brands/1,723 codes · inverter 33/2,695)
+- CI: build + 5 gates + APK artifact (12 MB)
 
 ## Schema corrections — DONE, the guide now matches the database
 
@@ -105,11 +116,17 @@ fail unquoted, all 2,139 succeed quoted.**
 
 ## Next actions
 
-1. Create the private GitHub repo `AC-Ustad-app` (empty, no README).
-2. `git init -b main`, commit, add the SSH remote, push.
-3. Watch the first CI run. Expect compile errors; fix them one at a time.
-4. Then start Phase 2 (data layer: DAOs + favourites), and correct the guide's
-   `DATA_SCHEMA.md` in the other repository **in the same change** as any data release.
+Phase 3: the browse path. `KbRepository` already answers `brands()`, `seriesOf()` and
+`codesOf()`, so it is screens only:
+
+1. `ui/browse/BrandsScreen` — list, 56dp rows, brand name + code count in mono, 4 zero-code
+   brands muted, sort by count desc, scoped search field filtering brand names in memory.
+2. `ui/browse/SeriesScreen` — model lines of one brand, `notes` collapsed, 65 series are
+   empty app-wide so the empty state is a main path.
+3. `ui/browse/CodesScreen` — codes of one model line, severity chip + code in mono + title,
+   56dp minimum, never a grid.
+4. Navigation: home → brands → series → codes, back preserving query and scroll.
+5. Reuse `BorderedRow`, `CountLabel`, `SectionHeading` — do not invent new components.
 
 ## Testing (the six checks, every build)
 
