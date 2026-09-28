@@ -78,9 +78,13 @@ jobs:
             "build-tools;35.0.0"
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --list_installed
 
-      - uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.10.2'
+      # No gradle/actions/setup-gradle here. That action failed on this repository, and the
+      # committed Gradle wrapper is self-sufficient: it downloads Gradle 8.10.2 itself and
+      # verifies it against the SHA-256 pinned in gradle/wrapper/gradle-wrapper.properties.
+      # One less third-party action on the critical path, and the version is pinned in
+      # version control rather than in a workflow.
+      - name: Show the Gradle version the wrapper resolved
+        run: ./gradlew --no-daemon --version
 
       - name: Build a debug APK
         run: ./gradlew --no-daemon assembleDebug lintDebug testDebugUnitTest

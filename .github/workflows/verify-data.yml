@@ -87,5 +87,12 @@ jobs:
       - name: No secrets committed
         run: |
           # Belt and braces: a leaked token here would be pushed publicly.
-          ! git grep -nIE "(ghp_|github_pat_|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16})" -- . \
-            || { echo "::error::possible secret in tracked files"; exit 1; }
+          # NOTE: the search must exclude .github/ - otherwise this step matches its own
+          # pattern text inside this YAML file and fails itself. That is exactly what
+          # happened on the first run.
+          if git grep -nIE "(ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16})" \
+               -- . ':!.github'; then
+            echo "::error::a possible secret is committed in a tracked file"
+            exit 1
+          fi
+          echo "no secrets found in tracked files - OK"
