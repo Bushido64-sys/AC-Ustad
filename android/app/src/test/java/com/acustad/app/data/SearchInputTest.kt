@@ -106,8 +106,11 @@ class SearchInputTest {
     fun `ftsQuery collapses odd whitespace rather than emitting empty quoted terms`() {
         // An empty term would become "" and match nothing, or worse, be a syntax error.
         assertEquals("\"a\" AND \"b\"", SearchInput.ftsQuery("  a   b  "))
-        assertEquals("\"a\"", SearchInput.ftsQuery("a\tb"))
+        // A tab is a separator, not a character to search for, so this is TWO terms.
+        assertEquals("\"a\" AND \"b\"", SearchInput.ftsQuery("a\tb"))
+        assertEquals("\"a\" AND \"b\"", SearchInput.ftsQuery("a\nb"))
         assertEquals("", SearchInput.ftsQuery("   "))
+        assertEquals("", SearchInput.ftsQuery("\t \n  "))
     }
 
     @Test
