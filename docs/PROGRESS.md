@@ -4,36 +4,50 @@
 > supplies `agent.md`, `Design.md`, phase files, or any app build). It records what is
 > done, what is half-done, and exactly what to do next.
 
-**Project:** AC Ustad — AC & inverter error-code knowledge base. **Data: COMPLETE.
-Android build guide: COMPLETE. The app itself: not started.**
+**Project:** AC Ustad — AC & inverter error-code knowledge base **and** the Android app that
+reads it. **Data: COMPLETE. Build guide: COMPLETE. App: Phase 1 written, never compiled.**
 **Data schema:** v1 (`docs/SCHEMA.md`, `schema/brand.schema.json`) — added optional `confidence` + `notes` fields (additive, 2026-09-23)
-**Last updated:** 2026-09-27
+**Last updated:** 2026-09-28
 
 ---
 
-## 0. If you are here to build the app, read these three files first
+## 0a. If you are here to build the app
+
+The app is in **`android/`**, in this repository. Its own status file is
+**`android/PROGRESS.md`** — read that, not this one.
 
 | File | What it is |
 |---|---|
-| `app-pipeline/guide/AGENTS.md` | master instructions for the builder AI, with the read order |
+| `android/PROGRESS.md` | app build status, phase by phase, plus the schema corrections below |
+| `android/README.md` | how the APK is built and installed on the phone |
+| `android/PROMPT.md` | a ready-to-paste prompt for the builder AI |
+| `app-pipeline/guide/AGENTS.md` | the 20-document build guide: master instructions + read order |
 | `app-pipeline/guide/RULES.md` | 20 hard rules — a green build and these matter more than features |
 | `app-pipeline/guide/DESIGN.md` | every screen, with the measured colour/contrast values |
 
-Then build in phase order `PHASE_1_SETUP` → `PHASE_9_HARDENING_RELEASE`, one commit per
-phase, updating this file each time. `AI-AGENT-PROMPTS.txt` holds two ready-to-paste
-prompts (reviewer + builder).
+**The daily loop:** push to `main` → wait for the green **build app** check → download the
+`ac-ustad-debug` artifact → `adb install -r app-debug.apk` → run the six checks at the end of
+`android/PROGRESS.md`. There is no Android SDK and no emulator on the development machine, so
+CI builds and the phone tests. That is deliberate, not a workaround.
 
-**Locked decisions that must not be re-litigated:** app `AC Ustad`, package
-`com.acustad.app`, Kotlin + Compose, minSdk 26, light **and** dark hand-built themes, zero
-permissions, zero network, no images and no brand logos, exactly five icons, IBM Plex type,
-two colours (blue `#1668A8` + signal hue for alerts), 2dp ink borders with 0–4dp radii, a
-fix-steps-first detail screen, and an **EN/UR content switch** that leaves UI labels, brand
-names and model names in English.
+**Locked decisions that must not be re-litigated:** app `AC Ustad`, package `com.acustad.app`,
+Kotlin + Compose, minSdk 26, light **and** dark hand-built themes, zero permissions, zero
+network, no images and no brand logos, exactly five icons, IBM Plex type, two colours (blue
+`#1668A8` + signal hue for alerts), 2dp ink borders with 0–4dp radii, a fix-steps-first detail
+screen, and an **EN/UR content switch** that leaves UI labels, brand names and model names in
+English.
 
 **The one search rule:** a code is `(brand, series, code)` and search is scoped to the level
 you are on — **there is no global code search**, deliberately. `E1` is on 20 brands, `E3` on
 21, `E6` on 16, `F4` on 15. Any change that reintroduces cross-brand code results is a
 regression, not a feature.
+
+**⚠ Known defect in the build guide, being corrected:** `app-pipeline/guide/DATA_SCHEMA.md`
+documents several columns that do not exist in the shipped database (`brands.uid`,
+`brands.unit_type`, `codes.display_style`, `aliases.kind`, the `favourites` columns, and
+others). The real schema is pinned by `android/app/src/test/.../SchemaContractTest.kt`, and
+**the test is the authority** where the two disagree. Full correction table in
+`android/PROGRESS.md`.
 
 ---
 
@@ -41,7 +55,7 @@ regression, not a feature.
 
 | Item | Status |
 |---|---|
-| Phase | **Android app build guide — COMPLETE. App code not started.** |
+| Phase | **Android app: Phase 1 written, not yet compiled. Data research: complete.** |
 | Brand queue | `docs/BRAND-ROADMAP.md` (61 queued rows across 4 phases) |
 | Brands completed | **62** — Phase 1 (14 AC, 203) + Phase 2 (15 inverter, 851) + Phase 3 (17 AC, 1520) + **Phase 4 COMPLETE: Growatt 125 · Deye 80 · GoodWe 79 · Solis 89 · FoxESS 80 · Sungrow 201 · Huawei 115 · Sofar 103 · Victron 123 · Fronius-AT 76 · SMA 82 · Felicity-Solar 159 · Must-Power 121 · APC 140 · CyberPower 81 · Eaton 94 · Kstar 96 · Numeric 0 (negative-evidence)** — validate clean. **KB total = 4418 codes / 62 brands** (AC 1723 + inverter 2695). Phase 4 alone added **1844 codes / 17 brands** |
 | Next action | **Phase 4 COMPLETE — every roadmap row (47–61) registered, roadmap fully done (61/61).** Optional follow-ups: (a) promote the largest documented NEGATIVE gaps (Growatt SPM/SPH = PK hero hybrids, Huawei "Inverter Alarm Reference" 403-blocked, Deye + Growatt string-inverter tables with broken PDF text layers, Felicity T-REX-10K table, CyberPower CPS1000/1200EILCD, Solis S6-EH3P US/EUR image-only PDFs); (b) add the reserved `ur_script` key so the app can show Urdu script alongside Roman Urdu |

@@ -1,0 +1,112 @@
+name: build app
+
+# CI builds the APK. The phone tests it. There is no Android SDK on the developer's
+# machine and no local emulator - a local build needs roughly 10 GB of SDK.
+# The Android project lives in android/ so this repository can hold both the
+# researched knowledge base and the app that reads it.
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'android/**'
+      - '.github/workflows/build-app.yml'
+  pull_request:
+    paths:
+      - 'android/**'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: android
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
+
+      - name: Build a debug APK
+        run: ./gradlew --no-daemon assembleDebug lintDebug testDebugUnitTest
+
+      - name: The app requests no permissions
+        run: |
+          # RULE 14. A dependency or a copy-paste must never quietly add INTERNET.
+          MANIFEST=$(find app/build/intermediates -name AndroidManifest.xml -path '*merged*' | head -1)
+          echo "merged manifest: $MANIFEST"
+          if [ -z "$MANIFEST" ]; then
+            echo "::error::could not find the merged manifest"
+            exit 1
+          fi
+          if grep -q "uses-permission" "$MANIFEST"; then
+            echo "::error::the app must not request any permission (PERMISSIONS.md)"
+            grep -n "uses-permission" "$MANIFEST"
+            exit 1
+          fi
+          echo "no uses-permission found - OK"
+
+      - name: The database in assets is the validated one
+        run: |
+          sha256sum app/src/main/assets/db/kb.sqlite
+          python3 - <<'PY'
+          import hashlib, sqlite3, sys, json, pathlib
+          p = "app/src/main/assets/db/kb.sqlite"
+          digest = hashlib.sha256(open(p, "rb").read()).hexdigest()
+          print("asset sha256:", digest)
+          # The app's copy must be byte-identical to the freshly built data package,
+          # which is what verify-data.yml checks. Catch a stale copy here, at the
+          # moment it would ship inside an APK.
+          manifest = pathlib.Path("../app-pipeline/data-manifest.json")
+          if manifest.exists():
+              expected = json.loads(manifest.read_text())["files"]["db/kb.sqlite"]["sha256"]
+              if digest != expected:
+                  print(f"::error::asset is stale\n  app     : {digest}\n  manifest: {expected}")
+                  sys.exit(1)
+              print("matches app-pipeline/data-manifest.json - OK")
+          c = sqlite3.connect(p)
+          assert c.execute("PRAGMA integrity_check").fetchone()[0] == "ok", "database is corrupt"
+          expected_rows = {"brands": 62, "series": 320, "codes": 4418, "causes": 10450,
+                           "solutions": 11776, "aliases": 7707}
+          bad = []
+          for t, n in expected_rows.items():
+              got = c.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
+              print(f"  {t:10s} {got:6d} (expected {n})")
+              if got != n:
+                  bad.append(t)
+          sys.exit(1 if bad else 0)
+          PY
+
+      - name: APK is a sane size
+        run: |
+          ls -lh app/build/outputs/apk/debug/app-debug.apk
+          # ~12 MB: the 8.8 MB database plus the app. Anything much larger means
+          # something was duplicated (ASSETS.md §5, RULE 19).
+          MAX=$((25 * 1024 * 1024))
+          SIZE=$(stat -c%s app/build/outputs/apk/debug/app-debug.apk)
+          if [ "$SIZE" -gt "$MAX" ]; then
+            echo "::error::APK is $((SIZE / 1048576)) MB - something is duplicated"
+            exit 1
+          fi
+          echo "size $((SIZE / 1048576)) MB - OK"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ac-ustad-debug
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30
+          if-no-files-found: error

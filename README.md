@@ -45,10 +45,29 @@ that work regardless of the data format.
 ├── tools/validate.py             ← validates all data files against the schema
 ├── app-pipeline/                ← APP-READY PACKAGE (SQLite + JSON + data contract)
 │   └── guide/                   ← 20-document Android build guide (AGENTS.md is the entry point)
+├── android/                     ← THE ANDROID APP (Kotlin + Compose). CI builds it; the phone tests it
+│   ├── PROGRESS.md              ← app build status, phase by phase
+│   └── app/src/main/assets/db/  ← the app's copy of kb.sqlite, hash-checked in CI
 ├── research-raw/                ← source PDFs/screenshots kept out of the data tree
 ├── AI-AGENT-PROMPTS.txt        ← prompts for the reviewer & builder AI agents
 └── exports/                     ← generated DOCX/PDF (future; not committed)
 ```
+
+## The Android app
+
+The app is in `android/`, in this same repository, so the data and the code that reads it
+move together. Start at **`android/PROGRESS.md`**.
+
+**CI builds, your phone tests.** There is no Android SDK on the development machine and no
+emulator, so the APK only ever comes from the workflow artifact: push → wait for the green
+**build app** check → download the `ac-ustad-debug` artifact → `adb install -r app-debug.apk`.
+
+Two workflows guard this repository:
+
+| Workflow | What it protects |
+|---|---|
+| `verify-data` | the knowledge base: schema validation, reproducible build, row counts, secret scan |
+| `build app` | the APK: compiles, lints, unit-tests, and refuses a permission, a stale database or a bloated APK |
 
 ## How the Android app consumes this
 
