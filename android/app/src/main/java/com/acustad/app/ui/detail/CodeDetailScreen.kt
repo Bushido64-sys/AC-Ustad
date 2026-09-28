@@ -14,10 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.StarBorder
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -41,6 +37,7 @@ import com.acustad.app.ui.common.BorderedPanel
 import com.acustad.app.ui.common.EmptyState
 import com.acustad.app.ui.common.Severity
 import com.acustad.app.ui.common.SeverityChip
+import com.acustad.app.ui.common.StarIcon
 import com.acustad.app.ui.common.indicatorVisuals
 import com.acustad.app.ui.common.severityVisuals
 import com.acustad.app.ui.theme.UstadType
@@ -151,14 +148,8 @@ private fun Headline(detail: CodeDetail, language: ContentLanguage, onToggleStar
                     .size(48.dp)
                     .semantics { contentDescription = starLabel },
             ) {
-                Icon(
-                    // Star and StarBorder are two of the five permitted icons.
-                    imageVector = if (detail.isFavourite) {
-                        Icons.Filled.Star
-                    } else {
-                        Icons.Filled.StarBorder
-                    },
-                    contentDescription = null,
+                StarIcon(
+                    filled = detail.isFavourite,
                     // Starred is the primary blue, which is what "selected" means in this app.
                     tint = if (detail.isFavourite) {
                         MaterialTheme.colorScheme.primary
