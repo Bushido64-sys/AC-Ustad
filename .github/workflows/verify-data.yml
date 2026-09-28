@@ -41,9 +41,28 @@ jobs:
 
       - name: Generated data is up to date
         run: |
-          # Any uncommitted change here means someone edited data/ and forgot to
-          # rebuild, or hand-edited a generated file. Both are failures.
-          git diff --exit-code app-pipeline/
+          # Byte-comparing app-pipeline/ does NOT work here: the .sqlite file's bytes are not
+          # reproducible across SQLite versions, and CI runs a different one from a
+          # developer machine, so that comparison fails for no real reason. Instead:
+          #   - the JSON artifacts must be byte-identical (they are deterministic)
+          #   - the database must have identical CONTENT, via the version-independent
+          #     contentSha256 fingerprint in the manifest
+          git diff --exit-code -- \
+            app-pipeline/kb.json \
+            app-pipeline/brands.json \
+            app-pipeline/search-index.json
+
+          COMMITTED=$(git show HEAD:app-pipeline/data-manifest.json \
+            | python3 -c "import json,sys;print(json.load(sys.stdin)['contentSha256'])")
+          FRESH=$(python3 -c "import json;print(json.load(open('app-pipeline/data-manifest.json'))['contentSha256'])")
+          echo "committed content sha256: $COMMITTED"
+          echo "rebuilt   content sha256: $FRESH"
+          if [ "$COMMITTED" != "$FRESH" ]; then
+            echo "::error::the database content does not match data/. Either you changed data/ and"
+            echo "::error::did not rebuild, or you hand-edited a generated file. Both are failures."
+            exit 1
+          fi
+          echo "database content matches data/ - OK"
 
       - name: Row counts are what the guide documents
         run: |

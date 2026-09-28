@@ -62,11 +62,15 @@ android {
     }
 
     lint {
-        // PERMISSIONS.md and CI_CD.md both assert the app requests nothing. Make a stray
-        // permission a build failure rather than a warning someone scrolls past.
+        // The critical rules are enforced by the workflow script (no permission, database
+        // hash, APK size), not by lint, because those must not be able to be silenced.
+        // Lint keeps its default behaviour for genuine code errors.
         abortOnError = true
         warningsAsErrors = false
-        disable += "GradleDependency"
+        // Advisories that would otherwise block a first build without protecting anything:
+        // the launcher icon is intentionally adaptive-only (minSdk 26, so anydpi-v26 covers
+        // every device), and unused dimens are documentation of the type scale.
+        disable += setOf("GradleDependency", "IconMissingDensityFolder", "UnusedResources")
     }
 }
 

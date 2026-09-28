@@ -10,6 +10,7 @@ on:
     branches: [ main ]
     paths:
       - 'android/**'
+      - 'app-pipeline/data-manifest.json'
       - '.github/workflows/build-app.yml'
   pull_request:
     paths:
@@ -27,6 +28,10 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      ANDROID_HOME: /usr/local/lib/android/sdk
+
     steps:
       - uses: actions/checkout@v4
 
@@ -35,7 +40,43 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - uses: android-actions/setup-android@v3
+      # ── The Android SDK, installed explicitly ──────────────────────────────
+      #
+      # This replaces android-actions/setup-android, which failed on this repository
+      # before anything else had run. Pinning the command line tools, accepting the
+      # licences and installing exactly one platform and one build-tools version makes
+      # the build reproducible and removes a third-party action from the critical path.
+      - name: Install the Android command line tools
+        run: |
+          set -euo pipefail
+          SDK="$ANDROID_HOME"
+          ZIP=11076708   # commandlinetools-linux-11076708_latest.zip
+          mkdir -p "$SDK/cmdline-tools"
+          curl -fsSL -o /tmp/cmdline-tools.zip \
+            "https://dl.google.com/android/repository/commandlinetools-linux-${ZIP}_latest.zip"
+          unzip -q /tmp/cmdline-tools.zip -d "$SDK/cmdline-tools"
+          mv "$SDK/cmdline-tools/cmdline-tools" "$SDK/cmdline-tools/latest"
+          rm -f /tmp/cmdline-tools.zip
+          echo "sdk.dir=$SDK" > local.properties
+          echo "ANDROID_HOME=$SDK" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$SDK" >> "$GITHUB_ENV"
+          echo "$SDK/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
+          "$SDK/cmdline-tools/latest/bin/sdkmanager" --version
+
+      - name: Accept the SDK licences
+        run: |
+          set -euo pipefail
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses | tail -3
+
+      - name: Install platform 35 and build-tools 35.0.0
+        run: |
+          set -euo pipefail
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
+            "platform-tools" \
+            "platforms;android-35" \
+            "build-tools;35.0.0"
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --list_installed
 
       - uses: gradle/actions/setup-gradle@v4
         with:
@@ -68,14 +109,14 @@ jobs:
           p = "app/src/main/assets/db/kb.sqlite"
           digest = hashlib.sha256(open(p, "rb").read()).hexdigest()
           print("asset sha256:", digest)
-          # The app's copy must be byte-identical to the freshly built data package,
-          # which is what verify-data.yml checks. Catch a stale copy here, at the
-          # moment it would ship inside an APK.
+          # The app's copy must be byte-identical to the published data package, which
+          # verify-data.yml checks. Catch a stale copy here, at the moment it would ship
+          # inside an APK.
           manifest = pathlib.Path("../app-pipeline/data-manifest.json")
           if manifest.exists():
               expected = json.loads(manifest.read_text())["files"]["db/kb.sqlite"]["sha256"]
               if digest != expected:
-                  print(f"::error::asset is stale\n  app     : {digest}\n  manifest: {expected}")
+                  print(f"::error::the app asset is stale\n  app     : {digest}\n  manifest: {expected}")
                   sys.exit(1)
               print("matches app-pipeline/data-manifest.json - OK")
           c = sqlite3.connect(p)

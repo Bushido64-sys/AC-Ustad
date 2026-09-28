@@ -154,6 +154,36 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+def content_digest(db_path: Path) -> str:
+    """A hash of the DATABASE CONTENT, not of the file bytes.
+
+    Why this exists: the .sqlite file's bytes are not reproducible across SQLite
+    versions - a different page size, freelist order or text encoding can change the
+    file while the data is identical. CI runs a different Python/SQLite than a
+    developer machine, so a byte comparison of kb.sqlite fails for no real reason.
+
+    This digest walks every table in a fixed order with an explicit ORDER BY over all
+    columns, so it depends only on the data. Any genuine data change moves it; a
+    different SQLite build does not. verify-data.yml compares THIS, not the file bytes.
+    """
+    conn = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
+    h = hashlib.sha256()
+    tables = [r[0] for r in conn.execute(
+        "SELECT name FROM sqlite_master WHERE type='table' "
+        "AND name NOT LIKE 'sqlite_%' AND name NOT LIKE 'code_fts%' ORDER BY name")]
+    for t in tables:
+        cols = [r[1] for r in conn.execute(f"PRAGMA table_info({t})")]
+        h.update(f"TABLE {t}({','.join(cols)})\n".encode("utf-8"))
+        order = ", ".join(f'"{c}"' for c in cols)
+        cur = conn.execute(f'SELECT * FROM "{t}" ORDER BY {order}')
+        for row in cur:
+            h.update(json.dumps(row, ensure_ascii=False, default=str).encode("utf-8"))
+            h.update(b"\n")
+        h.update(f"-- {t}: {cur.rowcount if cur.rowcount != -1 else 0} rows\n".encode("utf-8"))
+    conn.close()
+    return h.hexdigest()
+
+
 def build():
     index = json.loads((DATA / "index.json").read_text(encoding="utf-8"))
     brands_by_id, codes_out, search_out = {}, [], {}
@@ -380,6 +410,10 @@ def build():
                     ("search-index.json", OUT / "search-index.json"),
                     ("db/kb.sqlite", db_path), ("db/schema.sql", DBDIR / "schema.sql")):
         manifest["files"][name] = {"bytes": p.stat().st_size, "sha256": sha256(p)}
+    # Version-independent content fingerprint of the database. CI compares this rather than
+    # the .sqlite bytes, because SQLite versions produce different file layouts for
+    # identical data. See content_digest().
+    manifest["contentSha256"] = content_digest(db_path)
     (OUT / "data-manifest.json").write_text(json.dumps(manifest, indent=1, ensure_ascii=False),
                                             encoding="utf-8")
 
