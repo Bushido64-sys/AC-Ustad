@@ -126,7 +126,10 @@ class ModelsTest {
         // newest-first list instead of returning to where the user put it.
         val item = favourite()
         assertEquals("2026-03-04T09:15:00Z", item.createdAt)
-        assertEquals("E6", item.title(ContentLanguage.EN))
+        // The code string and the title are different columns. E6 is the code;
+        // "Compressor drive overcurrent" is what it means.
+        assertEquals("E6", item.code)
+        assertEquals("Compressor drive overcurrent", item.title(ContentLanguage.EN))
         assertEquals("Compressor IPM fault", item.title(ContentLanguage.UR))
     }
 
