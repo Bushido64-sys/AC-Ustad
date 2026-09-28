@@ -26,12 +26,24 @@ opened. **Never hard-code "40 brands / 2139 codes".**
 
 ## 3. Categorising brands into AC and Inverter
 
-`brands.unit_type` is a small, stable set: `split` 62, `hybrid_inverter` 109,
-`on_grid_inverter` 47, `generic` 36, `ups` 35, `off_grid_inverter` 14, `ducted` 7,
-`floor_standing` 5, `cassette` 3, `window` 2. (A brand can hold several unit types, so these
-counts exceed 62.)
+**There is no `brands.unit_type`.** Unit type lives on `series` (`split` 62,
+`hybrid_inverter` 109, `on_grid_inverter` 47, `generic` 36, `ups` 35, `off_grid_inverter` 14,
+`ducted` 7, `floor_standing` 5, `cassette` 3, `window` 2), and `brands.categories` is a JSON
+array of `'ac'` / `'inverter'`.
 
-Map it once, in Kotlin, and keep the mapping in one file:
+**Use `brands.categories` for the category split** — it is one clean JSON array, indexed
+logic you can express in SQL:
+
+```sql
+SELECT COUNT(*) FROM brands WHERE categories LIKE '%"ac"%'        -- 31
+SELECT COUNT(*) FROM brands WHERE categories LIKE '%"inverter"%'  -- 33
+```
+
+Those sum to **64, not 62**, because 2 brands sit in both. That is correct: they must appear
+in both lists. For code counts use `series.category` ('ac' 99 series / 1,723 codes,
+'inverter' 221 / 2,695), which sums to exactly 4,418.
+
+Keep any unit-type mapping in one Kotlin file:
 
 | Category | `unit_type` values |
 |---|---|
@@ -62,20 +74,22 @@ that the two lists union to 62.
   (`RULES.md` RULE 10).
 - **Show all**: render the first 16, then a full-width text button **Show all 40**. Brands are
   already searchable, so this only reduces initial work.
-- 8 brands have `code_count = 0`: keep them visible, muted ink, no count emphasis. Tapping
-  shows the empty state. They are researched brands with no codes published — that is a fact
-  about the world, not an error.
+- **8 brands** have `code_count = 0`, and **65 of the 320 model lines** (one in five) do too.
+  Keep brands visible, muted ink, no count emphasis; tapping shows the empty state. These are
+  researched brands and models with no codes published — a fact about the world, not an error.
 - Tap → push Series for that brand.
 
 ## 5. Series screen
 
 - App bar: brand name, back chevron.
-- Below it, the brand `notes_en` **collapsed** behind a `Show details` text control. These
-  notes are long (p90 202 chars, max 725) and explain model coverage — useful, but not
-  something to dump over the list.
+- Below it, the brand `notes` **collapsed** behind a `Show details` text control. These notes
+  are long (median 485, p90 777, max 1,099 chars) and explain model coverage — useful, but
+  not something to dump over the list.
 - **Search field searching model lines only.**
 - Row: model name 16sp, `code_count` in mono on the right. Same row treatment as brands.
 - Sort by `code_count` descending, then name.
+- **65 model lines have no codes.** Tapping one shows the empty state; it is not a crash and
+  not a bug.
 - Tap → push Codes for that series.
 
 ## 6. Back navigation must feel free
@@ -93,7 +107,7 @@ that the two lists union to 62.
 |---|---|
 | Loading | a 2dp-bordered panel with the category name in mono — **no shimmer** (`DESIGN.md` §5) |
 | Empty after search | *"No brand matches 'shrp'."* + **Clear** — factual, one line |
-| Empty codes in a series | *"Growatt SHARP series has no published codes."* + the series note if present |
+| Empty codes in a series | *"Growatt SHARP series has no published codes."* + the series note if present. 65 series are in this state |
 | Brand with 0 codes | as above, and the row was already muted |
 | Error | one line + **Try again** |
 

@@ -34,12 +34,13 @@ interface KbRepository {
     suspend fun code(uid: String): CodeDetail?
 
     // ---- favourites: the only writes ----------------------------------
-    fun observeFavourites(): Flow<List<Favourite>>
-    suspend fun setFavourite(uid: String, favourite: Boolean)
-    suspend fun markRead(uid: String)
+    // The shipped table is (code_id INTEGER PK, created_at TEXT). No uid, no is_read.
+    fun observeFavourites(): Flow<List<FavouriteRow>>            // (codeId, createdAt)
+    suspend fun setFavourite(codeId: Long, favourite: Boolean)
+    suspend fun savedCodeIds(): List<Long>                        // for the staleness sweep
 
     // ---- meta ----------------------------------------------------------
-    suspend fun meta(): KbMeta                                   // db_version, counts
+    suspend fun meta(): KbMeta                                   // kbVersion, counts
 }
 ```
 
@@ -53,7 +54,8 @@ mechanism behind RULE 3, not a convention.
 @Immutable data class Category(val id: CategoryId, val title: String,
                                val brandCount: Int, val codeCount: Int)
 @Immutable data class CodeHit(val summary: CodeSummary, val snippet: String)
-@Immutable data class KbMeta(val dbVersion: Int, val generatedAt: String,
+@Immutable data class FavouriteRow(val codeId: Long, val createdAt: String)
+@Immutable data class KbMeta(val kbVersion: String, val builtAt: String,
                              val brandCount: Int, val seriesCount: Int, val codeCount: Int)
 enum class CategoryId { AC, INVERTER }
 ```
@@ -71,8 +73,9 @@ enum class CategoryId { AC, INVERTER }
 | `searchCodes()` | **aliases table only.** Exact then prefix. Never FTS, never another series. Empty list is a normal result, not an error |
 | `searchText()` | FTS, wrapped in double quotes, series-scoped. Snippet marked with `«»`, 12-token radius |
 | `code()` | `null` only if the uid is not in the database. All blocks may be empty; the UI hides them (`PHASE_4` §4) |
-| `setFavourite()` | idempotent, keyed on `code_uid`, optimistic, single transaction |
-| `observeFavourites()` | emits on every write; newest first |
+| `setFavourite()` | idempotent, keyed on `code_id`, optimistic, single transaction |
+| `observeFavourites()` | emits on every write; newest first. Brand, series and title come from the join — the row has none of them |
+| `savedCodeIds()` | run the staleness sweep on every database (re)copy; `codes.id` can shift between data releases |
 
 ## 4. Error handling
 
@@ -81,7 +84,7 @@ is a designed state: no brand matches, a brand with no codes, a code with no sol
 
 Genuine failures — the asset missing, the cache file corrupt after one retry — are surfaced
 once as a `KbState.Error` and rendered as a single line with a **Try again** action. Do not
-wrap every call in try/catch; do not invent a loading state for a 0.2 ms lookup.
+wrap every call in try/catch; do not invent a loading state for a 0.15 ms lookup.
 
 ## 5. What does not exist
 

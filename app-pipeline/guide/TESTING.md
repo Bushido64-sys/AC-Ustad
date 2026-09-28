@@ -37,11 +37,15 @@ assertEquals(569,  db.one("SELECT COUNT(*) FROM codes WHERE is_fault = 0"))
   (`PHASE_3_BROWSE.md` §3). This is the test that stops a brand from silently disappearing.
 - Every `codes.series_id` resolves, every `codes.uid` is unique, and every
   `uid == brand/series/code`.
-- 8 brands and 8 series have `code_count = 0` — assert they exist and are queryable.
+- **8 brands and 65 series** have `code_count = 0` — assert they exist and are queryable.
+- `SUM(brands.code_count) = SUM(series.code_count) = COUNT(codes) = 4418`.
+- `SELECT COUNT(*) FROM codes co JOIN series s ON s.id = co.series_id` = **7036**, not 4418 —
+  `series.id` is not unique on its own. Assert the composite join returns 4418, so nobody
+  ships the inflated version.
 - `panasonic` / `H00` has no causes — assert it and assert the UI hides the block.
 - 26 codes have a null `source_url` — assert none of them is rendered with a link.
-- Every fault row has ≥1 cause and ≥1 solution. Every solution's `step_no` starts at 1 and is
-  contiguous per code.
+- Every fault row has ≥2 causes and ≥2 solutions (averages 2.47 and 2.76). Every
+  `solutions.idx` starts at 1 and is contiguous per `code_id`. **There is no `step_no` column.**
 - 1715 of 2139 code strings are unique to one brand, 359 are shared — assert the ambiguity
   exists, so nobody ever "fixes" it by merging.
 

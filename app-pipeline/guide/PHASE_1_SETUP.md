@@ -21,7 +21,7 @@ app/src/main/assets/db/kb.sqlite     ← copy from app-pipeline/db/kb.sqlite
 ```
 
 8.8 MB, 9 tables. **Copy it. Never regenerate it, never edit it, never duplicate it**
-(RULE 5, RULE 19). Keep the shipped file byte-identical so `db_version` stays meaningful.
+(RULE 5, RULE 19). Keep the shipped file byte-identical so `meta.kb_version` stays meaningful.
 
 Verify the copy:
 
@@ -76,8 +76,9 @@ all.** `android:allowBackup="true"`, no `usesCleartextTraffic` games, `supportsR
 ## 7. Version / build wiring
 
 - `versionCode` increments on every release; `versionName` as `1.0.0`.
-- `BuildConfig.DB_VERSION` from `meta.db_version` in the database — Settings shows it, so a
-  support request can be answered from one screenshot.
+- Read `meta.kb_version` (e.g. `2026-09-26`) and `meta.built_at` from the database — Settings
+  shows them, so a support request can be answered from one screenshot. The key is
+  `kb_version`, not `db_version`.
 - Debug builds are the only artefact the human installs. No Play release in this phase.
 
 ## 8. First screens

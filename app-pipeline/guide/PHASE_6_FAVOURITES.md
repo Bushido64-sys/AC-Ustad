@@ -9,46 +9,58 @@ phone with no signal.**
 
 ## 1. Schema (already in the shipped database)
 
-| column | type | purpose |
-|---|---|---|
-| `code_uid` | TEXT PRIMARY KEY | e.g. `growatt/growatt-mod-tl3x/Error 200` — the **stable** identity, never `code_id` |
-| `brand_name` | TEXT | copied so the list needs no query |
-| `series_name` | TEXT | copied |
-| `code` | TEXT | copied |
-| `title_en` | TEXT | copied, for the EN/UR toggle |
-| `title_ur` | TEXT | copied, for the EN/UR toggle |
-| `is_read` | INTEGER | 0 = unread dot |
-| `created_at` | INTEGER | unix seconds |
+```sql
+CREATE TABLE favourites (
+  code_id    INTEGER PRIMARY KEY REFERENCES codes(id) ON DELETE CASCADE,
+  created_at TEXT NOT NULL
+)
+```
 
-**Why `code_uid` and not `code_id`:** a new app version ships a new database and ids can
-shift. Keying on the uid means a saved list survives every future update. Keying on `code_id`
-would silently lose favourites on the first data release.
+**That is the whole table.** Two columns. There is no `code_uid`, no copied brand or series
+name, no `is_read`, and no title columns — an earlier version of this guide invented all of
+them. Write queries that match this schema, or they will throw.
 
-## 2. Why the row copies brand, series, code and titles
+## 2. What `code_id` costs you, and how to pay it
 
-So the Saved list renders from one query with no joins, and so it can never break. The trade
-is that a data fix to a title will not retroactively appear in an old saved row — acceptable,
-and much cheaper than a migration. Compare against the database's `meta.db_version` if you ever
-want to refresh stale copies.
+Keying on `code_id` is the schema's decision, not a good one: a data release can renumber
+`codes.id`, so a saved row can end up pointing at a **different code**.
+
+Pay for it explicitly, on every database (re)copy:
+
+1. Read every saved `code_id` with its code and brand.
+2. Drop rows whose code no longer exists.
+3. Anything left is fine — and because `is_read` does not exist, there is nothing else to fix.
+
+Consequences for the UI: a saved row has **no** brand, series or title of its own, so the list
+must join back to `codes` (and `series` for the model name) to render. Hold the joined values
+in memory in the ViewModel rather than adding columns to a table you do not own. If you later
+need the copied columns, add a **second app-owned table in the cache copy** — never `ALTER`
+the shipped one.
+
+`created_at` is **TEXT**, not an integer. SQLite only enforces the foreign key if you switch
+it on; leave it off so a stale `code_id` is cleaned up rather than throwing.
 
 ## 3. Writing
 
 ```kotlin
 @Insert(onConflict = OnConflictStrategy.REPLACE)
-suspend fun upsite(fav: Favourite)          // 1 row, in a transaction
+suspend fun save(codeId: Long, createdAt: String)   // 1 row, in a transaction
 
-@Query("DELETE FROM favourites WHERE code_uid = :uid")
-suspend fun remove(uid: String)
+@Query("DELETE FROM favourites WHERE code_id = :codeId")
+suspend fun remove(codeId: Long)
 
-@Query("SELECT * FROM favourites ORDER BY created_at DESC")
-fun observeAll(): Flow<List<Favourite>>     // refreshes on every write
+@Query("SELECT code_id, created_at FROM favourites ORDER BY created_at DESC")
+fun observeAll(): Flow<List<FavouriteRow>>          // refreshes on every write
 
-@Query("UPDATE favourites SET is_read = 1 WHERE code_uid = :uid")
-suspend fun markRead(uid: String)
+/** Every saved code_id, for the staleness sweep in §2. */
+@Query("SELECT code_id FROM favourites")
+suspend fun allIds(): List<Long>
 ```
 
-- Open the same read-only copy for reads. Do not open a second writable handle to a
-  read-only-opened file — open the **cache copy read-write** for `favourites` and keep every
+There is **no `is_read` column**, so there is no unread dot and no `markRead`. Drop that idea
+unless you add your own table. The row is `(codeId, createdAt)` and nothing more.
+
+- Open the **cache copy read-write** for `favourites` and keep every
   other table untouched by discipline (no `UPDATE` anywhere else, asserted in review).
 - Optimistic UI update, rollback on failure with a single `Couldn't save` line.
 - Debounce double-taps: ignore a repeat toggle within 400ms.
@@ -57,9 +69,9 @@ suspend fun markRead(uid: String)
 
 - Third bottom-nav item, 56dp, filled star icon — one of the five permitted icons (RULE 11).
 - Row: **code** in Plex Mono 18sp · **series name** 14sp · **brand name** 14sp muted ·
-  unread dot (8dp, `#1668A8`) when `is_read = 0` · severity chip on the right, same component
-  as everywhere else. 56dp minimum.
-- Tap → open the detail screen and mark read.
+  severity chip on the right, same component as everywhere else. 56dp minimum. Brand, series
+  and title come from the join, not from the favourites row.
+- Tap → open the detail screen.
 - Swipe to remove, with a `Snackbar` + **Undo** that re-inserts. Standard, expected, not
   decorative.
 - Newest first. No grouping, no headers, no folders. It is a list of 6 things, not a library.
@@ -98,9 +110,10 @@ loudly, because there is nothing to recover.
 - [ ] Force-stop and relaunch → still saved
 - [ ] Clear app data → gone, no error
 - [ ] Re-copy a new database over the old one → still saved
-- [ ] Unread dot clears on open, survives relaunch
 - [ ] Swipe + Undo restores the row with the same `created_at` order
-- [ ] EN/UR toggle switches the saved row's title (both languages were copied)
-- [ ] Favouriting a code in a brand that later loses that code → the row still opens, with
-      whatever the new database has; no crash
-- [ ] `SELECT COUNT(*) FROM brands` is still 62 — prove the app never wrote to read-only tables
+- [ ] EN/UR toggle switches the saved row's title (it comes from the join, in both languages)
+- [ ] Favouriting a code in a brand that later loses that code → the staleness sweep drops
+      the row; no crash
+- [ ] `SELECT COUNT(*) FROM brands` is still 62 after starring something (proof the app never
+      wrote to a read-only table)
+

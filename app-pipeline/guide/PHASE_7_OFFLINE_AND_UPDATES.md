@@ -25,14 +25,14 @@ feature to add in passing.
 ## 2. How a data update ships
 
 1. The knowledge base improves; `tools/validate.py` reports 0 errors / 0 warnings; the app data
-   build regenerates `kb.sqlite` with a higher `meta.db_version`.
+   build regenerates `kb.sqlite` with a higher `meta.kb_version`.
 2. Bump the APK `versionCode`/`versionName`.
 3. Commit the new `app/src/main/assets/db/kb.sqlite` (one file, one commit).
 4. CI builds; the human installs the new APK over the old one.
-5. On launch the app compares the asset's `db_version` with the cached copy, and re-copies when
+5. On launch the app compares the asset's `meta.kb_version` with the cached copy, and re-copies when
    they differ (`PHASE_2_DATA_LAYER.md` §3).
 
-**`favourites` is deliberately keyed on `code_uid`** so it survives this swap intact
+**`favourites` is keyed on `code_id`, so this swap is not free** — sweep and drop stale ids
 (`PHASE_6_FAVOURITES.md` §1). That is the entire "migration" story: there isn't one.
 
 ## 3. Storage discipline
@@ -65,7 +65,8 @@ immediately after install (no first-run sync, no "preparing database" gate).
 
 ## 6. What to put in Settings
 
-- **Data version** from `meta.db_version`, and `meta.generated_at` as the build date.
+- **Data version** from `meta.kb_version` (e.g. `2026-09-26`), and `meta.built_at` as the
+  build date.
 - **About**: what the app is, that it works offline, that it never asks for a permission or
   uploads anything, and the size of the data. Three short lines, no marketing tone.
 - **Sources**: brand and model coverage, so a user can see what is and is not covered — and
@@ -76,7 +77,8 @@ immediately after install (no first-run sync, no "preparing database" gate).
 - [ ] Airplane mode: every screen, search, favourite and detail works
 - [ ] Fresh install → first launch usable with no network, ever
 - [ ] Cache file deleted while the app is closed → re-copied on next launch, no error
-- [ ] Replaced asset with a higher `db_version` → re-copied, favourites intact
+- [ ] Replaced asset with a higher `kb_version` → re-copied, and the staleness sweep drops any
+      saved `code_id` that no longer exists
 - [ ] APK contains exactly one copy of the database
 - [ ] Asset hash matches the data manifest
 - [ ] `adb shell dumpsys package` shows **no** requested permissions

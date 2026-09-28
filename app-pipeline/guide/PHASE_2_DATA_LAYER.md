@@ -35,8 +35,8 @@ exposes flows/state holders; Compose never sees a `Cursor`.
 
 ## 3. Opening the database safely
 
-1. If `File(cacheDir, "kb.sqlite")` exists and its `meta.db_version` matches the asset's,
-   open it. 2. Otherwise copy the asset over it. 3. Then
+1. If `File(cacheDir, "kb.sqlite")` exists and its length matches the asset's, open it.
+   2. Otherwise copy the asset over it. 3. Then
    `SQLiteDatabase.openDatabase(path, null, OPEN_READONLY)`.
 4. If opening throws `SQLiteDatabaseCorruptException` (truncated copy, killed mid-write,
    full disk), delete the cached file, copy again, retry **once**, then surface a plain error
@@ -49,41 +49,43 @@ Never open the database on the main thread, even to read `meta`. Open it lazily 
 ## 4. The queries you need
 
 ```sql
--- categories, with live counts
-SELECT b.uid, b.name, b.unit_type,
-       COUNT(DISTINCT s.id) AS series_count,
-       COUNT(c.id)         AS code_count
-FROM brands b
-LEFT JOIN series s ON s.brand_id = b.id
-LEFT JOIN codes  c ON c.series_id = s.id
-GROUP BY b.id ORDER BY b.code_count DESC, b.name COLLATE NOCASE;
+-- categories, with live counts. Verified: 31 / 33 brands, 1723 / 2695 codes.
+-- No join: SUM(series.code_count) = 4418 exactly.
+SELECT
+  (SELECT COUNT(*) FROM brands WHERE categories LIKE '%"ac"%'),
+  (SELECT COUNT(*) FROM brands WHERE categories LIKE '%"inverter"%'),
+  (SELECT IFNULL(SUM(code_count),0) FROM series WHERE category='ac'),
+  (SELECT IFNULL(SUM(code_count),0) FROM series WHERE category='inverter');
 
--- brands in a category (categorise on unit_type in Kotlin; it is small and stable)
-SELECT b.id, b.uid, b.name, b.code_count, b.notes_en
-FROM brands b WHERE b.code_count > 0 OR :showEmpty = 1
-ORDER BY b.code_count DESC, b.name COLLATE NOCASE;
+-- brands (id is a TEXT slug; there is no brands.uid and no brands.unit_type)
+SELECT b.id, b.name, b.categories, b.code_count, b.series_count, b.notes
+FROM brands b ORDER BY b.code_count DESC, b.name COLLATE NOCASE;
 
--- series of a brand
-SELECT s.id, s.uid, s.name, s.code_count, s.notes_en
+-- model lines of a brand
+SELECT s.uid, s.id, s.name, s.code_count, s.notes
 FROM series s WHERE s.brand_id = ?
 ORDER BY s.code_count DESC, s.name COLLATE NOCASE;
 
--- codes of a series
-SELECT c.id, c.uid, c.code, c.display, c.severity, c.is_fault,
-       c.display_style, c.title_en, c.title_ur
-FROM codes c WHERE c.series_id = ?
+-- codes of ONE model line. series_id is NOT unique on its own - bind brand_id too.
+SELECT c.id, c.uid, c.code, c.title_en, c.title_ur, c.severity, c.is_fault, c.display
+FROM codes c WHERE c.series_id = ? AND c.brand_id = ?
 ORDER BY c.code COLLATE NOCASE;
 
--- ONE query for detail, both languages, joined (never a second query on toggle)
-SELECT c.id, c.uid, c.code, c.display, c.title_en, c.title_ur,
+-- ONE query for detail, both languages (never a second query on toggle)
+SELECT c.id, c.uid, c.code, c.title_en, c.title_ur,
        c.meaning_en, c.meaning_ur, c.notes_en, c.notes_ur,
        c.severity, c.is_fault, c.confidence, c.source_type,
-       c.source_ref, c.source_url, c.display_style
+       c.source_title, c.source_url, c.display,
+       c.blink_pattern, c.related_codes
 FROM codes c WHERE c.uid = ?;
 ```
 
 `code_fts` is a contentless external FTS table — a `LIKE '%x%'` against it returns nothing, so
 free-text search **must** go through `MATCH` (see `PHASE_5_SEARCH.md`).
+
+**`series_id` is not unique on its own** (6 values repeat, one 14 times). Every code query
+scoped to a model line must bind `brand_id` as well, or a model can return another brand's
+codes. This is the single easiest way to break the app's core promise.
 
 ## 5. Loading strategies
 
@@ -105,9 +107,11 @@ confidence words; brand names, series names and all UI labels stay English.
 
 ## 7. Favourites
 
-`code_uid` is the primary key, not `code_id` — a new app version can renumber ids, and a
-saved list must survive the database swap. One `upsert` per star tap, wrapped in a
-transaction, plus a `Flow` refresh. `is_read` is set when a saved code is opened.
+The shipped table is `(code_id INTEGER PRIMARY KEY, created_at TEXT)` — two columns, no
+`code_uid`, no `is_read`, no copied titles. One `upsert` per star tap in a transaction, plus
+a `Flow` refresh. Because it is keyed on `code_id`, which a data release can renumber, run a
+staleness sweep on every database (re)copy: drop saved `code_id`s that no longer exist.
+`PHASE_6_FAVOURITES.md` §2 has the full rule.
 
 ## 8. Failure behaviour
 
@@ -115,7 +119,7 @@ transaction, plus a `Flow` refresh. `is_read` is set when a saved code is opened
 |---|---|
 | cache file corrupt | delete, re-copy, retry once, then error state |
 | asset missing (bad build) | crash in `BuildConfig` init, loudly, at launch — never a silent empty app |
-| query returns 0 | normal empty state (`RULES.md` RULE 17) — 8 brands and 8 series really are empty |
+| query returns 0 | normal empty state (`RULES.md` RULE 17) — 8 brands and 65 model lines really are empty |
 
 ## 9. Checks
 

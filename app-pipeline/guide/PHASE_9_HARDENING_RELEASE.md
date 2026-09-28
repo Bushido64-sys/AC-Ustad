@@ -13,7 +13,7 @@ APK.**
 | Cold start → home with live counts | < 400 ms |
 | Open a series (worst case, 106 codes) | < 120 ms |
 | Open a code detail | < 80 ms |
-| Exact alias lookup | < 5 ms (measured 0.2 ms) |
+| Exact canonical alias lookup | < 5 ms (measured 0.15 ms) |
 | Prefix alias lookup | < 20 ms (measured 2 ms) |
 | Star/unstar | < 50 ms, visibly instant |
 | EN/UR toggle | 0 queries, < 16 ms |
@@ -45,7 +45,7 @@ proguard rules for Room-free raw SQLite (nothing needed) and for the font resour
 ## 4. Stability
 
 - Every screen handles loading, empty and error (`RULES.md` RULE 17). Especially empty: 8
-  brands and 8 series have 0 codes, and 569 rows are non-fault indicators.
+  brands and 65 model lines have 0 codes, and 569 rows are non-fault indicators.
 - No `!!`, no `lateinit` on a database field, no `Cursor` left open, no leaked coroutine scope.
 - A corrupt cache file must recover by re-copying, once, then fail visibly
   (`PHASE_2_DATA_LAYER.md` §3).

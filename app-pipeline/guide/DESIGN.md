@@ -182,20 +182,21 @@ Order is fixed by product decision: **the technician wants the action, not the e
 - Hide any block whose data is empty. `panasonic` `H00` has no causes: the causes block is
   simply absent, with no gap and no placeholder.
 - Numbers matter: they are what a technician says on the phone ("try step 2").
-- Source line shows `source_type` + `source_ref`, and a link **only** when `source_url` is
+- Source line shows `source_type` + `source_title`, and a link **only** when `source_url` is
   present (26 codes have none — no dead button).
 - The full-screen list of sources for the brand goes at the bottom of the Brands screen, not
   here.
 
 ### 4.6 Saved
-- Rows: code (mono) + series + brand, star filled, unread dot when `is_read = 0`.
+- Rows: code (mono) + series + brand, star filled. There is no `is_read` column, so there is
+  no unread dot — the saved row has no brand/series/title of its own, so join to render.
 - Tapping marks it read and opens it. Row height 56dp.
 - **Empty state:** one line, no illustration: *"Nothing saved yet. Tap the star on any code."*
 - Write only to `favourites` (RULE 5).
 
 ### 4.7 Settings
 Language (EN / UR — content only, per RULE 13) · Theme (System / Light / Dark) · Data version
-from `meta.db_version` + `meta.generated_at` · Sources · About. Plain rows, 2dp borders, no
+from `meta.kb_version` + `meta.built_at` · Sources · About. Plain rows, 2dp borders, no
 illustration, no social links.
 
 ## 5. Motion

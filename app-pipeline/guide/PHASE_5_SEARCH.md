@@ -36,27 +36,35 @@ nothing. Never send a code-looking string to FTS.
 ### Exact / prefix code lookup — the safe path
 
 ```sql
-SELECT c.id, c.uid, c.code, c.display, c.severity, c.is_fault, c.display_style,
-       c.title_en, c.title_ur
+SELECT c.id, c.uid, c.code, c.title_en, c.title_ur, c.severity, c.is_fault, c.display
 FROM aliases a JOIN codes c ON c.id = a.code_id
-WHERE a.alias_norm = :q            AND c.series_id = :seriesId   -- exact
+WHERE a.alias_norm = :canon        AND c.series_id = :seriesId
+                                  AND c.brand_id  = :brandId     -- exact
 UNION ALL
-SELECT c.id, c.uid, c.code, c.display, c.severity, c.is_fault, c.display_style,
-       c.title_en, c.title_ur
+SELECT c.id, c.uid, c.code, c.title_en, c.title_ur, c.severity, c.is_fault, c.display
+       -- c.display IS the display-style hint; there is no display_style column
 FROM aliases a JOIN codes c ON c.id = a.code_id
-WHERE a.alias_norm LIKE :q || '%'  AND c.series_id = :seriesId   -- prefix
+WHERE a.alias_norm LIKE :canon || '%'
+                                  AND c.series_id = :seriesId
+                                  AND c.brand_id  = :brandId     -- prefix
 GROUP BY c.id;
 ```
 
-`aliases` is 7707 rows and is **indexed** — measured: exact 0.2 ms, prefix 2 ms. No FTS
-involvement, no parsing, no escaping, no crash surface.
+`aliases` is 7,707 rows and is **indexed** (`idx_alias_norm`) — measured on the shipped
+database: exact **0.15 ms**, prefix 3.0 ms. No FTS involvement, no escaping, no crash
+surface, and all **2,139** distinct code strings resolve.
 
 ```kotlin
-fun normalise(s: String) = s.trim().lowercase()
-    .replace(Regex("[^a-z0-9 +./-]"), "")
+// canon() is in SearchInput.kt. Reproduces alias_norm for all 4,124 distinct alias pairs.
+fun canon(s: String) = s.uppercase()
+    .replace(Regex("[^A-Z0-9_./\\-]+"), " ")
     .replace(Regex("\\s+"), " ")
+    .trim()
 ```
-Applied to the **query only** — the stored `alias_norm` is already normalised.
+**UPPER, not lower.** `alias_norm` is stored upper-cased (5,562 of 7,707 rows contain
+capitals), so a lower-casing rule returns **0 rows** for `e1`, `e6`, `f4` — most of what a
+technician types. Measured: 0.15 ms indexed versus 3.6 ms for a `LOWER()` full scan.
+Applied to the **query only** — the stored values are already canonical.
 
 ## 3. The FTS escaping rule — the crash
 
@@ -76,16 +84,16 @@ Measured on the shipped database: **454 of the 2139 code strings throw when pass
 ```kotlin
 fun ftsQuery(raw: String) = "\"" + raw.replace("\"", "\"\"") + "\""
 
-@Query("SELECT c.id, c.uid, c.code, c.display, c.severity, c.is_fault, c.display_style, " +
+@Query("SELECT c.id, c.uid, c.code, c.title_en, c.title_ur, c.severity, c.is_fault, c.display, " +
        "       c.title_en, c.title_ur, " +
        "       snippet(code_fts, 2, '«', '»', '…', 12) AS hit " +
        "FROM code_fts JOIN codes c ON c.id = code_fts.rowid " +
-       "WHERE code_fts MATCH :q AND c.series_id = :seriesId " +
+       "WHERE code_fts MATCH :quoted AND c.series_id = :seriesId AND c.brand_id = :brandId " +
        "ORDER BY bm25(code_fts, 10.0, 1.0, 3.0) LIMIT 60")
-suspend fun ftsSearch(seriesId: Long, q: String): List<CodeHit>
+suspend fun ftsSearch(seriesId: Long, brandId: String, q: String): List<CodeHit>
 ```
 
-Call it as `ftsSearch(seriesId, ftsQuery(input))`. Note `rowid = c.id` — that join condition
+Call it as `ftsSearch(seriesId, brandId, ftsQuery(input))`. Note `rowid = c.id` — that join condition
 is correct as written and is the second most common way to write this wrong.
 
 Weight `title` 10, `meaning` 1, `solution_text` 3: a code whose **name** matches should beat a
@@ -103,7 +111,7 @@ code that merely mentions the word in a fix step.
 - IME: `capitalization = Words` for brands and models, `Characters` for codes.
 - **Clear button** (one of the five permitted icons) appears only when the field is non-empty.
 - As-you-type filtering on the in-memory list (382 brand+series rows, ≤106 codes) — no query
-  per keystroke. Use the database for codes and aliases; the DAO is 0.2 ms anyway.
+  per keystroke. Use the database for codes and aliases; the exact lookup is 0.15 ms anyway.
 - Result cap 60 rows, then `Showing 60 of N` as a text row.
 - Never lose the list on a failed query: keep the previous results and show a single
   `Search unavailable` line.
@@ -123,8 +131,9 @@ One line of explanation and a way forward. No image, no emoji, no "Try again".
 
 | Operation | Budget | Measured |
 |---|---|---|
-| exact alias lookup | < 5 ms | 0.2 ms |
-| prefix alias lookup (`E`) | < 20 ms | 2 ms, 1413 hits |
+| exact canonical alias lookup | < 5 ms | **0.15 ms** |
+| prefix alias lookup (`E%`) | < 20 ms | 3.0 ms |
+| a `LOWER()` variant of the same lookup | — | 3.6 ms and it misses lowercase input |
 | FTS quoted, series-scoped | < 50 ms | safe |
 | brand list filter | < 16 ms | in-memory, 62 rows |
 | series list filter | < 16 ms | in-memory, 320 rows |
@@ -133,13 +142,14 @@ Debounce at 180ms so typing `Error` triggers ~1 query, not 5.
 
 ## 7. Tests (non-negotiable)
 
-- [ ] **Every one of the 2139 code strings** searched through the code field, in its own
-      series: no crash, all resolve
+- [ ] **Every one of the 2,139 code strings** searched through the code field, in its own
+      series, **typed in lower case** (`e1`, not `E1`): no crash, all resolve
 - [ ] Every code string with `;`, `+`, `-`, spaces and quotes: no crash
 - [ ] `E6` on the brands screen → zero results + the explanatory empty state
 - [ ] `E6` inside a series → exactly that series' `E6`
 - [ ] A code from brand X is **impossible** to find from brand Y (assert 0 results)
-- [ ] Every one of the 7707 alias values round-trips: `alias_norm` → its own code
+- [ ] `canon()` reproduces all 4,124 distinct `alias`/`alias_norm` pairs exactly
+- [ ] Every one of the 7,707 alias values round-trips: `canon(alias)` → its own code
 - [ ] Debounce: 5 keystrokes → 1 query
 - [ ] Backspace to empty → full list restored, no stale filter
 
@@ -150,3 +160,7 @@ Debounce at 180ms so typing `Error` triggers ~1 query, not 5.
   this design exists to prevent.
 - Putting a `~` or `*` in the query changes FTS semantics — normalise it away.
 - `ORDER BY bm25(...)` ascending is **better matches first**; the sign is easy to get wrong.
+- **`series_id` is not unique on its own** — 6 values repeat, one 14 times. Every scoped code
+  query must bind `brand_id` as well, or a model can return another brand's codes.
+- Do not "fix" a missed result by adding `LOWER()`. Canonicalise to UPPER instead: it is the
+  form the index holds, and lower-cased input is what the canonical form exists to catch.

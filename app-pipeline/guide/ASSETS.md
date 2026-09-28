@@ -42,7 +42,7 @@ single family: code legibility is the app's core value.
 | Back | `ArrowBack` | every app bar |
 | Search | `Search` | inside the search field (prefix) |
 | Favourite | `Star` / `StarBorder` | code detail app bar, Saved nav item |
-| External source | `OpenInNew` | the `source_ref` line, only when a URL exists |
+| External source | `OpenInNew` | the source line, only when a URL exists |
 | Expand | `KeyboardArrowDown` | collapsed notes and source blocks |
 
 Everything else in the app is **text**: severity chips, confidence badges, section headings,

@@ -42,12 +42,15 @@ you are on — **there is no global code search**, deliberately. `E1` is on 20 b
 21, `E6` on 16, `F4` on 15. Any change that reintroduces cross-brand code results is a
 regression, not a feature.
 
-**⚠ Known defect in the build guide, being corrected:** `app-pipeline/guide/DATA_SCHEMA.md`
-documents several columns that do not exist in the shipped database (`brands.uid`,
-`brands.unit_type`, `codes.display_style`, `aliases.kind`, the `favourites` columns, and
-others). The real schema is pinned by `android/app/src/test/.../SchemaContractTest.kt`, and
-**the test is the authority** where the two disagree. Full correction table in
-`android/PROGRESS.md`.
+**✅ Guide corrected (2026-09-28):** `app-pipeline/guide/DATA_SCHEMA.md` was rewritten from
+`PRAGMA table_info` on the shipped database. It had documented columns that do not exist
+(`brands.uid`, `brands.unit_type`, `codes.display_style`, `aliases.kind`, the `favourites`
+columns) and — most seriously — told you to lower-case a search query, which returns **zero
+results for every code** because `alias_norm` is stored UPPER-cased. The corrected rule
+reproduces all 4,124 distinct alias pairs and resolves all 2,139 code strings. Every one of
+the 33 counts in the guide is now verified against the database. Full table in
+`android/PROGRESS.md`; the schema is also pinned by
+`android/app/src/test/.../SchemaContractTest.kt`.
 
 ---
 

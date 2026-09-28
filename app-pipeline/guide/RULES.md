@@ -74,7 +74,7 @@ icon. Severity and confidence are **text chips**, not icons. No decorative icono
 ## RULE 12 — Body text is readable, always
 16sp minimum for meaning and fix steps, 20sp line height minimum (Roman Urdu needs it),
 no italics, no letter-spacing changes, no justified text, no all-caps for body.
-*Why:* the content is long-form (fix steps average 88 characters, up to 292).
+*Why:* the content is long-form (fix steps average 83 characters, up to 270).
 
 ## RULE 13 — Content toggle is not a UI translation
 `EN / UR` switches only code content (title, meaning, causes, solutions, notes) and the

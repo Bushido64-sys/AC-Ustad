@@ -17,21 +17,21 @@ A technician standing in front of the unit wants the action, not the essay.
 | 3 | Code | IBM Plex Mono 20sp bold, `letterSpacing 0.02`, `textScale` honoured |
 | 4 | Title | IBM Plex Sans 20sp semibold, `title_en` / `title_ur` |
 | 5 | Meaning block | 16sp / 24sp line height, on `blue_100` (light) / `surface_alt_dark`, 2dp border, 4dp radius, 16dp padding |
-| 6 | **HOW TO FIX** | 18sp semibold head + `4 steps` count · numbered list, 1–n, 16sp |
+| 6 | **HOW TO FIX** | 18sp semibold head + `4 steps` count · numbered list from `solutions.idx` (1–n), 16sp |
 | 7 | POSSIBLE CAUSES | 18sp semibold head + count · numbered list 1–n |
 | 8 | Notes | collapsed at 180 chars, `Show more` / `Show less` text control |
-| 9 | Source | `service_manual · manual p.42` + link **only** if `source_url` exists |
+| 9 | Source | `source_type` + `source_title` (e.g. *service manual · ABC Inverter p.42*) + a link **only** if `source_url` exists. **There is no `source_ref`.** |
 | 10 | Confidence | outline-only chip `HIGH`/`MED`/`LOW`, detail screen only |
 
 ## 2. Fix steps — the part that must be perfect
 
-- Numbered **1…n**, from `solutions.step_no` (contiguous, starts at 1). Never a bullet, never
-  an unnumbered paragraph: a technician refers to "step 2" out loud.
+- Numbered **1…n**, from `solutions.idx` (contiguous, starts at 1). **There is no `step_no`
+  column.** Never a bullet, never an unnumbered paragraph: a technician says "step 2" out loud.
 - Layout: the number sits in a 28dp square with a 2dp border on the left, the text wraps
   beside it. The number must not be inside the sentence's left margin, or long wrapped lines
   become unreadable.
 - 16sp, 24sp line height, `space_sm` between steps, 2dp border around the whole block.
-- Steps average 2.76 per fault and run 88 characters (max 292) — expect 3–4 lines for the long
+- Steps average 2.76 per fault and run 83 characters (max 270) — expect 3–4 lines for the long
   ones. Never truncate a step: a half-sentence instruction is worse than scrolling.
 - Roman Urdu steps need the same or more room. Test at 20sp and at 1.3× system font scale.
 
@@ -59,8 +59,8 @@ An empty block is invisible. A placeholder is a lie about the data.
 
 - Star in the app bar, 48dp target, one of the five permitted icons.
 - Unstarred: 2dp ink outline, ink tint. Starred: filled `#1668A8` with a white star.
-- Toggle writes to `favourites` only (RULE 5), keyed on `code_uid`, then refreshes the list
-  flow. Optimistic update, rollback on failure.
+- Toggle writes to `favourites` only (RULE 5), as `(code_id, created_at)`, then refreshes the list
+  flow. Optimistic update, rollback on failure. There is no uid to store and no `is_read` to set.
 - The saved row also stores the series, brand and titles, so the Saved list renders with no
   queries and survives a database swap.
 

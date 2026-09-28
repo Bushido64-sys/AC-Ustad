@@ -129,7 +129,7 @@ the new manifest alongside the new data.
 ## 7. Release
 
 There is no store release in scope. A release is: `versionCode` bumped, a green run, a tag
-`v1.0.0`, and a commit that updates the database if the data changed. The artifact is
+`v1.0.0`, and a commit that updates the database if the data changed (`meta.kb_version` is the marker). The artifact is
 downloaded from the workflow and installed over the previous build — `adb install -r`, no
 uninstall, so favourites and settings survive (`PHASE_6_FAVOURITES.md` §1).
 
@@ -166,4 +166,4 @@ local emulator, so the APK only ever comes from the workflow's artifact.
 
 **Report bugs as words, not stack traces.** There is no crash reporting in the app
 (RULE 14), so a plain description — "E6 on Growatt shows the Sharp fix step" — is the bug
-report. Reproduce it against `meta.db_version` shown in Settings.
+report. Reproduce it against the **Data version** (`meta.kb_version`) shown in Settings.

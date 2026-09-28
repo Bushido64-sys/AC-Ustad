@@ -26,7 +26,8 @@ wearing gloves — in either language.**
 
 ## 2. Roman Urdu rules for the content
 
-The content ships in Roman Urdu already (`title_ur`, `meaning_ur`, `cause_ur`, `text_ur`).
+The content ships in Roman Urdu already: `title_ur`, `meaning_ur`, `notes_ur` on `codes`, and the `ur`
+column of `causes` and `solutions`.
 The app must not "improve" it, transliterate it, or convert it to Urdu script.
 
 - 24sp line height minimum, and generous 12–16dp vertical spacing between numbered steps.
@@ -36,8 +37,8 @@ The app must not "improve" it, transliterate it, or convert it to Urdu script.
   severity/confidence words. Brand names, model numbers, unit-type labels and every UI label
   stay **English** — a technician reads a model number in English by habit. (RULE 13)
 - Do not add a `values-ur` strings file. There is no Urdu-script UI.
-- Test the longest content in both languages: a 359-character meaning, a 292-character step, a
-  725-character note.
+- Test the longest content in both languages: a 359-character Urdu meaning, a 270-character
+  step, a 725-character note, a 1,450-character series note.
 
 ## 3. Touch
 
