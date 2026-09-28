@@ -95,6 +95,35 @@ jobs:
       - name: Compile the debug APK
         run: set -o pipefail; ./gradlew --no-daemon --console=plain assembleDebug 2>&1 | tee build.log
 
+      # Splitting the steps above names the failing TASK. This names the failing LINE, and it
+      # does so as a check annotation, which GitHub renders on the check itself rather than
+      # inside a log that only an admin can download. A compile error should be readable from
+      # the checks list; requiring a personal access token to see why a build broke is a real
+      # tax on a repo where CI is the only compiler there is.
+      #
+      # It cannot weaken anything: `if: failure()` means it only runs after a step has already
+      # failed, and it is a reporter, not a gate.
+      - name: Put the compiler's own error lines on the check
+        if: failure()
+        continue-on-error: true
+        run: |
+          ESC=$(printf '\033')
+          FOUND=0
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            FOUND=$((FOUND+1))
+            # Workflow commands need % and newlines escaped, or the line is truncated.
+            CLEAN=$(printf '%s' "$line" | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | head -c 220)
+            echo "::error title=compiler::${CLEAN}"
+          done <<EOF
+          $(grep -E '^e: |error: |^> Task .* FAILED|Caused by:' build.log 2>/dev/null | head -25)
+          EOF
+          if [ "$FOUND" -eq 0 ]; then
+            echo "::notice title=compiler::no compiler error lines found in build.log - see the step log"
+          else
+            echo "surfaced $FOUND compiler error line(s)"
+          fi
+
       - name: Run Android lint
         run: set -o pipefail; ./gradlew --no-daemon --console=plain lintDebug 2>&1 | tee -a build.log
 

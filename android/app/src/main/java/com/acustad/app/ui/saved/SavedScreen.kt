@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -50,6 +52,7 @@ import com.acustad.app.ui.common.EmptyState
 import com.acustad.app.ui.common.Severity
 import com.acustad.app.ui.common.SeverityChip
 import com.acustad.app.ui.common.StarIcon
+import com.acustad.app.ui.common.indicatorVisuals
 import com.acustad.app.ui.common.severityVisuals
 import com.acustad.app.ui.theme.UstadType
 import kotlinx.coroutines.launch
@@ -176,7 +179,15 @@ private fun SavedRow(
     onClick: () -> Unit,
     onUnsave: () -> Unit,
 ) {
-    val visuals = severityVisuals(Severity.from(item.severity), language)
+    // A saved non-fault row is an indicator or a parameter, not a breakdown, so it gets the
+    // muted rail treatment and the word INDICATOR, exactly as on the codes screen. This is not
+    // cosmetic: 569 of the 4,418 codes are `is_fault = 0`, and rendering `Parameter P003` with
+    // the word STOP would be a false claim about a machine. (DESIGN.md §3)
+    val visuals = if (item.isFault) {
+        severityVisuals(Severity.from(item.severity), language)
+    } else {
+        indicatorVisuals(language)
+    }
     val title = item.title(language)
     val unstarLabel = stringResource(R.string.action_unstar)
 
@@ -206,6 +217,21 @@ private fun SavedRow(
                 .padding(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
+            // The muted 2dp rail, as on the codes screen: it says "not a fault" positionally as
+            // well as in words, and it costs two lines. Ink for a fault, hairline for an
+            // indicator.
+            Box(
+                modifier = Modifier
+                    .width(2.dp)
+                    .heightIn(min = 48.dp)
+                    .background(
+                        if (item.isFault) {
+                            MaterialTheme.colorScheme.outline
+                        } else {
+                            MaterialTheme.colorScheme.outlineVariant
+                        }
+                    ),
+            )
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(4.dp),

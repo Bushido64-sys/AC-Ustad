@@ -43,6 +43,7 @@ class FavouritesDao(private val db: SQLiteDatabase) {
                 seriesId = c.getString(8),
                 seriesName = c.getString(9),
                 createdAt = c.getString(10),
+                isFault = c.getInt(11) == 1,
             )
         }
     }
@@ -130,12 +131,22 @@ class FavouritesDao(private val db: SQLiteDatabase) {
          *    Growatt model name.
          *  - `f.created_at` is selected so the row can be put back exactly where it was by
          *    Undo, rather than re-inserted with a new timestamp at the top of the list.
+         *
+         * `c.is_fault` is selected too, not because a chip needs a colour but because 569 of the
+         * 4,418 codes are indicators and parameters rather than faults. Without it a saved
+         * `Parameter P003` would be rendered with whatever severity word is in its row, and a
+         * technician would read "STOP" on a code that is not a fault. It is last so it cannot
+         * shift the indices above it.
+         *
+         * Column order must match [items]: 0 code_id · 1 code · 2 title_en · 3 title_ur ·
+         * 4 severity · 5 brand_id · 6 brand name · 7 series uid · 8 series id · 9 series name ·
+         * 10 created_at · 11 is_fault.
          */
         val JOINED_SQL = """
             SELECT f.code_id, c.code, c.title_en, c.title_ur, c.severity,
                    c.brand_id, b.name,
                    s.uid, s.id, s.name,
-                   f.created_at
+                   f.created_at, c.is_fault
               FROM favourites f
               JOIN codes  c ON c.id = f.code_id
               JOIN brands b ON b.id = c.brand_id

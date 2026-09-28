@@ -97,8 +97,18 @@ fun AcUstadBottomNav(
     }
 }
 
+/**
+ * One tab.
+ *
+ * A **`RowScope` extension, and that is not decoration.** `Modifier.weight` is declared inside
+ * `RowScope`, not on `Modifier`, so it only resolves where a `RowScope` receiver is in scope.
+ * Writing this as a plain top-level composable that takes a `Modifier` and calls
+ * `modifier.weight(1f)` inside its own body does not compile: the caller's `Row` receiver is not
+ * inherited by a normal function call. The other screens get away with `weight` because theirs
+ * sits inside an inner `Row { }` content lambda, which does carry the receiver.
+ */
 @Composable
-private fun NavItem(
+private fun RowScope.NavItem(
     label: String,
     selected: Boolean,
     onClick: () -> Unit,

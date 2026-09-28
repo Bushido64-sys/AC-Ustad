@@ -146,6 +146,17 @@ class ModelsTest {
         assertEquals(ScopedSeries("inverter-split", "dawlance"), favourite().scope)
     }
 
+    @Test
+    fun `a saved row knows whether its code is a fault at all`() {
+        // 569 of the 4,418 codes are indicators, parameters and self-clear entries. A saved one
+        // of those must be rendered with the word INDICATOR and a muted rail, never with a
+        // severity word, or the app claims a breakdown that is not there.
+        assertTrue(favourite().isFault)
+        val indicator = favourite().copy(code = "P003", codeId = 2L, isFault = false)
+        assertFalse(indicator.isFault)
+        assertEquals("P003", indicator.code)
+    }
+
     private fun favourite() = FavouriteItem(
         codeId = 1L,
         code = "E6",

@@ -132,6 +132,18 @@ reason several comments in the code look defensive.
    saved list is re-read on arrival precisely *because* the detail screen writes through a
    different instance. **It will not do for the EN/UR toggle**, which has to reach every screen
    at once, so Phase 8 needs one shared instance.
+13. **`Modifier.weight` needs a `RowScope` in scope, and a function call does not inherit one.**
+   `AcUstadBottomNav.NavItem` was a plain top-level composable that took a `Modifier` and called
+   `modifier.weight(1f)` in its own body. That does not compile: `weight` is declared inside
+   `RowScope`, not on `Modifier`. It is now a `RowScope` extension. The trap is that the rest of
+   the app uses the identical call **and compiles** — `CodesScreen` and `SavedRow` both put
+   their `weight` inside an inner `Row { }` content lambda, which does carry the receiver. So the
+   broken shape is indistinguishable from the working one unless you check where the `Row` is.
+14. **The saved list's join needs `c.is_fault`, or a saved indicator is shown as a fault.** 569 of
+   the 4,418 codes are indicators and parameters, and `dawlance/DF` is one of them with
+   `severity = 'info'`. Without the column the Saved row renders a severity chip for it. It is
+   selected last, so it cannot shift the indices the DAO already reads; the full index map is in
+   `FavouritesDao`'s KDoc.
 
 ## 5. The gates, and what each one is for
 
@@ -141,10 +153,11 @@ reason several comments in the code look defensive.
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
 | `verify data` / `check_app_sql.py` | **40 checks** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | 41 tests, including all 2,139 code strings and the FTS quoting |
+| `build app` / unit tests | 42 tests, including all 2,139 code strings and the FTS quoting |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission |
 | `build app` / database hash | the APK cannot carry a stale database |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
+| `build app` / compiler error lines | puts the compiler's own `e:` lines on the **check itself**, not only in a log. GitHub's log download endpoint needs admin rights, so without this step a compile failure is visible only as "exit code 1" and needs a personal access token to diagnose. Runs `if: failure()`, cannot weaken a gate, needs no secret |
 
 `check_app_sql.py` imports the canonical rule from `build_kb.py` rather than restating it. Two
 copies of that rule would drift, and a lower-case copy would quietly break every code search.

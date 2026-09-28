@@ -168,6 +168,12 @@ data class FavouriteItem(
      * remove-then-undo would visibly reorder the list instead of restoring it.
      */
     val createdAt: String,
+    /**
+     * Whether this is a fault at all. 569 of the 4,418 codes are indicators, parameters and
+     * self-clear entries, and those must never be rendered with a severity word — a technician
+     * reading "STOP" on `Parameter P003` has been told something false. (DESIGN.md §3)
+     */
+    val isFault: Boolean = true,
 ) {
     val scope: ScopedSeries get() = ScopedSeries(seriesId, brandId)
     fun title(language: ContentLanguage): String? = language.pick(titleEn, titleUr)
