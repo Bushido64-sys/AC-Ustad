@@ -14,14 +14,22 @@ import androidx.compose.runtime.Immutable
  *  are always English (RULES.md RULE 13). */
 enum class ContentLanguage { EN, UR;
 
-/**
- * Picks one side of a bilingual pair, falling back to the other rather than showing nothing.
- * A missing translation should never leave a technician looking at an empty box.
- */
+    /**
+     * Picks one side of a bilingual pair, falling back to the other rather than showing
+     * nothing.
+     *
+     * Blank counts as missing, not just null. 2,467 of the 4,418 codes carry no note in
+     * either language, and a half-filled field is a real possibility after a data release —
+     * either way, a technician must never be shown an empty box where a translation should
+     * be. When both sides are blank the result is null, and the UI hides the whole block
+     * instead (PHASE_4_CODE_DETAIL.md §4).
+     */
     fun pick(en: String?, ur: String?): String? = when (this) {
-        EN -> en ?: ur
-        UR -> ur ?: en
+        EN -> en.orTrimmed() ?: ur.orTrimmed()
+        UR -> ur.orTrimmed() ?: en.orTrimmed()
     }
+
+    private fun String?.orTrimmed(): String? = this?.trim()?.ifEmpty { null }
 }
 
 /** AC or solar inverter. The two categories on the home screen. */
