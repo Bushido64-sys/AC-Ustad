@@ -132,3 +132,38 @@ There is no store release in scope. A release is: `versionCode` bumped, a green 
 `v1.0.0`, and a commit that updates the database if the data changed. The artifact is
 downloaded from the workflow and installed over the previous build — `adb install -r`, no
 uninstall, so favourites and settings survive (`PHASE_6_FAVOURITES.md` §1).
+
+## 8. How the human installs and tests it
+
+**CI builds; the phone tests.** There is no Android SDK on the developer's machine and no
+local emulator, so the APK only ever comes from the workflow's artifact.
+
+**Get the APK**
+1. Push to `main` (or run the workflow manually with *Run workflow*).
+2. Wait for the green check.
+3. Open the run → **Artifacts** at the bottom → download `ac-ustad-debug` (a `.zip`).
+4. Unzip → `app-debug.apk` (~12 MB: the 8.8 MB database plus the app).
+
+**Install it — either way**
+- **On the phone (easiest):** open the APK from Files/WhatsApp/Drive → allow *Install unknown
+  apps* for that app when prompted → Install. Upgrades work the same way; Android replaces the
+  old build, so **favourites survive**. Uninstalling wipes them.
+- **Over USB:** connect the phone with Developer options + USB debugging on, then
+  `adb install -r app/build/outputs/apk/debug/app-debug.apk`. `-r` is what preserves app data;
+  omit it and you lose the saved list.
+- **Watching the screen:** `scrcpy` mirrors the phone over USB, so screen changes and taps can
+  be inspected from a laptop. Do not use it as a substitute for holding the real phone — gloves
+  and sunlight are the actual test conditions.
+
+**Then test in this order** (it is the real acceptance test, `TESTING.md` §8)
+1. Airplane mode on. Open the app — it must work with no network at all.
+2. AC → brand → model → code: severity word, meaning, then numbered fix steps, in that order.
+3. Search a code on the **brands** screen → zero results, with the explanation. Search it again
+   inside a model → exactly one result.
+4. Star a code, force-stop, reopen → still in Saved.
+5. Toggle EN/UR → content changes, brand and model names stay English.
+6. Settings → Data version matches the knowledge base.
+
+**Report bugs as words, not stack traces.** There is no crash reporting in the app
+(RULE 14), so a plain description — "E6 on Growatt shows the Sharp fix step" — is the bug
+report. Reproduce it against `meta.db_version` shown in Settings.
