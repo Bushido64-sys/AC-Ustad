@@ -21,28 +21,26 @@
 | 8 · Accessibility & Roman Urdu | ⬜ | Sizes, contrast and semantics are in; the EN/UR toggle itself does not exist yet |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
 
-## 1a. Resume prompt — for a fresh session with no memory of this one
+## 1a. Starting a session
 
-The conversation is disposable; this file is not. A new session starts with zero context, so
-give it pointers rather than recollection:
+**The resume prompt lives in one place: `AI-AGENT-PROMPTS.txt` at the repository root.**
+It is a single copy on purpose. An earlier version of this section carried its own copy of
+the prompt, and two copies of the same instructions is exactly how one of them goes stale
+while the other does not - which is what happened to an earlier version of the root file.
 
-```
-Working on the AC Ustad Android app. Read ~/AC-Ustad/android/PROGRESS.md first -
-sections 1 (phase table), 4 (the nine traps), 5 (what each CI gate protects) and
-7 (next tasks in order). Verify anything you state against the database or
-app-pipeline/check_app_sql.py before relying on it. Next task: <name it here>.
-```
+Open `AI-AGENT-PROMPTS.txt`, copy the block, and change only its last line.
 
-Three rules for whoever (or whatever) picks this up:
+Three rules for whoever picks this up, whether human or AI:
 
 1. **The database wins.** If this file, the build guide and `kb.sqlite` disagree, the
-   database is right — and say so instead of quietly working around it.
-2. **Do not trust a number that has not been read.** Every count here was queried, but a
-   data release can move them. `python3 app-pipeline/check_app_sql.py` re-checks 40 of them.
+   database is right - and say so instead of quietly working around it.
+2. **Do not trust a number that has not been read.** Every count here was queried, but a data
+   release can move them. `python3 app-pipeline/check_app_sql.py` re-checks 40 of them.
 3. **Watch for the four failure modes this project actually produced:** a column name written
-   from memory instead of read; a claim described as "verified" that was only reasoned about;
-   a text-based check reporting a result it could not actually see; and an implicit-operator
-   import (`getValue`) that no textual search can detect.
+   from memory instead of read from the schema; a claim described as "verified" that was only
+   reasoned about; a text-based check reporting a conclusion it could not see (the dead-code
+   sweep, the self-matching secret scan, and `getValue`, an implicit operator that never
+   appears in the source); and a duplicated instruction drifting from the thing it documents.
 
 ## 2. The daily loop
 

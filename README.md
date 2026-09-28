@@ -47,10 +47,9 @@ that work regardless of the data format.
 │   └── guide/                   ← 20-document Android build guide (AGENTS.md is the entry point)
 ├── android/                     ← THE ANDROID APP (Kotlin + Compose). CI builds it; the phone tests it
 │   ├── PROGRESS.md              ← APP STATUS: phases, traps, checks, next tasks
-│   ├── PROMPT.md                ← ready-to-paste prompt for the builder AI
 │   └── app/src/main/assets/db/  ← the app's copy of kb.sqlite, hash-checked in CI
 ├── research-raw/                ← source PDFs/screenshots kept out of the data tree
-├── AI-AGENT-PROMPTS.txt        ← prompts for the reviewer & builder AI agents
+├── AI-AGENT-PROMPTS.txt        ← THE prompt to start any session (one entry point)
 └── exports/                     ← generated DOCX/PDF (future; not committed)
 ```
 

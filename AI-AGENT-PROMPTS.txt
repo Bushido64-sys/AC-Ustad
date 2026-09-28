@@ -1,154 +1,93 @@
 ================================================================================
-AI-AGENT-PROMPTS.txt  —  read this first, then work from app-pipeline/guide/
-AC USTAD  —  Android knowledge-base app for AC & solar-inverter error codes
+AI-AGENT-PROMPTS.txt  —  the prompt to start any session
+AC USTAD  —  offline AC & solar-inverter error-code app
 ================================================================================
 
-STATUS: the 20-document build guide is WRITTEN. Read it. Do not re-invent it.
+This file exists to do ONE job: give a fresh AI session, which has no memory of
+any conversation, enough pointers to be correct immediately.
 
-  app-pipeline/guide/AGENTS.md ............ master instructions + read order
-  app-pipeline/guide/RULES.md ............. 20 hard rules (a green build and
-                                           the rules matter more than features)
-  app-pipeline/guide/DESIGN.md ............ every screen, pixel by pixel
-  app-pipeline/guide/design_tokens.xml .... the ONLY place a colour/size lives
-  app-pipeline/guide/DATA_SCHEMA.md ........ the 9 tables, Kotlin classes, SQL
-  9 x PHASE_1..PHASE_9 .................... build in this order
-  DEPENDENCIES / API_REFERENCE / PERMISSIONS / ASSETS / CI_CD / TESTING
+It deliberately does NOT repeat the schema, the colours, the search rules or the
+traps. Those live in the files below, and repeating them here is how they drift
+out of date - which is exactly what happened to an earlier version of this file.
 
---------------------------------------------------------------------------------
-THE APP IN ONE LINE
---------------------------------------------------------------------------------
-A field technician opens it when an AC or solar inverter shows a code (E6, F4,
-"Error 200", a blinking LED) and needs what it means and what to do about it, in
-English or Roman Urdu, fully offline, with no signal and no account.
+  android/PROGRESS.md .......... THE STATUS FILE. Phase table, the nine traps,
+                                 the gates, the on-device checks, next tasks
+  app-pipeline/guide/AGENTS.md . master instructions + read order
+  app-pipeline/guide/RULES.md .. 20 hard rules
+  app-pipeline/guide/DATA_SCHEMA.md   the schema, corrected against the database
+  app-pipeline/check_app_sql.py      40 checks of the app's real SQL
+  app-pipeline/db/kb.sqlite          the data: 62 brands, 320 models, 4,418 codes
 
 --------------------------------------------------------------------------------
-THE DATA IS FINISHED - 62 brands, 320 model lines, 4418 codes
+PASTE THIS. Change only the last line.
 --------------------------------------------------------------------------------
-  app-pipeline/START-HERE.md ........ what the data is, 3 rules, what each file is
-  app-pipeline/DATA-CONTRACT.md ....... tables, columns, allowed values, sample SQL
-  app-pipeline/db/kb.sqlite ........... the database (8.8 MB) -> copy to assets/db/
-  app-pipeline/kb.json ................ the same data flat, if JSON is preferred
-  app-pipeline/brands.json ............ 62 brands -> 320 model lines
-  app-pipeline/search-index.json ...... every code + alias -> brand/series
-  app-pipeline/data-manifest.json ..... counts, health checks, SHA-256 of every file
-  app-pipeline/build_kb.py ............ regenerates all of the above from data/
-  data/ ............................... the researched knowledge base (never edit)
-  docs/SCHEMA.md ...................... the field definitions the data follows
+
+AC Ustad — continue the app build.
+
+Read ~/AC-Ustad/android/PROGRESS.md first, in this order:
+  §1  phase table
+  §4  the nine traps
+  §5  what each CI gate protects
+  §7  the next tasks, in order
+
+Then read ~/AC-Ustad/app-pipeline/guide/AGENTS.md and RULES.md.
+
+Working rules:
+- The database wins. If a doc and kb.sqlite disagree, the database is right,
+  and say so rather than working around it.
+- Do not state a number, a column name or an API you have not read in this
+  session. Check it against the schema, the source, or
+  python3 app-pipeline/check_app_sql.py.
+- No Android SDK and no emulator exist here. To build: push to main, wait for
+  the green "build app" check, and read the failing step by name.
+- Zero permissions, zero network, no images or logos, five icons max, no Room,
+  no Hilt, no image loader, no dynamic colour. Two colours only.
+- One commit per phase, PROGRESS.md updated in the same commit.
+
+Task: <the one thing you want done>
 
 --------------------------------------------------------------------------------
-DECIDIONS - LOCKED. Do not re-litigate, do not "improve" these.
+EXAMPLES FOR THE LAST LINE
 --------------------------------------------------------------------------------
-IDENTITY
-  - App name "AC Ustad", package com.acustad.app, Kotlin + Compose, minSdk 26.
-  - A code's identity is (brand, series, code) -> the `uid` column, "brand/series/code".
-    NEVER key anything on the code string alone.
-  - 1715 of 2139 code strings exist on exactly one brand, but E1 is on 20 brands,
-    E3 on 21, E6 on 16, F4 on 15, and 359 code strings are shared.
 
-SEARCH - the feature that makes this app trustworthy
-  - Strictly scoped per level, and there is NO global code search:
-      Home      -> AC or Inverter          (no search box)
-      Brands    -> searches BRAND NAMES only
-      Model lines-> searches MODEL NAMES only
-      Codes     -> searches CODES IN THAT SERIES only
-  - 2139/2139 code strings can be looked up exactly. Showing a technician two
-    brands' meanings for "E6" and making them guess is a bug, not a feature.
-  - Two search jobs, never mixed: exact/prefix code lookup via the `aliases`
-    table (0.2 ms, no crash surface); free-text description via `code_fts`.
-  - NEVER pass raw user input to an FTS MATCH - 454 of the 2139 code strings
-    throw that way (BLINK-RUNNING -> "no such column: RUNNING"; ";" and "+" ->
-    syntax error). Quote the input. Full rule in PHASE_5_SEARCH.md §3.
-  - Because brand/model names are searched at every level, the final collapsed
-    state must be an EXPANDABLE LIST, never a horizontal chip carousel: a
-    carousel hides 45 of the 62 brands behind a swipe nobody performs while
-    wearing gloves. It is also the biggest anti-slop trap in this app.
-  - Result cap 60 rows per screen, sorted by count desc, then a/c.
+  Task: build Phase 6, the Saved screen.
+  Task: build the EN/UR content toggle and wire it into Settings.
+  Task: the code list needs an LED-blink filter, add it.
+  Task: audit the last five commits and tell me what is actually broken.
 
-DATA
-  - The database is READ-ONLY. `favourites` is the only writable table.
-  - Favourites are keyed on `code_uid` (never `code_id`) so they survive a
-    database swap, and the row copies brand/series/code/titles so the list
-    renders with no queries.
-  - Every fault code has >=2 causes and >=2 fix steps in both languages.
-    Never invent, shorten or paraphrase content (RULE 1).
+Just continuing, no specific task:
 
-DESIGN - neo-brutalist chrome + clean readable body text
-  - TWO colours only: BLUE (structure) and the SIGNAL hue (alerts/severity).
-    Neutrals are blue-tinted, never pure grey, never pure black.
-      blue #1668A8  primary button / selected - the ONLY blue that takes white
-                     text (5.87:1)
-      blue #6FB4DE  light blue accent/border/fill. WHITE TEXT HERE IS 2.27:1 AND
-                     FAILS - use ink #0B1F2A on it (7.45:1)
-      dark canvas    #0B1116 blue-black, NOT #000000
-  - Severity is one hue at five steps AND always a word: DANGER, STOP, CHECK,
-    CLEARS, INFO. 60% of faults are STOP, so colour cannot be the signal (RULE 8).
-  - 2dp ink borders, corner radius 0-4dp, hard shadow 3dp 3dp 0 on primary
-    actions and the selected state ONLY. No pills, no blur, no glass.
-  - IBM Plex Sans (prose) + IBM Plex Mono (codes, model names, counts) +
-    IBM Plex Sans Condensed (section headers only). Bundled, never substituted.
-  - Exactly FIVE icons: back, search, star, external link, expand. No decorative
-    iconography, no emoji, no brand logos, no images of any kind.
-  - BANNED as generic-AI slop: purple/indigo, Inter/Roboto, grey-400/500 body
-    text, three identical cards in a row, icon-in-rounded-square, soft shadow on
-    every card, large radii, "Get Started"/"Elevate" copy, a floating pill above a
-    heading. Read RULES.md RULE 10 before the first screen and again before
-    shipping.
-  - Both light AND dark themes, hand-built from design_tokens.xml. Dynamic colour
-    is not enabled (it would overwrite the palette on Android 12+).
-  - 16sp minimum body, 24sp minimum line height (Roman Urdu needs the room),
-    48dp minimum touch targets, 56dp list rows.
-  - FIX-STEPS-FIRST order on the detail screen: severity + meaning, then the
-    numbered fix steps, then causes, then notes, then source. Steps are numbered
-    1..n because "try step 2" is what gets said on the phone.
+  AC Ustad — read android/PROGRESS.md §1, §4 and §7, then do the first thing
+  in §7.
 
-LANGUAGE
-  - The EN / UR switch is a CONTENT switch, not a UI translation. It switches
-    code title, meaning, causes, solutions, notes and the severity/confidence
-    words. UI labels, BRAND names and MODEL names stay English, because a
-    technician reads those in English anyway. There is no values-ur strings file
-    and no Urdu script anywhere.
+Reviewing rather than building:
 
-PRIVACY / PERMISSIONS
-  - ZERO runtime permissions, ZERO network calls, no analytics, no crash
-    reporting, no accounts, no sharing intents. Enforced by CI_CD.md gates.
-  - Offline is the only mode: there is no online state, so no offline banner and
-    no "update data" button. A data update ships as a new APK version.
-
-WORKING RULES
-  - Terminal only. NO EMULATOR, ever - the human installs the APK on a physical
-    phone. GitHub Actions builds a debug APK on every push.
-  - Build the 9 phases in order, one commit per phase, PROGRESS.md updated in the
-    same commit. Message format in RULES.md RULE 20.
-  - If the guide and the database ever disagree, THE DATABASE WINS - and say so
-    in the report instead of quietly working around it.
-
+  AC Ustad — audit the app against android/PROGRESS.md §4 and §5. Find what is
+  actually wrong. Do not trust any number in a doc without checking the
+  database. Report findings; do not fix them yet.
 
 ================================================================================
-PROMPT - to the app-builder AI
+TRUE RIGHT NOW  (every number here was queried, not remembered)
 ================================================================================
 
-Build the app described in app-pipeline/guide/, in phase order, on a terminal
-(no emulator). Project: AC Ustad, com.acustad.app, Kotlin + Jetpack Compose,
-minSdk 26, light and dark themes, fully offline.
+  Data          62 brands, 320 model lines, 4,418 codes; 3,849 fault rows and
+                569 indicator rows; 8 tables plus an FTS index; validator clean
+  App           Phases 1-4 built and green: home, brands, model lines, codes,
+                code detail with numbered fix steps, working star
+  Still to do   Saved screen, EN/UR toggle, search teaching state, release signing
+  CI            "verify data" (schema + 40 SQL checks) and "build app"
+                (compile, lint, 32 unit tests, 4 gates, 12 MB APK artifact)
+  Build         no local Android SDK and no emulator, ever; CI builds, the phone
+                tests
 
-Before writing any code, read AGENTS.md, RULES.md, DESIGN.md, design_tokens.xml,
-DATA_SCHEMA.md, API_REFERENCE.md, DEPENDENCIES.md, PERMISSIONS.md, ASSETS.md.
+  Six facts that are easy to get wrong, and are proven in PROGRESS.md §4:
+    1. series.id is NOT unique alone - 14 brands share "inverter-split"
+    2. alias_norm is UPPER-CASED - lower-casing finds nothing for "e1"
+    3. FTS terms must be quoted AND AND-joined - a phrase query returns 10 hits
+       for "inverter fault" where the AND form returns 89
+    4. causes.idx and solutions.idx are 0-BASED; the number shown is index + 1
+    5. favourites is (code_id, created_at) - two columns, keyed on an id a data
+       release can renumber, so a stale-id sweep runs when the database opens
+    6. a model name cannot go in a route - it contains "/" and brackets
 
-Non-negotiables (each is a RULE in RULES.md, each exists for a measured reason):
-  - Copy app-pipeline/db/kb.sqlite to assets/db/ and open it READ-ONLY.
-  - No global code search. Search is scoped to the level you are on.
-  - Never pass raw input to an FTS MATCH; quote it.
-  - Only `favourites` is writable, keyed on code_uid.
-  - Zero permissions, zero network, no analytics.
-  - Only five icons; no images; no brand logos.
-  - Every string about a code comes from the database, never hard-coded.
-  - Blue #1668A8 for primary/selected; light blue #6FB4DE never takes white text.
-  - Detail order: severity + meaning, then numbered fix steps, then causes.
-  - EN/UR switches content only; brand and model names stay English.
-  - Do not add Room, Hilt, an image loader, or dynamic colour.
-
-Work one phase at a time. At the end of each phase run that phase's checks plus
-TESTING.md, confirm ./gradlew build is green, commit, update PROGRESS.md, then
-move on. Report what you built, what you verified by running, and anything you
-chose not to do and why.
 ================================================================================
