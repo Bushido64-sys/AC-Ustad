@@ -49,7 +49,8 @@ that work regardless of the data format.
 │   ├── PROGRESS.md              ← APP STATUS: phases, traps, checks, next tasks
 │   └── app/src/main/assets/db/  ← the app's copy of kb.sqlite, hash-checked in CI
 ├── research-raw/                ← source PDFs/screenshots kept out of the data tree
-├── AI-AGENT-PROMPTS.txt        ← THE prompt to start any session (one entry point)
+├── AI-AGENT-PROMPTS.txt        ← START HERE. A map, not a brief: read it and it
+│                                   routes you to every other file and the next task
 └── exports/                     ← generated DOCX/PDF (future; not committed)
 ```
 

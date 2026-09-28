@@ -23,14 +23,22 @@
 
 ## 1a. Starting a session
 
-**The resume prompt lives in one place: `AI-AGENT-PROMPTS.txt` at the repository root.**
-It is a single copy on purpose. An earlier version of this section carried its own copy of
-the prompt, and two copies of the same instructions is exactly how one of them goes stale
-while the other does not - which is what happened to an earlier version of the root file.
+**One file, at the repository root: `AI-AGENT-PROMPTS.txt`.** It is a map, not a brief. Read
+it and it tells you what else to read and what to do next.
 
-Open `AI-AGENT-PROMPTS.txt`, copy the block, and change only its last line.
+The whole message the human has to send is:
 
-Three rules for whoever picks this up, whether human or AI:
+    read AC-Ustad/AI-AGENT-PROMPTS.txt
+
+Nothing is filled in. That file then routes a session with no memory of this conversation to
+`§1`, `§4`, `§5` and `§7` of this file, to `app-pipeline/guide/AGENTS.md` and `RULES.md`, and
+from there to whichever of the 20 build documents the task actually needs. If no task is named,
+it defaults to the first item in §7.
+
+This section used to hold a second copy of a longer prompt, and the two copies immediately
+began to disagree. One copy, in one place, is the whole point.
+
+Three rules for whoever picks this up, human or AI:
 
 1. **The database wins.** If this file, the build guide and `kb.sqlite` disagree, the
    database is right - and say so instead of quietly working around it.
@@ -40,7 +48,8 @@ Three rules for whoever picks this up, whether human or AI:
    from memory instead of read from the schema; a claim described as "verified" that was only
    reasoned about; a text-based check reporting a conclusion it could not see (the dead-code
    sweep, the self-matching secret scan, and `getValue`, an implicit operator that never
-   appears in the source); and a duplicated instruction drifting from the thing it documents.
+   appears in the source); and a duplicated instruction drifting from the thing it documents -
+   which is why the prompt now lives in exactly one file.
 
 ## 2. The daily loop
 

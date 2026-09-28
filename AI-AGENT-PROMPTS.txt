@@ -1,93 +1,116 @@
 ================================================================================
-AI-AGENT-PROMPTS.txt  —  the prompt to start any session
-AC USTAD  —  offline AC & solar-inverter error-code app
+AC USTAD — START HERE
+Read this file, then read what it tells you to read, then do the next task.
 ================================================================================
 
-This file exists to do ONE job: give a fresh AI session, which has no memory of
-any conversation, enough pointers to be correct immediately.
-
-It deliberately does NOT repeat the schema, the colours, the search rules or the
-traps. Those live in the files below, and repeating them here is how they drift
-out of date - which is exactly what happened to an earlier version of this file.
-
-  android/PROGRESS.md .......... THE STATUS FILE. Phase table, the nine traps,
-                                 the gates, the on-device checks, next tasks
-  app-pipeline/guide/AGENTS.md . master instructions + read order
-  app-pipeline/guide/RULES.md .. 20 hard rules
-  app-pipeline/guide/DATA_SCHEMA.md   the schema, corrected against the database
-  app-pipeline/check_app_sql.py      40 checks of the app's real SQL
-  app-pipeline/db/kb.sqlite          the data: 62 brands, 320 models, 4,418 codes
+You have no memory of any previous conversation. Everything you need is in this
+repository. This file is a map, not a brief: it tells you where the answers live.
+Do not ask the human to recap anything — read, then act.
 
 --------------------------------------------------------------------------------
-PASTE THIS. Change only the last line.
+WHAT THE HUMAN SAYS
 --------------------------------------------------------------------------------
 
-AC Ustad — continue the app build.
+    read AC-Ustad/AI-AGENT-PROMPTS.txt
 
-Read ~/AC-Ustad/android/PROGRESS.md first, in this order:
-  §1  phase table
-  §4  the nine traps
-  §5  what each CI gate protects
-  §7  the next tasks, in order
+That is the whole message. Nothing needs filling in. After reading this file you
+know what to read and what to build next.
 
-Then read ~/AC-Ustad/app-pipeline/guide/AGENTS.md and RULES.md.
+If they also name a task, do that instead of the default. Otherwise:
 
-Working rules:
-- The database wins. If a doc and kb.sqlite disagree, the database is right,
-  and say so rather than working around it.
-- Do not state a number, a column name or an API you have not read in this
-  session. Check it against the schema, the source, or
-  python3 app-pipeline/check_app_sql.py.
-- No Android SDK and no emulator exist here. To build: push to main, wait for
-  the green "build app" check, and read the failing step by name.
-- Zero permissions, zero network, no images or logos, five icons max, no Room,
-  no Hilt, no image loader, no dynamic colour. Two colours only.
-- One commit per phase, PROGRESS.md updated in the same commit.
-
-Task: <the one thing you want done>
+    >> Default task: open android/PROGRESS.md, section 7, and do the FIRST item.
+       It is written down, in order, and it is the correct next step. <<
 
 --------------------------------------------------------------------------------
-EXAMPLES FOR THE LAST LINE
+READ THESE, IN THIS ORDER
 --------------------------------------------------------------------------------
 
-  Task: build Phase 6, the Saved screen.
-  Task: build the EN/UR content toggle and wire it into Settings.
-  Task: the code list needs an LED-blink filter, add it.
-  Task: audit the last five commits and tell me what is actually broken.
+1.  android/PROGRESS.md            THE STATUS FILE. Read all of it; it is short.
+      §1  which phases are done
+      §4  the nine traps - each one is a real bug that has already happened
+      §5  what each CI gate protects
+      §6  the six checks to run on a real phone
+      §7  the next tasks, IN ORDER. This is your instruction queue.
 
-Just continuing, no specific task:
+2.  app-pipeline/guide/AGENTS.md   master instructions. Section 3 is the read
+                                   order for everything below, by task type.
 
-  AC Ustad — read android/PROGRESS.md §1, §4 and §7, then do the first thing
-  in §7.
+3.  app-pipeline/guide/RULES.md    20 hard rules. Each says WHY, so you can tell
+                                   a rule from a preference.
 
-Reviewing rather than building:
+Then, only what your task needs:
 
-  AC Ustad — audit the app against android/PROGRESS.md §4 and §5. Find what is
-  actually wrong. Do not trust any number in a doc without checking the
-  database. Report findings; do not fix them yet.
+    any UI work ........ DESIGN.md  +  design_tokens.xml
+    any data/SQL ...... DATA_SCHEMA.md
+    any repository call  API_REFERENCE.md
+    editing build files  DEPENDENCIES.md
+    touching the manifest PERMISSIONS.md
+    any image or font .. ASSETS.md
+    touching CI ......... CI_CD.md
+    the phase you are on  PHASE_<n>_*.md
+    before calling anything done  TESTING.md
 
-================================================================================
-TRUE RIGHT NOW  (every number here was queried, not remembered)
-================================================================================
+--------------------------------------------------------------------------------
+THE 20 BUILD DOCUMENTS
+--------------------------------------------------------------------------------
 
-  Data          62 brands, 320 model lines, 4,418 codes; 3,849 fault rows and
-                569 indicator rows; 8 tables plus an FTS index; validator clean
-  App           Phases 1-4 built and green: home, brands, model lines, codes,
-                code detail with numbered fix steps, working star
-  Still to do   Saved screen, EN/UR toggle, search teaching state, release signing
-  CI            "verify data" (schema + 40 SQL checks) and "build app"
-                (compile, lint, 32 unit tests, 4 gates, 12 MB APK artifact)
-  Build         no local Android SDK and no emulator, ever; CI builds, the phone
-                tests
+All in app-pipeline/guide/. They are finished and verified against the real
+database - do not rewrite them, do not re-invent them, follow them.
 
-  Six facts that are easy to get wrong, and are proven in PROGRESS.md §4:
-    1. series.id is NOT unique alone - 14 brands share "inverter-split"
-    2. alias_norm is UPPER-CASED - lower-casing finds nothing for "e1"
-    3. FTS terms must be quoted AND AND-joined - a phrase query returns 10 hits
-       for "inverter fault" where the AND form returns 89
-    4. causes.idx and solutions.idx are 0-BASED; the number shown is index + 1
-    5. favourites is (code_id, created_at) - two columns, keyed on an id a data
-       release can renumber, so a stale-id sweep runs when the database opens
-    6. a model name cannot go in a route - it contains "/" and brackets
+  THE ENTRY POINTS
+    AGENTS.md ............. master instructions + the read order
+    RULES.md .............. 20 hard rules, each with its reason
+
+  THE DESIGN
+    DESIGN.md ............. every screen, plus the measured contrast values
+    design_tokens.xml ..... the ONLY place a colour, size or spacing is defined
+
+  THE DATA
+    DATA_SCHEMA.md ........ the schema as it actually is, the SQL, the search
+                           rules, the traps
+    API_REFERENCE.md ...... the repository surface the UI may call
+    PHASE_1..PHASE_9 ...... the build, one file per phase, in order
+
+  THE CONSTRAINTS
+    DEPENDENCIES.md ....... what is in the build and, longer, what is not
+    PERMISSIONS.md ........ zero permissions, and the one AGP injects anyway
+    ASSETS.md ............. fonts, five icons, and why there are no images
+    CI_CD.md .............. the two workflows, and how to read a failure
+    TESTING.md ............ what must pass before anything is called done
+
+--------------------------------------------------------------------------------
+FIVE RULES THAT ARE WORTH CARRYING IN YOUR HEAD
+--------------------------------------------------------------------------------
+
+1. THE DATABASE WINS. If a document and kb.sqlite disagree, the database is
+   right. Say so in your report - never quietly work around it.
+2. Do not state a number, a column name or an API you have not read in THIS
+   session. Check it: app-pipeline/check_app_sql.py runs 40 checks of the app's
+   real SQL, and SchemaContractTest pins the schema in code.
+3. There is no Android SDK and no emulator on this machine. To build: push to
+   main, wait for the green "build app" check, and read the failing STEP BY
+   NAME from the Actions UI. A later step in the list never means a later
+   failure - read the list from the top.
+4. Do not commit a file you did not create. Desktop editors drop lock files
+   (.~lock.*#) exactly when someone is reading the project.
+5. One commit per phase, and update android/PROGRESS.md in the same commit.
+   That file is the only reason a fresh session can pick this up.
+
+--------------------------------------------------------------------------------
+WHAT THIS PROJECT IS
+--------------------------------------------------------------------------------
+
+AC Ustad is an offline error-code lookup for air conditioners and solar
+inverters, for technicians in Pakistan. A unit shows a code - E6, F4, "Error
+200", a blinking LED - and the app says what it means and what to do about it, in
+English or Roman Urdu, with no signal, no account and no permissions.
+
+The data is finished: 62 brands, 320 model lines, 4,418 codes, every fault
+code with at least 2 causes and 2 fix steps in both languages.
+
+The app is built through Phase 4. A code is identified by (brand, series, code)
+and NEVER by the code string alone, because "E1" means something different on 20
+different brands. Search is scoped to the level you are on; there is deliberately
+no global code search.
 
 ================================================================================
