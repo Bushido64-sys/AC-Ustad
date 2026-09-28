@@ -2,11 +2,17 @@
 <!--
   AC Ustad - AC & solar inverter error code knowledge base.
 
-  There is deliberately NO <uses-permission> element in this manifest, and there must
+  There is deliberately NO uses-permission element in this manifest, and there must
   never be one. No INTERNET, no storage, no camera, no location, no notifications.
   The whole knowledge base is a bundled SQLite file, so the app needs nothing from the
   system beyond a screen. PERMISSIONS.md explains why, and CI_CD.md fails the build if
   a permission ever reappears.
+
+  The merged manifest will still show one entry that this project never wrote:
+  com.acustad.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION, which the Android Gradle
+  Plugin injects for registerReceiver safety on Android 13+. It is a signature-level
+  permission the app defines for itself and grants access to nothing. The CI gate
+  allows exactly that one name and fails on any other.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 

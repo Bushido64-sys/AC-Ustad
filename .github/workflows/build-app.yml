@@ -118,19 +118,34 @@ jobs:
 
       - name: The app requests no permissions
         run: |
-          # RULE 14. A dependency or a copy-paste must never quietly add INTERNET.
+          set -uo pipefail
+          # RULE 14. The app must ship with no permissions at all.
+          #
+          # One exception is unavoidable and is injected by the Android Gradle Plugin itself,
+          # not by this project: com.acustad.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION is a
+          # signature-level permission the app defines for itself so that a registerReceiver
+          # call is safe on Android 13+. It grants the app nothing and is never shown to a
+          # user. Everything else is a failure.
+          #
+          # The grep matches 'uses-permission android:name=' rather than 'uses-permission' so
+          # that the explanatory comments in the source manifest cannot trigger it.
           MANIFEST=$(find app/build/intermediates -name AndroidManifest.xml -path '*merged*' | head -1)
           echo "merged manifest: $MANIFEST"
           if [ -z "$MANIFEST" ]; then
             echo "::error::could not find the merged manifest"
             exit 1
           fi
-          if grep -q "uses-permission" "$MANIFEST"; then
+          ALLOWED="com.acustad.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+          FOUND=$(grep -o 'uses-permission android:name="[^"]*"' "$MANIFEST" | sort -u || true)
+          echo "permissions in the merged manifest:"
+          echo "${FOUND:-  (none)}"
+          BAD=$(echo "$FOUND" | grep -v "android:name=\"$ALLOWED\"" || true)
+          if [ -n "$BAD" ]; then
             echo "::error::the app must not request any permission (PERMISSIONS.md)"
-            grep -n "uses-permission" "$MANIFEST"
+            echo "$BAD"
             exit 1
           fi
-          echo "no uses-permission found - OK"
+          echo "no permissions beyond the AGP-injected self-permission - OK"
 
       - name: The database in assets is the validated one
         run: |

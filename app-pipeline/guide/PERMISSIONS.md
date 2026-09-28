@@ -32,9 +32,26 @@ available to a technician app that a working person is asked to trust with their
 </manifest>
 ```
 
-**There is no `<uses-permission>` element, and there must never be one.** No `INTERNET`, no
-`ACCESS_NETWORK_STATE`, no `READ_EXTERNAL_STORAGE`, no `CAMERA`, no location, no
-`WRITE_EXTERNAL_STORAGE`, no `POST_NOTIFICATIONS`, no `VIBRATE`, no `QUERY_ALL_PACKAGES`.
+**There is no `<uses-permission>` element in this project's source, and there must never be
+one.** No `INTERNET`, no `ACCESS_NETWORK_STATE`, no `READ_EXTERNAL_STORAGE`, no `CAMERA`, no
+location, no `WRITE_EXTERNAL_STORAGE`, no `POST_NOTIFICATIONS`, no `VIBRATE`, no
+`QUERY_ALL_PACKAGES`.
+
+### The one entry that will appear anyway
+
+The merged manifest produced by the build contains exactly one permission that nobody wrote:
+
+```
+com.acustad.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+```
+
+The Android Gradle Plugin injects it from AGP 8 onwards. It is a **signature-level permission
+the app defines for itself**, so that `registerReceiver` is safe on Android 13+ without
+`RECEIVER_EXPORTED`. It grants the app access to nothing, is never shown to a user, and does
+not appear in the installed-app permission list in a form that means anything to a technician.
+
+The CI gate in `CI_CD.md` therefore allows that one name and fails on every other. If you see
+a second permission, something genuinely wrong was added.
 
 ## 2. Why each of those stays out
 
