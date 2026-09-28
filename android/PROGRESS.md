@@ -2,7 +2,7 @@
 
 **Read this first when resuming.** Last updated: 2026-09-28
 
-> **Where we are:** Phases 1–4 are built and green. The app installs and runs. The knowledge
+> **Where we are:** Phases 1–4 and 6 are built and green. The app installs and runs. The knowledge
 > base and the 20-document build guide are finished. **Nothing is half-finished.**
 
 ---
@@ -16,7 +16,7 @@
 | 3 · Browse | ✅ | Home → brands → model lines → codes, with scoped search on every list |
 | 4 · Code detail | ✅ | Severity + meaning → numbered fix steps → causes → notes → source, with a working star |
 | 5 · Search polish | 🟡 | The **data layer** is done and tested; the empty-search teaching state is not built |
-| 6 · Favourites screen | ⬜ | The star works and persists; the Saved list and bottom nav do not exist |
+| 6 · Saved screen | ✅ | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
 | 7 · Offline & updates | ⬜ | Mostly satisfied already; no verification pass yet |
 | 8 · Accessibility & Roman Urdu | ⬜ | Sizes, contrast and semantics are in; the EN/UR toggle itself does not exist yet |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
@@ -73,13 +73,17 @@ android/app/src/main/java/com/acustad/app/
   data/        KbDatabase, Io, CatalogDao, CodeDao, SearchDao, FavouritesDao, SearchInput
   model/       Models.kt — every read model, ContentLanguage, CategoryId, ScopedSeries
   repo/        KbRepository.kt — the UI's ONLY door to the database
+                ToggleGuard.kt — drops a repeat star/unsave inside 400ms
   ui/
     AcUstadAppBar.kt      title + at most one action
+    AcUstadBottomNav.kt   Browse / Saved, NavTab — shown on the top-level screens only
     AcUstadNavHost.kt     the whole graph, routes carry slugs only
-    common/               BorderedPanel/Row, SeverityChip, SearchField, StarIcon, Severity
+    common/               BorderedPanel/Row, SeverityChip, SearchField, StarIcon, Severity,
+                          hardShadow (the 3dp 3dp 0 offset bar)
     home/                 HomeScreen
     browse/               Brands, Series, Codes screens + view models
     detail/               CodeDetailScreen + view model
+    saved/                SavedScreen + view model (one instance, shared with the bottom bar)
   ui/theme/    Color/Type live in res/values/colors.xml — never hard-code a hex in Kotlin
 ```
 
@@ -113,6 +117,21 @@ reason several comments in the code look defensive.
    five screens.
 9. **AGP injects one permission nobody wrote**: `DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION`.
    The gate allows exactly that name and fails on any other.
+10. **The saved list's own query needs the two-part series join, like every other one.** Three
+   saved rows — Dawlance, EcoStar and Elios, all `series_id = 'inverter-split'` — come back as
+   3 rows with 3 different model names. The one-part join returns **42** for the same three.
+   Verified against the real database, not reasoned about.
+11. **`DESIGN.md` §4.6 says tapping a saved row "marks it read".** It cannot: the shipped
+   `favourites` table is `(code_id, created_at)` and there is no read state to set. The
+   database wins, so a tap opens the code and does nothing else. No unread dot, no `is_read`,
+   and `PHASE_6` §3 already says the same thing — the two documents disagree with each other
+   and both agree with the database.
+12. **Every view model builds its own `KbRepository`** (`HomeViewModel`, `SavedViewModel`,
+   `CodeDetailViewModel`, …), so each one holds a private `contentLanguage` StateFlow, its own
+   `Mutex` and its own `SQLiteDatabase` handle to the same file. It works for Phase 6 — the
+   saved list is re-read on arrival precisely *because* the detail screen writes through a
+   different instance. **It will not do for the EN/UR toggle**, which has to reach every screen
+   at once, so Phase 8 needs one shared instance.
 
 ## 5. The gates, and what each one is for
 
@@ -122,7 +141,7 @@ reason several comments in the code look defensive.
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
 | `verify data` / `check_app_sql.py` | **40 checks** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | 32 tests, including all 2,139 code strings and the FTS quoting |
+| `build app` / unit tests | 41 tests, including all 2,139 code strings and the FTS quoting |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission |
 | `build app` / database hash | the APK cannot carry a stale database |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
@@ -145,25 +164,45 @@ copies of that rule would drift, and a lower-case copy would quietly break every
 
 Then: dark mode, and search `e1` in lowercase inside a model — it must find `E1`.
 
+**And the six checks for the Saved screen (Phase 6):**
+
+7. Star a code, then open **Saved** from the bar: the row is there, and the tab's star is
+   filled. Go back to Browse — the star stays filled.
+8. Swipe a row left: it goes, a bar appears, **Undo** puts it back **in the same position**,
+   not at the top. Swipe a short distance and let go: nothing happens.
+9. Tap a row's star instead of swiping: same result, same Undo bar.
+10. Tap the row itself: the code's detail screen opens, with the right brand and model.
+11. Star three codes in a row fast. The order is newest first, and none of them is lost or
+    duplicated.
+12. Saved with nothing starred shows the one-line empty state and no bar.
+
 ## 7. Do these next, in this order
 
-1. **Phase 6, the Saved screen.** The star already writes and survives a restart; only the list,
-   the swipe-to-remove with Undo, and the three-item bottom nav are missing. The DAO and
-   `KbRepository.favouriteItems()` are done and unused.
-2. **Phase 8's EN/UR toggle.** `KbRepository.setContentLanguage()` and `ContentLanguage.pick()`
+1. **Phase 8's EN/UR toggle.** `KbRepository.setContentLanguage()` and `ContentLanguage.pick()`
    exist and are wired into every state flow, but nothing calls `setContentLanguage`. Both
    languages are already loaded on every query, so the toggle re-renders with **no new query**.
-3. **Phase 5's teaching empty state.** When a code is typed on the *brands* screen the search
+   Read trap 12 first: every view model builds its **own** `KbRepository`, so the language
+   currently lives per-screen and the toggle needs one shared instance to reach all of them.
+2. **Phase 5's teaching empty state.** When a code is typed on the *brands* screen the search
    correctly finds nothing; the screen must then explain why, in one line, with a way forward.
+3. **The Settings screen, and the third bottom-nav item with it.** The bar has Browse and
+   Saved only — see §8.
 4. **Phase 9 release signing** — only when the feature set stops changing.
 
 ## 8. Things deliberately not built yet
 
-- No bottom navigation: 3 items belong to Phase 6.
+- **The bottom nav has 2 items, not 3.** `PHASE_6` §5 wants Browse / Saved / Settings, but
+  PROGRESS §8 of the original plan put the Settings *screen* in Phase 8. A third tab with
+  nothing behind it is a dead end, so the tab arrives with its screen. `NavTab` is a closed
+  enum, so adding it is one enum value and one branch.
+- The bar is shown on **Home and Saved only**, and hidden while drilling into brands, models,
+  codes and detail. Those screens are one continuous descent and the bar is a way out to a
+  different top-level place, not a way down.
 - No Settings screen: it holds the EN/UR and theme switches (Phase 8) and the data version.
 - No theme override: `AcUstadTheme(dark = ...)` already takes a null/true/false, so the
   wiring is a Settings row.
 - No dark-mode force: the app follows the system today, which is the correct default.
+- No search box on the Saved screen. Six rows; PHASE_6 §4 says no grouping and no folders.
 
 ## 9. Environment facts
 

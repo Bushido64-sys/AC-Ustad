@@ -10,15 +10,19 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.acustad.app.R
 import com.acustad.app.model.CategoryId
 import com.acustad.app.ui.browse.BrandsScreen
@@ -30,17 +34,21 @@ import com.acustad.app.ui.browse.SeriesViewModel
 import com.acustad.app.ui.detail.CodeDetailScreen
 import com.acustad.app.ui.detail.CodeDetailViewModel
 import com.acustad.app.ui.home.HomeScreen
+import com.acustad.app.ui.saved.SavedScreen
+import com.acustad.app.ui.saved.SavedState
+import com.acustad.app.ui.saved.SavedViewModel
 
 /**
- * The whole navigation graph: four screens, one linear path.
+ * The whole navigation graph: one linear path and two top-level destinations.
  *
  * ```
- * Home  ->  Brands(category)  ->  Series(brandId)  ->  Codes(seriesId, brandId)
+ * Home  ->  Brands(category)  ->  Series(brandId)  ->  Codes(seriesId, brandId)  ->  Detail
+ * Saved ->  Detail
  * ```
  *
- * The path is deliberately linear and shallow. A technician standing in front of a machine is
- * answering one question — what does this code mean — and every level of nesting is a tap they
- * make one-handed. No drawer, no bottom sheet, no tree. (DESIGN.md §4.1)
+ * The browse path is deliberately linear and shallow. A technician standing in front of a
+ * machine is answering one question — what does this code mean — and every level of nesting is a
+ * tap they make one-handed. No drawer, no bottom sheet, no tree. (DESIGN.md §4.1)
  *
  * ### Routes carry slugs only
  *
@@ -56,9 +64,17 @@ import com.acustad.app.ui.home.HomeScreen
  * `series.id` is unique only within a brand — 14 brands share the id `inverter-split` — so a
  * route carrying the id alone would be capable of showing the wrong codes. Passing both makes
  * that unrepresentable.
+ *
+ * ### The bottom bar appears on the two top-level destinations only
+ *
+ * It is hidden while drilling into brands, models, codes and a code's detail: those are a
+ * continuous gesture downwards, and a persistent bar over a list a technician is scrolling
+ * costs a row of content and invites a mis-tap mid-scroll. The bar is a way *out* to a
+ * different top-level place, not a way *down*.
  */
 object Routes {
     const val HOME = "home"
+    const val SAVED = "saved"
     const val BRANDS = "brands/{category}"
     const val SERIES = "series/{brandId}"
     const val CODES = "codes/{seriesId}/{brandId}"
@@ -83,101 +99,161 @@ object Routes {
 fun AcUstadNavHost(modifier: Modifier = Modifier) {
     val nav = rememberNavController()
 
+    // One instance for the whole app rather than one per screen, so the bottom bar's star and
+    // the list are reading the same state. It also survives tab switches without a re-query.
+    val savedViewModel: SavedViewModel = viewModel()
+    val savedState by savedViewModel.state.collectAsStateWithLifecycle()
+
+    val backStackEntry by nav.currentBackStackEntryAsState()
+    val route = backStackEntry?.destination?.route
+
+    val tab = when (route) {
+        Routes.SAVED -> NavTab.SAVED
+        else -> NavTab.BROWSE
+    }
+    val hasSaved = (savedState as? SavedState.Ready)?.items?.isNotEmpty() == true
+
+    // Re-read on every arrival, not on every recomposition. A code is nearly always starred from
+    // a detail screen, which holds its own view model and its own repository instance, so the
+    // saved list is only correct once it has been read again after leaving that screen. Keying
+    // on the tab instead would be wrong: the common round trip is Home -> code -> detail -> back,
+    // and the tab is Browse at both ends of it, so nothing would ever re-read.
+    //
+    // The cost is one join of a two-column table against three indexed ones, over a list that is
+    // six rows long in normal use.
+    LaunchedEffect(backStackEntry) {
+        if (backStackEntry != null) savedViewModel.reload()
+    }
+
     Surface(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
     ) {
-        // Insets are applied once, here, rather than on every screen. targetSdk 35 means
-        // Android 15 draws edge to edge whether the app likes it or not.
-        NavHost(
-            navController = nav,
-            startDestination = Routes.HOME,
+        // Insets are applied once, out here, rather than on every screen: targetSdk 35 means
+        // Android 15 draws edge to edge whether the app likes it or not, and the bottom bar has
+        // to clear the gesture bar while every other screen keeps its own padding.
+        // `windowInsetsPadding` consumes what it applies, so a screen that also applies it
+        // (HomeScreen) sees zero remaining insets and is not double-padded.
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .windowInsetsPadding(WindowInsets.safeDrawing)
-                .padding(PaddingValues(horizontal = 16.dp, vertical = 8.dp)),
+                .windowInsetsPadding(WindowInsets.safeDrawing),
         ) {
-            composable(Routes.HOME) {
-                HomeScreen(onCategoryClick = { nav.navigate(Routes.brands(it)) })
-            }
-
-            composable(
-                route = Routes.BRANDS,
-                arguments = listOf(
-                    navArgument(BrandsViewModel.ARG_CATEGORY) { type = NavType.StringType }
-                ),
+            NavHost(
+                navController = nav,
+                startDestination = Routes.HOME,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(PaddingValues(horizontal = 16.dp, vertical = 8.dp)),
             ) {
-                val vm: BrandsViewModel = viewModel()
-                val title = when (vm.category) {
-                    CategoryId.AC -> stringResource(R.string.category_ac)
-                    CategoryId.INVERTER -> stringResource(R.string.category_inverter)
+                composable(Routes.HOME) {
+                    HomeScreen(onCategoryClick = { nav.navigate(Routes.brands(it)) })
                 }
-                ScreenWithBar(title = title, onBack = { nav.popBackStack() }) {
-                    BrandsScreen(onBrandClick = { brandId ->
-                        nav.navigate(Routes.series(brandId))
-                    })
-                }
-            }
 
-            composable(
-                route = Routes.SERIES,
-                arguments = listOf(
-                    navArgument(SeriesViewModel.ARG_BRAND_ID) { type = NavType.StringType }
-                ),
-            ) {
-                val vm: SeriesViewModel = viewModel()
-                ScreenWithBar(title = vm.brandName, onBack = { nav.popBackStack() }) {
-                    SeriesScreen(
-                        onSeriesClick = { target ->
-                            nav.navigate(Routes.codes(target.seriesId, target.brandId))
-                        },
-                    )
+                composable(Routes.SAVED) {
+                    ScreenWithBar(title = stringResource(R.string.nav_saved), onBack = null) {
+                        SavedScreen(
+                            // A saved row opens the same detail screen every other code opens.
+                            onCodeClick = { item -> nav.navigate(Routes.detail(item.codeId)) },
+                            viewModel = savedViewModel,
+                        )
+                    }
                 }
-            }
 
-            composable(
-                route = Routes.CODES,
-                arguments = listOf(
-                    navArgument(CodesViewModel.ARG_SERIES_ID) { type = NavType.StringType },
-                    navArgument(CodesViewModel.ARG_BRAND_ID) { type = NavType.StringType },
-                ),
-            ) {
-                val vm: CodesViewModel = viewModel()
-                // Brand and model names are always English: a technician reads a model number in
-                // English by habit, and RULE 13 keeps them out of the UR toggle.
-                ScreenWithBar(
-                    title = vm.seriesName,
-                    subtitle = vm.brandName,
-                    onBack = { nav.popBackStack() },
+                composable(
+                    route = Routes.BRANDS,
+                    arguments = listOf(
+                        navArgument(BrandsViewModel.ARG_CATEGORY) { type = NavType.StringType }
+                    ),
                 ) {
-                    CodesScreen(onCodeClick = { code -> nav.navigate(Routes.detail(code.id)) })
+                    val vm: BrandsViewModel = viewModel()
+                    val title = when (vm.category) {
+                        CategoryId.AC -> stringResource(R.string.category_ac)
+                        CategoryId.INVERTER -> stringResource(R.string.category_inverter)
+                    }
+                    ScreenWithBar(title = title, onBack = { nav.popBackStack() }) {
+                        BrandsScreen(onBrandClick = { brandId ->
+                            nav.navigate(Routes.series(brandId))
+                        })
+                    }
+                }
+
+                composable(
+                    route = Routes.SERIES,
+                    arguments = listOf(
+                        navArgument(SeriesViewModel.ARG_BRAND_ID) { type = NavType.StringType }
+                    ),
+                ) {
+                    val vm: SeriesViewModel = viewModel()
+                    ScreenWithBar(title = vm.brandName, onBack = { nav.popBackStack() }) {
+                        SeriesScreen(
+                            onSeriesClick = { target ->
+                                nav.navigate(Routes.codes(target.seriesId, target.brandId))
+                            },
+                        )
+                    }
+                }
+
+                composable(
+                    route = Routes.CODES,
+                    arguments = listOf(
+                        navArgument(CodesViewModel.ARG_SERIES_ID) { type = NavType.StringType },
+                        navArgument(CodesViewModel.ARG_BRAND_ID) { type = NavType.StringType },
+                    ),
+                ) {
+                    val vm: CodesViewModel = viewModel()
+                    // Brand and model names are always English: a technician reads a model number in
+                    // English by habit, and RULE 13 keeps them out of the UR toggle.
+                    ScreenWithBar(
+                        title = vm.seriesName,
+                        subtitle = vm.brandName,
+                        onBack = { nav.popBackStack() },
+                    ) {
+                        CodesScreen(onCodeClick = { code -> nav.navigate(Routes.detail(code.id)) })
+                    }
+                }
+
+                composable(
+                    route = Routes.DETAIL,
+                    arguments = listOf(
+                        navArgument(CodeDetailViewModel.ARG_CODE_ID) { type = NavType.LongType }
+                    ),
+                ) {
+                    val vm: CodeDetailViewModel = viewModel()
+                    ScreenWithBar(
+                        title = vm.seriesName.ifBlank { stringResource(R.string.heading_code) },
+                        subtitle = vm.brandName.ifBlank { null },
+                        onBack = { nav.popBackStack() },
+                    ) {
+                        CodeDetailScreen()
+                    }
                 }
             }
 
-            composable(
-                route = Routes.DETAIL,
-                arguments = listOf(
-                    navArgument(CodeDetailViewModel.ARG_CODE_ID) { type = NavType.LongType }
-                ),
-            ) {
-                val vm: CodeDetailViewModel = viewModel()
-                ScreenWithBar(
-                    title = vm.seriesName.ifBlank { stringResource(R.string.heading_code) },
-                    subtitle = vm.brandName.ifBlank { null },
-                    onBack = { nav.popBackStack() },
-                ) {
-                    CodeDetailScreen()
-                }
+            if (route == Routes.HOME || route == Routes.SAVED) {
+                AcUstadBottomNav(
+                    selected = tab,
+                    hasSaved = hasSaved,
+                    onSelect = { target ->
+                        when (target) {
+                            // Popping to Home rather than navigating to it, so tapping Browse
+                            // from four levels down unwinds in one step instead of stacking a
+                            // second Home on top. Already on Home it is a no-op.
+                            NavTab.BROWSE -> nav.popBackStack(Routes.HOME, inclusive = false)
+                            NavTab.SAVED -> nav.navigate(Routes.SAVED) { launchSingleTop = true }
+                        }
+                    },
+                )
             }
         }
     }
 }
 
-/** An app bar above a screen's content. */
+/** An app bar above a screen's content. A top-level screen has no back arrow. */
 @Composable
 private fun ScreenWithBar(
     title: String,
-    onBack: () -> Unit,
+    onBack: (() -> Unit)?,
     subtitle: String? = null,
     content: @Composable () -> Unit,
 ) {

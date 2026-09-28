@@ -42,6 +42,7 @@ class FavouritesDao(private val db: SQLiteDatabase) {
                 seriesUid = c.getString(7),
                 seriesId = c.getString(8),
                 seriesName = c.getString(9),
+                createdAt = c.getString(10),
             )
         }
     }
@@ -62,8 +63,13 @@ class FavouritesDao(private val db: SQLiteDatabase) {
         db.beginTransaction()
         try {
             if (favourite) {
+                // OR IGNORE, not OR REPLACE. A save is a statement about *when* the user saved
+                // the code, and a re-save of a row that already exists must not rewrite that
+                // time and jump the code to the top of a newest-first list. It also makes the
+                // write idempotent in time as well as in existence, so a double tap that slips
+                // past the debounce cannot reorder the list either.
                 db.execSQL(
-                    "INSERT OR REPLACE INTO favourites (code_id, created_at) VALUES (?, ?)",
+                    "INSERT OR IGNORE INTO favourites (code_id, created_at) VALUES (?, ?)",
                     arrayOf(codeId, timestamp()),
                 )
             } else {
@@ -73,6 +79,23 @@ class FavouritesDao(private val db: SQLiteDatabase) {
         } finally {
             db.endTransaction()
         }
+    }
+
+    /**
+     * Puts a removed row back, keeping the timestamp it had.
+     *
+     * This is the whole of Undo. Re-saving through [set] would stamp a new `created_at` and
+     * the row would land at the top of the list instead of back in the position the user
+     * removed it from, which reads as a different list rather than the same one.
+     *
+     * One statement, so it needs no explicit transaction: a single INSERT is already atomic,
+     * and OR REPLACE makes pressing Undo twice harmless.
+     */
+    suspend fun restore(codeId: Long, createdAt: String) = io {
+        db.execSQL(
+            "INSERT OR REPLACE INTO favourites (code_id, created_at) VALUES (?, ?)",
+            arrayOf(codeId, createdAt),
+        )
     }
 
     /**
@@ -96,10 +119,23 @@ class FavouritesDao(private val db: SQLiteDatabase) {
             .format(Date())
 
     private companion object {
+        /**
+         * The saved list's one query, newest first.
+         *
+         * Two joins matter here and both are two-part:
+         *
+         *  - `series` is joined on `id` **and** `brand_id`, because `series.id` is unique only
+         *    within a brand and `inverter-split` is shared by 14 of them. Joining on the id
+         *    alone fanned the row out 14 times and would show a Dawlance code under a
+         *    Growatt model name.
+         *  - `f.created_at` is selected so the row can be put back exactly where it was by
+         *    Undo, rather than re-inserted with a new timestamp at the top of the list.
+         */
         val JOINED_SQL = """
             SELECT f.code_id, c.code, c.title_en, c.title_ur, c.severity,
                    c.brand_id, b.name,
-                   s.uid, s.id, s.name
+                   s.uid, s.id, s.name,
+                   f.created_at
               FROM favourites f
               JOIN codes  c ON c.id = f.code_id
               JOIN brands b ON b.id = c.brand_id

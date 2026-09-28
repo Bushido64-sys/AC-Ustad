@@ -118,6 +118,48 @@ class ModelsTest {
         assertFalse(d.isFavourite)
     }
 
+    @Test
+    fun `a saved row carries the timestamp Undo has to write back`() {
+        // `favourites` is (code_id, created_at) and nothing else, so the timestamp is the only
+        // thing the row has that the join cannot rebuild. If it were dropped from the model,
+        // Undo would re-save with a fresh time and the row would jump to the top of a
+        // newest-first list instead of returning to where the user put it.
+        val item = favourite()
+        assertEquals("2026-03-04T09:15:00Z", item.createdAt)
+        assertEquals("E6", item.title(ContentLanguage.EN))
+        assertEquals("Compressor IPM fault", item.title(ContentLanguage.UR))
+    }
+
+    @Test
+    fun `a saved row is identified by the code id, never by its code string`() {
+        // E1 is on 20 brands. A saved row is a row in `favourites`, which is keyed on
+        // codes.id, so two identical code strings on two machines are two different saved rows
+        // and must never be merged. (RULES.md RULE 2)
+        val dawlance = favourite()
+        val growatt = favourite().copy(codeId = 9999L, brandId = "growatt", brandName = "Growatt")
+        assertTrue(dawlance.code == growatt.code)
+        assertFalse(dawlance.codeId == growatt.codeId)
+    }
+
+    @Test
+    fun `a saved row carries the two-part scope of the machine it came from`() {
+        assertEquals(ScopedSeries("inverter-split", "dawlance"), favourite().scope)
+    }
+
+    private fun favourite() = FavouriteItem(
+        codeId = 1L,
+        code = "E6",
+        titleEn = "Compressor drive overcurrent",
+        titleUr = "Compressor IPM fault",
+        severity = "stop_pro",
+        brandId = "dawlance",
+        brandName = "Dawlance",
+        seriesUid = "dawlance/inverter-split",
+        seriesId = "inverter-split",
+        seriesName = "Splits",
+        createdAt = "2026-03-04T09:15:00Z",
+    )
+
     private fun detail(sourceUrl: String?) = CodeDetail(
         summary = CodeSummary(
             id = 1L,

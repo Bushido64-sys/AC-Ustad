@@ -15,11 +15,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.acustad.app.ui.theme.UstadType
 
@@ -164,4 +167,30 @@ fun PanelColumn(
     Column(modifier = modifier.padding(16.dp)) {
         content()
     }
+}
+
+/**
+ * The hard `3dp 3dp 0` shadow: an opaque rectangle offset by a fixed amount, drawn behind.
+ *
+ * Not `Modifier.shadow`. That is a real drop shadow — it blurs, softens and shifts colour with
+ * whatever is underneath, which is the generic elevated-card look this design is trying not to
+ * look like. The neo-brutalist shadow is a flat ink copy of the shape displaced by a constant,
+ * so it is drawn directly and is identical in light and dark mode, because it is a fill rather
+ * than a computed highlight.
+ *
+ * Rectangular on purpose, and that is the whole design: the only caller is the selected
+ * bottom-nav indicator, which is a 4dp bar. (RULES.md RULE 9)
+ *
+ * Allowed on **primary actions and the selected state only**. A shadow on every card is what
+ * turns a considered design into a template, so there is exactly one caller in the app.
+ *
+ * Drawn behind the content, because `drawBehind` runs before content is drawn.
+ */
+@Composable
+fun Modifier.hardShadow(
+    offset: Dp = 3.dp,
+    color: Color = MaterialTheme.colorScheme.outline,
+): Modifier = this.drawBehind {
+    val shift = offset.toPx()
+    drawRect(color = color, topLeft = Offset(shift, shift))
 }

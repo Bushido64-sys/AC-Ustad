@@ -137,5 +137,13 @@ class KbRepository(
         FavouritesDao(db()).set(codeId, favourite)
     }
 
+    /**
+     * Undo for a removed row. The caller's `createdAt` is written back verbatim so the row
+     * returns to its place in a newest-first list instead of jumping to the top.
+     */
+    suspend fun restoreFavourite(codeId: Long, createdAt: String) {
+        FavouritesDao(db()).restore(codeId, createdAt)
+    }
+
     suspend fun isFavourite(codeId: Long): Boolean = FavouritesDao(db()).isFavourite(codeId)
 }

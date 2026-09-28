@@ -160,6 +160,14 @@ data class FavouriteItem(
     val seriesUid: String,
     val seriesId: String,
     val seriesName: String,
+    /**
+     * The saved row's own `created_at`, ISO-8601 UTC, exactly as stored.
+     *
+     * It is read for one reason: Undo has to put the row back where it was. Re-inserting with
+     * a fresh timestamp would move the code to the top of a newest-first list, so a
+     * remove-then-undo would visibly reorder the list instead of restoring it.
+     */
+    val createdAt: String,
 ) {
     val scope: ScopedSeries get() = ScopedSeries(seriesId, brandId)
     fun title(language: ContentLanguage): String? = language.pick(titleEn, titleUr)
