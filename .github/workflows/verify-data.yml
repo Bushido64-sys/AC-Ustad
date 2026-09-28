@@ -1,0 +1,72 @@
+name: verify data
+
+# The knowledge base IS the product. This workflow is the gate that keeps it honest.
+# There is no Android code in this repository — the app is built from it in a
+# separate repository (see app-pipeline/guide/AGENTS.md).
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate every data file against the schema
+        run: |
+          python -m pip install --quiet jsonschema
+          python tools/validate.py
+          # Must print: Checked index + 62 brand folder(s): 0 error(s), 0 warning(s)
+
+      - name: Read the committed build timestamp
+        id: stamp
+        run: |
+          echo "builtAt=$(python -c "import json;print(json.load(open('app-pipeline/data-manifest.json'))['builtAt'])")" >> "$GITHUB_OUTPUT"
+
+      - name: Rebuild the app data package
+        run: |
+          python app-pipeline/build_kb.py
+        env:
+          # Pin the timestamp to the one already committed, so an unchanged data/
+          # tree rebuilds byte-identically and the next step can assert zero diff.
+          KB_BUILT_AT: ${{ steps.stamp.outputs.builtAt }}
+
+      - name: Generated data is up to date
+        run: |
+          # Any uncommitted change here means someone edited data/ and forgot to
+          # rebuild, or hand-edited a generated file. Both are failures.
+          git diff --exit-code app-pipeline/
+
+      - name: Row counts are what the guide documents
+        run: |
+          python - <<'PY'
+          import sqlite3, sys
+          c = sqlite3.connect('app-pipeline/db/kb.sqlite')
+          assert c.execute('PRAGMA integrity_check').fetchone()[0] == 'ok', 'database corrupt'
+          expected = {'brands':62,'series':320,'codes':4418,'causes':10450,
+                      'solutions':11776,'aliases':7707}
+          bad = []
+          for t, n in expected.items():
+              got = c.execute(f'SELECT COUNT(*) FROM {t}').fetchone()[0]
+              print(f'  {t:10s} {got:6d} (expected {n})')
+              if got != n: bad.append(t)
+          f = c.execute('SELECT COUNT(*) FROM codes WHERE is_fault=1').fetchone()[0]
+          nf = c.execute('SELECT COUNT(*) FROM codes WHERE is_fault=0').fetchone()[0]
+          print(f'  fault/non-fault {f}/{nf} (expected 3849/569)')
+          if (f, nf) != (3849, 569): bad.append('is_fault')
+          sys.exit(1 if bad else 0)
+          PY
+
+      - name: No secrets committed
+        run: |
+          # Belt and braces: a leaked token here would be pushed publicly.
+          ! git grep -nIE "(ghp_|github_pat_|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16})" -- . \
+            || { echo "::error::possible secret in tracked files"; exit 1; }
