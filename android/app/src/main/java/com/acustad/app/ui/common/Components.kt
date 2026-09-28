@@ -1,6 +1,7 @@
 package com.acustad.app.ui.common
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,20 +24,24 @@ import androidx.compose.ui.unit.dp
 import com.acustad.app.ui.theme.UstadType
 
 /**
- * The one border style in the app: 2dp ink, 4dp radius. The colour comes from
- * `colorScheme.outline`, which the theme maps to the `ink` resource, so the border and the
- * platform theme can never drift apart.
+ * The building blocks of the app's look. Deliberately boring:
+ *
+ *  - a 2dp ink border on every container, drawn with `MaterialTheme.colorScheme.outline`,
+ *    which the theme maps to the `ink` resource — so the border and the platform theme can
+ *    never drift apart;
+ *  - corner radius 0–4dp, never a pill;
+ *  - no elevation and no shadow on containers. A hard `3dp 3dp 0` shadow is allowed only on
+ *    primary actions and the selected state (RULES.md RULE 9).
+ *
+ * Taps are applied with `Modifier.clickable` on a plain `Surface` rather than with the
+ * Material 3 `Surface(onClick = ...)` overload. That overload is still marked experimental in
+ * places and takes a different parameter list, so relying on it costs a build for no benefit.
  */
+
 @Composable
 private fun inkBorder(): BorderStroke = BorderStroke(2.dp, MaterialTheme.colorScheme.outline)
 
-/**
- * A bordered panel — the app's only container. Used for the home category panels and,
- * later, for grouped content on the detail screen.
- *
- * No soft shadow, no elevation, no gradient. A hard `3dp 3dp 0` shadow is allowed only on
- * primary actions and the selected state (RULES.md RULE 9), never on a panel.
- */
+/** A bordered panel — the app's only container type. */
 @Composable
 fun BorderedPanel(
     modifier: Modifier = Modifier,
@@ -48,12 +53,20 @@ fun BorderedPanel(
         shape = RoundedCornerShape(4.dp),
         color = Color.Transparent,
         border = inkBorder(),
-        onClick = onClick ?: {},
-        enabled = onClick != null,
-    ) { content() }
+    ) {
+        Column(
+            modifier = if (onClick != null) {
+                Modifier.clickable(onClick = onClick)
+            } else {
+                Modifier
+            }
+        ) {
+            content()
+        }
+    }
 }
 
-/** A 2dp-bordered row container. 56dp is the minimum height, for gloves. */
+/** A bordered row container. 56dp is the minimum height, for gloves. */
 @Composable
 fun BorderedRow(
     modifier: Modifier = Modifier,
@@ -65,17 +78,23 @@ fun BorderedRow(
         shape = RoundedCornerShape(4.dp),
         color = Color.Transparent,
         border = inkBorder(),
-        onClick = onClick ?: {},
-        enabled = onClick != null,
-    ) { content() }
+    ) {
+        Row(
+            modifier = if (onClick != null) {
+                Modifier.clickable(onClick = onClick)
+            } else {
+                Modifier
+            }
+        ) {
+            content()
+        }
+    }
 }
 
 /**
- * A severity chip. The colour is never the only signal: the WORD is always present, and it
- * is what a screen reader announces first. 60% of all faults are `stop_pro`, so colour alone
+ * A severity chip. The colour is never the only signal: the word is always present, and it is
+ * what a screen reader announces first. 60% of all faults are `stop_pro`, so colour alone
  * would tell a technician nothing. (RULES.md RULE 8)
- *
- * @param label English in the light/EN state; the content-language switch supplies the word.
  */
 @Composable
 fun SeverityChip(
@@ -102,17 +121,18 @@ fun SeverityChip(
 }
 
 /**
- * A count + noun on one line, e.g. "1 code" or "41 codes". Right-aligned in list rows,
- * always in IBM Plex Mono so a column of counts lines up.
+ * A count with its noun, e.g. "1 code" or "41 codes". Right-aligned in list rows, always in
+ * IBM Plex Mono so a column of counts lines up.
  */
 @Composable
 fun CountLabel(count: Int, singular: String, plural: String, modifier: Modifier = Modifier) {
+    val text = if (count == 1) "$count $singular" else "$count $plural"
     Text(
-        text = if (count == 1) "$count $singular" else "$count $plural",
+        text = text,
         style = UstadType.count,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
-        modifier = modifier.clearAndSetSemantics {},
+        modifier = modifier.clearAndSetSemantics { },
     )
 }
 
@@ -135,11 +155,13 @@ fun SectionHeading(
     }
 }
 
-/** A short column of stacked text, used inside panels. */
+/** A padded column, used inside panels. */
 @Composable
 fun PanelColumn(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
-    Column(modifier = modifier.padding(16.dp)) { content() }
+    Column(modifier = modifier.padding(16.dp)) {
+        content()
+    }
 }

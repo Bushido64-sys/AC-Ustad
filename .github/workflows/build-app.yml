@@ -93,13 +93,13 @@ jobs:
       # a log that cannot be read without admin rights. Split, the Actions UI names the
       # failing task exactly, which is all that is needed to fix it.
       - name: Compile the debug APK
-        run: set -o pipefail; ./gradlew --no-daemon --console=plain assembleDebug 2>&1 | tee android/build.log
+        run: set -o pipefail; ./gradlew --no-daemon --console=plain assembleDebug 2>&1 | tee build.log
 
       - name: Run Android lint
-        run: set -o pipefail; ./gradlew --no-daemon --console=plain lintDebug 2>&1 | tee -a android/build.log
+        run: set -o pipefail; ./gradlew --no-daemon --console=plain lintDebug 2>&1 | tee -a build.log
 
       - name: Run the unit tests
-        run: set -o pipefail; ./gradlew --no-daemon --console=plain testDebugUnitTest 2>&1 | tee -a android/build.log
+        run: set -o pipefail; ./gradlew --no-daemon --console=plain testDebugUnitTest 2>&1 | tee -a build.log
 
       - name: The app requests no permissions
         run: |
@@ -174,17 +174,19 @@ jobs:
       # drop contents:write back to read once the build is green.
       - name: Publish the failure reason to ci-logs
         if: failure()
+        working-directory: .
         run: |
           set -uo pipefail
           mkdir -p ci-logs
           LOG=ci-logs/build-app-$(git rev-parse --short HEAD).log
+          cp android/build.log "ci-logs/raw-$(git rev-parse --short HEAD).log" 2>/dev/null || true
           {
             echo "commit $(git rev-parse HEAD)"
             echo
-            grep -nE "^e: |error:|FAILURE:|> Task .* FAILED|What went wrong|Caused by:" android/build.log 2>/dev/null | head -80
+            grep -nE "^e: |error:|FAILURE:|> Task .* FAILED|What went wrong|Caused by:" build.log 2>/dev/null | head -80
             echo
             echo "----- last 40 lines of the build log -----"
-            tail -40 android/build.log 2>/dev/null
+            tail -40 build.log 2>/dev/null
           } > "$LOG"
           git config user.name "ci"
           git config user.email "ci@local"
