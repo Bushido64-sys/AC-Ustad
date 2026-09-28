@@ -86,8 +86,18 @@ jobs:
       - name: Show the Gradle version the wrapper resolved
         run: ./gradlew --no-daemon --version
 
-      - name: Build a debug APK
-        run: ./gradlew --no-daemon assembleDebug lintDebug testDebugUnitTest
+      # These three are SEPARATE steps on purpose. Combined into one, a failure anywhere
+      # reports only as "Build a debug APK" and the useful part of the message is buried in
+      # a log that cannot be read without admin rights. Split, the Actions UI names the
+      # failing task exactly, which is all that is needed to fix it.
+      - name: Compile the debug APK
+        run: ./gradlew --no-daemon --console=plain assembleDebug
+
+      - name: Run Android lint
+        run: ./gradlew --no-daemon --console=plain lintDebug
+
+      - name: Run the unit tests
+        run: ./gradlew --no-daemon --console=plain testDebugUnitTest
 
       - name: The app requests no permissions
         run: |
