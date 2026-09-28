@@ -98,6 +98,21 @@ jobs:
       - name: Run Android lint
         run: set -o pipefail; ./gradlew --no-daemon --console=plain lintDebug 2>&1 | tee -a build.log
 
+      # Runs even when lint fails, and prints the full text report. Lint stops at "Lint found
+      # 4 errors... First failure:" in the log, which is not enough to fix them all; the
+      # complete list is in this file.
+      - name: Show the lint report
+        if: always()
+        run: |
+          REPORT=app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
+          if [ -f "$REPORT" ]; then
+            echo "===== LINT REPORT ====="
+            cat "$REPORT"
+            echo "===== END LINT REPORT ====="
+          else
+            echo "no lint report at $REPORT"
+          fi
+
       - name: Run the unit tests
         run: set -o pipefail; ./gradlew --no-daemon --console=plain testDebugUnitTest 2>&1 | tee -a build.log
 
