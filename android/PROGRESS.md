@@ -219,9 +219,36 @@ Then: dark mode, and search `e1` in lowercase inside a model — it must find `E
 
 ## 9. Environment facts
 
-- Repo: `git@github.com:Bushido64-sys/AC-Ustad.git`, private, branch `main`.
+- Repo: `git@github.com:Bushido64-sys/AC-Ustad.git`, branch `main`. **It is public, not
+  private** — `GET /repos/…` answers unauthenticated. PROGRESS used to say private; the API is
+  the authority and it says public. That matters for everything below: a token in this repo is
+  a token on the open internet, and `verify data` will fail the push that tries it.
 - The Android app lives in `android/` **inside** the same repository as the knowledge base.
 - `verify data` and `build app` both run on every push to `main`.
 - The artifact is 12 MB and is retained for 30 days.
-- A personal access token was used to read CI logs; revoke it when convenient
-  (Settings → Developer settings → Personal access tokens).
+
+### Reading a failed CI run
+
+**Usually you do not need a token.** The `build app` workflow has a step that copies the
+compiler's own `e:` lines out of `build.log` and prints them as check annotations, so the reason
+a build broke is on the check itself in the Actions UI. Read it there first.
+
+To read the rest of the log, the GitHub log-download endpoint needs **admin rights**, so an
+unauthenticated agent cannot do it. The token for that lives **outside the repository**, at:
+
+```
+~/.config/ac-ustad/ci-token      # mode 600, one line, never committed
+```
+
+```bash
+TOK=$(cat ~/.config/ac-ustad/ci-token)
+curl -s -H "Authorization: Bearer $TOK" \
+  "https://api.github.com/repos/Bushido64-sys/AC-Ustad/actions/runs/<run-id>/logs" -o runlog.zip
+```
+
+**The token must never be written into this repository**, and there are two independent reasons
+rather than one: the `verify data` secret scan fails any push containing it
+(`.github/workflows/verify-data.yml`), and the repo is public, so it would be in the open
+internet and in git history permanently. If the token is ever pasted into a chat, a file or a
+commit, **revoke it** (`Settings → Developer settings → Personal access tokens`) and write a new
+one to the path above. It needs no scopes beyond read access to this one repo.
