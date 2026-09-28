@@ -167,12 +167,16 @@ class ModelsTest {
         // end of the row threw, `runCatching { }.getOrNull()` turned the throw into
         // `detail == null`, and the screen rendered that as "This code is not in the knowledge
         // base." A crash must never be dressed as a claim about the data. (RULES.md RULE 17)
-        val absent = DetailState()
+        val absent = DetailState(isLoading = false)
+        val blew = DetailState(isLoading = false, failed = true)
+        // The whole point: two states that look identical in `detail` but are NOT the same
+        // thing. Before the fix, a thrown read and a missing code were both just
+        // `detail == null`, which is how a crash got reported as a fact about the database.
+        assertNull("neither has a code", absent.detail)
+        assertNull(blew.detail)
+        assertEquals("the detail itself cannot tell them apart", absent.detail, blew.detail)
         assertFalse("an absent code is not a failed read", absent.failed)
-        val blew = DetailState(failed = true)
-        assertTrue(blew.failed)
-        assertNull("a failed read has no code to show", blew.detail)
-        assertFalse("a failed read is not still loading", blew.isLoading)
+        assertTrue("a failed read says so", blew.failed)
     }
 
     @Test
