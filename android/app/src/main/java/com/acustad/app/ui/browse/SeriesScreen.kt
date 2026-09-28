@@ -80,7 +80,7 @@ fun SeriesScreen(
 
             items(items = state.series, key = { it.uid }) { series ->
                 SeriesRow(
-                    name = series.name,
+                    modelName = series.name,
                     codeCount = series.codeCount,
                     onClick = {
                         onSeriesClick(
