@@ -79,16 +79,7 @@ class CodeDao(private val db: SQLiteDatabase) {
         head.copy(causes = causes, solutions = solutions)
     }
 
-    /** The `codes.id` for a uid, or null. The detail path needs the id to check the star. */
-    suspend fun idFor(uid: String): Long? = io {
-        db.rawQuery("SELECT id FROM codes WHERE uid = ? LIMIT 1", arrayOf(uid))
-            .firstRow { it.getLong(0) }
-    }
 
-    suspend fun exists(uid: String): Boolean = io {
-        db.rawQuery("SELECT 1 FROM codes WHERE uid = ? LIMIT 1", arrayOf(uid))
-            .firstRow { true } == true
-    }
 
     private companion object {
         /** Column order must match [toSummary] (0-7) and [detailById] (8-20). */

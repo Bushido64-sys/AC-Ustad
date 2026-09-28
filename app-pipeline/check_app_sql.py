@@ -20,6 +20,7 @@ Run locally:  python3 app-pipeline/check_app_sql.py
 from __future__ import annotations
 
 import importlib.util
+import re
 import sqlite3
 import sys
 from pathlib import Path
@@ -179,6 +180,41 @@ def main() -> int:
         db.execute("SELECT 1 FROM aliases WHERE alias_norm=? LIMIT 1", (norm(t),)).fetchone()
         for t in ("E1", "E6", "F4")
     ), True)
+
+    # ── SearchDao.codesText(): the free-text path, which nothing else exercises ──
+    # This is the one code path that had no automated test at all, and it had two defects.
+    def fts_query(raw: str) -> str:
+        """Mirrors SearchInput.ftsQuery: quote each term, AND them together."""
+        terms = [t.strip() for t in re.split(r"[ \t\n]", raw) if t.strip()]
+        return " AND ".join('"' + t.replace('"', '""') + '"' for t in terms)
+
+    fts_cols = [r[1] for r in db.execute("PRAGMA table_info(code_fts)")]
+    check("code_fts columns", fts_cols, ["code_norm", "aliases", "titles"])
+
+    # a quoted single term still must not crash
+    crashes = 0
+    for (code,) in db.execute("SELECT DISTINCT code FROM codes LIMIT 400"):
+        try:
+            db.execute("SELECT 1 FROM code_fts WHERE code_fts MATCH ?",
+                       (fts_query(code),)).fetchone()
+        except sqlite3.OperationalError:
+            crashes += 1
+    check("400 code strings never crash the quoted MATCH", crashes, 0)
+
+    # multi-word input must not be treated as an exact phrase
+    for phrase, words in (("over current", "over current"),
+                          ("inverter fault", "inverter fault"),
+                          ("high temperature", "high temperature")):
+        strict = db.execute("SELECT COUNT(*) FROM code_fts WHERE code_fts MATCH ?",
+                            (f'"{phrase}"',)).fetchone()[0]
+        loose = db.execute("SELECT COUNT(*) FROM code_fts WHERE code_fts MATCH ?",
+                           (fts_query(words),)).fetchone()[0]
+        print(f"  ..  {phrase!r}: phrase={strict} AND={loose}")
+        check(f"AND-join finds at least as much as the phrase for {phrase!r}", loose >= strict, True)
+
+    check("a nonsense word returns nothing rather than everything", db.execute(
+        "SELECT COUNT(*) FROM code_fts WHERE code_fts MATCH ?",
+        (fts_query("zzzqqxnothing"),)).fetchone()[0], 0)
 
     # ── FavouritesDao: the table is two columns, and nothing is stale ────────
     check("favourites columns", [r[1] for r in db.execute("PRAGMA table_info(favourites)")],

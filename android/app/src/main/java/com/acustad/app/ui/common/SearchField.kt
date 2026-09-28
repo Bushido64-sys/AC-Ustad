@@ -7,10 +7,8 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -49,6 +47,9 @@ fun SearchField(
     val fieldLabel = stringResource(placeholderRes)
 
     Column(modifier = modifier.fillMaxWidth()) {
+        // The 2dp ink border comes from BorderedPanel. The text field inside is deliberately
+        // undecorated: a second border would draw one box inside another, which is neither the
+        // design language nor readable.
         BorderedPanel(modifier = Modifier.fillMaxWidth()) {
             Row(
                 modifier = Modifier
@@ -57,7 +58,7 @@ fun SearchField(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                androidx.compose.material3.OutlinedTextField(
+                androidx.compose.material3.TextField(
                     value = value,
                     onValueChange = onValueChange,
                     modifier = Modifier
@@ -69,6 +70,14 @@ fun SearchField(
                     },
                     singleLine = true,
                     textStyle = UstadType.body,
+                    colors = androidx.compose.material3.TextFieldDefaults.colors(
+                        focusedContainerColor = androidx.compose.ui.graphics.Color.Transparent,
+                        unfocusedContainerColor = androidx.compose.ui.graphics.Color.Transparent,
+                        disabledContainerColor = androidx.compose.ui.graphics.Color.Transparent,
+                        focusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
+                        unfocusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
+                        disabledIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
+                    ),
                     keyboardOptions = KeyboardOptions(
                         capitalization = if (capitalizeWords) {
                             KeyboardCapitalization.Words
@@ -143,19 +152,19 @@ fun ShowAllRow(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Surface(
+    // Bordered like every other control, and at the same 56dp minimum height as a list row,
+    // so it reads as part of the list rather than a floating button.
+    BorderedPanel(
         modifier = modifier
             .fillMaxWidth()
             .heightIn(min = 56.dp)
             .semantics {
                 contentDescription = "Show all $total, showing $shown"
             },
-        shape = RoundedCornerShape(4.dp),
-        color = androidx.compose.ui.graphics.Color.Transparent,
     ) {
         androidx.compose.material3.TextButton(
             onClick = onClick,
-            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+            modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp),
         ) {
             Text(
                 text = stringResource(R.string.action_show_all_count, total),

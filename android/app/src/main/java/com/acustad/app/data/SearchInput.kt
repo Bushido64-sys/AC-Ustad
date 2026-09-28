@@ -7,7 +7,7 @@ package com.acustad.app.data
  *
  * `canon()` is not a guess. It was derived by testing candidate rules against the shipped
  * database until one reproduced `aliases.alias_norm` for **all 4,124 distinct alias pairs**,
- * after which **all 2,139 distinct code strings resolve through the `aliases` table**.
+ * after which **all 2,139 distinct code strings resolve** through the `aliases` table.
  *
  * ```kotlin
  * canon(s) = UPPER(s), keeping A-Z 0-9 _ . / -,
@@ -55,14 +55,26 @@ object SearchInput {
         .trim()
 
     /**
-     * Wraps free text in double quotes for an FTS5 `MATCH`.
+     * Builds a safe FTS5 `MATCH` expression from free text. Two things are going on, and both
+     * are load-bearing.
      *
-     * Not optional decoration. 454 of the 2,139 distinct code strings throw if passed raw —
-     * `BLINK-RUNNING` becomes `no such column: RUNNING`, and anything containing `;` or `+`
-     * is a syntax error. Quoted, all 2,139 return results.
-     * See PHASE_5_SEARCH.md §3.
+     * **1. Every term is quoted individually.** Not optional decoration. 454 of the 2,139 code
+     * strings throw if passed raw — `BLINK-RUNNING` becomes `no such column: RUNNING`, and
+     * anything containing `;` or `+` is a syntax error. Quoted, all 2,139 return results.
+     *
+     * **2. The terms are AND-joined, not wrapped as one quoted phrase.** A single quoted string
+     * is an FTS5 *phrase*: the words must be adjacent and in that order. Measured on the shipped
+     * database, `"over current"` returns 110 hits while `"over" AND "current"` returns 133 — the
+     * difference is real codes whose wording puts the words in another order, or in a different
+     * field. A technician types words, not phrases, so demanding adjacency silently hides answers
+     * that are sitting right there. Quoting each term keeps the crash protection; dropping the
+     * adjacency requirement is what makes the search forgiving.
      */
-    fun ftsQuery(raw: String): String = "\"" + raw.replace("\"", "\"\"") + "\""
+    fun ftsQuery(raw: String): String =
+        raw.split(' ', '\t', '\n')
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+            .joinToString(" AND ") { "\"" + it.replace("\"", "\"\"") + "\"" }
 
     /**
      * True when a query looks like a code rather than a description: short and space-free

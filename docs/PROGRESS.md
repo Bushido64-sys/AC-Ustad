@@ -5,52 +5,47 @@
 > done, what is half-done, and exactly what to do next.
 
 **Project:** AC Ustad — AC & inverter error-code knowledge base **and** the Android app that
-reads it. **Data: COMPLETE. Build guide: COMPLETE. App: Phase 1 written, never compiled.**
-**Data schema:** v1 (`docs/SCHEMA.md`, `schema/brand.schema.json`) — added optional `confidence` + `notes` fields (additive, 2026-09-23)
+reads it, in one repository.
+**Data: COMPLETE. Build guide: COMPLETE. App: Phases 1–4 built and green, installing and
+running. Phases 5–9 remaining.**
+**Data schema:** v1 (`docs/SCHEMA.md`, `schema/brand.schema.json`)
 **Last updated:** 2026-09-28
 
 ---
 
 ## 0a. If you are here to build the app
 
-The app is in **`android/`**, in this repository. Its own status file is
-**`android/PROGRESS.md`** — read that, not this one.
+**The app's own status file is `android/PROGRESS.md`. Read that, not this one.** It has the
+phase table, the file map, the nine traps that will bite you, the six on-device checks, and the
+ordered list of what to do next.
 
-| File | What it is |
+| Where you are | Start here |
 |---|---|
-| `android/PROGRESS.md` | app build status, phase by phase, plus the schema corrections below |
-| `android/README.md` | how the APK is built and installed on the phone |
-| `android/PROMPT.md` | a ready-to-paste prompt for the builder AI |
-| `app-pipeline/guide/AGENTS.md` | the 20-document build guide: master instructions + read order |
-| `app-pipeline/guide/RULES.md` | 20 hard rules — a green build and these matter more than features |
-| `app-pipeline/guide/DESIGN.md` | every screen, with the measured colour/contrast values |
+| Resuming the **app** | `android/PROGRESS.md` → section 7 lists the next four tasks in order |
+| Resuming the **data** | this file → `docs/BRAND-ROADMAP.md`, then `tools/validate.py` |
+| Looking for the **rules** | `app-pipeline/guide/AGENTS.md` then `RULES.md` |
+| A build **failed** | the failing step is named in the Actions UI; `build app` and `verify data` each protect different things — the gate table is in `android/PROGRESS.md` §5 |
 
-**The daily loop:** push to `main` → wait for the green **build app** check → download the
-`ac-ustad-debug` artifact → `adb install -r app-debug.apk` → run the six checks at the end of
-`android/PROGRESS.md`. There is no Android SDK and no emulator on the development machine, so
-CI builds and the phone tests. That is deliberate, not a workaround.
+**Daily loop:** push → wait for the green `build app` check → download the `ac-ustad-debug`
+artifact → `adb install -r app-debug.apk` → run the six checks. There is no Android SDK and no
+emulator on the development machine, so CI builds and the phone tests. That is deliberate.
 
 **Locked decisions that must not be re-litigated:** app `AC Ustad`, package `com.acustad.app`,
-Kotlin + Compose, minSdk 26, light **and** dark hand-built themes, zero permissions, zero
-network, no images and no brand logos, exactly five icons, IBM Plex type, two colours (blue
-`#1668A8` + signal hue for alerts), 2dp ink borders with 0–4dp radii, a fix-steps-first detail
-screen, and an **EN/UR content switch** that leaves UI labels, brand names and model names in
-English.
+Kotlin + Compose, minSdk 26, light **and** dark hand-built themes, zero permissions (apart from
+one AGP injects), zero network, no images and no brand logos, exactly five icons, IBM Plex type,
+two colours (blue `#1668A8` + a signal hue for alerts), 2dp ink borders with 0–4dp radii, a
+fix-steps-first detail screen, and an **EN/UR content switch** that leaves UI labels, brand
+names and model names in English.
 
 **The one search rule:** a code is `(brand, series, code)` and search is scoped to the level
-you are on — **there is no global code search**, deliberately. `E1` is on 20 brands, `E3` on
-21, `E6` on 16, `F4` on 15. Any change that reintroduces cross-brand code results is a
-regression, not a feature.
+you are on — **there is no global code search**. `E1` is on 20 brands, `E3` on 21, `E6` on 16,
+`F4` on 15. Any change that reintroduces cross-brand code results is a regression, not a
+feature.
 
-**✅ Guide corrected (2026-09-28):** `app-pipeline/guide/DATA_SCHEMA.md` was rewritten from
-`PRAGMA table_info` on the shipped database. It had documented columns that do not exist
-(`brands.uid`, `brands.unit_type`, `codes.display_style`, `aliases.kind`, the `favourites`
-columns) and — most seriously — told you to lower-case a search query, which returns **zero
-results for every code** because `alias_norm` is stored UPPER-cased. The corrected rule
-reproduces all 4,124 distinct alias pairs and resolves all 2,139 code strings. Every one of
-the 33 counts in the guide is now verified against the database. Full table in
-`android/PROGRESS.md`; the schema is also pinned by
-`android/app/src/test/.../SchemaContractTest.kt`.
+**The guide's schema was corrected on 2026-09-28** and `DATA_SCHEMA.md` now matches the shipped
+database. `app-pipeline/check_app_sql.py` enforces that on every push, and
+`android/app/src/test/.../SchemaContractTest.kt` pins it in code. Where any of the three
+disagree, **the database wins**.
 
 ---
 
@@ -58,7 +53,7 @@ the 33 counts in the guide is now verified against the database. Full table in
 
 | Item | Status |
 |---|---|
-| Phase | **Android app: Phase 1 written, not yet compiled. Data research: complete.** |
+| Phase | **Android app: Phases 1–4 green. Phases 5–9 remaining. Data research: complete.** |
 | Brand queue | `docs/BRAND-ROADMAP.md` (61 queued rows across 4 phases) |
 | Brands completed | **62** — Phase 1 (14 AC, 203) + Phase 2 (15 inverter, 851) + Phase 3 (17 AC, 1520) + **Phase 4 COMPLETE: Growatt 125 · Deye 80 · GoodWe 79 · Solis 89 · FoxESS 80 · Sungrow 201 · Huawei 115 · Sofar 103 · Victron 123 · Fronius-AT 76 · SMA 82 · Felicity-Solar 159 · Must-Power 121 · APC 140 · CyberPower 81 · Eaton 94 · Kstar 96 · Numeric 0 (negative-evidence)** — validate clean. **KB total = 4418 codes / 62 brands** (AC 1723 + inverter 2695). Phase 4 alone added **1844 codes / 17 brands** |
 | Next action | **Phase 4 COMPLETE — every roadmap row (47–61) registered, roadmap fully done (61/61).** Optional follow-ups: (a) promote the largest documented NEGATIVE gaps (Growatt SPM/SPH = PK hero hybrids, Huawei "Inverter Alarm Reference" 403-blocked, Deye + Growatt string-inverter tables with broken PDF text layers, Felicity T-REX-10K table, CyberPower CPS1000/1200EILCD, Solis S6-EH3P US/EUR image-only PDFs); (b) add the reserved `ur_script` key so the app can show Urdu script alongside Roman Urdu |

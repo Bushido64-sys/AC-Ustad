@@ -2,7 +2,6 @@ package com.acustad.app.data
 
 import android.database.sqlite.SQLiteDatabase
 import com.acustad.app.model.FavouriteItem
-import com.acustad.app.model.FavouriteRow
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

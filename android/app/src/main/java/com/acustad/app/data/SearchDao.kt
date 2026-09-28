@@ -54,7 +54,12 @@ class SearchDao(private val db: SQLiteDatabase) {
     }
 
     /**
-     * Free-text search over titles, meanings and fix steps, scoped to one model line.
+     * Free-text search over the `code_fts` index, scoped to one model line.
+     *
+     * The index holds three columns — `code_norm`, `aliases`, `titles` — and `titles` is the
+     * English and Roman Urdu titles concatenated and upper-cased. A `snippet()` of that is a
+     * duplicated uppercase blob that reads as noise, so none is selected: the code list already
+     * shows the real title on every row.
      *
      * The query arrives already quoted by [SearchInput.ftsQuery]. That is not decoration:
      * 454 of the 2,139 code strings throw if passed raw (`BLINK-RUNNING` becomes
@@ -67,23 +72,17 @@ class SearchDao(private val db: SQLiteDatabase) {
         scope: ScopedSeries,
         quotedQuery: String,
         limit: Int = 60,
-    ): List<CodeHit> = io {
+    ): List<CodeSummary> = io {
         db.rawQuery(
             """
-            SELECT c.id, c.uid, c.code, c.title_en, c.title_ur, c.severity, c.is_fault, c.display,
-                   snippet(code_fts, 2, '«', '»', '…', 12) AS hit
+            SELECT c.id, c.uid, c.code, c.title_en, c.title_ur, c.severity, c.is_fault, c.display
               FROM code_fts JOIN codes c ON c.id = code_fts.rowid
              WHERE code_fts MATCH ? AND c.series_id = ? AND c.brand_id = ?
              ORDER BY bm25(code_fts, 10.0, 1.0, 3.0)
              LIMIT ?
             """.trimIndent(),
             arrayOf(quotedQuery, scope.seriesId, scope.brandId, limit.toString()),
-        ).mapRows { c ->
-            CodeHit(
-                summary = c.toSummary(),
-                snippet = c.getString(8),
-            )
-        }
+        ).mapRows { it.toSummary() }
     }
 
     /**
@@ -100,9 +99,6 @@ class SearchDao(private val db: SQLiteDatabase) {
             val prefix = codesPrefix(scope, canon)
             if (prefix.isNotEmpty()) return prefix
         }
-        return codesText(scope, SearchInput.ftsQuery(rawQuery)).map { it.summary }
+        return codesText(scope, SearchInput.ftsQuery(rawQuery))
     }
 }
-
-/** A free-text hit: the code, plus the fragment of text that matched. */
-data class CodeHit(val summary: CodeSummary, val snippet: String)

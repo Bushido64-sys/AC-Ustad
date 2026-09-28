@@ -114,13 +114,6 @@ class KbDatabase private constructor(private val appContext: Context) {
         }
     }
 
-    /** Test hook: forces the next [open] to re-copy from the asset. */
-    fun closeForTest() {
-        synchronized(this) {
-            runCatching { handle?.close() }
-            handle = null
-        }
-    }
 
     companion object {
         const val DB_NAME = "kb.sqlite"

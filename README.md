@@ -46,7 +46,8 @@ that work regardless of the data format.
 ├── app-pipeline/                ← APP-READY PACKAGE (SQLite + JSON + data contract)
 │   └── guide/                   ← 20-document Android build guide (AGENTS.md is the entry point)
 ├── android/                     ← THE ANDROID APP (Kotlin + Compose). CI builds it; the phone tests it
-│   ├── PROGRESS.md              ← app build status, phase by phase
+│   ├── PROGRESS.md              ← APP STATUS: phases, traps, checks, next tasks
+│   ├── PROMPT.md                ← ready-to-paste prompt for the builder AI
 │   └── app/src/main/assets/db/  ← the app's copy of kb.sqlite, hash-checked in CI
 ├── research-raw/                ← source PDFs/screenshots kept out of the data tree
 ├── AI-AGENT-PROMPTS.txt        ← prompts for the reviewer & builder AI agents
@@ -56,7 +57,8 @@ that work regardless of the data format.
 ## The Android app
 
 The app is in `android/`, in this same repository, so the data and the code that reads it
-move together. Start at **`android/PROGRESS.md`**.
+move together. **Start at `android/PROGRESS.md`** — phase status, the file map, the traps that
+will bite you, the on-device checks, and the ordered next tasks.
 
 **CI builds, your phone tests.** There is no Android SDK on the development machine and no
 emulator, so the APK only ever comes from the workflow artifact: push → wait for the green

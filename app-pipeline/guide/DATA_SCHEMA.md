@@ -165,11 +165,26 @@ Consequences, and they are real:
 **The version key is `meta.kb_version`, not `meta.db_version`.** Show it in Settings so a
 support report can be dated.
 
-### `code_fts` — FTS5, external content
-Over `title`, `meaning` and `solution_text`, with `rowid = codes.id`. Its shadow tables
-(`code_fts_config`, `_content`, `_data`, `_docsize`, `_idx`) are implementation detail —
-never query them. It is contentless, so `LIKE '%x%'` against it returns nothing; free-text
-search **must** use `MATCH`.
+### `code_fts` — FTS5
+```sql
+CREATE VIRTUAL TABLE code_fts USING fts5(
+  code_norm, aliases, titles, tokenize = 'unicode61')
+```
+
+Three columns — **`code_norm`, `aliases`, `titles`** — and `rowid = codes.id`. This is not the
+`title / meaning / solution_text` triple an earlier version of this guide described. `titles` is
+the English and Roman Urdu titles concatenated and upper-cased (`"INDOOR FAN MOTOR OR PCB ERROR
+INDOOR FAN MOTOR YA PCB KHARABI"`), which is why a Roman Urdu word can be found. Its shadow
+tables (`code_fts_config`, `_content`, `_data`, `_docsize`, `_idx`) are implementation detail —
+never query them.
+
+It is contentless, so `LIKE '%x%'` against it returns nothing; free-text search **must** use
+`MATCH`. A `snippet()` of `titles` is a duplicated uppercase blob and reads as noise, so the app
+selects no snippet — the code list already shows the real title on every row.
+
+**Quote each term and AND them; do not wrap the whole query as one phrase.** A single quoted
+string is an FTS5 *phrase*, so `"inverter fault"` matches only those words adjacent in that order.
+Measured on the shipped database: phrase 10 hits, AND 89. See §8.
 
 ## 3. The canonical form — get this exactly right
 
@@ -293,10 +308,27 @@ SQLiteDatabase.openDatabase(file.path, null, SQLiteDatabase.OPEN_READONLY)
 
 ## 8. The FTS escaping rule
 
-```kotlin
-fun ftsQuery(raw: String) = "\"" + raw.replace("\"", "\"\"") + "\""
-```
+Two separate requirements, and the second one is easy to miss.
 
-Unquoted input makes SQLite read words as **column names**. Measured on the shipped
-database: raw input throws for **454 of 2,139** code strings; quoted, **all 2,139** return
-results. `BLINK-RUNNING` → `no such column: RUNNING`; `;` and `+` → syntax error.
+**1. Quote every term.** Unquoted input makes SQLite read words as **column names**: measured on
+the shipped database, raw input throws for **454 of 2,139** code strings, while quoted input
+returns results for all 2,139. `BLINK-RUNNING` → `no such column: RUNNING`; `;` and `+` → syntax
+error.
+
+**2. AND the terms; do not emit one quoted phrase.** A single `"over current"` is a phrase
+query — the words must be adjacent and in that order. A technician types words, not phrases, so
+this silently hides answers. Measured:
+
+| input | one quoted phrase | `"a" AND "b"` |
+|---|---|---|
+| `inverter fault` | 10 | **89** |
+| `high temperature` | 32 | **67** |
+| `over current` | 110 | **133** |
+
+```kotlin
+fun ftsQuery(raw: String) = raw
+    .split(' ', '\t', '\n')
+    .map { it.trim() }
+    .filter { it.isNotEmpty() }
+    .joinToString(" AND ") { "\"" + it.replace("\"", "\"\"") + "\"" }
+```

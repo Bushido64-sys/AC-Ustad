@@ -89,8 +89,25 @@ class SearchInputTest {
     }
 
     @Test
-    fun `ftsQuery wraps input in double quotes`() {
+    fun `ftsQuery quotes a single term`() {
         assertEquals("\"compressor\"", SearchInput.ftsQuery("compressor"))
+    }
+
+    @Test
+    fun `ftsQuery AND-joins terms instead of demanding an exact phrase`() {
+        // A technician types words, not phrases. A single quoted string is an FTS5 phrase, so
+        // "over current" would only match those exact adjacent words in that order - measured at
+        // 110 hits against 133 for the AND form. Requiring adjacency hides real answers.
+        assertEquals("\"over\" AND \"current\"", SearchInput.ftsQuery("over current"))
+        assertEquals("\"a\" AND \"b\" AND \"c\"", SearchInput.ftsQuery("a b c"))
+    }
+
+    @Test
+    fun `ftsQuery collapses odd whitespace rather than emitting empty quoted terms`() {
+        // An empty term would become "" and match nothing, or worse, be a syntax error.
+        assertEquals("\"a\" AND \"b\"", SearchInput.ftsQuery("  a   b  "))
+        assertEquals("\"a\"", SearchInput.ftsQuery("a\tb"))
+        assertEquals("", SearchInput.ftsQuery("   "))
     }
 
     @Test
@@ -103,8 +120,11 @@ class SearchInputTest {
         // These two crash SQLite when passed to MATCH unquoted.
         val blink = SearchInput.ftsQuery("BLINK-RUNNING")
         val semi = SearchInput.ftsQuery("LED1 x1 blink; LED2 off")
-        assertTrue("must be quoted", blink.startsWith("\"") && blink.endsWith("\""))
-        assertTrue("must be quoted", semi.startsWith("\"") && semi.endsWith("\""))
+        val plus = SearchInput.ftsQuery("a+b")
+        // Every term quoted individually: no bare word can reach the MATCH clause.
+        assertEquals("\"BLINK-RUNNING\"", blink)
+        assertEquals("\"LED1\" AND \"x1\" AND \"blink;\" AND \"LED2\" AND \"off\"", semi)
+        assertEquals("\"a+b\"", plus)
     }
 
     @Test
