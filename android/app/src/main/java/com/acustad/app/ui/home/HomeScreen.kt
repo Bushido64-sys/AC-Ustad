@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.acustad.app.R
+import com.acustad.app.model.CategoryId
 import com.acustad.app.ui.common.BorderedPanel
 import com.acustad.app.ui.common.PanelColumn
 import com.acustad.app.ui.theme.UstadType
@@ -41,7 +42,10 @@ import com.acustad.app.ui.theme.UstadType
  * The counts come from the database at runtime, never hard-coded.
  */
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
+fun HomeScreen(
+    onCategoryClick: (CategoryId) -> Unit = {},
+    viewModel: HomeViewModel = viewModel(),
+) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     Surface(
@@ -59,14 +63,14 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
             when (val s = state) {
                 is HomeState.Loading -> LoadingBlock()
                 is HomeState.Failed -> FailedBlock(s.message, viewModel::load)
-                is HomeState.Ready -> ReadyContent(s)
+                is HomeState.Ready -> ReadyContent(s, onCategoryClick)
             }
         }
     }
 }
 
 @Composable
-private fun ReadyContent(state: HomeState.Ready) {
+private fun ReadyContent(state: HomeState.Ready, onCategoryClick: (CategoryId) -> Unit) {
     val counts = state.counts
     Column(
         modifier = Modifier
@@ -88,22 +92,23 @@ private fun ReadyContent(state: HomeState.Ready) {
             title = stringResource(R.string.category_ac),
             brands = counts.acBrands,
             codes = counts.acCodes,
+            onClick = { onCategoryClick(CategoryId.AC) },
         )
         CategoryPanel(
             title = stringResource(R.string.category_inverter),
             brands = counts.inverterBrands,
             codes = counts.inverterCodes,
+            onClick = { onCategoryClick(CategoryId.INVERTER) },
         )
     }
 }
 
 @Composable
-private fun CategoryPanel(title: String, brands: Int, codes: Int) {
+private fun CategoryPanel(title: String, brands: Int, codes: Int, onClick: () -> Unit) {
     val description = "$title, $brands brands, $codes codes"
     BorderedPanel(
-        modifier = Modifier
-            .fillMaxWidth()
-            .semantics { contentDescription = description },
+        modifier = Modifier.fillMaxWidth(),
+        onClick = onClick,
     ) {
         PanelColumn {
             Text(text = title, style = UstadType.title)

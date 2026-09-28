@@ -102,7 +102,12 @@ class KbRepository(
         return CatalogDao(db()).brandsIn(needle)
     }
 
+    suspend fun brand(brandId: String): Brand? = CatalogDao(db()).brand(brandId)
+
     suspend fun seriesOf(brandId: String): List<Series> = CatalogDao(db()).seriesOf(brandId)
+
+    suspend fun series(seriesId: String, brandId: String): Series? =
+        CatalogDao(db()).series(seriesId, brandId)
 
     suspend fun codesOf(scope: ScopedSeries): List<CodeSummary> = CodeDao(db()).codesIn(scope)
 

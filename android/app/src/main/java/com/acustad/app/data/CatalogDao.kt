@@ -88,6 +88,56 @@ class CatalogDao(private val db: SQLiteDatabase) {
         }
     }
 
+    /**
+     * One brand by its slug. Used for the collapsible editorial note on the model-line screen.
+     * A direct lookup rather than loading a category list and filtering it in Kotlin.
+     */
+    suspend fun brand(brandId: String): Brand? = io {
+        db.rawQuery(
+            """
+            SELECT b.id, b.name, b.categories, b.code_count, b.series_count, b.notes
+              FROM brands b WHERE b.id = ? LIMIT 1
+            """.trimIndent(),
+            arrayOf(brandId),
+        ).firstRow { c ->
+            Brand(
+                id = c.getString(0),
+                name = c.getString(1),
+                categoriesJson = c.getString(2),
+                codeCount = c.getInt(3),
+                seriesCount = c.getInt(4),
+                notes = c.stringOrNull(5),
+            )
+        }
+    }
+
+    /**
+     * One model line by its two-part key. The codes screen needs a display name for its app bar
+     * but a route can only safely carry the slug, so it reads the name from here.
+     */
+    suspend fun series(seriesId: String, brandId: String): Series? = io {
+        db.rawQuery(
+            """
+            SELECT s.uid, s.id, s.brand_id, s.name, s.category, s.unit_type, s.code_count, s.notes
+              FROM series s
+             WHERE s.id = ? AND s.brand_id = ?
+             LIMIT 1
+            """.trimIndent(),
+            arrayOf(seriesId, brandId),
+        ).firstRow { c ->
+            Series(
+                uid = c.getString(0),
+                seriesId = c.getString(1),
+                brandId = c.getString(2),
+                name = c.getString(3),
+                category = c.getString(4),
+                unitType = c.stringOrNull(5),
+                codeCount = c.getInt(6),
+                notes = c.stringOrNull(7),
+            )
+        }
+    }
+
     suspend fun meta(): KbMeta = io {
         val values = HashMap<String, String>()
         db.rawQuery("SELECT key, value FROM meta", null).mapRows { c ->
