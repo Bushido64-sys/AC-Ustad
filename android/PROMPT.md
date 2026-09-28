@@ -1,7 +1,9 @@
 # Prompt for the builder AI
 
-Copy everything below the line into the builder AI, in the `AC-Ustad-app` repository, with
-`app-pipeline/guide/` from the `AC-Ustad` repository available to read.
+Copy everything below the line into the builder AI, working inside this repository.
+The Android app is `android/`; the 20 build documents it follows are in
+`app-pipeline/guide/`. Read `android/PROGRESS.md` first - it is the single status file
+for the app and lists the next tasks in order.
 
 ---
 
