@@ -84,6 +84,14 @@ jobs:
           sys.exit(1 if bad else 0)
           PY
 
+      # An Android unit test cannot open the database - android.database.sqlite is a stub
+      # off-device - so the SQL the app actually ships is verified here instead, against the
+      # real file. If a data release changes a column, a count or an idx convention, this
+      # fails here rather than on a technician's phone.
+      - name: The app's browse SQL returns what the screens expect
+        run: |
+          python3 app-pipeline/check_app_sql.py
+
       - name: No secrets committed
         run: |
           # Belt and braces: a leaked token here would be pushed publicly.

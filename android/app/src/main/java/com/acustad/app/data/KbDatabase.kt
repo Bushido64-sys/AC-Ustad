@@ -1,90 +1,124 @@
 package com.acustad.app.data
 
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.io.File
+import java.io.InputStream
 
 /**
  * Opens the bundled knowledge base.
  *
  * Contract, in order of importance:
- *  1. The database is READ-ONLY. Only `favourites` is ever written, and that happens
- *     through [KbDatabase.writable] — never here. (RULES.md RULE 5)
- *  2. Nothing on this class may be called from the main thread. Every public function
- *     suspends and switches to [Dispatchers.IO].
- *  3. If the cached copy is missing, truncated or corrupt, it is deleted and re-copied
- *     from the asset exactly once. A second failure surfaces as a visible error state
- *     rather than an app that is silently empty forever. (PHASE_2_DATA_LAYER.md §3)
+ *
+ *  1. **Only `favourites` is ever written.** Every other table is read-only by discipline
+ *     (RULES.md RULE 5). A single connection is opened READ-WRITE because the saved list has
+ *     to be writable and two connections to the same file only invite lock contention. The
+ *     read DAOs physically contain no write statements, which is the actual guarantee — not
+ *     the connection flag.
+ *  2. **Nothing here may run on the main thread.** Callers suspend and switch to
+ *     `Dispatchers.IO`.
+ *  3. A missing, truncated or corrupt cache copy is repaired by re-copying from the asset
+ *     exactly once, then surfaced as a visible failure. An app that is silently empty forever
+ *     is worse than one that says it cannot open its data. (PHASE_2_DATA_LAYER.md §3)
  */
 class KbDatabase private constructor(private val appContext: Context) {
 
-    private var readOnlyHandle: SQLiteDatabase? = null
+    @Volatile
+    private var handle: SQLiteDatabase? = null
 
-    /** Opens the database read-only, copying it out of assets first if necessary. */
-    suspend fun openReadOnly(): SQLiteDatabase = withContext(Dispatchers.IO) {
-        readOnlyHandle?.let { return@withContext it }
-
-        val file = ensureCacheFile()
-        val db = SQLiteDatabase.openDatabase(file.path, null, SQLiteDatabase.OPEN_READONLY)
-        db.rawQuery("SELECT COUNT(*) FROM codes", null).use { c ->
-            c.moveToFirst()
-            val codes = c.getInt(0)
-            if (codes <= 0) {
-                db.close()
-                throw IllegalStateException("kb.sqlite contains no codes")
-            }
-            Log.i(TAG, "opened kb.sqlite: $codes codes, $file bytes")
+    /** The open connection. Callers must already be on a background thread. */
+    suspend fun open(): SQLiteDatabase {
+        handle?.let { return it }
+        return synchronized(this) {
+            handle ?: openLocked().also { handle = it }
         }
-        readOnlyHandle = db
-        db
+    }
+
+    private fun openLocked(): SQLiteDatabase {
+        val file = stageFile()
+        return try {
+            openReadWrite(file)
+        } catch (first: Exception) {
+            // A corrupt or half-written cache copy is the one failure worth recovering from
+            // silently: delete it and try exactly once more.
+            Log.w(TAG, "open failed (${first.message}); re-copying once", first)
+            File(file.parentFile, DB_NAME).delete()
+            val replacement = stageFile()
+            try {
+                openReadWrite(replacement)
+            } catch (second: Exception) {
+                throw IllegalStateException(
+                    "could not open $ASSET_PATH after re-copying: ${second.message}", second
+                )
+            }
+        }
+    }
+
+    private fun openReadWrite(file: File): SQLiteDatabase {
+        val db = SQLiteDatabase.openDatabase(file.path, null, SQLiteDatabase.OPEN_READWRITE)
+        // Prove the copy is real before anything reads it. A silently empty app is the worst
+        // failure mode: the user sees a blank list and concludes the model is missing.
+        val codes = db.rawQuery("SELECT COUNT(*) FROM codes", null).use { c ->
+            c.moveToFirst()
+            c.getInt(0)
+        }
+        if (codes <= 0) {
+            db.close()
+            throw IllegalStateException("kb.sqlite contains no codes")
+        }
+        Log.i(TAG, "opened $DB_NAME: $codes codes, ${file.length()} bytes")
+        return db
     }
 
     /**
-     * Returns the cached database file, copying or repairing it as needed.
-     * Suspends, and therefore never touches the disk on the main thread.
+     * Ensures a complete copy of the asset exists in the cache and returns it.
+     *
+     * The asset is compared by length: a copy interrupted by a kill mid-write is shorter, and
+     * that is the only realistic corruption detectable without hashing 9 MB at every start.
+     *
+     * The asset stream is always closed here, including on the path where no copy is needed —
+     * otherwise a warm start leaks a file handle every single launch.
      */
-    suspend fun ensureCacheFile(): File = withContext(Dispatchers.IO) {
+    private fun stageFile(): File {
         val target = File(appContext.cacheDir, DB_NAME)
-        val asset = runCatching { appContext.assets.open(ASSET_PATH) }.getOrNull()
-            ?: throw IllegalStateException("bundled asset $ASSET_PATH is missing from the APK")
-
-        // Re-copy when there is no cache, or when the sizes disagree (a truncated copy from a
-        // kill mid-write, or a new build with a different database).
-        //
-        // `File.length()` is Long and `InputStream.available()` is Int, and Kotlin does not
-        // apply `!=` across those two types - hence the explicit `.toLong()`. Also note
-        // available() is only a lower bound for a general stream, but for a file-backed
-        // asset it is the full length, which is all this check needs.
-        if (!target.exists() || target.length() != asset.available().toLong()) {
-            copyAsset(asset, target)
+        openAsset().use { asset ->
+            // available() is a lower bound in general, but for a file-backed asset it is the
+            // whole length, which is all this comparison needs. Long vs Int: Kotlin does not
+            // apply `!=` across the two, hence the explicit conversion.
+            val expected = asset.available().toLong()
+            if (!target.exists() || target.length() != expected) {
+                copyAsset(asset, target)
+            }
         }
-        target
+        return target
     }
 
-    private fun copyAsset(asset: java.io.InputStream, target: File) {
+    private fun openAsset(): InputStream =
+        runCatching { appContext.assets.open(ASSET_PATH) }.getOrNull()
+            ?: throw IllegalStateException("bundled asset $ASSET_PATH is missing from the APK")
+
+    /** Does not close the stream: the caller owns it. */
+    private fun copyAsset(asset: InputStream, target: File) {
         val tmp = File(target.parentFile, "$DB_NAME.tmp")
-        runCatching {
-            asset.use { input -> tmp.outputStream().use { input.copyTo(it) } }
+        try {
+            tmp.outputStream().use { asset.copyTo(it) }
             if (!tmp.renameTo(target)) {
                 tmp.copyTo(target, overwrite = true)
                 tmp.delete()
             }
-        }.onFailure { first ->
-            // One retry after deleting the partial file, then give up loudly.
-            Log.w(TAG, "first copy failed (${first.message}); retrying once", first)
+        } catch (e: Exception) {
             tmp.delete()
-            target.delete()
-            asset.reset()
-            runCatching {
-                asset.use { input -> tmp.outputStream().use { input.copyTo(it) } }
-                tmp.renameTo(target)
-            }.onFailure { second ->
-                tmp.delete()
-                throw IllegalStateException("could not stage $ASSET_PATH: ${second.message}")
-            }
+            throw IllegalStateException("could not stage $ASSET_PATH: ${e.message}", e)
+        }
+    }
+
+    /** Test hook: forces the next [open] to re-copy from the asset. */
+    fun closeForTest() {
+        synchronized(this) {
+            runCatching { handle?.close() }
+            handle = null
         }
     }
 
@@ -102,3 +136,15 @@ class KbDatabase private constructor(private val appContext: Context) {
             }
     }
 }
+
+/** `Cursor.use` with a guaranteed moveToFirst, for the common single-row read. */
+internal inline fun <T> Cursor.firstRow(read: (Cursor) -> T): T? =
+    use { c -> if (c.moveToFirst()) read(c) else null }
+
+/** Reads every row of a query. */
+internal inline fun <T> Cursor.mapRows(read: (Cursor) -> T): List<T> =
+    use { c ->
+        val out = ArrayList<T>(c.count)
+        while (c.moveToNext()) out.add(read(c))
+        out
+    }

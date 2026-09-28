@@ -3,8 +3,8 @@ package com.acustad.app.ui.home
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.acustad.app.data.BrandRepository
-import com.acustad.app.data.CategoryCounts
+import com.acustad.app.model.CategoryCounts
+import com.acustad.app.repo.KbRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,9 +17,13 @@ sealed interface HomeState {
     data class Failed(val message: String) : HomeState
 }
 
+/**
+ * Reads the two category counts from the database. Never hard-codes them, so a data release
+ * updates the numbers with no app change.
+ */
 class HomeViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val repo = BrandRepository(app)
+    private val repo = KbRepository(app)
 
     private val _state = MutableStateFlow<HomeState>(HomeState.Loading)
     val state: StateFlow<HomeState> = _state.asStateFlow()
@@ -32,9 +36,8 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
         _state.value = HomeState.Loading
         viewModelScope.launch {
             _state.value = runCatching {
-                val counts = repo.categoryCounts()
-                val version = repo.databaseVersion()
-                HomeState.Ready(counts, version)
+                // Two cheap queries on one connection; both off the main thread.
+                HomeState.Ready(repo.categoryCounts(), repo.meta().kbVersion)
             }.getOrElse { e ->
                 HomeState.Failed(e.message ?: "Could not open the knowledge base")
             }
