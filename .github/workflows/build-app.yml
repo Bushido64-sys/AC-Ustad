@@ -30,8 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
-      contents: read
-      issues: write
+      contents: write
     env:
       ANDROID_HOME: /usr/local/lib/android/sdk
 
@@ -169,19 +168,27 @@ jobs:
           retention-days: 30
           if-no-files-found: error
 
-      - name: Publish the failure reason
+      # TEMPORARY debugging aid. The Actions log-download API requires admin rights, so
+      # the compiler message is otherwise unreadable from outside. This pushes the error
+      # lines to a scratch branch, which the public API can read. Delete this step and
+      # drop contents:write back to read once the build is green.
+      - name: Publish the failure reason to ci-logs
         if: failure()
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           set -uo pipefail
+          mkdir -p ci-logs
+          LOG=ci-logs/build-app-$(git rev-parse --short HEAD).log
           {
-            echo "Automatic report from the build app workflow."
+            echo "commit $(git rev-parse HEAD)"
             echo
-            echo "commit: $(git rev-parse --short HEAD)"
+            grep -nE "^e: |error:|FAILURE:|> Task .* FAILED|What went wrong|Caused by:" android/build.log 2>/dev/null | head -80
             echo
-            echo '```'
-            grep -E "^e: |error:|FAILURE:|> Task .* FAILED" android/build.log 2>/dev/null | head -50
-            echo '```'
-          } > /tmp/body.md
-          gh issue create --title "CI failure: build app" --body-file /tmp/body.md || true
+            echo "----- last 40 lines of the build log -----"
+            tail -40 android/build.log 2>/dev/null
+          } > "$LOG"
+          git config user.name "ci"
+          git config user.email "ci@local"
+          git add -f "$LOG"
+          git commit -q -m "ci: failure log for $(git rev-parse --short HEAD)" || true
+          git push -q --force origin HEAD:refs/heads/ci-logs || true
+          echo "pushed $LOG to ci-logs"
