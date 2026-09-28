@@ -1,0 +1,1260 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sma",
+  "series": {
+    "id": "sma-sunny-island-3-8",
+    "name": "Sunny Island 3.0M / 4.4M / 6.0H / 8.0H",
+    "category": "inverter",
+    "unitType": "off_grid_inverter",
+    "modelPatterns": [
+      "SI30M-44M-60H-80H",
+      "SI 3.0M-30",
+      "SI 4.4M-44",
+      "SI 6.0H-60",
+      "SI 8.0H-80",
+      "*Sunny Island 3.0M*",
+      "*Sunny Island 4.4M*",
+      "*Sunny Island 6.0H*",
+      "*Sunny Island 8.0H*"
+    ],
+    "notes": "Model scoping: doc SI30M-44M-60H-80H-BE-en-33W, the older 48 V Sunny Island family with a 3-digit display number that carries an F (Fault/error), W (Warning) or E (Event) prefix, plus a Level column 1-5. This numbering is COMPLETELY different from the 4-digit inverter event scheme in SERIES 1/2: here 201 is VBATMAX (battery voltage above measuring range), not an AC undervoltage. Slave variants add 'Slv1'/'Slv2'/'SL1'/'SL2' or 'S1'/'S2' to the same base number, meaning the same fault on a different cluster phase. Multicluster-box codes (8xx) apply only where an MC-BOX is fitted."
+  },
+  "codes": [
+    {
+      "code": "F109",
+      "aliases": [
+        "F109",
+        "InvTmpHi",
+        "W110",
+        "W111"
+      ],
+      "title": {
+        "en": "Transformer overtemperature in Sunny Island (F109)",
+        "ur": "Sunny Island ke transformer mein zyada temperature (F109)"
+      },
+      "meaning": {
+        "en": "The transformer in the device at L1 (master) is over-temperature because of overload or ambient temperature. The unit shuts down.",
+        "ur": "L1 (master) par device ke transformer mein zyada temperature hai — overload ya ambient temperature ki wajah se. Unit band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Load demand beyond the Sunny Island rating at that phase.",
+          "ur": "Us phase par Sunny Island ki rating se zyada load demand."
+        },
+        {
+          "en": "High ambient temperature in an unventilated plant or generator room.",
+          "ur": "Bina hawa ki plant room ya generator room mein zyada ambient temperature."
+        },
+        {
+          "en": "Blocked or failed cooling fan on the unit.",
+          "ur": "Unit ka cooling fan band ya defective."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the unit from AC sources and loads, then restart it and watch whether the error returns — that separates a transient overload from a hardware fault.",
+          "ur": "Unit ko AC sources aur loads se isolate karein, phir restart karke dekhein ke error wapas aata hai ya nahi — waise pata chalta hai ke masla transient overload hai ya hardware fault."
+        },
+        {
+          "en": "Clean the fans as the manual directs, using a soft brush, and confirm the fan actually spins freely with the power off.",
+          "ur": "Manual ke mutabiq fans soft brush se saaf karein, aur power off par confirm karein ke fan azaad ghoomta hai."
+        },
+        {
+          "en": "Stagger the loads so total demand never peaks together, and check the ventilation clearance around the unit per the manual.",
+          "ur": "Loads ko aise stagger karein ke poori demand ek saath peak na ho, aur manual ke mutabiq unit ke aas paas ventilation clearance check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "W110 and W111 are the same fault on slave 1 and slave 2 in a cluster — they are warnings, not faults.",
+        "ur": "W110 aur W111 cluster mein slave 1 aur slave 2 par wohi fault hain — yeh warnings hain, faults nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F113",
+      "aliases": [
+        "F113",
+        "W114",
+        "W115"
+      ],
+      "title": {
+        "en": "Inverter bridge overtemperature (F113)",
+        "ur": "Inverter bridge mein zyada temperature (F113)"
+      },
+      "meaning": {
+        "en": "The inverter bridge (heatsink) at L1 (master) is over-temperature because of overload or ambient temperature. The unit shuts down.",
+        "ur": "L1 (master) par inverter bridge (heatsink) mein zyada temperature hai — overload ya ambient temperature ki wajah se. Unit band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Sustained load above the inverter's continuous rating on one phase.",
+          "ur": "Kisi phase par inverter ki continuous rating se zyada mustaqal load."
+        },
+        {
+          "en": "Ambient temperature above the maximum permissible value in the install room.",
+          "ur": "Install room mein maximum permissible value se zyada ambient temperature."
+        },
+        {
+          "en": "Airflow through the unit obstructed by cable routing or a wall too close to the heat sink.",
+          "ur": "Cable routing ya deewar ki wajah se unit ka airflow ruka hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate all AC sources and loads from the Sunny Island, restart it, and note whether the error returns at the same load level.",
+          "ur": "Sunny Island se sabhi AC sources aur loads isolate karein, restart karein, aur note karein ke error usi load level par wapas aata hai ya nahi."
+        },
+        {
+          "en": "Measure ambient temperature and the heatsink temperature with an IR thermometer; a large gap between them means poor airflow rather than hot weather.",
+          "ur": "IR thermometer se ambient aur heatsink temperature measure karein; dono ka bara farq kamzor airflow ka nishani hai, garmi mausam ka nahi."
+        },
+        {
+          "en": "Clear all cable bundles away from the heat sink and restore the manual's clearance, then reduce the phase load by staggering the loads.",
+          "ur": "Saare cable bundles heat sink se door karein aur manual ka clearance wapas karein, phir loads stagger karke us phase ka load kam karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Same display number family as F109 but the manual distinguishes transformer over-temperature from inverter-bridge over-temperature — do not merge them.",
+        "ur": "F109 ke saath yeh display number family wohi hai lekin manual transformer over-temperature aur inverter-bridge over-temperature mein farq karta hai — dono ko merge na karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F117",
+      "aliases": [
+        "F117",
+        "AcCurLim",
+        "W118",
+        "W119"
+      ],
+      "title": {
+        "en": "AC current limitation on line L1 (F117)",
+        "ur": "Line L1 par AC current limitation (F117)"
+      },
+      "meaning": {
+        "en": "The load power on line conductor L1 is too high for the master, so the Sunny Island limits AC current.",
+        "ur": "Line conductor L1 par loads ki power master ke liye zyada hai, is liye Sunny Island AC current limit kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Connected load power exceeds the Sunny Island inverter power.",
+          "ur": "Connected loads ki power Sunny Island inverter ki power se zyada hai."
+        },
+        {
+          "en": "A short circuit in the load circuit or the AC installation.",
+          "ur": "Load circuit ya AC installation mein short circuit."
+        },
+        {
+          "en": "High inrush from a motor or compressor starting while other loads already run.",
+          "ur": "Dusre loads already chal rahan hon aur motor ya compressor start hote waqt zyada inrush."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC sources and loads, clean the fans, and restart the Sunny Island as the manual's first corrective measure.",
+          "ur": "AC sources aur loads isolate karein, fans saaf karein, aur manual ke pehle corrective measure ke mutabiq Sunny Island restart karein."
+        },
+        {
+          "en": "With the island stopped, clamp-meter each phase and measure actual load current; compare it against the Sunny Island rating printed on the nameplate.",
+          "ur": "Island band kar ke clamp meter se har phase ka actual load current measure karein; usse Sunny Island ki rating se compare karein jo nameplate par likhi hai."
+        },
+        {
+          "en": "Check for a short circuit in the load circuit with an insulation tester, and reduce the load on the affected phase by moving circuits between phases.",
+          "ur": "Insulation tester se load circuit mein short circuit check karein, aur affected phase ka load kam karne ke liye circuits doosre phases par move karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F121",
+      "aliases": [
+        "F121",
+        "InvVtgHi",
+        "W122",
+        "W123"
+      ],
+      "title": {
+        "en": "Inverter overvoltage at AC1 (F121)",
+        "ur": "AC1 par inverter overvoltage (F121)"
+      },
+      "meaning": {
+        "en": "An overvoltage has occurred at AC connection 1 of the master. The manual's first instruction is to disconnect all AC sources and loads and restart.",
+        "ur": "Master ke AC connection 1 par overvoltage aaya hai. Manual ka pehla instruction hai sabhi AC sources aur loads disconnect karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "An external source such as a generator or grid back-feeding AC1 through the bypass switch.",
+          "ur": "Bypass switch ke zariye AC1 par koi external source jaise generator ya grid back-feed kar raha hai."
+        },
+        {
+          "en": "Bypass switch left in the wrong position so it bridges the internal transfer relay.",
+          "ur": "Bypass switch galat position mein chhoda gaya hai jis se woh internal transfer relay ko bridge kar raha hai."
+        },
+        {
+          "en": "A generator whose AVR is not regulating, producing a sustained overvoltage.",
+          "ur": "Aisa generator jiska AVR regulate nahi kar raha, jis se mustaqal overvoltage ban raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate all AC sources and loads from the Sunny Island and restart it, exactly as the manual states as the first step.",
+          "ur": "Manual ke pehle step ke mutabiq Sunny Island se sabhi AC sources aur loads isolate karke restart karein."
+        },
+        {
+          "en": "Find the overvoltage source by measurement, connecting the AC sources and loads back one at a time while watching the AC1 voltage on a clamp meter or grid analyzer.",
+          "ur": "AC sources aur loads ko ek-ek karke wapas jodte hue AC1 voltage ko clamp meter ya grid analyzer par dekhte hue, measurement se overvoltage ka source dhoondein."
+        },
+        {
+          "en": "Set the bypass switch to the position for operation with the Sunny Island and confirm the generator AVR is regulating voltage before reconnecting.",
+          "ur": "Bypass switch ko Sunny Island ke saath chalane ki position par set karein aur dobara jodne se pehle confirm karein ke generator AVR voltage regulate kar raha hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Related to the VtgOnAC1Det family (F158/F159/F160), which reports the same unwanted voltage as a warning.",
+        "ur": "VtgOnAC1Det family (F158/F159/F160) se mile julay hain, jo wohi unwanted voltage warning ki shakal mein report karte hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F129",
+      "aliases": [
+        "F129",
+        "InvFrqHi",
+        "W130",
+        "W131"
+      ],
+      "title": {
+        "en": "Inverter overfrequency at AC1 (F129)",
+        "ur": "AC1 par inverter overfrequency (F129)"
+      },
+      "meaning": {
+        "en": "An overfrequency has occurred at AC connection 1 of the master, so the Sunny Island has shut down.",
+        "ur": "Master ke AC connection 1 par overfrequency aaya hai, is liye Sunny Island band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Generator running with a failed governor or an incorrect frequency setpoint.",
+          "ur": "Generator aisa chal raha hai jiska governor ya frequency setpoint ghalat hai."
+        },
+        {
+          "en": "Generator overloaded so the governor cannot hold the frequency setpoint.",
+          "ur": "Generator overloaded hai is liye governor frequency setpoint nahi pakad pa raha."
+        },
+        {
+          "en": "An external energy source connected to AC1 instead of AC2.",
+          "ur": "AC2 ki jagah AC1 par koi external energy source joda gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate all AC sources and loads from the Sunny Island and restart it, as the manual directs.",
+          "ur": "Manual ke mutabiq Sunny Island se sabhi AC sources aur loads isolate karke restart karein."
+        },
+        {
+          "en": "Locate the overfrequency source by measurement, reconnecting AC sources and loads step by step while logging frequency at AC1 on a grid analyzer.",
+          "ur": "Grid analyzer par AC1 ki frequency log karte hue AC sources aur loads ko qadam ba qadam wapas jod kar measurement se overfrequency ka source dhoondein."
+        },
+        {
+          "en": "If a generator is the source, adjust the generator frequency and confirm its governor holds the setpoint under load before recommissioning.",
+          "ur": "Agar source generator hai to generator frequency adjust karein aur recommission se pehle confirm karein ke uska governor load ke under setpoint pakad leta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "F133 is the underfrequency counterpart; both are hard faults in this manual while the 3xx Ext* events are warnings.",
+        "ur": "F133 is underfrequency ka counterpart hai; is manual mein dono hard faults hain jabke 3xx Ext* events warnings hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F133",
+      "aliases": [
+        "F133",
+        "InvFrqLo",
+        "W134",
+        "W135"
+      ],
+      "title": {
+        "en": "Inverter underfrequency at AC1 (F133)",
+        "ur": "AC1 par inverter underfrequency (F133)"
+      },
+      "meaning": {
+        "en": "An underfrequency has occurred at AC connection 1 of the master, so the Sunny Island has shut down.",
+        "ur": "Master ke AC connection 1 par underfrequency aaya hai, is liye Sunny Island band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Generator overloaded so its frequency sags below the configured threshold.",
+          "ur": "Generator overloaded hai jis se uski frequency configured threshold se neeche gir gayi."
+        },
+        {
+          "en": "External voltage/connection problem dragging frequency down at the island's AC input.",
+          "ur": "Island ke AC input par external voltage ya connection ka masla frequency neeche kheench raha hai."
+        },
+        {
+          "en": "Generator failed to start properly or dropped out during the connection sequence.",
+          "ur": "Generator theek se start nahi hua ya connection sequence ke dauran gir gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate all AC sources and loads from the Sunny Island and restart it, as the manual directs.",
+          "ur": "Manual ke mutabiq Sunny Island se sabhi AC sources aur loads isolate karke restart karein."
+        },
+        {
+          "en": "Find the underfrequency source by measurement, reconnecting AC sources and loads step by step while logging frequency at AC1.",
+          "ur": "AC1 par frequency log karte hue AC sources aur loads ko qadam ba qadam wapas jod kar measurement se underfrequency ka source dhoondein."
+        },
+        {
+          "en": "If a generator is the source, reduce the connected load, then check its governor droop and its warm-up time parameter 234.12 GnWarmTm so it reaches a valid voltage before connection.",
+          "ur": "Agar source generator hai to connected load kam karein, phir uska governor droop aur warm-up time parameter 234.12 GnWarmTm check karein ke woh connection se pehle valid voltage tak pahunche."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The GnWarmTm connection appears in the manual under W402 GnFailLock, the generator block — check both together when start-ups keep failing.",
+        "ur": "GnWarmTm connection manual mein W402 GnFailLock, generator block ke under hai — start-ups fail hote rahen to dono saath check karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F162",
+      "aliases": [
+        "F162",
+        "OvrCurDet",
+        "W163",
+        "W164"
+      ],
+      "title": {
+        "en": "Overcurrent at the DC connection (F162)",
+        "ur": "DC connection par overcurrent (F162)"
+      },
+      "meaning": {
+        "en": "Too much current is flowing through the DC connection of the master. A fault-level event, not a load-level one.",
+        "ur": "Master ke DC connection se bohat zyada current beh raha hai. Yeh load level ka nahi, fault level ka event hai."
+      },
+      "causes": [
+        {
+          "en": "A short circuit on the DC side of the battery or the DC sources.",
+          "ur": "Battery ya DC sources ke DC side par short circuit."
+        },
+        {
+          "en": "DC wiring connected with reversed polarity, driving current into a device not designed for it.",
+          "ur": "DC wiring reversed polarity se jodi hui hai, jis se aise device mein current ja raha hai jo is ke liye bana nahi."
+        },
+        {
+          "en": "Incorrect battery capacity or type for the Sunny Island, so charging current exceeds the design.",
+          "ur": "Sunny Island ke liye ghalat battery capacity ya type, jis se charging current design se zyada ho jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the battery at the BatFuse load-break switch first, then isolate AC and PV, before any measurement.",
+          "ur": "Pehle BatFuse load-break switch se battery isolate karein, phir AC aur PV isolate karein, uske baad hi koi measurement karein."
+        },
+        {
+          "en": "With the DC side dead, measure continuity and insulation resistance on every DC conductor to find the shorted core, and verify polarity at each termination.",
+          "ur": "DC side dead kar ke har DC conductor ki continuity aur insulation resistance measure karein taake short wala core mil jaye, aur har termination par polarity verify karein."
+        },
+        {
+          "en": "Confirm the installed battery type and capacity against the Sunny Island technical data and the battery manufacturer's charge-current limit.",
+          "ur": "Lagai gayi battery ka type aur capacity Sunny Island ke technical data aur battery manufacturer ke charge-current limit se verify karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do not jump straight to 'replace the battery' — the manual's chain is isolate, then locate the short, then verify the battery spec.",
+        "ur": "Seedha 'battery badal dein' par na jayein — manual ka tareeqa hai isolate karo, phir short dhoondein, phir battery spec verify karo."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F166",
+      "aliases": [
+        "F166",
+        "Overload5min",
+        "W167",
+        "W168"
+      ],
+      "title": {
+        "en": "Overload beyond 5-minute rating (F166)",
+        "ur": "5-minute rating se zyada overload (F166)"
+      },
+      "meaning": {
+        "en": "The device at L1 (master) has been loaded beyond its five-minute rated capacity, so it derates or shuts down.",
+        "ur": "L1 (master) par device apni 5-minute rated capacity se zyada load ho chuka hai, is liye woh derate ya band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "A motor or compressor with a high inrush drawing a large block of power for a short period.",
+          "ur": "Motor ya compressor jiska inrush zyada hai aur jo chhoti duri ke liye bada power kheenchta hai."
+        },
+        {
+          "en": "Several loads switching on at the same time after a supply interruption.",
+          "ur": "Supply interruption ke baad kai loads ek saath on ho jana."
+        },
+        {
+          "en": "Sustained demand above the unit's continuous rating, not just its short-term rating.",
+          "ur": "Unit ki sirf short-term rating nahi, continuous rating se bhi zyada mustaqal demand."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load, which is the manual's stated corrective measure for this event.",
+          "ur": "Connected load kam karein — yehi is event ke liye manual ka bataya hua corrective measure hai."
+        },
+        {
+          "en": "Log which loads switch on simultaneously and add time staggering or soft-start to the largest motor, as the manual suggests for high-inrush loads.",
+          "ur": "Note karein ke kaun se loads ek saath on hote hain, aur sab se bade motor par soft-start ya staggering lagayein, jaise manual high-inrush loads ke liye kehta hai."
+        },
+        {
+          "en": "If the five-minute overload repeats at modest demand, clamp-meter each phase under real load and compare against the manual's overload figures in the technical data.",
+          "ur": "Agar moqtabil demand par bhi 5-minute overload repeat ho to real load ke under har phase ka clamp-meter reading lein aur technical data ke overload figures se compare karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Three separate overload codes exist: 5-minute (F166), 30-minute (F169) and short-term (F172). The duration is the diagnostic difference.",
+        "ur": "Teen alag overload codes hain: 5-minute (F166), 30-minute (F169) aur short-term (F172). Duration hi diagnosis ka farq hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F169",
+      "aliases": [
+        "F169",
+        "Overload30min",
+        "W170",
+        "W171"
+      ],
+      "title": {
+        "en": "Overload beyond 30-minute rating (F169)",
+        "ur": "30-minute rating se zyada overload (F169)"
+      },
+      "meaning": {
+        "en": "The device at L1 (master) has been loaded beyond its 30-minute rated capacity.",
+        "ur": "L1 (master) par device apni 30-minute rated capacity se zyada load ho chuka hai."
+      },
+      "causes": [
+        {
+          "en": "Sustained demand between the 5-minute and 30-minute ratings — a capacity sizing problem, not a motor inrush problem.",
+          "ur": "5-minute aur 30-minute rating ke darmiyan mustaqal demand — yeh capacity sizing ka masla hai, motor inrush ka nahi."
+        },
+        {
+          "en": "A high-power base load that never switches off, with a large appliance added on top.",
+          "ur": "Bohat high-power base load jo kabhi off na ho, aur us par bada appliance lag jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load as the manual instructs.",
+          "ur": "Manual ke mutabiq connected load kam karein."
+        },
+        {
+          "en": "Measure the 30-minute average demand with a clamp meter and logging meter; if it sits above the 30-minute rating, the unit is simply too small for this site.",
+          "ur": "Clamp meter aur logging meter se 30-minute ki average demand measure karein; agar woh 30-minute rating se upar baithti hai to is site ke liye unit chhota hai."
+        },
+        {
+          "en": "Decide between staggering the loads and adding a further Sunny Island to the cluster, which the manual itself suggests for frequent derating.",
+          "ur": "Loads stagger karne aur cluster mein aik aur Sunny Island jodne ke darmiyan faisla karein, jaise manual baar baar derate hone par khud kehta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Distinguishing 5-minute from 30-minute overload tells the owner whether to fix a switching problem or upsize the plant.",
+        "ur": "5-minute aur 30-minute overload mein farq karne se malik ko pata chalta hai ke switching ka masla hai ya plant bara karna hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F176",
+      "aliases": [
+        "F176",
+        "CurTrfSns"
+      ],
+      "title": {
+        "en": "Current sensor not connected or defective (F176)",
+        "ur": "Current sensor connected nahi ya defective (F176)"
+      },
+      "meaning": {
+        "en": "The current sensor is not connected, not available, or defective, so the Sunny Island cannot measure its own AC current. Level 4 fault.",
+        "ur": "Current sensor connected nahi, available nahi, ya defective hai, is liye Sunny Island apna AC current nahi naap sakta. Level 4 fault."
+      },
+      "causes": [
+        {
+          "en": "Current sensor transformer (CT) not fitted or not terminated in the AC installation.",
+          "ur": "AC installation mein current sensor transformer (CT) laga hi nahi ya terminate nahi hua."
+        },
+        {
+          "en": "CT wiring open, or the sensor cable disconnected inside the unit.",
+          "ur": "CT wiring khuli hai, ya sensor cable unit ke andar se nikal gayi hai."
+        },
+        {
+          "en": "The sensor has failed or drifted out of calibration, so measured current is wrong.",
+          "ur": "Sensor fail ho gaya ya calibration se bahar chala gaya, jis se measured current ghalat hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate all AC sources and loads from the Sunny Island before touching the current sensor wiring.",
+          "ur": "Current sensor wiring par kaam karne se pehle Sunny Island se sabhi AC sources aur loads isolate karein."
+        },
+        {
+          "en": "Check the CT installation and termination against the installation manual: correct ratio, correct direction, screws tight, cable undamaged.",
+          "ur": "Installation manual ke mutabiq CT installation aur termination check karein: sahi ratio, sahi direction, screws mazboot, cable undamaged."
+        },
+        {
+          "en": "Verify the measured current against a clamp meter at the same instant; if the readings disagree by more than a few percent the sensor or its wiring is the problem, not the load.",
+          "ur": "Usi waqt clamp meter ke saath measured current verify karein; agar readings mein kuch percent se zyada farq hai to masla sensor ya uski wiring ka hai, load ka nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Because the island regulates on measured current, a wrong reading causes spurious overload events (F166/F169) as well as bad battery charge control.",
+        "ur": "Kyunke island measured current par regulate karta hai, ghalat reading se khufay overload events (F166/F169) aur battery charging ka kharaab control bhi hota hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F179",
+      "aliases": [
+        "F179",
+        "RetryConFail",
+        "W180",
+        "W181"
+      ],
+      "title": {
+        "en": "Multicluster pre-fuse F104.1 open (F179)",
+        "ur": "Multicluster pre-fuse F104.1 khula (F179)"
+      },
+      "meaning": {
+        "en": "The pre-fuse F104.1 in the Multicluster-Box is open. The main-cluster master detects voltage at ExtVtg and tries to switch to L1, where an anti-islanding error occurs because of the open pre-fuse.",
+        "ur": "Multicluster-Box ka pre-fuse F104.1 khula hai. Main cluster ka master ExtVtg par voltage detect karke L1 par switch kne ki koshish karta hai, jahan khule pre-fuse ki wajah se anti-islanding error aata hai."
+      },
+      "causes": [
+        {
+          "en": "Pre-fuse F104.1 has actually tripped from an overcurrent or short circuit in the cluster wiring.",
+          "ur": "Cluster wiring mein overcurrent ya short circuit ki wajah se pre-fuse F104.1 sach mein trip ho gaya."
+        },
+        {
+          "en": "Pre-fuse holder not seated correctly during a past service operation.",
+          "ur": "Kisi pichli service ke dauran pre-fuse holder theek se baithaya nahi gaya."
+        },
+        {
+          "en": "Cluster cable nicked during installation, loading the fuse to its breaking current.",
+          "ur": "Installation mein cluster cable mein nishan, jis se fuse apni breaking current par aa gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the AC sources, loads and battery from the island, then confirm zero volts at the Multicluster-Box before touching any fuse.",
+          "ur": "Island se AC sources, loads aur battery isolate karein, phir koi fuse chherne se pehle Multicluster-Box par zero volt confirm karein."
+        },
+        {
+          "en": "Measure the insulation and continuity of the cluster conductors with an insulation tester before re-fitting the fuse — do not simply re-energise and hope.",
+          "ur": "Fuse dobara lagane se pehle cluster conductors ki insulation aur continuity insulation tester se measure karein — bas energise karke umeed na lagayein."
+        },
+        {
+          "en": "Check the voltage supply at terminal AC2 of the master in the main cluster, which is the measurement the manual asks for after reactivating the fuse.",
+          "ur": "Pre-fuse dobara lagane ke baad manual jo measurement mangta hai woh hai: main cluster ke master ke terminal AC2 par voltage supply check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "W180 and W181 are the same fault on the L2 and L3 pre-fuses F104.2 and F104.3 — the pre-fuse number tells you which phase is dead.",
+        "ur": "W180 aur W181 wohi fault L2 aur L3 pre-fuses F104.2 aur F104.3 par hain — pre-fuse ka number batata hai ke kaun si phase marr chuki hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F201",
+      "aliases": [
+        "F201",
+        "VBATMAX",
+        "W202",
+        "W203"
+      ],
+      "title": {
+        "en": "Battery voltage above measuring range (F201)",
+        "ur": "Battery voltage measuring range se upar (F201)"
+      },
+      "meaning": {
+        "en": "The battery voltage at the master is above the permissible measurement range, so the Sunny Island stops regulating on it.",
+        "ur": "Master par battery voltage permissible measurement range se upar hai, is liye Sunny Island us par regulate karna chhod deta hai."
+      },
+      "causes": [
+        {
+          "en": "Battery bank over-celled for the 48 V system — the manual tells you to read parameter 120.02 BatVtg and compare against 65.0 V.",
+          "ur": "Battery bank 48 V system ke liye zyada cells ka hai — manual kehti hai ke parameter 120.02 BatVtg padh kar 65.0 V se compare karein."
+        },
+        {
+          "en": "DC sources configured with too high a charge voltage.",
+          "ur": "DC sources bohat zyada charge voltage ke saath configure hain."
+        },
+        {
+          "en": "Battery capacity too small for the connected DC sources, so the sources drive the bus voltage up.",
+          "ur": "Battery capacity connected DC sources ke liye chhoti hai, jis se sources bus voltage upar le jaate hain."
+        },
+        {
+          "en": "A cell shorted or a cell interconnector open, so the string voltage no longer divides evenly.",
+          "ur": "Koi cell short ho gaya ya cell interconnector khul gaya, jis se string voltage ab barabar baant nahi hota."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC sources, then read parameter 120.02 BatVtg on the Sunny Island and note the value before doing anything else.",
+          "ur": "DC sources isolate karein, phir Sunny Island par parameter 120.02 BatVtg padh kar kuch karne se pehle value note karein."
+        },
+        {
+          "en": "If the reading is above 65.0 V, measure each battery cell with a cell voltage meter; the healthy spread on a 48 V lead-acid bank is small and a single low cell means the bank is over-celled or a cell is shorted.",
+          "ur": "Agar reading 65.0 V se upar hai to cell voltage meter se har battery cell ka voltage measure karein; 48 V lead-acid bank par healthy spread chhota hota hai aur aik kam cell ka matlab bank over-celled hai ya koi cell short hai."
+        },
+        {
+          "en": "Check the DC source charge-voltage settings against the battery manufacturer's permitted maximum, and correct them before reconnecting.",
+          "ur": "DC source ke charge-voltage settings ko battery manufacturer ke permitted maximum se check karein aur dobara jodne se pehle theek karein."
+        },
+        {
+          "en": "Verify the battery capacity against the DC source datasheet as the manual directs, and replace a bank that is genuinely under-sized for the site.",
+          "ur": "Manual ke mutabiq battery capacity ko DC source datasheet se verify karein, aur jo bank is site ke liye sach mein chhota ho use badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do not confuse with the 4-digit Sunny Tripower code 202, which is an AC undervoltage on a completely different product.",
+        "ur": "4-digit Sunny Tripower ke code 202 se na milayein, jo bilkul alag product par AC undervoltage hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F206",
+      "aliases": [
+        "F206",
+        "BatTmpHi",
+        "W212"
+      ],
+      "title": {
+        "en": "Battery overtemperature fault (F206)",
+        "ur": "Battery bohat garam ho gaya — fault (F206)"
+      },
+      "meaning": {
+        "en": "The battery temperature is too high. SMA explicitly recommends protecting the battery from temperatures above 25 C because that prevents premature ageing.",
+        "ur": "Battery ka temperature bohat zyada hai. SMA khud salah deti hai ke battery ko 25 C se upar temperature se bachaayein, kyunke is se jaldi ageing hoti hai."
+      },
+      "causes": [
+        {
+          "en": "Battery room with poor ventilation in a hot climate, common in Pakistani summers.",
+          "ur": "Garmi ke mausam mein battery room ki hawa kam, jo Pakistan mein aam hai."
+        },
+        {
+          "en": "Battery mounted too close to a heat source or in direct sun.",
+          "ur": "Battery kisi heat source ke qareeb ya seedhi dhoop mein lagi hai."
+        },
+        {
+          "en": "Battery temperature sensor reading wrong — the manual asks for a specific resistance check.",
+          "ur": "Battery temperature sensor ki reading ghalat hai — manual ek khaas resistance check mangta hai."
+        },
+        {
+          "en": "Battery itself ageing internally, generating heat under charge.",
+          "ur": "Battery khud andar se ageing kar rahi hai aur charge mein garmi paida kar rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the battery to cool down, as the manual's first instruction; do not force charge into a hot battery.",
+          "ur": "Manual ka pehla instruction hai battery ko thanda hone ka intezaar karein; garmi wali battery par zor se charge na dein."
+        },
+        {
+          "en": "Measure the battery temperature sensor resistance: the manual states it should be approximately 2000 Ohm at 20 to 25 C. If it is far from that, replace the sensor.",
+          "ur": "Battery temperature sensor ki resistance measure karein: manual ke mutabiq 20 se 25 C par taqreeban 2000 Ohm honi chahiye. Agar is se kaafi door ho to sensor badal dein."
+        },
+        {
+          "en": "Install a thermometer in the battery room and log peak temperature; if it regularly exceeds 25 C, add ventilation or move the bank to a cooler, shaded room.",
+          "ur": "Battery room mein thermometer lagayein aur peak temperature log karein; agar woh baar baar 25 C cross kare to ventilation badhayein ya bank ko thande, shadowed room mein shift karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This is a battery lifetime issue as much as a safety issue — repeated trips to F206 will end the battery far earlier than its rated cycle count.",
+        "ur": "Yeh battery ki lifetime ka masla bhi hai aur safety ka bhi — baar baar F206 aana battery ko rated cycles se kahin pehle khatam kar dega."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F208",
+      "aliases": [
+        "F208",
+        "BatVtgHi",
+        "W209",
+        "W210"
+      ],
+      "title": {
+        "en": "Battery voltage above target charge voltage (F208)",
+        "ur": "Battery voltage target charge voltage se upar (F208)"
+      },
+      "meaning": {
+        "en": "The battery voltage is higher than the target charge voltage. The manual groups the external-source and configuration corrective measures under this code.",
+        "ur": "Battery voltage target charge voltage se zyada hai. Manual is code ke neeche external source aur configuration ke corrective measures deta hai."
+      },
+      "causes": [
+        {
+          "en": "DC sources not correctly configured for the battery chemistry, so they charge to the wrong voltage.",
+          "ur": "DC sources battery chemistry ke liye theek se configure nahi hain, jis se woh galat voltage tak charge karte hain."
+        },
+        {
+          "en": "Some SMA inverters in the cluster not set to the stand-alone country data set, which the manual calls out explicitly.",
+          "ur": "Cluster mein kuch SMA inverters stand-alone country data set par set nahi hain, jise manual saaf likhta hai."
+        },
+        {
+          "en": "Battery not actually connected, so the DC sources are charging into nothing and the voltage is external.",
+          "ur": "Battery asal mein judi hi nahi hai, jis se DC sources kisi cheez ko charge kar rahe hain aur voltage external hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC sources and the battery, then measure the actual battery voltage directly at the battery terminals with a DC meter.",
+          "ur": "DC sources aur battery isolate karein, phir DC meter se battery terminals par seedha actual battery voltage measure karein."
+        },
+        {
+          "en": "Check every DC source's charge voltage setting against the battery manufacturer's permitted maximum and correct any that are too high.",
+          "ur": "Har DC source ka charge voltage setting battery manufacturer ke permitted maximum se check karein aur jo zyada ho use theek karein."
+        },
+        {
+          "en": "In an off-grid system, ensure all SMA inverters in the cluster are configured to the country data set for stand-alone operation, as the manual instructs.",
+          "ur": "Off-grid system mein ensure karein ke cluster ke sabhi SMA inverters stand-alone operation ke country data set par hain, jaise manual kehta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "W209 means the high battery voltage was NOT generated by the device itself, which is a strong hint that the voltage is external.",
+        "ur": "W209 ka matlab hai ke high battery voltage device ne khud paida nahi ki, jo strong nishani hai ke voltage external hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F213",
+      "aliases": [
+        "F213",
+        "BatVtgLow"
+      ],
+      "title": {
+        "en": "Battery undervoltage (F213)",
+        "ur": "Battery ka voltage bohat gir gaya (F213)"
+      },
+      "meaning": {
+        "en": "The battery voltage is too low. The unit has shut down on a depleted bank.",
+        "ur": "Battery voltage bohat kam hai. Unit khali ho chuke bank par band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Battery deeply discharged because loads exceeded supply for too long.",
+          "ur": "Battery gehrai se discharge ho gaya kyunke loads bohat der ke liye supply se zyada rahe."
+        },
+        {
+          "en": "Bank aged or undersized, so it cannot hold charge under the site's load.",
+          "ur": "Bank purana ya chhota hai, jis se woh site ke load ke neeche charge nahi rakh sakta."
+        },
+        {
+          "en": "A cell open-circuited, so the bank capacity has dropped without any voltage symptom at full charge.",
+          "ur": "Koi cell open ho gaya, jis se bank ki capacity girti hai aur full charge par koi voltage ka nishaan nahi milta."
+        },
+        {
+          "en": "No load-shedding contactor fitted, so DC loads keep draining the bank after it drops.",
+          "ur": "Koi load-shedding contactor nahi lagi, jis se voltage girne ke baad bhi DC loads bank ko drain karte rehte hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Charge the battery in emergency charge mode as the manual's first instruction, or use an external battery charger — do not repeatedly start the island and deepen the discharge.",
+          "ur": "Manual ke pehle instruction ke mutabiq battery ko emergency charge mode mein charge karein, ya external battery charger use karein — baar baar island start karke discharge aur ghera mat karein."
+        },
+        {
+          "en": "Ensure DC loads are shed via a load-shedding contactor when the state of charge is low, as the manual explicitly requires.",
+          "ur": "Ensure karein ke state of charge kam hone par DC loads load-shedding contactor ke zariye shed ho jayein, jaise manual saaf likhta hai."
+        },
+        {
+          "en": "After charging, measure each cell's voltage and specific gravity; a cell far below its neighbours must be replaced, not the whole bank.",
+          "ur": "Charge ke baad har cell ka voltage aur specific gravity measure karein; padosi cells se kaafi neeche wala cell badalna hai, poora bank nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "F716/F717/F718 (VBATMIN) are the measuring-range-below variant; use those when the reading has collapsed out of range rather than merely being low.",
+        "ur": "F716/F717/F718 (VBATMIN) measuring-range-below wale variant hain; jab reading range se bahar gir gayi ho sirf kam hone ke bajaye woh codes use karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F221",
+      "aliases": [
+        "F221",
+        "InvalidBatType"
+      ],
+      "title": {
+        "en": "External battery mgmt detected but not configured (F221)",
+        "ur": "External battery management detect hui magar configure nahi (F221)"
+      },
+      "meaning": {
+        "en": "An external battery management system is detected but was never configured, so the Sunny Island cannot use it.",
+        "ur": "External battery management system detect ho gayi magar configure hi nahi ki gayi, is liye Sunny Island usay use nahi kar sakti."
+      },
+      "causes": [
+        {
+          "en": "A lithium-ion battery with its own BMS fitted, but the cluster was commissioned without selecting external energy management.",
+          "ur": "Apni BMS ke saath lithium-ion battery lagi hui hai, magar cluster commission karte waqt external energy management select nahi ki gayi."
+        },
+        {
+          "en": "Battery swapped from a lead-acid system without reconfiguring the cluster.",
+          "ur": "Cluster reconfigure kiye baghair lead-acid system se battery badal di gayi."
+        },
+        {
+          "en": "A BMS is reporting on the SiCom bus that the master was not expecting to see.",
+          "ur": "SiCom bus par aik BMS report kar rahi hai jise master expect nahi kar raha tha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Start the QCG (Quick Configuration Guide) and reconfigure the system for external energy management, which is the manual's stated corrective measure.",
+          "ur": "QCG (Quick Configuration Guide) start karke system ko external energy management ke liye dobara configure karein — yehi manual ka bataya hua corrective measure hai."
+        },
+        {
+          "en": "Confirm with the battery manufacturer that the BMS is a model the Sunny Island supports and that its data cable is connected to the correct port.",
+          "ur": "Battery manufacturer se confirm karein ke BMS wohi model hai jo Sunny Island support karta hai aur uska data cable sahi port par judi hai."
+        },
+        {
+          "en": "If the system is genuinely lead-acid, disconnect the external BMS data cable and reconfigure, otherwise the event will persist.",
+          "ur": "Agar system sach mein lead-acid hai to external BMS ka data cable nikaal kar dobara configure karein, warna event barqarar rahega."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Distinguish from the XA/XW 9xx block, which are messages forwarded FROM the BMS rather than this configuration mismatch.",
+        "ur": "XA/XW 9xx block se farq karein, jo BMS se aane wale messages hain, is configuration mismatch se nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F314",
+      "aliases": [
+        "F314",
+        "ExtVtgLoss"
+      ],
+      "title": {
+        "en": "External voltage/frequency outside configured range (F314)",
+        "ur": "External voltage ya frequency configured range se bahar (F314)"
+      },
+      "meaning": {
+        "en": "The generator or utility grid voltage and/or frequency at the island's external connection is outside the configured range, so the island disconnects from it.",
+        "ur": "Island ke external connection par generator ya utility grid ka voltage aur/ya frequency configured range se bahar hai, is liye island us se disconnect ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Generator voltage regulator drifting, so the terminal voltage sits outside the configured window.",
+          "ur": "Generator ka voltage regulator drift kar raha hai, jis se terminal voltage configured window se bahar rehta hai."
+        },
+        {
+          "en": "Configured generator voltage/frequency thresholds too narrow for a small or overloaded generator.",
+          "ur": "Chhote ya overloaded generator ke liye configured voltage ya frequency thresholds bohat tang hain."
+        },
+        {
+          "en": "External grid genuinely outside limits, e.g. a weak or overloaded feeder.",
+          "ur": "External grid sach mein limits se bahar hai, maslan kamzor ya overloaded feeder."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Adjust the generator voltage and/or generator frequency, which the manual lists as the first corrective measure for a generator source.",
+          "ur": "Generator source ke liye manual ka pehla corrective measure hai: generator voltage aur/ya generator frequency adjust karein."
+        },
+        {
+          "en": "Observe and log measured values 134.02 ExtVtg and 134.04 ExtFrq during operation; these are the two parameters the manual tells you to watch.",
+          "ur": "Operation ke dauran measured values 134.02 ExtVtg aur 134.04 ExtFrq observe aur log karein; manual kehti hai ke yahi do parameters dekhein."
+        },
+        {
+          "en": "Adjust the generator voltage/frequency thresholds on the Sunny Island per the installation manual, then re-run the generator connection sequence.",
+          "ur": "Installation manual ke mutabiq Sunny Island par generator voltage ya frequency thresholds adjust karein, phir generator connection sequence dobara chalayein."
+        },
+        {
+          "en": "In a battery backup system where the source is the utility rather than a generator, contact SMA Service as the manual directs instead of changing thresholds.",
+          "ur": "Battery backup system mein jahan source generator ke bajaye utility hai wahan thresholds badalne ke bajaye manual ke mutabiq SMA Service se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "F314 is the fault-level external voltage event; W315-W321 are the warning-level low/high voltage and frequency variants with a phase suffix.",
+        "ur": "F314 fault-level external voltage event hai; W315-W321 warning-level low/high voltage aur frequency variants hain jinmein phase ka suffix hota hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "W355",
+      "aliases": [
+        "W355",
+        "PhsAngErr"
+      ],
+      "title": {
+        "en": "External source has wrong rotating magnetic field (W355)",
+        "ur": "External source ka rotating magnetic field ghalat (W355)"
+      },
+      "meaning": {
+        "en": "The assignment of the external source's line conductors to the Sunny Island AC2 connections does not produce a right-rotating magnetic field, i.e. the phase sequence is wrong.",
+        "ur": "External source ke line conductors ko Sunny Island ke AC2 connections par jo tarah se joda gaya hai us se right-rotating magnetic field nahi banta, yaani phase sequence ghalat hai."
+      },
+      "causes": [
+        {
+          "en": "Master, slave 1 and slave 2 connected to L1, L2, L3 in the wrong order.",
+          "ur": "Master, slave 1 aur slave 2 ko L1, L2, L3 se ghalat tarteeb par joda gaya hai."
+        },
+        {
+          "en": "Two phases transposed in the AC2 cable termination.",
+          "ur": "AC2 cable termination mein do phases aapas mein badal diye gaye hain."
+        },
+        {
+          "en": "Generator output leads to the island connected in the wrong phase order.",
+          "ur": "Generator ke output leads island par ghalat phase order mein jode gaye hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the AC sources and loads first; with power off, verify the phase assignment at every AC2 termination against the manual.",
+          "ur": "Pehle AC sources aur loads isolate karein; power off par har AC2 termination par phase assignment ko manual se verify karein."
+        },
+        {
+          "en": "Confirm the correct mapping explicitly: the manual states master to L1, slave 1 to L2, slave 2 to L3.",
+          "ur": "Sahi mapping saaf confirm karein: manual kehti hai master L1 par, slave 1 L2 par, slave 2 L3 par."
+        },
+        {
+          "en": "Verify with a phase-sequence meter or by measuring L-L voltage magnitude on each pair; on a correct sequence all pairs read similar and the island will accept the source.",
+          "ur": "Phase-sequence meter se verify karein, ya har jorre par L-L voltage magnitude measure karke; sahi sequence mein har jorre ka reading similar hota hai aur island source qubool karega."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "A classic field error on three-phase installations. Getting it wrong trips W331-W333 anti-islanding as well.",
+        "ur": "Teesre phase installations par yeh aam field error hai. Ghalat hua to W331-W333 anti-islanding bhi trip karte hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F366",
+      "aliases": [
+        "F366",
+        "HotAcBus",
+        "W383",
+        "W384"
+      ],
+      "title": {
+        "en": "AC voltage present while tie switch is open (F366)",
+        "ur": "Tie switch khula hone par bhi AC voltage maujood (F366)"
+      },
+      "meaning": {
+        "en": "Voltage is present on the AC bus at L1 (master) even though the tie switch is open, which the manual treats as a fault.",
+        "ur": "Tie switch khula hone ke bawajood L1 (master) par AC bus par voltage maujood hai, jise manual fault maanta hai."
+      },
+      "causes": [
+        {
+          "en": "External source still energising the AC bus through a parallel path.",
+          "ur": "External source kisi parallel raaste se AC bus ko abhi bhi energize kar raha hai."
+        },
+        {
+          "en": "Feedback from another Sunny Island in the cluster through the bypass switch or tie switch wiring.",
+          "ur": "Bypass switch ya tie switch wiring ke zariye cluster ke doosre Sunny Island se feedback."
+        },
+        {
+          "en": "Capacitive coupling or induced voltage on an unenergised bus, which the RCD/leakage path holds up.",
+          "ur": "Bina voltage ke bus par capacitive coupling ya induced voltage, jise RCD ya leakage path upar rakhta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC sources, loads and the battery from the island, then confirm the tie switch is genuinely open and mechanically secured.",
+          "ur": "Island se AC sources, loads aur battery isolate karein, phir confirm karein ke tie switch waqai khula hai aur mechanically secured hai."
+        },
+        {
+          "en": "With power off, verify the tie switch triggering and its wiring as the manual's first corrective measure, then check the feedback contact is correctly connected.",
+          "ur": "Power off par manual ke pehle corrective measure ke mutabiq tie switch ka triggering aur uski wiring verify karein, phir feedback contact ki sahi tarah se connection check karein."
+        },
+        {
+          "en": "Measure voltage at the AC bus with a high-impedance meter to distinguish a real back-feed from induced voltage; a real source holds several volts, induced voltage collapses when the meter is disconnected.",
+          "ur": "Asli back-feed aur induced voltage mein farq karne ke liye high-impedance meter se AC bus par voltage measure karein; asli source kai volts pakadta hai, induced voltage meter nikalte hi gir jata hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "F367 ExtCtcNotOpen is the companion 'tie switch does not open' fault — both point at the tie switch assembly and its feedback contact.",
+        "ur": "F367 ExtCtcNotOpen saathi fault hai 'tie switch nahi khulta' — dono tie switch assembly aur uske feedback contact ki taraf ishara karte hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F801",
+      "aliases": [
+        "F801",
+        "Box"
+      ],
+      "title": {
+        "en": "Multicluster-Box plausibility check failed (F801)",
+        "ur": "Multicluster-Box ka plausibility check fail (F801)"
+      },
+      "meaning": {
+        "en": "The plausibility check on the contactors inside the Multicluster-Box has failed, so the cluster switching hardware state is not trusted.",
+        "ur": "Multicluster-Box ke contactors ka plausibility check fail ho gaya, is liye cluster ki switching hardware state par bharosa nahi kiya jata."
+      },
+      "causes": [
+        {
+          "en": "A contactor in the Multicluster-Box welded or failed to release, so its feedback does not match the commanded state.",
+          "ur": "Multicluster-Box mein koi contactor weld ho gaya ya release nahi hua, jis se uska feedback commanded state se match nahi karta."
+        },
+        {
+          "en": "Contactors mechanically stuck or their auxiliary feedback contacts wired incorrectly.",
+          "ur": "Contactors mechanically atak gaye ya unke auxiliary feedback contacts ghalat tare se jode gaye hain."
+        },
+        {
+          "en": "Loose auxiliary contactor wiring in the box producing an intermittent, implausible reading.",
+          "ur": "Box mein auxiliary contactor wiring loose, jis se baar baar implausible reading aati hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the AC sources, loads and the battery from the Sunny Island and confirm the Multicluster-Box is dead before opening it.",
+          "ur": "Sunny Island se AC sources, loads aur battery isolate karein aur Multicluster-Box kholne se pehle confirm karein ke woh dead hai."
+        },
+        {
+          "en": "Visually and manually check each contactor in the box: does it pull in, does it latch, and does the auxiliary feedback contact change state when it does.",
+          "ur": "Box mein har contactor visually aur manually check karein: kya woh pull-in karta hai, latch karta hai, aur hone par uska auxiliary feedback contact state change karta hai."
+        },
+        {
+          "en": "With the box isolated, measure continuity through each main contact pair with the coil energised and de-energised; a contactor that never opens the main path must be replaced.",
+          "ur": "Box isolate kar ke coil on aur off dono states mein har main contact pair se continuity measure karein; jo contactor main path kabhi nahi khulta use badalna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "F806, F809, F815-F818 are the more specific Multicluster-Box faults (coding conflict, Q10 load-shedding contactor, Q5/Q7/Q9 contactors, phase missing) — check them together with this one.",
+        "ur": "F806, F809, F815-F818 zyada specific Multicluster-Box faults hain (coding conflict, Q10 load-shedding contactor, Q5/Q7/Q9 contactors, phase missing) — inhein is ke saath check karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    },
+    {
+      "code": "F931",
+      "aliases": [
+        "F931",
+        "XA12Bms",
+        "W947"
+      ],
+      "title": {
+        "en": "Internal error in battery management, via SiCom (F931)",
+        "ur": "Battery management mein internal error, SiCom ke zariye (F931)"
+      },
+      "meaning": {
+        "en": "An internal error in the battery management system has been forwarded to the Sunny Island over SiCom. The island cannot diagnose it; the battery management must.",
+        "ur": "Battery management system ka internal error SiCom ke zariye Sunny Island tak pohanchaya gaya hai. Island isay diagnose nahi kar sakta; battery management ko karna hoga."
+      },
+      "causes": [
+        {
+          "en": "Internal fault inside the lithium-ion battery BMS firmware.",
+          "ur": "Lithium-ion battery ke BMS firmware ka internal fault."
+        },
+        {
+          "en": "Cell monitoring unit reporting inconsistent cell voltages to the BMS.",
+          "ur": "Cell monitoring unit BMS ko inconsistent cell voltages bhej raha hai."
+        },
+        {
+          "en": "SiCom data cable intermittent, causing the BMS message to be decoded wrongly.",
+          "ur": "SiCom data cable intermittent, jis se BMS message galat decode hota hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Eliminate the cause of the error in the external battery management system using the battery manufacturer's documentation — this is the manual's own instruction for the whole XA block.",
+          "ur": "Battery manufacturer ki documentation istemal kar ke external battery management system mein error ki wajah door karein — yehi poore XA block ke liye manual ka apna instruction hai."
+        },
+        {
+          "en": "Check the SiCom data cable between battery and Sunny Island: seating, shielding, and continuity, since a marginal cable can produce phantom BMS errors.",
+          "ur": "Battery aur Sunny Island ke darmiyan SiCom data cable check karein: seating, shielding aur continuity, kyunke marginal cable se khauf BMS errors bante hain."
+        },
+        {
+          "en": "Contact the battery manufacturer for the BMS event log; the XA code maps 1:1 to their error list, so their log is the only useful evidence.",
+          "ur": "Battery manufacturer se BMS event log maangein; XA code un ki error list se 1:1 map hota hai, is liye un ka log hi useful evidence hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The XA block (920-935) and the XW block (936-951) are mirrored pairs: XA = error level, XW = warning level for the same underlying battery condition. Codes 920-928 and 935 are documented; 933 and 934 are not in the manual.",
+        "ur": "XA block (920-935) aur XW block (936-951) aapas mein mirror hain: XA = error level, XW = warning level usi battery condition ka. Codes 920-928 aur 935 documented hain; 933 aur 934 manual mein nahi hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND 3.0M / 4.4M / 6.0H / 8.0H (SI30M-44M-60H-80H-BE-en-33W), section 10.5 Logged Warning Messages and Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SI30M-44M-60H-80H-BE-en-33W.pdf"
+      }
+    }
+  ]
+}

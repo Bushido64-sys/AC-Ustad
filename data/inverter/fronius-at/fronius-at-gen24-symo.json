@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "brandId": "fronius-at",
+  "series": {
+    "id": "fronius-at-gen24-symo",
+    "name": "GEN24 Symo 6-12 kW Plus / SC (status code table)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*Symo GEN24*",
+      "*Symo GEN24 Plus*",
+      "*Symo GEN24 SC*"
+    ],
+    "notes": "Three-phase GEN24 ('Symo') 6-10 kW Plus and 6-12 kW Plus SC. Manual rev. 033 (manual 42,0426,0315). The manual states status codes are shown in the user interface under System > Event Log, in the user menu under Notifications, and in Fronius Solar.web. Only 1030 is tabulated in this manual's status code chapter; the rest of the GEN24 state-code set is in SERIES 1 and SERIES 2. Fronius adds for this model line that a triggered surge protection device also switches the inverter off and produces 1030."
+  },
+  "codes": [
+    {
+      "code": "1030",
+      "aliases": [
+        "1030",
+        "WSD Open"
+      ],
+      "title": {
+        "en": "WSD Open (1030) - Symo GEN24",
+        "ur": "WSD khul gaya (1030) - Symo GEN24"
+      },
+      "meaning": {
+        "en": "The wired shutdown chain is open, so the Symo GEN24 has shut down. Operating LED flashes red, and the SPD mechanical indicator turns from green to red if the surge protection device caused it.",
+        "ur": "Wired shutdown chain khuli hai, is liye Symo GEN24 band ho gaya. Operating LED laal flash karta hai, aur agar surge protection device ne cause kiya to SPD ka mechanical indicator hara se laal ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "A device in the WSD chain has interrupted the signal line, most commonly a surge protection device (SPD) that has tripped.",
+          "ur": "WSD chain ka koi device signal line tod raha hai, aam tor par koi surge protection device (SPD) jo trigger ho chuka hai."
+        },
+        {
+          "en": "The bypass installed ex works has been removed and no trigger device has been installed instead.",
+          "ur": "Factory se lagi hui bypass hata di gayi hai aur us ki jagah koi trigger device install nahi kiya gaya."
+        },
+        {
+          "en": "The 2-pin signal cable of the surge protection device is interrupted or damaged.",
+          "ur": "Surge protection device ka 2-pin signal cable kata hua ya damaged hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC first, then read the SPD mechanical indicator on the surge protection device - green means healthy, red means it has tripped and needs replacing.",
+          "ur": "Pehle AC aur DC isolate karein, phir surge protection device ka SPD mechanical indicator padhein - hara matlab healthy, laal matlab trigger hua hai aur badalna hai."
+        },
+        {
+          "en": "If the SPD has tripped, Fronius states the inverter must be repaired by an authorised specialist company; SPD work is reserved for Fronius-trained service personnel.",
+          "ur": "Agar SPD trigger hua hai to Fronius kehta hai inverter ki repair authorised specialist company se karwayein; SPD ka kaam Fronius-trained service personnel ke liye hai."
+        },
+        {
+          "en": "If no emergency stop / fire brigade switch is installed, install the ex-works bypass or a proper trigger device on the WSD connector, and set the WSD switch to position 1 (WSD primary device).",
+          "ur": "Agar emergency stop / fire brigade switch installed nahi hai to WSD connector par factory bypass ya proper trigger device lagayein, aur WSD switch ko position 1 (WSD primary device) par set karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Operating LED flashes red; SPD mechanical indicator green -> red if SPD tripped",
+      "confidence": "high",
+      "notes": {
+        "en": "Same fault as SERIES 2 (1030) and SERIES 3 (1030), but tabulated in the Symo GEN24 model-line manual. The three tables are kept separate per model line and are not merged. On this three-phase model line a tripped SPD also switches the inverter off independently of the WSD function.",
+        "ur": "SERIES 2 (1030) aur SERIES 3 (1030) se wahi fault, lekin Symo GEN24 model-line manual mein tabulated. Teenon tables model line ke mutabiq alag rakhi gayi hain aur merge nahi hui. Is three-phase model line par tripped SPD WSD function se alag bhi inverter band kar deta hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    }
+  ]
+}

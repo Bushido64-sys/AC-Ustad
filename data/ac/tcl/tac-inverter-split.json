@@ -1,0 +1,2910 @@
+{
+  "schemaVersion": 1,
+  "brandId": "tcl",
+  "series": {
+    "id": "tac-inverter-split",
+    "name": "TAC inverter split (XA81I / FCI / ERA YA11I service manuals)",
+    "category": "ac",
+    "unitType": "split",
+    "modelPatterns": [
+      "*TAC*",
+      "*XA81*",
+      "*YA11*",
+      "*CHSD*",
+      "*CSD*",
+      "*MIRACLE*",
+      "*ELITE*",
+      "*T-PRO*",
+      "*SAVEIN*",
+      "*T5*"
+    ],
+    "notes": "DC inverter hi-wall failure codes from TAC-09/12/18CSD/XA81I + TAC-09CHSD/FCI + ERA YA11I service manuals, corroborated by manua.ls FAQ and acerrorcode.com. Indoor RUN/TIMER blink + outdoor wink-time 1–17 map in notes/blinkPattern."
+  },
+  "codes": [
+    {
+      "code": "E0",
+      "aliases": [
+        "E0"
+      ],
+      "title": {
+        "en": "Indoor–outdoor communication failure",
+        "ur": "Indoor–outdoor communication ki kharabi"
+      },
+      "meaning": {
+        "en": "Wiring or signal between indoor and outdoor unit is missing or abnormal; unit locks out.",
+        "ur": "Indoor aur outdoor unit ke darmiyan wiring ya signal ghayb ya ghair mamuli hai; unit lock ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "IDU–ODU wire open or reversed",
+          "ur": "IDU–ODU wire open ho ya ulti lagi ho"
+        },
+        {
+          "en": "Outdoor board dead or no 220 V from IDU terminal",
+          "ur": "Outdoor board band ho ya IDU terminal se 220 V na aa raha ho"
+        },
+        {
+          "en": "Communication circuit / optocoupler fault on PCB",
+          "ur": "PCB par communication circuit/optocoupler kharab ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check L/N/1 wiring and earth between units",
+          "ur": "Dono units ke darmiyan L/N/1 aur earth wiring check karein"
+        },
+        {
+          "en": "Verify 220 V at ODU terminal and ODU PCB LED5 behaviour",
+          "ur": "ODU terminal par 220 V aur ODU PCB ke LED5 ka behaviour verify karein"
+        },
+        {
+          "en": "Replace IDU or ODU PCB per flow chart",
+          "ur": "Flow chart ke mutabiq IDU ya ODU PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "XA81I flow chart p35 distinguishes LED5 ON/flash to decide IDU vs ODU PCB. Per-code attribution: service_manual.",
+        "ur": "XA81I flow chart p35 par LED5 ON/flash dekh kar IDU ya ODU PCB ka faisla hota hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Indoor: RUN+TIMER both winking; outdoor LED blink n=7"
+    },
+    {
+      "code": "EC",
+      "aliases": [
+        "EC",
+        "E-C"
+      ],
+      "title": {
+        "en": "Outdoor communication / power-board–IPM link failure",
+        "ur": "Outdoor communication / power board–IPM link ki kharabi"
+      },
+      "meaning": {
+        "en": "Outdoor unit reports a communication fault (outdoor side), separate from E0 indoor–outdoor link.",
+        "ur": "Outdoor unit communication fault (outdoor side) batata hai, jo E0 indoor–outdoor link se alag hai."
+      },
+      "causes": [
+        {
+          "en": "Broken link between outdoor power board and inverter/IPM board",
+          "ur": "Outdoor power board aur inverter/IPM board ka link toot jaye"
+        },
+        {
+          "en": "Outdoor communication wiring open",
+          "ur": "Outdoor communication wiring open ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Inspect outdoor board-to-board connectors and wiring",
+          "ur": "Outdoor board-to-board connectors aur wiring check karein"
+        },
+        {
+          "en": "Replace outdoor PCB if link stays dead",
+          "ur": "Link band hi rahe to outdoor PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "EC in ERA/TPH11/U-MATCH tables = outdoor communication failure. FMA troubleshooting 8.3.11 phrases EC as power-module↔IPM signal fault. XA81I §3.1 itself lists E0/Eb but EC appears across ERA/FCI/U-MATCH tables for the same family. Per-code attribution: service_manual.",
+        "ur": "ERA/TPH11/U-MATCH tables mein EC = outdoor communication kharab hona. FMA troubleshooting 8.3.11 mein EC ko power-module↔IPM signal fault kaha hai. XA81I §3.1 mein sirf E0/Eb hain, lekin ERA/FCI/U-MATCH tables mein EC ek hi family ke liye milta hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Indoor: RUN+TIMER both winking; outdoor LED blink n=15"
+    },
+    {
+      "code": "E1",
+      "aliases": [
+        "E1"
+      ],
+      "title": {
+        "en": "Indoor room temperature sensor (IRT/RT) failure",
+        "ur": "Indoor kamre ke temperature sensor (IRT/RT) ki kharabi"
+      },
+      "meaning": {
+        "en": "Room-temperature thermistor open or short; indoor sensor or PCB at fault.",
+        "ur": "Room-temperature thermistor khula ya short hai; indoor sensor ya PCB kharab ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Sensor connector loose",
+          "ur": "Sensor ka connector dheela ho jaye"
+        },
+        {
+          "en": "Thermistor open/short circuit",
+          "ur": "Thermistor open/short circuit ho jaye"
+        },
+        {
+          "en": "Indoor PCB input stage fault",
+          "ur": "Indoor PCB ka input stage kharab ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Re-seat sensor plug",
+          "ur": "Sensor ka plug dobara lagayein"
+        },
+        {
+          "en": "Measure resistance vs temperature chart",
+          "ur": "Temperature chart se resistance naapein"
+        },
+        {
+          "en": "Replace sensor or indoor PCB",
+          "ur": "Sensor ya indoor PCB badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "citra-teknik maps E1 to outdoor sensor — conflicts with service manuals; manual mapping used. Per-code attribution: service_manual.",
+        "ur": "citra-teknik E1 ko outdoor sensor batata hai — service manuals se conflict hai; manual wali mapping use ki gayi hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 1 time/8 s; outdoor LED n=9 family (sensor group)"
+    },
+    {
+      "code": "E2",
+      "aliases": [
+        "E2"
+      ],
+      "title": {
+        "en": "Indoor coil temperature sensor (IPT) failure",
+        "ur": "Indoor coil temperature sensor (IPT) ki kharabi"
+      },
+      "meaning": {
+        "en": "Indoor heat-exchanger pipe sensor open/short.",
+        "ur": "Indoor heat-exchanger pipe sensor khula/short hai."
+      },
+      "causes": [
+        {
+          "en": "Loose connector on evaporator sensor",
+          "ur": "Evaporator sensor ka connector dheela ho jaye"
+        },
+        {
+          "en": "Sensor open or short",
+          "ur": "Sensor open ho ya short ho jaye"
+        },
+        {
+          "en": "Indoor PCB fault",
+          "ur": "Indoor PCB kharab ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reconnect and re-test",
+          "ur": "Dobara jor kar dobara test karein"
+        },
+        {
+          "en": "Replace thermistor if out of spec",
+          "ur": "Spec se bahar ho to thermistor badlein"
+        },
+        {
+          "en": "Replace indoor PCB if inputs still wrong",
+          "ur": "Inputs ab bhi ghalat hon to indoor PCB badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 2 times/8 s"
+    },
+    {
+      "code": "E3",
+      "aliases": [
+        "E3"
+      ],
+      "title": {
+        "en": "Outdoor coil temperature sensor (OPT) failure",
+        "ur": "Outdoor coil temperature sensor (OPT) ki kharabi"
+      },
+      "meaning": {
+        "en": "Outdoor condenser pipe sensor open or short; IDU and ODU switch off.",
+        "ur": "Outdoor condenser pipe sensor khula ya short ho; IDU aur ODU dono band ho jate hain."
+      },
+      "causes": [
+        {
+          "en": "Sensor unplugged or wire chafed",
+          "ur": "Sensor nikal jaye ya wire ghis jaye"
+        },
+        {
+          "en": "Thermistor short/open",
+          "ur": "Thermistor short/open ho jaye"
+        },
+        {
+          "en": "Outdoor PCB fault",
+          "ur": "Outdoor PCB kharab ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check plug and cable",
+          "ur": "Plug aur cable check karein"
+        },
+        {
+          "en": "Multimeter resistance check against chart",
+          "ur": "Multimeter se chart ke mutabiq resistance check karein"
+        },
+        {
+          "en": "Replace sensor or ODU PCB",
+          "ur": "Sensor ya ODU PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "manua.ls TAC-12CSD FAQ gives same checks. Per-code attribution: service_manual.",
+        "ur": "manua.ls TAC-12CSD FAQ mein bhi same checks diye hain. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 3 times/8 s; outdoor LED n=10"
+    },
+    {
+      "code": "E4",
+      "aliases": [
+        "E4"
+      ],
+      "title": {
+        "en": "Cooling system abnormal (low gas / pressure)",
+        "ur": "Cooling system theek na chale (kam gas / pressure)"
+      },
+      "meaning": {
+        "en": "System pressure out of range — typically undercharged or valve issue; pressure check required.",
+        "ur": "System pressure range se bahar — aam tor par gas kam ya valve ki kharabi; pressure check zaroori."
+      },
+      "causes": [
+        {
+          "en": "Refrigerant undercharge or leak",
+          "ur": "Refrigerant kam charge ho ya leak ho jaye"
+        },
+        {
+          "en": "2-way/3-way valve not fully open",
+          "ur": "2-way/3-way valve poori tarah khula nahi"
+        },
+        {
+          "en": "Blocked filter/drier",
+          "ur": "Filter/drier block ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure pressure (cool 0.8–1.3 MPa",
+          "ur": "Cooling ke liye pressure naapein (0.8–1.3 MPa"
+        },
+        {
+          "en": "heat 2.0–3.6 MPa per manual)",
+          "ur": "Heating mein 2.0–3.6 MPa (manual ke mutabiq)"
+        },
+        {
+          "en": "Leak-test and recharge",
+          "ur": "Leak test kar ke dobara gas charge karein"
+        },
+        {
+          "en": "Fully open stop valves",
+          "ur": "Stop valves poori tarah kholein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "XA81I §3.2.3 flow starts with pressure check. Per-code attribution: service_manual.",
+        "ur": "XA81I §3.2.3 flow pressure check se shuru hota hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 4 times/8 s"
+    },
+    {
+      "code": "E5",
+      "aliases": [
+        "E5"
+      ],
+      "title": {
+        "en": "Indoor/outdoor model mismatch",
+        "ur": "Indoor aur outdoor model mein mismatch"
+      },
+      "meaning": {
+        "en": "Paired IDU/ODU models or firmware configuration do not match.",
+        "ur": "Jorre gaye IDU/ODU ke model ya firmware configuration match nahi karte."
+      },
+      "causes": [
+        {
+          "en": "Wrong ODU paired at install",
+          "ur": "Fitting ke waqt ghalat ODU pair ho jaye"
+        },
+        {
+          "en": "PCB replaced with non-matching firmware",
+          "ur": "PCB alag firmware ke sath badal diya gaya ho"
+        },
+        {
+          "en": "Production-line configuration error",
+          "ur": "Production-line configuration ghalat ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify model compatibility list",
+          "ur": "Model compatibility list verify karein"
+        },
+        {
+          "en": "Reflash/replace board with correct type",
+          "ur": "Board ko sahi type se reflash karein ya badal dein"
+        },
+        {
+          "en": "Re-run pairing",
+          "ur": "Pairing dobara karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "TAC-07CS legacy manual shows E5 as outdoor protection function — different meaning on fixed-speed units. Per-code attribution: service_manual.",
+        "ur": "TAC-07CS legacy manual mein E5 outdoor protection function hai — fixed-speed units par meaning alag hoti hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 5 times/8 s"
+    },
+    {
+      "code": "E6",
+      "aliases": [
+        "E6"
+      ],
+      "title": {
+        "en": "Indoor fan motor (PG/DC) failure",
+        "ur": "Indoor fan motor (PG/DC) ki kharabi"
+      },
+      "meaning": {
+        "en": "Indoor fan does not run or feedback abnormal.",
+        "ur": "Indoor fan nahi chalta ya feedback ghair mamuli hai."
+      },
+      "causes": [
+        {
+          "en": "Fan motor winding open/short",
+          "ur": "Fan motor winding open ya short ho jaye"
+        },
+        {
+          "en": "Connector to PCB loose",
+          "ur": "PCB tak ka connector dheela ho jaye"
+        },
+        {
+          "en": "Blade jammed",
+          "ur": "Blade atak jaye"
+        },
+        {
+          "en": "Indoor PCB driver fault",
+          "ur": "Indoor PCB driver kharab ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Spin blade by hand with power off — free rotation required",
+          "ur": "Power band kar ke blade ko haath se ghoomayein — azaadi se ghoomna chahiye"
+        },
+        {
+          "en": "Check motor resistance and PCB supply",
+          "ur": "Motor ka resistance aur PCB ki supply check karein"
+        },
+        {
+          "en": "Replace motor or PCB",
+          "ur": "Motor ya PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "manua.ls FAQ: same checks; TPH11 multi-split reuses E6 for indoor VANE motor — do not cross-apply. Per-code attribution: service_manual.",
+        "ur": "manua.ls FAQ mein same checks hain; TPH11 multi-split E6 ko indoor VANE motor par dobara use karta hai — isay doosri series par na lagayein. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 6 times/8 s"
+    },
+    {
+      "code": "E7",
+      "aliases": [
+        "E7"
+      ],
+      "title": {
+        "en": "Outdoor ambient temperature sensor failure",
+        "ur": "Outdoor ambient temperature sensor ki kharabi"
+      },
+      "meaning": {
+        "en": "Outdoor air-temperature sensor open/short.",
+        "ur": "Outdoor air-temperature sensor khula/short hai."
+      },
+      "causes": [
+        {
+          "en": "Sensor wire damaged by weather",
+          "ur": "Mausam ki wajah se sensor wire kharab ho jaye"
+        },
+        {
+          "en": "Connector loose",
+          "ur": "Connector dheela ho jaye"
+        },
+        {
+          "en": "PCB input fault",
+          "ur": "PCB ka input kharab ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Inspect and re-seat sensor",
+          "ur": "Sensor check kar ke dobara lagayein"
+        },
+        {
+          "en": "Replace thermistor",
+          "ur": "Thermistor badlein"
+        },
+        {
+          "en": "Replace ODU PCB if reading persists",
+          "ur": "Reading barqarar rahe to ODU PCB badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 7 times/8 s; outdoor LED n=9"
+    },
+    {
+      "code": "E8",
+      "aliases": [
+        "E8"
+      ],
+      "title": {
+        "en": "Outdoor discharge temperature sensor failure",
+        "ur": "Outdoor discharge temperature sensor ki kharabi"
+      },
+      "meaning": {
+        "en": "Compressor discharge (exhaust) sensor open/short.",
+        "ur": "Compressor discharge (exhaust) sensor khula/short hai."
+      },
+      "causes": [
+        {
+          "en": "Sensor at compressor pipe loose or burned",
+          "ur": "Compressor pipe par sensor dheela ho ya jal jaye"
+        },
+        {
+          "en": "Wiring open",
+          "ur": "Wiring open ho jaye"
+        },
+        {
+          "en": "ODU PCB fault",
+          "ur": "ODU PCB kharab ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Re-seat sensor on discharge pipe",
+          "ur": "Discharge pipe par sensor dobara theek se lagayein"
+        },
+        {
+          "en": "Verify resistance curve",
+          "ur": "Resistance curve verify karein"
+        },
+        {
+          "en": "Replace sensor or ODU PCB",
+          "ur": "Sensor ya ODU PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 8 times/8 s; outdoor LED n=11"
+    },
+    {
+      "code": "E9",
+      "aliases": [
+        "E9"
+      ],
+      "title": {
+        "en": "IPM / compressor drive fault (latched)",
+        "ur": "IPM / compressor drive ki kharabi (latched)"
+      },
+      "meaning": {
+        "en": "After six consecutive P0 IPM-protection stops, E9 latches; unit will not restart until ON/OFF pressed.",
+        "ur": "6 bar lagatar P0 IPM-protection stops ke baad E9 latch ho jata hai; ON/OFF dabaya baghair unit dobara start nahi hota."
+      },
+      "causes": [
+        {
+          "en": "Repeated IPM overheat/overcurrent",
+          "ur": "IPM baar baar overheat/overcurrent se trip ho jaye"
+        },
+        {
+          "en": "Bad compressor or wiring to U/V/W",
+          "ur": "Compressor kharab ho ya U/V/W ki wiring theek na ho"
+        },
+        {
+          "en": "IPM not flat on heatsink / missing thermal paste",
+          "ur": "IPM heatsink par theek se baitha na ho ya thermal paste na ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power-cycle and check compressor connection",
+          "ur": "Power-cycle karein aur compressor ka connection check karein"
+        },
+        {
+          "en": "Reseat IPM on fins with even silicone",
+          "ur": "Fins par IPM evenly silicone laga kar dobara lagayein"
+        },
+        {
+          "en": "Replace inverter or outdoor PCB",
+          "ur": "Inverter ya outdoor PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "§3.2.6 XA81I. Per-code attribution: service_manual.",
+        "ur": "§3.2.6 XA81I ke mutabiq. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 9 times/8 s; outdoor LED n=14"
+    },
+    {
+      "code": "EA",
+      "aliases": [
+        "EA"
+      ],
+      "title": {
+        "en": "Outdoor current-sensor circuit failure",
+        "ur": "Outdoor current-sensor circuit ki kharabi"
+      },
+      "meaning": {
+        "en": "Outdoor unit cannot sample compressor/board current correctly.",
+        "ur": "Outdoor unit compressor/board current ko theek tareeqe se sample nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Current transformer/sensor fault",
+          "ur": "Current transformer/sensor kharab ho"
+        },
+        {
+          "en": "Outdoor PCB measurement circuit failed",
+          "ur": "Outdoor PCB ki measurement circuit kharab ho jaye"
+        },
+        {
+          "en": "Wiring issue around compressor",
+          "ur": "Compressor ke around wiring mein masla ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check sensor circuit on ODU PCB",
+          "ur": "ODU PCB par sensor circuit check karein"
+        },
+        {
+          "en": "Replace outdoor PCB if sampling stays wrong",
+          "ur": "Sampling ghalat hi rahe to outdoor PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 11 times/8 s; outdoor LED n=13"
+    },
+    {
+      "code": "Eb",
+      "aliases": [
+        "Eb"
+      ],
+      "title": {
+        "en": "Indoor main-PCB ↔ display-board communication failure",
+        "ur": "Indoor main-PCB aur display-board ki communication kharab"
+      },
+      "meaning": {
+        "en": "Indoor controller cannot talk to its display/keypad board.",
+        "ur": "Indoor controller apni display/keypad board se baat nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Display ribbon/connector loose",
+          "ur": "Display ribbon/connector dheela ho jaye"
+        },
+        {
+          "en": "Display board dead",
+          "ur": "Display board bilkul band ho jaye"
+        },
+        {
+          "en": "Indoor main PCB fault",
+          "ur": "Indoor main PCB kharab ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off at the breaker for a few minutes before touching the display ribbon.",
+          "ur": "Display ribbon ko haath lagane se pehle breaker se kuch minute ke liye power band karein."
+        },
+        {
+          "en": "Open the display panel, re-seat the ribbon/connector and check for bent or oxidized pins; the connector should sit square and firm.",
+          "ur": "Display panel khol kar ribbon/connector dobara lagayein aur tedhe ya zang lage pins check karein; connector seedha aur mazboot baith jaye."
+        },
+        {
+          "en": "If the code stays, swap in a known-good display board; if the fault follows the board, replace the display board, otherwise replace the indoor main PCB.",
+          "ur": "Code aaye to display board ko kisi chalte hue board se badal kar dekhein; masla board ke sath chala jaye to display board badlein, warna indoor main PCB badlein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Listed in XA81I and U-MATCH tables; not present in ERA YA11I list. Per-code attribution: service_manual.",
+        "ur": "XA81I aur U-MATCH tables mein maujood hai; ERA YA11I list mein nahi hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Indoor IDU failure group (XA81I table remark: IDU failure)"
+    },
+    {
+      "code": "EE",
+      "aliases": [
+        "EE"
+      ],
+      "title": {
+        "en": "Outdoor EEPROM failure",
+        "ur": "Outdoor EEPROM ki kharabi"
+      },
+      "meaning": {
+        "en": "Parameter memory on outdoor board unreadable/corrupt.",
+        "ur": "Outdoor board ki parameter memory parhi nahi ja sakti."
+      },
+      "causes": [
+        {
+          "en": "EEPROM chip failed",
+          "ur": "EEPROM chip kharab ho jaye"
+        },
+        {
+          "en": "Corrupted parameters after power surge",
+          "ur": "Power surge ke baad parameters kharab ho jaye"
+        },
+        {
+          "en": "PCB fault",
+          "ur": "PCB kharab ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off power and pull the mains plug before opening any board.",
+          "ur": "Koi bhi board kholne se pehle power band kar ke mains plug nikalein."
+        },
+        {
+          "en": "Power-cycle the unit first; if the code clears, back up the model parameters so a later surge cannot corrupt them again.",
+          "ur": "Pehle unit ka power-cycle karein; code clear ho jaye to model parameters ka backup le lein taake baad mein surge se phir kharab na hon."
+        },
+        {
+          "en": "Re-flash the EEPROM with the correct file, or replace the outdoor board if parameters keep resetting, then restore the model parameters.",
+          "ur": "EEPROM ko sahi file se re-flash karein, ya parameters reset hote rahein to outdoor board badlein, phir model parameters wapas set karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "FMA table shows two EE rows: indoor EEPROM fault and outdoor EEPROM fault. Per-code attribution: service_manual.",
+        "ur": "FMA table mein do EE rows hain: indoor EEPROM fault aur outdoor EEPROM fault. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 12 times/8 s"
+    },
+    {
+      "code": "EF",
+      "aliases": [
+        "EF"
+      ],
+      "title": {
+        "en": "Outdoor DC fan motor failure",
+        "ur": "Outdoor DC fan motor ki kharabi"
+      },
+      "meaning": {
+        "en": "Outdoor fan motor stalled or no feedback.",
+        "ur": "Outdoor fan motor atak gaya hai ya feedback nahi."
+      },
+      "causes": [
+        {
+          "en": "Fan blade jammed or debris",
+          "ur": "Fan blade jam jaye ya gandah phans jaye"
+        },
+        {
+          "en": "Motor winding open",
+          "ur": "Motor winding open ho jaye"
+        },
+        {
+          "en": "Connector/PCB driver fault",
+          "ur": "Connector ya PCB driver kharab ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and spin blade freely",
+          "ur": "Power band kar ke blade haath se ghoomayein"
+        },
+        {
+          "en": "Reconnect motor plug",
+          "ur": "Motor ka plug dobara jor dein"
+        },
+        {
+          "en": "Replace DC fan motor or ODU PCB",
+          "ur": "DC fan motor ya ODU PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "§3.2.7 XA81I; TPH11 reuses EF for outdoor VANE motor. Per-code attribution: service_manual.",
+        "ur": "§3.2.7 XA81I; TPH11 EF ko outdoor VANE motor par dobara use karta hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 10 times/8 s; outdoor LED n=16"
+    },
+    {
+      "code": "EU",
+      "aliases": [
+        "EU"
+      ],
+      "title": {
+        "en": "Outdoor voltage-sensor circuit abnormal",
+        "ur": "Outdoor voltage-sensor circuit abnormal hai"
+      },
+      "meaning": {
+        "en": "Voltage sampling on outdoor board invalid (e.g. effective value <50 V for 3 s after relay on).",
+        "ur": "Outdoor board par voltage sampling invalid hai (misal: relay on hone ke 3 second baad effective value 50 V se kam)."
+      },
+      "causes": [
+        {
+          "en": "Rectifier/sense network on ODU PCB failed",
+          "ur": "ODU PCB ka rectifier/sense network kharab ho jaye"
+        },
+        {
+          "en": "Mains present but sense path open",
+          "ur": "Mains aa rahe hon lekin sense path open ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure L/N at ODU terminal",
+          "ur": "ODU terminal par L/N naap lein"
+        },
+        {
+          "en": "Replace outdoor PCB if voltage is actually normal",
+          "ur": "Voltage meter par theek parha ho to outdoor PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "§3.2.8 XA81I threshold <50 V for 3 s. Per-code attribution: service_manual.",
+        "ur": "§3.2.8 XA81I ka threshold 3 second ke liye <50 V hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 14 times/8 s; outdoor LED n=12"
+    },
+    {
+      "code": "EP",
+      "aliases": [
+        "EP"
+      ],
+      "title": {
+        "en": "Compressor top (temp-switch) fault",
+        "ur": "Compressor ke upar (temp-switch) ki kharabi"
+      },
+      "meaning": {
+        "en": "Thermal switch on compressor top opened, or its sensor circuit failed / high-low pressure protection on some series.",
+        "ur": "Compressor ke upar thermal switch khul gaya, ya uska sensor circuit kharab ho gaya / kuch series par high-low pressure protection."
+      },
+      "causes": [
+        {
+          "en": "Compressor overheated",
+          "ur": "Compressor overheat ho jaye"
+        },
+        {
+          "en": "Open temp-switch circuit",
+          "ur": "Temp-switch circuit open ho jaye"
+        },
+        {
+          "en": "(Multi-split) high/low pressure trip",
+          "ur": "Multi-split par high/low pressure ka trip"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Let compressor cool and re-test switch continuity",
+          "ur": "Compressor ko thanda hone dein aur switch ki continuity dobara check karein"
+        },
+        {
+          "en": "Add gas / check pressures if pressure-related",
+          "ur": "Pressure ka masla ho to gas add karein aur pressure check karein"
+        },
+        {
+          "en": "Replace switch/sensor or board",
+          "ur": "Switch/sensor ya board badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "XA81I = temp switch on compressor top; TPH11 multi-split maps EP to high/low pressure protection. Per-code attribution: service_manual.",
+        "ur": "XA81I mein EP = compressor top ka temp switch; TPH11 multi-split mein EP high/low pressure protection hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "RUN LED 13 times/8 s; outdoor LED n=8"
+    },
+    {
+      "code": "EH",
+      "aliases": [
+        "EH"
+      ],
+      "title": {
+        "en": "Suction / gas-return pipe temperature sensor fault",
+        "ur": "Suction/gas-return pipe ka temperature sensor kharab"
+      },
+      "meaning": {
+        "en": "Suction (gas-return) pipe sensor open/short on series that list EH.",
+        "ur": "Suction (gas-return) pipe sensor khula/short hai (EH wali series par)."
+      },
+      "causes": [
+        {
+          "en": "Sensor connector loose",
+          "ur": "Sensor ka connector dheela ho jaye"
+        },
+        {
+          "en": "Thermistor open/short",
+          "ur": "Thermistor open ya short ho jaye"
+        },
+        {
+          "en": "Board input fault",
+          "ur": "Board ka input kharab ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off at the breaker before accessing the pipe sensor.",
+          "ur": "Pipe sensor tak pahunchne se pehle breaker se power band karein."
+        },
+        {
+          "en": "Re-seat the sensor connector and inspect the wire along the suction pipe for damage; a tight connector should restore a steady reading.",
+          "ur": "Sensor connector dobara lagayein aur suction pipe ke sath lagi wire ko damage ke liye dekhein; mazboot connector lagne par reading theek ho jani chahiye."
+        },
+        {
+          "en": "Measure the thermistor against the manual chart and replace it if it is open or short; if the reading stays wrong, replace the board input.",
+          "ur": "Manual ke chart se thermistor naapein, open/short ho to badlein; reading ghalat hi rahe to board ka input badlein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Present in ERA-era/acerrorcode/nejlepsinapat lists and FMA/U-MATCH/TPH11 tables; omitted from XA81I §3.1. Per-code attribution: technician_site.",
+        "ur": "ERA-era/acerrorcode/nejlepsinapat lists aur FMA/U-MATCH/TPH11 tables mein maujood hai; XA81I §3.1 mein shamil nahi hai. Har code ka source technician_site hai."
+      },
+      "blinkPattern": "Not in XA81I LED map; shown on indoor display where supported"
+    },
+    {
+      "code": "CL",
+      "aliases": [
+        "CL"
+      ],
+      "title": {
+        "en": "Clean filter reminder (500 h)",
+        "ur": "Filter cleaning reminder (500 h)"
+      },
+      "meaning": {
+        "en": "After 500 h cumulative runtime the controller flags the filter as dirty — not a hardware fault.",
+        "ur": "500 ghante ke baad controller filter ko ganda batati hai — ye hardware kharabi nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Filter dirty from normal use",
+          "ur": "Rozana use se filter ganda ho jaye"
+        },
+        {
+          "en": "Unit reached 500 h counter",
+          "ur": "Unit ka 500 h counter poora ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean air filter",
+          "ur": "Air filter saaf karein"
+        },
+        {
+          "en": "Power off then on to clear reminder",
+          "ur": "Pehle power off phir on karein taake reminder clear ho"
+        }
+      ],
+      "severity": "info",
+      "display": "indoor",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "ERA YA11I §10.5.10 p41. Per-code attribution: service_manual.",
+        "ur": "ERA YA11I §10.5.10 p41 mein diya gaya hai. Har code ka source service_manual hai."
+      }
+    },
+    {
+      "code": "P0",
+      "aliases": [
+        "P0"
+      ],
+      "title": {
+        "en": "IPM module protection (hardware)",
+        "ur": "IPM module ki protection (hardware)"
+      },
+      "meaning": {
+        "en": "Inverter module overheat or overcurrent protection trips.",
+        "ur": "Inverter module ki overheat ya overcurrent protection chal jati hai."
+      },
+      "causes": [
+        {
+          "en": "IPM overheating — heatsink loose or paste missing",
+          "ur": "IPM overheat ho raha ho — heatsink dheela ho ya paste na ho"
+        },
+        {
+          "en": "Compressor shorted or wiring wrong",
+          "ur": "Compressor short ho jaye ya wiring galat ho"
+        },
+        {
+          "en": "Outdoor fan not running",
+          "ur": "Outdoor fan na chal raha ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat IPM with screws and even silicone",
+          "ur": "Screws aur even silicone ke sath IPM dobara lagayein"
+        },
+        {
+          "en": "Check U/V/W compressor wiring",
+          "ur": "Compressor ki U/V/W wiring check karein"
+        },
+        {
+          "en": "Restart and replace PCB if it trips immediately",
+          "ur": "Restart karein aur foran trip ho to PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Six consecutive P0 → E9. Per-code attribution: service_manual.",
+        "ur": "6 baar lagatar P0 aane par E9 nazar aata hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "TIMER 10 blink/8 s (RUN pattern); outdoor LED n=1"
+    },
+    {
+      "code": "P1",
+      "aliases": [
+        "P1"
+      ],
+      "title": {
+        "en": "Over / under voltage protection",
+        "ur": "Over / under voltage ki protection"
+      },
+      "meaning": {
+        "en": "Mains outside safe window (unit recovers when V > ~155 V AC after trip; manua.ls FAQ: verify 145–260 V supply).",
+        "ur": "Mains voltage safe range se bahar; trip ke baad jab V ~155 V AC se upar jata hai unit wapas chalta hai (manuals FAQ: 145–260 V supply verify karein)."
+      },
+      "causes": [
+        {
+          "en": "Grid brownout or surge",
+          "ur": "Grid mein brownout ya surge aa jaye"
+        },
+        {
+          "en": "Outdoor PCB voltage-sense broken",
+          "ur": "Outdoor PCB ka voltage-sense toot jaye"
+        },
+        {
+          "en": "Loose mains terminal",
+          "ur": "Mains terminal dheela ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure supply at terminals — expect ~145–260 V window",
+          "ur": "Terminals par supply naapein — ~145–260 V aana chahiye"
+        },
+        {
+          "en": "Wait for voltage to recover",
+          "ur": "Voltage theek hone ka intezar karein"
+        },
+        {
+          "en": "Replace outdoor PCB if voltage is normal but P1 persists",
+          "ur": "Voltage theek ho lekin P1 aata rahe to outdoor PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "U-MATCH troubleshooting expresses same trip as J8 (over) / J9 (under). Per-code attribution: service_manual.",
+        "ur": "U-MATCH troubleshooting mein yehi trip J8 (over) / J9 (under) ke naam se hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "TIMER 1 blink/8 s; outdoor LED n=2"
+    },
+    {
+      "code": "P2",
+      "aliases": [
+        "P2"
+      ],
+      "title": {
+        "en": "Overcurrent protection",
+        "ur": "Overcurrent ki protection"
+      },
+      "meaning": {
+        "en": "Running current exceeded model limit; unit stops.",
+        "ur": "Chalti current model limit se zyada ho gayi; unit ruk jata hai."
+      },
+      "causes": [
+        {
+          "en": "Compressor seized or shorted",
+          "ur": "Compressor jam ho jaye ya short ho jaye"
+        },
+        {
+          "en": "Weak capacitor / poor supply",
+          "ur": "Capacitor kamzor ho ya supply kharab ho"
+        },
+        {
+          "en": "Outdoor board current limit mis-set",
+          "ur": "Outdoor board par current limit ghalat set ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check compressor amps against nameplate",
+          "ur": "Compressor ke amps nameplate se milayein"
+        },
+        {
+          "en": "Inspect wiring and capacitor",
+          "ur": "Wiring aur capacitor check karein"
+        },
+        {
+          "en": "Replace compressor or outdoor PCB",
+          "ur": "Compressor ya outdoor PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "TIMER 2 blink/8 s; outdoor LED n=3"
+    },
+    {
+      "code": "P4",
+      "aliases": [
+        "P4"
+      ],
+      "title": {
+        "en": "Discharge-pipe over-temperature protection",
+        "ur": "Discharge pipe ki over-temperature protection"
+      },
+      "meaning": {
+        "en": "Compressor discharge temperature above shutdown limit (typically >60 °C band per FAQ).",
+        "ur": "Compressor ki discharge temperature shutdown limit se upar (aam tor par FAQ ke mutabiq 60 °C se zyada)."
+      },
+      "causes": [
+        {
+          "en": "Condenser dirty or blocked airflow",
+          "ur": "Condenser ganda ho ya airflow block ho jaye"
+        },
+        {
+          "en": "Low gas charge",
+          "ur": "Gas charge kam ho jaye"
+        },
+        {
+          "en": "Outdoor fan weak",
+          "ur": "Outdoor fan kamzor ho jaye"
+        },
+        {
+          "en": "Restricted installation space",
+          "ur": "Fitting ki jagah band ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean condenser and indoor filter",
+          "ur": "Condenser aur indoor filter saaf karein"
+        },
+        {
+          "en": "Verify ventilation clearances",
+          "ur": "Ventilation clearances verify karein"
+        },
+        {
+          "en": "Check gas pressure and fan motors",
+          "ur": "Gas pressure aur fan motors check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "manua.ls TAC-12CSD FAQ: >60 °C, clean condenser, check fans/gas. Per-code attribution: service_manual.",
+        "ur": "manua.ls TAC-12CSD FAQ: >60 °C, condenser saaf karein, fans/gas check karein. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "TIMER 4 blink/8 s; outdoor LED n=4"
+    },
+    {
+      "code": "P5",
+      "aliases": [
+        "P5"
+      ],
+      "title": {
+        "en": "Sub-cooling (over-cooling) protection in cooling/dry",
+        "ur": "Cooling aur dry mode mein sub-cooling (over-cooling) protection"
+      },
+      "meaning": {
+        "en": "Indoor coil <1 °C for 3 min after 6 min compressor run in Cool/Dry — ice risk; ODU switched off.",
+        "ur": "Cooling/dry mein compressor 6 minute chalne ke baad indoor coil 3 minute tak 1 °C se neeche — brf (ice) banne ka khatra; ODU band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Dirty indoor filter or blocked return",
+          "ur": "Indoor filter ganda ho ya return block ho jaye"
+        },
+        {
+          "en": "Fan blades not turning / weak fan",
+          "ur": "Fan blades ghoom na rahe hon ya fan kamzor ho"
+        },
+        {
+          "en": "Frozen evaporator from low airflow",
+          "ur": "Kam airflow ki wajah se evaporator jam jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean filter and clear air inlet",
+          "ur": "Filter saaf karein aur air inlet khuli karein"
+        },
+        {
+          "en": "Ensure fan blades rotate freely — replace fan motor if not",
+          "ur": "Fan blades azaadi se ghoom rahe hon — na ghoomen to fan motor badlein"
+        },
+        {
+          "en": "Check sensors after thaw",
+          "ur": "Ice pighalne ke baad sensors check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Thresholds from §3.2.13 XA81I / U-MATCH p106. Per-code attribution: service_manual.",
+        "ur": "Thresholds §3.2.13 XA81I / U-MATCH p106 se liye gaye hain. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "TIMER 5 blink/8 s"
+    },
+    {
+      "code": "P6",
+      "aliases": [
+        "P6"
+      ],
+      "title": {
+        "en": "Overheat protection in cooling mode (outdoor coil)",
+        "ur": "Cooling mode mein overheat protection (outdoor coil)"
+      },
+      "meaning": {
+        "en": "Outdoor condenser coil ≥62 °C (U-MATCH: ≥65 °C) in Cool/Dry; ODU stopped.",
+        "ur": "Cooling/dry mein outdoor condenser coil 62 °C (U-MATCH: 65 °C) se upar; ODU ruk jata hai."
+      },
+      "causes": [
+        {
+          "en": "Condenser fins clogged",
+          "ur": "Condenser fins band pare hon"
+        },
+        {
+          "en": "Outdoor fan not running",
+          "ur": "Outdoor fan na chal raha ho"
+        },
+        {
+          "en": "Overcharge or restricted airflow",
+          "ur": "Gas zyada ho ya airflow block ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the unit off and let the outdoor coil cool before working on it.",
+          "ur": "Kaam se pehle unit band kar ke outdoor coil ko thanda hone dein."
+        },
+        {
+          "en": "Wash the condenser fins, make sure the outdoor fan runs and nothing blocks airflow; fins should be clean and fan speed steady.",
+          "ur": "Condenser fins dho kar saaf karein, outdoor fan chalta ho aur hawa ka rasta khula ho; fins saaf hone chahiye aur fan ki speed barqarar ho."
+        },
+        {
+          "en": "Check the gas charge and clearances after washing; if the trip returns, have a technician check the fan motor and the charge.",
+          "ur": "Dhone ke baad gas charge aur clearances check karein; trip wapas aaye to technician se fan motor aur charge check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Threshold 62 °C (XA81I/FCI) vs 65 °C (U-MATCH). Per-code attribution: service_manual.",
+        "ur": "Threshold 62 °C (XA81I/FCI) aur 65 °C (U-MATCH) hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "TIMER 6 blink/8 s; outdoor LED n=5"
+    },
+    {
+      "code": "P7",
+      "aliases": [
+        "P7"
+      ],
+      "title": {
+        "en": "Overheat protection in heating mode (indoor coil)",
+        "ur": "Heating mode mein overheat protection (indoor coil)"
+      },
+      "meaning": {
+        "en": "Indoor evaporator ≥62 °C (U-MATCH: ≥64 °C) during heating; ODU PCB stops outdoor unit.",
+        "ur": "Heating ke doran indoor evaporator 62 °C (U-MATCH: 64 °C) se upar; ODU PCB outdoor unit band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Reversing-valve or 4-way valve problem",
+          "ur": "Reversing valve ya 4-way valve mein masla ho"
+        },
+        {
+          "en": "Dirty indoor coil",
+          "ur": "Indoor coil ganda ho jaye"
+        },
+        {
+          "en": "Low airflow in heat mode",
+          "ur": "Heat mode mein airflow kam ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check 4-way valve operation",
+          "ur": "4-way valve ka kaam check karein"
+        },
+        {
+          "en": "Clean indoor coil and filter",
+          "ur": "Indoor coil aur filter saaf karein"
+        },
+        {
+          "en": "Verify fan speed in heat mode",
+          "ur": "Heat mode mein fan speed verify karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Manual heading sometimes says cooling — body text is heating mode. Per-code attribution: service_manual.",
+        "ur": "Manual ke heading mein kabhi cooling likha hai — body text heating mode ki hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "TIMER 7 blink/8 s"
+    },
+    {
+      "code": "P8",
+      "aliases": [
+        "P8"
+      ],
+      "title": {
+        "en": "Outdoor over / under temperature protection",
+        "ur": "Outdoor ki over / under temperature protection"
+      },
+      "meaning": {
+        "en": "Ambient outside operating window; compressor stops after 200 s delay.",
+        "ur": "Ambient temperature operating window se bahar; 200 second ke delay ke baad compressor ruk jata hai."
+      },
+      "causes": [
+        {
+          "en": "Ambient >63 °C or <−20 °C in cooling (U-MATCH: >60/ <−15)",
+          "ur": "Cooling mein ambient >63 °C ya <−20 °C ho jaye (U-MATCH: >60/ <−15)"
+        },
+        {
+          "en": "Installation in extreme sun/enclosure",
+          "ur": "Dhoop ya band jagah par fitting hui ho"
+        },
+        {
+          "en": "Faulty ambient sensor reading wrong",
+          "ur": "Ambient sensor ghalat reading de raha ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm OAT with meter",
+          "ur": "Meter se OAT confirm karein"
+        },
+        {
+          "en": "Shade/ventilate outdoor unit",
+          "ur": "Outdoor unit ko shade dein aur hawa ka rasta dein."
+        },
+        {
+          "en": "Replace sensor if reading is wrong",
+          "ur": "Reading ghalat ho to sensor badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Windows differ: XA81I cooling OAT <−20 or >63 °C; U-MATCH <−15 or >60 °C. Per-code attribution: service_manual.",
+        "ur": "Windows alag hain: XA81I cooling OAT <−20 ya >63 °C; U-MATCH <−15 ya >60 °C. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "TIMER 8 blink/8 s"
+    },
+    {
+      "code": "P9",
+      "aliases": [
+        "P9"
+      ],
+      "title": {
+        "en": "Compressor driving protection (abnormal load)",
+        "ur": "Compressor driving protection — load theek na ho"
+      },
+      "meaning": {
+        "en": "Bad rotor signal, failed start, or abnormal compressor load; ODU shuts off.",
+        "ur": "Compressor ka rotor signal kharab, start fail, ya load abnormal; ODU band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Compressor start failure",
+          "ur": "Compressor start na ho paye"
+        },
+        {
+          "en": "Rotor position signal abnormal",
+          "ur": "Rotor position signal theek na ho"
+        },
+        {
+          "en": "Mechanical lock / overload",
+          "ur": "Mechanical lock ya overload aa jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check compressor windings and connections",
+          "ur": "Compressor ki winding aur connections check karein"
+        },
+        {
+          "en": "Verify drive signal on ODU PCB",
+          "ur": "ODU PCB par drive signal verify karein"
+        },
+        {
+          "en": "Replace compressor or PCB",
+          "ur": "Compressor ya PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "TIMER 9 blink/8 s; outdoor LED n=6"
+    },
+    {
+      "code": "PA",
+      "aliases": [
+        "PA"
+      ],
+      "title": {
+        "en": "Mode / model conflict (multi-unit clash)",
+        "ur": "Mode / model mein takrao (multi-unit clash)"
+      },
+      "meaning": {
+        "en": "Conflicting modes or model configuration across linked indoor units.",
+        "ur": "Linked indoor units ke darmiyan modes ya model configuration mein takrao hai."
+      },
+      "causes": [
+        {
+          "en": "Two indoors commanded to incompatible modes",
+          "ur": "Do indoors ko aapas mein alag modes diye gaye ho"
+        },
+        {
+          "en": "Free-match combination mismatch",
+          "ur": "Free-match combination theek na mile"
+        },
+        {
+          "en": "Preset-mode conflict",
+          "ur": "Preset-mode mein conflict ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Set all linked id to same mode family",
+          "ur": "Sabhi linked id ko ek hi mode family par set karein"
+        },
+        {
+          "en": "Re-check combination table",
+          "ur": "Combination table dobara check karein"
+        },
+        {
+          "en": "Clear conflicting presets",
+          "ur": "Conflicting presets hata dein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "XA81I: communication failure for TOP flow unit / preset mode conflict (IDU). FMA: two or three machine modes collide. Per-code attribution: service_manual.",
+        "ur": "XA81I: TOP flow unit ki communication failure / preset mode conflict (IDU). FMA: do ya teen machine ke modes aapas mein takrate hain. Har code ka source service_manual hai."
+      }
+    },
+    {
+      "code": "F0",
+      "aliases": [
+        "F0"
+      ],
+      "title": {
+        "en": "Infrared human-sensing (comfort) sensor failure",
+        "ur": "Infrared human-sensing (comfort) sensor ki kharabi"
+      },
+      "meaning": {
+        "en": "Optional IR people-count/comfort sensor on indoor unit failed.",
+        "ur": "Indoor unit par optional IR people-count/comfort sensor kharab ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Sensor dirty or blocked",
+          "ur": "Sensor ganda ho ya block ho jaye"
+        },
+        {
+          "en": "Connector loose",
+          "ur": "Connector dheela ho jaye"
+        },
+        {
+          "en": "Sensor module failed",
+          "ur": "Sensor module kharab ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the indoor unit before cleaning the sensor window.",
+          "ur": "Sensor window saaf karne se pehle indoor unit band karein."
+        },
+        {
+          "en": "Wipe the sensor window with a dry cloth and re-seat the module connector; the window must be clear and the plug fully pushed in.",
+          "ur": "Sensor ko sookhe kapde se pochein aur module connector dobara lagayein; window bilkul saaf honi chahiye aur plug poori tarah andar hona chahiye."
+        },
+        {
+          "en": "If the code remains, replace the optional sensor module.",
+          "ur": "Code rahe to optional sensor module badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "IDU failure group, XA81I §3.1. Per-code attribution: service_manual.",
+        "ur": "IDU failure group, XA81I §3.1 ke mutabiq. Har code ka source service_manual hai."
+      }
+    },
+    {
+      "code": "F1",
+      "aliases": [
+        "F1"
+      ],
+      "title": {
+        "en": "Power-test module failure",
+        "ur": "Power-test module ki kharabi"
+      },
+      "meaning": {
+        "en": "Power-sensing/test module on indoor unit reports failure.",
+        "ur": "Indoor unit ka power-sensing/test module failure dikhata hai."
+      },
+      "causes": [
+        {
+          "en": "Test module hardware fault",
+          "ur": "Test module ka hardware kharab ho"
+        },
+        {
+          "en": "PCB issue",
+          "ur": "PCB ka masla ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off power at the breaker before opening the indoor unit.",
+          "ur": "Indoor unit kholne se pehle breaker se power band karein."
+        },
+        {
+          "en": "Check the module connector and wiring for damage, re-seat it, and look for burnt pins; connections should be tight.",
+          "ur": "Module connector aur wiring ko damage ke liye check kar ke dobara lagayein aur jale hue pins dekhein; connections mazboot hone chahiye."
+        },
+        {
+          "en": "If the failure stays, replace the indoor PCB module assembly and power-cycle to re-test.",
+          "ur": "Masla rahe to indoor PCB module assembly badal dein aur power-cycle kar ke dobara test karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "IDU failure group. Per-code attribution: service_manual.",
+        "ur": "Yeh IDU failure group ka code hai. Har code ka source service_manual hai."
+      }
+    },
+    {
+      "code": "F2",
+      "aliases": [
+        "F2"
+      ],
+      "title": {
+        "en": "Discharge temperature sensor protection",
+        "ur": "Discharge temperature sensor ki protection"
+      },
+      "meaning": {
+        "en": "Protection trip from discharge-sensor reading (as distinct from E8 sensor circuit fault).",
+        "ur": "Discharge-sensor ki reading par protection trip (E8 sensor circuit fault se alag)."
+      },
+      "causes": [
+        {
+          "en": "Discharge temp above protection value",
+          "ur": "Discharge temp protection value se upar chala jaye"
+        },
+        {
+          "en": "Sensor drifting high",
+          "ur": "Sensor ki reading zyada ki taraf badle"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the unit off and let the compressor cool before probing.",
+          "ur": "Probe karne se pehle unit band kar ke compressor ko thanda hone dein."
+        },
+        {
+          "en": "Check that the discharge sensor is seated properly and measure its resistance against the chart; a drifting sensor should be replaced.",
+          "ur": "Dekhein ke discharge sensor theek se baitha ho aur chart ke mutabiq uska resistance naapein; reading zyada badalti ho to sensor badlein."
+        },
+        {
+          "en": "Inspect the gas charge and the condenser — low charge or a dirty condenser keeps discharge temperature high.",
+          "ur": "Gas charge aur condenser check karein — kam gas ya ganda condenser discharge temperature barqarar rakhta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      }
+    },
+    {
+      "code": "F3",
+      "aliases": [
+        "F3"
+      ],
+      "title": {
+        "en": "Outdoor coil temperature sensor protection",
+        "ur": "Outdoor coil temperature sensor ki protection"
+      },
+      "meaning": {
+        "en": "Protection from outdoor coil sensor reading (vs E3 circuit fault).",
+        "ur": "Outdoor coil sensor ki reading par protection (E3 circuit fault ke muqablay mein)."
+      },
+      "causes": [
+        {
+          "en": "Coil temp outside limit",
+          "ur": "Coil temperature limit se bahar ho jaye"
+        },
+        {
+          "en": "Sensor drift",
+          "ur": "Sensor ki reading drift kare"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off before removing the coil sensor.",
+          "ur": "Coil sensor nikalne se pehle power band karein."
+        },
+        {
+          "en": "Verify the sensor with a meter against the chart and re-seat it; a sensor outside the chart range should be replaced.",
+          "ur": "Meter se sensor ko chart ke sath verify karein aur dobara lagayein; chart ki range se bahar ho to sensor badlein."
+        },
+        {
+          "en": "Clean the condenser and indoor coil; if the reading is still wrong after cleaning, replace the sensor.",
+          "ur": "Condenser aur indoor coil saaf karein; saaf karne ke baad bhi reading ghalat rahe to sensor badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      }
+    },
+    {
+      "code": "F4",
+      "aliases": [
+        "F4"
+      ],
+      "title": {
+        "en": "Refrigerant circulation / gas-flow abnormal protection",
+        "ur": "Gaz (refrigerant) ke circulation mein abnormal protection"
+      },
+      "meaning": {
+        "en": "Cooling-system gas flow abnormal — often valves closed or restricted.",
+        "ur": "Cooling system mein gas flow abnormal — aksar valves band ya restricted ho jate hain."
+      },
+      "causes": [
+        {
+          "en": "2-way/3-way stop valves not fully open",
+          "ur": "2-way/3-way stop valves poori tarah khule nahi"
+        },
+        {
+          "en": "Capillary/filter blockage",
+          "ur": "Capillary/filter mein blockage ho"
+        },
+        {
+          "en": "Undercharge",
+          "ur": "Gas kam charge ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Fully open stop valves",
+          "ur": "Stop valves poori tarah kholein"
+        },
+        {
+          "en": "Leak-test and clear restriction",
+          "ur": "Leak test karein aur blockage kholein"
+        },
+        {
+          "en": "Recharge to specification",
+          "ur": "Specification ke mutabiq gas charge karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "§3.2.18 XA81I. Per-code attribution: service_manual.",
+        "ur": "§3.2.18 XA81I ke mutabiq. Har code ka source service_manual hai."
+      }
+    },
+    {
+      "code": "F5",
+      "aliases": [
+        "F5"
+      ],
+      "title": {
+        "en": "PFC protection",
+        "ur": "PFC ki protection"
+      },
+      "meaning": {
+        "en": "Power-factor-correction overcurrent protection on inverter input.",
+        "ur": "Inverter input par PFC (power-factor-correction) overcurrent protection."
+      },
+      "causes": [
+        {
+          "en": "Mains abnormal",
+          "ur": "Mains supply theek na ho"
+        },
+        {
+          "en": "PFC circuit short/degraded",
+          "ur": "PFC circuit short ho jaye ya kamzor ho jaye"
+        },
+        {
+          "en": "Random grid event — may be non-repeating",
+          "ur": "Grid ka random event — dobara na aaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and restart; if F5 repeats",
+          "ur": "Power off kar ke restart karein; agar F5 dobara aaye"
+        },
+        {
+          "en": "inspect supply",
+          "ur": "Supply check karein"
+        },
+        {
+          "en": "Replace outdoor PCB PFC stage if persistent",
+          "ur": "Masla barqarar rahe to outdoor PCB ka PFC stage badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "§3.2.19 XA81I: 'this is random? normal protection' — check supply first. Per-code attribution: service_manual.",
+        "ur": "§3.2.19 XA81I: 'yeh random hai? normal protection' — pehle supply check karein. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Queryable via ECO×8 (Fb–Fn group display path)"
+    },
+    {
+      "code": "F6",
+      "aliases": [
+        "F6"
+      ],
+      "title": {
+        "en": "Compressor missing / reverse phase protection",
+        "ur": "Compressor ki missing / reverse phase protection"
+      },
+      "meaning": {
+        "en": "Outdoor board cannot sense one or three phases of compressor current.",
+        "ur": "Outdoor board compressor current ki ek ya teen phases nahi paa sakta."
+      },
+      "causes": [
+        {
+          "en": "Compressor winding open",
+          "ur": "Compressor winding open ho jaye"
+        },
+        {
+          "en": "Current-sense circuit fault",
+          "ur": "Current-sense circuit kharab ho"
+        },
+        {
+          "en": "Wiring error",
+          "ur": "Wiring mein ghalati ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check compressor terminals and continuity",
+          "ur": "Compressor ke terminals aur continuity check karein"
+        },
+        {
+          "en": "Replace outdoor PCB if windings OK",
+          "ur": "Windings theek hon to outdoor PCB badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "U-MATCH troubleshooting labels same fault HE (§3.3.14). Per-code attribution: service_manual.",
+        "ur": "U-MATCH troubleshooting isay HE (§3.3.14) kehte hain. Har code ka source service_manual hai."
+      }
+    },
+    {
+      "code": "F7",
+      "aliases": [
+        "F7"
+      ],
+      "title": {
+        "en": "IPM module over-temperature protection",
+        "ur": "IPM module ki over-temperature protection"
+      },
+      "meaning": {
+        "en": "IPM temperature >95 °C; frequency/stop protection.",
+        "ur": "IPM temperature 95 °C se upar; frequency aur stop ki protection."
+      },
+      "causes": [
+        {
+          "en": "Heatsink contact poor",
+          "ur": "Heatsink ka contact theek na ho"
+        },
+        {
+          "en": "Dust on fins",
+          "ur": "Fins par dhool jama ho jaye"
+        },
+        {
+          "en": "Ambient too hot / fan failed",
+          "ur": "Ambient bohat garam ho ya fan kharab ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean and reseat IPM with even paste",
+          "ur": "IPM saaf kar ke paste evenly laga kar dobara lagayein"
+        },
+        {
+          "en": "Fix outdoor fan and clearances",
+          "ur": "Outdoor fan theek karein aur clearances check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "U-MATCH troubleshooting labels same fault J6 (§3.3.15). Per-code attribution: service_manual.",
+        "ur": "U-MATCH troubleshooting isay J6 (§3.3.15) kehte hain. Har code ka source service_manual hai."
+      }
+    },
+    {
+      "code": "F8",
+      "aliases": [
+        "F8"
+      ],
+      "title": {
+        "en": "4-way valve reversing abnormal",
+        "ur": "4-way valve reversing abnormal hai"
+      },
+      "meaning": {
+        "en": "In heating, indoor coil stays ≥5 °C below room after 8 min run — valve did not reverse properly.",
+        "ur": "Heating mein 8 minute chalne ke baad indoor coil kamre se 5 °C se zyada neeche rehta hai — valve theek se reverse nahi hua."
+      },
+      "causes": [
+        {
+          "en": "4-way valve coil/ solenoid failed",
+          "ur": "4-way valve coil/solenoid kharab ho gaya"
+        },
+        {
+          "en": "Valve mechanical jam",
+          "ur": "Valve mechanical taur par atak jaye"
+        },
+        {
+          "en": "Reversing signal from PCB missing",
+          "ur": "PCB se reversing signal na aaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Tap/check valve operation",
+          "ur": "Valve par halka sa thapka kar uska kaam check karein"
+        },
+        {
+          "en": "Replace 4-way valve solenoid",
+          "ur": "4-way valve ka solenoid badlein"
+        },
+        {
+          "en": "Check drive wiring on ODU PCB",
+          "ur": "ODU PCB par drive wiring check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "§3.2.22 XA81I. Per-code attribution: service_manual.",
+        "ur": "§3.2.22 XA81I ke mutabiq. Har code ka source service_manual hai."
+      }
+    },
+    {
+      "code": "F9",
+      "aliases": [
+        "F9"
+      ],
+      "title": {
+        "en": "Module temperature test-circuit failure",
+        "ur": "Module temperature test-circuit ki kharabi"
+      },
+      "meaning": {
+        "en": "Measurement circuit for module temperature broken (hardware, not the over-temp trip itself).",
+        "ur": "Module temperature napne wala measurement circuit kharab hai (hardware ki kharabi, khud over-temp trip nahi)."
+      },
+      "causes": [
+        {
+          "en": "Sense line open on ODU PCB",
+          "ur": "ODU PCB par sense line open ho jaye"
+        },
+        {
+          "en": "Sense line shorted on ODU PCB",
+          "ur": "ODU PCB par sense line short ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not work on the board live — switch off mains power first.",
+          "ur": "Board par current wali halat mein kaam na karein — pehle mains power band karein."
+        },
+        {
+          "en": "Power-cycle once and re-check; an intermittent sense line can clear after a restart.",
+          "ur": "Ek baar power-cycle karein aur dobara check karein; kabhi kabhi restart ke baad sense line theek ho jati hai."
+        },
+        {
+          "en": "If the code stays, the sense line on the outdoor PCB is open or shorted — replace the outdoor PCB.",
+          "ur": "Code rahe to outdoor PCB par sense line open ya short hai — outdoor PCB badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "XA81I §3.2.6 pairs F9/FA handling with replace ODU PCB. Per-code attribution: service_manual.",
+        "ur": "XA81I §3.2.6 mein F9/FA ka ilaaj ODU PCB badalna bataya gaya hai. Har code ka source service_manual hai."
+      }
+    },
+    {
+      "code": "FA",
+      "aliases": [
+        "FA"
+      ],
+      "title": {
+        "en": "Compressor phase-current test-circuit failure",
+        "ur": "Compressor phase-current test circuit kharab"
+      },
+      "meaning": {
+        "en": "Phase-current sensing circuit on outdoor PCB failed.",
+        "ur": "Outdoor PCB ka phase-current sensing circuit kharab ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Sense components failed on ODU PCB",
+          "ur": "ODU PCB ke sense components kharab ho jaye"
+        },
+        {
+          "en": "Phase-current path open",
+          "ur": "Phase-current path open ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate the supply before opening the outdoor board.",
+          "ur": "Outdoor board kholne se pehle power band kar ke supply isolate karein."
+        },
+        {
+          "en": "Power-cycle and check compressor current after restart; normal current with the fault still present points to the sense circuit.",
+          "ur": "Power-cycle karein aur restart ke baad compressor ka current dekhein; current normal aaye aur fault tab bhi ho to sense circuit par masla hai."
+        },
+        {
+          "en": "If the sense path is broken, replace the outdoor PCB and re-check compressor current after the swap.",
+          "ur": "Sense path toota ho to outdoor PCB badlein aur badalne ke baad compressor ka current dobara check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      }
+    },
+    {
+      "code": "Fb",
+      "aliases": [
+        "Fb"
+      ],
+      "title": {
+        "en": "Overload frequency reduction (cool/heat)",
+        "ur": "Overload par frequency reduction (cool/heat)"
+      },
+      "meaning": {
+        "en": "Unit deliberately lowers compressor frequency under overload — performance drops, not a hard stop.",
+        "ur": "Unit overload ke doran hasti se compressor frequency kam karta hai — performance gir jati hai, poora stop nahi hota."
+      },
+      "causes": [
+        {
+          "en": "High ambient or dirty coil",
+          "ur": "Ambient bohat garam ho ya coil ganda ho"
+        },
+        {
+          "en": "Voltage sag",
+          "ur": "Voltage neeche gir jaye"
+        },
+        {
+          "en": "Heavy load conditions",
+          "ur": "Load bohat zyada ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean coils and check supply voltage",
+          "ur": "Coils saaf karein aur supply voltage check karein"
+        },
+        {
+          "en": "Reduce load / shade ODU — capacity returns when condition clears",
+          "ur": "Load kam karein ya ODU ko shade dein — halat theek ho to capacity wapas aa jayegi."
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "XA81I table: remote-query codes need ECO pressed 8 times in 8 s. Per-code attribution: service_manual.",
+        "ur": "XA81I table: remote-query codes ke liye ECO ko 8 second mein 8 baar dabana hota hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Displayed via remote ECO×8 query (Fb–Fn group)"
+    },
+    {
+      "code": "FC",
+      "aliases": [
+        "FC"
+      ],
+      "title": {
+        "en": "High-power-consumption frequency reduction",
+        "ur": "Zyada power consumption par frequency reduction"
+      },
+      "meaning": {
+        "en": "Frequency capped to limit power draw.",
+        "ur": "Power draw kam karne ke liye frequency par limit lagayi jati hai."
+      },
+      "causes": [
+        {
+          "en": "Supply power limited",
+          "ur": "Supply power limited ho jaye"
+        },
+        {
+          "en": "Multi-unit load on one circuit",
+          "ur": "Ek circuit par bohat si units ka load ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check circuit capacity",
+          "ur": "Circuit ki capacity check karein"
+        },
+        {
+          "en": "Balance connected load",
+          "ur": "Lage hue load ko balance karein"
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Remote ECO×8 query"
+    },
+    {
+      "code": "FE",
+      "aliases": [
+        "FE"
+      ],
+      "title": {
+        "en": "Module (compressor phase) current frequency reduction",
+        "ur": "Module (compressor phase) current par frequency reduction"
+      },
+      "meaning": {
+        "en": "Frequency reduced to keep module/compressor phase current in limit.",
+        "ur": "Module/compressor phase current ko limit mein rakh kar frequency kam ki jati hai."
+      },
+      "causes": [
+        {
+          "en": "Current approaching limit",
+          "ur": "Current limit ke qareeb aa jaye"
+        },
+        {
+          "en": "Weak supply",
+          "ur": "Supply kamzor ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify mains and wiring",
+          "ur": "Mains aur wiring verify karein"
+        },
+        {
+          "en": "Service compressor if current stays high",
+          "ur": "Current zyada hi rahe to compressor service karein"
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Remote ECO×8 query"
+    },
+    {
+      "code": "FF",
+      "aliases": [
+        "FF"
+      ],
+      "title": {
+        "en": "Module temperature frequency reduction",
+        "ur": "Module temperature par frequency reduction"
+      },
+      "meaning": {
+        "en": "Frequency lowered as module temperature rises (below hard trip).",
+        "ur": "Jab module temperature barh rahi hai frequency kam hoti hai (hard trip se pehle)."
+      },
+      "causes": [
+        {
+          "en": "Heatsink warming",
+          "ur": "Heatsink zyada garam ho jaye"
+        },
+        {
+          "en": "Hot ambient",
+          "ur": "Ambient bohat garam ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean heatsink path",
+          "ur": "Heatsink ka rasta saaf karein"
+        },
+        {
+          "en": "Improve ODU ventilation",
+          "ur": "ODU ki hawa ka rasta behtar karein"
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Remote ECO×8 query"
+    },
+    {
+      "code": "FH",
+      "aliases": [
+        "FH"
+      ],
+      "title": {
+        "en": "Compressor driving frequency reduction",
+        "ur": "Compressor drive par frequency reduction"
+      },
+      "meaning": {
+        "en": "Drive protection reduces compressor speed.",
+        "ur": "Drive protection compressor ki speed kam karta hai."
+      },
+      "causes": [
+        {
+          "en": "Drive conditions outside ideal window",
+          "ur": "Drive conditions ideal window se bahar ho jayein"
+        },
+        {
+          "en": "Compressor load margin reached",
+          "ur": "Compressor ki load margin poori ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Monitor code",
+          "ur": "Code par nazar rakhein"
+        },
+        {
+          "en": "Investigate if persistent alongside other codes",
+          "ur": "Doosre codes ke sath bhi aaye to masla investigate karein"
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Remote ECO×8 query"
+    },
+    {
+      "code": "FP",
+      "aliases": [
+        "FP"
+      ],
+      "title": {
+        "en": "Anti-condensation frequency reduction",
+        "ur": "Anti-condensation rokne par frequency reduction"
+      },
+      "meaning": {
+        "en": "Frequency reduced to prevent coil condensation/water carryover.",
+        "ur": "Coil par condensation ya paani ki harkat rokne ke liye frequency kam ki jati hai."
+      },
+      "causes": [
+        {
+          "en": "High humidity",
+          "ur": "Hawa mein nami bohat zyada ho"
+        },
+        {
+          "en": "Low sensible-heat ratio operation",
+          "ur": "Kam sensible-heat ratio par chalna"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat as normal protective behavior",
+          "ur": "Isay aam hifazati kaam maan lein."
+        },
+        {
+          "en": "Check drainage if water appears",
+          "ur": "Paani nazar aaye to drainage check karein"
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Remote ECO×8 query"
+    },
+    {
+      "code": "FU",
+      "aliases": [
+        "FU"
+      ],
+      "title": {
+        "en": "Anti-frost (freeze-up) frequency reduction",
+        "ur": "Anti-frost (freeze-up) rokne par frequency reduction"
+      },
+      "meaning": {
+        "en": "Frequency reduced to stop evaporator freeze-up.",
+        "ur": "Evaporator par brf na bane, is liye frequency kam ki jati hai."
+      },
+      "causes": [
+        {
+          "en": "Low airflow",
+          "ur": "Hawa ka flow kam ho jaye"
+        },
+        {
+          "en": "Very low load",
+          "ur": "Load bohat kam ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean filter",
+          "ur": "Filter saaf karein"
+        },
+        {
+          "en": "ensure fan OK",
+          "ur": "Fan theek se chal raha hai ye confirm karein"
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Remote ECO×8 query"
+    },
+    {
+      "code": "Fj",
+      "aliases": [
+        "Fj"
+      ],
+      "title": {
+        "en": "Discharge over-temperature frequency reduction",
+        "ur": "Discharge par over-temperature frequency reduction"
+      },
+      "meaning": {
+        "en": "Frequency lowered before hard discharge-temp trip.",
+        "ur": "Discharge temperature zyada hone se pehle frequency kam kar di jati hai."
+      },
+      "causes": [
+        {
+          "en": "Approaching discharge limit — dirty condenser",
+          "ur": "Discharge limit ke qareeb aa jana — condenser ganda ho"
+        },
+        {
+          "en": "low gas",
+          "ur": "Gas kam ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean condenser",
+          "ur": "Condenser saaf karein"
+        },
+        {
+          "en": "check charge",
+          "ur": "Gas charge check karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Remote ECO×8 query"
+    },
+    {
+      "code": "Fn",
+      "aliases": [
+        "Fn"
+      ],
+      "title": {
+        "en": "Outdoor AC current frequency reduction",
+        "ur": "Outdoor AC current par frequency reduction"
+      },
+      "meaning": {
+        "en": "Input AC current near limit; speed reduced.",
+        "ur": "Input AC current limit ke qareeb; speed kam kar di jati hai."
+      },
+      "causes": [
+        {
+          "en": "High system current",
+          "ur": "System ka current zyada ho"
+        },
+        {
+          "en": "Weak supply",
+          "ur": "Supply kamzor ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check supply voltage",
+          "ur": "Supply voltage check karein"
+        },
+        {
+          "en": "Measure system amps against nameplate",
+          "ur": "System ke amps nameplate se milayein"
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Per-code attribution: service_manual.",
+        "ur": "Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Remote ECO×8 query"
+    },
+    {
+      "code": "Fy",
+      "aliases": [
+        "Fy"
+      ],
+      "title": {
+        "en": "Gas leakage (refrigerant deficiency) protection",
+        "ur": "Gas leakage (refrigerant deficiency) ki protection"
+      },
+      "meaning": {
+        "en": "After 9 min at high frequency, coil temperatures barely change while discharge stays high — refrigerant likely low.",
+        "ur": "9 minute tak high frequency par coil temperature poori tarah nahi badalti jabki discharge temperature upar hi rehti hai — refrigerant shayad kam hai."
+      },
+      "causes": [
+        {
+          "en": "Refrigerant leak",
+          "ur": "Refrigerant (gas) leak ho jaye"
+        },
+        {
+          "en": "Undercharge after repair",
+          "ur": "Repair ke baad gas kam charge ho"
+        },
+        {
+          "en": "Restricted flow",
+          "ur": "Flow ruk jaye ya block ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the unit off before leak testing; only a trained technician should handle refrigerant.",
+          "ur": "Leak test se pehle unit band karein aur refrigerant sirf trained technician hi handle kare."
+        },
+        {
+          "en": "Leak-test all joints, repair the leak, then evacuate and recharge to the manual specification.",
+          "ur": "Sabhi joints ka leak test karein, leak theek karein, phir vacuum kar ke manual ke mutabiq gas charge karein."
+        },
+        {
+          "en": "After recharging, check the filter/drier for restriction and clear it if the pressure stays low.",
+          "ur": "Gas bharne ke baad filter/drier mein rukawat check karein aur pressure kam rahe to usay kholein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "§3.2.23 XA81I. U-MATCH table also Fy ('fluorine deficiency') but §3.3.16 uses H6 for the same logic; TPH11 H6 = overheating in T3 — meanings diverge by series. Per-code attribution: service_manual.",
+        "ur": "§3.2.23 XA81I. U-MATCH table mein bhi Fy ('fluorine deficiency') hai, lekin §3.3.16 usi logic ke liye H6 use karta hai; TPH11 H6 = T3 mein overheat hota hai — meaning series ke sath alag hoti hai. Har code ka source service_manual hai."
+      }
+    },
+    {
+      "code": "bf",
+      "aliases": [
+        "bf"
+      ],
+      "title": {
+        "en": "TVOC sensor failure (optional)",
+        "ur": "TVOC sensor ki kharabi (optional)"
+      },
+      "meaning": {
+        "en": "Indoor TVOC/air-quality sensor optional module failed.",
+        "ur": "Indoor TVOC/air-quality sensor ka optional module kharab ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Sensor module disconnected",
+          "ur": "Sensor module disconnect ho jaye"
+        },
+        {
+          "en": "Sensor module dead",
+          "ur": "Sensor module band ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the indoor unit before pulling the optional module.",
+          "ur": "Optional module nikalne se pehle indoor unit band karein."
+        },
+        {
+          "en": "Re-seat the TVOC module connector and check the cable for damage; the plug should be fully home.",
+          "ur": "TVOC module ka connector dobara lagayein aur cable damage ke liye dekhein; plug poori tarah andar baith jaye."
+        },
+        {
+          "en": "If the module is still dead, replace the TVOC module.",
+          "ur": "Module ab bhi band ho to TVOC module badlein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "IDU optional. Per-code attribution: service_manual.",
+        "ur": "Yeh IDU par optional hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Remote ECO×8 query"
+    },
+    {
+      "code": "bc",
+      "aliases": [
+        "bc"
+      ],
+      "title": {
+        "en": "PM2.5 sensor failure (optional)",
+        "ur": "PM2.5 sensor ki kharabi (optional)"
+      },
+      "meaning": {
+        "en": "Indoor PM2.5 sensor optional module failed.",
+        "ur": "Indoor PM2.5 sensor ka optional module kharab ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Module disconnected",
+          "ur": "Module disconnect ho jaye"
+        },
+        {
+          "en": "Sensor dead",
+          "ur": "Sensor bilkul band ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off power before removing the PM2.5 module.",
+          "ur": "PM2.5 module nikalne se pehle power band karein."
+        },
+        {
+          "en": "Re-seat the module connector and check the wiring; the connection must be firm and clean.",
+          "ur": "Module connector dobara lagayein aur wiring check karein; connection mazboot aur saaf hona chahiye."
+        },
+        {
+          "en": "Replace the PM2.5 module if it stays dead after re-seating.",
+          "ur": "Dobara lagane ke baad bhi module band rahe to PM2.5 module badlein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "IDU optional. Per-code attribution: service_manual.",
+        "ur": "Yeh IDU par optional hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Remote ECO×8 query"
+    },
+    {
+      "code": "bj",
+      "aliases": [
+        "bj"
+      ],
+      "title": {
+        "en": "Humidity sensor failure",
+        "ur": "Humidity sensor ki kharabi"
+      },
+      "meaning": {
+        "en": "Indoor humidity sensor open/short or module failed.",
+        "ur": "Indoor humidity sensor khula/short ho ya module kharab ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Connector loose",
+          "ur": "Connector dheela ho jaye"
+        },
+        {
+          "en": "Sensor failed",
+          "ur": "Sensor kharab ho jaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off before disconnecting the humidity sensor module.",
+          "ur": "Humidity sensor module disconnect karne se pehle power band karein."
+        },
+        {
+          "en": "Reconnect the plug and check the connector pins; they must be straight and free of corrosion.",
+          "ur": "Plug dobara jor dein aur connector pins check karein; pins seedhe hone chahiye aur zang na laga ho."
+        },
+        {
+          "en": "Replace the humidity sensor module if the code remains.",
+          "ur": "Code rahe to humidity sensor module badlein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "TCL TAC-09CSD/XA81I Service Manual (§3.1 Failure code, §3.2 Trouble shooting); corroborated by TAC-09CHSD/FCI Service Manual, ERA YA11I Service Manual, manua.ls TAC-12CSD FAQ, acerrorcode.com",
+        "retrieved": "2026-09-24",
+        "url": "https://www.manualslib.com/manual/3282287/Tcl-Tac-09csd-Xa81i.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Queryable group includes bj. Per-code attribution: service_manual.",
+        "ur": "Queryable group mein bj bhi shamil hai. Har code ka source service_manual hai."
+      },
+      "blinkPattern": "Remote ECO×8 query"
+    }
+  ]
+}

@@ -1,0 +1,301 @@
+{
+  "schemaVersion": 1,
+  "brandId": "solis",
+  "series": {
+    "id": "solis-epm",
+    "name": "EPM / export power manager, smart meter and CT (RS485 Modbus, zero-export)",
+    "category": "inverter",
+    "unitType": "generic",
+    "modelPatterns": [
+      "*EPM*",
+      "*EPM5G*",
+      "*EPM 5G*",
+      "*EPM3*",
+      "*EPM-PRO*"
+    ],
+    "notes": "The EPM is not an inverter - it is the external export-limiting device that speaks RS485 Modbus to the inverters. Its codes are therefore filed in the official Solis library under the 20xx grid-connection / energy-storage block (2010/2011 Fail Safe, 201A CT_FAULT, 2019 MET_SEL_FAIL, 204B/204C G100 meter) and as message strings (RS485-all-fail, LimByEPM) rather than LCD hex alarms. Use this block when the fault is a meter, CT or export-limit problem, not an inverter problem. Positive real power (+kW) means EXPORT, negative (-kW) means IMPORT - get this backwards and you will chase a phantom fault."
+  },
+  "codes": [
+    {
+      "code": "RS485-all-fail",
+      "aliases": [
+        "RS485-all-fail",
+        "EPM RS485 fail",
+        "2011",
+        "MET_Comm_FAIL"
+      ],
+      "title": {
+        "en": "EPM RS485 comms failed (RS485-all-fail)",
+        "ur": "EPM ka RS485 comms fail (RS485-all-fail)"
+      },
+      "meaning": {
+        "en": "The EPM cannot see one or more inverters on the RS485 bus, so it cannot read grid power or command the inverters.",
+        "ur": "EPM RS485 bus par ek ya zyada inverters nahi dekh sakta, is liye wo grid power nahi parh sakta aur inverters ko command nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "RS485 cable not connected at the EPM COM-INV port or at an inverter COMx port",
+          "ur": "RS485 cable EPM ke COM-INV port ya inverter ke COMx port par connected nahi"
+        },
+        {
+          "en": "A/B pair reversed somewhere in the run, or the cable is pinched or split",
+          "ur": "Run mein kahin A/B pair ulat diya gaya, ya cable pinch ya phata hua"
+        },
+        {
+          "en": "Inverter address not set to 1 (or duplicates on the bus), so the EPM sees no reply",
+          "ur": "Inverter ka address 1 par set nahi (ya bus par duplicate), is liye EPM ko koi reply nazar nahi aati"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the DC voltage between RS485A and RS485B at the EPM COM-INV port with the EPM powered; it should read roughly 0.5-5 Vdc.",
+          "ur": "EPM power par hone ke waqt EPM ke COM-INV port par RS485A aur RS485B ke darmiyan DC voltage measure karein; taqreeban 0.5-5 Vdc aana chahiye."
+        },
+        {
+          "en": "Then unplug the cable from the EPM and measure the same 0.5-5 Vdc at the free end, then at each inverter COMx port one at a time, leaving all other COM ports empty.",
+          "ur": "Phir cable EPM se nikaal kar usi free end par 0.5-5 Vdc measure karein, phir ek-ek karke har inverter ke COMx port par, baaki COM ports khali chhod kar."
+        },
+        {
+          "en": "On the EPM set menu > advanced settings (0010) > TRANSMIT > ON > press ENT so the readings settle, then set External EPM Set to 5G, EPM FailSafe to RUN and confirm the EPM address is 1 on every inverter.",
+          "ur": "EPM par menu > advanced settings (0010) > TRANSMIT > ON > ENT dabayein taake readings settle hon, phir har inverter par External EPM Set 5G, EPM FailSafe RUN aur EPM ka address 1 confirm karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Nothing will work if the RS485 communications is not working - the EPM cannot control the inverters at all. Test both ends of every cable run, because the EPM is normally one per site and the fault is often a single bad plug.",
+        "ur": "Agar RS485 communication kaam nahi kar rahi to kuch bhi kaam nahi karega - EPM inverters ko control hi nahi kar sakta. Har cable run ke dono taraf test karein, kyunke site par EPM aam tor par ek hi hota hai aur fault aksar ek kharab plug hota hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Solis official support KB: EPM - RS485 fail; LimByEPM; EPM Configuration and Validation Guide; Smart Meter Phase Rotation and CT Polarity Verification; plus the Solis master alarm table rows for 2010/2011/201A/2019/204B/204C",
+        "retrieved": "2026-09-26",
+        "url": "https://solis-service.solisinverters.com/en/support/solutions/articles/44002483279-epm-rs485-fail"
+      }
+    },
+    {
+      "code": "LimByEPM",
+      "aliases": [
+        "LimByEPM",
+        "LimByEMP",
+        "LmtByEPM",
+        "limb by epm"
+      ],
+      "title": {
+        "en": "Output limited by EPM (LimByEPM)",
+        "ur": "Output EPM ki wajah se limited (LimByEPM)"
+      },
+      "meaning": {
+        "en": "The external or internal power-meter setting is holding the inverter output down, so the system shows LimByEPM instead of generating freely.",
+        "ur": "External ya internal power-meter setting inverter ka output rok rakhti hai, is liye system azaad generate karne ke bajaye LimByEPM dikhata hai."
+      },
+      "causes": [
+        {
+          "en": "External EPM Set is ON and its Fail Safe Set is ON, so the inverter is held off the grid",
+          "ur": "External EPM Set ON hai aur uska Fail Safe Set bhi ON hai, is liye inverter ko grid se rok rakha gaya hai"
+        },
+        {
+          "en": "Internal EPM Set is also ON even though no meter is fitted",
+          "ur": "Internal EPM Set bhi ON hai jabke koi meter lagi hi nahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Go to Advanced Settings > External EPM Set > Fail Safe Set, change ON to OFF and press Enter.",
+          "ur": "Advanced Settings > External EPM Set > Fail Safe Set mein jayein, ON ko OFF karein aur Enter dabayein."
+        },
+        {
+          "en": "Also make sure the Internal EPM Set is OFF - both settings must be off for the LimByEPM message to stop.",
+          "ur": "Ye bhi confirm karein ke Internal EPM Set OFF hai - dono settings off hone par hi LimByEPM message band hoga."
+        },
+        {
+          "en": "If the EPM IS fitted and you want zero export, configure it properly instead: EPM address 1, Transmit OFF, RUN 3600, Backflow power set to the DISCO-approved export limit.",
+          "ur": "Agar EPM lagi hui hai aur aap zero export chahte hain to usay theek tareeqe se configure karein: EPM address 1, Transmit OFF, RUN 3600, aur Backflow power DISCO ki approved export limit par set karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Solis official support KB: EPM - RS485 fail; LimByEPM; EPM Configuration and Validation Guide; Smart Meter Phase Rotation and CT Polarity Verification; plus the Solis master alarm table rows for 2010/2011/201A/2019/204B/204C",
+        "retrieved": "2026-09-26",
+        "url": "https://solis-service.solisinverters.com/en/support/solutions/articles/44002483279-epm-rs485-fail"
+      }
+    },
+    {
+      "code": "Fail Safe / MET_Comm_FAIL (2010 / 2011)",
+      "aliases": [
+        "Fail Safe / MET_Comm_FAIL (2010 / 2011)",
+        "Fail Safe",
+        "FailSafe",
+        "2010"
+      ],
+      "title": {
+        "en": "Meter communication fail safe (2010 / 2011)",
+        "ur": "Meter communication fail safe mode (2010 / 2011)"
+      },
+      "meaning": {
+        "en": "The inverter lost the meter and has gone into fail-safe, stopping generation so no uncontrolled power can flow back to the grid.",
+        "ur": "Inverter ne meter kho diya aur fail-safe mein chala gaya, generation rok diya taake grid par koi uncontrolled power na jaaye."
+      },
+      "causes": [
+        {
+          "en": "The communication line between the meter and the inverter is not normal",
+          "ur": "Meter aur inverter ke darmiyan communication line normal nahi hai"
+        },
+        {
+          "en": "CT clip loose, CT cable damaged, or the CT installed on the wrong conductor",
+          "ur": "CT clip loose, CT cable damaged, ya CT galat conductor par lagi hui"
+        },
+        {
+          "en": "Meter installed in 'load' position while the inverter setting expects 'grid' (or vice versa)",
+          "ur": "Meter 'load' position par lagi hai jabke inverter ka setting 'grid' expect karta hai (ya ulta)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait 5 minutes first - this fault can restore itself; only act if it persists.",
+          "ur": "Pehle 5 minute intezaar karein - ye fault khud restore ho sakta hai; sirf tab kaam karein jab rehta rahe."
+        },
+        {
+          "en": "With power off, verify that the CT cable is intact and undamaged and that the CT clip is securely fastened and not loose.",
+          "ur": "Power off karke confirm karein ke CT cable salamat aur undamaged hai aur CT clip securely fastened hai, loose nahi."
+        },
+        {
+          "en": "Confirm the CT installation position is correct - CTs must be on the main incoming utility cable at the point of common coupling, before any branching to site loads or the inverter.",
+          "ur": "CT ki installation position sahi hai confirm karein - CTs main incoming utility cable par point of common coupling par honi chahiye, site loads ya inverter ki taraf kisi bhi branch se pehle."
+        },
+        {
+          "en": "Verify the installation location of the meter matches the actual setting; a mismatch between Meter in Grid and Meter in Load is a common cause.",
+          "ur": "Meter ki installation location aur actual setting match karti hai yeh verify karein; Meter in Grid aur Meter in Load ke darmiyan mismatch aam waja hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Solis official support KB: EPM - RS485 fail; LimByEPM; EPM Configuration and Validation Guide; Smart Meter Phase Rotation and CT Polarity Verification; plus the Solis master alarm table rows for 2010/2011/201A/2019/204B/204C",
+        "retrieved": "2026-09-26",
+        "url": "https://solis-service.solisinverters.com/en/support/solutions/articles/44002483279-epm-rs485-fail"
+      }
+    },
+    {
+      "code": "CT_FAULT (201A)",
+      "aliases": [
+        "CT_FAULT (201A)",
+        "CT_FAULT",
+        "201A",
+        "CT fault",
+        "G100-CTFault (204C)"
+      ],
+      "title": {
+        "en": "CT or smart meter connection lost (CT_FAULT)",
+        "ur": "CT ya smart meter ka connection kho gaya (CT_FAULT)"
+      },
+      "meaning": {
+        "en": "The CT on the inverter, or the CT on the smart meter, has lost connection, so the inverter cannot measure grid power direction.",
+        "ur": "Inverter ka CT ya smart meter ka CT connection kho gaya, is liye inverter grid power ki direction measure nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "CT wiring loose, opened or with a poor earth reference",
+          "ur": "CT wiring loose, khuli ya earth reference kamzor"
+        },
+        {
+          "en": "CT installed with the wrong polarity, so import is read as export",
+          "ur": "CT galat polarity par lagi, is liye import ko export samajh liya jata hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Establish a known 'pure import' state: with a standard PV system turn the PV inverter off and switch on heavy site loads such as water heaters; on a hybrid force a grid charge.",
+          "ur": "Ek maloom 'pure import' halat banayein: standard PV system par PV inverter band karke bhaari site loads jaise water heater on karein; hybrid par grid charge force karein."
+        },
+        {
+          "en": "Read per-phase active power in kW: in a correct pure-import state every phase should read negative. If one phase reads positive while the others read negative, that CT is reversed.",
+          "ur": "Har phase ka active power kW mein padhein: sahi pure-import halat mein har phase negative hona chahiye. Agar ek phase positive aur baaki negative parhein to wo CT reversed hai."
+        },
+        {
+          "en": "Correct a reversed CT by unclipping it and rotating it 180 degrees on the cable; the reading will switch sign immediately. Do not rely on the arrow on a wiring diagram alone - verify per meter model.",
+          "ur": "Reversed CT ko theek karne ke liye use unclip karke cable par 180 degree ghumayein; reading foran badal jayegi. Wiring diagram ke arrow par bharosa na karein - meter model ke mutabiq verify karein."
+        },
+        {
+          "en": "If G100 is enabled, clear the alarm manually with the 'G100 Alarm Clear' setting in the LCD/APP or clear it remotely; if G100 is off, just repair the CT wiring.",
+          "ur": "Agar G100 enabled hai to LCD/APP mein 'G100 Alarm Clear' setting se alarm manually clear karein ya remote clear karein; agar G100 off hai to sirf CT wiring repair karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Before blaming CT polarity you MUST verify phase rotation: clamp all CTs onto the same physical phase conductor (at least 5 A, about 1 kW load) - only the matching voltage channel should then read true power and a correct power factor, while mismatched channels read about 50 % lower or negative.",
+        "ur": "CT polarity par dawa karne se pehle phase rotation verify karna ZAROORI hai: sab CTs ek hi physical phase conductor par lagao (kam az kam 5 A, yaqreeban 1 kW load) - phir sirf matching voltage channel hi asli power aur sahi power factor parhe, aur mismatched channels qareeb 50 % kam ya negative parhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Solis official support KB: EPM - RS485 fail; LimByEPM; EPM Configuration and Validation Guide; Smart Meter Phase Rotation and CT Polarity Verification; plus the Solis master alarm table rows for 2010/2011/201A/2019/204B/204C",
+        "retrieved": "2026-09-26",
+        "url": "https://solis-service.solisinverters.com/en/support/solutions/articles/44002483279-epm-rs485-fail"
+      }
+    },
+    {
+      "code": "MET_SEL_FAIL (2019)",
+      "aliases": [
+        "MET_SEL_FAIL (2019)",
+        "MET_SEL_FAIL",
+        "2019",
+        "MET-SLT-Fail",
+        "Meter2-Fail (F081)"
+      ],
+      "title": {
+        "en": "Wrong meter type selected (MET_SEL_FAIL)",
+        "ur": "Galat meter type selected hai (MET_SEL_FAIL)"
+      },
+      "meaning": {
+        "en": "The meter type configured in the inverter does not match the smart meter actually installed, so the meter interface cannot be read.",
+        "ur": "Inverter mein set kiya gaya meter type lagay huay smart meter se match nahi karta, is liye meter interface parha nahi ja sakta."
+      },
+      "causes": [
+        {
+          "en": "Meter Type left on 'No Meter' while a smart meter is actually connected",
+          "ur": "Smart meter lagi hone ke bawajood Meter Type 'No Meter' par chhor diya gaya"
+        },
+        {
+          "en": "Wrong meter model selected, e.g. a 1-phase meter option on a 3-phase install",
+          "ur": "Galat meter model selected, maslan 3-phase install par 1-phase meter option"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the model number printed on the smart meter and compare it with the options in Meter Setting > Meter Type.",
+          "ur": "Smart meter par likha model number padhein aur Meter Setting > Meter Type ke options se compare karein."
+        },
+        {
+          "en": "Select the meter option that exactly matches the installed meter, save and exit, then power cycle the inverter.",
+          "ur": "Lage hue meter se bilkul match karne wala meter option select karke save aur exit karein, phir inverter power cycle karein."
+        },
+        {
+          "en": "If no meter is connected at the moment, select 'No Meter' so the meter communication fault alarm is shielded.",
+          "ur": "Agar abhi koi meter connected nahi hai to 'No Meter' select kar dein taake meter communication fault ka alarm na aaye."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Solis official support KB: EPM - RS485 fail; LimByEPM; EPM Configuration and Validation Guide; Smart Meter Phase Rotation and CT Polarity Verification; plus the Solis master alarm table rows for 2010/2011/201A/2019/204B/204C",
+        "retrieved": "2026-09-26",
+        "url": "https://solis-service.solisinverters.com/en/support/solutions/articles/44002483279-epm-rs485-fail"
+      }
+    }
+  ]
+}

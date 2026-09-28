@@ -1,0 +1,1572 @@
+{
+  "schemaVersion": 1,
+  "brandId": "voltronic-platform",
+  "series": {
+    "id": "table-a-axpert-vm",
+    "name": "Table A — Axpert VM / MKS numeric (VM III canonical)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*AXPERT*",
+      "*VM III*",
+      "*VMiii*",
+      "*MKS*"
+    ],
+    "notes": "Official Axpert VM III table: faults 01-09/51-53/55/57-59 (NO fault 10 on VM III) + W-prefixed warnings + blank-code rows (EQ/BAT_NC) + BMS 60/69/70/71/BMS_COMM. BMS 60/71 ≠ Infini parallel 60/71."
+  },
+  "codes": [
+    {
+      "code": "01",
+      "aliases": [
+        "01",
+        "1"
+      ],
+      "title": {
+        "en": "Fan is locked when inverter is off.",
+        "ur": "Pankha band hai jab inverter off ho"
+      },
+      "meaning": {
+        "en": "Fan cannot rotate while the inverter is off; fan fault reported.",
+        "ur": "inverter band hone ki haalat main Pankha nahin ghoom raha fan kharabi."
+      },
+      "causes": [
+        {
+          "en": "Fan fault (obstruction, bearing seize or fan failure).",
+          "ur": "Pankha kharab — pankha ruka hua, bearing jam gayi ya fan kharab ho gaya."
+        },
+        {
+          "en": "Fan connector loose or fan supply wire broken.",
+          "ur": "Fan ka connection dheela hai ya supply wire tooti hui hai."
+        },
+        {
+          "en": "Main board fan driver circuit failed.",
+          "ur": "Main board ka fan driver circuit kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC input and PV, open the DC breaker and wait 5 minutes; then open the cover and look for dust, wires or a foreign object blocking the fan blades.",
+          "ur": "Pehle AC input aur PV band karein, DC breaker kholein aur 5 minute intezar karein; phir cover khol kar dekhein ke pankha ki blades par dhool, taar ya koi cheez atki hui hai."
+        },
+        {
+          "en": "With power isolated, spin the fan by hand — it must turn freely; check the fan plug is seated on the board and has no burn marks.",
+          "ur": "Power band hone ke baad pankha haath se ghuma kar dekhein — ise azaadi se ghumna chahiye; fan ka plug board par theek laga hai aur us par jale hue nishan to nahin, yeh check karein."
+        },
+        {
+          "en": "If the fan is stuck or does not run after restart, replace it with the same size fan and retest the unit.",
+          "ur": "Agar pankha atka hua hai ya restart ke baad bhi nahin chalta, to usi size ka naya fan lagayein aur unit ko dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Troubleshooting row: 'Fault code 01 — Fan fault — Replace the fan.' Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Troubleshooting row mein likha hai: 'Fault code 01 — Fan fault — Replace the fan.' Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "02",
+      "aliases": [
+        "02",
+        "2"
+      ],
+      "title": {
+        "en": "Over temperature",
+        "ur": "zyada darja hararat"
+      },
+      "meaning": {
+        "en": "Internal over-temperature trip: converter component over 120°C and/or inverter component over 100°C.",
+        "ur": "Andaruni over-temperature trip: converter component 120°C se zyada aur/ya inverter component 100°C se zyada."
+      },
+      "causes": [
+        {
+          "en": "Air flow of the unit is blocked / ambient temperature too high.",
+          "ur": "hawa ka rasta band ya mahol ka darja hararat zyada"
+        },
+        {
+          "en": "Internal converter component over 120°C; inverter component over 100°C.",
+          "ur": "Converter 120°C se aur inverter 100°C se zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off AC input and PV, let the unit cool for 10–15 minutes, and clear anything blocking the vents; clean dust from the filters and heat sinks.",
+          "ur": "AC input aur PV band kar ke unit ko 10-15 minute thanda hone dein, vent ke saamne jo rukawat hai hata dein; filters aur heat sinks se dhool saaf karein."
+        },
+        {
+          "en": "After cooling, restart the unit with a lighter load and listen that the cooling fan runs; also check the room ambient is not too hot.",
+          "ur": "Thanda hone par kam load ke sath unit restart karein aur sun kar maaloom karein ke pankha chal raha hai; kamre ka temperature bhi check karein ke woh bohat zyada to nahin."
+        },
+        {
+          "en": "If the trip comes back with clear airflow, the temperature sensor (NTC) or fan is faulty — have the board checked at the service centre.",
+          "ur": "Agar hawa ka rasta saaf hone ke baad bhi trip wapas aa jaye, to temperature sensor (NTC) ya pankha kharab hai — board ko service centre se check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "VM II Premium wording adds 'or NTC is not connected well' (Table C). Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "VM II Premium ki wording mein 'or NTC is not connected well' bhi shamil hai (Table C). Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "03",
+      "aliases": [
+        "03",
+        "3"
+      ],
+      "title": {
+        "en": "Battery voltage is too high",
+        "ur": "battery voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "DC battery voltage above allowed limit (includes battery over-charge condition).",
+        "ur": "Battery DC voltage mutayyeq had se zyada (battery over charge ki haalat bhi shamil)."
+      },
+      "causes": [
+        {
+          "en": "Battery is over-charged.",
+          "ur": "Battery over charge hai"
+        },
+        {
+          "en": "Battery spec/quantity does not meet requirements.",
+          "ur": "Battery ki specification ya quantity ki requirement ke mutabiq nahin."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Battery over-charged: return to repair center.",
+          "ur": "Battery over-charge ho gayi hai: marammat ke markaz wapas jayein."
+        },
+        {
+          "en": "Check if spec and quantity of batteries meet requirements.",
+          "ur": "Battery ki specification aur quantity check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-A).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-A)."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "04",
+      "aliases": [
+        "04",
+        "4"
+      ],
+      "title": {
+        "en": "Battery voltage is too low",
+        "ur": "battery voltage bohat kam"
+      },
+      "meaning": {
+        "en": "Battery voltage below operating threshold; unit trips (e.g. <1.91V/cell during startup).",
+        "ur": "Battery voltage chalti ki had se neeche; unit trip ho jata hai (misal ke tor par start ke dauran <1.91V/cell)."
+      },
+      "causes": [
+        {
+          "en": "The battery voltage is too low (<1.91V/Cell).",
+          "ur": "battery voltage bohat kam (<1.91V/cell)"
+        },
+        {
+          "en": "Battery voltage far too low (<1.4V/Cell) or internal fuse tripped.",
+          "ur": "Voltage bahat zyada kam (<1.4V/cell) ya andaruni fuse jal chuka hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV first, then measure the battery pack voltage with a multimeter; charge the battery before any further testing.",
+          "ur": "Pehle AC input aur PV alag karein, phir multimeter se battery pack ka voltage naapein; aur testing se pehle battery ko charge kar lein."
+        },
+        {
+          "en": "Check battery terminals and wiring for loose clamps or a blown main fuse; tighten or replace whatever is found faulty.",
+          "ur": "Battery ke terminals aur wiring check karein ke clamps dheele to nahin ya main fuse to nahi uda; jo kharab mila use theek karein ya badal dein."
+        },
+        {
+          "en": "Load-test the battery — if voltage collapses under load or a cell is dead, recharge or replace the battery and restart the unit.",
+          "ur": "Battery ka load-test karein — load par voltage gir jaye ya koi cell khaali ho to battery charge ya replace kar ke unit dobara start karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Manual has no dedicated 'Fault code 04' troubleshooting row; actions come from the startup-shutdown rows describing the same condition. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Manual mein alag se 'Fault code 04' troubleshooting row nahin hai; actions usi haalat wali startup-shutdown rows se liye gaye hain. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "05",
+      "aliases": [
+        "05",
+        "5"
+      ],
+      "title": {
+        "en": "Output short circuit or over temperature detected",
+        "ur": "Output short circuit ya converter ka over temperature"
+      },
+      "meaning": {
+        "en": "Output short circuit detected, or internal converter components over-temperature.",
+        "ur": "Output short circuit ya andaruni converter components ka temperature zyada."
+      },
+      "causes": [
+        {
+          "en": "Output short circuited.",
+          "ur": "output short circuit"
+        },
+        {
+          "en": "Temperature of internal converter component is over 120°C.",
+          "ur": "Converter ka temperature 120°C se zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if wiring is connected well and remove abnormal load.",
+          "ur": "Wiring check karein aur ghair mamooli load hatayein."
+        },
+        {
+          "en": "Check air flow / ambient temperature (over-temperature path).",
+          "ur": "hawa ka rasta / mahol ka darja hararat check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Short-circuit trip — electrically hazardous until wiring fault removed (severity stop_pro; hazard noted here). Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Short-circuit trip — wiring fault hataye nahin jane tak electrical khatra hai (severity stop_pro; khatra yahan note kiya gaya). Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "06",
+      "aliases": [
+        "06",
+        "6"
+      ],
+      "title": {
+        "en": "Output voltage is too high.",
+        "ur": "output voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "Inverter output voltage abnormal/high (troubleshooting band: above ~260Vac).",
+        "ur": "Output voltage ghair mamooli ya zyada (~260Vac se zyada)"
+      },
+      "causes": [
+        {
+          "en": "Output abnormal (inverter voltage below 190Vac or higher than 260Vac).",
+          "ur": "output ghair mamooli (190Vac se kam ya 260Vac se zyada)"
+        },
+        {
+          "en": "Heavy load drags the output voltage outside the band.",
+          "ur": "Bhari load ki wajah se output voltage band se bahar chala jata hai."
+        },
+        {
+          "en": "Output stage / AVR component on the main board failed.",
+          "ur": "Main board ka output stage ya AVR component kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "First switch off heavy loads and non-essential equipment so the inverter runs light, then measure the AC output with a multimeter.",
+          "ur": "Sab se pehle bhari load aur zaroori na honay wale appliances band kar dein taake inverter halke load par chale, phir multimeter se AC output naapein."
+        },
+        {
+          "en": "With the unit isolated from mains, check the output wiring and terminal connections for looseness or burn marks.",
+          "ur": "Unit ko mains se alag kar ke output wiring aur terminal connections check karein ke kahin dheela ya jale hue nishan to nahin."
+        },
+        {
+          "en": "If the output is still above the limit with a light load, stop and return the unit to the repair centre — the output stage needs service.",
+          "ur": "Agar halke load par bhi output phir bhi limit se upar rahe, to unit ko repair centre le jayein — output stage ki service zaroori hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Manual groups fault 06 with 58 in one troubleshooting row. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Manual fault 06 ko 58 ke sath ek hi troubleshooting row mein rakhta hai. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "07",
+      "aliases": [
+        "07",
+        "7"
+      ],
+      "title": {
+        "en": "Overload time out",
+        "ur": "Over load timeout"
+      },
+      "meaning": {
+        "en": "Load exceeded 110% until the overload timer expired (or PV-derating overload path); output cut.",
+        "ur": "Load 110% se zyada raha aur overload timer khatam ho gaya (ya PV derating ka overload rasta); output band."
+      },
+      "causes": [
+        {
+          "en": "Overload error: the inverter is overloaded 110% and time is up.",
+          "ur": "Overload error: inverter 110% se zyada load par tha aur waqt khatam ho gaya."
+        },
+        {
+          "en": "PV input voltage higher than specification caused derating; load higher than derated output power → overload.",
+          "ur": "PV input voltage specification se zyada hone ki wajah se output power ki derating hui; load derated power se zyada raha → overload."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load by switching off some equipment.",
+          "ur": "Kuch aalat band kar ke load kam karein."
+        },
+        {
+          "en": "Reduce the number of PV modules in series or the connected load.",
+          "ur": "series main PV models ya load kam karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Early-stage counterpart is warning W07. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Is ka early-stage counterpart warning W07 hai. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "08",
+      "aliases": [
+        "08",
+        "8"
+      ],
+      "title": {
+        "en": "Bus voltage is too high",
+        "ur": "Bus voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "Internal DC bus over-voltage trip.",
+        "ur": "Andaruni DC bus par over-voltage trip."
+      },
+      "causes": [
+        {
+          "en": "Internal components failed.",
+          "ur": "Andaruni components kharab"
+        },
+        {
+          "en": "Load dump or regenerative energy pushed the DC bus above the limit.",
+          "ur": "Load dump ya regenerative energy ne DC bus ko limit se upar kar diya."
+        },
+        {
+          "en": "DC bus capacitor or bleed resistor failed.",
+          "ur": "DC bus capacitor ya bleed resistor kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, switch off AC input and PV and wait 5 minutes; do not probe the DC bus — dangerous voltage stays stored in the capacitors.",
+          "ur": "Unit band karein, AC input aur PV off kar ke 5 minute intezar karein; DC bus par probe na rakhein — capacitors mein khatarnak voltage reh jata hai."
+        },
+        {
+          "en": "Open the cover only with supply isolated and look for burnt parts, bulged capacitors or loose connections; do not power it up again.",
+          "ur": "Sirf supply band hone par cover kholein aur jalay hue parts, phoolay hue capacitors ya dheele connections dekhein; dobara power na dein."
+        },
+        {
+          "en": "If the fault repeats after a restart, the bus or soft-start components have failed — send the unit to the repair centre.",
+          "ur": "Agar restart ke baad bhi fault aa jaye, to bus ya soft-start components kharab ho chuke hain — unit ko repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Troubleshooting groups 08/09/53/57 as 'Internal components failed'. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Troubleshooting 08/09/53/57 ko 'Internal components failed' ke group mein rakhti hai. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "09",
+      "aliases": [
+        "09",
+        "9"
+      ],
+      "title": {
+        "en": "Bus soft start failed",
+        "ur": "Bus soft start nakaam"
+      },
+      "meaning": {
+        "en": "DC bus could not soft-start to operating voltage.",
+        "ur": "DC bus apni operating voltage tak soft start nahi ho saka."
+      },
+      "causes": [
+        {
+          "en": "Internal components failed (user manual).",
+          "ur": "Andaruni components kharab (service manual)"
+        },
+        {
+          "en": "DC-DC module damaged or BUS soft-start module damaged (service manual); check TX1 if no other damage found.",
+          "ur": "DC-DC module ya bus soft-start module kharab (service manual); agar koi aur kharabi na mile to TX1 check karein."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV, wait 5 minutes, then restart once and watch whether the bus comes up or the code returns immediately.",
+          "ur": "AC input aur PV alag kar ke 5 minute ruk kar ek baar restart karein aur dekhein ke bus upar aata hai ya code foran wapas aa jata hai."
+        },
+        {
+          "en": "Check the DC input wiring and main fuse for looseness or damage; do not probe the high-voltage bus yourself.",
+          "ur": "DC input wiring aur main fuse check karein ke dheela ya kharab to nahin; high-voltage bus par khud probe na karein."
+        },
+        {
+          "en": "Since the DC-DC or BUS soft-start stage has failed, send the unit to the repair centre for board-level repair.",
+          "ur": "Kyunki DC-DC ya BUS soft-start stage kharab hai, unit ko board-level repair ke liye repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Component-level hint from SRC-VMIIISVC (medium): bus soft-start TX1/D82/Q17/U18; 'If R260 is damaged, replace U18 together'. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "SRC-VMIIISVC (medium) se component-level hint mila hai: bus soft-start TX1/D82/Q17/U18; 'If R260 is damaged, replace U18 together'. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "51",
+      "aliases": [
+        "51"
+      ],
+      "title": {
+        "en": "Over current or surge",
+        "ur": "Over current ya surge"
+      },
+      "meaning": {
+        "en": "Inverter over-current / surge trip.",
+        "ur": "Inverter over-current / surge trip kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Over current or surge.",
+          "ur": "Over current ya surge."
+        },
+        {
+          "en": "Motor or inductive load inrush current at start-up.",
+          "ur": "Motor ya inductive load ka start par inrush current."
+        },
+        {
+          "en": "Short or insulation fault on the output wiring.",
+          "ur": "Output wiring par short ya insulation fault."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off heavy loads such as motors and pumps, restart the unit and see if it runs normally on a light load.",
+          "ur": "Motor aur pump jaisi bhari load band kar dein, unit restart karein aur dekhein ke halke load par theek chal raha hai."
+        },
+        {
+          "en": "With supply isolated, check the output and battery wiring for short circuits, loose terminals or burnt cables.",
+          "ur": "Supply band kar ke output aur battery wiring check karein ke short circuit, dheele terminals ya jali hui cables to nahin."
+        },
+        {
+          "en": "If the error returns even on a light load, return the unit to the repair centre.",
+          "ur": "Agar halke load par bhi error wapas aa jaye, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Model-scoped on some families (see Table C). Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Yeh code kuch model families tak mehdood hai (Table C dekhein). Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "52",
+      "aliases": [
+        "52"
+      ],
+      "title": {
+        "en": "Bus voltage is too low",
+        "ur": "Bus voltage bohat kam"
+      },
+      "meaning": {
+        "en": "Internal DC bus under-voltage trip.",
+        "ur": "Andaruni DC bus under-voltage trip."
+      },
+      "causes": [
+        {
+          "en": "Bus voltage is too low.",
+          "ur": "Bus voltage bohat kam."
+        },
+        {
+          "en": "Weak or discharged battery feeding the DC bus.",
+          "ur": "Battery kamzor ya discharge hai jo DC bus ko feed kar rahi hai."
+        },
+        {
+          "en": "Loose DC input connection or blown main fuse.",
+          "ur": "DC input ka connection dheela hai ya main fuse uda hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the battery voltage under load with a multimeter; a weak battery is the usual reason the bus cannot hold voltage.",
+          "ur": "Multimeter se battery ka voltage load par naapein; kamzor battery hi aam wajah hai ke bus voltage hold nahin kar pata."
+        },
+        {
+          "en": "Isolate supply and check the DC input cables, fuse and connections for looseness, corrosion or a blown fuse.",
+          "ur": "Supply alag kar ke DC input cables, fuse aur connections check karein ke dheela, zang ya uda hua fuse to nahin."
+        },
+        {
+          "en": "Charge or replace the battery, restart once, and if the trip repeats send the unit to the repair centre.",
+          "ur": "Battery charge ya replace kar ke ek baar restart karein, aur agar trip dobara aaye to unit ko repair centre bhej dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Same restart-then-service remedy row as 51/55. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Yeh 51/55 wala hi restart-then-service remedy row hai. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "53",
+      "aliases": [
+        "53"
+      ],
+      "title": {
+        "en": "Inverter soft start failed",
+        "ur": "Inverter soft start nakaam"
+      },
+      "meaning": {
+        "en": "Inverter bridge failed to soft-start.",
+        "ur": "Inverter bridge soft start nahi ho saka."
+      },
+      "causes": [
+        {
+          "en": "Internal components failed.",
+          "ur": "Andaruni components kharab"
+        },
+        {
+          "en": "DC bus did not reach the level needed for bridge soft-start.",
+          "ur": "DC bus bridge soft-start ke liye zaroori level tak nahin pahuncha."
+        },
+        {
+          "en": "Gate drive or IGBT stage fault in the inverter bridge.",
+          "ur": "Inverter bridge ka gate drive ya IGBT stage kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC input and PV and wait 5 minutes before opening the unit for a visual check.",
+          "ur": "Unit band karein, AC input aur PV alag kar ke 5 minute intezar karein, phir cover khol kar nazar se check karein."
+        },
+        {
+          "en": "Restart once after cooling; if the same code appears again the bridge or soft-start stage has failed.",
+          "ur": "Thanda hone ke baad ek baar restart karein; agar phir se wohi code aaye to bridge ya soft-start stage kharab ho gaya hai."
+        },
+        {
+          "en": "Do not keep cycling power — return the unit to the repair centre for board repair.",
+          "ur": "Bar bar power on-off na karein — unit ko board repair ke liye repair centre le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Grouped 08/09/53/57 in troubleshooting. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Troubleshooting ne 08/09/53/57 ko ek hi group mein rakha hai. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "55",
+      "aliases": [
+        "55"
+      ],
+      "title": {
+        "en": "Over DC voltage in AC output",
+        "ur": "AC output main DC voltage zyada"
+      },
+      "meaning": {
+        "en": "DC offset / unbalanced condition in AC output (troubleshooting phrasing: output voltage is unbalanced).",
+        "ur": "AC output mein DC offset / unbalanced haalat hoti hai (troubleshooting mein: output voltage unbalanced hai)."
+      },
+      "causes": [
+        {
+          "en": "Output voltage is unbalanced / over DC voltage in AC output.",
+          "ur": "Output voltage unbalanced hai ya AC output mein DC voltage zyada hai."
+        },
+        {
+          "en": "One output leg or relay contact has high resistance.",
+          "ur": "Kisi ek output leg ya relay contact par zyada resistance aa rahi hai."
+        },
+        {
+          "en": "Output filter capacitor degraded.",
+          "ur": "Output filter capacitor kamzor ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load, restart the unit and measure the AC output with a multimeter to confirm the unbalance.",
+          "ur": "Munsalik load kam karein, unit restart karein aur multimeter se AC output naapein ke unbalance kitna hai."
+        },
+        {
+          "en": "With supply isolated, check the output wiring and relay contacts for looseness or burn marks.",
+          "ur": "Supply alag kar ke output wiring aur relay contacts check karein ke dheela ya jale hue nishan to nahin."
+        },
+        {
+          "en": "If the output stays unbalanced even at no load, the output stage is faulty — return the unit to the repair centre.",
+          "ur": "Agar bina load ke bhi output unbalanced rahe, to output stage kharab hai — unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Table title vs troubleshooting title differ (Over DC voltage vs unbalanced) — same code. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Table title aur troubleshooting title alag hain (Over DC voltage vs unbalanced) — code wohi hai. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "57",
+      "aliases": [
+        "57"
+      ],
+      "title": {
+        "en": "Current sensor failed",
+        "ur": "current sensor kharab"
+      },
+      "meaning": {
+        "en": "Internal current sensor failure.",
+        "ur": "Andaruni current sensor nakaam"
+      },
+      "causes": [
+        {
+          "en": "Internal components failed.",
+          "ur": "Andaruni components kharab"
+        },
+        {
+          "en": "Current sensor (CT/shunt) disconnected or damaged.",
+          "ur": "Current sensor (CT/shunt) disconnect ho gaya ya kharab hai."
+        },
+        {
+          "en": "Main board sensing circuit fault.",
+          "ur": "Main board ki sensing circuit kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV, wait 5 minutes, then restart once to see whether the code clears.",
+          "ur": "AC input aur PV alag kar ke 5 minute ruk kar ek baar restart karein aur dekhein ke code hat jata hai ya nahin."
+        },
+        {
+          "en": "Open the unit with power isolated and check that the current sensor (CT/shunt) connector is seated and undamaged.",
+          "ur": "Power band kar ke unit kholein aur check karein ke current sensor (CT/shunt) ka connector theek laga hai ya kharab to nahin."
+        },
+        {
+          "en": "The sensor or its board circuit has failed — send the unit to the repair centre for replacement.",
+          "ur": "Sensor ya us ka board circuit kharab ho gaya hai — unit ko replacement ke liye repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Grouped 08/09/53/57. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Troubleshooting ne 08/09/53/57 ko ek group mein rakha hai. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "58",
+      "aliases": [
+        "58"
+      ],
+      "title": {
+        "en": "Output voltage is too low",
+        "ur": "output voltage bohat kam"
+      },
+      "meaning": {
+        "en": "Inverter output voltage low/abnormal (troubleshooting band: below ~190Vac).",
+        "ur": "Inverter output voltage kam ya abnormal hai (troubleshooting had: 190Vac se neeche)."
+      },
+      "causes": [
+        {
+          "en": "Output abnormal (inverter voltage below 190Vac or higher than 260Vac).",
+          "ur": "output ghair mamooli (190Vac se kam ya 260Vac se zyada)"
+        },
+        {
+          "en": "Heavy load or long output cable causing voltage drop.",
+          "ur": "Bhari load ya lambi output cable ki wajah se voltage drop ho raha hai."
+        },
+        {
+          "en": "Weak battery or failing output stage.",
+          "ur": "Battery kamzor hai ya output stage kharab ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load and restart; measure the AC output with a multimeter to see whether it stays below the limit.",
+          "ur": "Load kam kar ke restart karein; multimeter se AC output naapein ke woh limit se neeche rahta hai ya nahin."
+        },
+        {
+          "en": "Check the battery voltage under load and the output wiring for loose joints — both drag the output down.",
+          "ur": "Load par battery voltage aur output wiring ke dheele joints check karein — dono output ko neeche kheenchte hain."
+        },
+        {
+          "en": "If the voltage is still low after these steps, return the unit to the repair centre.",
+          "ur": "In steps ke baad bhi voltage kam rahe, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Shared troubleshooting row with fault 06. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Is ka shared troubleshooting row fault 06 ke sath hai. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "59",
+      "aliases": [
+        "59"
+      ],
+      "title": {
+        "en": "PV voltage is over limitation",
+        "ur": "PV voltage had se zyada"
+      },
+      "meaning": {
+        "en": "PV input voltage exceeds the unit's PV limit.",
+        "ur": "PV input voltage unit ki had se zyada"
+      },
+      "causes": [
+        {
+          "en": "PV input voltage is beyond the specification.",
+          "ur": "PV input voltage specification se bahar hai."
+        },
+        {
+          "en": "Too many PV modules connected in series for this model.",
+          "ur": "Is model ke liye series mein PV modules zyada lage hue hain."
+        },
+        {
+          "en": "Cold weather raised the array open-circuit voltage (Voc).",
+          "ur": "Sardi mein array ka open-circuit voltage (Voc) barh jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the PV DC isolator first, then measure the array open-circuit voltage (Voc) with a meter and compare it with the unit rating.",
+          "ur": "Pehle PV DC isolator band karein, phir meter se array ka open-circuit voltage (Voc) naapein aur unit ki rating se compare karein."
+        },
+        {
+          "en": "If the string voltage is above the limit, reduce the number of PV modules in series and reconnect.",
+          "ur": "Agar string ka voltage limit se upar ho, to series mein PV modules ki tadad kam kar ke dobara connect karein."
+        },
+        {
+          "en": "Check for damaged panels or water in the DC connectors; replace the faulty panel or connector and retest.",
+          "ur": "Kharab panels ya DC connectors mein paani check karein; kharab panel ya connector badal kar dobara test karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Paired with warning W10 (derating) when PV is high but still in range. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "PV zyada ho magar phir bhi range mein ho to warning W10 (derating) ke sath joda jata hai. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "W01",
+      "aliases": [
+        "W01"
+      ],
+      "title": {
+        "en": "Fan is locked when inverter is on.",
+        "ur": "Pankha band hai jab inverter on ho"
+      },
+      "meaning": {
+        "en": "Fan stalled while inverter is running (output kept).",
+        "ur": "Inverter chalte huey pankha atak gaya (output jari raha)"
+      },
+      "causes": [
+        {
+          "en": "Fan obstructed or failing while running.",
+          "ur": "Chalte huey pankha mein rukawat ya kharabi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Official warning table lists event + beep only (no remedy). Counterpart fault 01 says replace fan. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Official warning table sirf event + beep dikhata hai (koi remedy nahin). Counterpart fault 01 mein fan badalne ka likha hai. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon/code flashing; red LED flashing; beep three times every second."
+    },
+    {
+      "code": "W02",
+      "aliases": [
+        "W02"
+      ],
+      "title": {
+        "en": "Over temperature",
+        "ur": "zyada darja hararat"
+      },
+      "meaning": {
+        "en": "Over-temperature warning while unit continues to run.",
+        "ur": "Unit chalte hue over-temperature ki warning — unit chalta raha hai."
+      },
+      "causes": [
+        {
+          "en": "Internal temperature high (same physical condition as fault 02, earlier stage).",
+          "ur": "Andaruni temperature zyada hai (fault 02 wala hi haalat, pehli stage)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Cause link to fault 02 is KB interpretation; official table lists event only. Audible alarm: None. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Fault 02 se cause link KB ka interpretation hai; official table sirf event list karti hai. Audible alarm: None. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon/code flashing; red LED flashing; no beep (None)."
+    },
+    {
+      "code": "W03",
+      "aliases": [
+        "W03"
+      ],
+      "title": {
+        "en": "Battery is over-charged",
+        "ur": "Battery over charge"
+      },
+      "meaning": {
+        "en": "Battery over-charge condition flagged while running.",
+        "ur": "Chalte waqt battery over-charge ki haalat show ho rahi hai."
+      },
+      "causes": [
+        {
+          "en": "Charging pushed battery above over-charge threshold.",
+          "ur": "Charging had se zyada chali gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Escalates to fault 03 (stop, repair center). No official warning remedy. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Yeh fault 03 par escalate hota hai (stop, repair center). Official warning ka koi remedy nahin. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon/code flashing; red LED flashing; beep once every second."
+    },
+    {
+      "code": "W04",
+      "aliases": [
+        "W04"
+      ],
+      "title": {
+        "en": "Low battery",
+        "ur": "kam battery"
+      },
+      "meaning": {
+        "en": "Low battery warning; unit still operating.",
+        "ur": "Low battery warning; unit abhi chal raha hai."
+      },
+      "causes": [
+        {
+          "en": "Battery discharge approaching low-level warning point.",
+          "ur": "Battery discharge low-battery warning point ke qareeb par hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Escalates to fault 04 (tripped). Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Yeh fault 04 par escalate hota hai (tripped). Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon/code flashing; red LED flashing; beep once every second."
+    },
+    {
+      "code": "W07",
+      "aliases": [
+        "W07"
+      ],
+      "title": {
+        "en": "Overload",
+        "ur": "Over load"
+      },
+      "meaning": {
+        "en": "Overload warning in progress before timeout trip.",
+        "ur": "Timeout trip se pehle overload warning chal rahi hai."
+      },
+      "causes": [
+        {
+          "en": "Load exceeds rating value.",
+          "ur": "Load rating value se zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Early version of fault 07; act to shed load. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Fault 07 ka hi early version hai; load kam karne ka action lena chahiye. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon/code flashing; red LED flashing; beep once every 0.5 second."
+    },
+    {
+      "code": "W10",
+      "aliases": [
+        "W10"
+      ],
+      "title": {
+        "en": "Output power derating",
+        "ur": "output power derating"
+      },
+      "meaning": {
+        "en": "Output power being derated (e.g. low AC input or high-PV condition).",
+        "ur": "Output power derate ho rahi hai (jaise kam AC input ya zyada PV ki haalat)."
+      },
+      "causes": [
+        {
+          "en": "Conditions forcing derating (spec section: output derates as AC input drops toward 170V; also PV over-spec path).",
+          "ur": "Aisi halat jo derating par majboor karein (spec section: AC input 170V ki taraf girte hi output derate hota hai; PV over-spec ka rasta bhi)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Derating curves documented in specifications section. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Derating curves specifications section mein document kiye gaye hain. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon/code flashing; red LED flashing; beep twice every 3 seconds."
+    },
+    {
+      "code": "W15",
+      "aliases": [
+        "W15"
+      ],
+      "title": {
+        "en": "PV energy is low.",
+        "ur": "PV power kam"
+      },
+      "meaning": {
+        "en": "PV harvest too low for current demand (weak array).",
+        "ur": "PV power ki zaroorat ke liye mojood kam (kamzor array)"
+      },
+      "causes": [
+        {
+          "en": "Low irradiance / shading / array issue.",
+          "ur": "Kam shade, dhund ya array ke aal par ghaan."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "InfiniSolar VII names the same event 'PV is weak' (W15). Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "InfiniSolar VII isi event ko 'PV is weak' (W15) keh kar bulata hai. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon/code flashing; red LED flashing; beep twice every 3 seconds."
+    },
+    {
+      "code": "W16",
+      "aliases": [
+        "W16"
+      ],
+      "title": {
+        "en": "High AC input (>280VAC) during BUS soft start",
+        "ur": "Bus soft start ke dauran zyada AC input (>280VAC)"
+      },
+      "meaning": {
+        "en": "AC input exceeded 280VAC while the bus was soft-starting.",
+        "ur": "Bus soft start ke dauran AC input 280VAC se zyada."
+      },
+      "causes": [
+        {
+          "en": "Mains/generator over-voltage during startup window.",
+          "ur": "Start ke dauran mains/generator par over-voltage."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Absent from V PF1 / MKS / MKS II warning tables (Table C). Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Yeh warning V PF1 / MKS / MKS II warning tables mein nahin milta (Table C dekhein). Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon/code flashing; red LED flashing; no beep (None)."
+    },
+    {
+      "code": "W32",
+      "aliases": [
+        "W32"
+      ],
+      "title": {
+        "en": "Communication failure with remote display panel",
+        "ur": "Inverter aur remote display panel ka rabta kharab"
+      },
+      "meaning": {
+        "en": "Link between inverter and remote display panel lost (VM II wording: communication board).",
+        "ur": "Inverter aur remote display panel ka link toot gaya (VM II: communication board)."
+      },
+      "causes": [
+        {
+          "en": "Remote panel/communication cable disconnected or fault.",
+          "ur": "Remote panel/cable nikal diya gaya ya kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Absent from V PF1 / MKS / MKS II warning tables (Table C). Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Yeh warning V PF1 / MKS / MKS II warning tables mein nahin milta (Table C dekhein). Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon/code flashing; red LED flashing; no beep (None)."
+    },
+    {
+      "code": "EQ",
+      "aliases": [
+        "EQ"
+      ],
+      "title": {
+        "en": "Battery equalization",
+        "ur": "battery equalization"
+      },
+      "meaning": {
+        "en": "Equalization charge stage active (icon-only row; no numeric warning code printed in official table).",
+        "ur": "Equalization charge ki stage faal hai (official table mein sirf icon wali row; koi numeric warning code print nahin hota)."
+      },
+      "causes": [
+        {
+          "en": "Equalization interval reached or activated immediately (Program 30/35/36 on VM III).",
+          "ur": "Equalization ka interval poora ho gaya ya foran activate kar diya gaya (VM III program 30/35/36)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Normal operation — informational icon.",
+          "ur": "aam amal — maloomati icon"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Row exists with blank Code cell — keep code null; do not assign a W-number. Official table row has blank Code cell (icon-only equalization) — stored as EQ symbolic id, not a printed number. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Row mojood hai magar Code cell khali hai — code null hi rakhein; W-number mat dein. Official table row mein Code cell khali hai (icon-only equalization) — isay EQ symbolic id ke tor par store kiya gaya, print hua number nahin. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; no beep (None)."
+    },
+    {
+      "code": "BAT_NC",
+      "aliases": [
+        "BAT_NC"
+      ],
+      "title": {
+        "en": "Battery is not connected",
+        "ur": "battery munsalik nahin"
+      },
+      "meaning": {
+        "en": "Battery not detected/connected (icon-only row; no numeric code printed in official table).",
+        "ur": "battery nahin mili/munsalik nahin (code khaali)"
+      },
+      "causes": [
+        {
+          "en": "Wire connection or fuse was burnt.",
+          "ur": "Wire connection ya fuse jal gaya."
+        },
+        {
+          "en": "Battery disconnected at power-up (troubleshooting: relay switching on/off repeatedly).",
+          "ur": "power-aap par battery nikli hui (relay bar bar on/off)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the wire connection and the polarity of the battery cables.",
+          "ur": "Wire connection aur battery polarity check karein."
+        },
+        {
+          "en": "Repair the main board or replace it (if wiring/fuse OK).",
+          "ur": "Agar wiring/fuse theek hon to main board ki marammat karein ya badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Event row official (code cell blank). Causes/solutions from SRC-VMIIISVC §2.2.3 'Warning: Battery couldn't be detected' (secondary → medium for remedy text). InfiniSolar VII numbers this event as W19; VII WP labels it 'BP'. Official table row has blank Code cell — stored as BAT_NC symbolic id. Infini numbers this W19; WP labels BP; V PF1/MKS W11. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Event row official hai (code cell khali). Causes/solutions SRC-VMIIISVC §2.2.3 'Warning: Battery couldn't be detected' se liye gaye hain (secondary → remedy text ke liye medium). InfiniSolar VII is event ko W19 number deta hai; VII WP ise 'BP' label karta hai. Official table row mein Code cell khali hai — isay BAT_NC symbolic id ke tor par store kiya gaya. Infini ise W19 kehta hai; WP ise BP; V PF1/MKS W11. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; relay cycling on/off at startup; no beep (None)."
+    },
+    {
+      "code": "60",
+      "aliases": [
+        "60"
+      ],
+      "title": {
+        "en": "Stop charging and discharging battery (BMS status)",
+        "ur": "battery charge/discharge band (BMS haalat)"
+      },
+      "meaning": {
+        "en": "After successful inverter↔battery communication, battery status does not allow charge and discharge → shown as code 60.",
+        "ur": "Communication ke baad battery status charge/discharge ki ijazat nahin deta → code 60"
+      },
+      "causes": [
+        {
+          "en": "BMS reported status disallowing charge and discharge.",
+          "ur": "BMS ne charge/discharge ki ijazat nahin di"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Follow battery/BMS state (wait for BMS allow); informational LCD code.",
+          "ur": "BMS ki ijazat ka intezar karein; LCD maloomati code"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "COLLISION: InfiniSolar parallel fault 60 = 'Power feedback protection' (Table B). BMS 60/69/70/71 also appear on SRC-B2P §6 Code Reference. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "COLLISION: InfiniSolar parallel fault 60 = 'Power feedback protection' (Table B). BMS 60/69/70/71 SRC-B2P §6 Code Reference mein bhi aate hain. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "LCD information code; no dedicated LED/beep cadence documented for 60/69/70/71."
+    },
+    {
+      "code": "BMS_COMM",
+      "aliases": [
+        "BMS_COMM"
+      ],
+      "title": {
+        "en": "Communication lost (Pylontech/WECO/Soltaro battery types)",
+        "ur": "Communication toot gayi (Pylontech/WECO/Soltaro batteries)"
+      },
+      "meaning": {
+        "en": "Lithium battery communication condition — no number printed in the Code Reference table.",
+        "ur": "Lithium battery communication ki haalat — Code Reference table mein koi number print nahin hota."
+      },
+      "causes": [
+        {
+          "en": "After battery connected, communication signal not detected for 3 minutes.",
+          "ur": "Battery lagane ke baad 3 minute tak communication signal nahin mila."
+        },
+        {
+          "en": "Communication lost after it was established.",
+          "ur": "Rabta bane ke baad communication toot gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Buzzer beeps; after 10 minutes inverter stops charging/discharging to lithium battery — check custom RJ45 cable and battery-type setting.",
+          "ur": "Buzzer beep kare; 10 minute baad inverter lithium battery ki charging/discharging band kar deta hai — custom RJ45 cable aur battery-type setting check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Code cell blank in official table — do not invent a number. Official BMS Code Reference row has no printed number — stored as BMS_COMM symbolic id. Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "Official table mein Code cell khali hai — number khud mat banayein. Official BMS Code Reference row par koi print hua number nahin — isay BMS_COMM symbolic id ke tor par store kiya gaya hai. Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Buzzer beeps 3 min after battery connect without comm; immediate beep on comm loss after established; li-ion charge/discharge stops after 10 min."
+    },
+    {
+      "code": "69",
+      "aliases": [
+        "69"
+      ],
+      "title": {
+        "en": "Stop charging battery (BMS status)",
+        "ur": "battery charge band (BMS haalat)"
+      },
+      "meaning": {
+        "en": "Battery status does not allow charging → code 69.",
+        "ur": "Battery status charge ki ijazat nahin deta → code 69"
+      },
+      "causes": [
+        {
+          "en": "BMS disallows charging.",
+          "ur": "BMS charge ki ijazat nahin dita"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for BMS allow; informational LCD code.",
+          "ur": "BMS ijazat ka intezar maloomati code"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-A).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-A)."
+      },
+      "blinkPattern": "LCD information code; no dedicated cadence documented."
+    },
+    {
+      "code": "70",
+      "aliases": [
+        "70"
+      ],
+      "title": {
+        "en": "Charge battery (BMS status)",
+        "ur": "battery charge karo (BMS haalat)"
+      },
+      "meaning": {
+        "en": "Battery status requires charging → code 70.",
+        "ur": "Battery status ko charge ki zaroorat hai → code 70"
+      },
+      "causes": [
+        {
+          "en": "BMS requests charging.",
+          "ur": "BMS charging ki request karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Allow charging path; informational LCD code.",
+          "ur": "charge ki ijazat dein maloomati code"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-A).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-A)."
+      },
+      "blinkPattern": "LCD information code; no dedicated cadence documented."
+    },
+    {
+      "code": "71",
+      "aliases": [
+        "71"
+      ],
+      "title": {
+        "en": "Stop discharging battery (BMS status)",
+        "ur": "battery discharge band (BMS haalat)"
+      },
+      "meaning": {
+        "en": "Battery status does not allow discharging → code 71.",
+        "ur": "Battery status discharge ki ijazat nahin deta → code 71"
+      },
+      "causes": [
+        {
+          "en": "BMS disallows discharging.",
+          "ur": "BMS discharge ki ijazat nahin dita"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for BMS allow; informational LCD code.",
+          "ur": "BMS ijazat ka intezar maloomati code"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert VM III manual-20200904 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20VM%20III_manual-20200904.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "COLLISION: InfiniSolar parallel fault 71 = 'Firmware version inconsistent' (Table B). Platform reference entry (table source SRC-A). Local brand rows may match but keep brand code space separate.",
+        "ur": "COLLISION: InfiniSolar parallel fault 71 = 'Firmware version inconsistent' (Table B). Yeh platform ka reference entry hai (table source SRC-A). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "LCD information code; no dedicated cadence documented."
+    }
+  ]
+}

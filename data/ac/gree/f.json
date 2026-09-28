@@ -1,0 +1,654 @@
+{
+  "schemaVersion": 1,
+  "brandId": "gree",
+  "series": {
+    "id": "f",
+    "name": "F-family sensor codes (F0–F6, F8/F9, FA/FC/FE/FH)",
+    "category": "ac",
+    "unitType": "generic",
+    "modelPatterns": [
+      "*GREE*",
+      "*BORA*",
+      "*LOMO*",
+      "*U-MATCH*",
+      "*U-CROWN*",
+      "*G10*",
+      "*RF-*",
+      "*SPLIT*"
+    ],
+    "notes": "F-family sensors/refrigerant. NOTE: two valid Gree F-index mappings exist by series/region (official greecomfort F1=indoor ambient vs PK tables F0/F1 shifted) — see per-code notes; do not merge indices blindly."
+  },
+  "codes": [
+    {
+      "code": "F0",
+      "aliases": [
+        "F0"
+      ],
+      "title": {
+        "en": "Low refrigerant / leak protection or indoor sensor",
+        "ur": "Gas kam hone ki hifazat ya indoor sensor kharab"
+      },
+      "meaning": {
+        "en": "Primary PK/retail mapping: system detected low refrigerant (leak path). Alternate Gree mapping (acguide): indoor ambient 20 kΩ sensor open/short.",
+        "ur": "Zyada tar references mein: refrigerant kam ya leak ki nishani. Doosra Gree mapping (acguide): indoor ambient 20 kΩ sensor khul ya short."
+      },
+      "causes": [
+        {
+          "en": "Refrigerant leak or undercharge",
+          "ur": "Refrigerant leak hai ya gas kam hai"
+        },
+        {
+          "en": "Open/shorted sensor wiring (alternate mapping)",
+          "ur": "Sensor ki wiring open/short hai (alternate mapping)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Technician: leak search, repair, vacuum, weighed recharge",
+          "ur": "Technician leak search kare, repair kare, vacuum kare aur taul kar gas bhare"
+        },
+        {
+          "en": "Measure sensor resistance vs temperature chart; replace sensor if out of spec",
+          "ur": "Sensor ki resistance temperature chart se naapein; sensor spec se bahar ho to badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "other",
+        "title": "Cross-checked: greecomfort.com official F1–F5 vs aysonline/japanelectronics/electrafix full F-table vs acguide F0–F5 sensor ohm values",
+        "retrieved": "2026-09-24",
+        "url": "https://www.aysonline.pk/docs/how-to-fix-gree-ac-common-error-codes/"
+      },
+      "notes": {
+        "en": "Do not merge F-index across regions without model confirmation. Per-code attribution: multi-pk + heatpumpanswers.",
+        "ur": "Model confirm kiye bina F-index ko regions ke darmiyan merge na karein. Per-code attribution: multi-pk + heatpumpanswers."
+      },
+      "blinkPattern": "Cooling lamp family F0–F9/FF"
+    },
+    {
+      "code": "F1",
+      "aliases": [
+        "F1"
+      ],
+      "title": {
+        "en": "Indoor ambient sensor fault (acguide index differs)",
+        "ur": "Kamre ka ambient sensor kharab (acguide mapping alag)"
+      },
+      "meaning": {
+        "en": "Official: indoor ambient temperature sensor open/short. Widespread PK table agrees for F1 = indoor ambient in many lists; acguide shifts index by one.",
+        "ur": "Official ke mutabiq indoor ambient temperature sensor khul ya short. Bohat se PK tables mein F1 = indoor ambient hai; acguide index ek aage shift kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Open/shorted NTC sensor or damaged harness",
+          "ur": "NTC sensor open/short hai ya harness toota hua hai"
+        },
+        {
+          "en": "Loose connector on indoor board",
+          "ur": "Indoor board par connector dhila hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off at the breaker and open the indoor panel; reseat the room-sensor connector on the indoor board",
+          "ur": "Breaker par power band karke indoor panel kholein; room sensor ka connector indoor board par theek se lagayein"
+        },
+        {
+          "en": "Measure sensor resistance with a multimeter against the temperature chart and replace the NTC sensor if it reads open or short",
+          "ur": "Multimeter se sensor ki resistance temperature chart se check karein; open/short de raha ho to NTC sensor badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "other",
+        "title": "Cross-checked: greecomfort.com official F1–F5 vs aysonline/japanelectronics/electrafix full F-table vs acguide F0–F5 sensor ohm values",
+        "retrieved": "2026-09-24",
+        "url": "https://www.aysonline.pk/docs/how-to-fix-gree-ac-common-error-codes/"
+      },
+      "notes": {
+        "en": "Index conflict noted in QUARANTINE. Per-code attribution: official + multi-pk.",
+        "ur": "QUARANTINE mein index conflict note kiya gaya hai. Per-code attribution: official + multi-pk."
+      }
+    },
+    {
+      "code": "F2",
+      "aliases": [
+        "F2"
+      ],
+      "title": {
+        "en": "Indoor coil sensor fault (majority PK; acguide differs)",
+        "ur": "Andar wale coil ka sensor kharab (majority PK list)"
+      },
+      "meaning": {
+        "en": "Indoor coil (evaporator) temperature sensor open/short → erratic cycling or protection.",
+        "ur": "Indoor coil (evaporator) ke temperature sensor ke khul ya short hone se cycling bhi arahi aur protection bhi ho sakti hai."
+      },
+      "causes": [
+        {
+          "en": "Failed NTC on evaporator",
+          "ur": "Evaporator ka NTC sensor fail ho gaya"
+        },
+        {
+          "en": "Wiring damage from icing or service",
+          "ur": "Icing ya service ki wajah se wiring ko nuksan pahuncha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check resistance vs chart; replace sensor",
+          "ur": "Pehle resistance chart se check karein; sensor spec se bahar ho to badlein"
+        },
+        {
+          "en": "Ensure sensor seated in coil well, not iced",
+          "ur": "Confirm karein ke sensor coil well mein theek baitha hai aur barf nahi lagi"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "other",
+        "title": "Cross-checked: greecomfort.com official F1–F5 vs aysonline/japanelectronics/electrafix full F-table vs acguide F0–F5 sensor ohm values",
+        "retrieved": "2026-09-24",
+        "url": "https://www.aysonline.pk/docs/how-to-fix-gree-ac-common-error-codes/"
+      },
+      "notes": {
+        "en": "Per-code attribution: official + multi-pk.",
+        "ur": "Is code ke sources official + multi-pk hain (per-code attribution)."
+      }
+    },
+    {
+      "code": "F3",
+      "aliases": [
+        "F3"
+      ],
+      "title": {
+        "en": "Outdoor ambient temperature sensor fault",
+        "ur": "bahar ke darja hararat ka sensor kharab"
+      },
+      "meaning": {
+        "en": "Outdoor air temperature sensor open/short; efficiency and defrost logic degrade.",
+        "ur": "bahar ka darja hararat sensor tota ya short hawa"
+      },
+      "causes": [
+        {
+          "en": "Corroded/damaged outdoor sensor",
+          "ur": "Outdoor sensor par zang lagne ya kisi aur nuqsan ki wajah se kharab ho gaya"
+        },
+        {
+          "en": "Harness chafing at outdoor unit",
+          "ur": "Outdoor unit par harness ghis gaya (chafing)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect supply and inspect the outdoor sensor harness at the outdoor unit for chafing or broken wires",
+          "ur": "Supply band karke outdoor unit par sensor harness ko ghisne ya tootne ke liye inspect karein"
+        },
+        {
+          "en": "Reseat the sensor connector, then test resistance and replace the outdoor sensor if it reads open or short",
+          "ur": "Sensor connector dobara lagayein, phir resistance test karein; open/short aaye to outdoor sensor badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "other",
+        "title": "Cross-checked: greecomfort.com official F1–F5 vs aysonline/japanelectronics/electrafix full F-table vs acguide F0–F5 sensor ohm values",
+        "retrieved": "2026-09-24",
+        "url": "https://www.aysonline.pk/docs/how-to-fix-gree-ac-common-error-codes/"
+      },
+      "notes": {
+        "en": "Highest cross-source agreement in F family. Per-code attribution: multi-pk (all tables agree F3).",
+        "ur": "F family mein sabse zyada sources agree karte hain. Per-code attribution: multi-pk (all tables agree F3)."
+      }
+    },
+    {
+      "code": "F4",
+      "aliases": [
+        "F4"
+      ],
+      "title": {
+        "en": "Outdoor coil or discharge tube sensor (varies)",
+        "ur": "Bahar wala coil ya discharge tube sensor (model ke mutabiq)"
+      },
+      "meaning": {
+        "en": "Official greecomfort: outdoor tube sensor. Many PK tables: outdoor pipe/coil sensor; acguide: compressor discharge tube 25 kΩ; heatpumpanswers: discharge tube.",
+        "ur": "Official greecomfort ke mutabiq outdoor tube sensor. Bohat se PK tables: outdoor pipe/coil sensor; acguide: compressor ki discharge tube 25 kΩ; heatpumpanswers: discharge tube."
+      },
+      "causes": [
+        {
+          "en": "Open/short NTC",
+          "ur": "NTC open/short ho gaya hai"
+        },
+        {
+          "en": "Poor contact in sensor well",
+          "ur": "Sensor well mein contact theek nahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate power and check that the tube sensor sits firmly in its well with good contact",
+          "ur": "Power isolate karke dekhein ke tube sensor uski well mein theek se baitha hai aur contact acha hai"
+        },
+        {
+          "en": "Test sensor resistance against the chart and verify the harness to the outdoor board; replace the sensor if it is out of spec",
+          "ur": "Sensor ki resistance chart se test karein aur outdoor board tak harness verify karein; spec se bahar ho to sensor badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "other",
+        "title": "Cross-checked: greecomfort.com official F1–F5 vs aysonline/japanelectronics/electrafix full F-table vs acguide F0–F5 sensor ohm values",
+        "retrieved": "2026-09-24",
+        "url": "https://www.aysonline.pk/docs/how-to-fix-gree-ac-common-error-codes/"
+      },
+      "notes": {
+        "en": "Ambiguous target (outdoor tube vs discharge) across official vs other sources. Per-code attribution: multi (meaning variant by model).",
+        "ur": "Official aur doosre sources ke darmiyan target alag hai (outdoor tube ya discharge) — model ke mutabiq meaning badalti hai. Per-code attribution: multi (meaning variant by model)."
+      }
+    },
+    {
+      "code": "F5",
+      "aliases": [
+        "F5"
+      ],
+      "title": {
+        "en": "Compressor discharge or controller sensor (varies)",
+        "ur": "Compressor discharge ya wired controller ka sensor"
+      },
+      "meaning": {
+        "en": "Official: discharge sensor. acguide: wired-controller temperature sensor (replace controller). PK lists often “exhaust/discharge sensor.”",
+        "ur": "Official ke mutabiq discharge sensor; acguide ke mutabiq wired-controller temperature sensor (controller badalna hota hai); PK lists mein aksar 'exhaust/discharge sensor' likha hota hai."
+      },
+      "causes": [
+        {
+          "en": "Failed discharge NTC (critical for compressor protection)",
+          "ur": "Discharge NTC fail ho gaya (compressor ki hifazat ke liye zaroori hai)"
+        },
+        {
+          "en": "Faulty wired controller sensor/board",
+          "ur": "Wired controller ka sensor/board kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Technician: replace sensor — never bypass discharge sensor",
+          "ur": "Technician sensor badlein — discharge sensor kabhi bypass na karein"
+        },
+        {
+          "en": "If wired-controller variant: replace controller unit",
+          "ur": "Agar wired-controller version hai to controller unit badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "other",
+        "title": "Cross-checked: greecomfort.com official F1–F5 vs aysonline/japanelectronics/electrafix full F-table vs acguide F0–F5 sensor ohm values",
+        "retrieved": "2026-09-24",
+        "url": "https://www.aysonline.pk/docs/how-to-fix-gree-ac-common-error-codes/"
+      },
+      "notes": {
+        "en": "Maqsood: “Never bypass this sensor.” Per-code attribution: official + multi-pk.",
+        "ur": "Maqsood: is sensor ko kabhi bypass na karein. Per-code attribution: official + multi-pk."
+      }
+    },
+    {
+      "code": "F6",
+      "aliases": [
+        "F6"
+      ],
+      "title": {
+        "en": "Outdoor mid-tube sensor / overload limit frequency drop",
+        "ur": "Outdoor middle tube sensor / overload limit ki wajah se frequency drop"
+      },
+      "meaning": {
+        "en": "Sources split: outdoor middle tube sensor fault vs overload-limit causing frequency reduction (sometimes fan slow + coil issue/leak).",
+        "ur": "Sources do baatein batate hain: outdoor middle tube sensor ki kharabi, ya overload limit ki wajah se frequency kam hona (kabhi kabhi fan bhi dheema aur coil ki kharabi ya leak bhi hota hai)."
+      },
+      "causes": [
+        {
+          "en": "Outdoor tube sensor open/short",
+          "ur": "Outdoor tube sensor open/short ho gaya"
+        },
+        {
+          "en": "System overload, dirty filters, possible refrigerant issue",
+          "ur": "System par overload, gande filter, ho sakta hai refrigerant ka masla"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean filters/coils; verify charge",
+          "ur": "Pehle filters/coils saaf karein; charge verify karein"
+        },
+        {
+          "en": "Technician: test F6 sensor and replace if bad",
+          "ur": "Technician F6 sensor test kare aur kharab ho to badle"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "Cross-checked: greecomfort.com official F1–F5 vs aysonline/japanelectronics/electrafix full F-table vs acguide F0–F5 sensor ohm values",
+        "retrieved": "2026-09-24",
+        "url": "https://www.aysonline.pk/docs/how-to-fix-gree-ac-common-error-codes/"
+      },
+      "notes": {
+        "en": "airconditioningmanuals claims F6 = capacitor overheat at low fan — quarantined. Per-code attribution: multi-pk (split meanings).",
+        "ur": "airconditioningmanuals ka kehna hai F6 = low fan par capacitor overheat — quarantine kiya gaya. Per-code attribution: multi-pk (split meanings)."
+      }
+    },
+    {
+      "code": "F8",
+      "aliases": [
+        "F8"
+      ],
+      "title": {
+        "en": "Overcurrent limit / frequency drop",
+        "ur": "Overcurrent ki had / frequency drop"
+      },
+      "meaning": {
+        "en": "Drive detected overcurrent condition and reduced compressor frequency.",
+        "ur": "Drive ne current zyada hone ki condition detect ki aur compressor ki frequency kam kar di."
+      },
+      "causes": [
+        {
+          "en": "Electrical supply or wiring issue",
+          "ur": "Electric supply ya wiring mein masla hai"
+        },
+        {
+          "en": "Compressor or drive component fault",
+          "ur": "Compressor ya drive component kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the unit and check supply voltage and all power connections for looseness before any probing",
+          "ur": "Unit band karke pehle supply voltage aur saare power connections ki tightness check karein, phir probing karein"
+        },
+        {
+          "en": "A technician inspects the drive and compressor windings with a meter and replaces the failed drive or compressor part",
+          "ur": "Technician meter se drive aur compressor winding check kare aur kharab drive ya compressor part badle"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "other",
+        "title": "Cross-checked: greecomfort.com official F1–F5 vs aysonline/japanelectronics/electrafix full F-table vs acguide F0–F5 sensor ohm values",
+        "retrieved": "2026-09-24",
+        "url": "https://www.aysonline.pk/docs/how-to-fix-gree-ac-common-error-codes/"
+      },
+      "notes": {
+        "en": "Per-code attribution: multi-pk.",
+        "ur": "Is code ka source multi-pk hai (per-code attribution)."
+      }
+    },
+    {
+      "code": "F9",
+      "aliases": [
+        "F9"
+      ],
+      "title": {
+        "en": "High discharge temperature limit (frequency drop)",
+        "ur": "Discharge high temperature ki had (frequency drop)"
+      },
+      "meaning": {
+        "en": "Discharge temperature high enough that the controller derates compressor speed.",
+        "ur": "Discharge temperature itni zyada ho gayi ke controller ne compressor ki speed kam kar di."
+      },
+      "causes": [
+        {
+          "en": "Poor condenser ventilation",
+          "ur": "Condenser ki ventilation kamzor hai"
+        },
+        {
+          "en": "Low charge or restricted flow",
+          "ur": "Gas charge kam hai ya flow roka hua hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, clean the condenser and filters, and clear space around the outdoor unit so airflow returns",
+          "ur": "Power band karke condenser aur filters saaf karein, outdoor unit ke aas paas jagah khali karein taake airflow wapas aaye"
+        },
+        {
+          "en": "Let the unit cool and restart; if the code repeats, a technician checks the charge for a leak and repairs it",
+          "ur": "Unit ko thanda hone dein aur restart karein; code dobara aaye to technician leak ke liye charge check kare aur repair kare"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "other",
+        "title": "Cross-checked: greecomfort.com official F1–F5 vs aysonline/japanelectronics/electrafix full F-table vs acguide F0–F5 sensor ohm values",
+        "retrieved": "2026-09-24",
+        "url": "https://www.aysonline.pk/docs/how-to-fix-gree-ac-common-error-codes/"
+      },
+      "notes": {
+        "en": "Per-code attribution: multi-pk.",
+        "ur": "Is code ka attribution multi-pk sources par hai."
+      }
+    },
+    {
+      "code": "FA",
+      "aliases": [
+        "FA"
+      ],
+      "title": {
+        "en": "Tube over-temperature protection (frequency drop)",
+        "ur": "Tube over temperature ki hifazat (frequency drop)"
+      },
+      "meaning": {
+        "en": "Heat-exchanger tube temperature exceeded limit; controller reduces frequency.",
+        "ur": "Heat exchanger ki tube ka temperature had se zyada ho gaya; controller ne frequency kam ki."
+      },
+      "causes": [
+        {
+          "en": "Overheating, dirty coil, sensor drift",
+          "ur": "Zyada garmi, ganda coil, sensor ka drift"
+        },
+        {
+          "en": "Blocked filters or poor airflow around the heat exchanger",
+          "ur": "Filter band hain ya heat exchanger ke gird airflow kam hai"
+        },
+        {
+          "en": "Tube temperature sensor drifted high and reports a false over-temperature",
+          "ur": "Tube temperature sensor zyada reading de raha hai jis se galat over-temperature show hota hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down and isolate supply, then clean the heat-exchanger coil and filters and clear anything blocking airflow",
+          "ur": "Unit band karke supply isolate karein, phir heat-exchanger coil aur filters saaf karein aur airflow rukne wali cheezein hatayein"
+        },
+        {
+          "en": "Restart after cooldown; if FA returns, a technician verifies the tube-sensor reading and the refrigerant charge",
+          "ur": "Thanda hone ke baad restart karein; FA wapas aaye to technician tube sensor ki reading aur refrigerant charge verify kare"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "other",
+        "title": "Cross-checked: greecomfort.com official F1–F5 vs aysonline/japanelectronics/electrafix full F-table vs acguide F0–F5 sensor ohm values",
+        "retrieved": "2026-09-24",
+        "url": "https://www.aysonline.pk/docs/how-to-fix-gree-ac-common-error-codes/"
+      },
+      "notes": {
+        "en": "Per-code attribution: multi-pk.",
+        "ur": "Is code ki attribution multi-pk hai."
+      },
+      "blinkPattern": "Heating lamp family includes FA/FH"
+    },
+    {
+      "code": "FC",
+      "aliases": [
+        "FC"
+      ],
+      "title": {
+        "en": "Door malfunction (cabinet/panel switch)",
+        "ur": "Door ki kharabi (cabinet/panel switch)"
+      },
+      "meaning": {
+        "en": "Access door/panel switch reports open or faulty state (cassette/floor models).",
+        "ur": "Access door/panel switch khula ya kharab state bata raha hai (cassette/floor models)."
+      },
+      "causes": [
+        {
+          "en": "Obstruction preventing full closure",
+          "ur": "Koi cheez ruki hui hai jo puri tarah band nahi hone deti"
+        },
+        {
+          "en": "Failed door switch",
+          "ur": "Door switch fail ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, open the panel, and remove anything stopping the access door from closing fully",
+          "ur": "Power band karke panel kholein aur us cheez ko hatayein jo access door ko puri tarah band hone se rok rahi hai"
+        },
+        {
+          "en": "Check the door switch with a meter for continuity and replace it if it stays open when the door is shut",
+          "ur": "Door switch ko meter se continuity ke liye check karein; door band hone par bhi open rahe to switch badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "Cross-checked: greecomfort.com official F1–F5 vs aysonline/japanelectronics/electrafix full F-table vs acguide F0–F5 sensor ohm values",
+        "retrieved": "2026-09-24",
+        "url": "https://www.aysonline.pk/docs/how-to-fix-gree-ac-common-error-codes/"
+      },
+      "notes": {
+        "en": "Per-code attribution: aysonline + japanelectronics + electrafix.",
+        "ur": "Is code ke sources aysonline + japanelectronics + electrafix hain (per-code attribution)."
+      }
+    },
+    {
+      "code": "FE",
+      "aliases": [
+        "FE"
+      ],
+      "title": {
+        "en": "Compressor overload sensor fault",
+        "ur": "Compressor overload sensor ki kharabi"
+      },
+      "meaning": {
+        "en": "Sensor monitoring compressor overload is open/short or implausible.",
+        "ur": "Compressor ke overload par nazar rakhne wala sensor khul ya short hai, ya uski reading qabil-e-taweeq nahi."
+      },
+      "causes": [
+        {
+          "en": "Failed overload sensor or wiring",
+          "ur": "Overload sensor ya uski wiring fail ho gayi"
+        },
+        {
+          "en": "Compressor electrical fault",
+          "ur": "Compressor mein electrical kharabi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect power and check the overload-sensor connector and wiring for damage before testing",
+          "ur": "Power disconnect karke test se pehle overload sensor ka connector aur wiring ki damage check karein"
+        },
+        {
+          "en": "Measure sensor resistance against the chart and replace the sensor if open or short; if the code stays, a technician evaluates the compressor",
+          "ur": "Sensor ki resistance chart se naapein aur open/short ho to sensor badlein; code rahe to technician compressor evaluate kare"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "Cross-checked: greecomfort.com official F1–F5 vs aysonline/japanelectronics/electrafix full F-table vs acguide F0–F5 sensor ohm values",
+        "retrieved": "2026-09-24",
+        "url": "https://www.aysonline.pk/docs/how-to-fix-gree-ac-common-error-codes/"
+      },
+      "notes": {
+        "en": "Per-code attribution: aysonline + japanelectronics + electrafix.",
+        "ur": "Is code ka source teeno sites hain: aysonline + japanelectronics + electrafix."
+      }
+    },
+    {
+      "code": "FH",
+      "aliases": [
+        "FH"
+      ],
+      "title": {
+        "en": "Anti-freeze limit (frequency drop)",
+        "ur": "Anti-freeze ki had (frequency drop)"
+      },
+      "meaning": {
+        "en": "Evaporator approached freezing; controller derates compressor to prevent ice-up.",
+        "ur": "Evaporator jam ki taraf ja raha tha, is liye controller ne compressor ki frequency kam ki taake ice na lage."
+      },
+      "causes": [
+        {
+          "en": "Low ambient / low airflow / low refrigerant",
+          "ur": "Kam ambient temperature / kam airflow / kam refrigerant"
+        },
+        {
+          "en": "Faulty coil sensor",
+          "ur": "Coil sensor kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean filters; verify airflow and charge",
+          "ur": "Pehle filters saaf karein; airflow aur charge verify karein"
+        },
+        {
+          "en": "Replace coil sensor if out of range",
+          "ur": "Coil sensor range se bahar ho to badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "other",
+        "title": "Cross-checked: greecomfort.com official F1–F5 vs aysonline/japanelectronics/electrafix full F-table vs acguide F0–F5 sensor ohm values",
+        "retrieved": "2026-09-24",
+        "url": "https://www.aysonline.pk/docs/how-to-fix-gree-ac-common-error-codes/"
+      },
+      "notes": {
+        "en": "Per-code attribution: multi-pk + airconditioningmanuals (FH on heating lamp).",
+        "ur": "Is code ke sources multi-pk + airconditioningmanuals hain (FH heating lamp par milta hai)."
+      },
+      "blinkPattern": "Heating lamp: H0–H9, FA, FH"
+    }
+  ]
+}

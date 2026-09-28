@@ -1,0 +1,823 @@
+{
+  "schemaVersion": 1,
+  "brandId": "solis",
+  "series": {
+    "id": "solis-s5-gr3p",
+    "name": "S5-GR3P (three-phase string 3-13kW / 20-60kW)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*S5-GR3P*",
+      "*S5-GR3P3*",
+      "*S5-GR3P12*"
+    ],
+    "notes": "Same text alarm names as the 1-phase S5-GR but Table 9.1 is a separate table and must not be merged with it. Three-phase-only extras here: G-IMP, DSP-B-FAULT, OV-G-1. Reverse-GRID is NOT in this table. Measured voltages are line-to-line (L1-L2 etc.)."
+  },
+  "codes": [
+    {
+      "code": "G-IMP",
+      "aliases": [
+        "G-IMP"
+      ],
+      "title": {
+        "en": "High grid impedance (G-IMP)",
+        "ur": "Grid impedance zyada (G-IMP)"
+      },
+      "meaning": {
+        "en": "The inverter sees too much impedance between itself and the grid, usually because the interconnect cable is too long or too thin.",
+        "ur": "Inverter aur grid ke darmiyan impedance zyada hai, aksar is liye ke interconnect cable lamba ya patla hai."
+      },
+      "causes": [
+        {
+          "en": "AC interconnect cable undersized or longer than the inverter spec allows",
+          "ur": "AC interconnect cable chhota ya manual se zyada lamba hai"
+        },
+        {
+          "en": "Loose AC lugs adding contact resistance at the inverter or at the panel",
+          "ur": "Inverter ya panel par AC lugs loose hain jis se contact resistance barh gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure line-to-line voltage at the inverter and at the main panel and note the difference under load.",
+          "ur": "Inverter aur main panel par line-to-line voltage measure karke load ke under ka farq note karein."
+        },
+        {
+          "en": "Fit a larger cross-section AC cable if the voltage drop under full output is high.",
+          "ur": "Agar full output par voltage drop zyada ho to bari cross-section AC cable lagayein."
+        },
+        {
+          "en": "Only widen the protection limit using User-Define if the utility permits it.",
+          "ur": "Utility ijazat de to hi User-Define se protection limit barhayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "G-PHASE",
+      "aliases": [
+        "G-PHASE",
+        "1016"
+      ],
+      "title": {
+        "en": "Unbalanced three-phase grid (G-PHASE)",
+        "ur": "Three-phase grid unbalanced (G-PHASE)"
+      },
+      "meaning": {
+        "en": "The three phases are not within the allowed voltage difference, so the inverter stops.",
+        "ur": "Teen phases ka voltage farq allowed limit se upar hai, is liye inverter ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Single-phase heavy load connected between two phases only",
+          "ur": "Sirf do phases ke darmiyan single-phase bhaari load lagi ho"
+        },
+        {
+          "en": "Phase sequence or a loose connection at the main panel",
+          "ur": "Main panel par phase sequence ya connection loose ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure L1-L2, L2-L3 and L3-L1 under load and compare the three values.",
+          "ur": "Load ke under L1-L2, L2-L3 aur L3-L1 measure karke teenon values compare karein."
+        },
+        {
+          "en": "Move single-phase loads so they are spread evenly across all three phases.",
+          "ur": "Single-phase loads ko aise baant dein ke teenon phases par barabar hon."
+        },
+        {
+          "en": "Tighten all phase lugs at the main panel and re-check the phase sequence.",
+          "ur": "Main panel par sab phase lugs tighten karein aur phase sequence dobara check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "PHASE-FAULT",
+      "aliases": [
+        "PHASE-FAULT",
+        "101A"
+      ],
+      "title": {
+        "en": "Grid phase angle abnormal (PHASE-FAULT)",
+        "ur": "Grid phase angle ghalat (PHASE-FAULT)"
+      },
+      "meaning": {
+        "en": "The measured phase angle between phases is outside the allowed 120 degree window.",
+        "ur": "Phases ke darmiyan measured phase angle 120 degree ke allowed window se bahar hai."
+      },
+      "causes": [
+        {
+          "en": "Two phases of one feeder connected with a phase swap",
+          "ur": "Ek feeder ke do phases aapas mein swap karke lagaye gaye"
+        },
+        {
+          "en": "Unbalanced phase conductors with different cable lengths",
+          "ur": "Alag lambai ke phase conductors se phase load unbalanced"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the AC and confirm each inverter terminal matches its labelled phase L1, L2, L3.",
+          "ur": "AC isolate karke confirm karein ke har inverter terminal uske labelled phase L1, L2, L3 se match karta hai."
+        },
+        {
+          "en": "At the main panel, verify the phase sequence L1-L2-L3 with a phase rotation meter.",
+          "ur": "Main panel par phase rotation meter se sequence L1-L2-L3 verify karein."
+        },
+        {
+          "en": "Equalise the cable lengths and lug torque on all three phases, then restart.",
+          "ur": "Teenon phases par cable lambai aur lug torque barabar karein, phir restart karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "notes": {
+        "en": "Hex 101A comes from a single retailer table, not from the Solis support KB code list.",
+        "ur": "Hex 101A ek retailer table se aaya hai, Solis support KB ki code list se nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "OV-G-V01/02/03/04",
+      "aliases": [
+        "OV-G-V01/02/03/04",
+        "1010",
+        "OV-G-V"
+      ],
+      "title": {
+        "en": "Over grid voltage (OV-G-V01 to 04)",
+        "ur": "Grid voltage zyada (OV-G-V01 se 04)"
+      },
+      "meaning": {
+        "en": "Line-to-line grid voltage is above the configured overvoltage window, so export stops.",
+        "ur": "Line-to-line grid voltage set kiya hua overvoltage window se upar hai, is liye export ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "AC cable resistance too high for the run length",
+          "ur": "AC cable ki resistance run length ke liye zyada hai"
+        },
+        {
+          "en": "Grid actually high due to heavy export on the local transformer",
+          "ur": "Local transformer par zyada export ki wajah se grid sach mein high hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "DC switch OFF, then measure L1-L2, L2-L3, L3-L1 and each phase to earth at the inverter.",
+          "ur": "DC switch OFF karke inverter par L1-L2, L2-L3, L3-L1 aur har phase ko earth ke against measure karein."
+        },
+        {
+          "en": "Fit a larger grid cable if resistance is high, as the manual instructs.",
+          "ur": "Manual ke mutabiq agar resistance zyada ho to bari grid cable lagayein."
+        },
+        {
+          "en": "Adjust the protection limit only if the electrical company / utility allows it.",
+          "ur": "Protection limit tabhi adjust karein jab electrical company / utility ijazat de."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "UN-G-V01/02",
+      "aliases": [
+        "UN-G-V01/02",
+        "1011",
+        "UN-G-V"
+      ],
+      "title": {
+        "en": "Under grid voltage (UN-G-V01/02)",
+        "ur": "Grid voltage kam (UN-G-V01/02)"
+      },
+      "meaning": {
+        "en": "Grid voltage below the lower protection limit; the inverter waits and reconnects when it recovers.",
+        "ur": "Grid voltage lower protection limit se neeche; voltage theek hone par inverter reconnect kar leta hai."
+      },
+      "causes": [
+        {
+          "en": "Weak transformer or long low-voltage feeder",
+          "ur": "Kamzor transformer ya lamba low-voltage feeder"
+        },
+        {
+          "en": "Large unbalanced single-phase load on one phase",
+          "ur": "Ek phase par bada unbalanced single-phase load"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure all three line-to-line voltages at the inverter while the alarm is showing.",
+          "ur": "Alarm chal raha ho tab inverter par teenon line-to-line voltages measure karein."
+        },
+        {
+          "en": "If the meter reads normal but the LCD shows low, suspect the voltage sensing circuit - RMA.",
+          "ur": "Meter normal reading de lekin LCD kam dikhaye to voltage sensing circuit shak karein - RMA."
+        },
+        {
+          "en": "Use the User-Define function to widen the lower limit only with utility approval.",
+          "ur": "Utility ki ijazat se hi User-Define function se lower limit barhayein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "NO-GRID",
+      "aliases": [
+        "NO-GRID",
+        "1015",
+        "NO-Grid"
+      ],
+      "title": {
+        "en": "No grid voltage (NO-GRID)",
+        "ur": "Grid voltage nahi (NO-GRID)"
+      },
+      "meaning": {
+        "en": "The inverter detects no grid voltage on any phase, so it stays disconnected.",
+        "ur": "Inverter ko kisi bhi phase par grid voltage nahi mil rahi, is liye woh disconnected rehta hai."
+      },
+      "causes": [
+        {
+          "en": "AC MCB tripped, or the grid isolator is open",
+          "ur": "AC MCB trip hua, ya grid isolator khula hai"
+        },
+        {
+          "en": "One AC phase conductor open between inverter and panel",
+          "ur": "Inverter aur panel ke darmiyan koi ek AC phase conductor khula hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "DC switch OFF, then measure L1-L2, L1-L3, L2-L3, L1-GND, L2-GND, L3-GND at the AC terminals.",
+          "ur": "DC switch OFF karke AC terminal par L1-L2, L1-L3, L2-L3, L1-GND, L2-GND, L3-GND measure karein."
+        },
+        {
+          "en": "Compare the AC voltages shown in the Information menu with the multimeter; mismatch means RMA.",
+          "ur": "Information menu ke AC voltages ko multimeter se compare karein; mismatch ho to RMA."
+        },
+        {
+          "en": "Turn the DC switch off until the screen blanks, then switch AC on first and DC after 60 seconds.",
+          "ur": "Screen blank hone tak DC switch off rakhein, phir AC pehle aur 60 second baad DC on karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "OV-BUS",
+      "aliases": [
+        "OV-BUS",
+        "1021",
+        "OV-BUS (1021 DATA:0000)"
+      ],
+      "title": {
+        "en": "Over DC bus voltage (OV-BUS)",
+        "ur": "DC bus voltage zyada (OV-BUS)"
+      },
+      "meaning": {
+        "en": "The internal DC bus voltage exceeded its limit, so the inverter stopped.",
+        "ur": "Internal DC bus voltage apni limit cross kar gaya, is liye inverter ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Inductor connection loose or the driver board has failed",
+          "ur": "Inductor connection loose hai ya driver board fail ho gaya"
+        },
+        {
+          "en": "Grid loss while the DC bus is still charged from the PV array",
+          "ur": "PV array se DC bus charged hone ke baad grid chala gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV completely before probing anything inside the unit.",
+          "ur": "Unit ke andar kuch bhi check karne se pehle AC aur PV poori tarah isolate karein."
+        },
+        {
+          "en": "Measure DC and AC with a multimeter and compare with the LCD Information values.",
+          "ur": "Multimeter se DC aur AC measure karein aur LCD Information values se compare karein."
+        },
+        {
+          "en": "With power off, check the inverter inductor connection and the driver connection as the manual states.",
+          "ur": "Power off kar ke manual ke mutabiq inverter inductor connection aur driver connection check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "UN-BUS01/02",
+      "aliases": [
+        "UN-BUS01/02",
+        "1023",
+        "UN-BUS",
+        "UNB-BUS"
+      ],
+      "title": {
+        "en": "Under DC bus voltage (UN-BUS01/02)",
+        "ur": "DC bus voltage kam (UN-BUS01/02)"
+      },
+      "meaning": {
+        "en": "The internal DC bus is too low, so the inverter cannot start or keeps restarting.",
+        "ur": "Internal DC bus bahut kam hai, is liye inverter start nahi hota ya baar baar restart hota hai."
+      },
+      "causes": [
+        {
+          "en": "PV array Voc too low for the inverter minimum window",
+          "ur": "PV array ka Voc inverter ki minimum window se kam hai"
+        },
+        {
+          "en": "Half-voltage sampling circuit fault",
+          "ur": "Half-voltage sampling circuit ka fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "DC switch OFF, then measure the PV string Voc at the inverter DC terminals.",
+          "ur": "DC switch OFF karke inverter DC terminal par PV string ka Voc measure karein."
+        },
+        {
+          "en": "Confirm the string count in series is inside the inverter DC input range for your local minimum temperature.",
+          "ur": "Confirm karein ke series mein string count aapke local minimum temperature par inverter DC range mein hai."
+        },
+        {
+          "en": "If Voc is healthy, reseat the bus voltage sampling connector and RMA the unit.",
+          "ur": "Voc theek ho to bus voltage sampling connector dobara fit karein aur unit RMA karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "GRID-INTF01/02",
+      "aliases": [
+        "GRID-INTF01/02",
+        "1030",
+        "GRID-INTF",
+        "GRID-INTF."
+      ],
+      "title": {
+        "en": "Grid interference (GRID-INTF01/02)",
+        "ur": "Grid interference / waveform kharab (GRID-INTF01/02)"
+      },
+      "meaning": {
+        "en": "The grid waveform is unstable or heavily distorted, so the inverter shut down.",
+        "ur": "Grid waveform unstable ya bahut distorted hai, is liye inverter band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Non-linear loads such as drives and UPS on the same feeder",
+          "ur": "Usi feeder par drives aur UPS jaise non-linear loads"
+        },
+        {
+          "en": "Weak AC wiring, a loose connection or a shipping-loose internal wire",
+          "ur": "Kamzor AC wiring, loose connection ya shipping ke waqt khula internal wire"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With the DC switch OFF, measure AC voltage and test the AC line for total harmonic distortion.",
+          "ur": "DC switch OFF kar ke AC voltage measure karein aur AC line ka total harmonic distortion test karein."
+        },
+        {
+          "en": "With the DC switch ON, test the AC line again for THD at full output.",
+          "ur": "DC switch ON kar ke full output par AC line ka THD dobara test karein."
+        },
+        {
+          "en": "Turn other inverters off one at a time to find the noisy unit, then reseat or replace the power board.",
+          "ur": "Doosre inverters ek-ek karke band kar ke noisy unit dhoondein, phir power board dobara fit ya replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "DSP-B-FAULT",
+      "aliases": [
+        "DSP-B-FAULT",
+        "DSP-B-Sam-Fau",
+        "DSP-B-Com-Fau",
+        "1036"
+      ],
+      "title": {
+        "en": "Main to slave DSP comms failure (DSP-B-FAULT)",
+        "ur": "Main se slave DSP comms fail (DSP-B-FAULT)"
+      },
+      "meaning": {
+        "en": "The main and slave DSP chips are not communicating, so the inverter cannot run.",
+        "ur": "Main aur slave DSP aapas mein communicate nahi kar rahe, is liye inverter nahi chalta."
+      },
+      "causes": [
+        {
+          "en": "DSP firmware missing, mismatched or corrupted",
+          "ur": "DSP firmware missing, mismatch ya corrupt ho gaya"
+        },
+        {
+          "en": "DSP hardware failure on the power board",
+          "ur": "Power board par DSP hardware fail"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "DC switch OFF, wait for the LCD to go dark, then DC switch ON to force a full re-init.",
+          "ur": "DC switch OFF karein, LCD band hone tak wait karein, phir DC switch ON karke poori re-init force karein."
+        },
+        {
+          "en": "Check the DSP version under Advanced Information > Version and compare with the slave board.",
+          "ur": "Advanced Information > Version mein DSP version check karke slave board se compare karein."
+        },
+        {
+          "en": "If versions differ, reflash both DSP boards; if the fault remains, RMA the unit.",
+          "ur": "Versions alag hon to dono DSP boards dobara flash karein; fault rahe to unit RMA karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "12Power-FAULT",
+      "aliases": [
+        "12Power-FAULT",
+        "1038",
+        "12Power-FAULT (1038 DATA:0000)"
+      ],
+      "title": {
+        "en": "12 V power supply fault (12Power-FAULT)",
+        "ur": "12 V power supply ka fault (12Power-FAULT)"
+      },
+      "meaning": {
+        "en": "The internal 12 V auxiliary supply has failed, so the control board cannot start.",
+        "ur": "Internal 12 V auxiliary supply fail ho gaya, is liye control board start nahi ho sakta."
+      },
+      "causes": [
+        {
+          "en": "Current leaking to earth from a damaged cable or wet connector",
+          "ur": "Kharab cable ya geele connector se earth par current leak"
+        },
+        {
+          "en": "12 V SMPS module or its transformer has failed",
+          "ur": "12 V SMPS module ya uska transformer fail ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then verify the grounding conductor and every wire for insulation.",
+          "ur": "AC, PV aur battery isolate karke grounding conductor aur har wire ki insulation verify karein."
+        },
+        {
+          "en": "With power off, measure the 12 V rail on the control board; below 10 V the SMPS is the culprit.",
+          "ur": "Power off kar ke control board par 12 V rail measure karein; 10 V se kam ho to SMPS hi masla hai."
+        },
+        {
+          "en": "Replace the SMPS module, not the whole inverter, if readings confirm it.",
+          "ur": "Readings confirm karein to poora inverter nahi, sirf SMPS module replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "Relay Chk-FAIL",
+      "aliases": [
+        "Relay Chk-FAIL",
+        "1035",
+        "RelayChk-FAIL",
+        "Relay-Fault"
+      ],
+      "title": {
+        "en": "Relay check failure (Relay Chk-FAIL)",
+        "ur": "Relay check fail (Relay Chk-FAIL)"
+      },
+      "meaning": {
+        "en": "The grid connection relay failed its self test, so the inverter will not connect to the grid.",
+        "ur": "Grid connection relay ka self test fail ho gaya, is liye inverter grid se connect nahi hoga."
+      },
+      "causes": [
+        {
+          "en": "Grid relay welded, mis-aligned or mechanically damaged",
+          "ur": "Grid relay weld ho gaya, mis-aligned hai ya mechanically damaged hai"
+        },
+        {
+          "en": "Relay coil driver or 12 V rail faulty",
+          "ur": "Relay coil driver ya 12 V rail kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then check the relay for pitting or a welded contact with a multimeter.",
+          "ur": "AC aur PV isolate karke multimeter se relay ki pitting ya welded contact check karein."
+        },
+        {
+          "en": "Restart the inverter once; if the alarm returns, do not keep power cycling.",
+          "ur": "Inverter ek baar restart karein; alarm wapas aaye to baar baar power cycle na karein."
+        },
+        {
+          "en": "Replace the relay or the relay board, then contact the installer for an RMA if the relay is healthy.",
+          "ur": "Relay ya relay board replace karein; relay theek ho to installer se RMA ke liye rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "PV ISO-PRO 01/02",
+      "aliases": [
+        "PV ISO-PRO 01/02",
+        "1033",
+        "PVISO-PRO"
+      ],
+      "title": {
+        "en": "PV isolation protection (PV ISO-PRO 01/02)",
+        "ur": "PV isolation protection, yaani earth fault (PV ISO-PRO 01/02)"
+      },
+      "meaning": {
+        "en": "DC insulation resistance on the PV side is too low, so a ground fault is present and generation stops.",
+        "ur": "PV side par DC insulation resistance bahut kam hai, matlab ground fault mojood hai aur generation ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Panel frame, module backsheet or cable insulation contacting earth",
+          "ur": "Panel frame, module backsheet ya cable ki insulation earth ko chhu rahi hai"
+        },
+        {
+          "en": "Water inside the DC combiner or a wet MC4 connector",
+          "ur": "DC combiner mein paani ya geela MC4 connector"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Remove all DC inputs, then reconnect and restart the inverter one string at a time.",
+          "ur": "Sab DC input hatayein, phir ek-ek string karke dobara lagakar restart karein."
+        },
+        {
+          "en": "Identify the offending string and measure its insulation to earth with a megohmmeter at 1000 V.",
+          "ur": "Kharab string pehchan kar 1000 V megohmmeter se uski earth ke against insulation measure karein."
+        },
+        {
+          "en": "Replace the damaged cable, connector or module, then retest before reconnecting the array.",
+          "ur": "Kharab cable, connector ya module replace karke array dobara lagane se pehle retest karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Yellow alarm LED flashing + code on LCD",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "ILeak-PRO 01/02/03/04",
+      "aliases": [
+        "ILeak-PRO 01/02/03/04",
+        "1034",
+        "ILeak-PRO",
+        "I-Leak-Pro"
+      ],
+      "title": {
+        "en": "Leakage current protection (ILeak-PRO 01/02/03/04)",
+        "ur": "Leakage current protection (ILeak-PRO 01/02/03/04) - earth par current leak"
+      },
+      "meaning": {
+        "en": "Residual current on the AC or DC circuit went over the limit, so the inverter stopped.",
+        "ur": "AC ya DC circuit par residual current limit cross kar gaya, is liye inverter ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Moisture in the AC termination box or inside the DC combiner",
+          "ur": "AC termination box ya DC combiner ke andar paani"
+        },
+        {
+          "en": "A leaking RCD or a failing EMI filter capacitor",
+          "ur": "Leaking RCD ya EMI filter capacitor fail hona"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then check the AC and DC connection terminations for water and tightness.",
+          "ur": "AC aur PV isolate karke AC aur DC connection terminations par paani aur tightness check karein."
+        },
+        {
+          "en": "Check the inverter internal cable connections with power removed.",
+          "ur": "Power nikal kar inverter ki internal cable connections check karein."
+        },
+        {
+          "en": "Measure residual current with a clamp meter on the earth conductor to find the leaking circuit.",
+          "ur": "Earth conductor par clamp meter se residual current measure karke leaking circuit dhoondein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "OV-TEM",
+      "aliases": [
+        "OV-TEM",
+        "1032",
+        "OV-TEM (1032 DATA:0000)",
+        "Over Temperature"
+      ],
+      "title": {
+        "en": "Over temperature (OV-TEM)",
+        "ur": "Temperature zyada (OV-TEM)"
+      },
+      "meaning": {
+        "en": "The inverter detected high ambient or heatsink temperature and shut down.",
+        "ur": "Inverter ne ambient ya heatsink temperature zyada detect ki aur band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Direct sunlight on the inverter during hot weather",
+          "ur": "Garmi ke mausam mein inverter par seedhi dhoop"
+        },
+        {
+          "en": "Heatsink ventilation blocked by dust or a wall/soffit behind the unit",
+          "ur": "Heatsink ka ventilation dhool ya peeche deewar se block"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the inverter surrounding ventilation and whether sunshine is hitting it directly.",
+          "ur": "Inverter ke aas paas ka ventilation check karein aur dekhein ke dhoop seedhi lag rahi hai ya nahi."
+        },
+        {
+          "en": "Clean the heatsink and keep at least the clearance given in the installation section.",
+          "ur": "Heatsink saaf karein aur installation section di hui minimum clearance rakhein."
+        },
+        {
+          "en": "If ambient is normal and it still trips, the NTC sensor or fan is faulty - RMA.",
+          "ur": "Ambient normal ho aur phir bhi trip kare to NTC sensor ya fan kharab hai - RMA."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    },
+    {
+      "code": "Screen OFF with DC applied",
+      "aliases": [
+        "Screen OFF with DC applied"
+      ],
+      "title": {
+        "en": "Screen off with DC applied - internal damage",
+        "ur": "DC lagay huye screen off - internal damage"
+      },
+      "meaning": {
+        "en": "PV voltage is present but the screen is dead, which the manual treats as an internally damaged inverter.",
+        "ur": "PV voltage mojood hai lekin screen dead hai, manual ke mutabiq ye internally damaged inverter hai."
+      },
+      "causes": [
+        {
+          "en": "Failed power board or HMI board inside the inverter",
+          "ur": "Inverter ke andar power board ya HMI board fail"
+        },
+        {
+          "en": "Internal DC short drawing the array down",
+          "ur": "Internal DC short jo array ko voltage se gira raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do NOT pull the DC switch under load. Wait for irradiance to drop and confirm string current is below 0.5 A with a clamp meter first.",
+          "ur": "Load ke under DC switch bilkul na kheenchein. Pehle irradiance kam hone ka intezaar karein aur clamp meter se string current 0.5 A se neeche confirm karein."
+        },
+        {
+          "en": "Only after the current is confirmed low, switch the DC off, then AC off, and remove the unit for service.",
+          "ur": "Current kam confirm hone ke baad hi DC off karein, phir AC off karke unit service ke liye nikaalein."
+        },
+        {
+          "en": "Note that damage from wrong operation is not covered by the device warranty, so record the current reading before switching off.",
+          "ur": "Yaad rakhein ke ghalat operation se hua nuqsaan warranty mein cover nahi hota, is liye switch off karne se pehle current reading note karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Three Phase Inverter S5-GR3P(3-13)K User Manual, Table 9.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://kmsolar.dk/wp-content/uploads/2024/08/03-C-Solis_Manual_S5-GR3P3-13K_FN_EUR_V1420240227.pdf"
+      }
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-h1-ac1-g2-grid",
+    "name": "H1(G2)/AC1(G2) - grid and AC monitoring faults",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*H1*",
+      "*AC1*"
+    ],
+    "notes": "Single-phase hybrid, FoxCloud/app-driven. Strings are named text exactly as printed on the LCD. Do NOT merge with foxess-t-series-grid 'Grid volt fault' (different spelling, different remedy) or with the R-series 4-digit numerics. Verified against the full H1 V1.6 table: this exact four-row grid block is byte-identical on H1 G2, KH/KA and H3 - the codes are shared but the SERIES are kept separate because other rows in the same tables differ."
+  },
+  "codes": [
+    {
+      "code": "Grid Lost Fault",
+      "aliases": [
+        "Grid Lost Fault",
+        "No Utility"
+      ],
+      "title": {
+        "en": "Grid supply lost",
+        "ur": "Grid supply chala gaya"
+      },
+      "meaning": {
+        "en": "The inverter has lost the utility reference and isolated itself from the grid. Usually the AC side has actually opened.",
+        "ur": "Inverter ne grid reference kho diya aur khud ko grid se alag kar liya. Aam tor par AC side khul chuka hota hai."
+      },
+      "causes": [
+        {
+          "en": "Main AC MCB or RCD has tripped on the inverter feed.",
+          "ur": "Inverter feed ka main AC MCB ya RCD trip ho chuka hai."
+        },
+        {
+          "en": "Utility outage, or loose/burnt AC terminal at the inverter or consumer unit.",
+          "ur": "Utility outage, ya inverter ya consumer unit par AC terminal loose ya burnt hai."
+        },
+        {
+          "en": "MCB rating too small for the inverter - trips under high charge/force-charge current.",
+          "ur": "MCB rating inverter ke liye choti hai - high charge ya force-charge current par trip karti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the grid MCB and RCD on the PV/solar board; reset if tripped. FoxESS wants a bi-directional 100 mA RCD, not 30 mA.",
+          "ur": "PV/solar board par grid MCB aur RCD check karein, trip ho to reset karein. FoxESS ko bi-directional 100 mA RCD chahiye, 30 mA nahi."
+        },
+        {
+          "en": "Confirm MCB size against inverter rating: 3.7 kW = 20 A, 5/6/7 kW = 32 A, 8-10 kW = 64 A.",
+          "ur": "Inverter rating ke hisaab se MCB size confirm karein: 3.7 kW = 20 A, 5/6/7 kW = 32 A, 8-10 kW = 64 A."
+        },
+        {
+          "en": "Torque-check and heat-check every AC terminal at the inverter and meter box; retighten or replace the burnt one.",
+          "ur": "Inverter aur meter box ke har AC terminal ko torque aur heat ke liye check karein; burnt terminal ko tighten ya replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Field guidance: 1 + 26 + 27 almost always appear together, and a repeat trip within a day means a real fault, not a nuisance trip. Do not keep resetting - escalate.",
+        "ur": "Field guidance: 1 + 26 + 27 aam tor par saath aate hain, aur ek din mein dobara trip hona asal fault hai. Bar bar reset na karein - installer ko bulayein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "Grid Volt Fault",
+      "aliases": [
+        "Grid Volt Fault",
+        "Grid Voltage Fault"
+      ],
+      "title": {
+        "en": "Grid voltage out of range",
+        "ur": "Grid voltage range se bahar"
+      },
+      "meaning": {
+        "en": "Measured grid voltage is above or below the inverter's permitted window, so the inverter refuses to connect.",
+        "ur": "Grid voltage inverter ki ijazat range se upar ya neeche hai, is liye inverter connect nahi ho raha."
+      },
+      "causes": [
+        {
+          "en": "High export time grid voltage, typical of a long line or a substation transformer tap set too high.",
+          "ur": "Export ke waqt grid voltage high - lambi line ya substation transformer ka tap zyada par hona aam wajah hai."
+        },
+        {
+          "en": "Severe grid dip from a large motor or generator starting on the same feeder.",
+          "ur": "Wahi feeder par kisi bade motor ya generator ke chalne se grid voltage gir gaya."
+        },
+        {
+          "en": "Protection window set too narrow for a local grid that runs at the edge of tolerance.",
+          "ur": "Protection window aise grid ke liye chota set hai jo tolerance ke kinare par chalta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the grid to settle; the unit reconnects on its own once voltage is back in range.",
+          "ur": "Grid settle hone dein; voltage range mein aate hi unit khud reconnect ho jayega."
+        },
+        {
+          "en": "Log into FoxCloud and read the live RVolt trend; if it sits near the upper limit, log the peak value.",
+          "ur": "FoxCloud mein login karke live RVolt trend dekhein; agar upar ki limit ke qareeb hai to peak value note kar lein."
+        },
+        {
+          "en": "If voltage is genuinely high, have the utility (in Pakistan, the DISCO feeder office) check and correct transformer tapping before touching inverter settings.",
+          "ur": "Agar voltage wakai high hai, to inverter setting chhune se pehle utility se (Pakistan mein DISCO feeder office) check karwa kar transformer tapping theek karwayein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Widely reported on H1 in markets with long rural feeders. Peak readings around 250-255 V AC on a 230 V nominal supply are typical.",
+        "ur": "Lambi rural feeder wale ilaqa mein H1 par ye bohat aam hai. 230 V nominal par 250-255 V AC tak ke peak readings aam hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "Grid Freq Fault",
+      "aliases": [
+        "Grid Freq Fault",
+        "Grid Frequency Fault"
+      ],
+      "title": {
+        "en": "Grid frequency out of range",
+        "ur": "Grid frequency range se bahar"
+      },
+      "meaning": {
+        "en": "Grid frequency is outside the permitted band, so the inverter has disconnected from the grid.",
+        "ur": "Grid frequency ijazat range se bahar hai, is liye inverter ne grid se disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Utility frequency excursion, common during feeder load shedding or generator handover.",
+          "ur": "Utility frequency excursion - feeder load shedding ya generator handover ke waqt aam hai."
+        },
+        {
+          "en": "Inverter running in parallel with a generator that is governing frequency poorly.",
+          "ur": "Inverter aise generator ke saath parallel chal raha hai jo frequency theek se control nahi kar raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the grid to return to nominal; the unit will reconnect automatically.",
+          "ur": "Grid nominal par aane ka intezar karein; unit khud reconnect ho jayega."
+        },
+        {
+          "en": "Read live frequency in FoxCloud and note whether excursions coincide with generator running hours.",
+          "ur": "FoxCloud mein live frequency padhein aur note karein ke excursion generator chalne ke waqt hote hain ya nahi."
+        },
+        {
+          "en": "If a generator is involved, adjust its governor and set the inverter grid-tie limits per the generator's own voltage/frequency window.",
+          "ur": "Agar generator involved hai to uska governor adjust karein aur inverter ke grid-tie limits generator ke voltage/frequency window ke mutabiq set karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Pakistan nominal supply is 230 V / 50 Hz; a sustained 50 Hz +/- 0.5 Hz excursion will trip this.",
+        "ur": "Pakistan nominal supply 230 V / 50 Hz hai; 50 Hz +/- 0.5 Hz ka mustaqil excursion is code ko trigger karega."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "10min Volt Fault",
+      "aliases": [
+        "10min Volt Fault",
+        "Vac 10min Avg",
+        "10 Minute Average Grid Voltage Fault"
+      ],
+      "title": {
+        "en": "10-minute average grid voltage out of range",
+        "ur": "10 minute ka average grid voltage range se bahar"
+      },
+      "meaning": {
+        "en": "The rolling 10-minute average of grid voltage has been out of range. This is a sustained-condition protection, not a spike detector.",
+        "ur": "Grid voltage ka chalta hua 10 minute ka average range se bahar chala gaya hai. Yeh mustaqil-condition protection hai, spike detector nahi."
+      },
+      "causes": [
+        {
+          "en": "Sustained grid over-voltage, often with high PV export into an already-high feeder.",
+          "ur": "Grid ka mustaqil over-voltage - aksar already high feeder mein zyada PV export ke saath."
+        },
+        {
+          "en": "Substation transformer tap set high and left uncorrected.",
+          "ur": "Substation transformer ka tap high set hai aur theek nahi kiya gaya."
+        },
+        {
+          "en": "Protection limit set to the 253 V default while the local grid legitimately runs at 252-254 V.",
+          "ur": "Protection limit 253 V default par hai jabke local grid waqai 252-254 V par chalta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the 10-minute average voltage in FoxCloud and record the peak before touching anything.",
+          "ur": "FoxCloud mein 10 minute ka average voltage dekhein aur kuch bhi chhune se pehle peak note karein."
+        },
+        {
+          "en": "On H1, open Settings > On-Grid > Grid Para > 'Vac 10min Avg' (PIN 0-0-0-0) and raise the limit only after the utility has confirmed the voltage.",
+          "ur": "H1 par Settings > On-Grid > Grid Para > 'Vac 10min Avg' kholein (PIN 0-0-0-0) aur limit sirf tab barhayen jab utility ne voltage confirm kar liya ho."
+        },
+        {
+          "en": "Ask the DISCO feeder office to log grid voltage and correct the substation transformer tap - the durable fix.",
+          "ur": "DISCO feeder office se grid voltage log karwa kar substation transformer tap theek karwayein - yehi permanent hal hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "FoxESS’s own remedy is only \"wait, the system will reconnect\" - the manual gives no menu path for this limit. An earlier pass of this job cited a legacy numeric code 28 and a Settings > On-Grid > Grid Para > Vac 10min Avg path from a forum post; that source was NOT re-fetched here, so neither is asserted. Treat the parameter path as unverified until a FoxESS document confirms it.",
+        "ur": "FoxESS ka apna hal sirf \"intezar karein, system khud reconnect ho jayega\" hai - manual is limit ka koi menu path nahi deta. Is kaam ke pichle pass ne ek forum post se legacy numeric code 28 aur Settings > On-Grid > Grid Para > Vac 10min Avg ka path liya tha; wo source is dafaan dobara fetch nahi hua, is liye hum us par bharosa nahi karte. FoxESS ke kisi document ke confirm karne tak is parameter path ko unverified samjhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    }
+  ]
+}

@@ -1,0 +1,499 @@
+{
+  "schemaVersion": 1,
+  "brandId": "cyberpower",
+  "series": {
+    "id": "cyberpower-ut-eg",
+    "name": "UT1500EG / UT1500EIG / UT2200EG / UT2200EIG (line-interactive 1500-2200VA, 230V, Green/Yellow/Red LED)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*UT1500EG*",
+      "*UT1500EIG*",
+      "*UT2200EG*",
+      "*UT2200EIG*",
+      "*UT1500E*",
+      "*UT2200E*"
+    ],
+    "notes": "This family has NO numeric fault codes at all. Diagnosis is entirely by counting the flashes of the RED Fault LED: once/5s, twice/5s, 3x/5s, 4x/5s, plus an overload-warning row. Entries are therefore recorded as LED-pattern codes. The same family also documents a blown fuse / tripped breaker in the troubleshooting table. Verified against two independent hosting copies of the identical CyberPower manual (K01-C000756-01)."
+  },
+  "codes": [
+    {
+      "code": "Red LED: ON, Flash once every 5 seconds",
+      "aliases": [
+        "Red LED: ON, Flash once every 5 seconds",
+        "Battery Output Short Fault"
+      ],
+      "title": {
+        "en": "Red LED 1 flash / 5s - Battery Output Short",
+        "ur": "Red LED 1 blink / 5s - Battery Output Short (battery se chalte waqt output short)"
+      },
+      "meaning": {
+        "en": "The UPS output is shorted while on battery. Continuous tone, and the red LED blinks once every five seconds.",
+        "ur": "Battery par chalte waqt UPS output short ho gaya hai. Mukhtalif tone, aur red LED paanch second mein ek baar blink karta hai."
+      },
+      "causes": [
+        {
+          "en": "A connected appliance has failed short-circuiting.",
+          "ur": "Koi connected appliance short ho kar kharab ho gaya hai."
+        },
+        {
+          "en": "A multi-way power strip or extension lead has crushed or cut a live core.",
+          "ur": "Kisi multi-way power strip ya extension lead ka koi live core kata ya daba hua hai."
+        },
+        {
+          "en": "Outlet terminals on the UPS are loose/bridged, or a cable has been pinched behind the unit.",
+          "ur": "UPS ke outlet terminals dheele ya bridge hue hain, ya unit ke peeche koi cable pinch ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "As the manual directs, turn off the UPS and unplug at least one piece of equipment.",
+          "ur": "Jaise manual kehta hai, UPS off karein aur kam az kam ek equipment nikaal dein."
+        },
+        {
+          "en": "For safe inspection, unplug the mains cord as well, then confirm the overload breaker/fuse is intact and reset it.",
+          "ur": "Safe check ke liye mains cord bhi nikaal dein, phir confirm karein ke overload breaker/fuse salamat hai aur use reset karein."
+        },
+        {
+          "en": "With the unit isolated, test each outlet to neutral on a multimeter in continuity/ohms; near-zero ohms pinpoints the shorted socket.",
+          "ur": "Unit isolate karne ke baad multimeter continuity/ohms par har outlet ko neutral se test karein; zero ke qareeb ohms shorted socket ki taraf ishara karta hai."
+        },
+        {
+          "en": "Reconnect loads one at a time; the device that makes the LED return to 1-flash mode is the faulty short - remove and repair it.",
+          "ur": "Loads ek-ek karke wapas lagayein; jis device par LED wapas 1-flash mode mein aaye wohi faulty short hai - use nikaal kar repair karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Fault LED red, ON then 1 flash every 5 seconds, constant tone",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "UT1500EG/UT1500EIG/UT2200EG/UT2200EIG User's Manual K01-C000756-01",
+        "retrieved": "2026-09-26",
+        "url": "https://www.adsysgroup.com/media/CyberPower_K01-C000756-01_UM_UT1500-2200EG_enBG.pdf"
+      }
+    },
+    {
+      "code": "Red LED: ON, Flash twice every 5 seconds",
+      "aliases": [
+        "Red LED: ON, Flash twice every 5 seconds",
+        "Overload Fault"
+      ],
+      "title": {
+        "en": "Red LED 2 flashes / 5s - Overload Fault",
+        "ur": "Red LED 2 blink / 5s - Overload Fault (load rating se zyada)"
+      },
+      "meaning": {
+        "en": "Connected equipment exceeds the rating of the unit. This is a latched overload fault, distinct from the 1-flash short fault.",
+        "ur": "Connected equipment unit ki rating se zyada hai. Yeh latched overload fault hai, 1-flash short fault se alag."
+      },
+      "causes": [
+        {
+          "en": "Total connected wattage/VA exceeds the 1500/2200VA rating of the unit.",
+          "ur": "Total connected wattage/VA unit ki 1500/2200VA rating se zyada hai."
+        },
+        {
+          "en": "A high inrush device (compressor, laser printer, motor) tripped the overload.",
+          "ur": "Koi high inrush device (compressor, laser printer, motor) ne overload kar diya."
+        },
+        {
+          "en": "The rear overload breaker has tripped and stays out until reset.",
+          "ur": "Peeche ka overload breaker trip ho gaya hai aur reset tak bahar hi rehta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off and unplug at least one piece of equipment, as the manual states.",
+          "ur": "Jaise manual kehta hai, UPS off karein aur kam az kam ek equipment nikaal dein."
+        },
+        {
+          "en": "If an overload is detected the unit emits one long beep: wait 10 seconds, make sure the breaker/fuse is normal, then turn the UPS on.",
+          "ur": "Overload detect hone par unit aik lamba beep deta hai: 10 second intezaar karein, breaker/fuse normal check karein, phir UPS on karein."
+        },
+        {
+          "en": "Total the connected load on a power meter and keep it inside the unit's rating (e.g. 900W on UT1500EG, 1320W on UT2200EG).",
+          "ur": "Connected load power meter par total karein aur use unit ki rating ke andar rakhein (UT1500EG 900W, UT2200EG 1320W)."
+        },
+        {
+          "en": "If the overload clears with one device removed but that device must stay, replace it with a lower-surge or staggered-start unit.",
+          "ur": "Agar ek device nikalne par overload clear ho jaye lekin woh device rakhna bhi ho, to us ki jagah kam surge ya staggered-start wala unit lagayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Fault LED red, ON then 2 flashes every 5 seconds, constant tone",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "UT1500EG/UT1500EIG/UT2200EG/UT2200EIG User's Manual K01-C000756-01",
+        "retrieved": "2026-09-26",
+        "url": "https://www.adsysgroup.com/media/CyberPower_K01-C000756-01_UM_UT1500-2200EG_enBG.pdf"
+      }
+    },
+    {
+      "code": "Red LED: ON, Flash 3 times every 5 seconds",
+      "aliases": [
+        "Red LED: ON, Flash 3 times every 5 seconds",
+        "Charger Fault"
+      ],
+      "title": {
+        "en": "Red LED 3 flashes / 5s - Charger Fault",
+        "ur": "Red LED 3 blink / 5s - Charger Fault (charger kharab, battery charge nahi hoti)"
+      },
+      "meaning": {
+        "en": "The internal battery charger has failed. Manual remedy is to contact CyberPower for support.",
+        "ur": "Internal battery charger kharab ho gaya hai. Manual ke mutabiq CyberPower se support lein."
+      },
+      "causes": [
+        {
+          "en": "Charger IC/MOSFET or charge-sense circuit on the main board has failed.",
+          "ur": "Main board par charger IC/MOSFET ya charge-sense circuit kharab ho gaya hai."
+        },
+        {
+          "en": "Battery bank dead, deep-discharged or wrong type, pulling the charger into a fault state.",
+          "ur": "Battery bank dead, gehri tarah discharged ya galat type, charger ko fault state mein kheench raha hai."
+        },
+        {
+          "en": "Overheating from a blocked vent or failed fan has destroyed the charger section.",
+          "ur": "Blocked vent ya kharab fan se overheating ne charger section tabah kar diya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate first: turn the UPS off, unplug the mains cord, and disconnect the battery quick-connects (positive and negative).",
+          "ur": "Pehle isolate karein: UPS off karein, mains cord nikaal dein, aur battery quick-connects (positive aur negative) disconnect kar dein."
+        },
+        {
+          "en": "Measure each battery on DC volts; a healthy 12V cell reads 12.6-13.0V at rest, and near 0V means the pack must be replaced.",
+          "ur": "Har battery DC volt par measure karein; healthy 12V cell aaram ke waqt 12.6-13.0V deta hai, aur 0V ke qareeb ho to pack badalna hai."
+        },
+        {
+          "en": "With mains reconnected, read charge voltage at the battery terminals: 13.5-14V means healthy, near 0V means the charger output has failed.",
+          "ur": "Mains wapas lagane ke baad battery terminals par charge voltage dekhein: 13.5-14V healthy, 0V ke qareeb charger output kharab."
+        },
+        {
+          "en": "Contact CyberPower for support as the manual directs - there is no user-replaceable charger part.",
+          "ur": "Jaise manual kehta hai CyberPower se support lein - charger ka koi user-replaceable part nahi hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Fault LED red, ON then 3 flashes every 5 seconds, constant tone",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "UT1500EG/UT1500EIG/UT2200EG/UT2200EIG User's Manual K01-C000756-01",
+        "retrieved": "2026-09-26",
+        "url": "https://www.adsysgroup.com/media/CyberPower_K01-C000756-01_UM_UT1500-2200EG_enBG.pdf"
+      }
+    },
+    {
+      "code": "Red LED: ON, Flash 4 times every 5 seconds",
+      "aliases": [
+        "Red LED: ON, Flash 4 times every 5 seconds",
+        "Hardware Fault"
+      ],
+      "title": {
+        "en": "Red LED 4 flashes / 5s - Hardware Fault",
+        "ur": "Red LED 4 blink / 5s - Hardware Fault (unit ka andar ka hissa kharab)"
+      },
+      "meaning": {
+        "en": "An internal hardware fault in the unit. Manual remedy is to contact CyberPower for support.",
+        "ur": "Unit ke andar ka internal hardware fault. Manual ke mutabiq CyberPower se support lein."
+      },
+      "causes": [
+        {
+          "en": "Failed relay, SCR or inverter MOSFET in the power path.",
+          "ur": "Power path mein relay, SCR ya inverter MOSFET kharab ho gaya hai."
+        },
+        {
+          "en": "Control board failure or loss of calibration.",
+          "ur": "Control board ki khami ya calibration kho jana."
+        },
+        {
+          "en": "Cracked internal solder joint, or a component failed from internal overheating.",
+          "ur": "Internal solder joint crack, ya koi component internal overheating se kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do a full isolation and discharge: off, unplug mains, disconnect the batteries, and leave the unit a few minutes.",
+          "ur": "Poora isolation aur discharge karein: off, mains nikaal dein, batteries disconnect karein, aur unit ko kuch minute chhor dein."
+        },
+        {
+          "en": "Reconnect and try one clean power cycle; if the 4-flash pattern clears, record the event and watch the unit for recurrence.",
+          "ur": "Wapas connect kar ke aik saaf power cycle karein; agar 4-flash pattern clear ho jaye to event note karein aur wapas aane par nazar rakhein."
+        },
+        {
+          "en": "If the 4-flash pattern returns with the battery disconnected, the fault is in the control/inverter board, not the battery or the load.",
+          "ur": "Agar battery disconnect kar ke bhi 4-flash pattern aaye to fault control/inverter board mein hai, battery ya load mein nahi."
+        },
+        {
+          "en": "Contact CyberPower for support as the manual directs - this is a service-level repair only.",
+          "ur": "Jaise manual kehta hai CyberPower se support lein - yeh sirf service level repair hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Fault LED red, ON then 4 flashes every 5 seconds, constant tone",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "UT1500EG/UT1500EIG/UT2200EG/UT2200EIG User's Manual K01-C000756-01",
+        "retrieved": "2026-09-26",
+        "url": "https://www.adsysgroup.com/media/CyberPower_K01-C000756-01_UM_UT1500-2200EG_enBG.pdf"
+      }
+    },
+    {
+      "code": "Red LED: Flash (steady flashing)",
+      "aliases": [
+        "Red LED: Flash (steady flashing)",
+        "Overload Warning"
+      ],
+      "title": {
+        "en": "Red LED flashing - Overload Warning",
+        "ur": "Red LED baari baar blink - Overload Warning (load pehle se zyada hai)"
+      },
+      "meaning": {
+        "en": "The load already exceeds the unit rating, so the unit is warning about overload before it becomes a latched fault. Not yet a shutdown fault.",
+        "ur": "Load pehle se unit ki rating se zyada hai, is liye unit latched fault banne se pehle overload ki warning de raha hai. Abhi shutdown fault nahi."
+      },
+      "causes": [
+        {
+          "en": "Connected equipment exceeds the rating of the unit but has not yet tripped the latched overload.",
+          "ur": "Connected equipment unit ki rating se zyada hai magar abhi latched overload trigger nahi hua."
+        },
+        {
+          "en": "A device with a large inrush has just been switched on alongside the existing load.",
+          "ur": "Bade inrush wala device abhi mojood load ke saath on kiya gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off and unplug at least one piece of equipment from the battery power supplied outlets.",
+          "ur": "UPS off karein aur battery power supplied outlets se kam az kam ek equipment nikaal dein."
+        },
+        {
+          "en": "Wait 10 seconds before restarting, then confirm the circuit breaker / fuse is in its normal position.",
+          "ur": "Restart se pehle 10 second intezaar karein, phir confirm karein ke circuit breaker / fuse apni normal position mein hai."
+        },
+        {
+          "en": "Verify the remaining load with a power meter and keep it under the unit's rated watts/VA.",
+          "ur": "Power meter se bacha hua load verify karein aur use unit ki rated watts/VA se kam rakhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Fault LED red, continuous flashing, constant tone",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "UT1500EG/UT1500EIG/UT2200EG/UT2200EIG User's Manual K01-C000756-01",
+        "retrieved": "2026-09-26",
+        "url": "https://www.adsysgroup.com/media/CyberPower_K01-C000756-01_UM_UT1500-2200EG_enBG.pdf"
+      }
+    },
+    {
+      "code": "Yellow LED: Flash",
+      "aliases": [
+        "Yellow LED: Flash",
+        "Low Battery"
+      ],
+      "title": {
+        "en": "Yellow LED flashing - Low Battery",
+        "ur": "Yellow LED blink kar raha - Low Battery (battery khatam hone wali hai)"
+      },
+      "meaning": {
+        "en": "The UPS is on battery and the battery is about to run out. Save work now; the unit will shut down shortly.",
+        "ur": "UPS battery par hai aur battery khatam hone wali hai. Abhi kaam save karein; unit jald band ho jayega."
+      },
+      "causes": [
+        {
+          "en": "The mains outage has lasted long enough to drain the battery bank.",
+          "ur": "Mains outage itni der raha ke battery bank khaali ho gaya."
+        },
+        {
+          "en": "The battery bank is worn out and no longer holds a usable charge.",
+          "ur": "Battery bank purani ho chuki hai aur ab usable charge nahi rakhti."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down connected equipment immediately to preserve the remaining charge for the load.",
+          "ur": "Baaki charge load ke liye bacha kar rakhne ke liye connected equipment foran band karein."
+        },
+        {
+          "en": "After mains returns, leave the UPS plugged in for at least 4 hours (the manual's guidance for a discharged battery) and prefer a full 8-hour recharge.",
+          "ur": "Mains wapas aane ke baad UPS ko kam az kam 4 ghante plug mein rakhein (discharged battery ke liye manual ka hidayat) aur behtar 8 ghante poori recharge karein."
+        },
+        {
+          "en": "If low battery comes back after a full recharge on every outage, measure the pack on DC volts and plan a battery replacement.",
+          "ur": "Agar har outage par poori recharge ke baad bhi low battery aaye to pack DC volt par measure karein aur battery badalne ka mansooba banayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Yellow battery LED flashing, rapid beeping",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "UT1500EG/UT1500EIG/UT2200EG/UT2200EIG User's Manual K01-C000756-01",
+        "retrieved": "2026-09-26",
+        "url": "https://www.adsysgroup.com/media/CyberPower_K01-C000756-01_UM_UT1500-2200EG_enBG.pdf"
+      }
+    },
+    {
+      "code": "Green LED: ON (ECO Mode)",
+      "aliases": [
+        "Green LED: ON (ECO Mode)",
+        "ECO Mode"
+      ],
+      "title": {
+        "en": "Green LED steady on - ECO Mode (normal)",
+        "ur": "Green LED steady on - ECO Mode (mains normal, sab theek)"
+      },
+      "meaning": {
+        "en": "Utility is normal and the UPS is in energy-saving bypass mode. This is the healthy idle state.",
+        "ur": "Mains normal hai aur UPS energy-saving bypass mode mein hai. Yeh healthy idle state hai."
+      },
+      "causes": [
+        {
+          "en": "Utility supply is within range and the load is below the energy-saving threshold.",
+          "ur": "Mains range ke andar hai aur load energy-saving threshold se kam hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed; this mode reduces standby power and helps battery life.",
+          "ur": "Koi action zaruri nahi; yeh mode standby power kam karta hai aur battery ki umar barhata hai."
+        },
+        {
+          "en": "If you need assured backup, raise the load above the ECO threshold or change the mode as described in the unit's setup instructions.",
+          "ur": "Agar pakka backup chahiye to load ko ECO threshold se upar lein ya unit ke setup instructions ke mutabiq mode badal dein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "Green utility LED steady on, no alarm",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "UT1500EG/UT1500EIG/UT2200EG/UT2200EIG User's Manual K01-C000756-01",
+        "retrieved": "2026-09-26",
+        "url": "https://www.adsysgroup.com/media/CyberPower_K01-C000756-01_UM_UT1500-2200EG_enBG.pdf"
+      }
+    },
+    {
+      "code": "Green LED: Slowly Flashing (Charging)",
+      "aliases": [
+        "Green LED: Slowly Flashing (Charging)",
+        "Charging"
+      ],
+      "title": {
+        "en": "Green LED slowly flashing - Charging",
+        "ur": "Green LED dheere dheere blink - Charging (battery charge ho rahi hai)"
+      },
+      "meaning": {
+        "en": "Utility is normal and the UPS is charging the battery. Normal, not a fault.",
+        "ur": "Mains normal hai aur UPS battery charge kar raha hai. Normal hai, fault nahi."
+      },
+      "causes": [
+        {
+          "en": "The battery is recharging after a discharge, or the pack has just been replaced.",
+          "ur": "Battery discharge ke baad recharge ho rahi hai, ya pack abhi abhi badli gayi hai."
+        },
+        {
+          "en": "Ambient temperature is low, which slows the charge rate.",
+          "ur": "Mauhal ka temperature kam hai, jis se charge rate slow ho jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed - keep the unit plugged in; the manual specifies about 8 hours typical recharge.",
+          "ur": "Koi action zaruri nahi - unit plug mein rakhein; manual ke mutabiq aam tor par 8 ghante recharge hota hai."
+        },
+        {
+          "en": "If the LED never stops slow-flashing after 10+ hours, measure the charger output at the battery terminals on DC volts (expect 13.5-14V).",
+          "ur": "Agar 10+ ghante baad bhi LED slow-flash karta rahe to charger output battery terminals par DC volt par measure karein (13.5-14V expect karein)."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Green utility LED slow-flashing, no alarm",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "UT1500EG/UT1500EIG/UT2200EG/UT2200EIG User's Manual K01-C000756-01",
+        "retrieved": "2026-09-26",
+        "url": "https://www.adsysgroup.com/media/CyberPower_K01-C000756-01_UM_UT1500-2200EG_enBG.pdf"
+      }
+    },
+    {
+      "code": "Blown fuse / tripped breaker (troubleshooting row)",
+      "aliases": [
+        "Blown fuse / tripped breaker (troubleshooting row)",
+        "Outlets do not provide power to equipment"
+      ],
+      "title": {
+        "en": "No output at outlets - fuse blown or breaker tripped",
+        "ur": "Outlets par output nahi - fuse ula ya breaker trip"
+      },
+      "meaning": {
+        "en": "The outlets supply nothing because the overload protection fuse has blown or the circuit-breaker knob has tripped.",
+        "ur": "Outlets kuch nahi de rahe kyunke overload protection fuse ula hua hai ya circuit-breaker knob trip ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Fuse is blown or the breaker has tripped due to an overload.",
+          "ur": "Fuse ula hua hai ya overload ki wajah se breaker trip hua hai."
+        },
+        {
+          "en": "Batteries are discharged so the UPS has nothing to pass on in battery mode.",
+          "ur": "Batteries discharged hain is liye battery mode mein UPS ke paas dene ko kuch nahi hai."
+        },
+        {
+          "en": "The unit has been damaged by a surge or spike.",
+          "ur": "Surge ya spike se unit kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off and unplug at least one piece of connected equipment, then unplug the UPS power cord.",
+          "ur": "UPS off karein aur kam az kam ek connected equipment nikaal dein, phir UPS ka power cord nikaal dein."
+        },
+        {
+          "en": "With the cord out, replace the blown fuse with a spare overload one of the same specification, or press the circuit breaker knob.",
+          "ur": "Cord nikaal kar, ula hua fuse usi specification ke spare overload fuse se badal dein, ya circuit breaker knob daba dein."
+        },
+        {
+          "en": "Reconnect the power cord, turn the UPS on, and make sure the spare fuse meets the specified rating.",
+          "ur": "Power cord wapas lagayein, UPS on karein, aur confirm karein ke spare fuse specified rating ke mutabiq hai."
+        },
+        {
+          "en": "If the batteries are simply discharged, allow the unit to recharge for at least 4 hours before expecting output; if a surge damaged the unit, contact CyberPower technical support.",
+          "ur": "Agar batteries sirf discharged hain to output ki umeed karne se pehle unit ko kam az kam 4 ghante recharge dein; agar surge se unit kharab hua hai to CyberPower technical support se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Green LED steady (or off) with no output at any outlet",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "UT1500EG/UT1500EIG/UT2200EG/UT2200EIG User's Manual K01-C000756-01",
+        "retrieved": "2026-09-26",
+        "url": "https://www.adsysgroup.com/media/CyberPower_K01-C000756-01_UM_UT1500-2200EG_enBG.pdf"
+      }
+    }
+  ]
+}

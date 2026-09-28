@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-h1-ac1-g2-insulation",
+    "name": "H1(G2)/AC1(G2) - insulation, residual current and earth faults",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*H1*",
+      "*AC1*"
+    ],
+    "notes": "Insulation/leakage family, all four rows sit together in the H1 V1.6 table between the PV-current and temperature rows. The manual's own remedy for all four is identical and weak (check wire insulation, wait, seek help) - the concrete steps below are field practice built around FoxESS's stated check, not invented FoxESS text. CRITICAL: 'Iso Fault' here is an insulation-DAMAGE inspection. The T-series 'ISO fault' is a measured-impedance test (should be > 100 kOhm) and the R-series 1124 is a two-step impedance check with an APP setting. Three different official remedies for the same word - never merge. The H1 manual also states, in section 6, that an earth-fault alarm shows as 'Isolation fault' on screen with the RED LED lit."
+  },
+  "codes": [
+    {
+      "code": "Iso Fault",
+      "aliases": [
+        "Iso Fault",
+        "Isolation fault",
+        "Isolation Fault"
+      ],
+      "title": {
+        "en": "PV/AC insulation failed (earth leakage)",
+        "ur": "PV/AC ki insulation kharabi (earth leakage)"
+      },
+      "meaning": {
+        "en": "The inverter's insulation monitor measured a leakage path to earth and stopped. This is a damaged-insulation alarm, not a settings alarm.",
+        "ur": "Inverter ka insulation monitor ne earth par leakage path naapa aur unit band kar di. Yeh kharabi-insulation ka alarm hai, settings ka nahi."
+      },
+      "causes": [
+        {
+          "en": "Damaged or chafed cable insulation, classically where a PV cable runs through a metal roof edge, conduit or a hot cable tray.",
+          "ur": "Insulation damage ya ghis chuka cable - aam tor par jahan PV cable metal roof ke kinare, conduit ya garm cable tray se guzarta hai."
+        },
+        {
+          "en": "Water ingress into a DC junction box, MC4 connector or the AC cable gland in monsoon season.",
+          "ur": "Barish ke mausam mein DC junction box, MC4 connector ya AC cable gland mein paani ka dakhil."
+        },
+        {
+          "en": "Moisture on PV module surfaces after heavy dew or rain, which is normal and self-clears; a persistent alarm is not.",
+          "ur": "Bohat oos ya barish ke baad PV module ki sath par nami - yeh normal hai aur khud clear hota hai; lekin alarm bar qatam na ho to masla hai."
+        },
+        {
+          "en": "A single module with a cracked backsheet or a failed junction box internally shorting to frame.",
+          "ur": "Aisa module jiska backsheet toota ho ya junction box kharab ho aur frame ke sath short kar raha ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait first and re-read the code after 15-30 minutes; FoxESS explicitly says to wait, because dew and damp mornings clear on their own.",
+          "ur": "Pehle intezar karein aur 15-30 minute baad code dobara dekhein; FoxESS khud kehta hai intezar karein, kyunke oos aur nam subah khud clear ho jata hai."
+        },
+        {
+          "en": "Open the DC switch and AC breaker, then split the array: disconnect one string at a time at the DC switch and re-test to find the leaking string, working down to individual MC4 pairs if needed - the offending pair will read normal when reconnected.",
+          "ur": "DC switch aur AC breaker kholein, phir array ko alag karein: DC switch par ek-ek string disconnect kar ke dobara test karein taake leak wali string mil jaye, zaroori ho to MC4 joriyon tak neeche jayein - kharab jora wapas lagne par normal par ayega."
+        },
+        {
+          "en": "If no string is at fault, have a megohmmeter test done: PV+ to earth and PV- to earth should read in the megaohm range on a dry day.",
+          "ur": "Agar koi string ghalat na lage to megohmmeter test karwayein: PV+ se earth aur PV- se earth ko sukhe din mein megaohm range par padhna chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "FoxESS's H1 manual names this row 'Iso Fault' but its section 6 earth-fault note calls the on-screen code 'Isolation fault' - treat the two spellings as the same code. Do not confuse with the T-series 'ISO fault' (impedance > 100 kOhm) or R-series 1124.",
+        "ur": "FoxESS ki H1 manual is row ko 'Iso Fault' kehti hai lekin section 6 ki earth-fault note par on-screen code 'Isolation fault' aata hai - dono spelling ek hi code samjhein. T-series ke 'ISO fault' (impedance > 100 kOhm) ya R-series ke 1124 se confuse na karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "Res Cur Fault",
+      "aliases": [
+        "Res Cur Fault",
+        "Residual current high"
+      ],
+      "title": {
+        "en": "Residual (leakage) current high",
+        "ur": "Residual (leakage) current zyada hai"
+      },
+      "meaning": {
+        "en": "The measured residual current on the AC side exceeded the inverter's limit, so it stopped to protect people and the earth path.",
+        "ur": "AC side par measured residual current inverter ki limit se upar chala gaya, is liye unit ne logo aur earth path ko bachane ke liye band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Same wet-weather or chafed-insulation causes as Iso Fault; this is the measured consequence of the leak.",
+          "ur": "Iso Fault jaisi hi geeli mausam ya gis chuki insulation ki wajahein; yeh us leak ka measured natija hai."
+        },
+        {
+          "en": "Leakage through an anti-islanding or RCD-type device fitted in the wrong place, or a filter capacitor in the inverter itself.",
+          "ur": "Galat jagah laga hua anti-islanding ya RCD device se leakage, ya inverter ke apne filter capacitor se leakage."
+        },
+        {
+          "en": "An upstream 30 mA RCD instead of the bi-directional 100 mA RCD FoxESS requires, which nuisance-trips or confuses the leakage budget.",
+          "ur": "FoxESS ki requirement ke mutabiq bi-directional 100 mA RCD ke bajaye upstream 30 mA RCD, jo leakage budget ko confuse karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait and re-read the code, as FoxESS directs, before touching anything.",
+          "ur": "Kuch bhi chhune se pehle, jaise FoxESS kahe, intezar karke code dobara dekhein."
+        },
+        {
+          "en": "Disconnect all loads at the distribution board one by one with the inverter still running; if the alarm clears, the leak is in a downstream appliance circuit.",
+          "ur": "Inverter chalta rahe karte hue distribution board se loads ek-ek karke disconnect karein; agar alarm clear ho jaye to leak kisi downstream appliance circuit mein hai."
+        },
+        {
+          "en": "Confirm the earth/PE conductor is sound and bonded at the inverter, and confirm the RCD is the FoxESS-specified bi-directional 100 mA type.",
+          "ur": "Confirm karein ke earth/PE conductor theek hai aur inverter par bond hai, aur RCD FoxESS ke mutabiq bi-directional 100 mA type ka hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "In Pakistan, dawn/dusk dew and a badly earthed consumer unit are the usual real causes. The manual gives no measurement value for this code, so do not quote one.",
+        "ur": "Pakistan mein subah/sham ki oos aur consumer unit ka kharab earthing hi aam asal wajahein hain. Manual is code ke liye koi measurement value nahi deta, is liye koi value na batayein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "Res Cur HW Fault",
+      "aliases": [
+        "Res Cur HW Fault"
+      ],
+      "title": {
+        "en": "Residual current sensing hardware failed",
+        "ur": "Residual current sensing hardware kharab"
+      },
+      "meaning": {
+        "en": "The residual-current sensing circuit itself (hardware, not insulation) reported a failure, so the inverter can no longer prove it is safe.",
+        "ur": "Residual current sensing circuit khud (hardware, insulation nahi) ne kharabi batayi, is liye inverter ab saabit nahi kar sakta ke wo mehfooz hai."
+      },
+      "causes": [
+        {
+          "en": "The current-sensing transformer or its conditioning electronics has drifted or failed with age and heat.",
+          "ur": "Current-sensing transformer ya us ki conditioning electronics umar aur garmi ke saath drift ya kharab ho gayi."
+        },
+        {
+          "en": "A power surge or an earlier earth-fault event that damaged the sensing board.",
+          "ur": "Power surge ya pehle ka koi earth-fault event jis ne sensing board nuqsaan diya."
+        },
+        {
+          "en": "Moisture or insects inside the enclosure reaching the sensing board.",
+          "ur": "Enclosure ke andar nami ya keede sensing board tak pahunche."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery completely, then reconnect once as FoxESS directs.",
+          "ur": "AC, PV aur battery poori tarah disconnect kar ke, jaise FoxESS kahe, aik baar wapas lagayein."
+        },
+        {
+          "en": "Open the unit only with mains and battery both dead and confirm the sensing board has no burn marks or residue before quoting a board.",
+          "ur": "Unit kholein, magar sirf tab jab mains aur battery dono murda ho, aur board quote karne se pehle sensing board par burn marks ya residue check karein."
+        },
+        {
+          "en": "If it returns on an idle, dry, unloaded unit, raise a service claim with the code and serial number - this is not a wiring fault.",
+          "ur": "Agar yeh khali, sukhe aur bina load ke unit par wapas aaye to code aur serial number ke saath service claim raise karein - yeh wiring fault nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Distinguish from Res Cur Fault: Res Cur Fault is a real leakage current in the installation, Res Cur HW Fault is the detector failing. Swap the inverter only after you have cleared the installation.",
+        "ur": "Res Cur Fault se farq karein: Res Cur Fault installation mein asal leakage current hai, Res Cur HW Fault detector ki kharabi hai. Installation saaf kiye bagair inverter mat badlein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "Ground Fault",
+      "aliases": [
+        "Ground Fault",
+        "Ground Fault (H1)"
+      ],
+      "title": {
+        "en": "Ground/neutral connection failed",
+        "ur": "Ground/neutral connection kharabi"
+      },
+      "meaning": {
+        "en": "The inverter measured an abnormal voltage between neutral and protective earth, or lost a proper ground reference.",
+        "ur": "Inverter ne neutral aur protective earth ke darmiyan abnormal voltage naapa, ya theek ground reference kho di."
+      },
+      "causes": [
+        {
+          "en": "Neutral and PE are not both correctly landed at the inverter's AC terminal, or PE is open.",
+          "ur": "Inverter ke AC terminal par neutral aur PE dono theek se nahi lage, ya PE khari hui hai."
+        },
+        {
+          "en": "Neutral and PE are shorted together somewhere in the distribution board, which is common in improvised Pakistani wiring.",
+          "ur": "Distribution board mein kahin neutral aur PE aapas mein short ho gaye hain - Pakistan ke improvised wiring mein ye aam hai."
+        },
+        {
+          "en": "Reversed or mis-landed conductors at the AC terminal after a rewire by a non-installer.",
+          "ur": "Kisi non-installer ke rewire ke baad AC terminal par conductors ulat ya ghalat lagi hui."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC breaker, open the PV DC switch and the battery isolator, and confirm the inverter is fully dead before touching the earth bar.",
+          "ur": "AC breaker off karein, PV DC switch aur battery isolator kholein, aur earth bar chhune se pehle confirm karein ke inverter poori tarah murda hai."
+        },
+        {
+          "en": "Measure AC voltage between neutral and PE at the inverter; it should read near zero volts while the grid is live.",
+          "ur": "Inverter par neutral aur PE ke darmiyan AC voltage napen; grid live hone ke bawajood yeqreeban zero volts ka hona chahiye."
+        },
+        {
+          "en": "Check AC wiring end to end: land PE and N separately on the inverter's own terminals, and re-torque every AC terminal.",
+          "ur": "AC wiring aakhir tak check karein: PE aur N ko inverter ke apne terminals par alag alag lagayein, aur har AC terminal dobara torque karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The T-series 'Ground fault' gives the same two checks (neutral-to-PE voltage, then AC wiring) but adds a PV DC switch-off step; keep the two separate. Neutral-PE shorting is a fire risk, not just a nuisance alarm.",
+        "ur": "T-series ka 'Ground fault' wahi do checks deta hai (neutral se PE voltage, phir AC wiring) lekin PV DC switch off ka step bhi add karta hai; dono alag rakhein. Neutral-PE short aag ka khatra hai, sirf pareshani ka alarm nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    }
+  ]
+}

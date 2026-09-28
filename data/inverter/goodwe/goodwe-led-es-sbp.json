@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "brandId": "goodwe",
+  "series": {
+    "id": "goodwe-led-es-sbp",
+    "name": "ES / SBP Series (3.0-6.0kW) G2 LED legend",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*ES*",
+      "*SBP*",
+      "GW*-ES",
+      "GW*-SBP"
+    ],
+    "notes": "LED legend for the ES, SBP Series 3.0-6.0kW G2 version as shown in the EMEA ESS guide, cross-checked against the ES Series user manual's own indicator table. Distinct from SERIES 10: this line has a SOLAR LED instead of a BATTERY LED pattern set, and its FAULT LED uses a steady BLINK rather than 'blink once' wording. The ESS guide's ES/SBP G2 table has icons that do not extract to text, so the readable indicator statuses were taken from the ES Series manual and the guidance steps from the ESS guide."
+  },
+  "codes": [
+    {
+      "code": "SOLAR BLINK 1",
+      "aliases": [
+        "SOLAR BLINK 1"
+      ],
+      "title": {
+        "en": "SOLAR LED blink 1 - input 1 active, 2 not",
+        "ur": "SOLAR LED blink 1 - input 1 chal raha, 2 nahi"
+      },
+      "meaning": {
+        "en": "PV input 1 is producing but PV input 2 is not, so a fault or wiring issue is likely on the second MPPT.",
+        "ur": "PV input 1 generate kar raha hai lekin PV input 2 nahi kar raha, is liye doosre MPPT par fault ya wiring masla hai."
+      },
+      "causes": [
+        {
+          "en": "PV input 2 string not producing - loose connector, blown string fuse or shaded string.",
+          "ur": "PV input 2 ki string produce nahi kar rahi, dhila connector, phula string fuse ya shaded string."
+        },
+        {
+          "en": "PV access mode set so that input 2 is unused.",
+          "ur": "PV access mode aisa set hai ke input 2 use nahi ho raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read per-MPPT power in the app to confirm which input is at zero.",
+          "ur": "App se har MPPT ki power parh ke confirm karein ke kaun sa input zero par hai."
+        },
+        {
+          "en": "Check the input 2 string fuse and all MC4 connectors for looseness or heat damage.",
+          "ur": "Input 2 ki string fuse aur tamam MC4 connectors ki dhili jagah ya garmi ka nuqsan check karein."
+        },
+        {
+          "en": "Confirm the PV access mode in the app matches the actual wiring before rewiring anything.",
+          "ur": "Kuch bhi rewire karne se pehle app mein PV access mode ko asal wiring se match karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "SOLAR LED single blink",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES Series Hybrid Inverter User Manual V1.2, section 01 Introduction - Indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "FAULT BLINK",
+      "aliases": [
+        "FAULT BLINK",
+        "Back-up overload"
+      ],
+      "title": {
+        "en": "FAULT LED blink - back-up output overload",
+        "ur": "FAULT LED blink - back-up output overloaded"
+      },
+      "meaning": {
+        "en": "The back-up output is overloaded; the guide's instruction is to reduce the load.",
+        "ur": "Back-up output overloaded hai, guide ka instruction hai ke load kam karein."
+      },
+      "causes": [
+        {
+          "en": "Back-up load above the inverter's back-up rated output.",
+          "ur": "Back-up load inverter ki back-up rated output se zyada hai."
+        },
+        {
+          "en": "Several loads switched on at the same time.",
+          "ur": "Ek hi waqt par kai loads on ho gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off back-up loads one at a time and watch the FAULT LED settle.",
+          "ur": "Back-up loads aik aik band karein aur FAULT LED ko settle hote dekhein."
+        },
+        {
+          "en": "Stagger motor and compressor start times so they do not all surge together.",
+          "ur": "Motor aur compressor ke start times aik doosre se door rakhein taake sab ek saath surge na karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "FAULT LED blinking",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES Series Hybrid Inverter User Manual V1.2, section 01 Introduction - Indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES_User%20Manual-EN.pdf"
+      }
+    }
+  ]
+}

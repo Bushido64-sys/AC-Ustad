@@ -1,0 +1,775 @@
+{
+  "schemaVersion": 1,
+  "brandId": "growatt",
+  "series": {
+    "id": "growatt-min-3000-11400tl-xh-us",
+    "name": "MIN 3000-11400TL-XH-US (single-phase hybrid, 4-LED status)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*MIN*TL-XH*US*",
+      "MIN*3000*11400*",
+      "*MIN*XH*"
+    ],
+    "notes": "US single-phase hybrid PCS (GROWATT ARO battery + SM-US-200 meter). Manual splits §11.4.2 System fault, §11.4.3 Inverter warning, §11.4.4 Inverter fault, plus §7.3.2 LED table with POWER/COMM/BAT/FAULT. This body drops several codes the TL3 string manuals carry (no 200/300 AFCI rows, no 402-equivalent naming difference) - do not backfill. Codes here are the US-grid variants; wording differs from EU bodies (e.g. Error 303 is 'PE abnormal' here, 'NE abnormal' on TL3-X)."
+  },
+  "codes": [
+    {
+      "code": "Error: 201",
+      "aliases": [
+        "Error: 201",
+        "201",
+        "Residual I High",
+        "Leakage current too high"
+      ],
+      "title": {
+        "en": "Residual I high (leakage current too high)",
+        "ur": "Residual I high (leakage current bohat zyada)"
+      },
+      "meaning": {
+        "en": "Residual current has gone above the limit, so the inverter stopped.",
+        "ur": "Residual current limit se upar chala gaya, is liye inverter ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Insulation breakdown in the PV array or cabling",
+          "ur": "PV array ya cabling mein insulation breakdown"
+        },
+        {
+          "en": "Water in a junction box or DC isolator",
+          "ur": "Junction box ya DC isolator mein paani"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then measure array insulation resistance to earth with a megohmmeter.",
+          "ur": "AC aur PV isolate karke megohmmeter se array ki earth ke taraf insulation resistance measure karein."
+        },
+        {
+          "en": "Disconnect the PV strings one by one to find the leaking one.",
+          "ur": "PV strings ko ek-ek karke disconnect karke leaking string dhoondein."
+        },
+        {
+          "en": "Restart the inverter; if the error message still exists, contact Growatt.",
+          "ur": "Inverter restart karein; error message phir bhi rahe to Growatt se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "Error: 202",
+      "aliases": [
+        "Error: 202",
+        "202",
+        "PV Voltage High"
+      ],
+      "title": {
+        "en": "PV voltage high",
+        "ur": "PV voltage zyada hai"
+      },
+      "meaning": {
+        "en": "DC input voltage is above the maximum tolerable value for this unit.",
+        "ur": "DC input voltage is unit ke maximum tolerable value se upar hai."
+      },
+      "causes": [
+        {
+          "en": "String Voc too high in cold ambient conditions",
+          "ur": "Thande mausam mein string ka Voc bohat zyada"
+        },
+        {
+          "en": "String voltage rise from a partial disconnect on one string",
+          "ur": "Kisi string ka partial disconnect hone se voltage barh gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the DC switch immediately.",
+          "ur": "DC switch foran disconnect karein."
+        },
+        {
+          "en": "Check the voltage of each PV string with a multimeter.",
+          "ur": "Multimeter se har PV string ka voltage check karein."
+        },
+        {
+          "en": "If the PV string voltage is lower than 550 V, contact Growatt.",
+          "ur": "Agar PV string voltage 550 V se kam hai to Growatt se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "Error: 203",
+      "aliases": [
+        "Error: 203",
+        "203",
+        "PV Isolation Low"
+      ],
+      "title": {
+        "en": "PV isolation low (insulation problem)",
+        "ur": "PV isolation low - insulation masla"
+      },
+      "meaning": {
+        "en": "Insulation between the PV array and ground has fallen below the threshold; this manual gives explicit impedance limits.",
+        "ur": "PV array aur ground ke darmiyan insulation threshold se neeche gir gaya; is manual mein impedance limits diye gaye hain."
+      },
+      "causes": [
+        {
+          "en": "Panel enclosure not grounded properly, or inverter ground not solid",
+          "ur": "Panel enclosure theek se grounded nahi, ya inverter ground mazboot nahi"
+        },
+        {
+          "en": "DC breaker has got wet, or cable insulation is damaged",
+          "ur": "DC breaker geela ho gaya, ya cable insulation damaged hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if the panel enclosure is grounded properly, then check that the inverter ground is solid.",
+          "ur": "Pehle panel enclosure theek grounded hai ya nahi check karein, phir inverter ground mazboot hai ya nahi."
+        },
+        {
+          "en": "Check if the DC breaker has got wet and inspect it for water ingress.",
+          "ur": "Check karein ke DC breaker geela to nahi ho gaya aur usmein paani ke nishaan dekhein."
+        },
+        {
+          "en": "Measure PV(+) to PV(-) to ground impedance - the manual requires more than 25 kOhm (550 kOhm per VDE 0126).",
+          "ur": "PV(+) se PV(-) aur ground ke darmiyan impedance measure karein - manual ke mutabiq 25 kOhm se zyada (VDE 0126 ke mutabiq 550 kOhm) hona chahiye."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "Error: 300",
+      "aliases": [
+        "Error: 300",
+        "300",
+        "AC V Outrange"
+      ],
+      "title": {
+        "en": "AC V outrange (utility grid voltage out of range)",
+        "ur": "AC V outrange (grid voltage range se bahar)"
+      },
+      "meaning": {
+        "en": "Utility grid voltage is outside the permissible range, so grid connection is blocked.",
+        "ur": "Utility grid voltage permissible range se bahar hai, is liye grid connection block hai."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage out of the local standard window",
+          "ur": "Grid voltage local standard window se bahar hai"
+        },
+        {
+          "en": "Neutral or ground wire loose in the AC wiring",
+          "ur": "AC wiring mein neutral ya ground wire loose hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the DC switch first.",
+          "ur": "Pehle DC switch band karein."
+        },
+        {
+          "en": "Check AC wiring, especially neutral and the ground wire, and re-torque the terminals.",
+          "ur": "AC wiring check karein, khaas kar neutral aur ground wire, aur terminals dobara torque karein."
+        },
+        {
+          "en": "Check grid voltage against the local grid standard, then restart the inverter.",
+          "ur": "Grid voltage ko local grid standard se check karke inverter restart karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "Error: 303",
+      "aliases": [
+        "Error: 303",
+        "303",
+        "PE abnormal",
+        "NE abnormal"
+      ],
+      "title": {
+        "en": "PE abnormal (N-PE voltage above 30 V)",
+        "ur": "PE abnormal (N aur PE ka voltage 30 V se upar)"
+      },
+      "meaning": {
+        "en": "Voltage between neutral and PE is above 30 V, so the inverter has shut down.",
+        "ur": "Neutral aur PE ke darmiyan voltage 30 V se upar hai, is liye inverter band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "PE conductor open, so neutral floats through the load",
+          "ur": "PE conductor khul gaya hai, is liye neutral load ke zariye float kar raha hai"
+        },
+        {
+          "en": "Neutral and PE swapped at the AC terminal",
+          "ur": "AC terminal par neutral aur PE swap ho gaye hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the DC switch, then check AC wiring, especially neutral and ground wire.",
+          "ur": "DC switch band karke AC wiring check karein, khaas kar neutral aur ground wire."
+        },
+        {
+          "en": "Measure the voltage of neutral to PE; anything above 30 V is a fault condition.",
+          "ur": "Neutral se PE voltage measure karein; 30 V se upar koi bhi reading fault condition hai."
+        },
+        {
+          "en": "Restart the inverter; if the error message still exists, contact the manufacturer.",
+          "ur": "Inverter restart karein; error message phir bhi rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "Error: 407",
+      "aliases": [
+        "Error: 407",
+        "407",
+        "Auto Test Failed"
+      ],
+      "title": {
+        "en": "Auto test failed",
+        "ur": "Auto test fail ho gaya"
+      },
+      "meaning": {
+        "en": "The inverter's pre-connection auto test did not pass, so it will not connect.",
+        "ur": "Inverter ka connection se pehle ka auto test pass nahi hua, is liye woh connect nahi hoga."
+      },
+      "causes": [
+        {
+          "en": "Grid conditions not settled when the test ran",
+          "ur": "Test chalne ke waqt grid conditions settle nahi hue"
+        },
+        {
+          "en": "PV insulation or AFCI self-test failing the same test",
+          "ur": "PV insulation ya AFCI self-test bhi isi test mein fail ho raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and repeat the auto test.",
+          "ur": "Inverter restart karke auto test dobara chalayein."
+        },
+        {
+          "en": "Check PV isolation and PE continuity before repeating, so a real earth fault is not mistaken for a test failure.",
+          "ur": "Dobara chalane se pehle PV isolation aur PE continuity check karein taake asal earth fault ko test failure na samajhein."
+        },
+        {
+          "en": "If the problem still exists, contact Growatt.",
+          "ur": "Agar masla phir bhi hai to Growatt se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "Error: 411",
+      "aliases": [
+        "Error: 411",
+        "411",
+        "DSP communicates with M3 abnormal"
+      ],
+      "title": {
+        "en": "DSP communicates with M3 abnormal",
+        "ur": "DSP ka M3 se communication abnormal hai"
+      },
+      "meaning": {
+        "en": "The DSP on the control board and the M3 communication board are not exchanging data.",
+        "ur": "Control board ka DSP aur M3 communication board aapas mein data exchange nahi kar rahe."
+      },
+      "causes": [
+        {
+          "en": "DSP and M3 firmware versions do not match",
+          "ur": "DSP aur M3 firmware versions match nahi karte"
+        },
+        {
+          "en": "Communication ribbon cable or connector loose",
+          "ur": "Communication ribbon cable ya connector loose"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reseat the DSP-to-M3 ribbon connector.",
+          "ur": "AC, PV aur battery isolate karke DSP se M3 ribbon connector dobara baithayein."
+        },
+        {
+          "en": "Update the DSP and M3 firmware to a matched pair.",
+          "ur": "DSP aur M3 firmware ko matched pair par update karein."
+        },
+        {
+          "en": "Change the DSP board or M3 board if the problem persists, then claim Growatt warranty.",
+          "ur": "Agar masla bacha rahe to DSP board ya M3 board badlein, phir Growatt warranty claim karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "Error: 414",
+      "aliases": [
+        "Error: 414",
+        "414",
+        "EEPROM fault"
+      ],
+      "title": {
+        "en": "EEPROM fault",
+        "ur": "EEPROM fault hai"
+      },
+      "meaning": {
+        "en": "Settings memory cannot be read or written.",
+        "ur": "Settings memory parh ya likh nahi sakta."
+      },
+      "causes": [
+        {
+          "en": "EEPROM chip or its solder joint on the M3 board",
+          "ur": "M3 board par EEPROM chip ya uska solder joint"
+        },
+        {
+          "en": "Power loss during a settings write",
+          "ur": "Settings write ke dauran power chala jana"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, wait 5 minutes, then restart the inverter.",
+          "ur": "AC, PV aur battery isolate karke 5 minute wait karein, phir inverter restart karein."
+        },
+        {
+          "en": "Note whether the error appears only in the morning - a marginal chip behaves that way.",
+          "ur": "Note karein ke error sirf subah aata hai ya nahi - marginal chip aise hi behave karta hai."
+        },
+        {
+          "en": "If the fault is sustained, the M3 board must be replaced - claim Growatt warranty.",
+          "ur": "Agar fault barqarar rahe to M3 board badalna parega - Growatt warranty claim karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "Error: 417",
+      "aliases": [
+        "Error: 417",
+        "417",
+        "DSP and redundant M3 data mismatch"
+      ],
+      "title": {
+        "en": "DSP and redundant M3 sampled data not the same",
+        "ur": "DSP aur redundant M3 ka data same nahi hai"
+      },
+      "meaning": {
+        "en": "The DSP and the redundant M3 board are sampling the same signals and getting different answers.",
+        "ur": "DSP aur redundant M3 board wahi signals sample karke alag jawab de rahe hain."
+      },
+      "causes": [
+        {
+          "en": "One sampling channel has drifted",
+          "ur": "Kisi aik sampling channel bekar chala hai"
+        },
+        {
+          "en": "Redundant wiring harness between DSP and M3 has a poor connection",
+          "ur": "DSP aur M3 ke darmiyan redundant wiring harness ka connection kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reseat the redundancy harness connectors.",
+          "ur": "AC, PV aur battery isolate karke redundancy harness connectors dobara baithayein."
+        },
+        {
+          "en": "Restart the inverter and check whether the code is consistent or intermittent.",
+          "ur": "Inverter restart karke check karein ke code consistent hai ya intermittent."
+        },
+        {
+          "en": "If the channels never agree, the M3 board must be replaced - claim Growatt warranty.",
+          "ur": "Agar channels kabhi match na hon to M3 board badalna parega - Growatt warranty claim karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "Error: 420",
+      "aliases": [
+        "Error: 420",
+        "420",
+        "GFCI fault"
+      ],
+      "title": {
+        "en": "GFCI fault",
+        "ur": "GFCI fault hai"
+      },
+      "meaning": {
+        "en": "The ground fault circuit interrupter has reported a fault condition.",
+        "ur": "Ground fault circuit interrupter ne fault condition report kiya."
+      },
+      "causes": [
+        {
+          "en": "GFCI module damaged by a surge or repeated leakage trips",
+          "ur": "Surge ya baar baar leakage trips se GFCI module kharab"
+        },
+        {
+          "en": "Real earth fault still present in the array",
+          "ur": "Array mein asal earth fault abhi bhi mojood hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then measure the array insulation resistance to rule out a real earth fault.",
+          "ur": "AC aur PV isolate karke asal earth fault rule out karne ke liye array ki insulation resistance measure karein."
+        },
+        {
+          "en": "Restart the inverter and see whether the code clears.",
+          "ur": "Inverter restart karke dekhein ke code clear hota hai ya nahi."
+        },
+        {
+          "en": "If the code returns with good insulation, the power board must be replaced - claim Growatt warranty.",
+          "ur": "Agar insulation theek hone par bhi code wapas aaye to power board badalna parega - Growatt warranty claim karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "LED: FAULT Red ON steady",
+      "aliases": [
+        "LED: FAULT Red ON steady",
+        "LED FAULT steady",
+        "Arc fault LED"
+      ],
+      "title": {
+        "en": "FAULT LED solid red - arc fault",
+        "ur": "FAULT LED lal bar lal - arc fault"
+      },
+      "meaning": {
+        "en": "Solid red FAULT LED with the buzzer sounding means an arc fault is present.",
+        "ur": "Solid red FAULT LED aur buzzer bolna matlab arc fault mojood hai."
+      },
+      "causes": [
+        {
+          "en": "Real arc at a PV connector, module or DC cable",
+          "ur": "PV connector, module ya DC cable par asal arc"
+        },
+        {
+          "en": "A tripped AFCI that has not been reset",
+          "ur": "AFCI trip ho gaya aur reset nahi hua"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then inspect every DC connector for heat damage.",
+          "ur": "AC, PV aur battery isolate karke har DC connector par garmi ke nishaan dekhein."
+        },
+        {
+          "en": "Press the internal arc reset button for 3-5 seconds to clear the arc fault.",
+          "ur": "Arc fault clear karne ke liye andar wale arc reset button ko 3-5 second tak dabayein."
+        },
+        {
+          "en": "After shutdown, check the panel terminal wiring before restarting.",
+          "ur": "Restart se pehle shutdown ke baad panel terminal wiring check karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "LED red steady on + buzzer sounding",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "LED: FAULT Red blink 1s on/off",
+      "aliases": [
+        "LED: FAULT Red blink 1s on/off",
+        "LED FAULT blink",
+        "Warning LED"
+      ],
+      "title": {
+        "en": "FAULT LED blinking 1s on/1s off - warning",
+        "ur": "FAULT LED 1s on/1s off blink - warning"
+      },
+      "meaning": {
+        "en": "A blinking red FAULT LED means a warning condition - the inverter usually derates rather than stops.",
+        "ur": "Blinking red FAULT LED ka matlab warning condition hai - inverter aam tor par band hone ke bajaye power kam karta hai."
+      },
+      "causes": [
+        {
+          "en": "Any of the §11.4.3 warning codes, e.g. meter abnormal or EEPROM abnormal",
+          "ur": "§11.4.3 ke kisi bhi warning code ka haal, jaise meter abnormal ya EEPROM abnormal"
+        },
+        {
+          "en": "WiFi / 4G communication loss reported elsewhere",
+          "ur": "WiFi / 4G communication loss kisi aur jagah report hua"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the exact warning on the LED screen or the ShinePhone app before acting.",
+          "ur": "Koi kaam karne se pehle LED screen ya ShinePhone app par exact warning padhein."
+        },
+        {
+          "en": "Restart the inverter once; most warnings clear on restart.",
+          "ur": "Inverter ek baar restart karein; zyada tar warnings restart par clear ho jate hain."
+        },
+        {
+          "en": "If the same warning keeps returning, note it and follow that code's own procedure.",
+          "ur": "Agar wahi warning baar baar aata rahe to use note karein aur usi code ka procedure follow karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "LED red blink 1s on / 1s off",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "LED: BAT green 0.5s on/0.5s off",
+      "aliases": [
+        "LED: BAT green 0.5s on/0.5s off",
+        "LED BAT blink fast",
+        "BAT fault mode LED"
+      ],
+      "title": {
+        "en": "BAT LED fast blink - battery in fault mode",
+        "ur": "BAT LED tez blink - battery fault mode mein hai"
+      },
+      "meaning": {
+        "en": "The battery side has latched a fault; the inverter may be running on PV or grid only.",
+        "ur": "Battery side ne fault latch kar liya hai; inverter sirf PV ya grid par chal raha ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Battery BMS has latched a fault such as over/under voltage or over-temperature",
+          "ur": "Battery BMS ne over/under voltage ya over-temperature jaisa fault latch kar liya hai"
+        },
+        {
+          "en": "Battery communication to the inverter has dropped",
+          "ur": "Battery ka inverter se communication gir gaya hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check battery terminal voltage with a multimeter before touching connections.",
+          "ur": "Connections chhoone se pehle multimeter se battery terminal voltage check karein."
+        },
+        {
+          "en": "Power-cycle the battery (many ARO-type packs have a reset button) and confirm it wakes up.",
+          "ur": "Battery ko power-cycle karein (bohat se ARO packs mein reset button hota hai) aur confirm karein ke woh jaag jati hai."
+        },
+        {
+          "en": "If the battery still faults, read the BMS's own fault code before replacing anything.",
+          "ur": "Agar battery phir bhi fault de rahi hai to kuch bhi badalne se pehle BMS ka apna fault code padhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "LED green blink 0.5s on / 0.5s off",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "Warning 401",
+      "aliases": [
+        "Warning 401",
+        "401",
+        "W401",
+        "Meter abnormal"
+      ],
+      "title": {
+        "en": "Inverter does not communicate with meter",
+        "ur": "Inverter meter se communicate nahi kar raha"
+      },
+      "meaning": {
+        "en": "The inverter and the energy meter are not talking over RS485, so export control is unavailable.",
+        "ur": "Inverter aur energy meter RS485 par baat nahi kar rahe, is liye export control available nahi."
+      },
+      "causes": [
+        {
+          "en": "Meter not powered, or RS485 cable loose",
+          "ur": "Meter powered nahi, ya RS485 cable loose hai"
+        },
+        {
+          "en": "Meter address or baud rate not matching the inverter setting",
+          "ur": "Meter ka address ya baud rate inverter setting se match nahi karta"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if the meter is on - look for its own status LED.",
+          "ur": "Check karein ke meter on hai ya nahi - uska apna status LED dekhein."
+        },
+        {
+          "en": "Check that the inverter-to-meter connection is normal and the RS485 cable is seated at both ends.",
+          "ur": "Check karein ke inverter se meter ka connection normal hai aur RS485 cable dono taraf baitha hua hai."
+        },
+        {
+          "en": "Compare the meter's address and baud rate against the inverter's communication settings.",
+          "ur": "Meter ka address aur baud rate inverter ki communication settings se compare karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    },
+    {
+      "code": "Warning 404",
+      "aliases": [
+        "Warning 404",
+        "404",
+        "W404",
+        "EEPROM abnormal (warning)"
+      ],
+      "title": {
+        "en": "EEPROM abnormal (warning 404)",
+        "ur": "EEPROM mein ghalti - memory ka masla (warning 404)"
+      },
+      "meaning": {
+        "en": "The M3 board reports a memory abnormality as a warning rather than a hard fault.",
+        "ur": "M3 board memory abnormality ko hard fault ke bajaye warning ke tor par report karta hai."
+      },
+      "causes": [
+        {
+          "en": "Marginal EEPROM chip or a bad I2C solder joint",
+          "ur": "Marginal EEPROM chip ya kharab I2C solder joint"
+        },
+        {
+          "en": "Power interruption while writing settings",
+          "ur": "Settings likhte waqt power chala jana"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and see whether the warning clears.",
+          "ur": "Inverter restart karke dekhein ke warning clear hota hai ya nahi."
+        },
+        {
+          "en": "If the warning persists, contact Growatt customer service to replace the M3 board.",
+          "ur": "Agar warning bacha rahe to Growatt customer service se M3 board badalwane ka request karein."
+        },
+        {
+          "en": "Before any firmware update, fully power the unit down as Growatt's warranty terms require.",
+          "ur": "Koi bhi firmware update karne se pehle unit ko poori tarah power down karein, jaise Growatt ke warranty terms kehti hain."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MIN 3000-11400TL-XH-US User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://us.growatt.com/upload/file/MIN_3-11.4kTL-XH-US_User_Manual_EN_202501.pdf"
+      }
+    }
+  ]
+}

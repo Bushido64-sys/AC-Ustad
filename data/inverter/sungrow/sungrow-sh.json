@@ -1,0 +1,1862 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sungrow",
+  "series": {
+    "id": "sungrow-sh",
+    "name": "SH8.0RS / SH10RS (three-phase hybrid inverter with battery, 8-10kW)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*SH8.0RS*",
+      "*SH10RS*",
+      "*SH8.0RT*",
+      "*SH10RT*",
+      "*SH3.0-6.0RT*",
+      "*SH15T*",
+      "*SH20T*",
+      "*SH25T*"
+    ],
+    "notes": "Shares the RS/CX platform code set with sungrow-sg-rs and sungrow-sg-cx-p2, so the string/meter/grid rows are IDENTICAL there. What makes SH unique: the battery blocks (BMS 714, connection 716, Battery Alarm 932-943/964/840, Battery Fault 703-1001) and the off-grid/backup load code 51. This manual's column header is 'Alarm ID', not 'Fault Code', so isFault here follows the Alarm Name wording. Codes have NO leading zeros. NOTE: SH125CX is a much larger COMMERCIAL hybrid and is NOT documented in this manual - do not assume its codes match; see NEGATIVE. Never merge SH battery codes into the SG series."
+  },
+  "codes": [
+    {
+      "code": "2, 3, 14, 15",
+      "aliases": [
+        "2, 3, 14, 15",
+        "2",
+        "3",
+        "14",
+        "15",
+        "E002",
+        "E003",
+        "E014",
+        "E015"
+      ],
+      "title": {
+        "en": "Grid Overvoltage (2, 3, 14, 15)",
+        "ur": "Grid voltage zyada (2, 3, 14, 15)"
+      },
+      "meaning": {
+        "en": "Grid voltage above the set limit. The inverter reconnects to the grid once voltage returns to normal.",
+        "ur": "Grid voltage set limit se zyada hai. Voltage theek hote hi inverter grid se dobara jud jata hai."
+      },
+      "causes": [
+        {
+          "en": "Actual grid voltage higher than the set overvoltage value.",
+          "ur": "Asli grid voltage set overvoltage value se zyada hai."
+        },
+        {
+          "en": "Overvoltage protection parameters not matched to local regulation.",
+          "ur": "Overvoltage protection parameters local regulation se match nahi karte."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual grid voltage and compare with the set value in the App or LCD.",
+          "ur": "Asli grid voltage naalein aur App ya LCD ke set value se compare karein."
+        },
+        {
+          "en": "If the grid is high, contact the local electric power company for a solution.",
+          "ur": "Agar grid high hai to local electric power company se hal manga dein."
+        },
+        {
+          "en": "Only with the power operator's consent, adjust the overvoltage protection value via the App or LCD.",
+          "ur": "Sirf power operator ki ijazat se App ya LCD se overvoltage protection value adjust karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "4, 5",
+      "aliases": [
+        "4, 5",
+        "4",
+        "5",
+        "E004",
+        "E005"
+      ],
+      "title": {
+        "en": "Grid Undervoltage (4, 5)",
+        "ur": "Grid voltage kam (4, 5)"
+      },
+      "meaning": {
+        "en": "Grid voltage below the set limit. The inverter waits and reconnects when the grid recovers.",
+        "ur": "Grid voltage set limit se neeche hai. Grid theek hote hi inverter dobara jud jata hai."
+      },
+      "causes": [
+        {
+          "en": "Actual grid voltage lower than the set undervoltage value.",
+          "ur": "Asli grid voltage set undervoltage value se kam hai."
+        },
+        {
+          "en": "AC cable not firmly in place.",
+          "ur": "AC cable mazbooti se baithi nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual grid voltage at the inverter AC terminals.",
+          "ur": "Inverter ke AC terminals par asli grid voltage naalein."
+        },
+        {
+          "en": "Check whether the AC cable is firmly in place and re-torque all three phase terminals.",
+          "ur": "Check karein AC cable mazbooti se baithi hai aur teen phase terminals dobara tighten karein."
+        },
+        {
+          "en": "If the grid is genuinely low, have the power company correct it before raising the trip value.",
+          "ur": "Agar grid sach mein kam hai to trip value barhane se pehle power company se theek karwane ko kahen."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "8",
+      "aliases": [
+        "8",
+        "E008"
+      ],
+      "title": {
+        "en": "Grid Overfrequency (8)",
+        "ur": "Grid frequency zyada (8)"
+      },
+      "meaning": {
+        "en": "Grid frequency above the permitted band; the inverter waits for the grid to return to normal.",
+        "ur": "Grid frequency permitted range se zyada hai; inverter grid theek hone ka intezaar karta hai."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency beyond the set range, often a generator-backed supply.",
+          "ur": "Grid frequency set range se bahar, aksar generator wali supply."
+        },
+        {
+          "en": "Grid frequency beyond the set range, often a generator-backed supply.",
+          "ur": "Grid frequency set range se bahar, aksar generator wali supply."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual grid frequency to confirm it is beyond the set range.",
+          "ur": "Set range se bahar hai ya nahi confirm karne ke liye asli grid frequency naalein."
+        },
+        {
+          "en": "If out of range, ask the local electric power company or genset owner to correct it.",
+          "ur": "Agar range se bahar hai to local electric power company ya genset owner se theek karwane ko kahen."
+        },
+        {
+          "en": "Check the protection parameters in the App or LCD before further action.",
+          "ur": "Aage kisi action se pehle App ya LCD mein protection parameters check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "9",
+      "aliases": [
+        "9",
+        "E009"
+      ],
+      "title": {
+        "en": "Grid Underfrequency (9)",
+        "ur": "Grid frequency kam (9)"
+      },
+      "meaning": {
+        "en": "Grid frequency below the permitted band; the inverter waits for the grid to return to normal.",
+        "ur": "Grid frequency permitted range se neeche hai; inverter grid theek hone ka intezaar karta hai."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency beyond the set range, e.g. an overloaded generator or a large motor start.",
+          "ur": "Grid frequency set range se bahar, jaise overloaded generator ya koi bara motor start."
+        },
+        {
+          "en": "Grid frequency beyond the set range, e.g. an overloaded generator or a large motor start.",
+          "ur": "Grid frequency set range se bahar, jaise overloaded generator ya koi bara motor start."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual grid frequency and note the reading and the trip time.",
+          "ur": "Asli grid frequency naalein aur reading aur trip ka waqt note karein."
+        },
+        {
+          "en": "If beyond the set range, ask the local electric power company to correct it.",
+          "ur": "Agar set range se bahar hai to local electric power company se theek karwane ko kahen."
+        },
+        {
+          "en": "Check the protection parameters in the App or LCD before further action.",
+          "ur": "Aage kisi action se pehle App ya LCD mein protection parameters check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "10",
+      "aliases": [
+        "10",
+        "E010"
+      ],
+      "title": {
+        "en": "Grid Power Outage (10)",
+        "ur": "Grid ki bijli chali gayi (10)"
+      },
+      "meaning": {
+        "en": "The grid supply was lost or not detected, so the inverter disconnected to avoid islanding.",
+        "ur": "Grid supply chala gaya ya detect nahi hua, is liye inverter islanding se bachne ke liye grid se disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Actual grid outage or the AC circuit breaker has tripped.",
+          "ur": "Asli grid outage ya AC circuit breaker trip ho gaya."
+        },
+        {
+          "en": "AC cable loose, or live and N connected to the wrong terminals.",
+          "ur": "AC cable loose, ya live aur N galat terminals se jude hue hain."
+        },
+        {
+          "en": "AC circuit breaker not connected.",
+          "ur": "AC circuit breaker jari nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the grid supplies power reliably with a meter at the distribution board.",
+          "ur": "Distribution board par meter se check karein ke grid mehfooz power de raha hai."
+        },
+        {
+          "en": "Check whether the AC cable is firmly in place and re-torque every AC terminal.",
+          "ur": "Check karein AC cable mazbooti se baithi hai aur har AC terminal dobara tighten karein."
+        },
+        {
+          "en": "Verify the AC cable is on the correct terminals - live and N must not be swapped.",
+          "ur": "Confirm karein AC cable sahi terminals par hain - live aur N swap na hon."
+        },
+        {
+          "en": "Check the AC circuit breaker is closed.",
+          "ur": "Check karein AC circuit breaker bandh (closed) hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12",
+        "E012"
+      ],
+      "title": {
+        "en": "Excess Leakage Current (12)",
+        "ur": "Leakage current zyada (12)"
+      },
+      "meaning": {
+        "en": "Insulation leakage current was too high, often from damp conditions; the inverter reconnects once conditions improve.",
+        "ur": "Insulation leakage current bohat zyada tha, aksar geele mahol ki wajah se; conditions theek hote hi inverter dobara jud jata hai."
+      },
+      "causes": [
+        {
+          "en": "Poor sunlight or a damp environment around the modules and cables.",
+          "ur": "Modules aur cables ke aas paas dhoop kam ya geela mahol."
+        },
+        {
+          "en": "AC or DC cable insulation degraded.",
+          "ur": "AC ya DC cable ki insulation kharab ho gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Let the environment dry out - the inverter usually reconnects by itself.",
+          "ur": "Mahol sukha hone dein - inverter aam tor par khud dobara jud jata hai."
+        },
+        {
+          "en": "If the environment is normal, check AC and DC cable insulation with an insulation tester.",
+          "ur": "Agar mahol normal hai to insulation tester se AC aur DC cable ki insulation check karein."
+        },
+        {
+          "en": "Replace any cable with failed insulation and re-seal the connectors that were damp.",
+          "ur": "Insulation fail hui cable badal dein aur geele hue connectors dobara seal karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "13",
+      "aliases": [
+        "13",
+        "E013"
+      ],
+      "title": {
+        "en": "Grid Abnormal (13)",
+        "ur": "Grid ka readout kharab (13)"
+      },
+      "meaning": {
+        "en": "A general grid parameter went outside the set range - grid quality not covered by a specific voltage or frequency code.",
+        "ur": "Grid ka koi aam parameter set range se bahar chala gaya - wo grid quality masla jo kisi khaas voltage ya frequency code se cover nahi hota."
+      },
+      "causes": [
+        {
+          "en": "Grid parameter such as distortion or inter-harmonics exceeds the set range.",
+          "ur": "Grid parameter jaise distortion ya harmonics set range se zyada hai."
+        },
+        {
+          "en": "Unstable local supply from a weak or overloaded distribution transformer.",
+          "ur": "Kamzor ya overloaded distribution transformer se unstable local supply."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual grid; if parameters exceed the set range, ask the power company for a solution.",
+          "ur": "Asli grid naalein; parameters set range se zyada hon to power company se hal manga dein."
+        },
+        {
+          "en": "Record the grid condition and trip time so the utility can investigate.",
+          "ur": "Trip ka grid condition aur waqt note karein taake utility investigate kar sake."
+        },
+        {
+          "en": "Do not widen the protection window yourself as a first step - record first, then escalate.",
+          "ur": "Pehla step apne aap protection window bara na karein - pehle note karein, phir upar report karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "17",
+      "aliases": [
+        "17",
+        "E017"
+      ],
+      "title": {
+        "en": "Grid Voltage Imbalance (17)",
+        "ur": "Grid phase voltages ka farq zyada (17)"
+      },
+      "meaning": {
+        "en": "The three phase grid voltages differ by more than allowed. Expected on a three-phase unit like SH.",
+        "ur": "Teen phase grid voltages ka farq mojood se zyada hai. Teen phase unit jaise SH par ye aam baat hai."
+      },
+      "causes": [
+        {
+          "en": "Large single-phase loads unevenly distributed across the three phases.",
+          "ur": "Teen phases par bare single-phase loads uneven taqseem hue hain."
+        },
+        {
+          "en": "Unbalanced distribution transformer or a weak neutral.",
+          "ur": "Unbalanced distribution transformer ya kamzor neutral."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual grid voltage on all three phases and compare the readings.",
+          "ur": "Teen phases ka asli grid voltage naalein aur readings compare karein."
+        },
+        {
+          "en": "If the phase voltages differ greatly, contact the electric power company for a solution.",
+          "ur": "Agar phase voltages mein bohat farq ho to electric power company se hal manga dein."
+        },
+        {
+          "en": "If within the power company's permissible range, adjust the imbalance parameter via the App or LCD.",
+          "ur": "Agar power company ki permissible range mein hai to App ya LCD se imbalance parameter adjust karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "28, 29, 208, 212, 448-479",
+      "aliases": [
+        "28, 29, 208, 212, 448-479",
+        "28",
+        "29",
+        "208",
+        "212",
+        "448-479",
+        "E028",
+        "E029"
+      ],
+      "title": {
+        "en": "PV Reverse Connection Fault (28, 29, 208, 212, 448-479)",
+        "ur": "PV string ulti polarity, fault (28, 29, 208, 212, 448-479)"
+      },
+      "meaning": {
+        "en": "PV strings are wired in reverse polarity. Codes 28-29 map to PV1-PV2; 448-479 to string 1-32.",
+        "ur": "PV strings ulta polarity se jade hain. Codes 28-29 PV1-PV2 ke hain; 448-479 string 1-32 ke hain."
+      },
+      "causes": [
+        {
+          "en": "MC4 connector crimped backwards during installation.",
+          "ur": "Installation ke dauraan MC4 connector ulta crimp ho gaya."
+        },
+        {
+          "en": "String cables swapped at the DC input terminals.",
+          "ur": "DC input terminals par string cables aapas mein badal diye gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the DC switch and wait until the string current drops below 0.5 A before touching the string.",
+          "ur": "DC switch disconnect karein aur string chhune se pehle string current 0.5 A se neeche girne ka intezaar karein."
+        },
+        {
+          "en": "Check whether the corresponding string is of reverse polarity and correct it.",
+          "ur": "Check karein us string ki polarity reverse hai ya nahi aur theek karein."
+        },
+        {
+          "en": "Re-measure the open-circuit voltage and confirm positive polarity before re-enabling DC.",
+          "ur": "Open-circuit voltage dobara naalein aur DC wapas on karne se pehle positive polarity confirm karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This manual spells it correctly as 'PV Reverse Connection Fault'. The single-phase RS manual prints 'PV Reserve' - a typo. Same meaning, different wording.",
+        "ur": "Ye manual ise theek likhta hai 'PV Reverse Connection Fault'. Single-phase RS manual 'PV Reserve' likhta hai - typo. Ma'ni wohi, lafz mukhtalif."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "532-547, 564-579",
+      "aliases": [
+        "532-547, 564-579",
+        "532-547",
+        "564-579"
+      ],
+      "title": {
+        "en": "PV Reverse Connection Alarm (532-547, 564-579)",
+        "ur": "PV string ulti polarity, alarm (532-547, 564-579)"
+      },
+      "meaning": {
+        "en": "Reverse polarity on a monitored string. Codes 532-547 map to string 1-16; 564-579 to string 17-32.",
+        "ur": "Monitored string par reverse polarity. Codes 532-547 string 1-16 ke hain; 564-579 string 17-32 ke hain."
+      },
+      "causes": [
+        {
+          "en": "String connected in reverse polarity, or a monitoring channel reporting the wrong direction.",
+          "ur": "String reverse polarity se jodi, ya monitoring channel galat direction report kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the corresponding string is of reverse polarity at the string fuse holder with a meter.",
+          "ur": "Meter se string fuse holder par check karein ke string reverse polarity mein hai ya nahi."
+        },
+        {
+          "en": "If reverse, disconnect the DC switch and correct the polarity once current is below 0.5 A.",
+          "ur": "Agar reverse hai to DC switch disconnect karke current 0.5 A se neeche hone par polarity theek karein."
+        },
+        {
+          "en": "If the wiring is correct, check the optimizer/module monitoring device on that string.",
+          "ur": "Agar wiring sahi hai to us string ka optimizer ya module monitoring device check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Named 'Alarm' in the manual, so isFault is false.",
+        "ur": "Manual mein 'Alarm' likha hai, is liye isFault false hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "548-563, 580-595",
+      "aliases": [
+        "548-563, 580-595",
+        "548-563",
+        "580-595"
+      ],
+      "title": {
+        "en": "PV Abnormal Alarm (548-563, 580-595)",
+        "ur": "PV string ka voltage/current ghalat, alarm (548-563, 580-595)"
+      },
+      "meaning": {
+        "en": "String voltage or current is abnormal - a mismatch, sheltering or a fuse problem. Codes 548-563 map to string 1-16; 580-595 to string 17-32.",
+        "ur": "String ka voltage ya current abnormal hai - mismatch, sheltering ya fuse ki masla. Codes 548-563 string 1-16 ke hain; 580-595 string 17-32 ke hain."
+      },
+      "causes": [
+        {
+          "en": "Module sheltered by dust, bird droppings or other obstruction.",
+          "ur": "Module par dhool, parinde ki keed ya doosri cheez chhaayi hui hai."
+        },
+        {
+          "en": "Battery board wiring loose in the string combiner.",
+          "ur": "String combiner mein battery board ki wiring loose hai."
+        },
+        {
+          "en": "DC fuse in that string damaged or blown.",
+          "ur": "Us string ka DC fuse kharab ya uda hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the corresponding module is sheltered; remove the shelter and ensure module cleanliness.",
+          "ur": "Check karein module dhakka hua hai ya nahi; dhakka hata dein aur module saaf karein."
+        },
+        {
+          "en": "With DC isolated, check the battery board wiring is loose and make it reliably connected.",
+          "ur": "DC isolate kar ke check karein battery board ki wiring loose hai ya nahi aur mazbooti se jodein."
+        },
+        {
+          "en": "Check if the DC fuse is damaged and replace it with the correct rating.",
+          "ur": "Check karein DC fuse kharab hai ya nahi aur sahi rating ka naya lagayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "The 'battery board wiring' wording is literal on this hybrid model - a real battery board exists here, unlike on a pure string inverter.",
+        "ur": "Is hybrid model par 'battery board wiring' lafz literal hai - yahan asal battery board maujood hai, pure string inverter ke muqable."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "37",
+      "aliases": [
+        "37",
+        "E037"
+      ],
+      "title": {
+        "en": "Excessively High Ambient Temperature (37)",
+        "ur": "Ambient temperature zyada (37)"
+      },
+      "meaning": {
+        "en": "Internal or module temperature above the limit. The inverter resumes when the temperature returns to normal.",
+        "ur": "Internal ya module ka temperature limit se zyada hai. Temperature theek hote hi wapas chal pada hai."
+      },
+      "causes": [
+        {
+          "en": "Ambient temperature around the inverter too high.",
+          "ur": "Inverter ke aas paas ka ambient temperature bohat zyada hai."
+        },
+        {
+          "en": "Poor ventilation or direct sunlight on the enclosure.",
+          "ur": "Kam ventilation ya enclosure par seedhi dhoop."
+        },
+        {
+          "en": "Cooling fan not running properly.",
+          "ur": "Cooling fan theek se nahi chal raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the ambient temperature of the inverter is too high and wait for it to drop.",
+          "ur": "Check karein inverter ka ambient temperature bohat zyada hai ya nahi aur girne dein."
+        },
+        {
+          "en": "Check whether the inverter is in a well-ventilated place and confirm clearance around it.",
+          "ur": "Check karein inverter ventilation wali jagah hai aur aas paas ki required jagah hai ya nahi."
+        },
+        {
+          "en": "If exposed to direct sunlight, shield it; then check the fan is running properly and replace it if not.",
+          "ur": "Agar seedhi dhoop mein hai to shield karein; phir check karein fan theek chal raha hai aur na chal raha ho to badal dein."
+        },
+        {
+          "en": "On a hybrid also check the battery cabinet - blocked battery vents are a common trigger here.",
+          "ur": "Hybrid par battery cabinet bhi check karein - block hui battery vents yahan aam trigger hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "43",
+      "aliases": [
+        "43",
+        "E043"
+      ],
+      "title": {
+        "en": "Excessively Low Ambient Temperature (43)",
+        "ur": "Ambient temperature bohat kam (43)"
+      },
+      "meaning": {
+        "en": "Ambient temperature below the operating range. The inverter must be stopped and restarted when temperature recovers.",
+        "ur": "Ambient temperature operating range se neeche hai. Temperature theek hote hi inverter band karke dobara start karna hoga."
+      },
+      "causes": [
+        {
+          "en": "Winter or night-time ambient temperature below the inverter's minimum operating temperature.",
+          "ur": "Sarmay ya raat ka ambient temperature inverter ke minimum operating temperature se neeche."
+        },
+        {
+          "en": "Winter or night-time ambient temperature below the inverter's minimum operating temperature.",
+          "ur": "Sarmay ya raat ka ambient temperature inverter ke minimum operating temperature se neeche gir gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Stop and disconnect the inverter as the manual directs.",
+          "ur": "Manual ke mutabiq inverter band karke disconnect karein."
+        },
+        {
+          "en": "Restart the inverter when the ambient temperature rises within the operation temperature range.",
+          "ur": "Jab ambient temperature operation temperature range mein aa jaye to inverter restart karein."
+        },
+        {
+          "en": "On a hybrid, confirm the battery BMS temperature protection is not what is blocking restart.",
+          "ur": "Hybrid par confirm karein ke battery ka BMS temperature protection hi restart rok nahi raha."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "39",
+      "aliases": [
+        "39",
+        "E039"
+      ],
+      "title": {
+        "en": "Low System Insulation Resistance (39)",
+        "ur": "System Insulation Resistance kam (39)"
+      },
+      "meaning": {
+        "en": "System insulation resistance to earth is too low - a ground fault exists. The inverter stops to avoid shock.",
+        "ur": "System ki earth ke khilaf insulation resistance bohat kam hai - ground fault maujood hai. Shock se bachne ke liye inverter band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "ISO resistance protection value set excessively high, outside local regulations.",
+          "ur": "ISO resistance protection value bohat high rakha gaya, local regulations se bahar."
+        },
+        {
+          "en": "String or DC cable short-circuited to ground, or damaged insulation.",
+          "ur": "String ya DC cable ground se short ho gaya, ya insulation kharab."
+        },
+        {
+          "en": "Battery cable damaged, or battery terminals loose or in poor contact.",
+          "ur": "Battery cable kharab, ya battery terminals loose ya kamzor contact mein hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the ISO resistance protection value in the App or LCD and ensure it complies with local regulations.",
+          "ur": "App ya LCD mein ISO resistance protection value check karein aur local regulations ke mutabiq hone ko confirm karein."
+        },
+        {
+          "en": "Check the resistance to ground of the string and DC cable, and correct any short circuit or damaged insulation layer.",
+          "ur": "String aur DC cable ki ground ke khilaf resistance check karein, aur koi short circuit ya kharab insulation layer theek karein."
+        },
+        {
+          "en": "Check the battery cables for damage and loose or poor-contact terminals - replace damaged cable and secure the terminals.",
+          "ur": "Battery cables ke nuksan aur loose ya kamzor terminals check karein - kharab cable badal dein aur terminals mazboot karein."
+        },
+        {
+          "en": "If the cable is normal and the fault only occurs on rainy days, re-check when the weather clears.",
+          "ur": "Agar cable normal hai aur fault sirf baarish ke din aata hai to mausam kharab hone par dobara check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "106",
+      "aliases": [
+        "106",
+        "E106"
+      ],
+      "title": {
+        "en": "Grounding Cable Fault (106)",
+        "ur": "Earth wire mein fault (106)"
+      },
+      "meaning": {
+        "en": "The AC ground cable is not correctly connected, or its insulation to the live wire is not normal.",
+        "ur": "AC ground cable sahi se judi nahi hai, ya live wire ke khilaf us ki insulation normal nahi hai."
+      },
+      "causes": [
+        {
+          "en": "AC cable not correctly connected to the PE terminal.",
+          "ur": "AC cable PE terminal par sahi se judi nahi hai."
+        },
+        {
+          "en": "Insulation between the ground cable and the live wire is not normal.",
+          "ur": "Ground cable aur live wire ke darmiyan insulation normal nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the AC cable is correctly connected to the PE terminal and re-torque it.",
+          "ur": "Check karein AC cable PE terminal par sahi se judi hai ya nahi aur use dobara tighten karein."
+        },
+        {
+          "en": "Check the insulation between the ground cable and the live wire with an insulation tester.",
+          "ur": "Insulation tester se ground cable aur live wire ke darmiyan insulation check karein."
+        },
+        {
+          "en": "Replace the ground cable if the insulation is compromised, then re-test before restarting.",
+          "ur": "Insulation kharab ho to ground cable badal dein, phir restart se pehle dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "88",
+      "aliases": [
+        "88",
+        "E088"
+      ],
+      "title": {
+        "en": "Electric Arc Fault (88)",
+        "ur": "Bijli ke chingaar ka fault (88)"
+      },
+      "meaning": {
+        "en": "The AFCI detected an arc in the PV DC wiring. Urgent fire risk - isolate and inspect immediately.",
+        "ur": "AFCI ne PV DC wiring mein arc detect kiya. Fori fire risk - foran isolate karke check karein."
+      },
+      "causes": [
+        {
+          "en": "DC cable damaged, connection terminal or fuse loose, or a weak contact.",
+          "ur": "DC cable kharab, connection terminal ya fuse loose, ya kamzor contact."
+        },
+        {
+          "en": "Burnt component arcing under load.",
+          "ur": "Load par jala hua component chingaar maar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the DC power supply first, then check for damaged cable, loose terminal or fuse, or weak contact.",
+          "ur": "Pehle DC power supply disconnect karein, phir kharab cable, loose terminal ya fuse, ya kamzor contact check karein."
+        },
+        {
+          "en": "Replace the damaged cable, fasten the terminal or fuse, and replace the burnt component.",
+          "ur": "Kharab cable badal dein, terminal ya fuse tighten karein, aur jala hua component badal dein."
+        },
+        {
+          "en": "Reconnect the DC power supply, then clear the arc fault via the App or LCD - the inverter returns to normal.",
+          "ur": "DC power supply dobara jodein, phir App ya LCD se arc fault clear karein - inverter normal ho jayega."
+        },
+        {
+          "en": "If the same connector runs hot again, replace the connector pair entirely rather than re-terminating it.",
+          "ur": "Agar wohi connector dobara garam ho to use dobara baithane ke bajaye poora connector pair badal dein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "51",
+      "aliases": [
+        "51",
+        "E051"
+      ],
+      "title": {
+        "en": "Off-Grid Load OverPower Fault (51)",
+        "ur": "Off-grid load zyada ho gaya, fault (51)"
+      },
+      "meaning": {
+        "en": "The load on the off-grid/backup output port exceeds what the inverter can supply. The backup side was cut to protect itself.",
+        "ur": "Off-grid ya backup output port se juda load inverter ki capacity se zyada hai. Bachane ke liye backup side band kar diya gaya."
+      },
+      "causes": [
+        {
+          "en": "A heavy appliance such as an AC compressor, geyser or pump started on the backup port.",
+          "ur": "Backup port par koi bhari appliance jaise AC compressor, geyser ya pump start ho gaya."
+        },
+        {
+          "en": "Too many loads connected to the backup panel simultaneously.",
+          "ur": "Backup panel par bohat se loads ek saath jude hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the load power at the off-grid port or switch off some loads - this is the first action.",
+          "ur": "Off-grid port ka load power kam karein ya kuch loads band karein - ye sab se pehla action hai."
+        },
+        {
+          "en": "List what is running on the backup panel and identify the largest single load in kW.",
+          "ur": "Backup panel par kya chal raha hai ye list banayein aur sab se bara ek load kW mein dhoondein."
+        },
+        {
+          "en": "Stagger large loads so they do not all start at the same time after a grid return.",
+          "ur": "Bade loads alag alag start karein taake grid wapas aane par sab ek saath na on hon."
+        },
+        {
+          "en": "If the fault still exists on a light load, contact SUNGROW.",
+          "ur": "Agar halkay load ke saath bhi fault rahe to SUNGROW se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "UNIQUE to the hybrid/backup-capable lines. Not present in the SG on-grid tables. A normal overload protection trip, not a component failure.",
+        "ur": "Sirf hybrid/backup wale lines par mojood. SG on-grid tables mein nahi hai. Ye normal overload protection trip hai, component failure nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "84",
+      "aliases": [
+        "84",
+        "E084"
+      ],
+      "title": {
+        "en": "Reverse Connection Alarm of the Meter/CT (84)",
+        "ur": "Meter/CT ka Reverse Connection Alarm (84)"
+      },
+      "meaning": {
+        "en": "The export meter or CT is connected backwards, so export readings will be wrong.",
+        "ur": "Export meter ya CT ulta juda hai, is liye export readings ghalat honge."
+      },
+      "causes": [
+        {
+          "en": "Meter connected to the wrong point in the circuit.",
+          "ur": "Meter circuit mein galat jagah laga hai."
+        },
+        {
+          "en": "Meter input and output wiring reversed.",
+          "ur": "Meter ka input aur output wiring aapas mein ulat diya gaya hai."
+        },
+        {
+          "en": "Existing inverter enabled without the correct rated power setting.",
+          "ur": "Existing inverter enable kiya gaya magar rated power setting sahi nahi ki gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if the meter is wrongly connected and move it to the correct point on the export side.",
+          "ur": "Check karein meter galat jagah lagi hai ya nahi aur use export side par sahi jagah le jayein."
+        },
+        {
+          "en": "Check if the input and output wiring of the meter is reversed and swap the two conductors.",
+          "ur": "Check karein meter ka input aur output wiring ulat diya gaya hai ya nahi aur do conductors aapas mein badal dein."
+        },
+        {
+          "en": "If the existing system is enabled, check that the rated power setting of the existing inverter is correct.",
+          "ur": "Agar existing system enabled hai to check karein ke existing inverter ki rated power setting sahi hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "514",
+      "aliases": [
+        "514",
+        "W514",
+        "E514"
+      ],
+      "title": {
+        "en": "Meter Communication Abnormal Alarm (514)",
+        "ur": "Meter se baat nahi ban rahi, alarm (514)"
+      },
+      "meaning": {
+        "en": "The inverter has lost communication with the Sungrow meter. The inverter can still be connected to the grid normally.",
+        "ur": "Inverter ka Sungrow meter se communication khatam ho gaya. Inverter phir bhi normally grid se connected ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Communication cable or terminals abnormal, loose or not correctly shielded.",
+          "ur": "Communication cable ya terminals kharab, loose ya sahi tareeqe se shield nahi hui."
+        },
+        {
+          "en": "RS485 A/B polarity swapped on this hybrid's separate meter bus.",
+          "ur": "Is hybrid ke alag meter bus par RS485 ki A/B polarity swap ho gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the communication cable and terminals and correct them for a reliable connection.",
+          "ur": "Communication cable aur terminals check karke theek karein taake reliable connection ho."
+        },
+        {
+          "en": "Reconnect the communication cable of the meter.",
+          "ur": "Meter ka communication cable dobara jodein."
+        },
+        {
+          "en": "Swap RS485 A/B if it still fails - polarity labelling is inconsistent between meter models.",
+          "ur": "Agar phir bhi na ho to RS485 A/B aapas mein badal dein - meter models ke darmiyan polarity labeling mukhtalif hai."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "323",
+      "aliases": [
+        "323",
+        "E323"
+      ],
+      "title": {
+        "en": "Grid Confrontation (323)",
+        "ur": "Grid se takrao - dono taraf power (323)"
+      },
+      "meaning": {
+        "en": "The inverter's off-grid/backup output port is wired to the actual grid, so two sources are back-feeding each other. Illegal and dangerous.",
+        "ur": "Inverter ka off-grid ya backup output port asal grid se juda hai, is liye do sources aapas mein power wapas bhej rahe hain. Yeh qanooni aur khatarnaak hai."
+      },
+      "causes": [
+        {
+          "en": "Backup output port wired to the utility grid instead of a separate, non-parallel backup panel.",
+          "ur": "Backup output port utility grid se juda hai, bajaye ke alag aur non-parallel backup panel se."
+        },
+        {
+          "en": "Installer error during the grid-tie and backup wiring.",
+          "ur": "Grid-tie aur backup wiring ke dauraan installer ki ghalti."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the output port is connected to the actual grid.",
+          "ur": "Check karein output port asal grid se juda hua hai ya nahi."
+        },
+        {
+          "en": "If it is, disconnect it from the grid immediately - this is the first action before anything else.",
+          "ur": "Agar haan hai to turant grid se disconnect kar dein - ye sab se pehla action hai."
+        },
+        {
+          "en": "Rewire the output port to a separate backup load panel that is not grid-parallel, then verify with a meter.",
+          "ur": "Output port ko alag backup load panel mein dobara jodein jo grid ke saath parallel na ho, phir meter se verify karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "On a hybrid this is especially easy to create by accident, because the unit genuinely HAS an off-grid port. A wiring error, not a component failure.",
+        "ur": "Hybrid par ye ghalti khud ba khud ho sakti hai, kyun ke unit mein asal mein off-grid port maujood hai. Ye wiring ghalti hai, component failure nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "75",
+      "aliases": [
+        "75",
+        "E075"
+      ],
+      "title": {
+        "en": "Inverter Parallel Communication Alarm (75)",
+        "ur": "Parallel inverters ki baat nahi (75)"
+      },
+      "meaning": {
+        "en": "Communication between paralleled inverters is unreliable, so the parallel group is degraded.",
+        "ur": "Parallel inverters ke darmiyan communication reliable nahi hai, is liye parallel group kamzor ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Communication cable or terminals abnormal, loose or not correctly terminated.",
+          "ur": "Communication cable ya terminals kharab, loose ya sahi tareeqe se terminate nahi hue."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the communication cable and terminals and correct them for a reliable connection.",
+          "ur": "Communication cable aur terminals check karke theek karein taake reliable connection ho."
+        },
+        {
+          "en": "Reconnect the communication cable between the parallel units.",
+          "ur": "Parallel units ke darmiyan communication cable dobara jodein."
+        },
+        {
+          "en": "Confirm the master/slave roles are set correctly for the parallel group before restarting.",
+          "ur": "Restart se pehle confirm karein ke parallel group ke liye master/slave roles sahi set hain."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "On a three-phase hybrid, parallel operation is a real supported function, so this code is expected - unlike on the single-phase SG where it is only a platform-shared row.",
+        "ur": "Teen phase hybrid par parallel operation asal supported function hai, is liye ye code aana mumkin hai - single-phase SG ke muqable jahan ye sirf platform-shared row hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "714",
+      "aliases": [
+        "714",
+        "E714"
+      ],
+      "title": {
+        "en": "BMS Communication Fault (714)",
+        "ur": "BMS se baat nahi ban rahi (714)"
+      },
+      "meaning": {
+        "en": "The inverter cannot talk to the battery BMS over CAN. Without BMS data the inverter cannot safely manage the battery.",
+        "ur": "Inverter battery BMS se CAN ke zariye baat nahi kar sakta. BMS data ke baghair inverter battery ko mehfooz tareeqe se manage nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Battery-to-inverter CAN communication cable disconnected or loose.",
+          "ur": "Battery se inverter ke CAN communication ka cable nikal hua ya loose hai."
+        },
+        {
+          "en": "CAN terminal on the battery or inverter side not seated.",
+          "ur": "Battery ya inverter side ka CAN terminal baitha nahi hua."
+        },
+        {
+          "en": "Battery powered off internally, so its BMS cannot answer.",
+          "ur": "Battery apne aap andar se band hai, is liye us ka BMS jawab nahi de sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the CAN communication cable between the inverter and battery is fully seated at BOTH ends.",
+          "ur": "Check karein inverter aur battery ke darmiyan CAN communication cable DONO siron par poori tarah baithi hai."
+        },
+        {
+          "en": "Reconnect the communication cable, then power-cycle the battery before the inverter so the BMS wakes up first.",
+          "ur": "Communication cable dobara jodein, phir inverter se pehle battery ko power cycle karein taake BMS pehle jaagay."
+        },
+        {
+          "en": "Check the battery is switched on and showing its own SOC before expecting CAN data.",
+          "ur": "Check karein battery on hai aur apna SOC dikha rahi hai, CAN data ki umeed karne se pehle."
+        },
+        {
+          "en": "If the alarm still exists, contact SUNGROW with the battery model and BMS firmware version.",
+          "ur": "Agar alarm phir bhi rahe to battery model aur BMS firmware version ke saath SUNGROW se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The manual adds a specific note: if the hybrid-to-battery communication cable is not correct during first installation, the battery may not work or its parameters may not show on the inverter. Check this cable first on any new 714.",
+        "ur": "Manual ka khaas note: agar pehli installation mein hybrid se battery ka communication cable sahi nahi ho to battery theek se kaam nahi kar sakti ya us ke parameters inverter par nahi dikhte. Kisi bhi naye 714 par pehle ye cable check karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "716",
+      "aliases": [
+        "716",
+        "E716"
+      ],
+      "title": {
+        "en": "Abnormal Battery Connection (716)",
+        "ur": "Battery ka jorr ghalat hai (716)"
+      },
+      "meaning": {
+        "en": "The battery is either reverse connected or not connected at all.",
+        "ur": "Battery ya to ulti polarity se juda hai ya bilkul nahi juli hai."
+      },
+      "causes": [
+        {
+          "en": "Battery power cable reverse connected at the battery or inverter terminal.",
+          "ur": "Battery power cable battery ya inverter terminal par ulta polarity se juda hai."
+        },
+        {
+          "en": "Battery power cable not connected or only partially connected.",
+          "ur": "Battery power cable nahi juda ya sirf adhoora juda hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the battery side switches and the DC switch, and wait 10 minutes before touching any battery terminal.",
+          "ur": "Battery side switches aur DC switch isolate karein, aur kisi bhi battery terminal ko chhune se pehle 10 minute wait karein."
+        },
+        {
+          "en": "Check whether the battery is reversely connected or not connected at all.",
+          "ur": "Check karein battery ulta polarity se juda hai ya bilkul nahi juda."
+        },
+        {
+          "en": "Correct the battery power cable connection so positive goes to positive and negative to negative.",
+          "ur": "Battery power cable connection theek karein taake positive par positive aur negative par negative jaye."
+        },
+        {
+          "en": "Re-tighten the battery terminal to the specified torque and confirm the contact is solid.",
+          "ur": "Battery terminal specified torque tak dobara tighten karein aur mazboor contact ki tasdeeq karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Reverse-battery connection causes damage. Treat as danger and isolate before correcting - do not simply power cycle.",
+        "ur": "Battery ki polarity ulti ho to nuksan hota hai. Ise danger samajhein aur theek karne se pehle isolate karein - sirf power cycle na karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "932-935, 937, 939-943, 964, 840",
+      "aliases": [
+        "932-935, 937, 939-943, 964, 840",
+        "932-935",
+        "937",
+        "939-943",
+        "964",
+        "840",
+        "Battery Alarm"
+      ],
+      "title": {
+        "en": "Battery Alarm (932-935, 937, 939-943, 964, 840)",
+        "ur": "Battery alarm, khud theek ho jata hai (932-935, 937, 939-943, 964, 840)"
+      },
+      "meaning": {
+        "en": "The battery reported a recoverable alarm such as over/under temperature or a voltage warning. It usually recovers by itself.",
+        "ur": "Battery ne koi recover hone wala alarm diya jaise over/under temperature ya voltage warning. Aam tor par khud recover ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Battery ambient temperature too high or too low for charging/discharging.",
+          "ur": "Battery ka ambient temperature charging/discharging ke liye bohat zyada ya bohat kam hai."
+        },
+        {
+          "en": "Poor heat dissipation at the battery cabinet.",
+          "ur": "Battery cabinet ki heat dissipation kamzor hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "The battery can generally recover automatically - wait before intervening.",
+          "ur": "Battery aam tor par khud recover ho jata hai - kuch karne se pehle intezaar karein."
+        },
+        {
+          "en": "If caused by ambient temperature, improve heat dissipation - clear vents and airflow around the battery cabinet.",
+          "ur": "Agar ambient temperature ki wajah hai to heat dissipation behtar karein - battery cabinet ke vents aur airflow saaf karein."
+        },
+        {
+          "en": "If the alarm persists for a long time, contact the battery manufacturer - these codes are raised by the BMS, not the inverter.",
+          "ur": "Agar alarm lambi der tak rahe to battery manufacturer se rabta karein - ye codes BMS raise karta hai, inverter nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "The manual does NOT break this range down into individual battery codes. Raised by the battery BMS, so the authoritative description sits with the battery manufacturer, not Sungrow. Not present in the sungrow-sg or sungrow-sg-rs tables.",
+        "ur": "Manual is range ko individual battery codes mein tor nahi karti. Ye codes battery BMS raise karta hai, is liye authoritative description battery manufacturer ke paas hai, Sungrow ke paas nahi. sungrow-sg ya sungrow-sg-rs tables mein nahi hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "703, 707, 708, 711, 712, 715, 717, 732-737, 739-747, 832-837, 839, 841, 844, 864, 866-868, 870, 1000, 1001",
+      "aliases": [
+        "703, 707, 708, 711, 712, 715, 717, 732-737, 739-747, 832-837, 839, 841, 844, 864, 866-868, 870, 1000, 1001",
+        "703",
+        "707",
+        "708",
+        "711",
+        "712",
+        "715",
+        "717",
+        "732-737",
+        "739-747",
+        "832-837",
+        "839",
+        "841",
+        "844",
+        "864",
+        "866-868",
+        "870",
+        "1000",
+        "1001",
+        "Battery Fault"
+      ],
+      "title": {
+        "en": "Battery Fault (703-1001 range)",
+        "ur": "Battery ka fault - 703 se 1001 tak ke codes"
+      },
+      "meaning": {
+        "en": "A battery fault needing correction. The manual separates these by whether voltage, cable or temperature is the real problem.",
+        "ur": "Battery ka aisa fault jo theek karna zaruri hai. Manual ise voltage, cable ya temperature ki wajah ke mutabiq baant kar batata hai."
+      },
+      "causes": [
+        {
+          "en": "Battery power cable connection abnormal - reverse connected, loose, or high resistance.",
+          "ur": "Battery power cable connection kharab - ulta, loose, ya zyada resistance wala."
+        },
+        {
+          "en": "Battery real-time voltage abnormal even with a correct cable connection.",
+          "ur": "Battery ka real-time voltage abnormal hai jab cable connection sahi bhi ho."
+        },
+        {
+          "en": "Battery temperature abnormal, so charging/discharging is blocked.",
+          "ur": "Battery ka temperature abnormal hai, is liye charging/discharging ruk gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "In case of abnormal battery voltage, check whether the battery power cable connection is abnormal (reverse connection, loose, etc.) and correct it.",
+          "ur": "Battery voltage abnormal ho to check karein battery power cable connection kharab hai ya nahi (reverse connection, loose, wagaira) aur theek karein."
+        },
+        {
+          "en": "Check whether the battery real-time voltage is abnormal if the power cable is correctly connected - if so, contact the battery manufacturer.",
+          "ur": "Agar power cable sahi se juda hai to battery ka real-time voltage abnormal hai ya nahi check karein - agar haan to battery manufacturer se rabta karein."
+        },
+        {
+          "en": "If the voltage is not abnormal, contact SUNGROW - that points to the inverter side rather than the battery.",
+          "ur": "Agar voltage abnormal nahi hai to SUNGROW se rabta karein - is ka matlab masla battery nahi inverter hai."
+        },
+        {
+          "en": "In case of abnormal battery temperature, take measures to change the ambient temperature, such as improving heat dissipation.",
+          "ur": "Battery temperature abnormal ho to ambient temperature theek karne ke measures lein, jaise heat dissipation behtar karna."
+        },
+        {
+          "en": "Isolate the battery side switches before working on battery terminals, and never interrupt a battery connection while current is flowing.",
+          "ur": "Battery terminals par kaam karne se pehle battery side switches isolate karein, aur current flowing hone ke dauraan battery connection mat kaatein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Documented as ONE table row listing this whole number set. The manual does not name each individual battery code, so they are NOT expanded here - that would be invention. Code 840 sits in the Battery ALARM row while 839 and 841 sit in this Battery FAULT row; treat 839/840/841 as distinct codes. For a specific number inside the set, battery manufacturer documentation is authoritative.",
+        "ur": "Ye ek hi table row mein poore number set ke saath document hai. Manual har individual battery code ka naam nahi deta, is liye inhein yahan expand nahi kiya gaya - wo ikhtiyar faasla hoga. Code 840 Battery ALARM row mein hai jab ke 839 aur 841 is Battery FAULT row mein hain; 839/840/841 ko alag alag codes samajhein. Set ke andar kisi khaas number ke liye battery manufacturer documentation hi authoritative hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "SYSTEM_FAULT_RANGES",
+      "aliases": [
+        "SYSTEM_FAULT_RANGES",
+        "System Fault",
+        "7",
+        "11",
+        "16",
+        "19-25",
+        "30-34",
+        "36",
+        "38",
+        "40-42",
+        "44-50",
+        "52-58",
+        "60-69",
+        "85",
+        "87",
+        "92",
+        "93",
+        "100-105",
+        "107-114",
+        "116-124",
+        "200-211",
+        "248-255",
+        "300-322",
+        "324-328",
+        "401-412",
+        "600-603",
+        "605",
+        "608",
+        "612",
+        "616",
+        "620",
+        "622-624",
+        "800",
+        "802",
+        "804",
+        "807",
+        "1096-1122"
+      ],
+      "title": {
+        "en": "System Fault (large code range)",
+        "ur": "System Fault (bohat bara code range)"
+      },
+      "meaning": {
+        "en": "A catch-all row covering roughly 150 unnamed internal hardware and control fault codes.",
+        "ur": "Ye ek catch-all row hai jo lagbhag 150 unnamed internal hardware aur control fault codes ko cover karta hai."
+      },
+      "causes": [
+        {
+          "en": "Internal hardware or control fault in the inverter, device by device within the listed range.",
+          "ur": "Listed range mein kisi bhi device ka internal hardware ya control fault."
+        },
+        {
+          "en": "The manual gives no per-code causes, so any specific code in the range can only be diagnosed from the symptom.",
+          "ur": "Manual per-code wajah nahi deta, is liye range ka koi bhi khaas code sirf symptom se diagnose ho sakta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the inverter to return to normal on its own first.",
+          "ur": "Pehle inverter ko khud theek hone ka intezaar karein."
+        },
+        {
+          "en": "Disconnect the AC and DC switches, and the battery side switches if there are batteries.",
+          "ur": "AC aur DC switches disconnect karein, aur batteries maujood hon to battery side switches bhi disconnect karein."
+        },
+        {
+          "en": "Close the AC and DC switches in turn 15 minutes later and restart the system.",
+          "ur": "15 minute baad AC aur DC switches ek ek karke band karein aur system restart karein."
+        },
+        {
+          "en": "If the fault still exists, contact SUNGROW.",
+          "ur": "Agar fault phir bhi rahe to SUNGROW se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "One entry, range in aliases, matching how the manual documents it. NOTE: this manual's System Fault list ends at 1096-1122, while the single-phase RS manual's equivalent ends at 1096-1118 - a 4-code difference that must not be silently merged. See CONFLICTS.",
+        "ur": "Ek entry, aliases mein range, manual ke mutabiq. DHYAN DEIN: is manual ki System Fault list 1096-1122 par khatam hoti hai, jab ke single-phase RS manual ki list 1096-1118 par - ye 4 code ka farq chupay kar merge nahi hona chahiye. CONFLICTS dekhein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "SYSTEM_ALARM_RANGES",
+      "aliases": [
+        "SYSTEM_ALARM_RANGES",
+        "System Alarm",
+        "59",
+        "70-74",
+        "76-83",
+        "89",
+        "216-218",
+        "220-233",
+        "432-434",
+        "500-513",
+        "515-518",
+        "635-638",
+        "900",
+        "901",
+        "910",
+        "911",
+        "996"
+      ],
+      "title": {
+        "en": "System Alarm (large code range)",
+        "ur": "System Alarm (bohat bara code range)"
+      },
+      "meaning": {
+        "en": "A catch-all warning-class row. The inverter keeps running while these minor internal conditions are corrected.",
+        "ur": "Ye ek catch-all warning-class row hai. In in chhoti internal ghalatiyon ke dauraan inverter chalta rahta hai."
+      },
+      "causes": [
+        {
+          "en": "Minor internal wiring or terminal abnormality, foreign material, or an environmental issue.",
+          "ur": "Internal wiring ya terminal ki chhoti ghalati, bahri cheez, ya mahol ki masla."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "The inverter can continue running - no urgent shutdown needed.",
+          "ur": "Inverter chalta rahe sakta hai - foran band karne ki zarurat nahi."
+        },
+        {
+          "en": "Check whether the related wiring and terminal are abnormal, and for foreign material or other environmental abnormalities.",
+          "ur": "Check karein related wiring aur terminal mein ghalati hai ya nahi, aur bahri cheez ya doosri environmental abnormality dekhein."
+        },
+        {
+          "en": "Take the corresponding corrective measures when necessary.",
+          "ur": "Jab zarurat ho to mutabiq corrective measures lein."
+        },
+        {
+          "en": "If the alarm persists, contact SUNGROW.",
+          "ur": "Agar alarm phir bhi rahe to SUNGROW se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "One entry with the range in aliases, exactly as the manual documents it. The list is IDENTICAL to the single-phase RS System Alarm row - a genuine documentation match, not an assumed one.",
+        "ur": "Ek entry, aliases mein range, bilkul jaise manual likhta hai. Ye list single-phase RS ke System Alarm row ke bilkul same hai - ye asli documentation match hai, maana hua nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "264-283",
+      "aliases": [
+        "264-283"
+      ],
+      "title": {
+        "en": "MPPT Reverse Connection (264-283)",
+        "ur": "MPPT input mein string ulti (264-283)"
+      },
+      "meaning": {
+        "en": "A string is reverse connected into a specific MPPT input. Codes 264-279 map to string 1-20.",
+        "ur": "Koi string kisi khaas MPPT input mein ulta polarity se jodi gayi hai. Codes 264-279 string 1-20 ke hain."
+      },
+      "causes": [
+        {
+          "en": "String connected to the wrong MPPT input, or the connector at that MPPT is reversed.",
+          "ur": "String galat MPPT input se jodi gayi, ya us MPPT ka connector ulta hai."
+        },
+        {
+          "en": "String connected to the wrong MPPT input, or the connector at that MPPT is reversed.",
+          "ur": "String galat MPPT input se jodi gayi, ya us MPPT ka connector ulta polarity mein hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the DC switch and wait until the string current drops below 0.5 A.",
+          "ur": "DC switch disconnect karein aur string current 0.5 A se neeche girne ka intezaar karein."
+        },
+        {
+          "en": "Check whether the corresponding string is of reverse polarity and adjust the polarity at that MPPT.",
+          "ur": "Check karein us string ki polarity reverse hai ya nahi aur us MPPT par polarity adjust karein."
+        },
+        {
+          "en": "Verify the string is on the MPPT input it is rated for, then re-enable DC.",
+          "ur": "Confirm karein string us MPPT input par hai jis ke liye rated hai, phir DC wapas on karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "332-363",
+      "aliases": [
+        "332-363"
+      ],
+      "title": {
+        "en": "Boost Capacitor Overvoltage Alarm (332-363)",
+        "ur": "Boost capacitor ka over-voltage alarm (332-363)"
+      },
+      "meaning": {
+        "en": "A boost capacitor is running at overvoltage. The inverter can keep running while this is investigated.",
+        "ur": "Koi boost capacitor overvoltage par chal raha hai. Jitni der jaanch chal rahi hai, inverter chalta rahe sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Boost capacitor ageing or a DC link capacitor losing capacitance.",
+          "ur": "Boost capacitor ki umar ya DC link capacitor ka capacitance kam hona."
+        },
+        {
+          "en": "Foreign material or an environmental issue on the boost stage.",
+          "ur": "Boost stage par bahri cheez ya mahol ki masla."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "The inverter can continue running - note the code and monitor the trend.",
+          "ur": "Inverter chalta rahe sakta hai - code note karein aur trend dekhein."
+        },
+        {
+          "en": "Check the related wiring and terminals for abnormality, and for foreign material or other environmental abnormalities.",
+          "ur": "Related wiring aur terminals ki abnormality check karein, aur bahri cheez ya doosri environmental abnormality dekhein."
+        },
+        {
+          "en": "Take the corresponding corrective measures when necessary, then re-check.",
+          "ur": "Jab zarurat ho to mutabiq corrective measures lein, phir dobara check karein."
+        },
+        {
+          "en": "If the alarm persists, contact SUNGROW.",
+          "ur": "Agar alarm phir bhi rahe to SUNGROW se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "364-395",
+      "aliases": [
+        "364-395"
+      ],
+      "title": {
+        "en": "Boost Capacitor Overvoltage Fault (364-395)",
+        "ur": "Boost capacitor ka over-voltage fault (364-395)"
+      },
+      "meaning": {
+        "en": "The boost capacitor overvoltage has escalated to a fault. A full 15-minute AC/DC/battery restart cycle is required.",
+        "ur": "Boost capacitor overvoltage fault tak pohanch gaya hai. Poora 15 minute ka AC/DC/battery restart cycle zaruri hai."
+      },
+      "causes": [
+        {
+          "en": "Boost capacitor failed or lost capacitance after the alarm stage was not addressed.",
+          "ur": "Alert ignore karne ke baad boost capacitor fail ho gaya ya us ka capacitance kam ho gaya."
+        },
+        {
+          "en": "A second cause is not published - the manual gives only the restart procedure for this row.",
+          "ur": "Doosri wajah publish nahi - manual is row ke liye sirf restart procedure deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the AC and DC switches, and the battery side switches if there are batteries.",
+          "ur": "AC aur DC switches disconnect karein, aur batteries maujood hon to battery side switches bhi disconnect karein."
+        },
+        {
+          "en": "Close the AC and DC switches in turn 15 minutes later and restart the system.",
+          "ur": "15 minute baad AC aur DC switches ek ek karke band karein aur system restart karein."
+        },
+        {
+          "en": "Confirm the code does not return; a repeat means the capacitor has actually failed.",
+          "ur": "Confirm karein code wapas nahi aata; dobara aane ka matlab hai capacitor asal mein fail ho gaya hai."
+        },
+        {
+          "en": "If the fault still exists, contact SUNGROW.",
+          "ur": "Agar fault phir bhi rahe to SUNGROW se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "1548-1579",
+      "aliases": [
+        "1548-1579"
+      ],
+      "title": {
+        "en": "String Current Reflux (1548-1579)",
+        "ur": "String ka current peeche beh raha (1548-1579)"
+      },
+      "meaning": {
+        "en": "Current is flowing backwards from one string into another, usually because that string has fewer modules or is shaded.",
+        "ur": "Ek string se doosri mein current peeche beh raha hai, aam tor par is liye ke us string mein modules kam hain ya woh shaded hai."
+      },
+      "causes": [
+        {
+          "en": "Fewer PV modules in that string than in the other paralleled strings.",
+          "ur": "Us string mein doosri parallel strings se kam PV modules hain."
+        },
+        {
+          "en": "PV module partially shaded.",
+          "ur": "PV module adhoora shaded hai."
+        },
+        {
+          "en": "PV module mounted in the wrong orientation.",
+          "ur": "PV module galat direction mein laga hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the number of PV modules in the flagged string against the other strings; adjust the configuration with DC off once current is below 0.5 A.",
+          "ur": "Flag hui string ke modules ki tadaad doosri strings se compare karein; current 0.5 A se neeche hone par DC off karke configuration adjust karein."
+        },
+        {
+          "en": "Check whether the PV module is shaded and clear the obstruction.",
+          "ur": "Check karein PV module shaded to nahi aur obstruction hata dein."
+        },
+        {
+          "en": "Disconnect the DC switch and check the open-circuit voltage once current is below 0.5 A.",
+          "ur": "DC switch disconnect karke current 0.5 A se neeche hone par open-circuit voltage check karein."
+        },
+        {
+          "en": "Check the wiring, the PV module configuration and the module orientation.",
+          "ur": "Wiring, PV module configuration aur module ki direction check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "1600-1615, 1632-1655",
+      "aliases": [
+        "1600-1615, 1632-1655",
+        "1600-1615",
+        "1632-1655",
+        "E1600"
+      ],
+      "title": {
+        "en": "PV Grounding Fault (1600-1615, 1632-1655)",
+        "ur": "PV ka earth fault (1600-1615, 1632-1655)"
+      },
+      "meaning": {
+        "en": "A string has a ground fault. Never unplug PV terminals while DC current is above 0.5 A.",
+        "ur": "Kisi string par ground fault hai. DC current 0.5 A se upar hone par PV terminals kabhi na nikaalein."
+      },
+      "causes": [
+        {
+          "en": "String cable insulation damaged and touching the frame or a metal structure.",
+          "ur": "String cable ki insulation kharab ho kar frame ya metal structure ko chhu rahi hai."
+        },
+        {
+          "en": "Module or junction box water ingress creating a path to earth.",
+          "ur": "Module ya junction box mein paas ja kar earth tak raasta ban gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "It is forbidden to directly disconnect the DC switch and unplug PV terminals when the direct current is greater than 0.5 A - obey this first.",
+          "ur": "DC current 0.5 A se zyada hone par DC switch disconnect ya PV terminals nikalna bilkul mana hai - sab se pehle ye maani rakhein."
+        },
+        {
+          "en": "Wait until the direct current of the inverter falls below 0.5 A, then disconnect the DC switch and unplug the faulty strings.",
+          "ur": "Inverter ka DC current 0.5 A se neeche girne ka intezaar karein, phir DC switch disconnect karke kharab strings nikaal dein."
+        },
+        {
+          "en": "Do not reinsert the faulty strings before the grounding fault is cleared.",
+          "ur": "Grounding fault hal hone se pehle kharab strings dobara mat lagayein."
+        },
+        {
+          "en": "Find the fault with an insulation tester on the isolated string and replace the damaged section.",
+          "ur": "Isolated string par insulation tester se fault dhoondein aur kharab hissa badal dein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    },
+    {
+      "code": "1616",
+      "aliases": [
+        "1616",
+        "E1616"
+      ],
+      "title": {
+        "en": "System Hardware Fault (1616)",
+        "ur": "System ka hardware fault (1616)"
+      },
+      "meaning": {
+        "en": "A hardware-level fault inside the inverter. The manual explicitly forbids powering the inverter back up.",
+        "ur": "Inverter ke andar hardware level ka fault hai. Manual saaf mana karta hai ke inverter dobara power on na kiya jaye."
+      },
+      "causes": [
+        {
+          "en": "Internal component failure detected at hardware level (board, sensor or power stage).",
+          "ur": "Hardware level par internal component failure detect hua (board, sensor ya power stage)."
+        },
+        {
+          "en": "A second cause is not published - the manual gives a prohibition plus a service instruction instead of a diagnosis.",
+          "ur": "Doosri wajah bhi publish nahi - manual diagnosis ke bajaye prohibition aur service instruction deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "It is prohibited to disconnect the DC switch when the DC current is greater than 0.5 A when the fault occurs.",
+          "ur": "Fault hone ke waqt DC current 0.5 A se zyada ho to DC switch disconnect karna mana hai."
+        },
+        {
+          "en": "Disconnect the DC switch only when the inverter DC side current drops below 0.5 A.",
+          "ur": "DC switch sirf tab disconnect karein jab inverter ke DC side ka current 0.5 A se neeche gir jaye."
+        },
+        {
+          "en": "It is prohibited to power up the inverter again - contact Sungrow Customer Service for a unit exchange.",
+          "ur": "Inverter dobara power on karna mana hai - unit exchange ke liye Sungrow Customer Service se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The strictest code in the table: no restart step. Also isolate the battery side switches on this hybrid before anything else.",
+        "ur": "Table ka sab se sakht code: koi restart step nahi. Is hybrid par sab se pehle battery side switches bhi isolate karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SH8.0-10RS-UEN-Ver14-202405 User Manual, 10 Troubleshooting and Maintenance (10.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2024/08/15/SH8.0-10RS-UEN-Ver14-202405.pdf"
+      }
+    }
+  ]
+}

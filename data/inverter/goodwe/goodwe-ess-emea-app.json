@@ -1,0 +1,498 @@
+{
+  "schemaVersion": 1,
+  "brandId": "goodwe",
+  "series": {
+    "id": "goodwe-ess-emea-app",
+    "name": "EMEA ESS app error codes (2-digit codes on SolarGo / PV Master, EM / ET / BT)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*EM*",
+      "*ET*",
+      "*BT*",
+      "GW*EM",
+      "GW*ET"
+    ],
+    "notes": "This is the EMEA SolarGo / PV Master 2-digit app code table plus its 'ETU' three-phase variants (e.g. 02ETU, 05ETU, 14ETU). The ETU suffix rows are three-phase-only and do not exist on single-phase units. The same digits mean something completely different in SERIES 3 / 4 / 6 - e.g. app 12 = Internal Fan Failure but ES-US 12 = Abnormal GFCI 30mA, app 13 = Over Temperature but ES-US 13 = Abnormal GFCI 60mA, app 25 = Relay check failure but UT 25 = DC Switch Fail. Never merge with any other GoodWe table."
+  },
+  "codes": [
+    {
+      "code": "01",
+      "aliases": [
+        "01",
+        "AC HCT Check Failure"
+      ],
+      "title": {
+        "en": "AC HCT check failure (01)",
+        "ur": "AC HCT check fail - current sensor (01)"
+      },
+      "meaning": {
+        "en": "The AC current Hall sensor self-check failed, from an external magnetic field or an internal component fault.",
+        "ur": "AC current Hall sensor ka self-check fail hua, wajah koi external magnetic field ya internal component fault hai."
+      },
+      "causes": [
+        {
+          "en": "Intermittent fault caused by an external magnetic field.",
+          "ur": "External magnetic field ki wajah se intermittent fault."
+        },
+        {
+          "en": "An internal component is faulty.",
+          "ur": "Koi internal component kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and see if the code returns; a one-off is an intermittent fault.",
+          "ur": "Inverter restart karein aur dekhein ke code wapas aata hai ya nahi, aik baar aana intermittent fault hai."
+        },
+        {
+          "en": "Keep steel, a transformer or a large motor away from the AC cable run and the inverter.",
+          "ur": "Steel, transformer ya bada motor AC cable aur inverter se door rakhein."
+        },
+        {
+          "en": "If it returns, contact the service centre for board-level repair.",
+          "ur": "Agar dobara aaye to board level repair ke liye service centre se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 4.3 Troubleshootings for Each Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "09",
+      "aliases": [
+        "09",
+        "17",
+        "29",
+        "Utility Loss ac Failure",
+        "FAC Failure"
+      ],
+      "title": {
+        "en": "Utility loss / AC / FAC failure (09, 17, 29)",
+        "ur": "Utility Loss / AC / FAC failure (09, 17, 29)"
+      },
+      "meaning": {
+        "en": "Grid-side failure family: no grid power, AC not connected, or AC breaker not working. The guide lists 09, 17 and 29 together.",
+        "ur": "Grid side ki failure family: grid power nahi, AC connect nahi, ya AC breaker kaam nahi kar raha. Guide mein 09, 17 aur 29 ek saath hain."
+      },
+      "causes": [
+        {
+          "en": "Grid power failure.",
+          "ur": "Grid power fail ho gayi."
+        },
+        {
+          "en": "AC is not connected well.",
+          "ur": "AC theek se connect nahi hai."
+        },
+        {
+          "en": "AC breaker fails.",
+          "ur": "AC breaker kharab hai."
+        },
+        {
+          "en": "Grid is not connected.",
+          "ur": "Grid connect nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Make sure grid power is actually available at the site.",
+          "ur": "Confirm karein ke site par grid power mojood hai ya nahi."
+        },
+        {
+          "en": "With a multimeter, check the AC terminals have the correct voltage.",
+          "ur": "Multimeter se check karein ke AC terminals par sahi voltage hai ya nahi."
+        },
+        {
+          "en": "Check all terminations throughout the AC path are tight.",
+          "ur": "AC path ke tamam terminations tight hain ya nahi check karein."
+        },
+        {
+          "en": "Turn the AC breaker off, wait 5 minutes, then turn it on again.",
+          "ur": "AC breaker off karein, 5 minute intezaar karein, phir dobara on karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 4.3 Troubleshootings for Each Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "10",
+      "aliases": [
+        "10",
+        "Ground I failure"
+      ],
+      "title": {
+        "en": "Ground I failure (10)",
+        "ur": "Ground I failure - earth leakage (10)"
+      },
+      "meaning": {
+        "en": "Neutral and ground are not bonded correctly at the AC terminals, or PV panel leakage to ground is high, or the utility ground was lost.",
+        "ur": "AC terminals par neutral aur ground theek se bonded nahi, ya PV panel ka ground se leakage zyada hai, ya utility ka ground chala gaya."
+      },
+      "causes": [
+        {
+          "en": "Neutral and ground cables not well connected on AC terminals.",
+          "ur": "AC terminals par neutral aur ground cables theek se nahi lage."
+        },
+        {
+          "en": "Solar panel leakage current to ground in humid conditions.",
+          "ur": "Nam mahaul mein solar panel ka ground se leakage current."
+        },
+        {
+          "en": "Utility ground loss.",
+          "ur": "Utility ka ground chala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With a multimeter, measure voltage between earth and the inverter frame; it should be close to 0V.",
+          "ur": "Multimeter se earth aur inverter frame ke darmiyan voltage measure karein, 0V ke qareeb hona chahiye."
+        },
+        {
+          "en": "Confirm N and PE are properly terminated at the AC terminal block.",
+          "ur": "AC terminal block par N aur PE theek se terminate hain ya nahi confirm karein."
+        },
+        {
+          "en": "If it only shows on rainy days, it is PV panel leakage - re-check the string insulation.",
+          "ur": "Agar sirf barsaat ke din aaye to PV panel leakage hai, string insulation dobara check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 4.3 Troubleshootings for Each Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12",
+        "12ETU",
+        "Internal Fan Failure (Back-Up Over Load for ES)"
+      ],
+      "title": {
+        "en": "Internal fan failure / back-up overload (12)",
+        "ur": "Internal fan kharab ya back-up overload (12)"
+      },
+      "meaning": {
+        "en": "On ES the same code means the back-up loads exceed the inverter output; on other lines it means the internal fan is blocked or its cable is loose.",
+        "ur": "ES par yehi code ka matlab hai back-up load inverter output se zyada hai; doosri lines par matlab internal fan band hai ya us ka cable dhila hai."
+      },
+      "causes": [
+        {
+          "en": "On ES, back-up loads exceed the inverter maximum output.",
+          "ur": "ES par back-up load inverter ke maximum output se zyada hai."
+        },
+        {
+          "en": "Internal fan is blocked by something.",
+          "ur": "Kisi cheez se internal fan block hai."
+        },
+        {
+          "en": "Fan cable not connected well in the inverter.",
+          "ur": "Inverter mein fan cable theek se nahi lagi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the loads on the back-up output and restart.",
+          "ur": "Back-up output par load kam karke restart karein."
+        },
+        {
+          "en": "Open the unit and check nothing is obstructing the fan impeller.",
+          "ur": "Unit kholein aur check karein ke fan impeller mein koi cheez nahi atki hui."
+        },
+        {
+          "en": "Re-seat the fan cable connector at the control board.",
+          "ur": "Control board par fan cable connector dobara lagayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 4.3 Troubleshootings for Each Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "13",
+      "aliases": [
+        "13",
+        "Over Temperature"
+      ],
+      "title": {
+        "en": "Over temperature (13)",
+        "ur": "Over temperature - unit garm hai (13)"
+      },
+      "meaning": {
+        "en": "Ambient around the inverter has been too hot for long enough, or the airflow is obstructed.",
+        "ur": "Inverter ke aas paas ka ambient bohat der tak garm raha, ya airflow mein rok hai."
+      },
+      "causes": [
+        {
+          "en": "Air temperature around the inverter too high for an extended period.",
+          "ur": "Inverter ke aas paas ka temperature lambi der tak zyada raha."
+        },
+        {
+          "en": "Installation location does not give enough airflow for cooling.",
+          "ur": "Installation jagah cooling ke liye kaafi airflow nahi de rahi."
+        },
+        {
+          "en": "Obstruction of airflow around the inverter.",
+          "ur": "Inverter ke aas paas airflow mein rok hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Try to reduce the surrounding temperature - shade the unit, improve room ventilation.",
+          "ur": "Surrounding temperature kam karne ki koshish karein, unit ko shadow dein, room ventilation behtar karein."
+        },
+        {
+          "en": "Ensure the installation complies with the manual and there is clearance for the cooling system.",
+          "ur": "Ensure karein ke installation manual ke mutabiq hai aur cooling system ke liye jagah hai."
+        },
+        {
+          "en": "Clear any obstruction from the cooling fins.",
+          "ur": "Cooling fins mein koi rok hua ho to saaf kar dein."
+        },
+        {
+          "en": "Switch the inverter off for 15 minutes, then switch it on again.",
+          "ur": "Inverter 15 minute ke liye band karke dobara on karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 4.3 Troubleshootings for Each Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "15",
+      "aliases": [
+        "15",
+        "15ETU",
+        "PV overvoltage"
+      ],
+      "title": {
+        "en": "PV string overvoltage (15)",
+        "ur": "PV string ka voltage zyada (15)"
+      },
+      "meaning": {
+        "en": "The open-circuit voltage of a PV string is above the inverter's maximum DC input voltage.",
+        "ur": "Kisi PV string ka open-circuit voltage inverter ke maximum DC input voltage se zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Total open-circuit voltage of the string exceeds max DC input voltage.",
+          "ur": "String ka total open-circuit voltage max DC input voltage se zyada hai."
+        },
+        {
+          "en": "Too many modules in series for cold-morning Voc rise.",
+          "ur": "Series mein modules zyada hain, thande subah Voc barh jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC switch and measure each string's Voc with a multimeter.",
+          "ur": "DC switch off karke har string ka Voc multimeter se measure karein."
+        },
+        {
+          "en": "Compare the reading against the inverter's max DC input voltage printed on the label.",
+          "ur": "Reading ko inverter ke label par likhe max DC input voltage se compare karein."
+        },
+        {
+          "en": "Reduce the number of series modules so cold-morning Voc stays below the limit.",
+          "ur": "Series modules ki sankhya kam karein taake thande subah ki Voc limit se neeche rahe."
+        },
+        {
+          "en": "Use the EZ designer temperature-coefficient calculation to verify the string design.",
+          "ur": "String design verify karne ke liye EZ designer ka temperature coefficient calculation use karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 4.3 Troubleshootings for Each Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "25",
+      "aliases": [
+        "25",
+        "Relay check failure"
+      ],
+      "title": {
+        "en": "Relay check failure (25)",
+        "ur": "Relay check failure - relay self-check (25)"
+      },
+      "meaning": {
+        "en": "The relay self-test found a fault; the guide points at N/PE bonding at the AC terminals or utility ground loss.",
+        "ur": "Relay self-test ne fault paya, guide AC terminals par N/PE bonding ya utility ground loss ki taraf ishara karta hai."
+      },
+      "causes": [
+        {
+          "en": "Neutral and ground cables not well connected on AC terminals.",
+          "ur": "AC terminals par neutral aur ground cables theek se nahi lage."
+        },
+        {
+          "en": "Utility ground loss.",
+          "ur": "Utility ka ground chala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure voltage between ground and neutral on the grid; it must be under 10V.",
+          "ur": "Grid par ground aur neutral ke darmiyan voltage measure karein, 10V se kam hona chahiye."
+        },
+        {
+          "en": "Measure resistance between ground and neutral on the backup output; it must be under 10 ohm.",
+          "ur": "Backup output par ground aur neutral ke darmiyan resistance measure karein, 10 ohm se kam hona chahiye."
+        },
+        {
+          "en": "Re-terminate the N and PE conductors at the AC terminal and retest.",
+          "ur": "AC terminal par N aur PE conductors dobara terminate karke dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 4.3 Troubleshootings for Each Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "26",
+      "aliases": [
+        "26",
+        "Battery Licence Fault"
+      ],
+      "title": {
+        "en": "Battery licence fault (26)",
+        "ur": "Battery licence code ghalat (26)"
+      },
+      "meaning": {
+        "en": "The battery activation/licence code configured in the app is not correct for the fitted battery.",
+        "ur": "App mein set kiya hua battery activation/licence code fitted battery ke liye theek nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Battery activation code incorrect.",
+          "ur": "Battery activation code ghalat hai."
+        },
+        {
+          "en": "Battery type selected in the app does not match the installed pack (listed in the same guide's battery-communication fault list).",
+          "ur": "App mein select kiya hua battery type installed pack se match nahi karta, ye bhi isi guide ki battery communication fault list mein hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the battery model selected in the app matches the battery physically installed.",
+          "ur": "Check karein ke app mein select kiya hua battery model asal mein lagi battery se match karta hai."
+        },
+        {
+          "en": "Read the battery protocol code and serial from the battery and re-enter them in the app.",
+          "ur": "Battery se protocol code aur serial parhein aur app mein dohra daal karein."
+        },
+        {
+          "en": "Contact the service centre for the correct licence string for that battery pack.",
+          "ur": "Us battery pack ke liye sahi licence string ke liye service centre se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 4.3 Troubleshootings for Each Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "30",
+      "aliases": [
+        "30",
+        "EEPROM R/W Failure"
+      ],
+      "title": {
+        "en": "EEPOM read/write failure (30)",
+        "ur": "EEPROM read/write failure (30)"
+      },
+      "meaning": {
+        "en": "The control board storage chip could not be read or written, so stored settings may be lost.",
+        "ur": "Control board ka storage chip read ya write nahi ho raha, is liye stored settings kho sakte hain."
+      },
+      "causes": [
+        {
+          "en": "Intermittent fault caused by an external magnetic field.",
+          "ur": "External magnetic field ki wajah se intermittent fault."
+        },
+        {
+          "en": "Control board storage chip read/write failure.",
+          "ur": "Control board ke storage chip ki read/write failure."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and check whether the error returns.",
+          "ur": "Inverter restart karein aur dekhein ke error wapas aata hai ya nahi."
+        },
+        {
+          "en": "Update the inverter DSP firmware locally from the app.",
+          "ur": "App se inverter ka DSP firmware locally update karein."
+        },
+        {
+          "en": "Back up and note all settings before a firmware update, then contact the service centre if it persists.",
+          "ur": "Firmware update se pehle tamam settings note kar lein, phir agar masla rahe to service centre se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 4.3 Troubleshootings for Each Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    }
+  ]
+}

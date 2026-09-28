@@ -1,0 +1,484 @@
+{
+  "schemaVersion": 1,
+  "brandId": "fronius-at",
+  "series": {
+    "id": "fronius-at-gen24-primo-led",
+    "name": "GEN24 Primo 3.8-6.0 kW / Plus / SC - LED status indicator",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*Primo GEN24 3.8*",
+      "*Primo GEN24 5.0*",
+      "*Primo GEN24 6.0*",
+      "*Primo GEN24 Plus*",
+      "*Primo GEN24 SC*"
+    ],
+    "notes": "Operating LED rows (6) + Communication LED rows (4) = 10 unnumbered LED states. The GEN24 has no display; Fronius states 'in the event of faults, carry out the individual steps in the Fronius Solar.start app'. Codes are synthetic labels, NOT Fronius state-code numbers - do not match them numerically against SERIES 1. The manual's separate 'Sensor functions' block (1x AP open = blue flash, 2x WPS = green flash, 3 s message acknowledged = rapid white flash) describes the optical sensor, not an LED state row, and is recorded in notes rather than as entries. The Symo GEN24 equivalent table differs - see SERIES 6."
+  },
+  "codes": [
+    {
+      "code": "LED-OP-GREEN",
+      "aliases": [
+        "LED-OP-GREEN"
+      ],
+      "title": {
+        "en": "Operating LED green: running normally",
+        "ur": "Operating LED sabit hara: normal chal raha hai"
+      },
+      "meaning": {
+        "en": "The inverter is operating correctly.",
+        "ur": "Inverter theek se kaam kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Normal grid power feed operation, MPPT tracking on the PV generator.",
+          "ur": "Normal grid feed-in chal raha hai, PV generator par MPPT tracking ho rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Nothing to do - this is the healthy state. Record the energy yield instead if the customer is complaining about low generation.",
+          "ur": "Kuch karne ki zaroorat nahi - ye healthy state hai. Agar customer ki shikayat generation kam hai to energy yield check karein."
+        },
+        {
+          "en": "If it is night, confirm this green LED is a real inverter state and not a light reflection; the actual standby state is yellow.",
+          "ur": "Agar raat hai to confirm karein ke ye hara LED asal inverter state hai na ke roshni ka reflection; asal standby state peela hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Operating LED lights up green (steady)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo GEN24 3.8 - 6.0 kW / Plus / SC 208 - 240 Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260530/en-US.html"
+      }
+    },
+    {
+      "code": "LED-OP-GREEN-FLASH",
+      "aliases": [
+        "LED-OP-GREEN-FLASH"
+      ],
+      "title": {
+        "en": "Operating LED green flashing: grid checks",
+        "ur": "Operating LED hara flash: grid checks chal rahe hain"
+      },
+      "meaning": {
+        "en": "The inverter is performing the grid checks required by the applicable standards for feed-in mode.",
+        "ur": "Inverter feed-in mode ke liye applicable standards ke mutabiq grid checks kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Startup or reconnection grid monitoring time is running (both voltage and frequency must sit inside the limits).",
+          "ur": "Startup ya reconnection ka grid monitoring time chal raha hai (voltage aur frequency dono limit ke andar honi chahiye)."
+        },
+        {
+          "en": "Grid was interrupted and the inverter is waiting out the required observation period.",
+          "ur": "Grid disturb hua tha aur inverter required observation period poora kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the grid monitoring time to expire; the inverter then reconnects on its own.",
+          "ur": "Grid monitoring time poora hone dein; phir inverter khud reconnect ho jayega."
+        },
+        {
+          "en": "If it never stops flashing, measure grid voltage and frequency at the AC terminals with a clamp meter.",
+          "ur": "Agar ye chalta hi rahe to clamp meter se AC terminals par grid voltage aur frequency measure karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Operating LED flashes green",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo GEN24 3.8 - 6.0 kW / Plus / SC 208 - 240 Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260530/en-US.html"
+      }
+    },
+    {
+      "code": "LED-OP-YELLOW",
+      "aliases": [
+        "LED-OP-YELLOW"
+      ],
+      "title": {
+        "en": "Operating LED yellow: standby or not configured",
+        "ur": "Operating LED sabit peela: standby ya configure nahi"
+      },
+      "meaning": {
+        "en": "The inverter is in standby, is not operating (e.g. no feed-in at night), or is not configured.",
+        "ur": "Inverter standby mein hai, chal nahi raha (jaise raat ko feed-in nahi), ya configure nahi hua."
+      },
+      "causes": [
+        {
+          "en": "No energy being fed in at night - normal standby state.",
+          "ur": "Raat ko koi energy feed nahi ho rahi - normal standby state."
+        },
+        {
+          "en": "Setup wizard or commissioning was never completed on this unit.",
+          "ur": "Is unit par setup wizard ya commissioning kabhi complete nahi hui."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the time of day and check the DC disconnector position; at night this LED state is expected.",
+          "ur": "Din ka waqt confirm karein aur DC disconnector ki position dekhein; raat mein ye LED state expected hai."
+        },
+        {
+          "en": "If it is daytime with sun, open the Fronius Solar.start app, log in as Technician and complete the setup wizard and commissioning.",
+          "ur": "Agar din hai aur dhoop hai to Fronius Solar.start app kholein, Technician se login karke setup wizard aur commissioning poora karein."
+        },
+        {
+          "en": "If commissioning is done, measure the PV generator DC voltage at the inverter; a missing string or an open DC disconnector leaves the inverter in standby.",
+          "ur": "Agar commissioning ho chuki hai to inverter par PV generator ki DC voltage measure karein; koi missing string ya khula DC disconnector inverter ko standby mein rakhta hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Operating LED lights up yellow (steady)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo GEN24 3.8 - 6.0 kW / Plus / SC 208 - 240 Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260530/en-US.html"
+      }
+    },
+    {
+      "code": "LED-OP-YELLOW-FLASH",
+      "aliases": [
+        "LED-OP-YELLOW-FLASH"
+      ],
+      "title": {
+        "en": "Operating LED yellow flashing: non-critical status",
+        "ur": "Operating LED peela flash: non-critical status"
+      },
+      "meaning": {
+        "en": "The inverter indicates a non-critical status (a warning) while continuing to run.",
+        "ur": "Inverter non-critical status (warning) bata raha hai aur chalta raha hai."
+      },
+      "causes": [
+        {
+          "en": "A warning-class state code is active, e.g. a 1xxx warning from the GEN24 state-code set such as an isolation or arc-warning condition.",
+          "ur": "Warning class ka state code active hai, jaise GEN24 state-code set ka 1xxx warning jaise isolation ya arc-warning condition."
+        },
+        {
+          "en": "Arc detection event reported (see state 1191 AfciDataTransfer, yellow flash) with no shutdown.",
+          "ur": "Arc detection event report hua hai (state 1191 AfciDataTransfer, peela flash) aur shutdown nahi hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the exact state code from the Fronius Solar.start app or the Event Log - the LED alone does not tell you which code it is.",
+          "ur": "Fronius Solar.start app ya Event Log se exact state code padhein - sirf LED se pata nahi chalta ke kaunsa code hai."
+        },
+        {
+          "en": "Log the code and timestamp before doing anything, so the event history is not lost.",
+          "ur": "Kuch karne se pehle code aur timestamp note karein, taake event history kho na jaye."
+        },
+        {
+          "en": "If the yellow flashing repeats with no code recorded, check the Communication LED for a logging/monitoring problem as well.",
+          "ur": "Agar koi code record na ho laal flash dohra rahe to Communication LED bhi check karein ke logging ya monitoring mein masla to nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Operating LED flashes yellow",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo GEN24 3.8 - 6.0 kW / Plus / SC 208 - 240 Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260530/en-US.html"
+      }
+    },
+    {
+      "code": "LED-OP-RED",
+      "aliases": [
+        "LED-OP-RED"
+      ],
+      "title": {
+        "en": "Operating LED red: critical status, no feed-in",
+        "ur": "Operating LED laal: critical status, feed-in nahi"
+      },
+      "meaning": {
+        "en": "The inverter indicates a critical status and there is no grid power feed process.",
+        "ur": "Inverter critical status bata raha hai aur koi grid feed-in nahi ho raha."
+      },
+      "causes": [
+        {
+          "en": "A critical state code is latched, e.g. WSD open (1030), insulation error, or a grid protection trip.",
+          "ur": "Critical state code latched hai, jaise WSD khula (1030), isolation error, ya grid protection trip."
+        },
+        {
+          "en": "The surge protection device (SPD) has tripped and the inverter is in WSD shutdown.",
+          "ur": "Surge protection device (SPD) trigger ho chuka hai aur inverter WSD shutdown mein hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the exact state code from the Solar.start app / Event Log before any physical work; the LED colour alone is not a diagnosis.",
+          "ur": "Koi bhi physical kaam karne se pehle Solar.start app ya Event Log se exact state code padhein; sirf LED ka rang diagnosis nahi hai."
+        },
+        {
+          "en": "Open the AC breaker and the DC disconnector, then verify the inverter is de-energised with a suitable measuring device before touching DC or AC conductors.",
+          "ur": "AC breaker aur DC disconnector kholein, phir DC ya AC conductor chhoone se pehle suitable measuring device se inverter de-energised verify karein."
+        },
+        {
+          "en": "For a red LED caused by WSD / SPD, Fronius states the inverter must be repaired by an authorised specialist.",
+          "ur": "WSD / SPD ki wajah se laal LED ho to Fronius kehta hai inverter ki repair authorised specialist se karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Operating LED lights up red (steady)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo GEN24 3.8 - 6.0 kW / Plus / SC 208 - 240 Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260530/en-US.html"
+      }
+    },
+    {
+      "code": "LED-OP-RED-FLASH",
+      "aliases": [
+        "LED-OP-RED-FLASH"
+      ],
+      "title": {
+        "en": "Operating LED red flashing: backup power overload",
+        "ur": "Operating LED laal flash: backup power overload"
+      },
+      "meaning": {
+        "en": "The inverter indicates a backup power overload. In backup power mode the maximum power given in the technical data must be observed.",
+        "ur": "Inverter backup power overload bata raha hai. Backup power mode mein technical data mein di hui maximum power ka khayal rakhna zaroori hai."
+      },
+      "causes": [
+        {
+          "en": "The connected loads in backup power mode exceed the inverter's maximum backup power output.",
+          "ur": "Backup power mode mein connected loads inverter ki maximum backup power se zyada hain."
+        },
+        {
+          "en": "A large motor or heater with a high inrush current was switched on in the backup circuit.",
+          "ur": "Backup circuit mein koi bara motor ya heater on kiya gaya jiska inrush current zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Identify what switched on at the moment the LED started flashing and switch off or defer the largest loads one at a time.",
+          "ur": "Dhoondein ke LED flash hone ke waqt kya on hua aur sab se bade loads ko aik aik kar ke off ya postpone karein."
+        },
+        {
+          "en": "Check the measured backup power against the maximum backup power in the inverter's technical data before allowing the load back on.",
+          "ur": "Load wapas on karne se pehle measured backup power ko inverter technical data ki maximum backup power se milayein."
+        },
+        {
+          "en": "Wait for backup power operation to restart; the manual notes that overloading stops backup power mode, so the grid return is the recovery path.",
+          "ur": "Backup power operation ke restart ka intezaar karein; manual kehta hai overload backup power mode rok deta hai, is liye grid par wapas aana hi recovery ka raasta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Operating LED flashes red",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo GEN24 3.8 - 6.0 kW / Plus / SC 208 - 240 Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260530/en-US.html"
+      }
+    },
+    {
+      "code": "LED-COM-GREEN-FLASH-2X",
+      "aliases": [
+        "LED-COM-GREEN-FLASH-2X",
+        "WPS search"
+      ],
+      "title": {
+        "en": "Communication LED green 2x: WPS search mode",
+        "ur": "Communication LED hara 2 baar: WPS search mode"
+      },
+      "meaning": {
+        "en": "The network connection is being established via WPS (2 flashes = WPS search mode).",
+        "ur": "Network connection WPS ke zariye establish ho raha hai (2 flash = WPS search mode)."
+      },
+      "causes": [
+        {
+          "en": "WPS (WiFi Protected Setup) pairing was started from the inverter or the Solar.start app.",
+          "ur": "Inverter ya Solar.start app se WPS (WiFi Protected Setup) pairing shuru ki gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If you did not start WPS, cancel it on the router - an unprompted WPS session leaves the inverter trying to connect.",
+          "ur": "Agar aapne WPS start nahi kiya to router par cancel karein - bina ijazat ke WPS session inverter ko connect karne ki koshish mein rok deta hai."
+        },
+        {
+          "en": "If WPS fails repeatedly, use the Fronius Solar.start app or browser commissioning over the WLAN access point instead (AP password 12345678).",
+          "ur": "Agar WPS baar baar fail ho to Fronius Solar.start app ya browser commissioning istemal karein WLAN access point ke zariye (AP password 12345678)."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Communication LED flashes green twice (WPS search mode)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo GEN24 3.8 - 6.0 kW / Plus / SC 208 - 240 Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260530/en-US.html"
+      }
+    },
+    {
+      "code": "LED-COM-BLUE-FLASH-1X",
+      "aliases": [
+        "LED-COM-BLUE-FLASH-1X",
+        "WLAN AP search"
+      ],
+      "title": {
+        "en": "Communication LED blue 1x: WLAN access point search",
+        "ur": "Communication LED neela 1 baar: WLAN access point search"
+      },
+      "meaning": {
+        "en": "The network connection is being established via the WLAN access point; 1 flash = WLAN AP search mode, active for 30 minutes.",
+        "ur": "Network connection WLAN access point ke zariye establish ho raha hai; 1 flash = WLAN AP search mode, 30 minute ke liye active."
+      },
+      "causes": [
+        {
+          "en": "The optical sensor was touched once, which opens the WLAN access point for commissioning.",
+          "ur": "Optical sensor ko aik baar chhua gaya, jis se commissioning ke liye WLAN access point khul gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Connect a phone or laptop to the 'fronius_3xxxxxxx' network (key 12345678) and open the local user interface to finish commissioning.",
+          "ur": "Phone ya laptop ko 'fronius_3xxxxxxx' network se connect karein (key 12345678) aur commissioning khatam karne ke liye local user interface kholein."
+        },
+        {
+          "en": "Remember the access point deactivates itself after 30 minutes or when network settings change; touch the sensor again to reopen it.",
+          "ur": "Yaad rakhein ke access point 30 minute baad ya network settings badalne par khud band ho jata hai; dobara kholne ke liye sensor phir chhoonein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Communication LED flashes blue once (WLAN AP search mode, active 30 min)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo GEN24 3.8 - 6.0 kW / Plus / SC 208 - 240 Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260530/en-US.html"
+      }
+    },
+    {
+      "code": "LED-COM-YELLOW",
+      "aliases": [
+        "LED-COM-YELLOW"
+      ],
+      "title": {
+        "en": "Communication LED yellow: network not configured",
+        "ur": "Communication LED peela: network configure nahi"
+      },
+      "meaning": {
+        "en": "The network connection is not configured on the inverter.",
+        "ur": "Inverter par network connection configure nahi hua hai."
+      },
+      "causes": [
+        {
+          "en": "Commissioning was completed without configuring Communication > Network, so the inverter has no network settings.",
+          "ur": "Commissioning Communication > Network configure kiye baghair poora kiya gaya, is liye inverter ke paas koi network settings nahi."
+        },
+        {
+          "en": "The Datamanager/WLAN module was removed or replaced and the network settings were lost.",
+          "ur": "Datamanager/WLAN module nikal ya badal diya gaya aur network settings kho gayin."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Touch the optical sensor once to open the WLAN access point, then follow the Fronius Solar.start app commissioning steps to set the network.",
+          "ur": "Optical sensor ko aik baar chha kar WLAN access point kholein, phir network set karne ke liye Fronius Solar.start app ke commissioning steps follow karein."
+        },
+        {
+          "en": "Set Communication > Network to Automatic for DHCP in most cases; choose Static only if the site network requires fixed addresses, and ask the network administrator.",
+          "ur": "Zyadatar cases mein Communication > Network ko Automatic (DHCP) par set karein; Static sirf tab jab site network ko fixed address chahiye, aur network administrator se poochein."
+        },
+        {
+          "en": "After saving, confirm the inverter reaches Solar.web; a green or blue steady Communication LED means the connection is active.",
+          "ur": "Save karne ke baad confirm karein ke inverter Solar.web tak pohanch raha hai; Communication LED ka sabit hara ya neela hona active connection batata hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Communication LED lights up yellow (steady)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo GEN24 3.8 - 6.0 kW / Plus / SC 208 - 240 Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260530/en-US.html"
+      }
+    },
+    {
+      "code": "LED-COM-RED",
+      "aliases": [
+        "LED-COM-RED"
+      ],
+      "title": {
+        "en": "Communication LED red: network fault, PV still running",
+        "ur": "Communication LED laal: network fault, PV chalta hai"
+      },
+      "meaning": {
+        "en": "The inverter is operating correctly but a network fault is indicated - production is not affected, only monitoring / logging is.",
+        "ur": "Inverter theek chal raha hai lekin network fault indicated hai - production par asar nahi, sirf monitoring aur logging ka masla hai."
+      },
+      "causes": [
+        {
+          "en": "The inverter lost its connection to the router, switch or modem.",
+          "ur": "Inverter ka router, switch ya modem se connection toot gaya."
+        },
+        {
+          "en": "DHCP lease expired or the router was replaced and the inverter still has the old, static network settings.",
+          "ur": "DHCP lease expire ho gaya ya router badal diya gaya aur inverter ke paas abhi bhi purani static network settings hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not touch the DC side for this - PV production continues. Check LAN1 cable, switch port and router status first.",
+          "ur": "Iske liye DC side mat chhoonein - PV production chalta rehta hai. Pehle LAN1 cable, switch port aur router status check karein."
+        },
+        {
+          "en": "On the inverter open Communication > Network and switch to Automatic so the router assigns a fresh address, then confirm Solar.web comes back online.",
+          "ur": "Inverter par Communication > Network kholein aur Automatic par switch karein taake router naya address de, phir confirm karein ke Solar.web wapas online ho gaya."
+        },
+        {
+          "en": "If Solar.web does not return, restart the network path: switch off the battery, disconnect AC and DC, power-cycle the router, wait a few moments and switch everything back on.",
+          "ur": "Agar Solar.web wapas na aaye to network path restart karein: battery off karein, AC aur DC disconnect karein, router ka power cycle karein, kuch der intezaar karein aur sab wapas on karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Communication LED lights up red (steady)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo GEN24 3.8 - 6.0 kW / Plus / SC 208 - 240 Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260530/en-US.html"
+      }
+    }
+  ]
+}

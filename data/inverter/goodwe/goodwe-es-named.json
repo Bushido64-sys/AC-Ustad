@@ -1,0 +1,318 @@
+{
+  "schemaVersion": 1,
+  "brandId": "goodwe",
+  "series": {
+    "id": "goodwe-es-named",
+    "name": "ES Series named messages (PV Master era, GW3648D-ES / GW5048D-ES)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*ES*",
+      "GW3648*-ES",
+      "GW5048*-ES"
+    ],
+    "notes": "Older named-message scheme - no numbers, the message string itself is the code. Documented models are GW3648D-ES and GW5048D-ES (the D suffix means no DC switch; C suffix is the DC-switch variant, both marked FOR AUSTRALIA ONLY). The GoodWe SBP manual carries a near-identical named table (Utility Loss / VAC Failure / FAC Failure / Over Temperature / Relay Check Failure / DC Injection High / EEPROM R/W Failure / SPI Failure / DC Bus High / Back-Up Over Load); because the two tables are separate documents the SBP strings were not duplicated as their own series. Modern ES units sold in Pakistan (ES Uniq 8-12kW) run the SolarGo app and use the F-code or app-code schemes instead - treat this series as legacy."
+  },
+  "codes": [
+    {
+      "code": "Utility Loss",
+      "aliases": [
+        "Utility Loss"
+      ],
+      "title": {
+        "en": "Utility Loss",
+        "ur": "Utility Loss - grid power chala gaya"
+      },
+      "meaning": {
+        "en": "Public grid power is not available, or the on-grid connection has failed, so the inverter has shut down export.",
+        "ur": "Public grid power mojood nahi ya on-grid connection fail ho gayi, is liye inverter ne export band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Inverter does not detect the connection of the grid.",
+          "ur": "Inverter grid ka connection detect nahi kar raha."
+        },
+        {
+          "en": "Public grid power lost.",
+          "ur": "Public grid power chali gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With a multimeter, confirm AC side has voltage and grid power is available.",
+          "ur": "Multimeter se confirm karein ke AC side par voltage hai aur grid power mojood hai."
+        },
+        {
+          "en": "Check the AC cables are connected tightly and well.",
+          "ur": "Check karein ke AC cables tight aur theek se lage hain."
+        },
+        {
+          "en": "If all is well, turn the AC breaker off and back on after 5 minutes.",
+          "ur": "Agar sab theek hai to AC breaker band karke 5 minute baad dobara on karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES Series Hybrid Inverter User Manual V1.2, section 4.1 Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "VAC Failure",
+      "aliases": [
+        "VAC Failure"
+      ],
+      "title": {
+        "en": "VAC Failure",
+        "ur": "VAC Failure - grid voltage range se bahar"
+      },
+      "meaning": {
+        "en": "Measured grid voltage is outside the range required by the configured safety country, so the inverter disconnected.",
+        "ur": "Set hua safety country ki required range se grid voltage bahar hai, is liye inverter disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "AC voltage beyond the normal range required by the safety country.",
+          "ur": "Safety country ki required normal range se AC voltage bahar hai."
+        },
+        {
+          "en": "Safety country setting is wrong for the site.",
+          "ur": "Site ke liye safety country setting ghalat hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the safety country setting in the app matches the local grid standard.",
+          "ur": "Confirm karein ke app mein safety country setting local grid standard se match karti hai."
+        },
+        {
+          "en": "Measure AC voltage between L and N, and again on the AC breaker side, and compare.",
+          "ur": "L aur N ke darmiyan AC voltage measure karein, phir AC breaker side par bhi, dono compare karein."
+        },
+        {
+          "en": "If voltage is high, check the AC cable size and run length against the manual.",
+          "ur": "Agar voltage high ho to manual ke mutabiq AC cable size aur length check karein."
+        },
+        {
+          "en": "If voltage is low, check the AC connection and ensure the cable jacket is not crushed into the terminal.",
+          "ur": "Agar voltage low ho to AC connection check karein aur cable ka jacket terminal mein na pasa ho."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES Series Hybrid Inverter User Manual V1.2, section 4.1 Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "FAC Failure",
+      "aliases": [
+        "FAC Failure"
+      ],
+      "title": {
+        "en": "FAC Failure",
+        "ur": "FAC Failure - grid frequency range se bahar"
+      },
+      "meaning": {
+        "en": "Grid frequency is outside the range required by the safety country, so the inverter disconnected.",
+        "ur": "Grid frequency safety country ki required range se bahar hai, is liye inverter disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency beyond the normal range required by the safety country.",
+          "ur": "Grid frequency safety country ki normal required range se bahar hai."
+        },
+        {
+          "en": "Occasional grid frequency instability.",
+          "ur": "Kabhi kabhi grid frequency unstable hoti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the safety country setting is correct.",
+          "ur": "Confirm karein ke safety country setting theek hai."
+        },
+        {
+          "en": "Read Fac on the inverter display and compare it with a clamp meter reading.",
+          "ur": "Inverter display par Fac parhein aur clamp meter ki reading se compare karein."
+        },
+        {
+          "en": "If FAC Failure appears only occasionally and clears, treat it as grid instability, not a fault.",
+          "ur": "Agar FAC Failure sirf kabhi kabhi aaye aur clear ho jaye to isay grid instability samajhein, fault nahi."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES Series Hybrid Inverter User Manual V1.2, section 4.1 Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "Over Temperature",
+      "aliases": [
+        "Over Temperature"
+      ],
+      "title": {
+        "en": "Over Temperature",
+        "ur": "Over Temperature - unit garm ho gaya"
+      },
+      "meaning": {
+        "en": "Internal inverter temperature is too high for the working environment, so the unit shut down to protect itself.",
+        "ur": "Working environment ke liye inverter ka internal temperature bohat zyada hai, is liye unit ne apne aap ko bachane ke liye band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Working environment leads to a high internal temperature.",
+          "ur": "Working environment ki wajah se internal temperature high ho gaya."
+        },
+        {
+          "en": "Indoor installation in a hot unventilated room or in direct sun.",
+          "ur": "Garm aur be-hawa room mein ya direct dhoop mein indoor installation."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Try to decrease the surrounding temperature - ventilate the room or shade the unit.",
+          "ur": "Surrounding temperature kam karne ki koshish karein, room ventilate karein ya unit ko shadow dein."
+        },
+        {
+          "en": "Make sure the installation complies with the manual's clearance requirements.",
+          "ur": "Confirm karein ke installation manual ki clearance requirements poora karta hai."
+        },
+        {
+          "en": "Switch the inverter off for 15 minutes, then start it up again.",
+          "ur": "Inverter 15 minute ke liye band karke dobara on karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES Series Hybrid Inverter User Manual V1.2, section 4.1 Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "Isolation Failure",
+      "aliases": [
+        "Isolation Failure"
+      ],
+      "title": {
+        "en": "Isolation Failure",
+        "ur": "Isolation Failure - insulation kam ho gayi"
+      },
+      "meaning": {
+        "en": "Ground insulation impedance of the PV string is too low, so the inverter's isolation monitor tripped.",
+        "ur": "PV string ka ground insulation impedance bohat kam hai, is liye inverter ka isolation monitor trigger ho gaya."
+      },
+      "causes": [
+        {
+          "en": "PV panels not grounded well.",
+          "ur": "PV panels theek se grounded nahi hain."
+        },
+        {
+          "en": "DC cable is broken.",
+          "ur": "DC cable tooti hui hai."
+        },
+        {
+          "en": "PV panels are aged, or ambient humidity is comparatively heavy.",
+          "ur": "PV panels purane ho chuke hain ya ambient humidity bohat zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With a multimeter, check resistance between earth and the inverter frame; it should be close to zero.",
+          "ur": "Multimeter se earth aur inverter frame ke darmiyan resistance check karein, zero ke qareeb hona chahiye."
+        },
+        {
+          "en": "Measure resistance from PV1+/PV2+/PV3+/PV4+/BAT+/PV- to earth and compare to the manual's minimum table.",
+          "ur": "PV1+/PV2+/PV3+/PV4+/BAT+/PV- se earth tak resistance measure karke manual ki minimum table se compare karein."
+        },
+        {
+          "en": "If below the minimum, disconnect strings one by one to find the leaking string and re-terminate its connectors.",
+          "ur": "Agar minimum se neeche ho to strings ko aik aik disconnect karke leaking string dhoondein aur us ke connectors dobara lagayein."
+        },
+        {
+          "en": "Note whether it only happens at dawn or in rain - high humidity alone can cause a legitimate trip.",
+          "ur": "Note karein ke kya ye sirf fajr ya barsaat mein hota hai, sirf zyada humidity bhi asli trip karwa sakti hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES Series Hybrid Inverter User Manual V1.2, section 4.1 Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "Ground Failure",
+      "aliases": [
+        "Ground Failure"
+      ],
+      "title": {
+        "en": "Ground Failure",
+        "ur": "Ground Failure - earth leakage zyada"
+      },
+      "meaning": {
+        "en": "Ground leakage current is too high, usually because the AC side neutral and ground are not connected well.",
+        "ur": "Ground leakage current bohat zyada hai, aam tor par is liye ke AC side neutral aur ground theek se nahi lage."
+      },
+      "causes": [
+        {
+          "en": "Neutral cable on the AC side is not connected well.",
+          "ur": "AC side ka neutral cable theek se nahi laga."
+        },
+        {
+          "en": "Ambient humidity comparatively heavy.",
+          "ur": "Ambient humidity comparatively zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With a multimeter, measure voltage between earth and the inverter frame; it should be close to 0V.",
+          "ur": "Multimeter se earth aur inverter frame ke darmiyan voltage measure karein, 0V ke qareeb hona chahiye."
+        },
+        {
+          "en": "If a voltage is present, re-terminate neutral and PE at the AC terminal block.",
+          "ur": "Agar voltage maujood ho to AC terminal block par neutral aur PE dobara terminate karein."
+        },
+        {
+          "en": "If it only occurs at dawn or in rain and recovers, that is normal humidity behaviour.",
+          "ur": "Agar sirf fajr ya barsaat mein aaye aur theek ho jaye to ye normal humidity behaviour hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES Series Hybrid Inverter User Manual V1.2, section 4.1 Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES_User%20Manual-EN.pdf"
+      }
+    }
+  ]
+}

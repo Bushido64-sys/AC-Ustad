@@ -1,0 +1,626 @@
+{
+  "schemaVersion": 1,
+  "brandId": "fronius-at",
+  "series": {
+    "id": "fronius-at-gen24-support-page",
+    "name": "GEN24 support-page state codes (Primo GEN24 & Symo GEN24)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*Primo GEN24*",
+      "*Symo GEN24*"
+    ],
+    "notes": "Abridged list from the Fronius support page, kept separate from SERIES 1 (Country Setup manual) and SERIES 3 (Primo GEN24 operating instructions) even though 1030 and 1173 also appear there - the tables are independent and must not be merged. 994/995/996/997/999 are Solar.web communication state codes: Fronius groups them under one heading and does NOT publish a per-code description, so each is carried as low confidence. Manual versions: Fronius explicitly states the codes assume current firmware, so check the firmware before diagnosing."
+  },
+  "codes": [
+    {
+      "code": "1001",
+      "aliases": [
+        "1001"
+      ],
+      "title": {
+        "en": "Insulation measurement triggered (1001)",
+        "ur": "Insulation measurement shuru hui (1001)"
+      },
+      "meaning": {
+        "en": "The mandatory insulation measurement is running. After 24 hours of continuous feed-in the inverter must measure insulation and cannot feed during the measurement.",
+        "ur": "Zaroori insulation measurement chal raha hai. 24 ghante continuous feed-in ke baad inverter ko insulation measure karna zaroori hai aur measurement ke dairan feed nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "24 hours of continuous energy feed into the grid have elapsed - this is a normative requirement, not a defect.",
+          "ur": "Grid mein 24 ghante continuous feed-in poora ho gaya - ye standard ka requirement hai, koi defect nahi."
+        },
+        {
+          "en": "Triggered deliberately during a low-irradiation window so the measurement happens at night rather than in production hours.",
+          "ur": "Kam irradiation ke waqt jaan booj kar trigger kiya gaya taake measurement raat mein ho, production ke waqt nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Take no action - Fronius states this is purely for information and no additional measures are required.",
+          "ur": "Koi karay nahi karein - Fronius kehta hai ye sirf information ke liye hai aur koi extra action nahi chahiye."
+        },
+        {
+          "en": "Simply wait; grid power feed operation resumes automatically once the insulation measurement finishes.",
+          "ur": "Bas intezaar karein; insulation measurement khatam hote hi grid feed-in khud shuru ho jata hai."
+        },
+        {
+          "en": "If 1001 repeats far more often than roughly every 24 hours, record the timestamps and check DC insulation - a 12 h + 6 h counter is used on battery systems.",
+          "ur": "Agar 1001 teqreeban 24 ghante se zyada baar aata hai to timestamps note karein aur DC insulation check karein - battery systems par 12 ghante + 6 ghante ka counter istemal hota hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Help for your Fronius GEN24 - State Codes (error codes on the Fronius Primo GEN24 & Symo GEN24)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fronius.com/en-gb/uk/solar-energy/home-owners/contact/support-for-pv-system-owners/support-state-codes-gen24"
+      }
+    },
+    {
+      "code": "1024",
+      "aliases": [
+        "1024"
+      ],
+      "title": {
+        "en": "Settings changed, restart required (1024)",
+        "ur": "Settings badli hain, restart zaroori (1024)"
+      },
+      "meaning": {
+        "en": "A setting was changed that makes a restart of the inverter necessary. The restart happens automatically.",
+        "ur": "Aik setting badli gayi hai jis se inverter ka restart zaroori ho gaya. Restart khud ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "A grid-protection or country-setup parameter was changed in the user interface or Solar.web.",
+          "ur": "User interface ya Solar.web mein grid-protection ya country-setup parameter badla gaya."
+        },
+        {
+          "en": "A remote configuration change was pushed to the inverter from Solar.web.",
+          "ur": "Solar.web se inverter par remote configuration change bheja gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed - Fronius states the restart occurs automatically and no additional measures are required.",
+          "ur": "Koi action zaroori nahi - Fronius kehta hai restart khud ho jata hai aur koi extra measure nahi chahiye."
+        },
+        {
+          "en": "Do not power-cycle the inverter while this is pending; let the automatic restart complete first.",
+          "ur": "Jab tak ye pending hai inverter ka power cycle na karein; pehle automatic restart poora hone dein."
+        },
+        {
+          "en": "If it appears repeatedly without anyone changing settings, check the Event Log for who or what changed the configuration (e.g. a Datamanager or Solar.web remote action).",
+          "ur": "Agar bina kisi change ke baar baar aata hai to Event Log dekhein ke configuration kisne badli (jaise Datamanager ya Solar.web remote action)."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Help for your Fronius GEN24 - State Codes (error codes on the Fronius Primo GEN24 & Symo GEN24)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fronius.com/en-gb/uk/solar-energy/home-owners/contact/support-for-pv-system-owners/support-state-codes-gen24"
+      }
+    },
+    {
+      "code": "1030",
+      "aliases": [
+        "1030",
+        "WSD Open"
+      ],
+      "title": {
+        "en": "WSD (Wired Shut Down) triggered (1030)",
+        "ur": "WSD (Wired Shut Down) trigger hua (1030)"
+      },
+      "meaning": {
+        "en": "The WSD (wired shutdown) chain has been opened, so the inverter has shut down. It either accompanies another fault, or it was triggered by an emergency stop / fire brigade switch, or by a missing bridge on the WSD connector.",
+        "ur": "WSD (wired shutdown) chain khul gaya hai, is liye inverter band ho gaya. Ye ya to kisi aur fault ke saath aata hai, ya emergency stop / fire brigade switch se trigger hua, ya WSD connector par bridge na hone se."
+      },
+      "causes": [
+        {
+          "en": "Case a: another error occurred that shut the inverter down, and WSD is reported alongside it.",
+          "ur": "Case a: koi aur error aaya jis ne inverter band kiya, aur WSD usi ke saath report hua."
+        },
+        {
+          "en": "Case b: the emergency stop switch or fire brigade switch on the WSD was actuated (orange connector, far left of the data communication PC board).",
+          "ur": "Case b: WSD ka emergency stop switch ya fire brigade switch daba diya gaya (orange connector, data communication PC board ke bilkul baayen)."
+        },
+        {
+          "en": "Case c: no emergency stop / fire brigade switch is installed and the ex-works bypass on the WSD connector is missing.",
+          "ur": "Case c: emergency stop / fire brigade switch installed nahi hai aur WSD connector par factory bypass missing hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "First open the Solar.web portal and check whether other status messages were triggered at the same time as 1030 - if yes, fix those first, because 1030 is only the consequence.",
+          "ur": "Pehle Solar.web portal kholein aur dekhein ke 1030 ke saath hi koi aur status message bhi trigger hua - agar haan to pehle unhein theek karein, kyunke 1030 sirf natija hai."
+        },
+        {
+          "en": "If 1030 is the only code, physically check whether the emergency stop / fire brigade switch has been actuated and reset it before restarting the inverter.",
+          "ur": "Agar 1030 akela code hai to physically check karein ke emergency stop / fire brigade switch daba hua hai ya nahi, aur inverter restart se pehle reset karein."
+        },
+        {
+          "en": "If no emergency stop switch exists, install the ex-works bypass or a proper trigger device on the WSD connector, and set the WSD switch to position 1 (WSD primary device) where appropriate.",
+          "ur": "Agar emergency stop switch maujood nahi to WSD connector par factory bypass ya proper trigger device lagayein, aur jahan zaroori ho WSD switch ko position 1 (WSD primary device) par set karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The Primo GEN24 operating instructions document the same fault as '1030 - WSD Open' and add that a tripped surge protection device (SPD) in the WSD chain also produces 1030 and requires repair by an authorised specialist - see SERIES 3.",
+        "ur": "Primo GEN24 operating instructions isi fault ko '1030 - WSD Open' ke naam se likhte hain aur ye add karte hain ke WSD chain mein tripped surge protection device (SPD) bhi 1030 deta hai aur uski repair authorised specialist kare."
+      },
+      "source": {
+        "type": "official_support",
+        "title": "Help for your Fronius GEN24 - State Codes (error codes on the Fronius Primo GEN24 & Symo GEN24)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fronius.com/en-gb/uk/solar-energy/home-owners/contact/support-for-pv-system-owners/support-state-codes-gen24"
+      }
+    },
+    {
+      "code": "1036",
+      "aliases": [
+        "1036"
+      ],
+      "title": {
+        "en": "Grid frequency out of limit on reconnect (1036)",
+        "ur": "Reconnect par grid frequency limit se bahar (1036)"
+      },
+      "meaning": {
+        "en": "When the inverter tried to connect to the grid (e.g. after a restart) the grid frequency was outside the permitted range, so it did not connect.",
+        "ur": "Jab inverter grid se connect hone ki koshish kar raha tha (jaise restart ke baad) to grid frequency permitted range se bahar thi, is liye connect nahi hua."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency outside the permissible startup / reconnection range at the moment of connection.",
+          "ur": "Connect hone ke waqt grid frequency permissible startup / reconnection range se bahar thi."
+        },
+        {
+          "en": "Another event on the network (large load, generator) shifted the frequency while the inverter was reconnecting.",
+          "ur": "Network par koi aur event (bara load, generator) ne inverter ke reconnect hote waqt frequency badal di."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action is required - Fronius states no other measures are needed; the inverter waits until the grid frequency is within the limit again.",
+          "ur": "Koi action zaroori nahi - Fronius kehta hai koi aur karay nahi chahiye; inverter wait karta hai jab tak grid frequency wapas limit mein na aa jaye."
+        },
+        {
+          "en": "Measure the grid frequency with a clamp meter if it persists all day, to rule out a genuinely unstable grid or an incorrect country setup.",
+          "ur": "Agar poora din rehta rahe to clamp meter se grid frequency measure karein, taake waqai unstable grid ya galat country setup rule out ho jaye."
+        },
+        {
+          "en": "If the inverter never reconnects, verify the country setup startup / reconnection parameters with the installer and the utility before adjusting anything.",
+          "ur": "Agar inverter kabhi reconnect na ho to kuch bhi badalne se pehle installer aur utility ke saath country setup startup / reconnection parameters verify karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Help for your Fronius GEN24 - State Codes (error codes on the Fronius Primo GEN24 & Symo GEN24)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fronius.com/en-gb/uk/solar-energy/home-owners/contact/support-for-pv-system-owners/support-state-codes-gen24"
+      }
+    },
+    {
+      "code": "1112",
+      "aliases": [
+        "1112"
+      ],
+      "title": {
+        "en": "Mains voltage-dependent power reduction (1112)",
+        "ur": "Mains voltage ki wajah se power reduction (1112)"
+      },
+      "meaning": {
+        "en": "The grid voltage exceeded the stored limit value, so the inverter is deliberately reducing its feed-in power. Fronius states this is purely for information.",
+        "ur": "Grid voltage stored limit value se upar chali gayi, is liye inverter apni feed-in power jaan booj kar kam kar raha hai. Fronius kehta hai ye sirf information ke liye hai."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage above the limit value stored for the selected country setup.",
+          "ur": "Selected country setup ke liye stored limit value se grid voltage zyada hai."
+        },
+        {
+          "en": "High PV export into a weak or long feeder, typically around midday.",
+          "ur": "Kamzor ya lamba feeder mein zyada PV export, aam tor par dopahar ke around."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action is required - Fronius explicitly states this is purely for information and no additional measures are needed.",
+          "ur": "Koi action zaroori nahi - Fronius saaf likhta hai ke ye sirf information hai aur koi extra karay nahi chahiye."
+        },
+        {
+          "en": "If it appears frequently around midday, ask the installer to review the volt-watt response and feed-in limit settings for the site.",
+          "ur": "Agar dopahar ke around baar baar aata hai to installer se site ke liye volt-watt response aur feed-in limit settings dobara check karwayein."
+        },
+        {
+          "en": "Production returns to normal automatically as soon as the grid voltage drops back under the limit.",
+          "ur": "Jaise hi grid voltage limit se neeche aati hai production khud normal ho jata hai."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Help for your Fronius GEN24 - State Codes (error codes on the Fronius Primo GEN24 & Symo GEN24)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fronius.com/en-gb/uk/solar-energy/home-owners/contact/support-for-pv-system-owners/support-state-codes-gen24"
+      }
+    },
+    {
+      "code": "1175",
+      "aliases": [
+        "1175"
+      ],
+      "title": {
+        "en": "Too little DC power for feed-in (1175)",
+        "ur": "Feed-in ke liye DC power bohat kam (1175)"
+      },
+      "meaning": {
+        "en": "Not enough DC power is available to feed into the grid. It clears automatically once the PV generator supplies sufficient power.",
+        "ur": "Grid mein feed karne ke liye DC power kaafi nahi hai. Jaise hi PV generator kaafi power de raha ho ye khud clear ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Too little irradiation, e.g. early morning or evening.",
+          "ur": "Irradiation bohat kam hai, jaise subah shuru ya shaam ko."
+        },
+        {
+          "en": "Poor weather such as rain, snowfall or fog.",
+          "ur": "Buran, barfbarf ya dhund jaisa kharab mausam."
+        },
+        {
+          "en": "Snow lying on the PV modules, or heavy shading of the array.",
+          "ur": "PV modules par barf pada hua hai, ya poore array par gehri shadowing hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed - Fronius states it is remedied automatically as soon as the PV generator supplies sufficient power.",
+          "ur": "Koi action zaroori nahi - Fronius kehta hai jab PV generator kaafi power de to ye khud theek ho jata hai."
+        },
+        {
+          "en": "If it shows up at midday in clear weather, check for new shading (a new building, a grown tree, a water tank) rather than assuming it is irradiance.",
+          "ur": "Agar saaf mausam mein dopahar ko dikhe to nayi shadowing check karein (nayi building, barhi hua darakht, pan ki tanki), ye na samajhein ke ye sirf irradiation hai."
+        },
+        {
+          "en": "If PV modules are snow covered, switch the string fuses off only as designed and clear the snow safely - never work on a DC string under load.",
+          "ur": "Agar PV modules par barf hai to design ke mutabiq string fuses hi off karein aur barf mehfoof tareeqe se saaf karein - kabhi bhi load ke saath DC string par kaam na karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Help for your Fronius GEN24 - State Codes (error codes on the Fronius Primo GEN24 & Symo GEN24)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fronius.com/en-gb/uk/solar-energy/home-owners/contact/support-for-pv-system-owners/support-state-codes-gen24"
+      }
+    },
+    {
+      "code": "1196",
+      "aliases": [
+        "1196"
+      ],
+      "title": {
+        "en": "Required setup values not received (1196)",
+        "ur": "Zaroori setup values nahi mili (1196)"
+      },
+      "meaning": {
+        "en": "The inverter could not receive the setup values it requires. Fronius states this appears only on first start-up and can be ignored.",
+        "ur": "Inverter ko zaroori setup values nahi mili. Fronius kehta hai ye sirf pehli start-up par aata hai aur ignore kiya ja sakta hai."
+      },
+      "causes": [
+        {
+          "en": "The inverter is being started for the first time and the setup wizard has not yet completed.",
+          "ur": "Inverter pehli baar start ho raha hai aur setup wizard abhi poora nahi hua."
+        },
+        {
+          "en": "Setup values could not be fetched from the server or are not yet available for this device.",
+          "ur": "Setup values server se fetch nahi ho saki ya is device ke liye abhi available nahi hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Ignore it if it appears once during first commissioning - Fronius states this explicitly.",
+          "ur": "Agar pehli commissioning mein aik baar aaye to ignore karein - Fronius ye saaf likhta hai."
+        },
+        {
+          "en": "Complete the setup wizard on the inverter user interface (Solar.start app or browser) and let the inverter restart.",
+          "ur": "Inverter user interface (Solar.start app ya browser) par setup wizard poora karein aur inverter ko restart hone dein."
+        },
+        {
+          "en": "If it appears after the system is already commissioned, update the inverter firmware via Solar.web (Settings > Components > Update) and check the internet connection.",
+          "ur": "Agar system commissioned hone ke baad aaye to Solar.web se firmware update karein (Settings > Components > Update) aur internet connection check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Help for your Fronius GEN24 - State Codes (error codes on the Fronius Primo GEN24 & Symo GEN24)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fronius.com/en-gb/uk/solar-energy/home-owners/contact/support-for-pv-system-owners/support-state-codes-gen24"
+      }
+    },
+    {
+      "code": "994",
+      "aliases": [
+        "994"
+      ],
+      "title": {
+        "en": "Solar.web state code 994",
+        "ur": "Solar.web ka state code 994"
+      },
+      "meaning": {
+        "en": "A Solar.web communication state code reported between the inverter and Fronius Solar.web. Fronius publishes 994, 995, 996, 997 and 999 under one heading without a per-code description.",
+        "ur": "Inverter aur Fronius Solar.web ke darmiyan report hua Solar.web communication state code. Fronius 994, 995, 996, 997 aur 999 ko aik hi heading ke andar bina per-code description ke likhta hai."
+      },
+      "causes": [
+        {
+          "en": "Loss or instability of the internet connection between the inverter and Solar.web.",
+          "ur": "Inverter aur Solar.web ke darmiyan internet connection kat gaya ya unstable hai."
+        },
+        {
+          "en": "Solar.web service interruption or an authentication / registration problem on the Solar.web system.",
+          "ur": "Solar.web service ruk gayi ya Solar.web system par authentication ya registration masla hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "On the inverter user interface open Communication > Network and check the connection mode and IP/DHCP state; a static IP that the router no longer serves will show as offline.",
+          "ur": "Inverter user interface par Communication > Network kholein aur connection mode aur IP/DHCP state check karein; aik static IP jo router abhi nahi de raha woh offline dikhega."
+        },
+        {
+          "en": "On the Solar.web portal confirm under Settings > Service Messages that 'Receive service messages' is ticked, and that a contact telephone / e-mail is set and active.",
+          "ur": "Solar.web portal par Settings > Service Messages mein confirm karein ke 'Receive service messages' tick hai, aur contact telephone / e-mail set aur active hai."
+        },
+        {
+          "en": "Check for the latest inverter firmware via Solar.web (Settings > Components > Update); do not interrupt power during the update.",
+          "ur": "Solar.web se latest inverter firmware check karein (Settings > Components > Update); update ke dauran power na kaatein."
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "confidence": "low",
+      "notes": {
+        "en": "LOW CONFIDENCE BY DESIGN: the Fronius support page lists 994 only as part of the grouped heading '994, 995, 996, 997 & 999: Solar.web State Codes' and links to a Solar.web state-code page that, as fetched, contains no per-code table. The individual meaning of 994 could not be verified and is deliberately not invented - the grouped Solar.web communication nature is all that is documented.",
+        "ur": "LOW CONFIDENCE JAAN BOOJ KAR: Fronius support page 994 ko sirf grouped heading '994, 995, 996, 997 & 999: Solar.web State Codes' ke hisse se list karta hai aur aik Solar.web state-code page ki taraf link karta hai jahan, jaise fetch kiya gaya, per-code table maujood nahi. 994 ka alag matlab verify nahi ho saka aur jaan booj kar invent nahi kiya gaya - sirf grouped Solar.web communication baat documented hai."
+      },
+      "source": {
+        "type": "official_support",
+        "title": "Help for your Fronius GEN24 - State Codes (error codes on the Fronius Primo GEN24 & Symo GEN24)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fronius.com/en-gb/uk/solar-energy/home-owners/contact/support-for-pv-system-owners/support-state-codes-gen24"
+      }
+    },
+    {
+      "code": "995",
+      "aliases": [
+        "995"
+      ],
+      "title": {
+        "en": "Solar.web state code 995",
+        "ur": "Solar.web ka state code 995"
+      },
+      "meaning": {
+        "en": "A Solar.web communication state code reported between the inverter and Fronius Solar.web, grouped with 994, 996, 997 and 999 without a per-code description.",
+        "ur": "Inverter aur Fronius Solar.web ke darmiyan report hua Solar.web communication state code, 994, 996, 997 aur 999 ke saath grouped, bina per-code description ke."
+      },
+      "causes": [
+        {
+          "en": "Loss or instability of the internet connection between the inverter and Solar.web.",
+          "ur": "Inverter aur Solar.web ke darmiyan internet connection kat gaya ya unstable hai."
+        },
+        {
+          "en": "Solar.web service interruption or an authentication / registration problem on the Solar.web system.",
+          "ur": "Solar.web service ruk gayi ya Solar.web system par authentication ya registration masla hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the inverter's Communication > Network settings and the LAN port in use (LAN1 is the supported port; LAN2 has no function on GEN24).",
+          "ur": "Inverter ke Communication > Network settings aur istemal ho raha LAN port check karein (GEN24 par LAN1 supported port hai; LAN2 ka koi function nahi)."
+        },
+        {
+          "en": "In Solar.web, verify under Settings > Components that the inverter is not hidden, then re-check for firmware updates.",
+          "ur": "Solar.web mein Settings > Components mein verify karein ke inverter hidden nahi hai, phir firmware updates dobara dekhein."
+        },
+        {
+          "en": "If the system shows offline with current data missing, restart the network path (battery off, AC and DC isolated, router power-cycled) as Fronius describes.",
+          "ur": "Agar system offline dikhe aur current data na mile to Fronius ke bataye tareeqe se network path restart karein (battery off, AC aur DC isolate, router ka power cycle)."
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "confidence": "low",
+      "notes": {
+        "en": "LOW CONFIDENCE BY DESIGN: grouped under one heading with 994, 996, 997 and 999 on the Fronius support page, with no per-code description published. The individual meaning of 995 could not be verified and is not invented.",
+        "ur": "LOW CONFIDENCE JAAN BOOJ KAR: Fronius support page par 994, 996, 997 aur 999 ke saath aik hi heading ke andar grouped, koi per-code description mojood nahi. 995 ka alag matlab verify nahi ho saka aur invent nahi kiya gaya."
+      },
+      "source": {
+        "type": "official_support",
+        "title": "Help for your Fronius GEN24 - State Codes (error codes on the Fronius Primo GEN24 & Symo GEN24)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fronius.com/en-gb/uk/solar-energy/home-owners/contact/support-for-pv-system-owners/support-state-codes-gen24"
+      }
+    },
+    {
+      "code": "996",
+      "aliases": [
+        "996"
+      ],
+      "title": {
+        "en": "Solar.web state code 996",
+        "ur": "Solar.web ka state code 996"
+      },
+      "meaning": {
+        "en": "A Solar.web communication state code reported between the inverter and Fronius Solar.web, grouped with 994, 995, 997 and 999 without a per-code description.",
+        "ur": "Inverter aur Fronius Solar.web ke darmiyan report hua Solar.web communication state code, 994, 995, 997 aur 999 ke saath grouped, bina per-code description ke."
+      },
+      "causes": [
+        {
+          "en": "Loss or instability of the internet connection between the inverter and Solar.web.",
+          "ur": "Inverter aur Solar.web ke darmiyan internet connection kat gaya ya unstable hai."
+        },
+        {
+          "en": "Solar.web service interruption or an authentication / registration problem on the Solar.web system.",
+          "ur": "Solar.web service ruk gayi ya Solar.web system par authentication ya registration masla hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the inverter is online in Solar.web; after commissioning a new component can take up to 2 hours to appear, and archive data is sent on the hour by default.",
+          "ur": "Solar.web mein confirm karein ke inverter online hai; naye component ke baad aane mein 2 ghante lag sakte hain, aur archive data default roz ghante ke aakhir mein bheja jata hai."
+        },
+        {
+          "en": "Check Communication > Network on the inverter and confirm the WiFi signal shows at least two of four bars, or use Ethernet on LAN1.",
+          "ur": "Inverter par Communication > Network check karein aur confirm karein ke WiFi signal kam az kam chaar mein se do bars dikha raha hai, ya LAN1 par Ethernet istemal karein."
+        },
+        {
+          "en": "If it persists, ask the installer to re-run the commissioning wizard so the inverter re-registers with Solar.web.",
+          "ur": "Agar barqarar rahe to installer se commissioning wizard dobara chalwayein taake inverter Solar.web par dobara register ho jaye."
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "confidence": "low",
+      "notes": {
+        "en": "LOW CONFIDENCE BY DESIGN: grouped under one heading with 994, 995, 997 and 999 on the Fronius support page, with no per-code description published. The individual meaning of 996 could not be verified and is not invented.",
+        "ur": "LOW CONFIDENCE JAAN BOOJ KAR: 994, 995, 997 aur 999 ke saath aik hi heading ke andar grouped, koi per-code description mojood nahi. 996 ka alag matlab verify nahi ho saka aur invent nahi kiya gaya."
+      },
+      "source": {
+        "type": "official_support",
+        "title": "Help for your Fronius GEN24 - State Codes (error codes on the Fronius Primo GEN24 & Symo GEN24)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fronius.com/en-gb/uk/solar-energy/home-owners/contact/support-for-pv-system-owners/support-state-codes-gen24"
+      }
+    },
+    {
+      "code": "997",
+      "aliases": [
+        "997"
+      ],
+      "title": {
+        "en": "Solar.web state code 997",
+        "ur": "Solar.web ka state code 997"
+      },
+      "meaning": {
+        "en": "A Solar.web communication state code reported between the inverter and Fronius Solar.web, grouped with 994, 995, 996 and 999 without a per-code description.",
+        "ur": "Inverter aur Fronius Solar.web ke darmiyan report hua Solar.web communication state code, 994, 995, 996 aur 999 ke saath grouped, bina per-code description ke."
+      },
+      "causes": [
+        {
+          "en": "Loss or instability of the internet connection between the inverter and Solar.web.",
+          "ur": "Inverter aur Solar.web ke darmiyan internet connection kat gaya ya unstable hai."
+        },
+        {
+          "en": "Solar.web service interruption or an authentication / registration problem on the Solar.web system.",
+          "ur": "Solar.web service ruk gayi ya Solar.web system par authentication ya registration masla hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "On the inverter user interface check Communication > Internet services and confirm the services are enabled and the connection state is shown as connected.",
+          "ur": "Inverter user interface par Communication > Internet services check karein aur confirm karein ke services enabled hain aur connection state connected dikha raha hai."
+        },
+        {
+          "en": "If the router or ISP was changed, reconnect the inverter to the network manually via the Solar.start app or browser commissioning steps.",
+          "ur": "Agar router ya ISP badla hai to Solar.start app ya browser commissioning steps ke zariye inverter ko network par dobara manually connect karein."
+        },
+        {
+          "en": "If Solar.web is not the issue, note the timestamp and cross-check other codes in the event log - a communication code alone does not stop production.",
+          "ur": "Agar masla Solar.web ka na ho to timestamp note karein aur event log ke doosre codes se cross-check karein - akela communication code production band nahi karta."
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "confidence": "low",
+      "notes": {
+        "en": "LOW CONFIDENCE BY DESIGN: grouped under one heading with 994, 995, 996 and 999 on the Fronius support page, with no per-code description published. The individual meaning of 997 could not be verified and is not invented.",
+        "ur": "LOW CONFIDENCE JAAN BOOJ KAR: 994, 995, 996 aur 999 ke saath aik hi heading ke andar grouped, koi per-code description mojood nahi. 997 ka alag matlab verify nahi ho saka aur invent nahi kiya gaya."
+      },
+      "source": {
+        "type": "official_support",
+        "title": "Help for your Fronius GEN24 - State Codes (error codes on the Fronius Primo GEN24 & Symo GEN24)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fronius.com/en-gb/uk/solar-energy/home-owners/contact/support-for-pv-system-owners/support-state-codes-gen24"
+      }
+    },
+    {
+      "code": "999",
+      "aliases": [
+        "999"
+      ],
+      "title": {
+        "en": "Solar.web state code 999",
+        "ur": "Solar.web ka state code 999"
+      },
+      "meaning": {
+        "en": "A Solar.web communication state code reported between the inverter and Fronius Solar.web, grouped with 994, 995, 996 and 997 without a per-code description.",
+        "ur": "Inverter aur Fronius Solar.web ke darmiyan report hua Solar.web communication state code, 994, 995, 996 aur 997 ke saath grouped, bina per-code description ke."
+      },
+      "causes": [
+        {
+          "en": "Loss or instability of the internet connection between the inverter and Solar.web.",
+          "ur": "Inverter aur Solar.web ke darmiyan internet connection kat gaya ya unstable hai."
+        },
+        {
+          "en": "Solar.web service interruption or an authentication / registration problem on the Solar.web system.",
+          "ur": "Solar.web service ruk gayi ya Solar.web system par authentication ya registration masla hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the inverter is reachable at the Solar.web assigned IP; if a new router was fitted, set Communication > Network to Automatic and let the router assign a new address.",
+          "ur": "Check karein ke inverter Solar.web ke diye IP par reachable hai; agar naya router laga hai to Communication > Network ko Automatic par set karein aur router ko naya address dene dein."
+        },
+        {
+          "en": "Confirm the inverter's firmware is current, since Solar.web features and service messages depend on firmware version.",
+          "ur": "Confirm karein ke inverter ka firmware latest hai, kyunke Solar.web features aur service messages firmware version par depend karte hain."
+        },
+        {
+          "en": "For any Solar.web code, first rule out the connection path (LAN1 cable / WiFi) before suspecting the inverter - Fronius treats a missing notification as a configuration issue, not a device fault.",
+          "ur": "Har Solar.web code ke liye pehle connection path (LAN1 cable / WiFi) rule out karein, inverter par shak karne se pehle - Fronius missing notification ko device fault nahi balki configuration masla samajhta hai."
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "confidence": "low",
+      "notes": {
+        "en": "LOW CONFIDENCE BY DESIGN: grouped under one heading with 994, 995, 996 and 997 on the Fronius support page, with no per-code description published. The individual meaning of 999 could not be verified and is not invented.",
+        "ur": "LOW CONFIDENCE JAAN BOOJ KAR: 994, 995, 996 aur 997 ke saath aik hi heading ke andar grouped, koi per-code description mojood nahi. 999 ka alag matlab verify nahi ho saka aur invent nahi kiya gaya."
+      },
+      "source": {
+        "type": "official_support",
+        "title": "Help for your Fronius GEN24 - State Codes (error codes on the Fronius Primo GEN24 & Symo GEN24)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fronius.com/en-gb/uk/solar-energy/home-owners/contact/support-for-pv-system-owners/support-state-codes-gen24"
+      }
+    }
+  ]
+}

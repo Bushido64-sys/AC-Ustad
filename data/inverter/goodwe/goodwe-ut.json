@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "brandId": "goodwe",
+  "series": {
+    "id": "goodwe-ut",
+    "name": "UT utility string inverter (bare integer codes 1-39)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*UT*",
+      "GW*-UT"
+    ],
+    "notes": "Documented models start at GW250KH-UT (250kW) and GW320K-UT. Utility-scale, so field-replaceable modules are not assumed and the handling text is mostly isolate-and-restart. Bare integers here COLLIDE with the ES-US table and the ESS tables - e.g. UT 1 is SPI Comm Fail while ES-US 1 is Utility Loss, and UT 13 is Vac Failure while ES-US 13 is Abnormal GFCI 60mA. UT is one of the lines GoodWe markets in Pakistan."
+  },
+  "codes": [
+    {
+      "code": "3",
+      "aliases": [
+        "3",
+        "Fac Fail"
+      ],
+      "title": {
+        "en": "Grid frequency out of range (3)",
+        "ur": "Grid frequency range se bahar (3)"
+      },
+      "meaning": {
+        "en": "The measured grid frequency is outside the allowed range for the configured safety country, so the unit stopped.",
+        "ur": "Grid frequency configured safety country ki allowed range se bahar hai, is liye unit band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Utility grid frequency is outside the allowed range.",
+          "ur": "Grid frequency allowed range se bahar hai."
+        },
+        {
+          "en": "Wrong safety country configured for the site.",
+          "ur": "Site ke liye ghalat safety country set hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid frequency with a clamp meter and log it before touching settings.",
+          "ur": "Clamp meter se grid frequency measure kar ke settings chhoone se pehle note karein."
+        },
+        {
+          "en": "Confirm the configured safety country matches the actual grid standard.",
+          "ur": "Confirm karein ke set hua safety country asal grid standard se match karta hai."
+        },
+        {
+          "en": "If frequency is genuinely out of range, report to the utility; do not widen limits on your own.",
+          "ur": "Agar frequency asal mein range se bahar hai to utility ko report karein, limits apni marzi se na barhayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW UT User Manual 1.6-2026-01-16, section 9.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://it.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_UT_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12",
+        "ISO Fail"
+      ],
+      "title": {
+        "en": "Insulation failure (12)",
+        "ur": "Insulation fail - string zameen se short (12)"
+      },
+      "meaning": {
+        "en": "PV string insulation to ground has failed, from a shorted string, a moist site or broken DC cable insulation.",
+        "ur": "PV string ka ground se insulation fail ho gaya, string short hone, nam site ya DC cable insulation tootne ki wajah se."
+      },
+      "causes": [
+        {
+          "en": "PV string short-circuited to ground.",
+          "ur": "PV string ground se short ho gaya hai."
+        },
+        {
+          "en": "Moist environment with circuit not well insulated to ground.",
+          "ur": "Nam mahaul aur circuit ka ground se insulation theek nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the PV input cables are broken.",
+          "ur": "Check karein ke PV input cables tooti hain ya nahi."
+        },
+        {
+          "en": "Verify module frames and metal brackets are securely grounded.",
+          "ur": "Module frames aur metal brackets theek se grounded hain ya nahi check karein."
+        },
+        {
+          "en": "Verify the AC side is properly grounded and measure string-to-earth resistance per string.",
+          "ur": "AC side theek se grounded hai ya nahi check karein aur har string ka earth se resistance measure karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW UT User Manual 1.6-2026-01-16, section 9.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://it.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_UT_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "16",
+      "aliases": [
+        "16",
+        "AFCI Fault"
+      ],
+      "title": {
+        "en": "DC arc fault (16)",
+        "ur": "DC side par arc fault (16)"
+      },
+      "meaning": {
+        "en": "Arc fault protection triggered because a PV string terminal is loose or the DC cable is broken.",
+        "ur": "Arc fault protection trigger hua kyunke PV string terminal dhila hai ya DC cable tooti hai."
+      },
+      "causes": [
+        {
+          "en": "PV string terminal not firmly connected.",
+          "ur": "PV string terminal dheela band nahi hai."
+        },
+        {
+          "en": "DC cable is broken.",
+          "ur": "DC cable tooti hui hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the DC side fully and confirm dead before inspection.",
+          "ur": "DC side poori tarah isolate karke inspect karne se pehle dead hai ya nahi confirm karein."
+        },
+        {
+          "en": "Check the PV module wiring against the user manual requirements.",
+          "ur": "PV module ki wiring ko user manual ki requirements se compare karein."
+        },
+        {
+          "en": "Re-terminate loose connectors with the correct crimp tool; replace heat-damaged parts.",
+          "ur": "Dhile connectors sahi crimp tool se dobara lagayein, garmi se kharab hisse replace karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW UT User Manual 1.6-2026-01-16, section 9.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://it.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_UT_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "19",
+      "aliases": [
+        "19",
+        "Gnd I Fail"
+      ],
+      "title": {
+        "en": "Ground leakage current fail (19)",
+        "ur": "Ground leakage current fail - earth leakage (19)"
+      },
+      "meaning": {
+        "en": "Input insulation resistance to ground dropped while the inverter was running, so leakage protection tripped.",
+        "ur": "Inverter chalne ke daurat input ka ground se insulation resistance gir gaya, is liye leakage protection trigger hua."
+      },
+      "causes": [
+        {
+          "en": "Input insulation resistance to ground decreases when running.",
+          "ur": "Chalne par input ka ground se insulation resistance gir jata hai."
+        },
+        {
+          "en": "High humidity on rainy days.",
+          "ur": "Barsaat ke din bohat zyada humidity."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the installation working environment meets the manual's requirements.",
+          "ur": "Check karein ke installation ka working environment manual ki requirements poora karta hai."
+        },
+        {
+          "en": "Verify all components and the AC side are properly grounded.",
+          "ur": "Sab components aur AC side theek se grounded hain ya nahi check karein."
+        },
+        {
+          "en": "If it only appears on wet days, log the weather with each event before replacing anything.",
+          "ur": "Agar sirf geelay din aaye to kuch bhi replace karne se pehle har event ke saath weather note karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW UT User Manual 1.6-2026-01-16, section 9.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://it.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_UT_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "24",
+      "aliases": [
+        "24",
+        "SPD Fail"
+      ],
+      "title": {
+        "en": "Surge protective device fail (24)",
+        "ur": "Surge protective device (SPD) kharab (24)"
+      },
+      "meaning": {
+        "en": "The inverter was struck by lightning and the surge protective device has failed, so surge protection is no longer available.",
+        "ur": "Inverter par lightning gira aur surge protective device kharab ho gaya, is liye surge protection ab nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter struck by lightning.",
+          "ur": "Inverter par lightning gira."
+        },
+        {
+          "en": "SPD device failed after the surge event.",
+          "ur": "Surge event ke baad SPD device fail ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Improve the lightning protection facilities around the inverter first.",
+          "ur": "Pehle inverter ke gird lightning protection facilities behtar karein."
+        },
+        {
+          "en": "Isolate AC and DC, wait 5 minutes, then re-energise to confirm the trip was surge-related.",
+          "ur": "AC aur DC isolate karein, 5 minute intezaar karein, phir dobara on karke confirm karein ke trip surge ki wajah se tha."
+        },
+        {
+          "en": "Visually inspect and continuity-test the SPD, then replace the module.",
+          "ur": "SPD visually inspect karein aur continuity test karein, phir module replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW UT User Manual 1.6-2026-01-16, section 9.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://it.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_UT_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "33",
+      "aliases": [
+        "33",
+        "PV Over Voltage"
+      ],
+      "title": {
+        "en": "PV input overvoltage (33)",
+        "ur": "PV input voltage zyada (33)"
+      },
+      "meaning": {
+        "en": "The PV string open-circuit voltage is higher than the inverter maximum input voltage because too many modules were connected in series.",
+        "ur": "PV string ka open-circuit voltage inverter ke maximum input voltage se zyada hai kyunke series mein zyada modules lage hue hain."
+      },
+      "causes": [
+        {
+          "en": "Excess PV modules connected in series.",
+          "ur": "Series mein zyada PV modules lage hue hain."
+        },
+        {
+          "en": "Actual string voltage higher than the value shown on the LCD.",
+          "ur": "Asal string voltage LCD par dikhne wali value se zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Compare the string input voltage with the value displayed on the LCD.",
+          "ur": "String ka input voltage LCD par dikhne wali value se compare karein."
+        },
+        {
+          "en": "Check the string voltage against the maximum input voltage requirement and reconfigure the string.",
+          "ur": "String voltage ko maximum input voltage requirement se check karke string dobara arrange karein."
+        },
+        {
+          "en": "Never change the string while it is live; open the DC switch and confirm dead first.",
+          "ur": "String ko live mein kabhi na badlein, pehle DC switch off karke dead hona confirm karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW UT User Manual 1.6-2026-01-16, section 9.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://it.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_UT_User%20Manual-EN.pdf"
+      }
+    }
+  ]
+}

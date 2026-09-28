@@ -1,0 +1,373 @@
+{
+  "schemaVersion": 1,
+  "brandId": "goodwe",
+  "series": {
+    "id": "goodwe-es-us",
+    "name": "ES-US / SBP-US North America (bare integer codes 1-35)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*-ES-US*",
+      "*-SBP-US*",
+      "GW*-ES-US20"
+    ],
+    "notes": "Bare-integer scheme, NO F prefix, and it collides head-on with the SDT-G3/UT/ESS tables - see CONFLICTS. Documented models GW5000/GW6000/GW7600/GW9600-ES-US20 and the SBP-US string inverters. North American safety standard (UL/NETL) so the GFCI and AFCI rows and the no-auto-recover rows apply. The manual's own numbering jumps from 24 straight to 26 - there is no row 25. Not a Pakistan line; Pakistan uses ES Uniq / SDT G3 / ET, so scope this series to US-market units only."
+  },
+  "codes": [
+    {
+      "code": "1",
+      "aliases": [
+        "1",
+        "Utility Loss"
+      ],
+      "title": {
+        "en": "Utility loss (code 1)",
+        "ur": "Utility Loss - grid power chala gaya (1)"
+      },
+      "meaning": {
+        "en": "Grid power has failed, or the AC cable is disconnected or the AC breaker is off.",
+        "ur": "Grid power chali gayi, ya AC cable disconnect hai ya AC breaker off hai."
+      },
+      "causes": [
+        {
+          "en": "Utility grid power fails.",
+          "ur": "Grid power supply fail ho gayi."
+        },
+        {
+          "en": "AC cable disconnected or the AC breaker is off.",
+          "ur": "AC cable disconnect hai ya AC breaker off hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "The alarm clears automatically once grid power returns.",
+          "ur": "Grid power aane par alarm khud ba khud clear ho jata hai."
+        },
+        {
+          "en": "Check the AC breaker is ON and the AC cable terminations are tight.",
+          "ur": "AC breaker ON hai aur AC cable ke connections tight hain ya nahi check karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "On SDT-G3 and EH the same condition is F01; on UT the bare integer 1 means SPI Comm Fail. Never merge.",
+        "ur": "SDT-G3 aur EH par yehi halaat F01 hai; UT par bare integer 1 ka matlab SPI Comm Fail hai. Kabhi merge na karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES-US, SBP-US User Manual V1.3-2026-04-09, section 9.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://us.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES-US,%20SBP-US_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "2",
+      "aliases": [
+        "2",
+        "Grid Overvoltage"
+      ],
+      "title": {
+        "en": "Grid overvoltage (code 2)",
+        "ur": "Grid overvoltage - voltage zyada (2)"
+      },
+      "meaning": {
+        "en": "Grid voltage is out of the permissible range or stayed high beyond the HVRT requirement, so the unit disconnected.",
+        "ur": "Grid voltage permissible range se bahar hai ya HVRT requirement se zyada der high raha, is liye unit disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage exceeds the permissible range.",
+          "ur": "Grid voltage permissible range se zyada hai."
+        },
+        {
+          "en": "High-voltage duration exceeds the HVRT requirement.",
+          "ur": "High voltage ki duration HVRT requirement se zyada rahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Occasional trips clear themselves once the grid is normal.",
+          "ur": "Kabhi kabhi aane wale trips grid normal hote hi khud clear ho jate hain."
+        },
+        {
+          "en": "Check the grid voltage against the permissible range; contact the power company if it is out of range.",
+          "ur": "Grid voltage permissible range se compare karein, range se bahar ho to power company ko contact karein."
+        },
+        {
+          "en": "Only with the power company's consent, change the overvoltage threshold or HVRT.",
+          "ur": "Sirf power company ki ijazat se overvoltage threshold ya HVRT badlein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES-US, SBP-US User Manual V1.3-2026-04-09, section 9.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://us.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES-US,%20SBP-US_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "4",
+      "aliases": [
+        "4",
+        "Grid Undervoltage"
+      ],
+      "title": {
+        "en": "Grid undervoltage (code 4)",
+        "ur": "Grid undervoltage - voltage kam (4)"
+      },
+      "meaning": {
+        "en": "Grid voltage is below the permissible range or stayed low beyond the LVRT requirement.",
+        "ur": "Grid voltage permissible range se neeche hai ya LVRT requirement se zyada der low raha."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage lower than the permissible range.",
+          "ur": "Grid voltage permissible range se kam hai."
+        },
+        {
+          "en": "Low-voltage duration exceeds the LVRT requirement.",
+          "ur": "Low voltage ki duration LVRT requirement se zyada rahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Let it self-recover; a one-off is usually a temporary grid abnormality.",
+          "ur": "Khud recover hone dein, aik baar ka issue aam tor par grid ki temporary abnormality hoti hai."
+        },
+        {
+          "en": "Measure voltage at the AC breaker as well as the inverter, and compare the two readings.",
+          "ur": "AC breaker aur inverter dono par voltage measure karke dono readings compare karein."
+        },
+        {
+          "en": "Check for a long or undersized AC run causing voltage drop under load.",
+          "ur": "Lamba ya chhota AC cable load ke saath voltage drop kar raha hai ya nahi check karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES-US, SBP-US User Manual V1.3-2026-04-09, section 9.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://us.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES-US,%20SBP-US_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12",
+        "Abnormal GFCI 30mA"
+      ],
+      "title": {
+        "en": "Abnormal GFCI 30mA (code 12)",
+        "ur": "GFCI 30mA abnormal (12)"
+      },
+      "meaning": {
+        "en": "The 30mA residual current channel saw an abnormal value, usually insulation leakage from the PV side.",
+        "ur": "30mA residual current channel ne abnormal value dekha, aam tor par PV side se insulation leakage ki wajah se."
+      },
+      "causes": [
+        {
+          "en": "PV string insulation impedance to ground falls while running.",
+          "ur": "Chalne ke daurat PV string ka ground se insulation impedance gir jata hai."
+        },
+        {
+          "en": "Moisture in DC connectors or cable damage.",
+          "ur": "DC connectors mein paani ya cable damage."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note whether it correlates with wet weather; wet-morning trips are common and often benign.",
+          "ur": "Note karein ke kya ye geelay mausam se correlate karta hai, geelay mausam ki subah trip aam hai aur aksar halat hota hai."
+        },
+        {
+          "en": "Open the DC isolator and measure each string to PE; find and dry out the offending string.",
+          "ur": "DC isolator kholein aur har string ko PE se measure karein, masoom string dhoond kar use sukha dein."
+        },
+        {
+          "en": "If it is frequent, contact the dealer rather than repeatedly resetting.",
+          "ur": "Agar baar baar aaye to baar baar reset karne ke bajaye dealer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Codes 12, 13, 14 and 15 on this unit are the 30mA, 60mA, 150mA and gradual-change GFCI stages. On the EMEA ESS app the same bare number 12 means Internal Fan Failure.",
+        "ur": "Is unit par 12, 13, 14 aur 15 GFCI ke 30mA, 60mA, 150mA aur gradual change stages hain. EMEA ESS app par 12 ka matlab Internal Fan Failure hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES-US, SBP-US User Manual V1.3-2026-04-09, section 9.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://us.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES-US,%20SBP-US_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "18",
+      "aliases": [
+        "18",
+        "Low Insulation Res."
+      ],
+      "title": {
+        "en": "Low insulation resistance (code 18)",
+        "ur": "Insulation resistance kam (18)"
+      },
+      "meaning": {
+        "en": "PV string to PE resistance fell below the trip level; the manual's acceptance value is above 50kOhm.",
+        "ur": "PV string se PE ka resistance trip level se neeche gir gaya, manual ke mutabiq 50kOhm se upar hona chahiye."
+      },
+      "causes": [
+        {
+          "en": "PV string shorted to PE.",
+          "ur": "PV string PE se short ho gaya hai."
+        },
+        {
+          "en": "Moist environment with poorly insulated cable to ground.",
+          "ur": "Nam mahaul aur ground ke mutabiq kamzor insulation wali cable."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC and measure PV string to PE; it must read above 50kOhm.",
+          "ur": "DC isolate karke PV string se PE measure karein, 50kOhm se upar hona chahiye."
+        },
+        {
+          "en": "If it fails, disconnect strings one at a time to find the shorted string.",
+          "ur": "Test fail ho to strings ko aik aik disconnect karke shorted string dhoondein."
+        },
+        {
+          "en": "Check the PE cable of the inverter is connected properly.",
+          "ur": "Inverter ka PE cable theek se laga hua hai ya nahi check karein."
+        },
+        {
+          "en": "If the reading is only low on rainy days, reset the ISO setting in the app.",
+          "ur": "Agar sirf barsaat ke din reading kam ho to app se ISO setting reset karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES-US, SBP-US User Manual V1.3-2026-04-09, section 9.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://us.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES-US,%20SBP-US_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "24",
+      "aliases": [
+        "24",
+        "Relay Check abnormal"
+      ],
+      "title": {
+        "en": "Relay check abnormal (code 24)",
+        "ur": "Relay check abnormal - relay kharab (24)"
+      },
+      "meaning": {
+        "en": "The relay self-test failed because of a relay fault, an abnormal control circuit, or abnormal AC cable connection.",
+        "ur": "Relay self-test fail hua kyunke relay kharab hai, control circuit abnormal hai ya AC cable connection abnormal hai."
+      },
+      "causes": [
+        {
+          "en": "Relay abnormal or short-circuited.",
+          "ur": "Relay abnormal hai ya short ho gaya hai."
+        },
+        {
+          "en": "Control circuit abnormal.",
+          "ur": "Control circuit abnormal hai."
+        },
+        {
+          "en": "AC cable connection loose or short-circuited.",
+          "ur": "AC cable connection dhili hai ya short ho gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect AC output and DC input, wait 5 minutes, then reconnect before investigating further.",
+          "ur": "AC output aur DC input disconnect karein, 5 minute intezaar karein, phir dobara connect karein."
+        },
+        {
+          "en": "With AC isolated, re-torque the AC output terminals and look for heat discoloration.",
+          "ur": "AC isolate karke AC output terminals ki tightening karein aur garmi ke nishaan dekhein."
+        },
+        {
+          "en": "Test relay contact continuity and coil supply, then replace the relay if failed.",
+          "ur": "Relay contact ki continuity aur coil supply test karein, phir relay kharab ho to replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES-US, SBP-US User Manual V1.3-2026-04-09, section 9.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://us.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES-US,%20SBP-US_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "27",
+      "aliases": [
+        "27",
+        "DC Arc Fault"
+      ],
+      "title": {
+        "en": "DC arc fault (code 27)",
+        "ur": "DC side par arc fault (27)"
+      },
+      "meaning": {
+        "en": "An arc was detected on the DC side, typically from a DC terminal that is not firmly connected or a broken DC cable.",
+        "ur": "DC side par arc detect hua, aam tor par dhale DC terminal ya tooti DC cable ki wajah se."
+      },
+      "causes": [
+        {
+          "en": "The DC terminal is not firmly connected.",
+          "ur": "DC terminal dheela band nahi hai."
+        },
+        {
+          "en": "The DC cable is broken.",
+          "ur": "DC cable tooti hui hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC isolator and confirm the DC side is dead before any inspection.",
+          "ur": "DC isolator kholein aur inspect karne se pehle confirm karein ke DC side dead hai."
+        },
+        {
+          "en": "Follow the Quick Installation Guide and re-check every DC connection for tightness and correct polarity.",
+          "ur": "Quick Installation Guide follow karke har DC connection ki tightness aur polarity dobara check karein."
+        },
+        {
+          "en": "Replace any connector showing heat damage, melting or a loose crimp.",
+          "ur": "Garmi se kharab, pighle hua ya dhila crimp wala connector replace karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ES-US, SBP-US User Manual V1.3-2026-04-09, section 9.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://us.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ES-US,%20SBP-US_User%20Manual-EN.pdf"
+      }
+    }
+  ]
+}

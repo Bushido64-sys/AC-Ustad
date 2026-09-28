@@ -1,0 +1,374 @@
+{
+  "schemaVersion": 1,
+  "brandId": "hitachi",
+  "series": {
+    "id": "hitachi-pk-residential-timer-blink",
+    "name": "Residential indoor timer/fault LED blink-count map",
+    "category": "ac",
+    "unitType": "split",
+    "modelPatterns": [
+      "*blink*",
+      "*LED*"
+    ],
+    "notes": "Residential indoor timer/fault LED blink counts (Scribd copy of Hitachi service-manual chapter 6.0 Error Codes). Blink-count scheme (1-9 blinks) — separate from alphanumeric codes. Medium-high (service-manual chapter copy)."
+  },
+  "codes": [
+    {
+      "code": "no blink",
+      "aliases": [
+        "no blink",
+        "0 blinks",
+        "Timer/fault LED stays off"
+      ],
+      "title": {
+        "en": "Indoor unit does not start",
+        "ur": "Indoor unit start hi nahi hota"
+      },
+      "meaning": {
+        "en": "The indoor timer/fault LED does not blink at all and the unit never starts — the self-diagnosis LED is simply dead, so the fault is upstream of any code display.",
+        "ur": "Indoor ka timer/fault LED bilkul blink nahi karta aur unit kabhi start nahi hota — self-diagnosis LED hi dead hai, yaani koi code dikhane se pehle hi masla hai"
+      },
+      "causes": [
+        {
+          "en": "Mains cord not connected properly at the PCB side or at the input AC plug side.",
+          "ur": "Mains cord PCB ki taraf ya input AC plug ki taraf theek se connected nahi"
+        },
+        {
+          "en": "Supply voltage at the PCB outside the 195V–265V window, a blown fuse, or a cut/damaged display harness.",
+          "ur": "PCB par supply voltage 195V se 265V ke range se bahar, fuse urja hua, ya display harness kata ya kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With power OFF, check mains-cord continuity end to end and reseat the plug and PCB connectors.",
+          "ur": "Power OFF kar ke mains cord ki continuity aakhir tak check karein aur plug aur PCB ke connectors dobara baithayein"
+        },
+        {
+          "en": "Measure supply at the PCB (expect 195V–265V), replace the fuse if open, and fit a stabiliser if the local supply is low.",
+          "ur": "PCB par supply napen (195V se 265V hona chahiye), fuse khuli ho to badal dein, aur local supply kam ho to stabiliser lagayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi AC Error Code Guide - section 6.0 (Scribd copy)",
+        "retrieved": "2026-09-24",
+        "url": "https://www.scribd.com/document/904263507/Error-Codes-Hitachi-1"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Scribd copy of a Hitachi service-manual chapter; exact model scope not stated in the document. Confidence medium for that reason.",
+        "ur": "Yeh Hitachi service-manual chapter ka Scribd copy hai; document mein exact model scope nahi bataya gaya. Isi wajah se confidence medium hai."
+      },
+      "blinkPattern": "Indoor timer/fault LED: no blinking at all"
+    },
+    {
+      "code": "1 blink",
+      "aliases": [
+        "1 blink",
+        "1 time LED blinking",
+        "1x"
+      ],
+      "title": {
+        "en": "Refrigeration cycle error (heat-pump models)",
+        "ur": "Refrigeration cycle ki kharabi (heat-pump models)"
+      },
+      "meaning": {
+        "en": "The indoor LED blinks once per cycle: on heat-pump machines the refrigeration circuit is flagged (coil-temperature sensing / 4-way valve side).",
+        "ur": "Indoor LED aik baar blink karta hai: heat-pump machines par refrigeration circuit ko flag kiya gaya hai (coil temperature sensing ya 4-way valve ki taraf)"
+      },
+      "causes": [
+        {
+          "en": "Coil temperature sensor position or fitment incorrect, or the sensor reading open/short.",
+          "ur": "Coil temperature sensor ki position ya fitment ghalat, ya sensor ki reading open/short hai"
+        },
+        {
+          "en": "4-way reversing valve coil not switching or its wiring faulty; indoor PCB misreading the sensor.",
+          "ur": "4-way reversing valve ka coil switch nahi ho raha ya us ki wiring kharab; indoor PCB sensor ki reading ghalat parh raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Refit the coil temperature sensor in the correct position and confirm its connector is seated.",
+          "ur": "Coil temperature sensor ko sahi position par dobara lagayein aur us ka connector baitha hua hai, is ki tasdeiq karein"
+        },
+        {
+          "en": "Check the 4-way valve coil and its drive; if the LED still blinks once, replace the indoor PCB.",
+          "ur": "4-way valve ka coil aur us ka drive check karein; LED phir bhi aik baar blink kare to indoor PCB badal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi AC Error Code Guide - section 6.0 (Scribd copy)",
+        "retrieved": "2026-09-24",
+        "url": "https://www.scribd.com/document/904263507/Error-Codes-Hitachi-1"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Source marks this as heat-pump-only. Do not apply to cool-only machines.",
+        "ur": "Source ise heat-pump-only batata hai. Cool-only machines par ise lagu na karein."
+      },
+      "blinkPattern": "Indoor timer/fault LED: 1 blink, pause, repeat"
+    },
+    {
+      "code": "2 blinks",
+      "aliases": [
+        "2 blinks",
+        "2 time LED blinking",
+        "2x"
+      ],
+      "title": {
+        "en": "Force-cooling (service) state indication",
+        "ur": "Force cooling (service) state ki nishani"
+      },
+      "meaning": {
+        "en": "Two blinks mean the unit is in force-cooling / service-test mode, which is triggered by the temporary push button on the display board — it is a mode, not a refrigerant fault.",
+        "ur": "Do blinks ka matlab hai unit force cooling ya service test mode mein hai, jo display board ke temporary push button se chalta hai — yeh aik mode hai, refrigerant kharabi nahi"
+      },
+      "causes": [
+        {
+          "en": "Temporary switch on the display sticker being pressed continuously because the front cover is fitted incorrectly.",
+          "ur": "Front cover ghalat lagne ki wajah se display sticker ka temporary switch baar baar daba hua hai"
+        },
+        {
+          "en": "Display-board push button stuck or its continuity permanent (button or display PCB defective).",
+          "ur": "Display board ka button atka hua hai ya us ki continuity permanent hai (button ya display PCB kharab)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Remove the front cover and refit it properly so the temporary switch releases.",
+          "ur": "Front cover nikaal kar theek se dobara lagayein taake temporary switch azaad ho jaye"
+        },
+        {
+          "en": "Power OFF, open the display PCB and check the push-button continuity with a multimeter without pressing it; replace the display PCB if it reads closed.",
+          "ur": "Power OFF karke display kholein aur button ko dabae baghair multimeter se continuity check karein; band parhe to display PCB badal dein"
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi AC Error Code Guide - section 6.0 (Scribd copy)",
+        "retrieved": "2026-09-24",
+        "url": "https://www.scribd.com/document/904263507/Error-Codes-Hitachi-1"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "is_fault false because force cooling is an intentional service mode; customers often report it as a fault.",
+        "ur": "is_fault ki value off rakhi gayi hai kyunke force cooling aik jaan boojh kar service mode hai; customers ise aksar kharabi ki tarah report karte hain"
+      },
+      "blinkPattern": "Indoor timer/fault LED: 2 blinks, pause, repeat"
+    },
+    {
+      "code": "3 blinks",
+      "aliases": [
+        "3 blinks",
+        "3 time LED blinking",
+        "3x"
+      ],
+      "title": {
+        "en": "Indoor–outdoor communication error",
+        "ur": "Dono units ke darmiyan communication kharabi"
+      },
+      "meaning": {
+        "en": "Three blinks mean the indoor and outdoor units are not exchanging signals correctly.",
+        "ur": "Teen blinks ka matlab hai ke dono unit sahi tarah signal exchange nahi kar rahe"
+      },
+      "causes": [
+        {
+          "en": "Loose or wrongly landed A/B/C conductors at the indoor or outdoor terminal box.",
+          "ur": "Kamre ya bahar wali unit ke terminal box mein A/B/C conductors dheele ya ghalat lage huay hain"
+        },
+        {
+          "en": "Open/short or damaged inter-unit cable, or a defective indoor PCB communication circuit.",
+          "ur": "Units ke darmiyan cable kata ya short, ya kharab, ya indoor PCB ki communication circuit kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Re-check and re-tighten the A, B, C terminal connections at both ends against the wiring diagram.",
+          "ur": "Wiring diagram ke mutabiq dono saron par A, B, C terminal connections dobara check kar ke kassain"
+        },
+        {
+          "en": "Test/replace the inter-unit cable; if wiring is good, replace the indoor PCB.",
+          "ur": "Yon ke darmiyan cable test karke badlein; wiring theek ho to indoor PCB badal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi AC Error Code Guide - section 6.0 (Scribd copy)",
+        "retrieved": "2026-09-24",
+        "url": "https://www.scribd.com/document/904263507/Error-Codes-Hitachi-1"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Corroborated in practice by live Urdu/Hindi technician videos on 3-time blinking (e.g. youtube.com/watch?v=LQE_UL0AkvE, rFdhjUYAu18) — those videos give procedure only, no separate table.",
+        "ur": "Isay live Urdu/Hindi technician videos ne 3-time blinking par amali tor par confirm kiya hai (youtube.com/watch?v=LQE_UL0AkvE, rFdhjUYAu18) — un videos mein sirf procedure hai, alag table nahi."
+      },
+      "blinkPattern": "Indoor timer/fault LED: 3 blinks, pause, repeat"
+    },
+    {
+      "code": "4 blinks",
+      "aliases": [
+        "4 blinks",
+        "4 time LED blinking",
+        "4x"
+      ],
+      "title": {
+        "en": "Outdoor-unit failure (read the outdoor code)",
+        "ur": "Outdoor unit kharab (outdoor code dekhein)"
+      },
+      "meaning": {
+        "en": "Four blinks mean the fault is on the outdoor unit; the indoor LED is only pointing you to the outdoor board, which stores the actual sub-code.",
+        "ur": "Chaar blinks ka matlab kharabi outdoor unit par hai; indoor LED sirf us ke board ki taraf ishara karta hai jahan asli code save hota hai"
+      },
+      "causes": [
+        {
+          "en": "Any outdoor-unit protection trip (high pressure, discharge temperature, inverter or fan fault) reported through the indoor LED.",
+          "ur": "Bahar wali unit ka koi bhi protection trip (high pressure, discharge temperature, inverter ya fan kharabi) jo kamre wale LED ke zariye dikhaya gaya hai"
+        },
+        {
+          "en": "Indoor PCB interpreting the outdoor status incorrectly (cable/PCB fault giving a false 4-blink).",
+          "ur": "Kamre wala PCB bahar wali unit ki status ko ghalat samajh raha hai (cable/PCB kharabi se 4 blink ghalat aa raha hai)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Go to the outdoor unit, open the service panel and read the LED/alarm code displayed there.",
+          "ur": "Outdoor unit ke paas ja kar service panel kholein aur wahan ka LED/alarm code parhein"
+        },
+        {
+          "en": "Diagnose using the outdoor board's own code table for the installed model, then clear the alarm after repair.",
+          "ur": "Lgaye gaye model ke outdoor board ki apni code table se diagnosis karein, phir theek karne ke baad alarm clear karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi AC Error Code Guide - section 6.0 (Scribd copy)",
+        "retrieved": "2026-09-24",
+        "url": "https://www.scribd.com/document/904263507/Error-Codes-Hitachi-1"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Pointer code only — the underlying fault must be read at the outdoor unit.",
+        "ur": "Sirf pointer code hai — asal fault outdoor unit par read hona chahiye."
+      },
+      "blinkPattern": "Indoor timer/fault LED: 4 blinks, pause, repeat"
+    },
+    {
+      "code": "5 blinks",
+      "aliases": [
+        "5 blinks",
+        "5 time LED blinking",
+        "5x"
+      ],
+      "title": {
+        "en": "Power-relay contact welding",
+        "ur": "Power relay ke contacts chipak jane ki kharabi"
+      },
+      "meaning": {
+        "en": "Five blinks indicate the power relay on the control board has welded contacts, so the board cannot disconnect the load it is supposed to control.",
+        "ur": "5 blinks ka matlab control board ke power relay ke contacts weld ho chuke hain, is liye board us load ko disconnect nahi kar pata"
+      },
+      "causes": [
+        {
+          "en": "Relay contacts welded after an overcurrent, inrush or a low-quality/aged relay.",
+          "ur": "Overcurrent, inrush ya kam quality wale purane relay ki wajah se relay ke contacts chipak gaye"
+        },
+        {
+          "en": "Compressor output/neutral circuit fault keeping the load permanently energised.",
+          "ur": "Compressor output/neutral circuit ki kharabi, jis ki wajah se load hamesha energised rehta hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify the compressor output neutral and the relay driver; replace the indoor/relay PCB (relay is not serviced separately).",
+          "ur": "Compressor output neutral aur relay driver check karein aur indoor/relay PCB badal dein (relay alag se nahi badalta)"
+        },
+        {
+          "en": "After PCB replacement, confirm the load switches off with the command and check the supply for repeated surges.",
+          "ur": "PCB badalne ke baad yaqeen kar lein ke command par load band hota hai aur supply mein bar bar surge na hon"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi AC Error Code Guide - section 6.0 (Scribd copy)",
+        "retrieved": "2026-09-24",
+        "url": "https://www.scribd.com/document/904263507/Error-Codes-Hitachi-1"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Safety-relevant: a welded relay can leave the compressor energised — do not leave the unit energised while waiting for parts.",
+        "ur": "Safety ke liye ahem: welded relay compressor ko energised chhor sakta hai — parts ka intezaar karte waqt unit ko energised na chhor dein."
+      },
+      "blinkPattern": "Indoor timer/fault LED: 5 blinks, pause, repeat"
+    },
+    {
+      "code": "9 blink",
+      "aliases": [
+        "9 blink",
+        "9 time LED blinking",
+        "9x"
+      ],
+      "title": {
+        "en": "Sensor error",
+        "ur": "Sensor ki kharabi"
+      },
+      "meaning": {
+        "en": "Nine blinks mean one of the room/pipe sensors is out of range (open or short) or its connector is not seated.",
+        "ur": "9 blinks ka matlab hai ke room/pipe me se koi sensor range se bahar (open ya short) hai, ya us ka connector theek se nahi laga"
+      },
+      "causes": [
+        {
+          "en": "Room or heat-exchanger thermistor open-circuit or short-circuit.",
+          "ur": "Room ya heat exchanger ka thermistor open-circuit ya short-circuit hai"
+        },
+        {
+          "en": "Loose/damaged sensor connector or harness, or a failed input channel on the indoor PCB.",
+          "ur": "Sensor ka connector ya harness dheela ya kharab, ya indoor PCB ka input channel kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure each sensor's resistance at room temperature and compare with the service-manual curve; refit loose connectors.",
+          "ur": "Har sensor ki resistance room temperature par napen aur service manual ki curve se compare karein; dheele connectors dobara lagayein"
+        },
+        {
+          "en": "Replace any sensor that reads open/short; if all sensors are good, replace the indoor PCB.",
+          "ur": "Open/short dikhane wala koi bhi sensor badal dein; sab sensors theek hon to indoor PCB badal dein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi AC Error Code Guide - section 6.0 (Scribd copy)",
+        "retrieved": "2026-09-24",
+        "url": "https://www.scribd.com/document/904263507/Error-Codes-Hitachi-1"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "The published residential blink list contains only no-blink/1/2/3/4/5/9 — other counts are not defined by this chapter.",
+        "ur": "Publish hui residential blink list mein sirf no-blink/1/2/3/4/5/9 hai — doosre counts is chapter se define nahi kiye gaye."
+      },
+      "blinkPattern": "Indoor timer/fault LED: 9 blinks, pause, repeat"
+    }
+  ]
+}

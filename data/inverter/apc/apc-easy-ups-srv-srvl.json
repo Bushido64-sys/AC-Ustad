@@ -1,0 +1,2164 @@
+{
+  "schemaVersion": 1,
+  "brandId": "apc",
+  "series": {
+    "id": "apc-easy-ups-srv-srvl",
+    "name": "APC Easy UPS SRV / SRVL (Modbus Fault-code ENUM, register 44497 / 0x1190)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*Easy UPS SRV*",
+      "*SRV*",
+      "*SRVL*",
+      "SRV1KIL*",
+      "SRV2KIL*",
+      "SRV3KIL*",
+      "SRV6KL*",
+      "SRV10KL*",
+      "SRV2KXLI*",
+      "SRVL*"
+    ],
+    "notes": "This is the SRV/SRVL *register* fault list, not the LCD text codes. Codes are 8-bit hex values read from holding register 44497 (0x1190). Family groupings published by SE are: Bus fault, Inverter fault, Electric link fault, Parallel system fault, Others. This table is distinct from the Easy UPS SRV LCD/event-log short codes (CH9, BDC, DCF, DCH, OUF, SC, BOU, HOT, OL, INF, EEF) which are documented separately - see NEGATIVE/CONFLICTS. Three-phase-only values (0x15/0x16/0x1B/0x1C) are meaningless on a 1-phase SRV unit."
+  },
+  "codes": [
+    {
+      "code": "0x00",
+      "aliases": [
+        "0x00",
+        "00"
+      ],
+      "title": {
+        "en": "OK: No Fault Occurs (0x00)",
+        "ur": "Theek hai, koi fault nahi (0x00)"
+      },
+      "meaning": {
+        "en": "The register is reading clear: the UPS has no active fault.",
+        "ur": "Register saaf parh raha hai: UPS par koi active fault nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Normal operation, no fault latched.",
+          "ur": "Normal chal raha hai, koi fault latch nahi hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed; this is the healthy baseline value.",
+          "ur": "Koi karakari zaroori nahi; yeh sehat baseline value hai."
+        },
+        {
+          "en": "Use it as the reference when reading a fault: compare against this value after every battery or firmware change.",
+          "ur": "Isay reference banayein: battery ya firmware ki har tabdeeli ke baad is value se compare karein."
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Included so the app can render a positive 'no fault' reading instead of an empty state.",
+        "ur": "Is liye shamil kiya ke app khali state ke bajaye 'no fault' ka positive reading dikhaye."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0xFF",
+      "aliases": [
+        "0xFF",
+        "FF"
+      ],
+      "title": {
+        "en": "NO: Unknown Error (0xFF)",
+        "ur": "Unknown error (0xFF)"
+      },
+      "meaning": {
+        "en": "The card received a fault value it has no description for, so the UPS reports an unidentified error.",
+        "ur": "Card ko aisi fault value mili hai jiska usay pata nahi, is liye UPS anjaan error report karta hai."
+      },
+      "causes": [
+        {
+          "en": "Card firmware older than the UPS firmware, so a newer fault value is unrecognised.",
+          "ur": "Card ka firmware UPS firmware se purana hai, is liye nayi fault value pehchani nahi ja rahi."
+        },
+        {
+          "en": "Communication corruption between card and UPS, so the register read a garbage value.",
+          "ur": "Card aur UPS ke darmiyan communication corrupt ho gaya, is liye register ne garbage value parha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Re-read the register a second time; a stable 0xFF across several reads is a real unknown fault, not noise.",
+          "ur": "Register dobara parhein; kai readings par same 0xFF aaye to woh asli unknown fault hai, noise nahi."
+        },
+        {
+          "en": "Check the card and UPS firmware versions and update the card to match the UPS.",
+          "ur": "Card aur UPS ke firmware versions check karein aur card ko UPS ke mutabiq update karein."
+        },
+        {
+          "en": "Power-cycle the card and the UPS, then read the register again before escalating.",
+          "ur": "Card aur UPS ko power-cycle karein, phir report karne se pehle register dobara parhein."
+        },
+        {
+          "en": "If 0xFF persists with matching firmware, record the other status words and escalate with them attached.",
+          "ur": "Agar firmware match karne par bhi 0xFF qarar rahe to baaki status words note karein aur unke saath escalate karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's own wording is 'NO: Unknown Error' - it is a placeholder, not a diagnosis.",
+        "ur": "SE ka apna alfaz hai 'NO: Unknown Error' - yeh placeholder hai, diagnosis nahi."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x01",
+      "aliases": [
+        "0x01",
+        "01"
+      ],
+      "title": {
+        "en": "Bus start fail (0x01)",
+        "ur": "Bus start nahi hua (0x01)"
+      },
+      "meaning": {
+        "en": "The DC bus did not build up to the required voltage when the rectifier was started.",
+        "ur": "Rectifier start hone par DC bus ki voltage required level tak nahi pohanchi."
+      },
+      "causes": [
+        {
+          "en": "Battery string disconnected or dead, so the bus cannot charge.",
+          "ur": "Battery string disconnect ya kharab hai, is liye bus charge nahi ho sakta."
+        },
+        {
+          "en": "Rectifier soft-start circuit failed, so the charging path never opens fully.",
+          "ur": "Rectifier soft-start circuit kharab hai, is liye charging path poori tarah khulti hi nahi."
+        },
+        {
+          "en": "Pre-charge relay or bus capacitor failed open.",
+          "ur": "Pre-charge relay ya bus capacitor khul kar kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and the battery, then measure the DC bus with a meter to confirm it is dead and not merely unlogged.",
+          "ur": "Mains aur battery isolate karein, phir DC bus ko meter se nikaalein taake confirm ho ke bus margi hai, sirf log nahi hua."
+        },
+        {
+          "en": "Check the battery string voltage and each cell; recharge for at least 4 hours and retry the start.",
+          "ur": "Battery string voltage aur har cell check karein; kam az kam 4 ghante charge karein aur dobara start karein."
+        },
+        {
+          "en": "Inspect the pre-charge relay contacts for welding and confirm the bus capacitors are not shorted to earth.",
+          "ur": "Pre-charge relay ke contacts par welding check karein aur confirm karein ke bus capacitors earth par short nahi hain."
+        },
+        {
+          "en": "If the bus is healthy but will not start, the rectifier drive board has failed and must be serviced.",
+          "ur": "Agar bus sehat hai magar start nahi hota to rectifier drive board kharab hai aur service zaroori hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Distinguish this from 0x03 (Bus volt under): 0x01 is a failure to *start*, 0x03 is a drop *after* start.",
+        "ur": "Isay 0x03 (Bus volt under) se alag rakhein: 0x01 start karne ki kharabi hai, 0x03 start ke baad girne ki."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x02",
+      "aliases": [
+        "0x02",
+        "02"
+      ],
+      "title": {
+        "en": "Bus volt over (0x02)",
+        "ur": "Bus voltage zyada (0x02)"
+      },
+      "meaning": {
+        "en": "The DC bus voltage has exceeded the over-voltage threshold, so the UPS shut the rectifier down to protect the capacitors.",
+        "ur": "DC bus voltage over-voltage threshold se upar chala gaya hai, is liye UPS ne capacitors bachane ke liye rectifier band kar diya."
+      },
+      "causes": [
+        {
+          "en": "AC input voltage far too high, so the rectifier over-charges the bus.",
+          "ur": "AC input voltage bohat zyada hai, is liye rectifier bus ko zyada charge kar raha hai."
+        },
+        {
+          "en": "Battery disconnected or a branch open, so charging current has nowhere to go.",
+          "ur": "Battery disconnect ya koi branch khuli hai, is liye charging current ka koi rasta nahi."
+        },
+        {
+          "en": "Rectifier voltage-sense divider failed, so the control loop sees a low bus and keeps driving it up.",
+          "ur": "Rectifier ka voltage-sense divider kharab hai, is liye control loop bus ko kam parh kar upar chalata rehta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the input voltage with a multimeter and confirm it is within the unit's rated input window.",
+          "ur": "Input voltage multimeter se nikaalein aur confirm karein ke yeh unit ki rated window ke andar hai."
+        },
+        {
+          "en": "Confirm the battery is actually connected and the string fuse is intact; an open battery branch causes exactly this.",
+          "ur": "Confirm karein ke battery waqai connect hai aur string fuse salamat hai; battery branch khuli hone se yahi hota hai."
+        },
+        {
+          "en": "Measure each battery cell's voltage; cells sitting well above float voltage confirm over-charge rather than a sense fault.",
+          "ur": "Har battery cell ka voltage nikaalein; float voltage se bohat upar hone par over-charge confirm hota hai, sense fault nahi."
+        },
+        {
+          "en": "If cells are normal and input is normal, the rectifier voltage-sense divider is faulty and needs component-level service.",
+          "ur": "Agar cells aur input normal hon to rectifier voltage-sense divider kharab hai aur component level par service chahiye."
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Over-voltage on the bus stresses capacitors and batteries - do not leave the unit running on battery indefinitely to 'get through' it.",
+        "ur": "Bus par over-voltage capacitors aur batteries par zulm hai - unit ko battery par chala kar 'guar' na karein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x03",
+      "aliases": [
+        "0x03",
+        "03"
+      ],
+      "title": {
+        "en": "Bus volt under (0x03)",
+        "ur": "Bus voltage kam (0x03)"
+      },
+      "meaning": {
+        "en": "The DC bus voltage has dropped below the under-voltage threshold, so the inverter cannot keep the output regulated.",
+        "ur": "DC bus voltage under-voltage threshold se neeche gir gaya hai, is liye inverter output regulate nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Battery string aged, deep-discharged or fully flat.",
+          "ur": "Battery string purani, deep-discharge ho chuki ya poori tarah flat hai."
+        },
+        {
+          "en": "Battery fuse blown or a cell open, dropping the bus below the inverter's needs.",
+          "ur": "Battery fuse uth gaya ya koi cell khul gaya, bus inverter ki zaroorat se neeche gir gaya."
+        },
+        {
+          "en": "Prolonged overload drained the bus faster than the rectifier could recover it.",
+          "ur": "Lamba overload bus ko rectifier ke recover karne se zyada tez drain kar gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, unplug mains, disconnect the battery, then measure the string and each cell with a DC meter.",
+          "ur": "Power off karein, mains se nikaalein, battery disconnect karein, phir string aur har cell ko DC meter se nikaalein."
+        },
+        {
+          "en": "If the pack is merely discharged, charge on mains for at least 4 hours and re-read this register before suspecting hardware.",
+          "ur": "Agar pack sirf discharge hui hai to mains par kam az kam 4 ghante charge karein aur hardware ka shak karna se pehle yeh register dobara parhein."
+        },
+        {
+          "en": "Check the battery string fuse continuity with an ohmmeter; replace with the same rating if open.",
+          "ur": "Battery string fuse ki continuity ohmmeter se check karein; khuli ho to usi rating se badal dein."
+        },
+        {
+          "en": "Look for a cell that reads far below its neighbours - that cell is the open circuit and should be replaced, not the whole UPS.",
+          "ur": "Aisi cell dhundein jo padosi se bohat neeche parh rahi ho - wohi khuli circuit hai aur usay badal dein, poora UPS nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Often the downstream symptom of 0x43 (Overload fault) - fix the load first, then re-read this register.",
+        "ur": "Aam tor par yeh 0x43 (Overload fault) ka neeche ka nateeja hai - pehle load theek karein, phir yeh register dobara parhein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x04",
+      "aliases": [
+        "0x04",
+        "04"
+      ],
+      "title": {
+        "en": "Bus volt unbalance (0x04)",
+        "ur": "Bus voltage ka farq (0x04)"
+      },
+      "meaning": {
+        "en": "Voltage on the two halves of the DC bus is not equal, so the inverter output is unbalanced and the unit shuts down.",
+        "ur": "DC bus ke do halves ka voltage barabar nahi hai, is liye inverter output unbalanced hai aur unit band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "One bus capacitor failed short or open, so its half bus sags.",
+          "ur": "Bus ka aik capacitor short ya khul ho kar kharab hua, uska half bus gir gaya."
+        },
+        {
+          "en": "A rectifier leg or SCR failing, so it contributes less charge to its half.",
+          "ur": "Rectifier ka aik leg ya SCR kharab ho kar us half mein kam charge de raha hai."
+        },
+        {
+          "en": "Voltage-divider sensing fault on one half making the control loop over/under-correct that side.",
+          "ur": "Aik half par voltage-divider sensing fault, is liye control loop us taraf zyada/ya kam correction karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then measure the two bus halves separately with a DC voltmeter and compare the difference.",
+          "ur": "Mains aur battery isolate karein, phir DC voltmeter se bus ke do halves ko alag alag nikaal kar farq compare karein."
+        },
+        {
+          "en": "Measure each bus capacitor's capacitance and ESR; a drifted ESR on one half causes imbalance with no visible damage.",
+          "ur": "Har bus capacitor ki capacitance aur ESR nikaalein; aik half par drifted ESR baghair nazar dast ke bina farq paida karta hai."
+        },
+        {
+          "en": "Compare the two halves of the battery string too; an imbalanced battery string mirrors a bus imbalance.",
+          "ur": "Battery string ke do halves bhi compare karein; unbalanced battery string bus imbalance ki shakal ban jati hai."
+        },
+        {
+          "en": "If halves measure equal but the code persists, the balance sensing divider is faulty and needs board-level service.",
+          "ur": "Agar halves barabar parhein magar code qarar rahe to balance sensing divider kharab hai aur board level par service chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Bus imbalance destroys inverter IGBTs quickly if left running - treat as stop-production.",
+        "ur": "Bus imbalance chalta rehne par inverter IGBTs jaldi kharab kar deta hai - production-stop samajhein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x05",
+      "aliases": [
+        "0x05",
+        "05"
+      ],
+      "title": {
+        "en": "Bus short (0x05)",
+        "ur": "Bus par short (0x05)"
+      },
+      "meaning": {
+        "en": "A short circuit has been detected across the DC bus, so the UPS has locked out to prevent a very high fault current.",
+        "ur": "DC bus ke aacross short circuit detect hua hai, is liye UPS ne bohat high fault current rokne ke liye lock out kar diya."
+      },
+      "causes": [
+        {
+          "en": "Bus capacitor failed shorted, which is the most common cause.",
+          "ur": "Bus capacitor short ho kar kharab hua hai - yeh sab se aam wajah hai."
+        },
+        {
+          "en": "External battery cabinet connected with reversed polarity or a damaged cable pinching a cell.",
+          "ur": "External battery cabinet ulat polarity ke saath laga hai ya damaged cable kisi cell ko nichal rahi hai."
+        },
+        {
+          "en": "SCR or rectifier leg failed shorted, dumping current into the bus.",
+          "ur": "SCR ya rectifier leg short ho kar kharab, bus mein current daal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not re-power the unit. Isolate mains and disconnect the battery first.",
+          "ur": "Unit dobara power na karein. Pehle mains isolate karein aur battery disconnect karein."
+        },
+        {
+          "en": "Measure resistance across the DC bus with the battery disconnected; a very low ohms reading confirms the short.",
+          "ur": "Battery disconnect kar ke DC bus ke aacross resistance nikaalein; bohat kam ohms reading short confirm karti hai."
+        },
+        {
+          "en": "Disconnect bus capacitors one at a time and re-measure to identify which capacitor has failed shorted.",
+          "ur": "Bus capacitors ek-ek karke nikaal kar dobara measure karein taake pata chale kaunsa capacitor short hua hai."
+        },
+        {
+          "en": "Verify the external battery cabinet's polarity and cable pinching before reconnection, and never connect a cabinet blind.",
+          "ur": "Reconnect karne se pehle external battery cabinet ki polarity aur cable pinching check karein, aur kabhi andaza kar ke connect na karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This is the most dangerous code in the family: a live bus short can melt tooling and start a fire.",
+        "ur": "Yeh family ka sab se khatarnaq code hai: bus ka live short tools pighal kar aag laga sakta hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x06",
+      "aliases": [
+        "0x06",
+        "06"
+      ],
+      "title": {
+        "en": "Converter over current (0x06)",
+        "ur": "Converter mein zyada current (0x06)"
+      },
+      "meaning": {
+        "en": "The rectifier/converter stage drew more current than its limit, so the unit has shut that stage down.",
+        "ur": "Rectifier/converter stage ne apni limit se zyada current kheecha, is liye unit ne wo stage band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Battery string deeply discharged or shorted, so the converter tries to push huge charge current.",
+          "ur": "Battery string deep-discharge ya short ho kar, is liye converter bohat zyada charge current dene ki koshish karta hai."
+        },
+        {
+          "en": "Input voltage far above or below the converter's operating window, forcing the stage out of its efficient region.",
+          "ur": "Input voltage converter ki window se bahar hai, is liye stage apne efficient area se bahar chala jata hai."
+        },
+        {
+          "en": "Input filter capacitor degraded so ripple current rises and trips the converter over-current limit.",
+          "ur": "Input filter capacitor weak ho gaya is liye ripple current barh kar converter over-current limit par trip kar deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then measure battery string resistance; a low reading points to a shorted cell causing the over-current.",
+          "ur": "Mains aur battery isolate karein, phir battery string ki resistance nikaalein; kam reading shorted cell ki taraf ishara karti hai."
+        },
+        {
+          "en": "Check input voltage quality with a meter, and inspect the input filter capacitors for bulging, discoloration or leakage.",
+          "ur": "Meter se input voltage ki quality check karein, aur input filter capacitors ko phoolay, rang badle ya leaking dekhein."
+        },
+        {
+          "en": "Confirm the input breaker and the input reactor are not saturating; a loose input connection causes current spikes.",
+          "ur": "Confirm karein ke input breaker aur input reactor saturate nahi ho rahe; input connection loose hone se current spikes aate hain."
+        },
+        {
+          "en": "Replace a confirmed shorted cell or failed input filter capacitor rather than replacing the converter assembly blind.",
+          "ur": "Confirm shorted cell ya kharab input filter capacitor badal dein, converter assembly andaza kar na badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Converter over-current is usually a symptom downstream of a battery or input problem, not a converter failure.",
+        "ur": "Converter over-current aam tor par battery ya input ki masla ka nateeja hai, converter ki kharabi nahi."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x11",
+      "aliases": [
+        "0x11",
+        "11"
+      ],
+      "title": {
+        "en": "Inverter soft fail (0x11)",
+        "ur": "Inverter ka soft start fail (0x11)"
+      },
+      "meaning": {
+        "en": "The inverter failed its soft-start routine and could not ramp up to a safe operating amplitude.",
+        "ur": "Inverter apna soft-start routine poori tarah nahi adha kar saka aur safe amplitude tak nahi pohanch saka."
+      },
+      "causes": [
+        {
+          "en": "Inverter IGBT or module failed open, so no current is being pushed into the transformer.",
+          "ur": "Inverter IGBT ya module khul ho kar kharab, is liye transformer mein koi current nahi ja raha."
+        },
+        {
+          "en": "Inverter drive/gate-drive board failed, so the IGBTs are never commanded on.",
+          "ur": "Inverter gate-drive board kharab, is liye IGBTs ko kabhi on command nahi milta."
+        },
+        {
+          "en": "DC bus voltage too low at start (see 0x03), so the inverter cannot build amplitude.",
+          "ur": "Start par DC bus voltage bohat kam hai (0x03 dekhein), is liye inverter amplitude nahi bana sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then measure the DC bus voltage to rule out a bus under-voltage before touching the inverter.",
+          "ur": "Mains aur battery isolate karein, phir inverter chhoone se pehle bus under-voltage rokne ke liye DC bus voltage nikaalein."
+        },
+        {
+          "en": "Measure the battery string: if it is flat, charge on mains and retry before condemning the inverter.",
+          "ur": "Battery string nikaalein: agar flat hai to mains par charge karke dobara try karein, inverter kharab kehne se pehle."
+        },
+        {
+          "en": "Check the inverter gate-drive board's supply rails and its fault output with a meter.",
+          "ur": "Inverter gate-drive board ki supply rails aur uska fault output meter se check karein."
+        },
+        {
+          "en": "Have the inverter IGBTs tested at component level; a failed module means module replacement, not battery replacement.",
+          "ur": "Inverter IGBT component level par test karwa lein; module kharab ho to module badalna hai, battery nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Distinguish from 0x13 (Inverter volt low) which is a running under-voltage, not a start failure.",
+        "ur": "Isay 0x13 (Inverter volt low) se alag rakhein jo chalte hue under-voltage hai, start ki kharabi nahi."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x12",
+      "aliases": [
+        "0x12",
+        "12"
+      ],
+      "title": {
+        "en": "Inverter volt high (0x12)",
+        "ur": "Inverter voltage zyada (0x12)"
+      },
+      "meaning": {
+        "en": "The inverter output voltage has exceeded its ceiling, so the unit has shut down to protect the load and the stage.",
+        "ur": "Inverter output voltage apni ceiling se upar chala gaya hai, is liye unit ne load aur stage bachane ke liye band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "DC bus over-voltage feeding the inverter (see 0x02), so the output reference is driven high.",
+          "ur": "Inverter ko zyada DC bus voltage mil rahi hai (0x02 dekhein), is liye output reference upar chala gaya."
+        },
+        {
+          "en": "Inverter output voltage feedback sensor failed high, so the control loop keeps driving up.",
+          "ur": "Inverter output voltage feedback sensor high par kharab ho gaya, is liye control loop upar chalata rehta hai."
+        },
+        {
+          "en": "Output neutral disconnected, so the inverter cannot regulate the line-to-neutral voltage correctly.",
+          "ur": "Output neutral disconnect ho gaya, is liye inverter line-to-neutral voltage theek se regulate nahi kar sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then measure output voltage at each outlet with a meter to see which phase or line is high.",
+          "ur": "Mains aur battery isolate karein, phir har outlet par meter se output voltage nikaalein taake kaonsi phase ya line high hai pata chale."
+        },
+        {
+          "en": "Confirm the output neutral terminal is tight and connected; a loose neutral makes the output look unstable.",
+          "ur": "Confirm karein ke output neutral terminal kassaa hua aur connected hai; loose neutral output ko unstable dikhata hai."
+        },
+        {
+          "en": "Read the DC bus voltage at the same time; if the bus is high, fix 0x02 first.",
+          "ur": "Saath hi DC bus voltage parhein; agar bus high hai to pehle 0x02 hal karein."
+        },
+        {
+          "en": "If the bus is normal but the output is high, the inverter feedback divider is faulty and needs board-level service.",
+          "ur": "Agar bus normal hai magar output high hai to inverter feedback divider kharab hai aur board level par service chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "High inverter output voltage can fry downstream equipment - keep the load disconnected while chasing this.",
+        "ur": "Inverter output voltage zyada hone se aage ka equipment kharab ho sakta hai - is masle par load disconnect hi rakhein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x13",
+      "aliases": [
+        "0x13",
+        "13"
+      ],
+      "title": {
+        "en": "Inverter volt low (0x13)",
+        "ur": "Inverter voltage kam (0x13)"
+      },
+      "meaning": {
+        "en": "The inverter output voltage has fallen below its floor while running, so the load is being under-supplied.",
+        "ur": "Inverter output voltage chalte hue apni floor se neeche gir gaya hai, is liye load ko kam power mil rahi hai."
+      },
+      "causes": [
+        {
+          "en": "Battery string exhausted, so the inverter cannot hold the output amplitude on discharge.",
+          "ur": "Battery string khatam ho gayi hai, is liye inverter discharge par output amplitude nahi rakh sakta."
+        },
+        {
+          "en": "Overload on the output pulling the bus down below what the inverter needs.",
+          "ur": "Output par overload bus ko inverter ki zaroorat se neeche kheench raha hai."
+        },
+        {
+          "en": "Inverter output feedback sensor failed low, so the control loop keeps the output down.",
+          "ur": "Inverter output voltage feedback sensor low par kharab, is liye control loop output neeche rakhta hai."
+        },
+        {
+          "en": "One inverter leg (IGBT) degraded, so that phase's output sags relative to the others.",
+          "ur": "Inverter ka aik leg (IGBT) weak hua hai, is liye us phase ka output doosron ke mutabiq gir jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure output voltage per phase with a meter and compare the phases; one low phase identifies a failed leg.",
+          "ur": "Meter se har phase ka output voltage nikaal kar phases compare karein; aik kam phase kharab leg identify kar deta hai."
+        },
+        {
+          "en": "Measure battery string voltage and recharge on mains for at least 4 hours, then re-read the register.",
+          "ur": "Battery string voltage nikaalein aur mains par kam az kam 4 ghante charge karke register dobara parhein."
+        },
+        {
+          "en": "Calculate the load against rated kVA; if the load exceeds rating, reduce it before suspecting the inverter.",
+          "ur": "Rated kVA ke mutabiq load nikalein; agar load rating se ooper hai to inverter ka shak karna se pehle load kam karein."
+        },
+        {
+          "en": "If load and battery are both good, the inverter feedback divider or leg is faulty and needs board-level service.",
+          "ur": "Agar load aur battery dono theek hon to inverter feedback divider ya leg kharab hai aur board level par service chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Expect the load to restart or reset on its own after the source is cleared and the unit is power-cycled.",
+        "ur": "Wajah hatane aur unit power-cycle karne ke baad load apne aap restart ya reset ho jata hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x14",
+      "aliases": [
+        "0x14",
+        "14"
+      ],
+      "title": {
+        "en": "Inverter A output (line to neutral) short circuited (0x14)",
+        "ur": "Inverter A output short (0x14)"
+      },
+      "meaning": {
+        "en": "A short circuit has been detected from inverter phase A output to neutral, so the unit has locked out.",
+        "ur": "Inverter phase A output se neutral ke darmiyan short detect hua hai, is liye unit lock out ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Load side short between phase A and neutral.",
+          "ur": "Load side par phase A aur neutral ke darmiyan short."
+        },
+        {
+          "en": "Damaged output busbar, cable or outlet with a pinched conductor.",
+          "ur": "Output busbar, cable ya outlet damaged aur koi conductor nichal hua hai."
+        },
+        {
+          "en": "Inverter phase A IGBT failed shorted, so the leg is effectively a short to the DC bus.",
+          "ur": "Inverter phase A ka IGBT short ho kar kharab, is liye leg practically DC bus ka short hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then disconnect all load before investigating.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir dekhne se pehle saara load nikaal dein."
+        },
+        {
+          "en": "Measure phase A to neutral continuity with a megger or multimeter; expect no continuity on a healthy installation.",
+          "ur": "Megger ya multimeter se phase A se neutral ki continuity nikaalein; healthy installation par continuity nahi honi chahiye."
+        },
+        {
+          "en": "Walk the phase A conductors from the UPS output terminals to the furthest outlet, checking each section for damage or pinching.",
+          "ur": "Phase A conductors ko UPS output terminals se sab se door outlet tak dekhein, har hissa damage ya pinching ke liye check karte hue."
+        },
+        {
+          "en": "Reconnect loads one circuit at a time to isolate the shorted section; if the short persists with all load off, the IGBT has failed.",
+          "ur": "Load aik-ik circuit karke dobara connect karte jayein taake short wala hissa pakda jaye; poora load off hone par bhi short rahe to IGBT kharab hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Severity danger: a live output short will destroy the IGBT and can start a fire at the battery bus.",
+        "ur": "Severity danger: live output short IGBT kharab kar dega aur battery bus par aag laga sakta hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x15",
+      "aliases": [
+        "0x15",
+        "15"
+      ],
+      "title": {
+        "en": "Inverter B output (line to neutral) short circuited (0x15)",
+        "ur": "Inverter B output short (0x15)"
+      },
+      "meaning": {
+        "en": "A short circuit has been detected from inverter phase B output to neutral, so the unit has locked out.",
+        "ur": "Inverter phase B output se neutral ke darmiyan short detect hua hai, is liye unit lock out ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Load side short between phase B and neutral.",
+          "ur": "Load side par phase B aur neutral ke darmiyan short."
+        },
+        {
+          "en": "Damaged or pinched phase B output wiring, busbar or outlet.",
+          "ur": "Phase B ki output wiring, busbar ya outlet damaged ya nichal hua hai."
+        },
+        {
+          "en": "Inverter phase B IGBT failed shorted.",
+          "ur": "Inverter phase B ka IGBT short ho kar kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then remove all load before measuring.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir measure karne se pehle saara load nikaal dein."
+        },
+        {
+          "en": "Measure phase B to neutral continuity with a megger and compare with phase A and C.",
+          "ur": "Megger se phase B se neutral ki continuity nikaalein aur phase A aur C se compare karein."
+        },
+        {
+          "en": "Trace the phase B conductor section by section from the UPS output to the last outlet, checking for pinching and damaged insulation.",
+          "ur": "Phase B conductor ko UPS output se aakhri outlet tak hissa hissa dekhein, pinching aur damaged insulation check karte hue."
+        },
+        {
+          "en": "Energise the load one circuit at a time to isolate the shorted branch; if it persists unloaded, replace the phase B module.",
+          "ur": "Short wala branch dhoondne ke liye load aik aik circuit karke chalayein; load hata kar bhi rahe to phase B module badal dein."
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Phase B only exists on 3-phase SRV/SRVL units. Do not show this code on a 1-phase model.",
+        "ur": "Phase B sirf 3-phase SRV/SRVL units par hota hai. Ise 1-phase model par mat dikhayein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x16",
+      "aliases": [
+        "0x16",
+        "16"
+      ],
+      "title": {
+        "en": "Inverter C output (line to neutral) short circuited (0x16)",
+        "ur": "Inverter C output short (0x16)"
+      },
+      "meaning": {
+        "en": "A short circuit has been detected from inverter phase C output to neutral, so the unit has locked out.",
+        "ur": "Inverter phase C output se neutral ke darmiyan short detect hua hai, is liye unit lock out ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Load side short between phase C and neutral.",
+          "ur": "Load side par phase C aur neutral ke darmiyan short."
+        },
+        {
+          "en": "Damaged or pinched phase C output wiring, busbar or outlet.",
+          "ur": "Phase C ki output wiring, busbar ya outlet damaged ya nichal hua hai."
+        },
+        {
+          "en": "Inverter phase C IGBT failed shorted.",
+          "ur": "Inverter phase C ka IGBT short ho kar kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then remove all load before measuring.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir measure karne se pehle saara load nikaal dein."
+        },
+        {
+          "en": "Measure phase C to neutral continuity with a megger and compare with phases A and B.",
+          "ur": "Megger se phase C se neutral ki continuity nikaalein aur phase A aur B se compare karein."
+        },
+        {
+          "en": "Trace the phase C conductor from the UPS output through each distribution board, checking for a pin or a crushed cable.",
+          "ur": "Phase C conductor ko UPS output se har distribution board tak dekhein, pin ya crushed cable ke liye check karte hue."
+        },
+        {
+          "en": "If the short persists with all load disconnected, the phase C module has failed and needs replacement.",
+          "ur": "Agar poora load disconnect hone par bhi short rahe to phase C module kharab ho gaya hai aur badalna hoga."
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Phase C only exists on 3-phase SRV/SRVL units. Do not show this code on a 1-phase model.",
+        "ur": "Phase C sirf 3-phase SRV/SRVL units par hota hai. Ise 1-phase model par mat dikhayein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x17",
+      "aliases": [
+        "0x17",
+        "17"
+      ],
+      "title": {
+        "en": "Inverter A-B output (line to line) short circuited (0x17)",
+        "ur": "Inverter A-B output short (0x17)"
+      },
+      "meaning": {
+        "en": "A short circuit has been detected between inverter phases A and B, so the unit has locked out.",
+        "ur": "Inverter phases A aur B ke darmiyan short detect hua hai, is liye unit lock out ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Load side phase-to-phase short between A and B, common when a three-phase motor or heater faults.",
+          "ur": "Load side par A aur B ke darmiyan phase-to-phase short - teen-phase motor ya heater kharab hone par aam masla hai."
+        },
+        {
+          "en": "Phase-to-phase bridging in the output panel or a wrong neutral/phase connection in a distribution board.",
+          "ur": "Output panel par phase-to-phase shorting ya distribution board mein ghalat neutral/phase connection."
+        },
+        {
+          "en": "Inverter IGBTs on phases A and B both failed shorted.",
+          "ur": "Phase A aur B dono ke inverter IGBTs short ho kar kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then disconnect all three-phase load before measuring.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir measure karne se pehle saara three-phase load disconnect karein."
+        },
+        {
+          "en": "Measure A-B continuity with a megger; a healthy installation reads open.",
+          "ur": "Megger se A-B continuity nikaalein; healthy installation par yeh khuli parhni chahiye."
+        },
+        {
+          "en": "Check each three-phase load separately for phase-to-phase continuity, starting with motors and heater elements.",
+          "ur": "Har three-phase load ki alag phase-to-phase continuity check karein, motor aur heater elements se shuru karein."
+        },
+        {
+          "en": "Verify phase sequence and terminations in every distribution board; a swapped phase often presents as a short.",
+          "ur": "Har distribution board mein phase sequence aur connections check karein; ulda hua phase aksar short ki shakal mein nazar aata hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Phase-to-phase shorts are far more likely on 3-phase motors than line-to-neutral; test the motor first.",
+        "ur": "Phase-to-phase short line-to-neutral se kahin zyada sambhavit 3-phase motors par hote hain; pehle motor test karein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x18",
+      "aliases": [
+        "0x18",
+        "18"
+      ],
+      "title": {
+        "en": "Inverter B-C output (line to line) short circuited (0x18)",
+        "ur": "Inverter B-C output short (0x18)"
+      },
+      "meaning": {
+        "en": "A short circuit has been detected between inverter phases B and C, so the unit has locked out.",
+        "ur": "Inverter phases B aur C ke darmiyan short detect hua hai, is liye unit lock out ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Load side phase-to-phase short between B and C.",
+          "ur": "Load side par B aur C ke darmiyan phase-to-phase short."
+        },
+        {
+          "en": "Phase-to-phase bridging in the output panel or a wrong connection in a distribution board.",
+          "ur": "Output panel par phase-to-phase shorting ya distribution board mein ghalat connection."
+        },
+        {
+          "en": "Inverter IGBTs on phases B and C both failed shorted.",
+          "ur": "Phase B aur C dono ke inverter IGBTs short ho kar kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then disconnect all three-phase load before measuring.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir measure karne se pehle saara three-phase load disconnect karein."
+        },
+        {
+          "en": "Measure B-C continuity with a megger and compare with A-B and A-C.",
+          "ur": "Megger se B-C continuity nikaalein aur A-B aur A-C se compare karein."
+        },
+        {
+          "en": "Isolate each three-phase load in turn to find the shorted branch.",
+          "ur": "Teen-phase load ko ek-ek karke alag karke short wala branch dhoondein."
+        },
+        {
+          "en": "Inspect the output panel busbar for a tool, a washer or a cable lug bridging B and C.",
+          "ur": "Output panel ke busbar par koi tool, washer ya cable lug to B aur C ke darmiyan bridge kar raha hai ya nahi dekhein."
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Phase C only exists on 3-phase units. Do not show this on a 1-phase model.",
+        "ur": "Phase C sirf 3-phase units par hota hai. Ise 1-phase model par mat dikhayein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x19",
+      "aliases": [
+        "0x19",
+        "19"
+      ],
+      "title": {
+        "en": "Inverter C-A output (line to line) short circuited (0x19)",
+        "ur": "Inverter C-A output short (0x19)"
+      },
+      "meaning": {
+        "en": "A short circuit has been detected between inverter phases C and A, so the unit has locked out.",
+        "ur": "Inverter phases C aur A ke darmiyan short detect hua hai, is liye unit lock out ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Load side phase-to-phase short between C and A.",
+          "ur": "Load side par C aur A ke darmiyan phase-to-phase short."
+        },
+        {
+          "en": "Phase-to-phase bridging in the output panel or a miswired distribution board.",
+          "ur": "Output panel par phase-to-phase shorting ya ghalat wiring wala distribution board."
+        },
+        {
+          "en": "Inverter IGBTs on phases C and A both failed shorted.",
+          "ur": "Phase C aur A dono ke inverter IGBTs short ho kar kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then disconnect all three-phase load before measuring.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir measure karne se pehle saara three-phase load disconnect karein."
+        },
+        {
+          "en": "Measure C-A continuity with a megger; a healthy installation reads open.",
+          "ur": "Megger se C-A continuity nikaalein; healthy installation par yeh khuli parhni chahiye."
+        },
+        {
+          "en": "Test each three-phase load separately and start with any that has been recently serviced or moved.",
+          "ur": "Har three-phase load ko alag test karein aur shuru kisi aise se karein jise haal hi mein service ya hataya gaya ho."
+        },
+        {
+          "en": "Check the output panel for loose busbar hardware bridging C and A before condemning the inverter.",
+          "ur": "Inverter kharab kehne se pehle output panel mein C aur A ko bridge karne wala loose busbar hardware dekhein."
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Phase C only exists on 3-phase units. Do not show this on a 1-phase model.",
+        "ur": "Phase C sirf 3-phase units par hota hai. Ise 1-phase model par mat dikhayein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x1A",
+      "aliases": [
+        "0x1A",
+        "1A"
+      ],
+      "title": {
+        "en": "Inverter A negative power (0x1A)",
+        "ur": "Inverter A par ulta current (0x1A)"
+      },
+      "meaning": {
+        "en": "The inverter detected current flowing backwards on phase A, which normally means a miswired or regenerative load.",
+        "ur": "Inverter ne phase A par ulta current detect kiya, jo aam tor par galat wiring ya regenerative load ka ishara hai."
+      },
+      "causes": [
+        {
+          "en": "Phase A output and neutral wired in reverse, so current returns on the wrong conductor.",
+          "ur": "Phase A output aur neutral ulat wiring ke hain, is liye current ghalat conductor par wapas aata hai."
+        },
+        {
+          "en": "A load that feeds power back into the UPS, such as a generator or another UPS in parallel without proper sharing.",
+          "ur": "Aisa load jo UPS mein power wapas daalta hai, jaise generator ya doosra UPS jo sahi tareeqe se share kiye baghair parallel hai."
+        },
+        {
+          "en": "Current transformer on phase A miswired or failed, giving a false reverse reading.",
+          "ur": "Phase A ka current transformer galat wiring ya kharab, jis se ghalat reverse reading aati hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then verify phase A and neutral termination at the output terminal and in every distribution board.",
+          "ur": "Mains aur battery isolate karein, phir output terminal aur har distribution board mein phase A aur neutral ki wiring check karein."
+        },
+        {
+          "en": "Check that no generator or second UPS is hard-paralleled to this unit; use an interlock or separate transfer switch instead.",
+          "ur": "Check karein ke koi generator ya doosra UPS is unit se seedha parallel na ho; uske bajaye interlock ya alag transfer switch istemaal karein."
+        },
+        {
+          "en": "Measure the phase A current with a clamp meter; a small reverse reading points to a sensing/CT problem, a large one to wiring.",
+          "ur": "Phase A ka current clamp meter se nikaalein; chhota reverse reading sensing/CT ki masla batata hai, bara wiring ki."
+        },
+        {
+          "en": "Have the phase A current sensing circuit verified at board level if the clamp meter shows forward current.",
+          "ur": "Agar clamp meter aage ka current dikhaye to phase A current sensing circuit board level par verify karwa lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do not attempt to run a hard-paralleled generator with this UPS; negative power destroys the inverter stage.",
+        "ur": "Is UPS ke saath seedha parallel generator chalane ki koshish na karein; negative power inverter stage kharab kar deta hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x1B",
+      "aliases": [
+        "0x1B",
+        "1B"
+      ],
+      "title": {
+        "en": "Inverter B negative power (0x1B)",
+        "ur": "Inverter B par ulta current (0x1B)"
+      },
+      "meaning": {
+        "en": "The inverter detected current flowing backwards on phase B, which normally means a miswired or regenerative load.",
+        "ur": "Inverter ne phase B par ulta current detect kiya, jo aam tor par galat wiring ya regenerative load ka ishara hai."
+      },
+      "causes": [
+        {
+          "en": "Phase B output and neutral wired in reverse.",
+          "ur": "Phase B output aur neutral ulat wiring ke hain."
+        },
+        {
+          "en": "A load feeding power back into the UPS without proper interlock.",
+          "ur": "Aisa load jo sahi interlock ke baghair UPS mein power wapas daalta hai."
+        },
+        {
+          "en": "Phase B current sensing circuit miswired or failed.",
+          "ur": "Phase B ka current sensing circuit galat wiring ya kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then verify phase B and neutral termination at the output and in every distribution board.",
+          "ur": "Mains aur battery isolate karein, phir output aur har distribution board mein phase B aur neutral ki wiring check karein."
+        },
+        {
+          "en": "Confirm no generator or second UPS is hard-paralleled to this unit; use an interlock instead.",
+          "ur": "Confirm karein ke koi generator ya doosra UPS is unit se seedha parallel na ho; interlock istemaal karein."
+        },
+        {
+          "en": "Measure phase B current with a clamp meter to separate a wiring fault from a sensing fault.",
+          "ur": "Clamp meter se phase B ka current nikaal kar wiring fault aur sensing fault ko alag karein."
+        },
+        {
+          "en": "Have the phase B current sensing circuit verified at board level if the meter shows forward current.",
+          "ur": "Agar meter aage ka current dikhaye to phase B current sensing circuit board level par verify karwa lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Phase B only exists on 3-phase units. Do not show this on a 1-phase model.",
+        "ur": "Phase B sirf 3-phase units par hota hai. Ise 1-phase model par mat dikhayein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x1C",
+      "aliases": [
+        "0x1C",
+        "1C"
+      ],
+      "title": {
+        "en": "Inverter C negative power (0x1C)",
+        "ur": "Inverter C par ulta current (0x1C)"
+      },
+      "meaning": {
+        "en": "The inverter detected current flowing backwards on phase C, which normally means a miswired or regenerative load.",
+        "ur": "Inverter ne phase C par ulta current detect kiya, jo aam tor par galat wiring ya regenerative load ka ishara hai."
+      },
+      "causes": [
+        {
+          "en": "Phase C output and neutral wired in reverse.",
+          "ur": "Phase C output aur neutral ulat wiring ke hain."
+        },
+        {
+          "en": "A load feeding power back into the UPS without proper interlock.",
+          "ur": "Aisa load jo sahi interlock ke baghair UPS mein power wapas daalta hai."
+        },
+        {
+          "en": "Phase C current sensing circuit miswired or failed.",
+          "ur": "Phase C ka current sensing circuit galat wiring ya kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then verify phase C and neutral termination at the output and in every distribution board.",
+          "ur": "Mains aur battery isolate karein, phir output aur har distribution board mein phase C aur neutral ki wiring check karein."
+        },
+        {
+          "en": "Confirm no generator or second UPS is hard-paralleled to this unit; use an interlock instead.",
+          "ur": "Confirm karein ke koi generator ya doosra UPS is unit se seedha parallel na ho; interlock istemaal karein."
+        },
+        {
+          "en": "Measure phase C current with a clamp meter to separate a wiring fault from a sensing fault.",
+          "ur": "Clamp meter se phase C ka current nikaal kar wiring fault aur sensing fault ko alag karein."
+        },
+        {
+          "en": "Have the phase C current sensing circuit verified at board level if the meter shows forward current.",
+          "ur": "Agar meter aage ka current dikhaye to phase C current sensing circuit board level par verify karwa lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Phase C only exists on 3-phase units. Do not show this on a 1-phase model.",
+        "ur": "Phase C sirf 3-phase units par hota hai. Ise 1-phase model par mat dikhayein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x21",
+      "aliases": [
+        "0x21",
+        "21"
+      ],
+      "title": {
+        "en": "Bat SCR fault (0x21)",
+        "ur": "Battery SCR fault (0x21)"
+      },
+      "meaning": {
+        "en": "The SCR that controls battery charging has failed, so the battery string is not being charged.",
+        "ur": "Battery charging control karne wala SCR kharab ho gaya hai, is liye battery string charge nahi ho rahi."
+      },
+      "causes": [
+        {
+          "en": "Charging SCR failed shorted, over-loading and heating the rectifier stage.",
+          "ur": "Charging SCR short ho kar kharab, rectifier stage par bohat load dal kar usay garam kar raha hai."
+        },
+        {
+          "en": "Charging SCR failed open, so no charge current reaches the battery at all.",
+          "ur": "Charging SCR khul ho kar kharab, is liye battery tak koi charge current hi nahi pohanchta."
+        },
+        {
+          "en": "SCR gate drive circuit failed so the SCR is never commanded on.",
+          "ur": "SCR gate drive circuit kharab, is liye SCR ko kabhi on command nahi milta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then measure charger output DC voltage at the battery terminals with the battery reconnected.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir battery dobara connect kar ke battery terminals par charger output DC voltage nikaalein."
+        },
+        {
+          "en": "Confirm zero or no charge voltage first, so you do not chase a battery that is merely full.",
+          "ur": "Pehle confirm karein ke charge voltage zero ya nahi hai, taake aise battery ko na pakdein jo sirf poori tarah charge ho."
+        },
+        {
+          "en": "Check the SCR gate drive output and its snubber components on the charger board for a failed device.",
+          "ur": "Charger board par SCR gate drive output aur uske snubber components check kar ke kharab device dhoondein."
+        },
+        {
+          "en": "Have the SCR replaced at component level with the correct part number, and check for a shorted battery before recharging.",
+          "ur": "SCR ko sahi part number se component level par badalwa lein, aur recharge se pehle battery ka short check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "An SCR failed shorted also explains 0x06 (Converter over current) - check both together.",
+        "ur": "SCR short hone par 0x06 (Converter over current) bhi samajhata hai - dono saath check karein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x24",
+      "aliases": [
+        "0x24",
+        "24"
+      ],
+      "title": {
+        "en": "Inverter relay short fault (0x24)",
+        "ur": "Inverter relay ka short fault (0x24)"
+      },
+      "meaning": {
+        "en": "The relay that connects the inverter to the output bus has welded, so the inverter can no longer be isolated.",
+        "ur": "Woh relay jo inverter ko output bus se jorta hai jalm (weld) gaya hai, is liye inverter ab alag nahi kiya ja sakta."
+      },
+      "causes": [
+        {
+          "en": "Inverter relay contacts welded from an arc during a short-circuit event.",
+          "ur": "Short-circuit event ke dauran arc se inverter relay ke contacts jalm gaye hain."
+        },
+        {
+          "en": "Relay contact faces pitted from long service life and inrush current.",
+          "ur": "Lamba service life aur inrush current se relay ke contact faces ghis chuke hain."
+        },
+        {
+          "en": "Relay coil or mechanism failed so the relay cannot break contact at all.",
+          "ur": "Relay coil ya mechanism kharab ho gaya hai jis se relay bilkul contact nahi chhod pata."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then confirm the inverter relay position with the unit unpowered.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir unpowered state mein inverter relay ki position confirm karein."
+        },
+        {
+          "en": "Measure relay coil continuity/resistance across its pins after lifting the relay from circuit.",
+          "ur": "Relay circuit se uthane ke baad uske pins par coil continuity/resistance nikaalein."
+        },
+        {
+          "en": "Inspect the contact surfaces for welding pitting or discoloration; a welded or pitted relay cannot be cleaned back into spec.",
+          "ur": "Contact surfaces par welding pitting ya rang badla dekhein; jalmaya ya gis chuka relay theek nahi ho sakta."
+        },
+        {
+          "en": "Replace the relay with the specified part number, and add a surge protection device upstream so arc events are absorbed.",
+          "ur": "Relay ko bataye gaye part number se badal dein, aur upstream surge protection device lagayein taake arc events absorb hon."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "A welded inverter relay means the unit cannot be serviced safely in bypass - it needs the relay replaced, not a reset.",
+        "ur": "Jalmaya inverter relay matlab unit ko bypass mein mehfooz tareeqe se service nahi kiya ja sakta - reset nahi, relay badalna hoga."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x27",
+      "aliases": [
+        "0x27",
+        "27"
+      ],
+      "title": {
+        "en": "Battery too high (0x27)",
+        "ur": "Battery voltage zyada (0x27)"
+      },
+      "meaning": {
+        "en": "Battery pack voltage has risen above the safe ceiling, so the charger has shut down to protect the cells.",
+        "ur": "Battery pack voltage safe ceiling se upar chala gaya hai, is liye charger ne cells bachane ke liye band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Charger output failed high, or the wrong charge voltage is configured for the pack.",
+          "ur": "Charger output high par kharab, ya pack ke liye ghalat charge voltage set hai."
+        },
+        {
+          "en": "Wrong battery type fitted - a pack rated for a lower charge voltage is being over-charged.",
+          "ur": "Ghalat battery type lagi hai - kam charge voltage rated pack ko zyada charge kiya ja raha hai."
+        },
+        {
+          "en": "Ambient temperature very high with no charge-voltage temperature compensation configured.",
+          "ur": "Ambient temperature bohat zyada hai aur charge voltage ka temperature compensation set nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then measure each cell's voltage; a swollen, hot or leaking cell means replace the pack, do not recharge.",
+          "ur": "Mains aur battery isolate karein, phir har cell ka voltage nikaalein; phooli, garam ya leaking cell matlab pack badal dein, recharge na karein."
+        },
+        {
+          "en": "Confirm the installed battery type and charge voltage against the manual's battery configuration section.",
+          "ur": "Manual ke battery configuration section ke mutabiq lagi hui battery type aur charge voltage confirm karein."
+        },
+        {
+          "en": "Measure charger output voltage at the battery terminals with the battery connected; out-of-spec output means the charger board is faulty.",
+          "ur": "Battery connect kar ke battery terminals par charger output voltage nikaalein; output spec se bahar ho to charger board kharab hai."
+        },
+        {
+          "en": "Enable or verify charge-voltage temperature compensation so hot cabinets do not over-charge the pack.",
+          "ur": "Charge voltage ka temperature compensation on karein ya verify karein taake garam cabinet pack ko over-charge na kare."
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's Easy UPS 3S equivalent alarm is 'Over charge' with the corrective action 'Contact your dealer.'",
+        "ur": "SE ke Easy UPS 3S mein iska barabar alarm 'Over charge' hai aur hal likha hai 'Contact your dealer.'"
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x28",
+      "aliases": [
+        "0x28",
+        "28"
+      ],
+      "title": {
+        "en": "Battery too low (0x28)",
+        "ur": "Battery voltage bahut kam (0x28)"
+      },
+      "meaning": {
+        "en": "Battery pack voltage has dropped below the minimum, so the UPS is about to or already in shutdown.",
+        "ur": "Battery pack voltage minimum se neeche gir gaya hai, is liye UPS band hone wali hai ya band ho chuki hai."
+      },
+      "causes": [
+        {
+          "en": "Battery string exhausted by a long outage and not recharged.",
+          "ur": "Battery string lambi outage se khatam ho gayi aur recharge nahi hui."
+        },
+        {
+          "en": "Battery cells aged and no longer able to hold charge.",
+          "ur": "Battery cells purani ho chuki hain aur charge rok nahi saktin."
+        },
+        {
+          "en": "Charger not working so the pack never recovers between outages.",
+          "ur": "Charger kaam nahi kar raha, is liye pack outages ke darmiyan recover hi nahi hota."
+        },
+        {
+          "en": "One or more cells shorted, dragging the string voltage down.",
+          "ur": "Aik ya zyada cells short ho kar string voltage neeche kheench rahe hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, unplug mains, disconnect the battery, and measure the string and each cell with a DC meter.",
+          "ur": "Power off karein, mains se nikaalein, battery disconnect karein, phir string aur har cell ko DC meter se nikaalein."
+        },
+        {
+          "en": "If the pack is merely discharged, charge on mains for at least 4 hours and re-read the register before condemning it.",
+          "ur": "Agar pack sirf discharge hui hai to mains par kam az kam 4 ghante charge karein aur kharab kehne se pehle register dobara parhein."
+        },
+        {
+          "en": "If it still reads low, replace the pack with the specified type and number; a low pack cannot be recovered.",
+          "ur": "Agar phir bhi kam parhe to pack ko bataye gaye type aur number se badal dein; kam pack recover nahi ho sakta."
+        },
+        {
+          "en": "Verify the charger is actually delivering current (see 0x2A and 0x21) or the new pack will fail the same way.",
+          "ur": "Confirm karein ke charger waqai current de raha hai (0x2A aur 0x21 dekhein) warna naya pack bhi waise hi fail hoga."
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This is a battery-safety state: the UPS will drop the load rather than deep-discharge the pack further.",
+        "ur": "Yeh battery safety ki halat hai: UPS pack ko aur discharge hone se bachane ke liye load phenk dega."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x29",
+      "aliases": [
+        "0x29",
+        "29"
+      ],
+      "title": {
+        "en": "Battery fuse broken in Battery mode (0x29)",
+        "ur": "Battery fuse broken in battery mode (0x29)"
+      },
+      "meaning": {
+        "en": "The battery string fuse has opened only when running on battery, so the inverter loses its DC source on discharge.",
+        "ur": "Battery string ka fuse sirf battery par chalte waqt khul gaya hai, is liye inverter ko discharge par DC source chala jata hai."
+      },
+      "causes": [
+        {
+          "en": "Battery string fuse has failed at the rated current, or is the wrong rating for the pack.",
+          "ur": "Battery string ka fuse rated current par fail ho gaya, ya pack ke liye ghalat rating ka hai."
+        },
+        {
+          "en": "A shorted cell in the pack made the fuse blow, but the cause was never fixed.",
+          "ur": "Pack mein shorted cell ne fuse uda diya magar wajah kabhi theek nahi hui."
+        },
+        {
+          "en": "Fuse holder contact resistance high, so the fuse runs hot and opens under load.",
+          "ur": "Fuse holder ka contact resistance zyada hai, is liye fuse garam hokar load par khul jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then check the string fuse continuity with an ohmmeter.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir ohmmeter se string fuse ki continuity check karein."
+        },
+        {
+          "en": "Do not simply fit a bigger fuse; measure the pack's actual current draw and fit the fuse rating the manual specifies.",
+          "ur": "Bada fuse andaza kar na lagayein; pack ka asli current draw nikaal kar manual ki batay hui rating ka fuse lagayein."
+        },
+        {
+          "en": "Measure each cell's voltage and internal resistance to find and replace a shorted cell before fitting any new fuse.",
+          "ur": "Naya fuse lagane se pehle har cell ka voltage aur internal resistance nikaal kar shorted cell dhoondhein aur badal dein."
+        },
+        {
+          "en": "Inspect and clean the fuse holder contacts and check the holder's bolt torque; loose holders run hot.",
+          "ur": "Fuse holder ke contacts saaf karein aur holder ka bolt torque check karein; loose holders garam hote hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "'In Battery mode' is the clue: on mains the fuse may hold, which is why this fault is often mistaken for a dead battery.",
+        "ur": "'In battery mode' hi asli clue hai: mains par fuse chal sakta hai, is liye yeh fault aksar kharab battery samajh liya jata hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x2A",
+      "aliases": [
+        "0x2A",
+        "2A"
+      ],
+      "title": {
+        "en": "Charger output short (0x2A)",
+        "ur": "Charger output par short (0x2A)"
+      },
+      "meaning": {
+        "en": "A short circuit has been detected on the charger's output path to the battery, so the charger has shut down.",
+        "ur": "Charger ke battery output path par short detect hua hai, is liye charger band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Shorted battery cell or a reversed-connected external battery cabinet.",
+          "ur": "Shorted battery cell ya ulat polarity se laga external battery cabinet."
+        },
+        {
+          "en": "Charging SCR failed shorted, shorting the charge output internally.",
+          "ur": "Charging SCR short ho kar kharab, andar se charge output short kar raha hai."
+        },
+        {
+          "en": "Charger output capacitor shorted, or a cable pinched against the battery tray.",
+          "ur": "Charger output capacitor short ho gaya, ya battery tray ke khilaf cable nichal hui hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then measure resistance across the charger output terminals; near-zero means the short is real.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir charger output terminals par resistance nikaalein; zero ke qareeb matlab short asal hai."
+        },
+        {
+          "en": "Measure each battery cell's resistance individually to locate a shorted cell, and check the external cabinet's polarity.",
+          "ur": "Har battery cell ka resistance alag alag nikaal kar shorted cell dhoondein, aur external cabinet ki polarity check karein."
+        },
+        {
+          "en": "Do a braindead-style isolation: disconnect the battery and external cabinets, then re-measure to see if the short persists inside the charger.",
+          "ur": "Braindead jaisa isolation karein: battery aur external cabinets disconnect kar ke dobara measure karein ke short charger ke andar bacha hai ya nahi."
+        },
+        {
+          "en": "If the short persists with the battery removed, the charging SCR or output capacitor is failed and must be replaced.",
+          "ur": "Agar battery nikalne par bhi short rahe to charging SCR ya output capacitor kharab hai aur badalna hoga."
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's Easy UPS 3S equivalent alarm is 'Battery/charger inoperable - Check the battery. Check the charger.'",
+        "ur": "SE ke Easy UPS 3S mein iska barabar alarm 'Battery/charger inoperable' hai - 'Battery check karein, charger check karein.'"
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x31",
+      "aliases": [
+        "0x31",
+        "31"
+      ],
+      "title": {
+        "en": "Parallel communication failure (0x31)",
+        "ur": "Parallel communication band (0x31)"
+      },
+      "meaning": {
+        "en": "Units in a parallel system cannot talk over the parallel bus, so they cannot share load or synchronise.",
+        "ur": "Parallel system mein units parallel bus par baat nahi kar pa rahi, is liye load share ya synchronise nahi ho sakta."
+      },
+      "causes": [
+        {
+          "en": "Parallel communication cable unplugged, reversed between units, or damaged.",
+          "ur": "Parallel communication cable nikal hua, units ke darmiyan ulat, ya damaged hai."
+        },
+        {
+          "en": "Parallel bus terminated incorrectly so the chain has no end termination.",
+          "ur": "Parallel bus ki termination ghalat hai jis se chain ka end termination nahi banta."
+        },
+        {
+          "en": "Parallel port or interface on one unit failed, leaving it deaf on the bus.",
+          "ur": "Kisi aik unit ka parallel port ya interface kharab hai jis se woh bus par sun nahi sakta."
+        },
+        {
+          "en": "Module ID duplicated in a parallel system, so two units claim the same address.",
+          "ur": "Parallel system mein module ID duplicate hai jis se do units aik hi address claim kar lete hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate all units, then reseat the parallel cable at every unit, checking it is not reversed.",
+          "ur": "Sab units power off aur isolate karein, phir parallel cable har unit par dobara baitha dein aur check karein ke ulat nahi."
+        },
+        {
+          "en": "Verify each unit has a unique module ID; a duplicate ID is a common cause and is easy to overlook.",
+          "ur": "Confirm karein ke har unit ka module ID unique hai; duplicate ID aam wajah hai aur nazar se chhoot jata hai."
+        },
+        {
+          "en": "Confirm the parallel chain end termination is fitted exactly as the installation manual requires.",
+          "ur": "Confirm karein ke parallel chain ka end termination installation manual ke mutabiq lagaya gaya hai."
+        },
+        {
+          "en": "Swap the parallel cable with a known-good one to rule out the cable, then test the suspect unit on its own.",
+          "ur": "Parallel cable ko aik ache se chalne wale cable se badal dein taake cable hat jaye, phir shak ke unit ko akela test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's Easy UPS 3S equivalent alarms are 'Parallel cabling incorrect' and 'Module ID duplicate'.",
+        "ur": "SE ke Easy UPS 3S mein iske barabar alarms hain 'Parallel cabling incorrect' aur 'Module ID duplicate'."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x36",
+      "aliases": [
+        "0x36",
+        "36"
+      ],
+      "title": {
+        "en": "Parallel output current unbalance (0x36)",
+        "ur": "Parallel current share mein farq (0x36)"
+      },
+      "meaning": {
+        "en": "Units in a parallel system are not sharing current equally, so one unit is carrying more than it should.",
+        "ur": "Parallel system mein units current barabar share nahi kar rahe, is liye aik unit par apni se zyada load hai."
+      },
+      "causes": [
+        {
+          "en": "Load not evenly distributed between the paralleled units.",
+          "ur": "Parallel units ke darmiyan load barabar baanta hua nahi hai."
+        },
+        {
+          "en": "One unit's inverter stage degraded, so it cannot deliver its share.",
+          "ur": "Kisi aik unit ka inverter stage weak ho gaya hai jis se woh apna hissa nahi de sakta."
+        },
+        {
+          "en": "Output current sensing on one unit drifted or miscalibrated.",
+          "ur": "Kisi aik unit ka output current sensing drift ya miscalibrate ho gaya hai."
+        },
+        {
+          "en": "Parallel cable or interlock fault letting units fight each other on the output.",
+          "ur": "Parallel cable ya interlock fault jis se units output par aik doosre se lad rahi hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the output current of each paralleled unit individually with a clamp meter and record the readings.",
+          "ur": "Har paralleled unit ka output current alag alag clamp meter se nikaal kar readings note karein."
+        },
+        {
+          "en": "Calculate the imbalance as (highest - lowest) / average; a spread beyond the manual's limit points to a real fault.",
+          "ur": "Imbalance aise nikalein: (sab se oopper - sab se neeche) / average; manual ki limit se zyada farq asal fault hai."
+        },
+        {
+          "en": "Redistribute the load between units so each carries a similar share, then re-read the register.",
+          "ur": "Units ke darmiyan load aise baant dein ke har aik barabar hissa uthaye, phir register dobara parhein."
+        },
+        {
+          "en": "If the imbalance persists with even load, have the suspect unit's inverter and current sensing verified on its own, outside the parallel set.",
+          "ur": "Agar barabar load par bhi farq rahe to shak ke unit ke inverter aur current sensing ko parallel set se bahar akela verify karwa lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's Easy UPS 3S equivalent alarm is 'Power sharing incorrect - Redistribute the load between UPS units.'",
+        "ur": "SE ke Easy UPS 3S mein iska barabar alarm 'Power sharing incorrect' hai - 'Load UPS units ke darmiyan dobara baant dein.'"
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x41",
+      "aliases": [
+        "0x41",
+        "41"
+      ],
+      "title": {
+        "en": "Over temperature (0x41)",
+        "ur": "Over temperature masla (0x41)"
+      },
+      "meaning": {
+        "en": "The UPS internal temperature has exceeded its limit, so the unit has shut down to protect itself.",
+        "ur": "UPS ki andar ki temperature limit se upar chala gayi hai, is liye unit apni protection ke liye band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Cooling fans failed, so no air is being moved through the unit.",
+          "ur": "Cooling fans kharab ho gaye, is liye unit mein se hawa nahi chal rahi."
+        },
+        {
+          "en": "Intake or exhaust grille blocked by dust, restricting airflow.",
+          "ur": "Intake ya exhaust grille dhool se band, is liye airflow restricted hai."
+        },
+        {
+          "en": "Ambient room temperature above the rated limit, typical of an unconditioned equipment room.",
+          "ur": "Room ki ambient temperature rated limit se upar hai - bina air conditioning ke equipment room mein aam masla hai."
+        },
+        {
+          "en": "Internal heatsink fouled with dust, or a component running hotter than design.",
+          "ur": "Andar ka heatsink dhool se bhar gaya, ya koi component design se zyada garam chal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then measure the internal temperature with a probe and compare to the unit's limit.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir probe se andar ki temperature nikaal kar unit ki limit se compare karein."
+        },
+        {
+          "en": "Clean every fan, heatsink and grille with compressed air and confirm each fan spins on power-up.",
+          "ur": "Har fan, heatsink aur grille ko compressed air se saaf karein aur confirm karein ke har fan power par chalta hai."
+        },
+        {
+          "en": "Measure room temperature and improve cooling: add an air conditioner or a dedicated exhaust fan for the equipment room.",
+          "ur": "Room temperature nikaalein aur cooling behtar karein: equipment room ke liye air conditioner ya alag exhaust fan lagayein."
+        },
+        {
+          "en": "Check the fan supply and fan controller on the board; a fan that does not spin at all is a wiring or board fault, not dirt.",
+          "ur": "Board par fan supply aur fan controller check karein; jo fan bilkul na chale woh wiring ya board fault hai, dhool nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's Easy UPS 3S equivalents are 'Bypass fan inoperable', 'Fan inoperable', 'Inlet temperature high' and 'Outlet temperature high'.",
+        "ur": "SE ke Easy UPS 3S mein iske barabar hain 'Bypass fan inoperable', 'Fan inoperable', 'Inlet temperature high' aur 'Outlet temperature high'."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x42",
+      "aliases": [
+        "0x42",
+        "42"
+      ],
+      "title": {
+        "en": "CPU communication fault (0x42)",
+        "ur": "CPU communication fault (0x42) - CPU ki baat band"
+      },
+      "meaning": {
+        "en": "The main processor cannot exchange data with the DSP that controls the power stage, so the unit has shut down.",
+        "ur": "Main processor DSP se data exchange nahi kar sakta jo power stage control karta hai, is liye unit band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "CAN bus wiring or connector between CPU board and DSP board loose or chafed.",
+          "ur": "CPU board aur DSP board ke darmiyan CAN bus wiring ya connector loose ya ragis hua hai."
+        },
+        {
+          "en": "One of the two boards failed, holding the bus low so neither can talk.",
+          "ur": "Do boards mein se koi aik kharab ho kar bus ko low par rok kar baitha hai."
+        },
+        {
+          "en": "A mains surge destroyed one of the communication transceivers.",
+          "ur": "Mains surge ne communication transceivers mein se koi aik tabah kar diya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, unplug mains, disconnect the battery, and use an anti-static strap before touching board connectors.",
+          "ur": "Power off karein, mains se nikaalein, battery disconnect karein, aur board connector chhoone se pehle anti-static strap lagayein."
+        },
+        {
+          "en": "Reseat every CPU-to-DSP harness and connector, then inspect the cables for cuts along their routing.",
+          "ur": "Har CPU-to-DSP harness aur connector dobara baitha dein, phir cables ko unke raaste mein tute hisse dekhne ke liye check karein."
+        },
+        {
+          "en": "With boards powered and safe to probe, check the CAN bus for a stuck-low line and trace it to the board holding it.",
+          "ur": "Boards power par hone aur probe karne ke laiq ho to CAN bus par atki hui line dhoondein aur us board tak pohonchein."
+        },
+        {
+          "en": "Replace the failed CPU or DSP board; the bus itself rarely fails on its own.",
+          "ur": "Kharab CPU ya DSP board badal dein; bus khud kam hote hain kharab hota hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's Easy UPS SRV 6kVA/10kVA manual lists 'CPU communication failure detected' and 'CAN communication alert' as separate named internal faults.",
+        "ur": "SE ke Easy UPS SRV 6kVA/10kVA manual mein 'CPU communication failure detected' aur 'CAN communication alert' alag alag named internal faults hain."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x43",
+      "aliases": [
+        "0x43",
+        "43"
+      ],
+      "title": {
+        "en": "Overload fault (0x43)",
+        "ur": "Overload ka masla (0x43)"
+      },
+      "meaning": {
+        "en": "The connected load exceeds what the UPS can supply, so the unit has shut down to protect itself.",
+        "ur": "Lagi hui load UPS ki capacity se zyada hai, is liye unit apni protection ke liye band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Too much equipment connected, or load added after installation.",
+          "ur": "Bohat zyada equipment lagi hai, ya installation ke baad load barha diya gaya."
+        },
+        {
+          "en": "One load shorted or failed, drawing far more current than its rating.",
+          "ur": "Koi aik load short ya kharab ho kar apni rating se bohat zyada current kheech raha hai."
+        },
+        {
+          "en": "A motor or compressor with a locked rotor drawing several times its running current.",
+          "ur": "Motor ya compressor ka rotor jam ho kar apne chalne wale current se kai guna current kheech raha hai."
+        },
+        {
+          "en": "Load current sensing drifted, so the unit believes a normal load is an overload.",
+          "ur": "Load current sensing drift ho gayi hai, is liye unit normal load ko overload samajhta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the load percentage from the unit or the register and compare it with the unit's rated kVA.",
+          "ur": "Unit ya register se load percentage parhein aur unit ki rated kVA se compare karein."
+        },
+        {
+          "en": "Remove load one circuit at a time, and the priority is to find any shorted or seized motor or compressor first.",
+          "ur": "Load aik aik circuit karke nikaalein, aur pehle short ya jam hua motor ya compressor dhoondhein."
+        },
+        {
+          "en": "Measure each load's current with a clamp meter on the output; a single circuit far above its nameplate is the culprit.",
+          "ur": "Output par clamp meter se har load ka current nikaalein; nameplate se bohat oopper aik circuit hi asal culprit hai."
+        },
+        {
+          "en": "If the calculated load is well within rating, check the load current sensor and its wiring for drift or damage.",
+          "ur": "Agar hisaab wala load rating ke andar hai to load current sensor aur uski wiring drift ya damage ke liye check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Overload is the most common fault on Pakistani sites after a load-shedding power cut when everything switches back at once.",
+        "ur": "Load-shedding ke baad sab kuch aik saath on hone par overload Pakistani sites par sab se aam fault hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x46",
+      "aliases": [
+        "0x46",
+        "46"
+      ],
+      "title": {
+        "en": "UPS model abnormal (0x46)",
+        "ur": "UPS ka model ghalat pehchan (0x46)"
+      },
+      "meaning": {
+        "en": "The control board does not recognise the model's rating data, so it cannot configure the power stage correctly.",
+        "ur": "Control board model ki rating data ko pehchan nahi raha, is liye power stage ko theek se configure nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Control board from a different model fitted, so its model data does not match the hardware.",
+          "ur": "Doosre model ka control board lagaya gaya hai jis ka model data hardware se match nahi karta."
+        },
+        {
+          "en": "Model/rating configuration memory lost after an EEPROM or factory-reset event.",
+          "ur": "EEPROM ya factory-reset event ke baad model/rating configuration memory kho gaya."
+        },
+        {
+          "en": "Firmware version does not match the hardware revision of the unit.",
+          "ur": "Firmware version unit ke hardware revision se match nahi karta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the board part number and the model/rating label on the chassis; they must correspond to the same model.",
+          "ur": "Board ka part number aur chassis par model/rating label dekhein; dono aik hi model ke hone chahiye."
+        },
+        {
+          "en": "Run the model/rating configuration or factory setup from the manual so the controller is told what hardware it has.",
+          "ur": "Manual ka model/rating configuration ya factory setup chalayein taake controller ko hardware ka pata chale."
+        },
+        {
+          "en": "After configuration, power-cycle and re-read register 44497 to confirm 0x46 has cleared.",
+          "ur": "Configuration ke baad power-cycle kar ke register 44497 dobara parhein taake confirm ho ke 0x46 mit gaya."
+        },
+        {
+          "en": "If no configuration makes it clear, the control board carries the wrong model data and must be replaced or reflashed.",
+          "ur": "Agar koi configuration clear na kare to control board par ghalat model data hai aur board badalna ya dobara flash karna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This code points at parts-swap errors, so check the board identity before any other troubleshooting.",
+        "ur": "Yeh code parts badalne ki ghalti par ishara karta hai, is liye baqi troubleshooting se pehle board ki pehchan check karein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x47",
+      "aliases": [
+        "0x47",
+        "47"
+      ],
+      "title": {
+        "en": "MCU communication failure (0x47)",
+        "ur": "MCU ki communication band (0x47)"
+      },
+      "meaning": {
+        "en": "The microcontroller has lost communication with the processor, so the unit cannot run its control sequence.",
+        "ur": "Microcontroller ne processor se communication kho diya hai, is liye unit apna control sequence nahi chala sakta."
+      },
+      "causes": [
+        {
+          "en": "MCU-to-processor bus wiring or connector loose, chafed or corroded.",
+          "ur": "MCU se processor ki bus wiring ya connector loose, ragis ya zange se kharab."
+        },
+        {
+          "en": "MCU or processor board failed after a surge or heat damage.",
+          "ur": "Surge ya garmi ke baad MCU ya processor board kharab ho gaya."
+        },
+        {
+          "en": "MCU clock or supply rail unstable, so the link drops intermittently.",
+          "ur": "MCU ka clock ya supply rail unstable hai jis se link baar baar toot raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, unplug mains, disconnect the battery, and use an anti-static strap before touching the boards.",
+          "ur": "Power off karein, mains se nikaalein, battery disconnect karein, aur boards chhoone se pehle anti-static strap lagayein."
+        },
+        {
+          "en": "Reseat every MCU-to-processor connector and clean the pin contacts; check for a corroded pin.",
+          "ur": "Har MCU-to-processor connector dobara baitha dein aur pin contacts saaf karein; zange wale pin ko check karein."
+        },
+        {
+          "en": "Measure the MCU supply rail and clock with a meter or scope at the MCU to confirm they are stable.",
+          "ur": "MCU par meter ya scope se MCU ki supply rail aur clock nikaal kar confirm karein ke woh stable hain."
+        },
+        {
+          "en": "If the rails and clock are good, swap the MCU board with a known-good one to confirm the fault before replacing.",
+          "ur": "Agar rails aur clock theek hon to MCU board ko aik ache wale se badal kar fault confirm karein, phir tabdeeli karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Keep MCU (0x47) and CPU (0x42) faults distinct - they are different chips on different buses.",
+        "ur": "MCU (0x47) aur CPU (0x42) ke faults alag rakhein - yeh alag chips hain aur alag buses par hain."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x48",
+      "aliases": [
+        "0x48",
+        "48"
+      ],
+      "title": {
+        "en": "Two DSP firmware versions are incompatible (0x48)",
+        "ur": "Do DSP firmware versions incompatible hain (0x48)"
+      },
+      "meaning": {
+        "en": "The two DSPs in the unit are running firmware that cannot work together, so the unit refuses to start.",
+        "ur": "Unit ke do DSP aisa firmware chala rahe hain jo aapas mein kaam nahi kar sakta, is liye unit start nahi hota."
+      },
+      "causes": [
+        {
+          "en": "A firmware update completed on only one DSP, leaving the pair mismatched.",
+          "ur": "Firmware update sirf aik DSP par mukammal hua, jis se jora mismatch ho gaya."
+        },
+        {
+          "en": "DSP board replaced with one carrying different firmware from the original.",
+          "ur": "DSP board badla gaya jis par original se alag firmware hai."
+        },
+        {
+          "en": "Update interrupted by power loss part-way through writing the second DSP.",
+          "ur": "Doosre DSP ko likhte waqt bijli chali gayi aur update adhoora reh gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not interrupt a firmware write; run the full upgrade on stable mains with the battery fully charged so both DSPs are written.",
+          "ur": "Firmware likhte waqt bijli na kaatein; poori battery charge par stable mains se poora upgrade chalayein taake dono DSP likh lein."
+        },
+        {
+          "en": "Compare the two DSP firmware versions in the service menu; they must be the same build.",
+          "ur": "Service menu mein dono DSP ke firmware versions compare karein; woh aik hi build ke hone chahiye."
+        },
+        {
+          "en": "Re-run the official dual-DSP firmware upgrade package from Schneider Electric rather than flashing one DSP manually.",
+          "ur": "Aik DSP ko manual flash karne ke bajaye Schneider Electric ka official dual-DSP firmware upgrade package dobara chalayein."
+        },
+        {
+          "en": "If one DSP board was replaced, flash it to the same version as the original before returning the unit to service.",
+          "ur": "Agar aik DSP board badla gaya hai to unit wapas service mein dene se pehle use original ke barabar version par flash karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Flashing a single DSP by hand is the usual cause of this code - always use the vendor's paired package.",
+        "ur": "Aik DSP ko haath se flash karna hi is code ki aam wajah hai - hamesha vendor ka jora package istemaal karein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    },
+    {
+      "code": "0x49",
+      "aliases": [
+        "0x49",
+        "49"
+      ],
+      "title": {
+        "en": "Input and output phases are incompatible (0x49)",
+        "ur": "Input aur output phases incompatible hain (0x49)"
+      },
+      "meaning": {
+        "en": "The input and output phase rotations differ, so inverting from input to output is unsafe and the unit will not start.",
+        "ur": "Input aur output ki phase rotation alag hai, is liye input se output mein invert karna unsafe hai aur unit start nahi karega."
+      },
+      "causes": [
+        {
+          "en": "Input and output supply sequences genuinely different, e.g. R-Y-B versus B-Y-R.",
+          "ur": "Input aur output supply ki sequence asal mein alag hai, maslan R-Y-B versus B-Y-R."
+        },
+        {
+          "en": "Input or output cables to two or three phases swapped at the terminal or in a distribution board.",
+          "ur": "Terminal ya distribution board mein do ya teen phases ke input ya output cables swap ho gaye hain."
+        },
+        {
+          "en": "Parallel units with mismatched phase rotation commissioned together.",
+          "ur": "Phase rotation mismatch karne wale parallel units aik saath commission kiye gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then measure the phase rotation of the input and the output with a phase rotation meter.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir phase rotation meter se input aur output ki phase rotation nikaalein."
+        },
+        {
+          "en": "Correct the sequence at the terminal or distribution board until the output matches the required rotation.",
+          "ur": "Terminal ya distribution board par sequence theek karein jab tak output ki required rotation na mil jaye."
+        },
+        {
+          "en": "Confirm each individual phase-to-neutral and phase-to-phase output voltage with a meter, not just the sequence.",
+          "ur": "Meter se sirf sequence nahi, har phase-to-neutral aur phase-to-phase output voltage bhi confirm karein."
+        },
+        {
+          "en": "Re-commission the unit and re-read register 44497 to confirm 0x49 has cleared before reconnecting the load.",
+          "ur": "Unit dobara commission karein aur load dobara jorrne se pehle register 44497 parh kar confirm karein ke 0x49 mit gaya."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Connecting a single-phase or two-phase load to a three-phase unit is a related site error worth checking at the same time.",
+        "ur": "Teen-phase unit par single-phase ya two-phase load jorrna aik isi tarah ki site ghalti hai jise saath check karein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS SRV/SRVL Modbus Register Map (Network Management Card)",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn.cs.1worldsync.com/7d/43/7d439fc3-bbe3-4b6b-83aa-070752dcecdd.pdf"
+      }
+    }
+  ]
+}

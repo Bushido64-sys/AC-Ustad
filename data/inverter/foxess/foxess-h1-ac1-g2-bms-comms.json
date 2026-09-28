@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-h1-ac1-g2-bms-comms",
+    "name": "H1(G2)/AC1(G2) - BMS, battery-pack and meter communication faults",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*H1*",
+      "*AC1*"
+    ],
+    "notes": "The four rows where FoxESS's own remedy is to fix a CABLE rather than a part, plus the meter's equivalent. These are the highest-yield codes in Pakistan because cheap multi-pack ECS installs with mixed batches and loosely seated comms leads produce them constantly. The remaining 17 Bms* rows in the same H1 table all carry the identical remedy 'Please contact battery supplier' and are deliberately NOT expanded here (see foxess-kh-ka-bms-mismatch for the 'Unmatch' family, which is the subset a technician can actually act on). Verified present on H1 V1.6 AND on KH/KA (both copies) AND on H3 V1.0.4 - but kept as separate series because the KH/KA and H3 tables differ in other rows."
+  },
+  "codes": [
+    {
+      "code": "BMS Lost",
+      "aliases": [
+        "BMS Lost"
+      ],
+      "title": {
+        "en": "Inverter-BMS communication lost",
+        "ur": "Inverter-BMS ka connection toot gaya"
+      },
+      "meaning": {
+        "en": "The inverter cannot talk to the battery pack's BMS over the pack communication lead, so it has no state-of-charge or protection data.",
+        "ur": "Inverter battery pack ke BMS se baat nahi kar pa raha, is liye usay SOC ya protection data nahi mil raha."
+      },
+      "causes": [
+        {
+          "en": "The pack communication lead is unseated, has a pushed-back pin, or was made with the wrong connector.",
+          "ur": "Pack communication lead puri tarah nahi lagi, us mein pin pichi dhakeli hui hai, ya ghalat connector se bani gayi."
+        },
+        {
+          "en": "The comms lead is the LV type on one end and FoxESS expects a shielded RJ-type on both - a frequent field mismatch on aftermarket packs.",
+          "ur": "Comms lead ek taraf LV type ki hai jabke FoxESS dono taraf shielded RJ type chahta hai - aftermarket packs par yeh field par aam mismatch hai."
+        },
+        {
+          "en": "Pack has gone into its own deep sleep / protection and has stopped answering, even though the power leads are fine.",
+          "ur": "Pack apni hi deep sleep ya protection mein chala gaya aur jawab dena chhod gaya, halke power leads theek hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the battery isolator first, then reseat the communication lead at BOTH the inverter end and the pack end until it clicks.",
+          "ur": "Pehle battery isolator kholein, phir communication lead inverter taraf aur pack taraf - dono jagah - click hone tak wapas baithayein."
+        },
+        {
+          "en": "Power-cycle the pack only: switch off the battery isolator, wait 60 seconds, restore it, and read FoxCloud for whether the pack appears again.",
+          "ur": "Sirf pack ko power-cycle karein: battery isolator off karein, 60 second intezar karein, wapas on karein, aur FoxCloud mein dekhein ke pack dobara nazar aata hai ya nahi."
+        },
+        {
+          "en": "With power isolated, inspect every comms pin with a small screwdriver tip for a bent or pushed-back contact and reseat firmly.",
+          "ur": "Power isolate kar ke, har comms pin ko choti screwdriver ke sirr se muda ya piche dhakeli hui check karein aur mazboot se baithayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "FoxESS's manual gives no separate remedy for 'BMS Lost' versus 'Bms Ext Fault' - both rows say exactly the same thing, check the BMS-to-inverter cable. Treat them as the same job. If the pack is a non-FoxESS brand, the comms protocol is the first thing to verify, not the cable.",
+        "ur": "FoxESS ki manual 'BMS Lost' aur 'Bms Ext Fault' ke liye alag hal nahi deti - dono rows bilkul wahi kehti hain ke BMS se inverter ka cable check karein. Dono ko aik hi kaam samjhein. Agar pack FoxESS ka nahi hai to sab se pehle comms protocol check karein, cable nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "Bms Ext Fault",
+      "aliases": [
+        "Bms Ext Fault",
+        "BMS Ext Fault"
+      ],
+      "title": {
+        "en": "Battery BMS external fault reported",
+        "ur": "Battery BMS ka external fault aaya"
+      },
+      "meaning": {
+        "en": "The BMS has raised a fault condition of its own and is reporting it to the inverter, which passes it on.",
+        "ur": "BMS ne apni koi fault condition uthayi hai aur inverter tak pohanchayi, jis ne wo aage barha di."
+      },
+      "causes": [
+        {
+          "en": "Intermittent comms contact that drops the link just long enough for the BMS to flag a fault.",
+          "ur": "Aksar waqt ka comms contact jo link ko itni der ke liye gira deta hai ke BMS fault mark kar de."
+        },
+        {
+          "en": "The BMS has tripped on over/under voltage, over-current or temperature and is latching that up to the inverter.",
+          "ur": "BMS over/under voltage, over-current ya temperature par trip kar chuka hai aur wo inverter tak latch kar raha hai."
+        },
+        {
+          "en": "EMI on the comms pair because it was run alongside PV or AC power cabling instead of separated.",
+          "ur": "Comms pair par EMI kyunke isay PV ya AC power cabling ke saath saath chala diya gaya, alag nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the BMS-to-inverter communication cable is correctly and well connected, exactly as FoxESS states, at both ends.",
+          "ur": "Jaise FoxESS kehta hai, BMS se inverter ka communication cable dono taraf se theek aur mazboot lagi hui check karein."
+        },
+        {
+          "en": "Read the pack's own BMS history in FoxCloud before touching the inverter; the specific BMS sub-code tells you whether it is voltage, current, temperature or a comms drop.",
+          "ur": "Inverter chhune se pehle FoxCloud mein pack ke apne BMS ki history padhein; specific BMS sub-code batata hai ke masla voltage, current, temperature ya comms drop hai."
+        },
+        {
+          "en": "If the BMS sub-code is a hardware protection (cell imbalance, relay, sensor), take the pack to the supplier - FoxESS's own instruction for those rows is 'contact battery supplier'.",
+          "ur": "Agar BMS sub-code hardware protection hai (cell imbalance, relay, sensor) to pack supplier ko dein - un rows ke liye FoxESS ka apna instruction hai 'contact battery supplier'."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The H1 table prints this row's meaning identically to BMS Lost ('The communication between BMS and Inverter is interrupted'), which is arguably a manual typo, but FoxESS gives both the same remedy. Do not invent a separate fix path for it.",
+        "ur": "H1 table is row ka meaning bhi BMS Lost ke bilkul barabar likhti hai ('The communication between BMS and Inverter is interrupted'), jo shayad manual ka typo hai, lekin FoxESS dono ka wohi hal deta hai. Is ke liye alag tareeqa ghalat na banayein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "Bms Int Fault",
+      "aliases": [
+        "Bms Int Fault"
+      ],
+      "title": {
+        "en": "Battery pack-to-pack communication interrupted",
+        "ur": "Battery packs ka aapas mein connection toot gaya"
+      },
+      "meaning": {
+        "en": "In a multi-pack install, the packs cannot talk to each other. FoxESS gives two causes: the DIP switch is in the wrong position, and the pack-to-pack comms cable is not well connected.",
+        "ur": "Multi-pack install mein packs aapas mein baat nahi kar sakte. FoxESS do wajahein batata hai: DIP switch ghalat position par hai, aur pack-to-pack comms cable mazbot nahi lagi."
+      },
+      "causes": [
+        {
+          "en": "DIP switch on a pack set to the wrong position - FoxESS names this first, and it is the correct answer far more often than the cable.",
+          "ur": "Kisi pack ka DIP switch ghalat position par - FoxESS isay pehle batata hai, aur cable se zyada aam tor par yehi asal jawab hota hai."
+        },
+        {
+          "en": "The pack-to-pack communication cable is loose, has a pushed-back pin, or is the wrong length for the daisy chain.",
+          "ur": "Pack-to-pack communication cable loose hai, us mein pin pichi dhakeli hai, ya daisy chain ke liye galat lambi hai."
+        },
+        {
+          "en": "Packs added to an existing install without re-setting their address/switch, so two packs claim the same address.",
+          "ur": "Maujooda install mein packs shamil kiye gaye lekin unka address/switch dobara set nahi kiya gaya, is liye do packs aik hi address le lete hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Move the DIP switch to the correct position, as FoxESS instructs - confirm the pack's own label/manual for the address table before moving it.",
+          "ur": "Jaise FoxESS kahe DIP switch ko theek position par le jayein - usay hilane se pehle pack ke apne label ya manual ki address table confirm karein."
+        },
+        {
+          "en": "Check if the communication cable between battery packs is correctly and well connected; reseat both ends with the battery isolator open.",
+          "ur": "Check karein ke battery packs ke darmiyan communication cable theek aur mazboot lagi hai; battery isolator khol kar dono taraf wapas baithayein."
+        },
+        {
+          "en": "Isolate every pack in turn and power them up one at a time, so the address that is stealing the bus is identified by elimination.",
+          "ur": "Har pack ko aik-ik kar ke isolate karein aur aik-ik kar ke power up karein, taake bus deenewali address pehchan liya ja sake."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This is the single most useful FoxESS battery code for a Pakistani installer because the fix is a DIP switch, not a replacement. But FoxESS's H1 manual does not publish the address table - get it from the pack's own documentation before moving a switch.",
+        "ur": "Yeh FoxESS ka sab se kaam ka battery code hai Pakistan ke installer ke liye kyunke hal DIP switch hai, koi part badalna nahi. Lekin FoxESS ki H1 manual address table dhoondhti nahi - switch hilane se pehle usay pack ke apne documentation se lein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "Meter Lost Fault",
+      "aliases": [
+        "Meter Lost Fault",
+        "Meter Lost"
+      ],
+      "title": {
+        "en": "Meter-to-inverter communication interrupted",
+        "ur": "Meter se inverter ka connection toot gaya"
+      },
+      "meaning": {
+        "en": "The inverter has lost the RS485 link to the electricity meter, so it cannot read import/export and will not do the export or zero-export function.",
+        "ur": "Inverter ne meter se RS485 ka link kho diya, is liye woh import/export nahi parh sakta aur export ya zero-export ka kaam nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "RS485 cable loose, has a pushed-back pin, or is the wrong cable type - FoxESS's meter comms is polarity-sensitive.",
+          "ur": "RS485 cable loose hai, us mein pin pichi dhakeli hai, ya ghalat type ki hai - FoxESS ke meter comms mein polarity sensitive hai."
+        },
+        {
+          "en": "A CT or voltage lead that has worked loose inside the meter, so the meter powers down or re-addresses.",
+          "ur": "Meter ke andar koi CT ya voltage lead dhil gayi ho, is liye meter band ho jata hai ya dobara address hota hai."
+        },
+        {
+          "en": "The meter was swapped for a different model or make without re-addressing it for FoxESS Modbus.",
+          "ur": "Meter ko alag model ya make se badal diya gaya lekin usay FoxESS Modbus ke liye dobara address nahi kiya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if the communication cable between meter and inverter is correctly and well connected, as FoxESS states, at both the logger and meter ends.",
+          "ur": "Jaise FoxESS kehta hai, meter aur inverter ke darmiyan communication cable logger aur meter dono taraf se theek aur mazboot lagi hui check karein."
+        },
+        {
+          "en": "With AC off at the board, check the meter's own RS485 terminals are tight and confirm the A/B polarity matches the logger, not reversed.",
+          "ur": "Board par se AC off kar ke, meter ke apne RS485 terminals mazboot hain check karein aur A/B polarity logger ke mutabiq hai, ulti nahi, confirm karein."
+        },
+        {
+          "en": "In FoxCloud, confirm the meter is still detected and reading; if it drops out intermittently, the cable run is the suspect, not the meter.",
+          "ur": "FoxCloud mein confirm karein ke meter ab bhi detect ho raha hai aur reading le raha hai; agar waks waks girta hai to masla cable ki race ka hai, meter ka nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do not chase this with inverter settings. On a Pakistani grid-tied install this code almost always means the export reading is wrong, not that generation has stopped - the unit keeps making power. The T-series has a separate 'Meter fault' row with a similar remedy; do not merge them.",
+        "ur": "Isay inverter settings se hal na karein. Pakistan ke grid-tied install par yeh code aksar matlab hoti hai ke export reading ghalat hai, ke generation band hui hai - unit biji bana raha hai. T-series ki alag 'Meter fault' row ka hal aisa hi hai; dono ko merge na karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    }
+  ]
+}

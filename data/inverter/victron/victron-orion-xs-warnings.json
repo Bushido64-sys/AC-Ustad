@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "brandId": "victron",
+  "series": {
+    "id": "victron-orion-xs-warnings",
+    "name": "Orion XS DC-DC battery charger — warning codes",
+    "category": "inverter",
+    "unitType": "generic",
+    "modelPatterns": [
+      "*Orion XS*",
+      "*Orion-Tr Smart*"
+    ],
+    "notes": "Warnings, NOT errors: the charger keeps running but has reduced output or paused charging as a protection measure. Same VictronConnect/GX display path and same numeric namespace as the Orion XS error series. Must be kept separate so the app does not tell a customer to stop a system that is only warning."
+  },
+  "codes": [
+    {
+      "code": "150",
+      "aliases": [
+        "150",
+        "Warning 150",
+        "Battery temperature too high (warning)"
+      ],
+      "title": {
+        "en": "Battery too hot - output reduced",
+        "ur": "Battery garam hai - output kam kar diya"
+      },
+      "meaning": {
+        "en": "Output voltage is reduced to the nominal 12 V to prevent battery damage. Auto-resets when the battery cools.",
+        "ur": "Battery bachane ke liye output voltage nominal 12 V par kam kar di gayi hai. Battery thande hote hi khud reset ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Battery genuinely above its safe charging temperature",
+          "ur": "Battery apni safe charging temperature se upar hai"
+        },
+        {
+          "en": "No external temperature sensor fitted, and a hot charger is read as a hot battery",
+          "ur": "Bahar ka temperature sensor nahi laga, aur garam charger ko garam battery samajh liya gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure real battery temperature with a probe at the cell terminals.",
+          "ur": "Cell terminals par probe se asal battery temperature nikaalein."
+        },
+        {
+          "en": "Improve airflow around the battery bank; do not place it in a hot enclosed space.",
+          "ur": "Battery bank ke aar paas hawa ka raasta behtar karein; use band garm jagah na rakhein."
+        },
+        {
+          "en": "Fit an external battery temperature sensor so the charger measures the battery, not itself.",
+          "ur": "Bahar ka battery temperature sensor lagayein taake charger battery temperature nikaale, apni nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 warnings",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "151",
+      "aliases": [
+        "151",
+        "Warning 151",
+        "Battery temperature too low"
+      ],
+      "title": {
+        "en": "Battery too cold - charging paused",
+        "ur": "Battery thandi hai - charging ruk gayi"
+      },
+      "meaning": {
+        "en": "Charging is stopped because the battery is too cold. Victron stress this is a protection feature, not necessarily a fault - lithium batteries are damaged by charging when cold.",
+        "ur": "Battery thandi hone ki wajah se charging band hai. Victron zor deta hai ke ye protection hai, fault nahi - lithium batteries thand mein charge hone se nuqsaan hoti hain."
+      },
+      "causes": [
+        {
+          "en": "LiFePO4 bank below its low charge temperature, common in cold winter nights in Pakistan",
+          "ur": "LiFePO4 bank apni low charge temperature se neeche, jiski Pakistan mein thande sardi raaton mein aam baat hai"
+        },
+        {
+          "en": "No battery heater fitted on a cold night",
+          "ur": "Thande raat mein koi battery heater nahi laga"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the reading with a probe thermometer before assuming a fault.",
+          "ur": "Fault samajhne se pehle probe thermometer se reading confirm karein."
+        },
+        {
+          "en": "Fit a lithium battery heater if charging in cold weather is a regular requirement.",
+          "ur": "Agar thande mausam mein charging aam baat hai to lithium battery heater lagayein."
+        },
+        {
+          "en": "Only if you are sure this protection is unwanted, ask the installer to adjust the setting.",
+          "ur": "Sirf tabhi ke aap ko yakeen ho ke ye protection nahi chahiye, installer se setting badalwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 warnings",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "160",
+      "aliases": [
+        "160",
+        "Warning 160",
+        "Current derate due to controller high temperature"
+      ],
+      "title": {
+        "en": "Charger hot - current derated",
+        "ur": "Charger garam hai - current kam kar diya"
+      },
+      "meaning": {
+        "en": "The charger has reduced its output current to control its own internal temperature. Auto-resets when it cools down.",
+        "ur": "Charger ne apni internal temperature control karne ke liye output current kam kar diya hai. Thanda hote hi khud reset ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Ambient temperature too high around the charger",
+          "ur": "Charger ke aar paas ambient temperature bohat zyada hai"
+        },
+        {
+          "en": "Charger not mounted with clearance for cooling",
+          "ur": "Charger cooling ke liye jagah chhod kar nahi laga"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the ambient temperature at the charger location.",
+          "ur": "Charger ki jagah par ambient temperature check karein."
+        },
+        {
+          "en": "Mount with clearance so air can flow; keep it off the floor and out of direct sun.",
+          "ur": "Hawa ke liye jagah chhod kar lagaayein; floor par ya dhoop se door rakhein."
+        },
+        {
+          "en": "Dust off the heatsink fins with dry compressed air.",
+          "ur": "Heatsink ke fins ko dry compressed air se dhool saaf karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 warnings",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "161",
+      "aliases": [
+        "161",
+        "Warning 161",
+        "Short circuit detected (warning)"
+      ],
+      "title": {
+        "en": "Over-current on battery side",
+        "ur": "Battery side par over-current"
+      },
+      "meaning": {
+        "en": "An over-current condition is detected on the battery side, but the unit classifies it as a warning. Auto-resets.",
+        "ur": "Battery side par over-current ki shart detect hui hai, magar unit isay warning ke tor par rakhta hai. Khud reset hota hai."
+      },
+      "causes": [
+        {
+          "en": "Short circuit or very low load resistance on the battery output",
+          "ur": "Battery output par short circuit ya bohat kam load resistance"
+        },
+        {
+          "en": "Bank connected through a welding or chattering contactor",
+          "ur": "Bank aik welding ya chattering contactor se jury hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC, then check the battery output cable and contactor for continuity.",
+          "ur": "AC aur DC disconnect karein, phir battery output cable aur contactor ki continuity check karein."
+        },
+        {
+          "en": "Disconnect all power sources, wait 3 minutes, then power up again.",
+          "ur": "Tamam power sources disconnect karein, 3 minute intezaar karein, phir on karein."
+        },
+        {
+          "en": "If it does not auto-reset, the charge controller is probably faulty.",
+          "ur": "Agar khud resolve na ho to charge controller kharab hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 warnings",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    }
+  ]
+}

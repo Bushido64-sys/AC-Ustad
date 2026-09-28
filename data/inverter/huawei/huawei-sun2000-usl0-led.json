@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 1,
+  "brandId": "huawei",
+  "series": {
+    "id": "huawei-sun2000-usl0-led",
+    "name": "SUN2000-USL0 LED1/LED2/LED3 indicator states (Table 2-2 LED description)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*SUN2000-3.8KTL-USL0*",
+      "*SUN2000-5KTL-USL0*",
+      "*SUN2000-7.6KTL-USL0*",
+      "*SUN2000-9KTL-USL0*",
+      "*SUN2000-10KTL-USL0*",
+      "*SUN2000-11.4KTL-USL0*"
+    ],
+    "notes": "Distinct LED table from SERIES 2 (M0). USL0 adds orange backup-state rows and red-slow optimizer-fault rows that do not exist in the M0 table. Codes are LED state strings, not numeric alarm IDs."
+  },
+  "codes": [
+    {
+      "code": "LED1 Steady orange + LED2 Steady orange",
+      "aliases": [
+        "LED1 Steady orange + LED2 Steady orange",
+        "Backup state indication"
+      ],
+      "title": {
+        "en": "Running in backup state",
+        "ur": "Backup state mein chal raha hai (island/backup mode)"
+      },
+      "meaning": {
+        "en": "Both running LEDs solid orange: the inverter is supplying a local backup load instead of following the grid.",
+        "ur": "Dono running LEDs solid orange: inverter grid ke bajaye local backup load ko supply kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Grid lost while backup output was enabled, so the inverter is islanding the backup circuit.",
+          "ur": "Backup output on hone ke baad grid chala gaya, is liye inverter backup circuit island kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No fault action; verify in the app that backup mode is intentional for this site.",
+          "ur": "Koi fault action nahi; app par confirm karein ke backup mode is site ke liye qasd se on hai."
+        },
+        {
+          "en": "If backup was not expected, check the backup enable button and the critical-load AC wiring.",
+          "ur": "Agar backup expected nahi tha to backup enable button aur critical-load AC wiring check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Table 2-2 LED description",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "LED1 Blinking orange at long intervals + LED2 Off",
+      "aliases": [
+        "LED1 Blinking orange at long intervals + LED2 Off",
+        "Backup, no output"
+      ],
+      "title": {
+        "en": "Backup mode, no output",
+        "ur": "Backup mode, koi output nahi"
+      },
+      "meaning": {
+        "en": "DC is on and the SUN2000 has no output while in backup state.",
+        "ur": "DC on hai aur SUN2000 backup state mein koi output nahi de raha."
+      },
+      "causes": [
+        {
+          "en": "Grid is absent and the backup load is not drawing current.",
+          "ur": "Grid nahi hai aur backup load current nahi kheech raha."
+        },
+        {
+          "en": "Backup output not enabled via the backup enable button.",
+          "ur": "Backup enable button se backup output enable nahi kiya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the critical-load breaker is closed and measure voltage on the backup output with a multimeter.",
+          "ur": "Check karein ke critical-load breaker bandh nahi hai aur multimeter se backup output par voltage measure karein."
+        },
+        {
+          "en": "Confirm the backup enable button on the unit is pressed as per the manual.",
+          "ur": "Confirm karein ke manual ke mutabiq unit par backup enable button daba hua hai ya nahi."
+        },
+        {
+          "en": "If grid is present and backup output is still dead, check the neutral-earth bonding in the backup sub-panel.",
+          "ur": "Agar grid mojood hai lekin backup output ab bhi dead hai to backup sub-panel mein neutral-earth bonding check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "LED1 blinking orange at long intervals (on 1s, off 1s), LED2 off",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Table 2-2 LED description",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "LED1 Steady red + LED2 Steady red",
+      "aliases": [
+        "LED1 Steady red + LED2 Steady red",
+        "The SUN2000 is faulty"
+      ],
+      "title": {
+        "en": "Faulty (both running LEDs steady red)",
+        "ur": "Faulty (dono running LEDs steady red)"
+      },
+      "meaning": {
+        "en": "Both running LEDs solid red - the manual states the SUN2000 is faulty. Get the numeric alarm from the app.",
+        "ur": "Dono running LEDs solid red - manual ke mutabiq SUN2000 faulty hai. Numeric alarm app se lein."
+      },
+      "causes": [
+        {
+          "en": "Internal device fault, e.g. alarm 2064 Device Fault.",
+          "ur": "Internal device fault, maslan alarm 2064 Device Fault."
+        },
+        {
+          "en": "Battery fault with the unit, e.g. alarm 2068 Battery Abnormal.",
+          "ur": "Unit ke saath battery fault, maslan alarm 2068 Battery Abnormal."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the numeric alarm ID in the app before touching the AC or DC side.",
+          "ur": "AC ya DC side chhune se pehle app mein numeric alarm ID padhein."
+        },
+        {
+          "en": "Power off in documented order (AC output switch, then DC input switch) and wait 5 minutes.",
+          "ur": "Documented order se band karein (AC output switch, phir DC input switch) aur 5 minute intezaar karein."
+        },
+        {
+          "en": "If the alarm is one of the manually-cleared ones (2002, 2077, 2080), clear it in the app after fixing.",
+          "ur": "Agar alarm manually-clear wale mein se hai (2002, 2077, 2080) to theek karne ke baad app mein clear karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "LED1 steady red, LED2 steady red",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Table 2-2 LED description",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "LED1 Blinking red slowly + LED2 Steady green",
+      "aliases": [
+        "LED1 Blinking red slowly + LED2 Steady green",
+        "Optimizer fault while exporting"
+      ],
+      "title": {
+        "en": "Exporting power, optimizer fault",
+        "ur": "Power export ho raha hai lekin optimizer fault hai"
+      },
+      "meaning": {
+        "en": "LED1 blinks red slowly while LED2 is solid green: the inverter is still exporting, but an attached optimizer is faulty.",
+        "ur": "LED1 slowly red blink aur LED2 solid green: inverter ab bhi export kar raha hai, lekin laga hua optimizer faulty hai."
+      },
+      "causes": [
+        {
+          "en": "A connected SUN2000 optimizer has an internal fault or has lost communication.",
+          "ur": "Connected SUN2000 optimizer mein internal fault hai ya uski communication chala gaya hai."
+        },
+        {
+          "en": "Optimizer cable or connector open at the optimizer end.",
+          "ur": "Optimizer ka cable ya connector optimizer end par khula hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the optimizer page in the app and note which optimizer serial is flagged.",
+          "ur": "App mein optimizer page kholein aur note karein ke kaun sa optimizer serial flag ho raha hai."
+        },
+        {
+          "en": "With PV isolated, measure the optimizer output voltage; an optimizer should read near its module Voc, not 0 V.",
+          "ur": "PV isolate kar ke optimizer output voltage measure karein; optimizer ko apne module ke Voc ke qareeb par dikhna chahiye, 0 V nahi."
+        },
+        {
+          "en": "Reseat the optimizer connectors and, if still faulty, replace the optimizer - not the inverter.",
+          "ur": "Optimizer connectors dobara laga dein aur phir bhi faulty ho to optimizer badal dein - inverter nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "LED1 blinking red slowly (on 1s, off 1s), LED2 steady green",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Table 2-2 LED description",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "LED1 Blinking red slowly + LED2 Steady orange",
+      "aliases": [
+        "LED1 Blinking red slowly + LED2 Steady orange",
+        "Optimizer fault in backup mode"
+      ],
+      "title": {
+        "en": "Backup mode, optimizer fault",
+        "ur": "Backup mode chal raha hai lekin optimizer fault hai"
+      },
+      "meaning": {
+        "en": "LED1 blinks red slowly while LED2 is solid orange: the unit is in backup state and an optimizer is faulty.",
+        "ur": "LED1 slowly red blink aur LED2 solid orange: unit backup state mein hai aur optimizer faulty hai."
+      },
+      "causes": [
+        {
+          "en": "Backup mode active while an attached optimizer reports a fault.",
+          "ur": "Backup mode on hai aur attached optimizer fault report kar raha hai."
+        },
+        {
+          "en": "Optimizer supply absent on the backup island, so the optimizer drops out.",
+          "ur": "Backup island par optimizer ka supply nahi hai, is liye optimizer drop out ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm in the app whether the optimizer fault is real or is a side effect of no grid/optimizer supply.",
+          "ur": "App par confirm karein ke optimizer fault asli hai ya grid/optimizer supply na hone ka asar hai."
+        },
+        {
+          "en": "With PV isolated, check optimizer connectors and the optimizer ribbon cable for a broken conductor.",
+          "ur": "PV isolate kar ke optimizer connectors aur optimizer ribbon cable mein toota conductor check karein."
+        },
+        {
+          "en": "Return the site to grid-tied mode first, then re-read the optimizer status before replacing parts.",
+          "ur": "Pehle site ko grid-tied mode par la dein, phir parts badalne se pehle optimizer status dobara padhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "LED1 blinking red slowly (on 1s, off 1s), LED2 steady orange",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Table 2-2 LED description",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "LED3 Blinking green at long intervals (1s on / 1s off)",
+      "aliases": [
+        "LED3 Blinking green at long intervals (1s on / 1s off)",
+        "Mobile phone connected"
+      ],
+      "title": {
+        "en": "Mobile phone connected",
+        "ur": "Mobile phone connected hai"
+      },
+      "meaning": {
+        "en": "A phone is connected to the inverter - typically via the built-in WiFi access point.",
+        "ur": "Phone inverter se connected hai - aam tor par built-in WiFi access point ke zariye."
+      },
+      "causes": [
+        {
+          "en": "A technician's phone is in the local WiFi session with the inverter.",
+          "ur": "Technician ka phone inverter ke local WiFi session mein hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the alarm list on the phone while this state persists, then disconnect the phone to free the link.",
+          "ur": "Is state mein phone par alarm list padhein, phir link khaal karne ke liye phone disconnect karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "LED3 blinking green at long intervals (on 1s, off 1s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Table 2-2 LED description",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "LED3 Off",
+      "aliases": [
+        "LED3 Off",
+        "No communication"
+      ],
+      "title": {
+        "en": "No communication",
+        "ur": "Communication nahi hai"
+      },
+      "meaning": {
+        "en": "No communication with the management system.",
+        "ur": "Management system ke saath communication nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Management system or app not connected, or the unit is powered off.",
+          "ur": "Management system ya app connected nahi, ya unit band hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If the unit is generating, check the WiFi antenna is seated and the app is on the correct site account.",
+          "ur": "Agar unit generate kar raha hai to check karein ke WiFi antenna baithi hui hai aur app sahi site account par hai."
+        },
+        {
+          "en": "If the unit is off, confirm PV and AC are energised with a multimeter before blaming comms.",
+          "ur": "Agar unit off hai to comms ko blame karne se pehle multimeter se PV aur AC energized hain confirm karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "LED3 off",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Table 2-2 LED description",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    }
+  ]
+}

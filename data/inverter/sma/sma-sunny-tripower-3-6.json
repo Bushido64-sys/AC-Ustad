@@ -1,0 +1,1538 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sma",
+  "series": {
+    "id": "sma-sunny-tripower-3-6",
+    "name": "Sunny Tripower 3.0 / 4.0 / 5.0 / 6.0",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "STP3.0-3AV-40",
+      "STP4.0-3AV-40",
+      "STP5.0-3AV-40",
+      "STP6.0-3AV-40",
+      "STP 3.0-3AV-40",
+      "STP 4.0-3AV-40",
+      "STP 5.0-3AV-40",
+      "STP 6.0-3AV-40",
+      "*Tripower 3.0*",
+      "*Tripower 5.0*"
+    ],
+    "notes": "Model scoping: doc STP3-6-3AV-40-BE-en-20, valid from firmware 4.00.61.R, 2 MPPT, two DC inputs (A/B), three-phase 400 V. Do NOT merge with SERIES 2 (Sunny Tripower 125) or SERIES 4 (Sunny Island X) - the same numeric code carries a different meaning there (e.g. 3801 = 'DC overcurrent' here but 6802 = 'DC input defective / battery polarity' on Sunny Island X, and 3303 is a PV shortfall here but a battery fault on Sunny Island X). In this manual the 101-105 block and the 202/203/205/206 block and 3801/3802 are printed with IDENTICAL wording, so the individual number carries no extra diagnostic information inside the block; the aliases field records the sibling numbers that share the identical wording."
+  },
+  "codes": [
+    {
+      "code": "101",
+      "aliases": [
+        "101",
+        "102",
+        "103",
+        "104",
+        "105"
+      ],
+      "title": {
+        "en": "Grid overvoltage — inverter disconnected (101)",
+        "ur": "Grid overvoltage — inverter grid se disconnect (101)"
+      },
+      "meaning": {
+        "en": "Grid voltage or grid impedance at the inverter connection point is too high, so the inverter has disconnected from the utility grid.",
+        "ur": "Inverter ke connection point par grid voltage ya grid impedance zyada hai, is liye inverter utility grid se disconnect ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Local grid voltage permanently above the permissible range at the feed-in point.",
+          "ur": "Feed-in point par local grid voltage permanently permissible range se upar hai."
+        },
+        {
+          "en": "Long or heavily loaded AC cable between inverter and feed-in meter raising impedance.",
+          "ur": "Inverter aur feed-in meter ke darmiyan lamba ya zyada load wala AC cable, jis se impedance barh gaya hai."
+        },
+        {
+          "en": "Grid operator has changed the supply voltage or transformer tap setting.",
+          "ur": "Grid operator ne supply voltage ya transformer tap setting badal di hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the AC and PV before probing. Switch the AC miniature circuit breaker off, lock it, and confirm zero volts at the inverter AC connector with a two-pole tester.",
+          "ur": "Check karne se pehle AC aur PV disconnect kar lein. AC miniature circuit breaker off karke lock kar dein aur two-pole tester se inverter AC connector par zero volt confirm karein."
+        },
+        {
+          "en": "Measure grid voltage L-L, L-N and N-PE at the feed-in meter, not at the inverter, and log it for 10 minutes.",
+          "ur": "Feed-in meter par L-L, L-N aur N-PE grid voltage measure karein (inverter par nahi) aur 10 minute record karein."
+        },
+        {
+          "en": "Measure the AC cable loop impedance/conductor length; if the drop appears between meter and inverter, replace the undersized or loose AC cable.",
+          "ur": "AC cable ka loop impedance aur conductor length check karein; agar drop meter aur inverter ke darmiyan nazar aata hai to chhoti ya loose AC cable badal dein."
+        },
+        {
+          "en": "If voltage is permanently in range and the event keeps returning, ask SMA Service for a Grid Guard code and log the exact event number.",
+          "ur": "Agar voltage hamesha range mein hai phir bhi event repeat ho raha hai to SMA Service se Grid Guard code le kar exact event number note karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Manual prints identical wording for 101, 102, 103, 104 and 105, so treat the block as one fault class.",
+        "ur": "Manual mein 101, 102, 103, 104 aur 105 ka matlab bilkul same likha hai, is liye poora block ek hi fault class samajhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "202",
+      "aliases": [
+        "202",
+        "203",
+        "205",
+        "206"
+      ],
+      "title": {
+        "en": "Grid undervoltage / AC open — inverter disconnected (202)",
+        "ur": "Grid undervoltage ya AC khula — inverter disconnect (202)"
+      },
+      "meaning": {
+        "en": "The utility grid has been disconnected, the AC cable is damaged, or the grid voltage at the connection point is too low. Inverter has disconnected.",
+        "ur": "Utility grid disconnect ho gaya hai, AC cable damaged hai, ya grid voltage bohat kam hai. Inverter ne apne aap disconnect kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "AC miniature circuit breaker tripped or switched off.",
+          "ur": "AC miniature circuit breaker trip ho gaya ya off hai."
+        },
+        {
+          "en": "Damaged or loose AC cable / AC connector not fully seated.",
+          "ur": "AC cable damaged ya loose hai, ya AC connector puri tarah fit nahi hai."
+        },
+        {
+          "en": "Wrong country standard configured for the site.",
+          "ur": "Site ke liye ghalat country standard set hai."
+        },
+        {
+          "en": "Grid voltage persistently below the permissible range (common on weak LT feeders).",
+          "ur": "Grid voltage hamesha permissible range se neeche hai (kamzor LT feeder par yeh aam baat hai)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch on / re-close the AC miniature circuit breaker and listen for the contactor pull-in.",
+          "ur": "AC miniature circuit breaker on karein ya dobara close karein aur contactor ki awaaz sun lein."
+        },
+        {
+          "en": "With power isolated, inspect the AC connector pins for heat discolouration, bent pins and a loose click; refit and re-torque to the manual spec.",
+          "ur": "Power band kar ke AC connector ke pins mein garmi se ranga, teda ya dheela hona dekhein; dobara fit karein aur manual ke mutabiq torque dein."
+        },
+        {
+          "en": "Verify Set country standard on the inverter matches the actual grid in Pakistan, then restart the self-test.",
+          "ur": "Inverter par Set country standard check karein ke woh Pakistan ke actual grid se match karta hai, phir self-test dobara chalayein."
+        },
+        {
+          "en": "Measure grid voltage at the feed-in meter; if permanently out of range, report to the DISCO/grid operator for a transformer tap adjustment.",
+          "ur": "Feed-in meter par grid voltage measure karein; agar permanently range se bahar hai to DISCO/grid operator ko report karein ke woh transformer tap adjust karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Manual prints identical wording for 202, 203, 205 and 206.",
+        "ur": "Manual mein 202, 203, 205 aur 206 ka matlab bilkul same likha hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "301",
+      "aliases": [
+        "301"
+      ],
+      "title": {
+        "en": "10-min average grid voltage out of range (301)",
+        "ur": "10-minute average grid voltage range se bahar (301)"
+      },
+      "meaning": {
+        "en": "The ten-minute average of the grid voltage has left the permissible range, so the inverter disconnects to protect power quality.",
+        "ur": "Grid voltage ka 10-minute average permissible range se bahar chala gaya hai, is liye inverter power quality bachane ke liye disconnect ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Feeder voltage drifting with heavy neighbour load (unbalanced urban LT network).",
+          "ur": "Heavy neighbour load ki wajah se feeder voltage badal raha hai (unbalanced urban LT network)."
+        },
+        {
+          "en": "Grid impedance at the connection point too high because of long AC cable or undersized conductor.",
+          "ur": "Lamba AC cable ya chhota conductor hone ki wajah se connection point par grid impedance zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Log grid voltage L-L, L-N, N-PE at the feed-in meter every 10 s for at least 15 minutes during feed-in so you can see the 10-minute mean.",
+          "ur": "Feed-in ke dauran feed-in meter par L-L, L-N, N-PE ko 10 second par 15 minute se kam na log karein, taake 10-minute ka average nazar aaye."
+        },
+        {
+          "en": "Check the AC cable size and length against the inverter manual; upsize the conductor if the voltage drop is the cause.",
+          "ur": "AC cable ki size aur length inverter manual se compare karein; agar voltage drop wajah hai to conductor badha dein."
+        },
+        {
+          "en": "Get written DISCO approval before any change to the inverter operating limits, then apply it with an SMA Grid Guard code.",
+          "ur": "Inverter ke operating limits badalne se pehle DISCO se likhit ijazat lein, phir SMA Grid Guard code se apply karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Distinguish from 302: 301 is a disconnect, 302 is only a power reduction.",
+        "ur": "302 se farq karein: 301 disconnect hai, 302 sirf power kam karta hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "302",
+      "aliases": [
+        "302"
+      ],
+      "title": {
+        "en": "Grid voltage high — power reduced to derate (302)",
+        "ur": "Grid voltage high — power kam kar diya gaya (302)"
+      },
+      "meaning": {
+        "en": "The inverter has reduced its output power because the grid voltage is too high, in order to keep grid stability. It stays connected.",
+        "ur": "Grid stability bachane ke liye grid voltage zyada hone par inverter ne apni output power kam kar di hai. Inverter connected hi rehta hai."
+      },
+      "causes": [
+        {
+          "en": "Sustained grid overvoltage from the local distribution network.",
+          "ur": "Local distribution network se lagatar grid overvoltage."
+        },
+        {
+          "en": "Reactive power / cos phi setpoint injected by the inverter is raising the voltage at the feed-in point.",
+          "ur": "Inverter ki taraf se diya gaya reactive power ya cos phi setpoint feed-in point par voltage barha raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage L-L at the feed-in meter while the derate is active and note the peak value.",
+          "ur": "Derate chal raha ho to feed-in meter par L-L grid voltage measure kar ke peak value note karein."
+        },
+        {
+          "en": "On the inverter, read the active and reactive power setpoints and the cos phi setting; set the inverter to unity cos phi for a test period.",
+          "ur": "Inverter par active aur reactive power setpoint aur cos phi setting padhein; test ke liye inverter ko unity cos phi par set karein."
+        },
+        {
+          "en": "If voltage stays high and the event is frequent, ask the grid operator for written approval to change operating parameters and apply it with SMA Service.",
+          "ur": "Agar voltage high rehta hai aur event baar baar aata hai to grid operator se operating parameters badalne ki likhit ijazat lein aur SMA Service ke saath apply karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Not a shutdown: the inverter keeps feeding in, just de-rated.",
+        "ur": "Yeh shutdown nahi hai: inverter feed-in karta rehta hai, bas power kam hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "401",
+      "aliases": [
+        "401",
+        "404"
+      ],
+      "title": {
+        "en": "Stand-alone grid / large frequency step detected (401)",
+        "ur": "Stand-alone grid ya bada frequency jump detect hua (401)"
+      },
+      "meaning": {
+        "en": "The inverter disconnected from the utility grid because it detected an islanded grid or a very large change in grid frequency.",
+        "ur": "Inverter ne utility grid se disconnect kiya kyunke usne islanded grid ya grid frequency ka bohat bada tabdeeli detect kiya."
+      },
+      "causes": [
+        {
+          "en": "Utility grid outage, or the grid operator working on the line nearby.",
+          "ur": "Utility grid ka outage ya grid operator ka nearby line par kaam."
+        },
+        {
+          "en": "Large generator or load being switched on/off on the same feeder, causing a fast frequency transient.",
+          "ur": "Same feeder par bada generator ya load on/off hona, jis se frequency par tez tadaad hua."
+        },
+        {
+          "en": "Anti-islanding detection sensitivity set too tight for a weak local grid.",
+          "ur": "Kamzor local grid ke liye anti-islanding detection sensitivity bohat zyada tight set hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the neighbours: ask whether there was a load shedding event or generator start at the same time.",
+          "ur": "Padosiyon se poochein ke usi waqt load shedding ya generator start hua tha ya nahi."
+        },
+        {
+          "en": "Record the grid frequency and voltage at the feed-in meter with a clamp meter / grid analyzer through the reconnect attempts.",
+          "ur": "Grid analyzer ya clamp meter se feed-in meter par grid frequency aur voltage record karein, reconnect ki koshish ke dauran."
+        },
+        {
+          "en": "Log the exact event number each time it happens; repeated 401/404 on a healthy grid usually needs a Service parameter check, not a part change.",
+          "ur": "Har baar exact event number note karein; healthy grid par 401/404 ka repeat aam tor par Service parameter check maangta hai, koi part badalne ki zaroorat nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Manual prints identical wording for 401 and 404.",
+        "ur": "Manual mein 401 aur 404 ka matlab bilkul same likha hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "501",
+      "aliases": [
+        "501"
+      ],
+      "title": {
+        "en": "Grid frequency out of range — inverter disconnected (501)",
+        "ur": "Grid frequency range se bahar — inverter disconnect (501)"
+      },
+      "meaning": {
+        "en": "The grid frequency is outside the permissible range, so the inverter disconnected from the utility grid.",
+        "ur": "Grid frequency permissible range se bahar hai, is liye inverter utility grid se disconnect ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Weak grid with a large generator cycling on the same transformer.",
+          "ur": "Kamzor grid jis par same transformer par bada generator chalta hai."
+        },
+        {
+          "en": "Frequency-shifting anti-islanding method reacting to a genuine but small frequency excursion.",
+          "ur": "Frequency-shift anti-islanding method chhote lekin asli frequency excursion par react kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure and log grid frequency at the feed-in meter for a full day and find the time of day it trips.",
+          "ur": "Feed-in meter par poore din grid frequency measure aur log karein aur dekhein din ka kaunsa waqt trip hota hai."
+        },
+        {
+          "en": "Check AC voltage and cable tightness at the inverter; a high-impedance connection can make frequency reading unstable.",
+          "ur": "Inverter par AC voltage aur cable ki tightness check karein; zyada impedance wala connection frequency reading unstable kar sakta hai."
+        },
+        {
+          "en": "Only with grid operator written approval, change the monitored frequency limits through SMA Service with a Grid Guard code.",
+          "ur": "Sirf grid operator ki likhit ijazat ke baad, SMA Service ke saath Grid Guard code se monitored frequency limits badlein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "In Pakistan 50 Hz is nominal; a 50/60 Hz mismatch in the country data set will also show up as a grid frequency event.",
+        "ur": "Pakistan mein nominal 50 Hz hai; country data set mein 50/60 Hz ka mismatch bhi grid frequency event ki shakal mein aata hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "507",
+      "aliases": [
+        "507"
+      ],
+      "title": {
+        "en": "Grid frequency high — power reduced to derate (507)",
+        "ur": "Grid frequency high — power kam kar diya (507)"
+      },
+      "meaning": {
+        "en": "The inverter has reduced its power because the grid frequency is too high, to keep grid stability. It remains connected.",
+        "ur": "Grid stability bachane ke liye grid frequency zyada hone par inverter ne power kam kar di hai. Inverter connected rehta hai."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency sustained above the permissible band.",
+          "ur": "Grid frequency permissible band se upar tay rahe."
+        },
+        {
+          "en": "Generator on site exporting/importing enough power to pull the local frequency up.",
+          "ur": "Site par generator itni power le ya de raha hai ke local frequency upar chala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the instantaneous frequency on the inverter user interface and compare it with a grid analyzer at the feed-in meter.",
+          "ur": "Inverter user interface par instantaneous frequency padhein aur grid analyzer se feed-in meter par compare karein."
+        },
+        {
+          "en": "If a site generator is present, check its governor droop setting and its load-shedding contactor wiring.",
+          "ur": "Agar site par generator hai to uska governor droop setting aur load-shedding contactor wiring check karein."
+        },
+        {
+          "en": "If the derate repeats daily, request grid operator approval to widen the operating band and have SMA Service apply it.",
+          "ur": "Agar derate roz repeat ho to grid operator se approval le kar operating band barhwayein aur SMA Service se apply karwayein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "A derate, not a disconnect. Check the generated-energy graph to confirm the production loss is real.",
+        "ur": "Yeh derate hai, disconnect nahi. Generated-energy graph dekhein ke production ka nuqsaan sach mein hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "601",
+      "aliases": [
+        "601"
+      ],
+      "title": {
+        "en": "Excessive DC component in grid current (601)",
+        "ur": "Grid current mein DC component zyada (601)"
+      },
+      "meaning": {
+        "en": "The inverter detected an excessively high proportion of direct current in the grid current and disconnected.",
+        "ur": "Inverter ne grid current mein DC ka bohat zyada hissa detect kiya aur disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "A DC injection source on the same bus — other faulty inverters, or a generator excitation fault.",
+          "ur": "Usi bus par DC injection ka koi source — doosre defective inverters ya generator excitation ka fault."
+        },
+        {
+          "en": "Loose or oxidised AC connector joint adding asymmetry.",
+          "ur": "AC connector ka loose ya zarda khaa joint jo asymmetry barha raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With AC isolated, check each phase conductor torque at the AC connector and at the feed-in meter; re-torque loose joints.",
+          "ur": "AC isolate kar ke AC connector aur feed-in meter har phase conductor ka torque check karein; loose joints dobara torque karein."
+        },
+        {
+          "en": "Ask the site owner to switch other inverters on the same feeder off one at a time; if the DC component vanishes, the fault is on that device.",
+          "ur": "Site owner se usi feeder ke doosre inverters ek-ek karke band karwayein; agar DC component khatam ho jaye to usi device mein fault hai."
+        },
+        {
+          "en": "If the event is frequent, ask the grid operator whether the inverter's DC monitoring threshold may be raised.",
+          "ur": "Agar event baar baar aata hai to grid operator se poochein ke inverter ka DC monitoring threshold barhaya ja sakta hai ya nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Transformerless topology makes DC injection measurable; on a normal new installation this event should never appear.",
+        "ur": "Transformerless topology mein DC injection nazar aata hai; naye installation par yeh event aam tor par kabhi nahi aana chahiye."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "701",
+      "aliases": [
+        "701"
+      ],
+      "title": {
+        "en": "Frequency not permitted — check parameter (701)",
+        "ur": "Frequency permitted nahi — parameter check karein (701)"
+      },
+      "meaning": {
+        "en": "The grid frequency is outside the permissible range and the inverter disconnected. The message specifically asks you to check the parameter and the AC wiring.",
+        "ur": "Grid frequency permissible range se bahar hai aur inverter disconnect ho gaya. Message khaas tor par parameter aur AC wiring check karne ka kaha hai."
+      },
+      "causes": [
+        {
+          "en": "AC wiring from inverter to feed-in meter wrong, loose, or too long.",
+          "ur": "Inverter se feed-in meter tak AC wiring ghalat, loose ya bohat lambi hai."
+        },
+        {
+          "en": "Monitored frequency limits changed or country standard mismatch.",
+          "ur": "Monitored frequency limits badal di gayi hain ya country standard mismatch hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power down, then check the AC wiring run from inverter to feed-in meter: continuity of L, N and PE, and PE continuity to earth within a few ohms.",
+          "ur": "Power band karein, phir inverter se feed-in meter tak AC wiring check karein: L, N, PE ki continuity, aur PE ki earth se continuity chand ohm ke andar."
+        },
+        {
+          "en": "Read the frequency monitoring limits and the country standard parameters on the inverter and compare them with the manual.",
+          "ur": "Inverter par frequency monitoring limits aur country standard parameters padhein aur manual se compare karein."
+        },
+        {
+          "en": "Re-commission by switching the AC breaker on and watching the inverter log the grid connection attempt.",
+          "ur": "AC breaker on karke inverter ko grid connection ki koshish karte hue dekh kar dobara commission karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Sister code 1001 (L/N swapped) often appears alongside 701 on a mis-wired three-phase install.",
+        "ur": "Galat teesre phase wiring par 701 ke saath 1001 (L/N swapped) bhi aksar aata hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "901",
+      "aliases": [
+        "901"
+      ],
+      "title": {
+        "en": "PE connection missing — check connection (901)",
+        "ur": "PE connection nahi — connection check karein (901)"
+      },
+      "meaning": {
+        "en": "The protective earth conductor is not correctly connected at the inverter, so the inverter refuses to connect to the grid.",
+        "ur": "Protective earth conductor inverter par theek se connected nahi hai, is liye inverter grid se connect nahi hota."
+      },
+      "causes": [
+        {
+          "en": "Earth conductor not terminated at the inverter earth terminal.",
+          "ur": "Earth conductor inverter ke earth terminal par terminate nahi hua."
+        },
+        {
+          "en": "Earth conductor disconnected or pulled out at the AC connector.",
+          "ur": "Earth conductor AC connector par se nikal gaya ya disconnected hai."
+        },
+        {
+          "en": "Earth continuity open downstream, so the inverter measures high resistance to earth.",
+          "ur": "Earth continuity downstream se khuli hai, is liye inverter earth ke saath zyada resistance measure karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC breaker and PV, then verify the inverter earth terminal is bolted to the PE conductor and the stud is clean.",
+          "ur": "AC breaker aur PV band karein, phir confirm karein ke inverter earth terminal PE conductor se bolted hai aur stud saaf hai."
+        },
+        {
+          "en": "Measure PE continuity from the inverter earth terminal to the main earth bus bar; expected a few ohms, not open.",
+          "ur": "Inverter earth terminal se main earth bus bar tak PE continuity measure karein; chand ohm aana chahiye, open nahi."
+        },
+        {
+          "en": "Measure earth voltage under load between PE and neutral; a few volts is acceptable, tens of volts indicates a poor earth path worth fixing.",
+          "ur": "Load ke under PE aur neutral ke darmiyan earth voltage measure karein; chand volt theek hai, dason volt ka matlab earth path kharab hai jise theek karna chahiye."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Never defeat the earth check to get feed-in — the transformerless chassis is live in normal operation.",
+        "ur": "Feed-in lene ke liye earth check kabhi bypass na karein — transformerless chassis normal operation mein live rehta hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "1001",
+      "aliases": [
+        "1001"
+      ],
+      "title": {
+        "en": "L / N swapped on the AC connection (1001)",
+        "ur": "AC connection par L / N swap ho gaya (1001)"
+      },
+      "meaning": {
+        "en": "The line and neutral conductors are connected to the wrong terminals in the AC connection, so the inverter will not connect.",
+        "ur": "Line aur neutral conductor AC connection mein galat terminals par lage hain, is liye inverter connect nahi hota."
+      },
+      "causes": [
+        {
+          "en": "AC connector wired L to N and N to L at installation.",
+          "ur": "Installation mein AC connector mein L ko N se aur N ko L se joda gaya."
+        },
+        {
+          "en": "Single-phase feed taken from the wrong pair of conductors in a three-phase cable.",
+          "ur": "Teesre phase cable se single-phase feed galat conductor pair se liya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "De-energise AC and PV, then photograph the AC connector terminals before touching anything, so the original wiring can be compared later.",
+          "ur": "AC aur PV isolate karein, phir chherne se pehle AC connector terminals ki photo lein taake baad mein original wiring se compare ho sake."
+        },
+        {
+          "en": "Measure voltage at the inverter AC terminals with a two-pole tester: phase-to-neutral should read ~230 V, phase-to-earth ~230 V, neutral-to-earth near 0 V.",
+          "ur": "Two-pole tester se inverter AC terminals par voltage measure karein: phase-neutral ~230 V, phase-earth ~230 V, neutral-earth qareeb 0 V."
+        },
+        {
+          "en": "Correct the conductor order, seal the connector, and re-tighten to the SMA torque spec before switching the AC breaker on.",
+          "ur": "Conductor ka order theek karein, connector seal karein, aur AC breaker on karne se pehle SMA torque spec ke mutabiq tighten karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "1101 is the related installation fault where a second line conductor sits on N.",
+        "ur": "1101 us se mila jula installation fault hai jahan N par doosra line conductor laga hota hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "1101",
+      "aliases": [
+        "1101"
+      ],
+      "title": {
+        "en": "Installation fault — second line conductor on N (1101)",
+        "ur": "Installation fault — N par doosra line conductor (1101)"
+      },
+      "meaning": {
+        "en": "A second line conductor is connected to the neutral terminal N, so the inverter detects an installation fault and will not connect.",
+        "ur": "Neutral terminal N par doosra line conductor laga hai, is liye inverter installation fault detect karta hai aur connect nahi hota."
+      },
+      "causes": [
+        {
+          "en": "Two phases shorted together in the AC terminal block instead of phase and neutral.",
+          "ur": "AC terminal block mein phase aur neutral ki jagah do phases aapas mein jode gaye hain."
+        },
+        {
+          "en": "Phase and neutral conductors swapped into each other's terminal screws.",
+          "ur": "Phase aur neutral conductors aapas ke terminal screws mein badal diye gaye hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and lock the AC breaker, then confirm zero volts on all conductors with a two-pole tester before removing any wire.",
+          "ur": "AC breaker off karke lock karein, phir koi wire nikaalne se pehle two-pole tester se sabhi conductors par zero volt confirm karein."
+        },
+        {
+          "en": "Remove one conductor at a time and label it; verify only ONE line conductor and ONE neutral are landed on the inverter AC connector.",
+          "ur": "Ek-ek conductor nikaal ke label lagayein; confirm karein ke inverter AC connector par sirf EK line aur EK neutral lagi hai."
+        },
+        {
+          "en": "Re-terminate with the correct crimp tool, torque to spec, re-seal the connector, then power up and confirm the event clears.",
+          "ur": "Sahi crimp tool se dobara terminate karein, torque dein, connector seal karein, phir power up karke confirm karein ke event clear ho gaya."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Pair with 1001 — both come from the same class of installation error.",
+        "ur": "1001 ke saath dekhein — dono ek hi installation error class se aate hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "1302",
+      "aliases": [
+        "1302"
+      ],
+      "title": {
+        "en": "Waiting for grid voltage — L or N not connected (1302)",
+        "ur": "Grid voltage ka intezaar — L ya N connected nahi (1302)"
+      },
+      "meaning": {
+        "en": "The inverter is waiting for grid voltage because either L or N is not connected at the AC connection, or the fuses/MCB are open.",
+        "ur": "Inverter grid voltage ka intezaar kar raha hai kyunke AC connection par L ya N connected nahi hai, ya fuse/MCB khule hain."
+      },
+      "causes": [
+        {
+          "en": "Line conductor not connected or open in the AC wiring run.",
+          "ur": "Line conductor connected nahi ya AC wiring mein khuli hui hai."
+        },
+        {
+          "en": "AC miniature circuit breaker off or a fuse blown.",
+          "ur": "AC miniature circuit breaker off hai ya fuse udd chuka hai."
+        },
+        {
+          "en": "Damaged AC cable — cut, crushed, or rodent damage between inverter and meter.",
+          "ur": "AC cable damaged hai — inverter aur meter ke darmiyan kata hua, daba hua ya chuha ka nuqsaan."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV first. Then measure line-to-neutral voltage at the feed-in meter to prove the supply is present upstream of the inverter.",
+          "ur": "Pehle AC aur PV isolate karein. Phir feed-in meter par line-neutral voltage measure karke prove karein ke supply inverter se pehle maujood hai."
+        },
+        {
+          "en": "Trace the AC cable run and check the MCB/fuse at the feed-in meter; re-close or replace the blown fuse with the same rating.",
+          "ur": "AC cable run trace karein aur feed-in meter par MCB/fuse check karein; dubara close karein ya udd chuka fuse isi rating ka naya lagayein."
+        },
+        {
+          "en": "With power isolated, do a continuity test on L and N end-to-end and insulation resistance test on each core before re-terminating.",
+          "ur": "Power isolate kar ke L aur N ki end-to-end continuity aur har core ki insulation resistance test karke dobara terminate karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Sunny Tripower 125 prints a slightly different explanation for 1302 (adds 'or the utility grid has failed') — see SERIES 2 and CONFLICTS.",
+        "ur": "Sunny Tripower 125 mein 1302 ka thora different matlab hai ('ya utility grid fail ho gayi') — SERIES 2 aur CONFLICTS dekhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "1501",
+      "aliases": [
+        "1501"
+      ],
+      "title": {
+        "en": "Reconnection fault — country standard wrong (1501)",
+        "ur": "Reconnection fault — country standard ghalat (1501)"
+      },
+      "meaning": {
+        "en": "The configured country standard, or a parameter you changed, does not match local requirements, so the inverter cannot connect to the utility grid.",
+        "ur": "Set kiya hua country standard ya aap ki badla hui parameter local requirements se match nahi karti, is liye inverter utility grid se connect nahi ho sakta."
+      },
+      "causes": [
+        {
+          "en": "Country data set set for a different country than the installation site.",
+          "ur": "Country data set installation site se alag country ka set kiya gaya hai."
+        },
+        {
+          "en": "An installer changed a grid protection parameter that does not match the DISCO requirement.",
+          "ur": "Kisi installer ne grid protection parameter badal diya jo DISCO requirement se match nahi karta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Log into the installer menu with the SMA Grid Guard code, open Set country standard and read the current value before changing anything.",
+          "ur": "SMA Grid Guard code se installer menu mein login karein, Set country standard kholein aur kuch badalne se pehle current value padhein."
+        },
+        {
+          "en": "Compare the value against the actual utility in Pakistan; an India or Germany data set left over from a previous tenant will block connection.",
+          "ur": "Value ko Pakistan ke actual utility se compare karein; pichle tenant se chhoda hua India ya Germany data set connection rok dega."
+        },
+        {
+          "en": "Restore grid protection parameters to the utility requirement, then restart the self-test from the user interface.",
+          "ur": "Grid protection parameters utility requirement ke mutabiq set karein, phir user interface se self-test dobara chalayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "An important anti-tamper code: the parameters are protected by a Grid Guard code by design.",
+        "ur": "Yeh important anti-tamper code hai: parameters design hi Grid Guard code se protected hote hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "3303",
+      "aliases": [
+        "3303"
+      ],
+      "title": {
+        "en": "Unstable operation — not enough DC power (3303)",
+        "ur": "Unstable operation — DC power kam hai (3303)"
+      },
+      "meaning": {
+        "en": "There is not enough power at the DC input for stable operation, so the inverter cannot connect to the utility grid.",
+        "ur": "DC input par stable operation ke liye power kam hai, is liye inverter utility grid se connect nahi ho sakta."
+      },
+      "causes": [
+        {
+          "en": "PV array grossly undersized or heavily soiled.",
+          "ur": "PV array bohat chhota ya bohat ganda (soiled) hai."
+        },
+        {
+          "en": "Array partially shaded, or covered with dust, bird droppings or snow in the morning.",
+          "ur": "Array ka hissa shadowed hai, ya subah dhool, parinde ke guzarish ya barf se dhanka hua hai."
+        },
+        {
+          "en": "One or more defective PV modules dragging the string current down.",
+          "ur": "Ek ya zyada defective PV modules string ka current gira raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the DC input voltage and current on the user interface and compare the string voltage against the MPP range in the technical data for that model.",
+          "ur": "User interface par DC input voltage aur current padhein aur string voltage ko us model ke technical data ke MPP range se compare karein."
+        },
+        {
+          "en": "With DC isolated, measure each string open-circuit Voc in good sun and compare string to string; a low string points at shaded or faulty modules.",
+          "ur": "DC isolate kar ke dhoop mein har string ka open-circuit Voc measure karein aur string ko string se compare karein; kam wali string shaded ya faulty modules dikhati hai."
+        },
+        {
+          "en": "Clean the modules and remove any shading (bird mesh, cable trays, water tank) before resizing the array; replace modules with a visibly cracked or hot-spot affected one.",
+          "ur": "Modules saaf karein aur koi bhi shadow hata dein (bird mesh, cable tray, water tank), phir array resize karne se pehle; visibly cracked ya hot-spot wala module badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Same number on Sunny Island X 30/50 means a battery fault, not a PV shortfall — keep the series apart.",
+        "ur": "Sunny Island X 30/50 par yehi number battery fault ka matlab hai, PV ki kami ka nahi — series alag rakhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "3501",
+      "aliases": [
+        "3501"
+      ],
+      "title": {
+        "en": "Insulation failure — ground fault in PV (3501)",
+        "ur": "Insulation failure — PV mein ground fault (3501)"
+      },
+      "meaning": {
+        "en": "The inverter detected a ground fault in the PV array and stops feeding in while the fault exists.",
+        "ur": "Inverter ne PV array mein ground fault detect kiya hai aur fault zyada rehta hai tab tak feed-in band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Damaged module back-sheet, a chafed cable, or a wet connector letting moisture in.",
+          "ur": "Module ka back-sheet damaged, cable ghis chuki, ya geela connector jis mein paasush aar raha hai."
+        },
+        {
+          "en": "Modules or frames bonded to earth while the inverter is transformerless, creating a leakage path.",
+          "ur": "Modules ya frame earth se bond ho gaye jabke inverter transformerless hai, jis se leakage path ban gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV first. Then measure + to PE and - to PE DC voltage per string: a stable reading whose sum equals the string voltage proves a ground fault, and the ratio of the two locates it.",
+          "ur": "Pehle AC aur PV disconnect karein. Phir har string par + se PE aur - se PE DC voltage measure karein: stable reading jiska sum string voltage ke barabar ho ground fault sabit karta hai, aur dono ka ratio uska naam batata hai."
+        },
+        {
+          "en": "If the voltage test is inconclusive, install the short-circuit device, set the insulation tester near the module max voltage, and measure Riso per string; expect roughly 50 MOhm per mono/poly module and about 40 MOhm per thin-film module.",
+          "ur": "Agar voltage test se faisla na ho to short-circuit device lagayein, insulation tester ko module ki max voltage ke qareeb set karein, aur har string ka Riso measure karein; mono/poly module ke liye taqreeban 50 MOhm aur thin-film ke liye 40 MOhm per module ka intezaar karein."
+        },
+        {
+          "en": "Reconnect only the strings that passed, then re-energise; if 3501 returns, the module count may be too high for the inverter and SMA Service must check the insulation threshold.",
+          "ur": "Sirf wohi strings dobara connect karein jo pass hue, phir power dein; agar 3501 wapas aaye to shayad modules ki tadaad inverter se zyada hai aur SMA Service ko insulation threshold check karna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Ground fault — treat as live. Only touch cable insulation, never the array frame or substructure.",
+        "ur": "Ground fault hai — live samajhein. Sirf cable ki insulation ko chhoein, array frame ya substructure ko bilkul nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "3601",
+      "aliases": [
+        "3601"
+      ],
+      "title": {
+        "en": "High leakage current — check PV array (3601)",
+        "ur": "High leakage current — PV array check karein (3601)"
+      },
+      "meaning": {
+        "en": "Total leakage current of inverter plus PV array is too high due to a ground fault, residual current or malfunction. The inverter interrupts feed-in immediately above the threshold and auto-reconnects once cleared.",
+        "ur": "Inverter aur PV array ka total leakage current zyada hai — ground fault, residual current ya malfunction ki wajah se. Threshold cross karte hi inverter feed-in turant band karta hai aur fault door hone par khud reconnect ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Same insulation defect family as 3501 — wet connectors, chafed cables, cracked module glass.",
+          "ur": "3501 jaisa hi insulation defect — geele connectors, ghis chuki cables, module ka cracked glass."
+        },
+        {
+          "en": "Moisture on the roof or in the DC cable tray at dawn after dew.",
+          "ur": "Subah oos par ya DC cable tray mein nami."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Run the same safe per-string isolation test as for 3501 before assuming a part is faulty; 3601 is usually the precursor of 3501.",
+          "ur": "Part kharab samajhne se pehle 3501 wala hi safe per-string isolation test karein; 3601 aksar 3501 ka pehla signal hota hai."
+        },
+        {
+          "en": "Isolate DC and check each string's Riso with the short-circuit device fitted; replace the connector or module whose Riso is far below the calculated string value.",
+          "ur": "DC isolate kar ke short-circuit device lagayein aur har string ka Riso check karein; jis string ka Riso calculated value se kaafi neeche ho uska connector ya module badal dein."
+        },
+        {
+          "en": "Look for early-morning-only trips: dew wetting the array is a site problem — improve the cable routing and reseal the DC connectors.",
+          "ur": "Subah ke waqt hi trip hone wale cases dekhein: oos par array geelna site ka masla hai — cable routing behtar karein aur DC connectors dobara seal karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Self-clearing, so log the time of day and the frequency — that pattern is the real diagnosis.",
+        "ur": "Yeh khud clear hota hai, is liye din ka waqt aur repeat count note karein — wohi pattern asli diagnosis hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "3701",
+      "aliases": [
+        "3701"
+      ],
+      "title": {
+        "en": "Residual current too high via brief PV grounding (3701)",
+        "ur": "Residual current zyada — PV ka brief grounding (3701)"
+      },
+      "meaning": {
+        "en": "The inverter detected a residual current caused by brief grounding of the PV array. It is a transient, arc-like DC event rather than a steady insulation failure.",
+        "ur": "Inverter ne PV array ke brief grounding se residual current detect kiya. Yeh transient, arc jaisa DC event hai, steady insulation failure nahi."
+      },
+      "causes": [
+        {
+          "en": "Intermittent contact between a module frame, mounting rail or cable and earth.",
+          "ur": "Module frame, mounting rail ya cable aur earth ke darmiyan intermittent contact."
+        },
+        {
+          "en": "Loose DC connector that momentarily arcs or breaks under thermal cycling.",
+          "ur": "Loose DC connector jo thermal cycling par pal ke liye arc ya break karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC, then flex each connector and cable section by hand while watching for a resistance change on a continuity meter — an intermittent joint moves with the flex.",
+          "ur": "DC isolate karein, phir har connector aur cable section ko haath se hilate hue continuity meter par resistance change dekhein — intermittent joint hilne ke saath reading badalta hai."
+        },
+        {
+          "en": "Torque every DC connector to the SMA specification and replace any connector whose latch no longer clicks home.",
+          "ur": "Har DC connector ko SMA spec ke mutabiq torque karein aur jis connector ka latch ab click nahi karta use badal dein."
+        },
+        {
+          "en": "Re-check bonding of module frames and rails to earth; a single unbonded frame is enough to produce 3701.",
+          "ur": "Module frames aur rails ki earth bonding dobara check karein; ek bhi unbonded frame 3701 de sakta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Compare with 3801 in this manual: the printed title is identical but the explanation is DC overcurrent. Recorded in CONFLICTS.",
+        "ur": "Is manual ke 3801 se compare karein: printed title bilkul same hai lekin explanation DC overcurrent hai. CONFLICTS mein note kiya gaya hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "3801",
+      "aliases": [
+        "3801",
+        "3802"
+      ],
+      "title": {
+        "en": "DC input overcurrent — feed-in briefly interrupted (3801)",
+        "ur": "DC input overcurrent — feed-in pal ke liye band (3801)"
+      },
+      "meaning": {
+        "en": "Overcurrent at the DC input. The inverter briefly interrupts feed-in and retries. In this manual the on-screen title reads 'Residual current too high' while the explanation states DC overcurrent.",
+        "ur": "DC input par overcurrent. Inverter feed-in pal ke liye band karke dobara koshish karta hai. Is manual mein screen title 'Residual current too high' hai jabke explanation DC overcurrent kehta hai."
+      },
+      "causes": [
+        {
+          "en": "String current exceeding the inverter's permitted maximum input current for that MPPT.",
+          "ur": "String current us MPPT ke liye inverter ke maximum input current se zyada hai."
+        },
+        {
+          "en": "Array and string design not matched to the inverter rating.",
+          "ur": "Array aur string ka design inverter rating se match nahi karta."
+        },
+        {
+          "en": "Parallel inputs at different MPP working against each other and forcing current back.",
+          "ur": "Alag MPP par parallel inputs aapas mein lad rahe hain aur current wapas push kar rahe hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC and measure each string's short-circuit current with a clamp meter or the inverter's I-V diagnostic, then compare against the technical data maximum input current.",
+          "ur": "DC isolate kar ke clamp meter ya inverter ke I-V diagnostic se har string ka short-circuit current measure karein, phir technical data ke maximum input current se compare karein."
+        },
+        {
+          "en": "Recheck the string-to-MPPT assignment: strings with different module counts and orientations must go to separate MPPT inputs, never in parallel on one input.",
+          "ur": "String se MPPT ka assignment dobara check karein: alag module count aur orientation wale strings alag MPPT inputs par jayein, ek input par kabhi parallel na hon."
+        },
+        {
+          "en": "If the current is genuinely within rating and the event still repeats, reduce the string count per input and re-commission before considering any service action.",
+          "ur": "Agar current sach mein rating ke andar hai phir bhi event repeat ho to har input par string ki tadaad kam karke dobara commission karein, service ka kadam sochne se pehle."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Title/explanation mismatch in the SMA source is preserved verbatim rather than corrected — see CONFLICTS.",
+        "ur": "SMA source mein title aur explanation ka mismatch jaisa hai waisa hi chhoda gaya hai — CONFLICTS dekhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "3901",
+      "aliases": [
+        "3901",
+        "3902"
+      ],
+      "title": {
+        "en": "Waiting for DC start conditions (3901)",
+        "ur": "DC start conditions ka intezaar (3901)"
+      },
+      "meaning": {
+        "en": "Feed-in conditions are not yet fulfilled, typically because DC voltage is below the start threshold. Usually a normal waiting state in low light, not a fault.",
+        "ur": "Feed-in conditions abhi poori nahi hui, aam tor par is liye ke DC voltage start threshold se neeche hai. Kam roshni mein yeh aam intezaar ki halat hai, fault nahi."
+      },
+      "causes": [
+        {
+          "en": "Irradiation too low — dawn, dusk, heavy cloud or haze.",
+          "ur": "Irradiation bohat kam — subah, sham, bhaari baadal ya dhund."
+        },
+        {
+          "en": "String Voc too low for the model's MPP range because the string is too short.",
+          "ur": "String Voc model ke MPP range se kam kyunke string chhoti hai."
+        },
+        {
+          "en": "Array covered by dust, snow, bird mesh or partial shade.",
+          "ur": "Array dhool, barf, bird mesh ya hissa shadow se dhanka hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for higher irradiation and check the DC voltage on the user interface; if it climbs past the Critical voltage to start feed-in, no action is needed.",
+          "ur": "Zyada irradiation ka intezaar karein aur user interface par DC voltage dekhein; agar yeh Critical voltage to start feed-in se upar chala jaye to koi zaroorat nahi."
+        },
+        {
+          "en": "If it happens every morning, raise the start threshold by changing the Critical voltage to start feed-in parameter, using an SMA Grid Guard code.",
+          "ur": "Agar yeh har subah ho to Critical voltage to start feed-in parameter badhayein, SMA Grid Guard code se."
+        },
+        {
+          "en": "If it happens at medium irradiation, re-size the array or re-check string assignment; clean the modules and clear any shade before changing any parameter.",
+          "ur": "Agar medium irradiation par hota hai to array resize karein ya string assignment dekhein; koi parameter badalne se pehle modules saaf karein aur shade hata dein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Non-fault status row. 3902 is printed with identical wording in this manual.",
+        "ur": "Yeh non-fault status row hai. Is manual mein 3902 bilkul same wording ke saath hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "6501",
+      "aliases": [
+        "6501",
+        "6502",
+        "6509"
+      ],
+      "title": {
+        "en": "Overtemperature — inverter switched off (6501)",
+        "ur": "Overtemperature — inverter band ho gaya (6501)"
+      },
+      "meaning": {
+        "en": "The inverter has switched itself off because the internal temperature exceeded the limit. It restarts automatically once the temperature drops.",
+        "ur": "Inverter ne khud band kar liya kyunke andar ka temperature limit se upar chala gaya. Temperature girne par yeh khud restart ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Cooling fins and top air ducts clogged with dust, cotton fluff or mud.",
+          "ur": "Cooling fins aur upar ke air ducts dhool, rui ya mitti se band hain."
+        },
+        {
+          "en": "Inverter mounted in direct afternoon sun with no shade and no wall clearance.",
+          "ur": "Inverter dopahar ki dhoop mein lagā hai, na shade hai na wall clearance."
+        },
+        {
+          "en": "Ambient temperature above the maximum permissible value for the model.",
+          "ur": "Ambient temperature model ke maximum permissible value se upar hai."
+        },
+        {
+          "en": "Internal fan or sensor fault pushing the reading high (cross-check with 7001/7002).",
+          "ur": "Internal fan ya sensor ka fault jo reading high kar raha hai (7001/7002 se cross-check karein)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the DC and AC, wait 30 minutes for the enclosure to cool, then clean the rear cooling fins and top air ducts with a soft brush.",
+          "ur": "DC aur AC band karein, 30 minute intezaar karein ke enclosure thanda ho, phir peeche ke cooling fins aur upar ke air ducts soft brush se saaf karein."
+        },
+        {
+          "en": "Check the clearance around the inverter and remove any direct sun, hot air exhaust or heat-soaked wall in front of the heat sink.",
+          "ur": "Inverter ke aas paas clearance check karein aur heat sink ke saamne se seedhi dhoop, garam hawa ya garam deewar hata dein."
+        },
+        {
+          "en": "Measure the enclosure temperature with a thermal camera or contact thermometer at the hottest point and compare with the ambient; a small difference points to airflow, a large one to ambient temperature.",
+          "ur": "Sab se garm jagah par thermal camera ya contact thermometer se enclosure temperature measure karein aur ambient se compare karein; chhota farq airflow ka nishani hai, bara farq ambient temperature ka."
+        },
+        {
+          "en": "If it still shuts down with a clean, ventilated, shaded unit, ask SMA Service to check the temperature sensor — do not swap the inverter first.",
+          "ur": "Agar saaf, ventilated aur shaded unit phir bhi band ho to SMA Service se temperature sensor check karwayein — inverter pehle se badal dein aise mat karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "In the Sunny Tripower 125 manual the same numbers 6501/6502/6509 have the identical wording; 6513 is added there. See SERIES 2.",
+        "ur": "Sunny Tripower 125 manual mein bhi 6501/6502/6509 ka matlab bilkul same hai; wahan 6513 bhi extra hai. SERIES 2 dekhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "6512",
+      "aliases": [
+        "6512"
+      ],
+      "title": {
+        "en": "Minimum operating temperature not reached (6512)",
+        "ur": "Minimum operating temperature nahi mili (6512)"
+      },
+      "meaning": {
+        "en": "The inverter is waiting: it will only recommence grid feed-in once the internal temperature has reached at least -25 degrees C. This is a cold-weather start delay, not a fault.",
+        "ur": "Inverter intezaar kar raha hai: grid feed-in sirf tab shuru hogi jab andar ka temperature kam az kam -25°C tak pahunche. Yeh thand ke mausam ka start delay hai, fault nahi."
+      },
+      "causes": [
+        {
+          "en": "Night-time or winter ambient temperature below the minimum operating temperature.",
+          "ur": "Raat ya sarmayon mein ambient temperature minimum operating temperature se neeche hai."
+        },
+        {
+          "en": "Inverter mounted in shade where the enclosure stays cold all morning.",
+          "ur": "Inverter aise shadow mein laga hai jahan enclosure subah tak thanda rehta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the ambient and enclosure temperature with a contact thermometer; nothing needs to be done until the unit reaches the minimum operating temperature.",
+          "ur": "Contact thermometer se ambient aur enclosure temperature check karein; jab tak unit minimum operating temperature tak nahi pahunchi, kuch karne ki zaroorat nahi."
+        },
+        {
+          "en": "In a Pakistani winter, wait for sun to reach the enclosure; if the unit still will not start by mid-morning, power-cycle once via the DC load-break switch.",
+          "ur": "Pakistani sarmayon mein dhoop ko enclosure tak pohnay dena intezaar karein; agar mid-morning tak bhi start na ho to DC load-break switch se aik baar power cycle karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Non-fault status row. Threshold is -25 C in this manual.",
+        "ur": "Non-fault status row hai. Is manual mein threshold -25 C hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "6801",
+      "aliases": [
+        "6801",
+        "6802"
+      ],
+      "title": {
+        "en": "DC input A polarity reversed (6801)",
+        "ur": "DC input A ki polarity ulti (6801)"
+      },
+      "meaning": {
+        "en": "Polarity error detected on inverter input A — the string is connected reversed, so the inverter has stopped feeding in.",
+        "ur": "Inverter ke input A par polarity error detect hua — string ulti lagi hui hai, is liye inverter ne feed-in band kar diya."
+      },
+      "causes": [
+        {
+          "en": "String connected + to minus and minus to plus at the DC connector.",
+          "ur": "String DC connector par + se minus aur minus se plus jordi hui hai."
+        },
+        {
+          "en": "Input A and input B connectors mixed up in the wiring run.",
+          "ur": "Wiring run mein input A aur input B ke connectors aapas mein mil gaye hain."
+        },
+        {
+          "en": "A defective module with a shorted bypass diode presenting reversed current.",
+          "ur": "Bypass diode short ho gaya koi defective module, jis se reversed current aata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the DC load-break switch off, wait for the DC discharge warning to clear, and confirm zero DC voltage at both input A connector pairs with a two-pole tester.",
+          "ur": "DC load-break switch off karein, DC discharge warning hatne tak intezaar karein, aur two-pole tester se input A ke dono connector pairs par zero DC voltage confirm karein."
+        },
+        {
+          "en": "Confirm polarity at the string end with the DC meter, then re-terminate the SUNCLIX connector so the polarity key matches and it clicks home.",
+          "ur": "DC meter se string ke end par polarity confirm karein, phir SUNCLIX connector aise dobara terminate karein ke polarity key match kare aur click kar ke baith jaye."
+        },
+        {
+          "en": "If polarity is provably correct at every connector, measure the module string Voc in sun and check the string for a shorted module or reversed bypass diode.",
+          "ur": "Agar har connector par polarity sab se theek hai to dhoop mein module string ki Voc measure karein aur shorted module ya reversed bypass diode dekhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "6801/6802 point at input A; 6901/6902 point at input B in the same manual.",
+        "ur": "Is manual mein 6801/6802 input A ke liye hain; 6901/6902 input B ke liye hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "8003",
+      "aliases": [
+        "8003"
+      ],
+      "title": {
+        "en": "Temperature derating for over 10 minutes (8003)",
+        "ur": "10 minute se zyada temperature derating (8003)"
+      },
+      "meaning": {
+        "en": "The inverter has reduced its output power for more than 10 minutes because of excessive temperature. Production is lost but the unit is not in fault.",
+        "ur": "Inverter ne zyada temperature ki wajah se 10 minute se zyada apni output power kam ki hai. Production ka nuqsaan hai lekin unit fault mein nahi."
+      },
+      "causes": [
+        {
+          "en": "High ambient temperature in summer, typical of a Pakistani May-August install.",
+          "ur": "Garmi mein zyada ambient temperature, jo Pakistan ke May-August ki install ke liye aam hai."
+        },
+        {
+          "en": "Dirty cooling fins restricting airflow.",
+          "ur": "Gande cooling fins jo airflow rok rahe hain."
+        },
+        {
+          "en": "Direct solar irradiation on the enclosure in the afternoon.",
+          "ur": "Dopahar mein enclosure par seedhi solar irradiation."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Compare the daily yield against a same-month previous clear day; the deficit confirms a real derate and not a metering problem.",
+          "ur": "Daily yield ko pichle saaf din ke same month se compare karein; kami confirm karti hai ke derat hai, metering ka masla nahi."
+        },
+        {
+          "en": "Clean the cooling fins and top air ducts, and re-check that the mounting bracket keeps airflow free on all sides.",
+          "ur": "Cooling fins aur upar ke air ducts saaf karein, aur dobara check karein ke mounting bracket charon taraf se airflow khul rakhta hai."
+        },
+        {
+          "en": "If the derate happens at normal ambient, log the ambient and enclosure temperature for a day and give the data to SMA Service to check the derating curve.",
+          "ur": "Agar derate normal ambient par ho to ek din ki ambient aur enclosure temperature log karein aur data SMA Service ko de kar derating curve check karwayein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Compare with 6501: 8003 is a sustained power reduction, 6501 is a full switch-off.",
+        "ur": "6501 se compare karein: 8003 sustained power reduction hai, 6501 poora shutdown hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "8708",
+      "aliases": [
+        "8708"
+      ],
+      "title": {
+        "en": "Timeout — active power limitation comms (8708)",
+        "ur": "Timeout — active power limitation ka signal nahi (8708)"
+      },
+      "meaning": {
+        "en": "Communication with the system control is absent. Depending on the fallback setting, the inverter either holds the last received values or limits active power to the configured percentage.",
+        "ur": "System control se communication nahi hai. Fallback setting ke mutabiq inverter ya to aakhri received values hold karta hai ya active power ko configured percentage tak limit kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "RS485 or Ethernet cable between inverter and Data Manager / Home Manager pulled or damaged.",
+          "ur": "Inverter aur Data Manager / Home Manager ke darmiyan RS485 ya Ethernet cable nikal chuka ya damaged hai."
+        },
+        {
+          "en": "The system controller has lost its own uplink to the data logger.",
+          "ur": "System controller ka apna data logger se uplink kho gaya hai."
+        },
+        {
+          "en": "Termination missing at the bus end, or two devices fighting for the same Modbus address.",
+          "ur": "Bus ke end par termination nahi, ya do devices ek hi Modbus address par larcha kar rahe hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Walk the RS485 cable and reseat every connector, then confirm the LEDs on the Data Manager show an active bus.",
+          "ur": "RS485 cable poori tarah check karein aur har connector dobara baithayein, phir Data Manager ki LEDs par confirm karein ke bus active hai."
+        },
+        {
+          "en": "Check the Modbus device address of the inverter against the Data Manager configuration; two devices on the same address will drop the bus.",
+          "ur": "Inverter ka Modbus device address Data Manager configuration se match karein; ek hi address par do devices bus gira dete hain."
+        },
+        {
+          "en": "If the plant uses a Home Manager for export limiting, verify the Home Manager is registered and reachable, then confirm the fallback percentage is what the site actually wants.",
+          "ur": "Agar export limiting ke liye Home Manager hai to confirm karein ke woh registered aur reachable hai, phir confirm karein ke fallback percentage wohi hai jo site chahta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "8709 and 8710 are the reactive power and cos phi equivalents of this same timeout.",
+        "ur": "8709 aur 8710 isi timeout ke reactive power aur cos phi equivalents hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "9003",
+      "aliases": [
+        "9003"
+      ],
+      "title": {
+        "en": "Grid parameters locked (9003)",
+        "ur": "Grid parameters locked hain (9003)"
+      },
+      "meaning": {
+        "en": "Changes to the grid parameters are blocked. From now on you must log in with the SMA Grid Guard code to change them.",
+        "ur": "Grid parameters mein tabdeeli blocked hai. Ab aap ko inhein badalne ke liye SMA Grid Guard code se login karna hoga."
+      },
+      "causes": [
+        {
+          "en": "A previous installer left the parameter set protected, or the device was handed over protected.",
+          "ur": "Kisi pichle installer ne parameter set protected chhoda hai, ya device protected state mein transfer kiya gaya."
+        },
+        {
+          "en": "The Grid Guard code was changed and the service company no longer has the new one.",
+          "ur": "Grid Guard code badal diya gaya aur service company ke paas naya code nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Log in as Installer with the SMA Grid Guard code; the event clears immediately once the authenticated session starts.",
+          "ur": "SMA Grid Guard code se Installer ke taur par login karein; authenticated session shuru hote hi event foran clear ho jata hai."
+        },
+        {
+          "en": "If the code is lost, apply for a new SMA Grid Guard code with proof of purchase and the inverter serial number; do not attempt to bypass the lock.",
+          "ur": "Agar code kho gaya hai to purchase proof aur inverter serial number ke saath naya SMA Grid Guard code mangwayein; lock bypass karne ki koshish na karein."
+        },
+        {
+          "en": "Record the Grid Guard code in the site handover file so the next technician is not locked out of the same parameter.",
+          "ur": "Grid Guard code site handover file mein likh dein taake agli bar ka technician usi parameter par lock na ho."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "This is a deliberate anti-tamper lockout, not a hardware fault. There is nothing to test on site.",
+        "ur": "Yeh jaan boojh kar kiya gaya anti-tamper lockout hai, hardware fault nahi. Site par kuch test karne ko nahi hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "10102",
+      "aliases": [
+        "10102"
+      ],
+      "title": {
+        "en": "Parameter set successfully (10102)",
+        "ur": "Parameter set ho gayi (10102)"
+      },
+      "meaning": {
+        "en": "Status message confirming that a parameter change was adopted, given at the beginning of the measurement. Purely informational.",
+        "ur": "Yeh confirm karta hai ke parameter change accept ho gayi, yeh measurement ke shuru mein aata hai. Bilkul informational hai."
+      },
+      "causes": [
+        {
+          "en": "An installer submitted a parameter change from the user interface.",
+          "ur": "Kisi installer ne user interface se parameter change submit kiya."
+        },
+        {
+          "en": "A measurement was started by the I-V curve diagnostic function.",
+          "ur": "I-V curve diagnostic function ne measurement shuru kiya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed. Confirm the new value is stored by re-opening the same parameter page.",
+          "ur": "Koi zaroorat nahi. Same parameter page dobara khol kar confirm karein ke nayi value save ho gayi hai."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Non-fault status row.",
+        "ur": "Non-fault status row hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    },
+    {
+      "code": "29001",
+      "aliases": [
+        "29001"
+      ],
+      "title": {
+        "en": "Installer code valid (29001)",
+        "ur": "Installer code valid hai (29001)"
+      },
+      "meaning": {
+        "en": "The entered SMA Grid Guard code is valid, so the parameters protected by that code can now be set. Informational.",
+        "ur": "Daala gaya SMA Grid Guard code valid hai, is liye us code se protected parameters ab set kiye ja sakte hain. Informational hai."
+      },
+      "causes": [
+        {
+          "en": "The technician entered the correct SMA Grid Guard code to unlock protected parameters.",
+          "ur": "Technician ne protected parameters kholne ke liye sahi SMA Grid Guard code daala."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed. Note that 9003 will also clear once the authenticated installer session is active.",
+          "ur": "Koi zaroorat nahi. Note karein ke authenticated installer session shuru hote hi 9003 bhi clear ho jata hai."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Non-fault status row.",
+        "ur": "Non-fault status row hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY TRIPOWER 3.0 / 4.0 / 5.0 / 6.0 (STP3-6-3AV-40-BE-en-20, Version 2.0), section 11.2 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/STP3-6-3AV-40-BE-en-20.pdf"
+      }
+    }
+  ]
+}

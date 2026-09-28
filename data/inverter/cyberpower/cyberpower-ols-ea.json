@@ -1,0 +1,1541 @@
+{
+  "schemaVersion": 1,
+  "brandId": "cyberpower",
+  "series": {
+    "id": "cyberpower-ols-ea",
+    "name": "OLS1000EA / OLS1500EA / OLS2000EA / OLS3000EA (online double-conversion 1000-3000VA, pure sine wave)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*OLS1000EA*",
+      "*OLS1500EA*",
+      "*OLS2000EA*",
+      "*OLS3000EA*"
+    ],
+    "notes": "This is the richest CyberPower table found: a 29-entry EVENT CODE LIST plus a TROUBLESHOOTING table with WARNING ICON / POSSIBLE CAUSE / SOLUTION columns. Codes are bare two-digit numbers (01..54) shown in the two seven-segment event-code displays at the top right of the LCD. WARNING-level codes (01,04,05,06,07,12,25,27,33,54) show a YELLOW or RED icon and are recoverable; FAULT-level codes (02,21,22,31,32,34,40) show the RED FAULT icon. The manual lists a POSSIBLE CAUSE and SOLUTION for 17 of the 29 codes only - the remaining 12 are marked confidence low with an explicit notes object, because the manual gives only a one-line description for them."
+  },
+  "codes": [
+    {
+      "code": "01",
+      "aliases": [
+        "01",
+        "Over Charge"
+      ],
+      "title": {
+        "en": "01 Over Charge",
+        "ur": "01 Over Charge - battery ka voltage bohat upar chala gaya"
+      },
+      "meaning": {
+        "en": "Warning-level event: the battery has been charged to too high a voltage. Manual cause is simply 'Battery is overcharged'.",
+        "ur": "Warning level event: battery bohat high voltage tak charge ho gaya hai. Manual ki wajah sirf 'Battery is overcharged' hai."
+      },
+      "causes": [
+        {
+          "en": "Battery is overcharged (the manual's stated cause).",
+          "ur": "Battery overcharged hai (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "Charger voltage sense fault is not cutting the charge, or ambient heat has driven the cell voltage up.",
+          "ur": "Charger voltage sense ki khami charge band nahi kar rahi, ya mauhal ki garmi ne cell voltage barha diya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Apply the manual's remedy: remove the battery connector and check charger voltage.",
+          "ur": "Manual ka hal lagayein: battery connector nikaal dein aur charger voltage check karein."
+        },
+        {
+          "en": "First switch off and unplug the UPS, then disconnect the battery, then measure charger output on DC volts (expect about 13.5-14V per 12V cell).",
+          "ur": "Pehle UPS off karke mains nikaal dein, phir battery disconnect karein, phir charger output DC volt par measure karein (har 12V cell ke liye 13.5-14V expect karein)."
+        },
+        {
+          "en": "Measure each cell on DC volts; above about 13.8V at rest means the battery must be replaced, not just recharged.",
+          "ur": "Har cell DC volt par measure karein; aaram ke waqt 13.8V se upar ho to battery badalni hai, sirf recharge nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "02",
+      "aliases": [
+        "02",
+        "Charger Failure"
+      ],
+      "title": {
+        "en": "02 Charger Failure",
+        "ur": "02 Charger Failure - battery charger kharab ho gaya"
+      },
+      "meaning": {
+        "en": "Red FAULT event: the battery charger has malfunctioned. Manual remedy is CyberPower assistance.",
+        "ur": "Red FAULT event: battery charger kharab ho gaya hai. Manual ka hal CyberPower se madad hai."
+      },
+      "causes": [
+        {
+          "en": "Charger has failed (the manual's stated cause).",
+          "ur": "Charger kharab ho gaya hai (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "Charger IC, MOSFET or current-sense resistor has failed open or shorted.",
+          "ur": "Charger IC, MOSFET ya current-sense resistor open ya short ho kar kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut the UPS down and turn off the input breaker before any inspection.",
+          "ur": "Koi bhi check karne se pehle UPS band karein aur input breaker off kar dein."
+        },
+        {
+          "en": "With mains and battery isolated, measure the pack on DC volts; near 0V means the pack is dead and must be replaced regardless of the charger.",
+          "ur": "Mains aur battery isolate karne ke baad pack DC volt par measure karein; 0V ke qareeb ho to pack dead hai aur charger ki bajaye battery badalni hai."
+        },
+        {
+          "en": "Measure charger output at the battery terminals with mains live; 13.5-14V is healthy and near 0V confirms the charger has failed.",
+          "ur": "Mains live karte hue battery terminals par charger output measure karein; 13.5-14V healthy hai aur 0V ke qareeb charger kharab confirm hota hai."
+        },
+        {
+          "en": "Contact CyberPower for assistance as the manual directs - there is no field-replaceable charger assembly.",
+          "ur": "Jaise manual kehta hai CyberPower se assistance lein - charger assembly ka koi field-replaceable part nahi hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "04",
+      "aliases": [
+        "04",
+        "Battery Low"
+      ],
+      "title": {
+        "en": "04 Battery Low",
+        "ur": "04 Battery Low - battery low level tak discharge ho gaya"
+      },
+      "meaning": {
+        "en": "Warning event: the battery has discharged to a low level and the UPS is about to shut down. Auto-restarts when acceptable power returns.",
+        "ur": "Warning event: battery low level tak discharge ho gaya hai aur UPS band hone wala hai. Mains wapas aane par auto-restart ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "UPS is on battery power and the set battery-capacity or remaining-runtime threshold is reached.",
+          "ur": "UPS battery power par hai aur set battery capacity ya remaining runtime threshold par aa gaya hai."
+        },
+        {
+          "en": "Battery voltage has become extremely low, so the UPS will shut down soon.",
+          "ur": "Battery voltage bohat kam ho gaya hai, is liye UPS jald band ho jayega."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Save your data and perform a controlled shutdown immediately, as the manual states.",
+          "ur": "Jaise manual kehta hai, apna data save karein aur foran controlled shutdown karein."
+        },
+        {
+          "en": "Allow the UPS to auto-restart when acceptable utility power returns; do not force repeated restarts on a flat battery.",
+          "ur": "Mains wapas aane par UPS ko auto-restart hone dein; flat battery par baar baar restart na karein."
+        },
+        {
+          "en": "If 04 appears on every outage even after the manual's 3-monthly recharge habit, measure the pack on DC volts and replace it.",
+          "ur": "Agar 3 mahine ka recharge routine ke baad bhi har outage par 04 aaye to pack DC volt par measure karein aur badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "05",
+      "aliases": [
+        "05",
+        "Battery Failure"
+      ],
+      "title": {
+        "en": "05 Battery Failure",
+        "ur": "05 Battery Failure - Battery Test mein battery kharab nikla"
+      },
+      "meaning": {
+        "en": "Red FAULT event: the UPS detected a battery failure during the Battery Test.",
+        "ur": "Red FAULT event: Battery Test ke dauran UPS ne battery failure detect kiya."
+      },
+      "causes": [
+        {
+          "en": "UPS has failed in the Battery Test (the manual's stated cause).",
+          "ur": "Battery Test mein UPS fail ho gaya (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "Battery connector is loose or the battery fuse has blown.",
+          "ur": "Battery connector dheela hai ya battery fuse ula hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the battery connector and the battery fuse, which is the manual's stated remedy.",
+          "ur": "Manual ka tay shuda hal follow karein: battery connector aur battery fuse check karein."
+        },
+        {
+          "en": "Power down, unplug mains and disconnect the battery before touching the connector, then reseat it firmly and confirm the fuse rating with a meter.",
+          "ur": "Connector chhoone se pehle power down karein, mains nikaal dein aur battery disconnect karein, phir use mazbooti se baithayein aur fuse ki rating multimeter se confirm karein."
+        },
+        {
+          "en": "Measure the pack on DC volts; a rested healthy 12V cell reads 12.4-13.0V and near 0V means replace the pack, not the fuse.",
+          "ur": "Pack DC volt par measure karein; aaram wali healthy 12V cell 12.4-13.0V par hoti hai aur 0V ke qareeb ho to fuse nahi, pack badalna hai."
+        },
+        {
+          "en": "Contact technical support to replace the battery, per the manual.",
+          "ur": "Manual ke mutabiq battery badlne ke liye technical support se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "06",
+      "aliases": [
+        "06",
+        "BAT Disconnected"
+      ],
+      "title": {
+        "en": "06 BAT Disconnected",
+        "ur": "06 BAT Disconnected - battery se judai nahi lagi"
+      },
+      "meaning": {
+        "en": "Red FAULT event: the UPS cannot detect any battery - the battery pack is missing or not connected.",
+        "ur": "Red FAULT event: UPS ko koi battery detect nahi ho rahi - battery pack mojood nahi ya connect nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Missing battery power (the manual's stated cause).",
+          "ur": "Battery power mojood nahi (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "Battery quick-connect pulled out during a move, or a battery terminal clamp has come loose.",
+          "ur": "Hat karte waqt battery quick-connect nikal gaya, ya kisi battery ka terminal clamp dheela ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the battery connector and the battery fuse, the manual's stated remedy.",
+          "ur": "Manual ka tay shuda hal: battery connector aur battery fuse check karein."
+        },
+        {
+          "en": "Switch off and unplug mains first, then reseat the internal battery quick-connect firmly until it clicks, following the manual's battery maintenance safety steps.",
+          "ur": "Pehle off karke mains nikaal dein, phir manual ki battery maintenance safety steps ke mutabiq internal battery quick-connect ko click hone tak mazbooti se baithayein."
+        },
+        {
+          "en": "Inspect the connector and cable for corrosion, green/white residue or heat damage and clean or replace as needed.",
+          "ur": "Connector aur cable ko zang, safed/hara residue ya garmi ke nishan ke liye dekhein aur saaf karein ya badal dein."
+        },
+        {
+          "en": "After reconnecting, run a Battery Test from the LCD to confirm the pack is seen before leaving the site.",
+          "ur": "Wapas connect karne ke baad site chhorne se pehle LCD se Battery Test chalayein taake pack detect ho jaye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "07",
+      "aliases": [
+        "07",
+        "Service Battery"
+      ],
+      "title": {
+        "en": "07 Service Battery",
+        "ur": "07 Service Battery - battery ki 3 saal ki service date poori"
+      },
+      "meaning": {
+        "en": "The Battery Replacement Date has reached the recommended 3-year maintenance period. A calendar warning, not an electrical failure.",
+        "ur": "Battery Replacement Date recommended 3 saal ki maintenance period tak pohnch gaya hai. Yeh calendar warning hai, electrical failure nahi."
+      },
+      "causes": [
+        {
+          "en": "The recommended 3-year battery maintenance period has elapsed (the manual's stated cause).",
+          "ur": "Recommended 3 saal ki battery maintenance period guzar chuki hai (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "The replacement date was never reset after a previous battery change.",
+          "ur": "Pehle battery badalne ke baad replacement date reset nahi ki gayi thi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If batteries have been recently replaced, reset the Battery Replacement Date using PowerPanel Business Edition Agent software, the RMCARD interface, or the LCD control panel, as the manual directs.",
+          "ur": "Agar batteries haal hi mein badli hain to manual ke mutabiq PowerPanel Business Edition Agent software, RMCARD interface ya LCD control panel se Battery Replacement Date reset karein."
+        },
+        {
+          "en": "If the batteries were NOT replaced, measure the pack on DC volts and on a timed runtime test before buying a new pack.",
+          "ur": "Agar batteries badli NAHI hain to nayi pack kharidne se pehle pack DC volt par aur timed runtime test par check karein."
+        },
+        {
+          "en": "On the OLS series the manual requires a runtime calibration after battery replacement to verify capacity is sufficient - do this before sign-off.",
+          "ur": "OLS series par manual battery replacement ke baad runtime calibration kaatam farma karta hai - sign-off se pehle yeh zaroor karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12",
+        "Load Over Set%"
+      ],
+      "title": {
+        "en": "12 Load Over Set%",
+        "ur": "12 Load Over Set% - load aap ke set kiya limit se upar"
+      },
+      "meaning": {
+        "en": "The UPS has detected that output watt or VA exceeded the user-set parameter in PowerPanel Business software.",
+        "ur": "UPS ne detect kiya ke output watt ya VA PowerPanel Business software mein user ke set kiya parameter se upar chala gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Your equipment requires more power than the level set in PowerPanel Business will allow (the manual's stated cause).",
+          "ur": "Aapka equipment us level se zyada power maang raha hai jo PowerPanel Business mein set kiya gaya hai (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "A large inrush device was added without raising the configured ceiling.",
+          "ur": "Bade inrush wala device add kiya gaya aur configured ceiling barhayi nahi gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut off the non-essential equipment, which is the manual's first remedy.",
+          "ur": "Manual ka pehla hal: non-essential equipment band kar dein."
+        },
+        {
+          "en": "Or increase the level in the Power Management Software, as the manual's second remedy.",
+          "ur": "Ya Power Management Software mein level barha dein, jaise manual ka doosra hal kehta hai."
+        },
+        {
+          "en": "Verify actual draw on a power meter and total it against the unit's rated VA/watts so you are not hiding a genuine overload.",
+          "ur": "Power meter se actual draw verify karein aur unit ki rated VA/watts se total karke dekhein taake asli overload chhupi na rahe."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "21",
+      "aliases": [
+        "21",
+        "Output short"
+      ],
+      "title": {
+        "en": "21 Output short",
+        "ur": "21 Output short - output mein short circuit"
+      },
+      "meaning": {
+        "en": "Red FAULT event: the UPS has detected an output short circuit.",
+        "ur": "Red FAULT event: UPS ne output short circuit detect kiya hai."
+      },
+      "causes": [
+        {
+          "en": "Output short circuit (the manual's stated cause).",
+          "ur": "Output short circuit (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "Your attached equipment may have problems - a failed PSU, motor or a crushed power lead.",
+          "ur": "Aap ka laga equipment kharab ho sakta hai - kharab PSU, motor ya daba hua power lead."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Remove the attached equipment and check again, which is the manual's stated remedy.",
+          "ur": "Manual ka tay shuda hal: attached equipment nikaal kar dobara check karein."
+        },
+        {
+          "en": "For safe isolation, shut down the UPS, turn off the input breaker and disconnect the battery before examining any cable.",
+          "ur": "Safe isolation ke liye UPS band karein, input breaker off karein aur koi bhi cable dekhne se pehle battery disconnect karein."
+        },
+        {
+          "en": "Use a multimeter on continuity/ohms from each output socket to neutral; near-zero ohms identifies the shorted socket or device.",
+          "ur": "Multimeter continuity/ohms par har output socket ko neutral se check karein; zero ke qareeb ohms shorted socket ya device ki taraf ishara karta hai."
+        },
+        {
+          "en": "Reconnect devices one at a time; the one that restores code 21 is the short - leave it disconnected and have it repaired.",
+          "ur": "Devices ek-ek karke wapas lagayein; jis se code 21 wapas aaye wohi short hai - use disconnect chhor dein aur repair karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "22",
+      "aliases": [
+        "22",
+        "Output Overload"
+      ],
+      "title": {
+        "en": "22 Output Overload",
+        "ur": "22 Output Overload - load UPS se zyada power le raha hai"
+      },
+      "meaning": {
+        "en": "The UPS has detected output watt or VA too high. On the OLS series this transfers to bypass in Line Mode and shuts down in Battery Mode.",
+        "ur": "UPS ne detect kiya ke output watt ya VA bohat zyada hai. OLS series par Line Mode mein bypass ho jata hai aur Battery Mode mein band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Your equipment requires more power than the UPS can provide (the manual's stated cause).",
+          "ur": "Aapka equipment UPS ke mufid se zyada power maang raha hai (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "Inrush from a compressor, laser printer or motor when the UPS transfers.",
+          "ur": "UPS transfer hote waqt compressor, laser printer ya motor ka inrush."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut off non-essential equipment; if that solves it the UPS returns to normal operation, exactly as the manual states.",
+          "ur": "Non-essential equipment band karein; agar is se hal ho jaye to UPS normal operation par wapas aa jata hai - jaise manual kehta hai."
+        },
+        {
+          "en": "On Line Mode remember the manual's thresholds: 105-110% warning only, 110-120% transfers to bypass after 60s, above 120% transfers to bypass immediately.",
+          "ur": "Line Mode mein manual ke thresholds yaad rakhein: 105-110% sirf warning, 110-120% 60 second baad bypass, 120% se upar foran bypass."
+        },
+        {
+          "en": "On Battery Mode: 110-120% shuts down after 10s and above 120% shuts down immediately - so measure real load and cut it before that point.",
+          "ur": "Battery Mode mein: 110-120% 10 second baad shutdown aur 120% se upar foran shutdown - is liye asli load measure karke us se pehle hata dein."
+        },
+        {
+          "en": "On Battery Mode wait for the auto-restart after correcting the load, rather than forcing repeated restarts.",
+          "ur": "Battery Mode mein load theek karne ke baad auto-restart ka intezaar karein, baar baar restart na karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "25",
+      "aliases": [
+        "25",
+        "EPO OFF"
+      ],
+      "title": {
+        "en": "25 EPO OFF",
+        "ur": "25 EPO OFF - EPO se unit band ho gayi"
+      },
+      "meaning": {
+        "en": "The UPS has been turned off by the Emergency Power Off input. Check the EPO wiring rather than the UPS.",
+        "ur": "UPS ko Emergency Power Off input se band kiya gaya hai. UPS ke bajaye EPO wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "Missing the EPO connection (the manual's stated cause).",
+          "ur": "EPO connection mojood nahi (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "EPO circuit is open, or the EPO switch/button was pressed or wired backwards.",
+          "ur": "EPO circuit open hai, ya EPO switch/button daba diya gaya hai ya ulat wiring ho gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the EPO connection, which is the manual's stated remedy.",
+          "ur": "Manual ka tay shuda hal: EPO connection check karein."
+        },
+        {
+          "en": "With the UPS off and mains disconnected, measure continuity across the EPO terminals; the circuit should read closed, and re-seat any loose terminal screw.",
+          "ur": "UPS off karke mains nikalne ke baad EPO terminals par continuity measure karein; circuit closed aana chahiye, aur dheela terminal screw mazbooti se karein."
+        },
+        {
+          "en": "Verify the EPO polarity and switch type against the manual diagram before energising, so a normally-closed loop is not left open.",
+          "ur": "Energise karne se pehle manual diagram ke mutabiq EPO polarity aur switch type verify karein taake normally-closed loop khula na rahe."
+        },
+        {
+          "en": "Once the loop is closed, run a controlled power-up to confirm code 25 clears and no other event appears.",
+          "ur": "Loop band hone ke baad controlled power-up karein taake confirm ho ke code 25 clear ho gaya aur koi aur event nahi aaya."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "27",
+      "aliases": [
+        "27",
+        "ROO OFF"
+      ],
+      "title": {
+        "en": "27 ROO OFF",
+        "ur": "27 ROO OFF - ROO se unit band ho gayi"
+      },
+      "meaning": {
+        "en": "The UPS has been turned off by ROO (reboot/remote output off). Check the ROO wiring, not the UPS internals.",
+        "ur": "UPS ko ROO (reboot/remote output off) se band kiya gaya hai. UPS ke andar ke bajaye ROO wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "Missing the ROO connection (the manual's stated cause).",
+          "ur": "ROO connection mojood nahi (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "ROO circuit is open, or a downstream device is holding the ROO line off.",
+          "ur": "ROO circuit open hai, ya koi downstream device ROO line ko off rakhta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the ROO connection, which is the manual's stated remedy.",
+          "ur": "Manual ka tay shuda hal: ROO connection check karein."
+        },
+        {
+          "en": "With power off, measure continuity across the ROO terminals and inspect the connector for a bent or loose pin.",
+          "ur": "Power off kar ke ROO terminals par continuity measure karein aur connector mein teda ya dheela pin dekhein."
+        },
+        {
+          "en": "Disconnect the ROO load one device at a time to find which branch is holding the line open.",
+          "ur": "ROO load ko ek-ek karke nikaalte jayein taake pata chale kaun si branch line ko khula rakh rahi hai."
+        },
+        {
+          "en": "Re-check ROO after reconnection and confirm the UPS powers up without code 27 recurring.",
+          "ur": "Wapas connect karne ke baad ROO dobara check karein aur confirm karein ke UPS bina code 27 ke power up hota hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "30",
+      "aliases": [
+        "30",
+        "Inverter Fault"
+      ],
+      "title": {
+        "en": "30 Inverter Fault",
+        "ur": "30 Inverter Fault - inverter kharab ho gaya"
+      },
+      "meaning": {
+        "en": "The inverter has malfunctioned.",
+        "ur": "Inverter kharab ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Stated by the manual as inverter malfunction.",
+          "ur": "Manual ke mutabiq inverter malfunction."
+        },
+        {
+          "en": "The manual also attributes inverter voltage detection to the inverter itself (codes 31 High Output Voltage / 32 Low Output Voltage are described as 'The UPS has detected Inverter voltage too High/Low'), so a failed inverter voltage-sensing stage is the natural companion failure.",
+          "ur": "Manual inverter voltage detection ko khud inverter ko hi maanta hai (code 31 High Output Voltage / 32 Low Output Voltage ka description hai 'The UPS has detected Inverter voltage too High/Low'), is liye inverter voltage-sensing stage ki khami yehi companion failure hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut the UPS down and turn off the input breaker before any inspection (the manual's isolation practice for all internal events).",
+          "ur": "Koi bhi check karne se pehle UPS band karein aur input breaker off karein (manual ka tamam internal events ke liye isolation tareeqa)."
+        },
+        {
+          "en": "Measure battery DC voltage and output AC voltage on a meter; out-of-spec readings confirm the inverter stage rather than the battery.",
+          "ur": "Battery DC voltage aur output AC voltage multimeter par measure karein; out-of-spec readings battery nahi balki inverter stage confirm karte hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "notes": {
+        "en": "LIMITATION: the CyberPower OLS manual lists code 30 in the EVENT CODE LIST with only the one-line description 'The inverter has malfunctioned' and does NOT give a cause/solution row for it in the TROUBLESHOOTING table. The causes and solutions above are therefore only the manual's stated malfunction plus its own isolation practice, not a code-specific procedure. Treat as a starting point and confirm with CyberPower.",
+        "ur": "LIMIT: CyberPower OLS manual code 30 ko EVENT CODE LIST mein sirf aik line ke description 'The inverter has malfunctioned' ke saath likhta hai aur is code ke liye TROUBLESHOOTING table mein cause/solution row NAHI deta. Is liye upar ki wajah aur hal sirf manual ka bataya malfunction aur us ka isolation tareeqa hain, code-specific tareeqa nahi. Ise starting point samajhein aur CyberPower se tasdeeq karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "31",
+      "aliases": [
+        "31",
+        "High Output Voltage"
+      ],
+      "title": {
+        "en": "31 High Output Voltage",
+        "ur": "31 High Output Voltage - output voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "Red FAULT event: output voltage is too high.",
+        "ur": "Red FAULT event: output voltage bohat zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Output voltage is too high (the manual's stated cause).",
+          "ur": "Output voltage bohat zyada hai (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "Inverter feedback has drifted, or a wrong output-voltage setting was selected for the connected equipment.",
+          "ur": "Inverter feedback bigad gaya hai, ya connected equipment ke liye galat output voltage setting chuni gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the UPS and turn off the input breaker, then contact CyberPower for assistance - this is the manual's exact remedy for 31 and 32.",
+          "ur": "UPS band karein aur input breaker off karein, phir CyberPower se assistance lein - 31 aur 32 ke liye yehi manual ka exact hal hai."
+        },
+        {
+          "en": "Before touching the unit, confirm the selected output voltage (208/220/230/240Vac) matches the connected load, and fix any wrong setting in the LCD configuration.",
+          "ur": "Unit chhoone se pehle confirm karein ke chui hua output voltage (208/220/230/240Vac) connected load se match karta hai, aur LCD configuration mein koi galat setting theek karein."
+        },
+        {
+          "en": "With mains and battery isolated, measure battery DC voltage; an over-charged pack can drive the inverter output high.",
+          "ur": "Mains aur battery isolate kar ke battery DC voltage measure karein; zyada charge hui pack inverter output ko upar le sakti hai."
+        },
+        {
+          "en": "Do not run the unit with output voltage this high - connected equipment can be damaged; leave the UPS off until resolved.",
+          "ur": "Itni high output voltage par unit na chalayein - connected equipment kharab ho sakta hai; hal hone tak UPS band chhor dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "32",
+      "aliases": [
+        "32",
+        "Low Output Voltage"
+      ],
+      "title": {
+        "en": "32 Low Output Voltage",
+        "ur": "32 Low Output Voltage - output voltage bohat kam"
+      },
+      "meaning": {
+        "en": "Red FAULT event: output voltage is too low.",
+        "ur": "Red FAULT event: output voltage bohat kam hai."
+      },
+      "causes": [
+        {
+          "en": "Output voltage is too low (the manual's stated cause).",
+          "ur": "Output voltage bohat kam hai (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "Battery pack is exhausted or has a failed cell, so the inverter cannot hold the output up.",
+          "ur": "Battery pack khatam ho chuki hai ya us mein ek cell kharab hai, is liye inverter output upar nahi rakh sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the UPS and turn off the input breaker, then contact CyberPower for assistance - the manual's exact remedy.",
+          "ur": "UPS band karein aur input breaker off karein, phir CyberPower se assistance lein - manual ka exact hal yahi hai."
+        },
+        {
+          "en": "With power isolated, measure the battery pack on DC volts; a rested healthy 12V cell reads 12.4-13.0V and a dead cell reads far lower or near zero.",
+          "ur": "Power isolate kar ke battery pack DC volt par measure karein; aaram wali healthy 12V cell 12.4-13.0V par hoti hai aur kharab cell bohat kam ya zero ke qareeb hoti hai."
+        },
+        {
+          "en": "Check the load is not simply beyond capacity; OLS output overload in Line Mode is a separate event (22) that can look similar from the load side.",
+          "ur": "Check karein ke load asal mein capacity se upar to nahi; OLS line mode output overload alag event (22) hai jo load side se milti julti lag sakti hai."
+        },
+        {
+          "en": "Do not reconnect the load to a unit whose output is sagging - the connected equipment may restart repeatedly and corrupt data.",
+          "ur": "Jis unit ka output gir raha ho us par load dobara na lagayein - connected equipment baar baar restart ho kar data kharab kar sakta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "33",
+      "aliases": [
+        "33",
+        "Over Temperature"
+      ],
+      "title": {
+        "en": "33 Over Temperature",
+        "ur": "33 Over Temperature - unit bahut garam ho gaya"
+      },
+      "meaning": {
+        "en": "Warning event: the high-temperature sensor has activated protection because internal temperature is too high.",
+        "ur": "Warning event: high temperature sensor ne protection activate kar di kyunke andar temperature bohat zyada hai."
+      },
+      "causes": [
+        {
+          "en": "High temperature sensor activates protection (the manual's stated cause).",
+          "ur": "High temperature sensor protection activate karta hai (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "The fan has failed, or the ventilation hole has been covered / airflow is blocked.",
+          "ur": "Fan kharab ho gaya hai, ya ventilation hole band ho gayi hai ya airflow ruka hua hai."
+        },
+        {
+          "en": "Ambient room temperature is too high for the unit's specified 0-40C operating range.",
+          "ur": "Mauhal ka temperature unit ki 0-40C operating range se zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the fan for operation and whether the ventilation hole has been covered, which is the manual's stated remedy.",
+          "ur": "Manual ka tay shuda hal: fan chalta hai ya nahi dekhein, aur ventilation hole band to nahi hai."
+        },
+        {
+          "en": "After isolating mains and battery, spin the fan by hand and confirm it turns freely; if it is seized or noisy, replace the fan.",
+          "ur": "Mains aur battery isolate karne ke baad fan ko haath se ghumayein aur dekhein ke azaad ghoomta hai; agar ghisat ya shor wala hai to fan badal dein."
+        },
+        {
+          "en": "Clear at least the manufacturer's clearance around the unit and relocate it out of direct sunlight or a hot enclosure.",
+          "ur": "Unit ke gird manufacturer ki clearance saaf karein aur use dhoop ya garam enclosure se bahar shift karein."
+        },
+        {
+          "en": "Let the unit cool fully before restart, then re-read temperature with a meter; repeated code 33 with a working fan means a sensor fault - contact support.",
+          "ur": "Restart se pehle unit ko poora thanda hone dein, phir temperature multimeter se dobara dekhein; chal raha fan hone ke bawajood baar baar code 33 ka matlab sensor fault hai - support se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "34",
+      "aliases": [
+        "34",
+        "Fan Error"
+      ],
+      "title": {
+        "en": "34 Fan Error",
+        "ur": "34 Fan Error - main fan chal nahi raha"
+      },
+      "meaning": {
+        "en": "Red FAULT event: the internal fan has failed. The manual separates this from the rear/middle/front fan events (35/36/37).",
+        "ur": "Red FAULT event: internal fan kharab ho gaya hai. Manual ise rear/middle/front fan events (35/36/37) se alag rakhta hai."
+      },
+      "causes": [
+        {
+          "en": "Internal fan has failed (the manual's stated cause).",
+          "ur": "Internal fan kharab ho gaya hai (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "Fan blades are jammed by dust, or the fan motor has burnt out or seized.",
+          "ur": "Fan blades ghis se jam ho gayi hain, ya fan motor jal kar kharab ya atak gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Perform a Fan Test and check the alarm, as the manual directs.",
+          "ur": "Jaise manual kehta hai, Fan Test karein aur alarm dekhein."
+        },
+        {
+          "en": "If the alarm continues, shut down the UPS and turn off the input breaker before touching the fan.",
+          "ur": "Agar alarm jari rahe to fan chhoone se pehle UPS band karein aur input breaker off karein."
+        },
+        {
+          "en": "Isolate the battery, vacuum dust off the fan hub and blades, and check the fan spins freely on DC power from a bench supply.",
+          "ur": "Battery disconnect karein, fan hub aur blades par gis ki saaf karein, aur DC bench supply par fan ki azaad ghoomti hai ya nahi dekhein."
+        },
+        {
+          "en": "If the alarm still continues, contact CyberPower for assistance - the fan is an internal assembly, not a field-plug part.",
+          "ur": "Agar alarm ab bhi jari rahe to CyberPower se assistance lein - fan internal assembly hai, field-plug part nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "35",
+      "aliases": [
+        "35",
+        "Rear Fan Error"
+      ],
+      "title": {
+        "en": "35 Rear Fan Error",
+        "ur": "35 Rear Fan Error - peeche wala fan kharab"
+      },
+      "meaning": {
+        "en": "The UPS has detected a rear fan malfunction.",
+        "ur": "UPS ne rear fan ki khami detect ki hai."
+      },
+      "causes": [
+        {
+          "en": "Stated by the manual as a detected rear fan malfunction.",
+          "ur": "Manual ke mutabiq rear fan ki khami detect hui."
+        },
+        {
+          "en": "The manual lists 34 Fan Error separately with the same 'The UPS has detected a fan malfunction' wording, so one shared fan-supply or fan-sense fault can trip both.",
+          "ur": "Manual 34 Fan Error ko alag se isi 'The UPS has detected a fan malfunction' wording ke saath likhta hai, is liye aik hi fan-supply ya fan-sense fault dono ko trigger kar sakta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the UPS and turn off the input breaker before inspecting, following the manual's isolation practice for fan events.",
+          "ur": "Check karne se pehle UPS band karein aur input breaker off karein, jaise manual fan events ke liye isolation batata hai."
+        },
+        {
+          "en": "Isolate the battery, clear dust from the rear fan and confirm free rotation on a bench supply before deciding on replacement.",
+          "ur": "Battery disconnect karein, rear fan ki gis saaf karein aur bench supply par azaad ghoomti hai ya nahi dekhein, phir replacement ka faisla karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "notes": {
+        "en": "LIMITATION: the OLS manual lists 35 Rear Fan Error in the EVENT CODE LIST only, with the one-line description 'The UPS has detected a rear fan malfunction', and gives NO cause/solution row for it in the TROUBLESHOOTING table (only code 34 Fan Error has one). The bullets above reuse the manual's isolation and fan-test practice, not a code-33/34-specific procedure. Confirm with CyberPower before ordering parts.",
+        "ur": "LIMIT: OLS manual 35 Rear Fan Error ko sirf EVENT CODE LIST mein aik line ke description 'The UPS has detected a rear fan malfunction' ke saath likhta hai aur is ke liye TROUBLESHOOTING table mein koi cause/solution row NAHI deta (sirf code 34 Fan Error ke liye hai). Upar ke bullets manual ke isolation aur fan-test tareeqe parhizare karte hain, code-33/34-specific tareeqa nahi. Parts mangwane se pehle CyberPower se tasdeeq karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "36",
+      "aliases": [
+        "36",
+        "Middle Fan Error"
+      ],
+      "title": {
+        "en": "36 Middle Fan Error",
+        "ur": "36 Middle Fan Error - beech wala fan kharab"
+      },
+      "meaning": {
+        "en": "The UPS has detected a middle fan malfunction.",
+        "ur": "UPS ne middle fan ki khami detect ki hai."
+      },
+      "causes": [
+        {
+          "en": "Stated by the manual as a detected middle fan malfunction.",
+          "ur": "Manual ke mutabiq middle fan ki khami detect hui."
+        },
+        {
+          "en": "The manual lists 34, 35 and 37 as three distinct fan events, so the middle fan is a separately monitored assembly with its own detection line.",
+          "ur": "Manual 34, 35 aur 37 ko teen alag fan events likhta hai, is liye middle fan aik alag monitor hua assembly hai jis ki apni detection line hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the UPS and turn off the input breaker before any inspection, per the manual's isolation practice.",
+          "ur": "Manual ke isolation tareeqe ke mutabiq koi bhi check karne se pehle UPS band karein aur input breaker off karein."
+        },
+        {
+          "en": "Isolate the battery and verify free rotation and airflow at the middle fan position with a meter or an anemometer reading.",
+          "ur": "Battery disconnect karein aur middle fan ki position par multimeter ya anemometer se azaad ghoomti hai aur airflow hai ya nahi dekhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "notes": {
+        "en": "LIMITATION: the OLS manual lists 36 Middle Fan Error in the EVENT CODE LIST only, with the one-line description 'The UPS has detected a middle fan malfunction', and provides NO cause/solution row in the TROUBLESHOOTING table. Bullets above reuse manual-wide isolation practice only.",
+        "ur": "LIMIT: OLS manual 36 Middle Fan Error ko sirf EVENT CODE LIST mein aik line ke description 'The UPS has detected a middle fan malfunction' ke saath likhta hai aur TROUBLESHOOTING table mein koi cause/solution row NAHI deta. Upar ke bullets sirf manual ke aam isolation tareeqe parhizare karte hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "37",
+      "aliases": [
+        "37",
+        "Front Fan Error"
+      ],
+      "title": {
+        "en": "37 Front Fan Error",
+        "ur": "37 Front Fan Error - aage wala fan kharab"
+      },
+      "meaning": {
+        "en": "The UPS has detected a front fan malfunction.",
+        "ur": "UPS ne front fan ki khami detect ki hai."
+      },
+      "causes": [
+        {
+          "en": "Stated by the manual as a detected front fan malfunction.",
+          "ur": "Manual ke mutabiq front fan ki khami detect hui."
+        },
+        {
+          "en": "The manual lists 34, 35 and 37 as three distinct fan events, so the front fan is a separately monitored assembly with its own detection line.",
+          "ur": "Manual 34, 35 aur 37 ko teen alag fan events likhta hai, is liye front fan aik alag monitor hua assembly hai jis ki apni detection line hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the UPS and turn off the input breaker before any inspection, per the manual's isolation practice.",
+          "ur": "Manual ke isolation tareeqe ke mutabiq koi bhi check karne se pehle UPS band karein aur input breaker off karein."
+        },
+        {
+          "en": "Isolate the battery and check free rotation and that the front intake is not blocked by dust or cable routing.",
+          "ur": "Battery disconnect karein aur dekhein ke fan azaad ghoomti hai aur front intake gis ya cable se band to nahi hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "notes": {
+        "en": "LIMITATION: the OLS manual lists 37 Front Fan Error in the EVENT CODE LIST only, with the one-line description 'The UPS has detected a front fan malfunction', and provides NO cause/solution row in the TROUBLESHOOTING table. Bullets above reuse manual-wide isolation practice only.",
+        "ur": "LIMIT: OLS manual 37 Front Fan Error ko sirf EVENT CODE LIST mein aik line ke description 'The UPS has detected a front fan malfunction' ke saath likhta hai aur TROUBLESHOOTING table mein koi cause/solution row NAHI deta. Upar ke bullets sirf manual ke aam isolation tareeqe parhizare karte hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "40",
+      "aliases": [
+        "40",
+        "Bus Fault"
+      ],
+      "title": {
+        "en": "40 Bus Fault",
+        "ur": "40 Bus Fault - DC bus voltage bohat upar ya neeche"
+      },
+      "meaning": {
+        "en": "Red FAULT event: the internal DC bus voltage is too high or too low.",
+        "ur": "Red FAULT event: internal DC bus voltage bohat zyada ya bohat kam hai."
+      },
+      "causes": [
+        {
+          "en": "Internal DC bus voltage is too high or too low (the manual's stated cause).",
+          "ur": "Internal DC bus voltage bohat zyada ya bohat kam hai (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "Battery pack disconnected (06) or failed, leaving the bus unsupported.",
+          "ur": "Battery pack disconnect (06) ya kharab, is liye bus support ke bina reh gaya hai."
+        },
+        {
+          "en": "Inverter switching stage or the bus sensing circuit has failed.",
+          "ur": "Inverter switching stage ya bus sensing circuit kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the UPS and turn off the input breaker, then contact CyberPower for assistance - the manual's remedy for code 40.",
+          "ur": "UPS band karein aur input breaker off karein, phir CyberPower se assistance lein - code 40 ke liye yehi manual ka hal hai."
+        },
+        {
+          "en": "With mains and battery isolated, verify the battery pack is present and measure it on DC volts before assuming the bus itself is at fault.",
+          "ur": "Mains aur battery isolate kar ke confirm karein ke battery pack mojood hai aur use DC volt par measure karein, is se pehle bus ko hi fault na samajhein."
+        },
+        {
+          "en": "Confirm no battery branch fuse is blown and the battery quick-connects are fully seated, since a missing bank presents as a bus fault.",
+          "ur": "Confirm karein ke battery branch fuse ula to nahi hai aur battery quick-connects poori tarah baithay hain, kyunke missing bank bus fault ki shakal mein aata hai."
+        },
+        {
+          "en": "Do not power the unit repeatedly with a bus fault present - repeated attempts can damage the inverter stage.",
+          "ur": "Bus fault ke saath unit baar baar power na karein - baar baar koshish inverter stage kharab kar sakti hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "41",
+      "aliases": [
+        "41",
+        "Bus Fault +High"
+      ],
+      "title": {
+        "en": "41 Bus Fault +High",
+        "ur": "41 Bus Fault +High - positive DC bus bohat upar"
+      },
+      "meaning": {
+        "en": "The UPS has detected the positive DC bus too high.",
+        "ur": "UPS ne positive DC bus bohat zyada detect kiya hai."
+      },
+      "causes": [
+        {
+          "en": "Stated by the manual as +DC Bus too High.",
+          "ur": "Manual ke mutabiq +DC Bus bohat zyada hai."
+        },
+        {
+          "en": "The manual's generic 40 Bus Fault row states 'Internal DC bus voltage is too high or too low' without splitting rails, so +High is that same bus fault reported on the positive rail.",
+          "ur": "Manual ki aam 40 Bus Fault row kehti hai 'Internal DC bus voltage is too high or too low' magar rails mein tareek nahi karti, is liye +High wohi bus fault hai jo positive rail par report hota hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the UPS and turn off the input breaker before inspection, following the manual's handling of all internal bus events.",
+          "ur": "Manual ke tamam internal bus events ke tareeqe ke mutabiq check se pehle UPS band karein aur input breaker off karein."
+        },
+        {
+          "en": "Isolate the battery and measure charger output; an over-driving charger is the usual way the positive bus is pushed high.",
+          "ur": "Battery disconnect karein aur charger output measure karein; charger zyada voltage dena hi aam waja hai jis se positive bus upar chala jata hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "notes": {
+        "en": "LIMITATION: the OLS manual lists 41 Bus Fault +High in the EVENT CODE LIST only ('The UPS has detected +DC Bus too High') and gives NO cause/solution row for it in the TROUBLESHOOTING table - only the generic 40 Bus Fault has one. The bullets above reuse the manual's 40-handling and isolation practice; treat as guidance, not a code-specific procedure.",
+        "ur": "LIMIT: OLS manual 41 Bus Fault +High ko sirf EVENT CODE LIST mein ('The UPS has detected +DC Bus too High') likhta hai aur TROUBLESHOOTING table mein is ke liye koi cause/solution row NAHI deta - sirf aam 40 Bus Fault ke liye hai. Upar ke bullets manual ke 40-handling aur isolation tareeqe parhizare karte hain; yeh guidance hai, code-specific tareeqa nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "42",
+      "aliases": [
+        "42",
+        "Bus Fault +Low"
+      ],
+      "title": {
+        "en": "42 Bus Fault +Low",
+        "ur": "42 Bus Fault +Low - positive DC bus bohat neeche"
+      },
+      "meaning": {
+        "en": "The UPS has detected the positive DC bus too low.",
+        "ur": "UPS ne positive DC bus bohat kam detect kiya hai."
+      },
+      "causes": [
+        {
+          "en": "Stated by the manual as +DC Bus too Low.",
+          "ur": "Manual ke mutabiq +DC Bus bohat kam hai."
+        },
+        {
+          "en": "The manual's generic 40 Bus Fault row covers 'too high or too low' of the same internal DC bus, so +Low is that same bus fault reported on the positive rail.",
+          "ur": "Manual ki aam 40 Bus Fault row usi internal DC bus ke 'too high or too low' ko cover karti hai, is liye +Low wohi bus fault hai jo positive rail par report hota hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the UPS and turn off the input breaker before inspection, per the manual's handling of internal bus events.",
+          "ur": "Manual ke internal bus events tareeqe ke mutabiq check se pehle UPS band karein aur input breaker off karein."
+        },
+        {
+          "en": "Isolate the battery and measure the pack on DC volts; an exhausted or dead pack drops the bus and presents as this event.",
+          "ur": "Battery disconnect karein aur pack DC volt par measure karein; khatam ya dead pack bus gira deta hai aur isi event ki shakal mein aata hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "notes": {
+        "en": "LIMITATION: EVENT CODE LIST only in the OLS manual ('The UPS has detected +DC Bus too Low'); no cause/solution row exists for 42 in the manual's TROUBLESHOOTING table. Bullets above reuse the manual's 40 Bus Fault handling and isolation practice only.",
+        "ur": "LIMIT: OLS manual mein 42 sirf EVENT CODE LIST mein hai ('The UPS has detected +DC Bus too Low'); manual ki TROUBLESHOOTING table mein 42 ke liye koi cause/solution row mojood nahi. Upar ke bullets sirf manual ke 40 Bus Fault handling aur isolation tareeqe parhizare karte hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "43",
+      "aliases": [
+        "43",
+        "Bus Fault -High"
+      ],
+      "title": {
+        "en": "43 Bus Fault -High",
+        "ur": "43 Bus Fault -High - negative DC bus bohat upar"
+      },
+      "meaning": {
+        "en": "The UPS has detected the negative DC bus too high (i.e. negative rail too far from the other rail).",
+        "ur": "UPS ne negative DC bus bohat zyada detect kiya hai (yaani negative rail doosri rail se zyada door hai)."
+      },
+      "causes": [
+        {
+          "en": "Stated by the manual as -DC Bus too High.",
+          "ur": "Manual ke mutabiq -DC Bus bohat zyada hai."
+        },
+        {
+          "en": "The manual's generic 40 Bus Fault row covers 'too high or too low' of the same internal DC bus, so -High is that same bus fault reported on the negative rail.",
+          "ur": "Manual ki aam 40 Bus Fault row usi internal DC bus ke 'too high or too low' ko cover karti hai, is liye -High wohi bus fault hai jo negative rail par report hota hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the UPS and turn off the input breaker before inspection, per the manual's handling of internal bus events.",
+          "ur": "Manual ke internal bus events tareeqe ke mutabiq check se pehle UPS band karein aur input breaker off karein."
+        },
+        {
+          "en": "Isolate the battery and check every cell of the series pack on DC volts, because one weak cell unbalances the rails.",
+          "ur": "Battery disconnect karein aur series pack ka har cell DC volt par check karein, kyunke ek kamzor cell rails ko unbalanced kar deta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "notes": {
+        "en": "LIMITATION: EVENT CODE LIST only in the OLS manual ('The UPS has detected -DC Bus too High'); no cause/solution row exists for 43 in the TROUBLESHOOTING table. Bullets above reuse the manual's 40 Bus Fault handling and isolation practice only.",
+        "ur": "LIMIT: OLS manual mein 43 sirf EVENT CODE LIST mein hai ('The UPS has detected -DC Bus too High'); manual ki TROUBLESHOOTING table mein 43 ke liye koi cause/solution row mojood nahi. Upar ke bullets sirf manual ke 40 Bus Fault handling aur isolation tareeqe parhizare karte hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "44",
+      "aliases": [
+        "44",
+        "Bus Fault -Low"
+      ],
+      "title": {
+        "en": "44 Bus Fault -Low",
+        "ur": "44 Bus Fault -Low - negative DC bus bohat neeche"
+      },
+      "meaning": {
+        "en": "The UPS has detected the negative DC bus too low.",
+        "ur": "UPS ne negative DC bus bohat kam detect kiya hai."
+      },
+      "causes": [
+        {
+          "en": "Stated by the manual as -DC Bus too Low.",
+          "ur": "Manual ke mutabiq -DC Bus bohat kam hai."
+        },
+        {
+          "en": "The manual's generic 40 Bus Fault row covers 'too high or too low' of the same internal DC bus, so -Low is that same bus fault reported on the negative rail.",
+          "ur": "Manual ki aam 40 Bus Fault row usi internal DC bus ke 'too high or too low' ko cover karti hai, is liye -Low wohi bus fault hai jo negative rail par report hota hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the UPS and turn off the input breaker before inspection, per the manual's handling of internal bus events.",
+          "ur": "Manual ke internal bus events tareeqe ke mutabiq check se pehle UPS band karein aur input breaker off karein."
+        },
+        {
+          "en": "Isolate the battery and confirm the quick-connects are fully seated and the correct battery group is fitted, before condemning the electronics.",
+          "ur": "Battery disconnect karein aur confirm karein ke quick-connects poori tarah baithay hain aur sahi battery group lagi hai, electronics ko kharab kehne se pehle."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "notes": {
+        "en": "LIMITATION: EVENT CODE LIST only in the OLS manual ('The UPS has detected -DC Bus too Low'); no cause/solution row exists for 44 in the TROUBLESHOOTING table. Bullets above reuse the manual's 40 Bus Fault handling and isolation practice only.",
+        "ur": "LIMIT: OLS manual mein 44 sirf EVENT CODE LIST mein hai ('The UPS has detected -DC Bus too Low'); manual ki TROUBLESHOOTING table mein 44 ke liye koi cause/solution row mojood nahi. Upar ke bullets sirf manual ke 40 Bus Fault handling aur isolation tareeqe parhizare karte hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "50",
+      "aliases": [
+        "50",
+        "Input Power Fail"
+      ],
+      "title": {
+        "en": "50 Input Power Fail",
+        "ur": "50 Input Power Fail - input ka voltage ya frequency range se bahar"
+      },
+      "meaning": {
+        "en": "The UPS has detected that input voltage or frequency is out of range.",
+        "ur": "UPS ne detect kiya ke input voltage ya frequency range se bahar hai."
+      },
+      "causes": [
+        {
+          "en": "Stated by the manual as input voltage or frequency out of range.",
+          "ur": "Manual ke mutabiq input voltage ya frequency range se bahar hai."
+        },
+        {
+          "en": "The manual gives the OLS input range in its specification table (80-300Vac, 40-70Hz) and separately logs 51/52/53 for the individual parameter breaches, so 50 is the combined/generic case.",
+          "ur": "Manual apni specification table mein OLS ki input range deta hai (80-300Vac, 40-70Hz) aur alag se 51/52/53 individual parameter ki ghalti ke liye log karta hai, is liye 50 aam/combined case hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure input voltage and frequency with a meter/clamp meter at the input; the OLS input range is 80-300Vac and 40-70Hz.",
+          "ur": "Input par meter/clamp meter se input voltage aur frequency measure karein; OLS ki input range 80-300Vac aur 40-70Hz hai."
+        },
+        {
+          "en": "Check the input breaker and connections before assuming the supply is at fault.",
+          "ur": "Supply kharab maan kar pehle input breaker aur connections check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "low",
+      "notes": {
+        "en": "LIMITATION: the OLS manual lists 50 Input Power Fail in the EVENT CODE LIST only and gives NO cause/solution row for 50 in the TROUBLESHOOTING table (only 54 Line Abnormal has one, and it is the closest sibling). The bullets above reuse the manual's stated input range from its specification table plus general input checks, not a code-50-specific procedure.",
+        "ur": "LIMIT: OLS manual 50 Input Power Fail ko sirf EVENT CODE LIST mein likhta hai aur TROUBLESHOOTING table mein 50 ke liye koi cause/solution row NAHI deta (sirf 54 Line Abnormal ke liye hai, jo sab se qareebi mizaj hai). Upar ke bullets manual ki specification table mein di gayi input range aur aam input checks parhizare karte hain, code-50-specific tareeqa nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "51",
+      "aliases": [
+        "51",
+        "Input V+Hz out of range"
+      ],
+      "title": {
+        "en": "51 Input V+Hz out of range",
+        "ur": "51 Input V+Hz out of range - voltage aur frequency dono range se bahar"
+      },
+      "meaning": {
+        "en": "The UPS has detected that input voltage AND frequency are both out of range.",
+        "ur": "UPS ne detect kiya ke input voltage AUR frequency dono range se bahar hain."
+      },
+      "causes": [
+        {
+          "en": "Stated by the manual as input voltage and frequency out of range.",
+          "ur": "Manual ke mutabiq input voltage aur frequency range se bahar hain."
+        },
+        {
+          "en": "The manual separately logs 52 (input voltage out of range) and 53 (input frequency out of range), so 51 is specifically the both-at-once case.",
+          "ur": "Manual alag se 52 (input voltage out of range) aur 53 (input frequency out of range) log karta hai, is liye 51 khaas tor par dono ek saath wala case hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure both input voltage and frequency with a meter/clamp meter and compare against 80-300Vac and 40-70Hz.",
+          "ur": "Meter/clamp meter se input voltage aur frequency dono measure karein aur 80-300Vac aur 40-70Hz se compare karein."
+        },
+        {
+          "en": "Check for a generator or variable supply feeding the input, which is the usual cause of both parameters moving together.",
+          "ur": "Check karein ke input par generator ya variable supply lagay hua hai, jo aam tor par dono parameters ko saath hilane ki wajah hota hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "low",
+      "notes": {
+        "en": "LIMITATION: EVENT CODE LIST only in the OLS manual ('The UPS has detected input voltage and frequency out of range'); no cause/solution row for 51 in the TROUBLESHOOTING table. Bullets above reuse the manual's specification-table input range only.",
+        "ur": "LIMIT: OLS manual mein 51 sirf EVENT CODE LIST mein hai ('The UPS has detected input voltage and frequency out of range'); TROUBLESHOOTING table mein 51 ke liye koi cause/solution row mojood nahi. Upar ke bullets sirf manual ki specification table ki input range parhizare karte hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "52",
+      "aliases": [
+        "52",
+        "Input V out of range"
+      ],
+      "title": {
+        "en": "52 Input V out of range",
+        "ur": "52 Input V out of range - sirf input voltage range se bahar"
+      },
+      "meaning": {
+        "en": "The UPS has detected that input voltage is out of range.",
+        "ur": "UPS ne detect kiya ke input voltage range se bahar hai."
+      },
+      "causes": [
+        {
+          "en": "Stated by the manual as input voltage out of range.",
+          "ur": "Manual ke mutabiq input voltage range se bahar hai."
+        },
+        {
+          "en": "The manual separately logs 53 (input frequency out of range), so 52 is the voltage-only breach; 50 and 51 are the broader combined entries.",
+          "ur": "Manual alag se 53 (input frequency out of range) log karta hai, is liye 52 sirf voltage ki ghalti hai; 50 aur 51 bare aur combined entries hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure input voltage with a meter at the input terminals; the OLS range is 80-300Vac.",
+          "ur": "Input terminals par meter se input voltage measure karein; OLS ki range 80-300Vac hai."
+        },
+        {
+          "en": "Inspect the input cable and breaker for a high-resistance or loose connection, which can make the input read low.",
+          "ur": "Input cable aur breaker ko high-resistance ya dheele connection ke liye dekhein, jis se input kam parhista hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "low",
+      "notes": {
+        "en": "LIMITATION: EVENT CODE LIST only in the OLS manual ('The UPS has detected input voltage out of range'); no cause/solution row for 52 in the TROUBLESHOOTING table. Bullets above reuse the manual's specification-table input range only.",
+        "ur": "LIMIT: OLS manual mein 52 sirf EVENT CODE LIST mein hai ('The UPS has detected input voltage out of range'); TROUBLESHOOTING table mein 52 ke liye koi cause/solution row mojood nahi. Upar ke bullets sirf manual ki specification table ki input range parhizare karte hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "53",
+      "aliases": [
+        "53",
+        "Input Hz out of range"
+      ],
+      "title": {
+        "en": "53 Input Hz out of range",
+        "ur": "53 Input Hz out of range - sirf input frequency range se bahar"
+      },
+      "meaning": {
+        "en": "The UPS has detected that input frequency is out of range.",
+        "ur": "UPS ne detect kiya ke input frequency range se bahar hai."
+      },
+      "causes": [
+        {
+          "en": "Stated by the manual as input frequency out of range.",
+          "ur": "Manual ke mutabiq input frequency range se bahar hai."
+        },
+        {
+          "en": "The manual separately logs 52 (input voltage out of range), so 53 is the frequency-only breach; 50 and 51 are the broader combined entries.",
+          "ur": "Manual alag se 52 (input voltage out of range) log karta hai, is liye 53 sirf frequency ki ghalti hai; 50 aur 51 bare aur combined entries hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure input frequency with a clamp meter; the OLS range is 40-70Hz.",
+          "ur": "Clamp meter se input frequency measure karein; OLS ki range 40-70Hz hai."
+        },
+        {
+          "en": "If a generator is feeding the unit, check its governor and load, since a light generator load is the usual cause of Hz drift.",
+          "ur": "Agar unit par generator lagta hai to us ka governor aur load check karein, kyunke generator ka halka load hi Hz drift ki aam wajah hota hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "low",
+      "notes": {
+        "en": "LIMITATION: EVENT CODE LIST only in the OLS manual ('The UPS has detected input frequency out of range'); no cause/solution row for 53 in the TROUBLESHOOTING table. Bullets above reuse the manual's specification-table input range only.",
+        "ur": "LIMIT: OLS manual mein 53 sirf EVENT CODE LIST mein hai ('The UPS has detected input frequency out of range'); TROUBLESHOOTING table mein 53 ke liye koi cause/solution row mojood nahi. Upar ke bullets sirf manual ki specification table ki input range parhizare karte hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "54",
+      "aliases": [
+        "54",
+        "Line Abnormal"
+      ],
+      "title": {
+        "en": "54 Line Abnormal",
+        "ur": "54 Line Abnormal - mains aise abnormal hai ke auto-restart nahi ho raha"
+      },
+      "meaning": {
+        "en": "Utility power is out of range for the UPS to auto-restart, so the unit has not come back after a shutdown.",
+        "ur": "Mains power UPS ke auto-restart ke liye range se bahar hai, is liye shutdown ke baad unit wapas nahi aaya."
+      },
+      "causes": [
+        {
+          "en": "Utility power is out of range for the UPS to auto-restart (the manual's stated cause).",
+          "ur": "Mains power UPS ke auto-restart ke liye range se bahar hai (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "Mains has returned but voltage is still too low/high, or frequency is still off spec.",
+          "ur": "Mains wapas aa chuka hai lekin voltage abhi bhi kam/zyada hai, ya frequency abhi bhi out of spec hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether voltage or frequency of utility power is out of range, which is the manual's stated remedy.",
+          "ur": "Manual ka tay shuda hal: check karein ke mains ka voltage ya frequency range se bahar to nahi hai."
+        },
+        {
+          "en": "Measure input voltage and frequency with a meter/clamp meter and wait until they are inside 80-300Vac and 40-70Hz.",
+          "ur": "Meter/clamp meter se input voltage aur frequency measure karein aur jab tak 80-300Vac aur 40-70Hz ke andar na aaye intezaar karein."
+        },
+        {
+          "en": "If the readings are in range but the unit still will not auto-restart, perform a manual power cycle after isolating and reconnecting the battery.",
+          "ur": "Agar readings range mein hain phir bhi unit auto-restart nahi karta, to battery isolate karke wapas connect kar ke manual power cycle karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    },
+    {
+      "code": "N/A (Battery Mode)",
+      "aliases": [
+        "N/A (Battery Mode)",
+        "Battery Mode event"
+      ],
+      "title": {
+        "en": "N/A Battery Mode (event log entry)",
+        "ur": "N/A Battery Mode (event log entry) - abhi battery power par chal raha hai"
+      },
+      "meaning": {
+        "en": "Event-log entry with no numeric code: the UPS is operating on battery power. Shown with a YELLOW warning icon.",
+        "ur": "Bina numeric code ke event-log entry: UPS battery power par chal raha hai. YELLOW warning icon ke saath dikhta hai."
+      },
+      "causes": [
+        {
+          "en": "UPS is operating on battery power (the manual's stated cause).",
+          "ur": "UPS battery power par chal raha hai (manual ki tay shuda wajah)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Save your data and perform a controlled shutdown, which is the manual's stated remedy for this event.",
+          "ur": "Manual ka tay shuda hal: apna data save karein aur controlled shutdown karein."
+        },
+        {
+          "en": "Leave the unit on mains after the outage so the battery can recharge; the manual specifies recharging every three months for stored units.",
+          "ur": "Outage ke baad unit mains par chhor dein taake battery recharge ho; stored units ke liye manual tein mahine mein recharge kahein kahta hai."
+        },
+        {
+          "en": "Check the event log afterwards to count how many outages occurred and how long each lasted.",
+          "ur": "Baad mein event log dekhein taake pata chale kitni outages hui aur har kitni der rahi."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "OLS1000EA/OLS1500EA/OLS2000EA/OLS3000EA User's Manual - EVENT CODE LIST + TROUBLESHOOTING",
+        "retrieved": "2026-09-26",
+        "url": "https://itworkshop.lv/documents/catalog/301026/manual-pdf-06e26b0491090d70efe6ad65f16dee49.pdf"
+      }
+    }
+  ]
+}

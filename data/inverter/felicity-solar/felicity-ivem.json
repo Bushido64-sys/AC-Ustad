@@ -1,0 +1,867 @@
+{
+  "schemaVersion": 1,
+  "brandId": "felicity-solar",
+  "series": {
+    "id": "felicity-ivem",
+    "name": "IVEM Series 3kVA~5kVA hybrid inverter/charger",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "IVEM*",
+      "*IVEM5048*"
+    ],
+    "notes": "48 V hybrid inverter/charger, up to 12 units in parallel. NOTE the code-string collision with SERIES 2: here 51 = 'BMS does not allow inverter to CHARGE battery' and 52 = 'BMS does not allow inverter to DISCHARGE battery', which is the OPPOSITE assignment to the IVGM table. Always read the model. Codes 1-26, 30-39, 47-49, 55-79 and 81+ in the fault table have no extractable code number in the source PDF and are NOT transcribed - see NEGATIVE."
+  },
+  "codes": [
+    {
+      "code": "Warning 50",
+      "aliases": [
+        "Warning 50",
+        "W50",
+        "Upgrade the firmware of BMS"
+      ],
+      "title": {
+        "en": "Warning 50 Update BMS firmware",
+        "ur": "Warning 50 BMS firmware update karein"
+      },
+      "meaning": {
+        "en": "The BMS firmware needs upgrading.",
+        "ur": "BMS firmware update karna zaroori hai."
+      },
+      "causes": [
+        {
+          "en": "Pack supplied with a BMS firmware older than the inverter expects",
+          "ur": "Pack aisa BMS firmware ke sath aaya hai jo inverter se purana hai"
+        },
+        {
+          "en": "Inverter updated but the BMS was left on the old protocol",
+          "ur": "Inverter update ho gaya lekin BMS purane protocol par chala gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note the BMS version shown on the LCD BMS information page.",
+          "ur": "LCD BMS information page par dikhne wala BMS version note karein."
+        },
+        {
+          "en": "Update the BMS firmware through the app while the pack is connected and awake.",
+          "ur": "Pack connected aur awake hone par app se BMS firmware update karein."
+        },
+        {
+          "en": "Update every pack in a parallel bank; mixed BMS firmware versions prevent parallel operation.",
+          "ur": "Parallel bank ke har pack ko update karein; alag BMS firmware versions parallel chalna rok dete hain."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Warning 51",
+      "aliases": [
+        "Warning 51",
+        "W51",
+        "BMS doesn't allow inverter to charge battery"
+      ],
+      "title": {
+        "en": "Warning 51 BMS blocks charging",
+        "ur": "Warning 51 BMS charging rok raha hai"
+      },
+      "meaning": {
+        "en": "The BMS has blocked charging; the inverter stops charging the battery automatically.",
+        "ur": "BMS ne charging block kar di hai; inverter khud-ba-khud battery charge karna band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Battery cell voltage at the BMS charge cut-off",
+          "ur": "Battery cell ka voltage BMS charge cut-off par pohanch gaya"
+        },
+        {
+          "en": "Battery temperature outside the BMS permitted range",
+          "ur": "Battery temperature BMS ke allowed range se bahar hai"
+        },
+        {
+          "en": "Cell imbalance or an internal BMS fault latched",
+          "ur": "Cell imbalance ya BMS ka koi internal fault latch ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the BMS page on the LCD and note the battery voltage and temperature reported.",
+          "ur": "LCD ka BMS page padhein aur battery voltage aur temperature note karein."
+        },
+        {
+          "en": "Charge the pack from PV or grid so the BMS releases the inhibit, then confirm charging resumes.",
+          "ur": "Pack ko PV ya grid se charge karein taake BMS inhibit chhor de, phir charging resume ka confirm karein."
+        },
+        {
+          "en": "Check the pack's own SOC LED and temperature sensor; a failed sensor makes the BMS block permanently.",
+          "ur": "Pack ka apna SOC LED aur temperature sensor check karein; kharab sensor BMS ko hamesha block kar deta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Warning 52",
+      "aliases": [
+        "Warning 52",
+        "W52",
+        "BMS doesn't allow inverter to discharge battery"
+      ],
+      "title": {
+        "en": "Warning 52 BMS blocks discharging",
+        "ur": "Warning 52 BMS discharge rok raha hai"
+      },
+      "meaning": {
+        "en": "The BMS has blocked discharging; the inverter stops discharging automatically.",
+        "ur": "BMS ne discharge block kar diya hai; inverter khud-ba-khud discharging band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Battery SOC reached the BMS discharge floor",
+          "ur": "Battery SOC BMS discharge floor tak pohanch gaya"
+        },
+        {
+          "en": "Battery temperature too low or too high for discharge",
+          "ur": "Battery temperature discharge ke liye bohat kam ya bohat zyada hai"
+        },
+        {
+          "en": "Pack over-current protection latched after a surge",
+          "ur": "Surge ke baad pack ka over-current protection latch ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the SOC on the LCD; if it is at the floor the pack needs charging, not repair.",
+          "ur": "LCD par SOC confirm karein; agar woh floor par hai to pack ko charging chahiye, marammat nahi."
+        },
+        {
+          "en": "Check the pack temperature sensor reading against a contact thermometer.",
+          "ur": "Pack ke temperature sensor ki reading contact thermometer se verify karein."
+        },
+        {
+          "en": "Power-cycle the pack breaker once; if the BMS still blocks, read the BMS fault code on the LCD.",
+          "ur": "Pack breaker ko aik baar power-cycle karein; BMS ab bhi block kare to LCD par BMS fault code padhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Warning 53",
+      "aliases": [
+        "Warning 53",
+        "W53",
+        "BMS require inverter to charge battery"
+      ],
+      "title": {
+        "en": "Warning 53 BMS requests charging",
+        "ur": "Warning 53 BMS charging maang raha hai"
+      },
+      "meaning": {
+        "en": "The BMS has asked the inverter to charge the battery; charging starts automatically.",
+        "ur": "BMS ne inverter se battery charge karne ko kaha hai; charging khud-ba-khud shuru ho jati hai."
+      },
+      "causes": [
+        {
+          "en": "Cell imbalance so the BMS wants a balancing top-up charge",
+          "ur": "Cell imbalance hai, is liye BMS balancing top-up charge chahta hai"
+        },
+        {
+          "en": "Battery stored long enough for a recovery charge",
+          "ur": "Battery itni der rahi ke recovery charge aa gaya"
+        },
+        {
+          "en": "SOC below the BMS recovery threshold",
+          "ur": "SOC BMS recovery threshold se neeche hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Let the automatic charge finish; repeated interruption keeps the request active.",
+          "ur": "Automatic charge poora hone dein; baar baar rokne se request qayamat rehti hai."
+        },
+        {
+          "en": "Check that the charge current for this pack is not set to 0 A in the LCD setup.",
+          "ur": "Check karein ke LCD setup mein is pack ka charge current 0 A par set to nahi hai."
+        },
+        {
+          "en": "After charging, confirm cell voltages on the BMS page have come closer together.",
+          "ur": "Charging ke baad confirm karein ke BMS page par cell voltages aik doosre ke qareeb aa gaye hain."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "54~65",
+      "aliases": [
+        "54~65",
+        "54-65",
+        "BMS detect something wrongs happened"
+      ],
+      "title": {
+        "en": "Warning 54-65 BMS detected a fault",
+        "ur": "Warning 54-65 BMS ne fault detect kiya"
+      },
+      "meaning": {
+        "en": "The BMS has detected some internal fault; the manual says contact the installer if the code persists.",
+        "ur": "BMS ne koi internal fault detect kiya hai; manual ke mutabiq code zyada der tak rahe to installer se rabta karein."
+      },
+      "causes": [
+        {
+          "en": "Cell over/under voltage inside the pack",
+          "ur": "Pack ke andar cell over ya under voltage"
+        },
+        {
+          "en": "Charge or discharge over-current inside the pack",
+          "ur": "Pack ke andar charge ya discharge over current"
+        },
+        {
+          "en": "Cell or pack temperature outside the permitted range",
+          "ur": "Cell ya pack temperature allowed range se bahar"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the exact BMS fault code and flag from the LCD BMS information page and write it down.",
+          "ur": "LCD BMS information page se exact BMS fault code aur flag padhein aur likh lein."
+        },
+        {
+          "en": "Let the BMS finish its balancing/recovery action and re-read the code after 30 minutes.",
+          "ur": "BMS ko apna balancing/recovery action poora karne dein aur 30 minute baad code dobara padhein."
+        },
+        {
+          "en": "If the code persists, contact the installer as the manual directs; do not keep cycling the pack.",
+          "ur": "Code zyada der tak rahe to manual ke mutabiq installer se rabta karein; pack ko baar baar on/off na karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "The manual prints this as a RANGE 54~65, not a single code. The app should treat any BMS code in 54-65 as this bucket; the specific meaning is only available from the BMS itself.",
+        "ur": "Manual mein yeh RANGE 54~65 ke tor par chhapa hai, aik code nahin. App ko 54-65 ka koi bhi BMS code isi bucket mein rakhna chahiye; asal matlab sirf BMS se pata chalega."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Warning 80",
+      "aliases": [
+        "Warning 80",
+        "W80",
+        "BMS communication fault"
+      ],
+      "title": {
+        "en": "Warning 80 BMS communication fault",
+        "ur": "Warning 80 BMS communication mein masla"
+      },
+      "meaning": {
+        "en": "The inverter cannot talk to the BMS; check that the communication line is connected well.",
+        "ur": "Inverter BMS se baat nahi kar pa raha; check karein ke communication line theek lagi hai."
+      },
+      "causes": [
+        {
+          "en": "CAN communication cable loose at the inverter or the pack end",
+          "ur": "CAN communication cable inverter ya pack ke sifar par dhili hai"
+        },
+        {
+          "en": "Battery type not set to Lib, so the inverter never opens the BMS link",
+          "ur": "Battery type Lib par set nahi hai, is liye inverter BMS link kabhi nahi kholta"
+        },
+        {
+          "en": "Pack not powered, so its BMS cannot answer",
+          "ur": "Pack ki power nahi hai, is liye uska BMS jawab nahi de sakta"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat the bundled RJ45 CAN cable at both the inverter BMS port and the pack COMM port.",
+          "ur": "Bundled RJ45 CAN cable ko inverter BMS port aur pack COMM port dono par dobara lagayein."
+        },
+        {
+          "en": "Set battery type to Lib in LCD setting No. 08, as the manual instructs.",
+          "ur": "Manual ke mutabiq LCD setting No. 08 mein battery type Lib par set karein."
+        },
+        {
+          "en": "Power the pack first, then the inverter, and confirm the 'C' communication icon appears on the LCD.",
+          "ur": "Pehle pack ko power karein, phir inverter ko, aur LCD par 'C' communication icon aane ka confirm karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Fault 27",
+      "aliases": [
+        "Fault 27",
+        "27",
+        "F27",
+        "The AC input and output wires are inversely connected"
+      ],
+      "title": {
+        "en": "Fault 27 AC input/output reversed",
+        "ur": "Fault 27 AC input/output ulat"
+      },
+      "meaning": {
+        "en": "The AC input and output wires are inversely connected.",
+        "ur": "AC input aur output wires aik doosre ki jagah lagi hain."
+      },
+      "causes": [
+        {
+          "en": "Grid and load cables swapped at the AC terminal block",
+          "ur": "AC terminal block par grid aur load ke cables aik doosre ki jagah lage hue hain"
+        },
+        {
+          "en": "Error during a parallel installation where the wiring was landed by guesswork",
+          "ur": "Parallel installation mein ghalti se wiring lagane ki wajah se error"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check that the AC input and output wires are connected correctly at the terminal block.",
+          "ur": "Terminal block par check karein ke AC input aur output wires theek lagi hain."
+        },
+        {
+          "en": "If this happened during parallel installation, re-check the wiring and finish the parallel installation before restarting.",
+          "ur": "Agar yeh parallel installation ke dauran hua to wiring dobara check karke parallel installation mukammal karein, phir restart karein."
+        },
+        {
+          "en": "Confirm the input and output power lines correspond on all phases before closing the breakers.",
+          "ur": "Breakers band karne se pehle confirm karein ke input aur output power lines sab phases par aik doosre se match karte hain."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Fault 28",
+      "aliases": [
+        "Fault 28",
+        "28",
+        "F28",
+        "Single unit is installed to parallel system"
+      ],
+      "title": {
+        "en": "Fault 28 Single unit on parallel system",
+        "ur": "Fault 28 Parallel system par aik unit"
+      },
+      "meaning": {
+        "en": "A single unit is installed into a parallel system.",
+        "ur": "Parallel system mein aik hi unit lagi hui hai."
+      },
+      "causes": [
+        {
+          "en": "Only one unit of a multi-unit bank switched on",
+          "ur": "Multi-unit bank mein sirf aik unit on hai"
+        },
+        {
+          "en": "Parallel setup programmed but sharing cables not connected to every unit",
+          "ur": "Parallel setup to ho gaya lekin sharing cables har unit par nahi lagi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether a single unit has been installed into a parallel system.",
+          "ur": "Check karein ke parallel system mein koi aik unit to nahi lagi."
+        },
+        {
+          "en": "If this error happens during parallel installation, check the wiring and finish the parallel installation first, then restart.",
+          "ur": "Agar yeh parallel installation ke dauran ho to wiring check karein aur pehle parallel installation mukammal karein, phir restart karein."
+        },
+        {
+          "en": "Confirm every unit in the bank has the sharing and CAN cables connected before switching any of them on.",
+          "ur": "Confirm karein ke bank ka har unit sharing aur CAN cables ke saath laga hua hai, tab koi unit on karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Fault 29",
+      "aliases": [
+        "Fault 29",
+        "29",
+        "F29",
+        "DC/DC soft start fail"
+      ],
+      "title": {
+        "en": "Fault 29 DC/DC soft start failed",
+        "ur": "Fault 29 DC/DC soft start fail"
+      },
+      "meaning": {
+        "en": "The DC/DC converter soft start did not complete.",
+        "ur": "DC/DC converter ka soft start mukammal nahi hua."
+      },
+      "causes": [
+        {
+          "en": "Battery voltage too low to start the DC/DC converter",
+          "ur": "Battery voltage DC/DC converter shuru karne ke liye bohat kam hai"
+        },
+        {
+          "en": "DC/DC pre-charge circuit or its capacitor fault",
+          "ur": "DC/DC pre-charge circuit ya uska capacitor kharab hai"
+        },
+        {
+          "en": "Internal component failure in the DC/DC stage",
+          "ur": "DC/DC stage mein internal component ki failure"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure battery voltage and confirm it is above the DC/DC start threshold.",
+          "ur": "Battery voltage measure karke confirm karein ke woh DC/DC start threshold se upar hai."
+        },
+        {
+          "en": "Isolate AC, PV and battery and inspect the DC/DC pre-charge circuit and connectors.",
+          "ur": "AC, PV aur battery isolate karke DC/DC pre-charge circuit aur connectors dekhein."
+        },
+        {
+          "en": "Restart once as the manual directs; if the code returns, the DC/DC stage needs service-centre repair.",
+          "ur": "Manual ke mutabiq aik baar restart karein; code wapas aaye to DC/DC stage ko service centre par marammat karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Fault 40",
+      "aliases": [
+        "Fault 40",
+        "40",
+        "F40",
+        "CAN data loss"
+      ],
+      "title": {
+        "en": "Fault 40 CAN data loss",
+        "ur": "Fault 40 CAN ka data loss"
+      },
+      "meaning": {
+        "en": "CAN data between parallel units has been lost.",
+        "ur": "Parallel units ke darmiyan CAN data kho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Parallel CAN communication cable loose or unplugged",
+          "ur": "Parallel CAN communication cable dhili hai ya nikal gayi"
+        },
+        {
+          "en": "CAN cable damaged during installation",
+          "ur": "Installation ke dauran CAN cable kharab ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check that the communication cables are connected well and restart the inverter.",
+          "ur": "Check karein ke communication cables theek lagi hain aur inverter restart karein."
+        },
+        {
+          "en": "Test the CAN cable end to end with a meter and replace it if the continuity is broken.",
+          "ur": "CAN cable ki end-to-end continuity meter se test karein aur continuity tooti ho to replace karein."
+        },
+        {
+          "en": "If the problem remains, contact the installer as the manual instructs.",
+          "ur": "Masla bacha rahe to manual ke mutabiq installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Fault 41",
+      "aliases": [
+        "Fault 41",
+        "41",
+        "F41",
+        "Host data loss"
+      ],
+      "title": {
+        "en": "Fault 41 Host data loss",
+        "ur": "Fault 41 Host ka data loss"
+      },
+      "meaning": {
+        "en": "Data from the parallel host unit has been lost.",
+        "ur": "Parallel host unit ka data kho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Host unit switched off while the bank was running",
+          "ur": "Bank chalte waqt host unit band ho gaya"
+        },
+        {
+          "en": "CAN link between host and this unit intermittent",
+          "ur": "Host aur is unit ke darmiyan CAN link intermittent hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check that the communication cables are connected well and restart the inverter.",
+          "ur": "Check karein ke communication cables theek lagi hain aur inverter restart karein."
+        },
+        {
+          "en": "Read every unit's own fault code in the bank and fix the host's error first.",
+          "ur": "Bank mein har unit ka apna fault code padhein aur pehle host ka error theek karein."
+        },
+        {
+          "en": "If the problem remains, contact the installer as the manual instructs.",
+          "ur": "Masla bacha rahe to manual ke mutabiq installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Fault 42",
+      "aliases": [
+        "Fault 42",
+        "42",
+        "F42",
+        "Synchronization data loss"
+      ],
+      "title": {
+        "en": "Fault 42 Synchronisation data loss",
+        "ur": "Fault 42 Synchronisation ka data loss"
+      },
+      "meaning": {
+        "en": "Synchronisation data between parallel units has been lost.",
+        "ur": "Parallel units ke darmiyan synchronisation data kho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Phase assignment (program 28) differs between units in the bank",
+          "ur": "Bank ke units ka phase assignment (program 28) alag alag hai"
+        },
+        {
+          "en": "N conductors not all commoned across the bank",
+          "ur": "Bank ke darmiyan saare N conductors common nahi kiye gaye"
+        },
+        {
+          "en": "Communication cable loose",
+          "ur": "Communication cable dhili hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check that the communication cables are connected well and restart the inverter.",
+          "ur": "Check karein ke communication cables theek lagi hain aur inverter restart karein."
+        },
+        {
+          "en": "Confirm all N wires of AC output are connected together, as the manual's notes require.",
+          "ur": "Manual ke notes ke mutabiq confirm karein ke AC output ke saare N wires aik saath jure hue hain."
+        },
+        {
+          "en": "Verify every unit has the same program 28 setting; restart the whole bank once.",
+          "ur": "Har unit ka program 28 setting aik jaisa hai ya nahi check karein; poore bank ko aik baar restart karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Fault 43",
+      "aliases": [
+        "Fault 43",
+        "43",
+        "F43",
+        "Current feedback into the inverter is detected"
+      ],
+      "title": {
+        "en": "Fault 43 Current feedback detected",
+        "ur": "Fault 43 Current feedback detect hua"
+      },
+      "meaning": {
+        "en": "Current is feeding back into the inverter, which is unsafe for a parallel bank.",
+        "ur": "Inverter mein current wapas aa raha hai, jo parallel bank ke liye khatarnaak hai."
+      },
+      "causes": [
+        {
+          "en": "L/N cables connected in reverse in one of the inverters",
+          "ur": "Aik inverter mein L/N cables ulat lagi hain"
+        },
+        {
+          "en": "Sharing cables not connected in all units of a single-phase parallel system",
+          "ur": "Single-phase parallel system mein sabhi units par sharing cables nahi lagi"
+        },
+        {
+          "en": "Sharing cables connected between units on different phases in a three-phase system",
+          "ur": "Three-phase system mein alag phases wale units ke darmiyan sharing cables lagaye gaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter, then check that L/N cables are not connected in reverse in ALL inverters.",
+          "ur": "Inverter restart karein, phir check karein ke SAARI inverters mein L/N cables ulat nahi lagi hain."
+        },
+        {
+          "en": "For a single-phase parallel system, make sure the sharing cables are connected in all inverters.",
+          "ur": "Single-phase parallel system mein confirm karein ke sharing cables sabhi inverters par lagi hain."
+        },
+        {
+          "en": "For a three-phase system, sharing cables must be connected only between units on the SAME phase and disconnected between different phases.",
+          "ur": "Three-phase system mein sharing cables sirf usi phase wale units ke darmiyan honi chahiyein, alag phases mein disconnected."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Fault 44",
+      "aliases": [
+        "Fault 44",
+        "44",
+        "F44",
+        "The firmware version of each inverter is not the same"
+      ],
+      "title": {
+        "en": "Fault 44 Firmware version mismatch",
+        "ur": "Fault 44 Firmware version ka mismatch"
+      },
+      "meaning": {
+        "en": "The parallel units do not run the same firmware version.",
+        "ur": "Parallel units aik hi firmware version par nahi chal rahe."
+      },
+      "causes": [
+        {
+          "en": "One unit was updated and the others were not",
+          "ur": "Aik unit update hua lekin baqi nahi"
+        },
+        {
+          "en": "Different production batches with different firmware",
+          "ur": "Alag production batch mein alag firmware"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Update all inverter firmware to the same version, as the manual lists.",
+          "ur": "Manual ke mutabiq sabhi inverter ka firmware aik hi version par update karein."
+        },
+        {
+          "en": "Check each unit's version through the LCD setting and make sure the CPU versions are the same.",
+          "ur": "LCD setting se har unit ka version dekhein aur confirm karein ke CPU versions aik jaise hain."
+        },
+        {
+          "en": "If they are not the same, ask the installer to supply the firmware, then contact after-sales if it still persists.",
+          "ur": "Versions aik jaise na hon to installer se firmware mangwayein, phir bhi masla rahe to after-sales se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Fault 45",
+      "aliases": [
+        "Fault 45",
+        "45",
+        "F45",
+        "The output current of each inverter is different"
+      ],
+      "title": {
+        "en": "Fault 45 Unequal output current per inverter",
+        "ur": "Fault 45 Har inverter ka output current alag"
+      },
+      "meaning": {
+        "en": "The output current of each inverter in the bank is different.",
+        "ur": "Bank mein har inverter ka output current alag alag hai."
+      },
+      "causes": [
+        {
+          "en": "Sharing cables loose so current is not shared evenly",
+          "ur": "Sharing cables dhile hain jis se current barabar se share nahi ho raha"
+        },
+        {
+          "en": "One unit's current sensor reading drift",
+          "ur": "Aik unit ke current sensor ki reading drift ho gayi"
+        },
+        {
+          "en": "One unit's output voltage set differently in the setup",
+          "ur": "Aik unit ka output voltage setup mein alag set hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check that the sharing cables are connected well and restart the inverter.",
+          "ur": "Check karein ke sharing cables theek lagi hain aur inverter restart karein."
+        },
+        {
+          "en": "Compare each unit's output current on the LCD with a clamp meter on its output conductor.",
+          "ur": "LCD par har unit ka output current us ke output conductor par clamp meter se compare karein."
+        },
+        {
+          "en": "If the problem remains, contact the installer as the manual instructs.",
+          "ur": "Masla bacha rahe to manual ke mutabiq installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    },
+    {
+      "code": "Fault 46",
+      "aliases": [
+        "Fault 46",
+        "46",
+        "F46",
+        "AC output mode setting is different"
+      ],
+      "title": {
+        "en": "Fault 46 AC output mode setting differs",
+        "ur": "Fault 46 AC output mode setting alag"
+      },
+      "meaning": {
+        "en": "The units in the bank have different AC output mode settings.",
+        "ur": "Bank ke units ke AC output mode settings alag hain."
+      },
+      "causes": [
+        {
+          "en": "One unit left in 3P1/3P2/3P3 while the rest are set to PAL",
+          "ur": "Aik unit 3P1/3P2/3P3 par chhor diya gaya jabke baqi PAL par hain"
+        },
+        {
+          "en": "Setup changed on one unit after the bank was commissioned",
+          "ur": "Bank commission hone ke baad aik unit ka setup badal diya gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the inverter and check LCD setting program 28, as the manual instructs.",
+          "ur": "Manual ke mutabiq inverter band karke LCD setting program 28 check karein."
+        },
+        {
+          "en": "For a single-phase parallel system, make sure NO unit has 3P1, 3P2 or 3P3 set on program 28.",
+          "ur": "Single-phase parallel system mein confirm karein ke kisi unit par program 28 par 3P1, 3P2 ya 3P3 set NAHI hai."
+        },
+        {
+          "en": "For a three-phase system, make sure no 'PAL' is set on program 28.",
+          "ur": "Three-phase system mein confirm karein ke program 28 par kisi unit par 'PAL' set NAHI hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVEM Series (3KVA~5KVA) Hybrid Inverter User Guide (358-010045-10)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-010045-10.pdf"
+      }
+    }
+  ]
+}

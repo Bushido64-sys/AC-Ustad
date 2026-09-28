@@ -1,0 +1,1222 @@
+{
+  "schemaVersion": 1,
+  "brandId": "crown-micro",
+  "series": {
+    "id": "xavier",
+    "name": "Xavier hybrid/off-grid (1.2–5.6KVA + 3/3.6/4/5.6KW)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*Xavier*",
+      "*X-3*",
+      "*X-4*",
+      "*X-5*"
+    ],
+    "notes": "Shared Voltronic-class table from official Crown PDFs. Model drift: fault 10 only on 3.6/4/5.6; fault 12 only on 3KVA TS; overload 110% (3KVA) vs 105% (3.6KW). Field 'F09'/'F51' = same as '09'/'51'. Official 55=unbalanced wins over SolarNevs DC-offset."
+  },
+  "codes": [
+    {
+      "code": "01",
+      "aliases": [
+        "01"
+      ],
+      "title": {
+        "en": "Fan locked (inverter off)",
+        "ur": "Pankha atka (off)"
+      },
+      "meaning": {
+        "en": "Fan locked while off.",
+        "ur": "Inverter off par fan atka."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Fan blade jammed by dust or a wire touching it",
+          "ur": "Fan ka blade dust ya wire se atka hua hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC; treat DC terminals as live until the array and battery are disconnected.",
+          "ur": "Power off karke AC isolate karein; panel aur battery disconnect hone tak DC terminals ko live maan lein."
+        },
+        {
+          "en": "Turn the fan blade by hand and clear dust or a wire touching it; replace the fan if it is jammed or broken.",
+          "ur": "Fan blade ko haath se ghuma kar dust ya phansa hua wire hatayein; fan atka ya toota ho to badlein."
+        },
+        {
+          "en": "Check the fan connector, then power on and retest; if it locks again the technician replaces the fan.",
+          "ur": "Fan connector check karein, phir on karke dobara check karein; dobara atka to technician fan replace kare."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "02",
+      "aliases": [
+        "02"
+      ],
+      "title": {
+        "en": "Over temperature or NTC not connected",
+        "ur": "Over-temp ya NTC dhila"
+      },
+      "meaning": {
+        "en": "Internal >100°C or temp sensor loose/bad.",
+        "ur": "Andar >100°C ya temp sensor dhila/kharab."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Temperature sensor (NTC) loose or failed",
+          "ur": "Temp sensor (NTC) dhila ya kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC and let the unit cool for 10 minutes before opening it.",
+          "ur": "Power off karein, AC isolate karein aur kholein se pehle unit ko 10 minute thanda hone dein."
+        },
+        {
+          "en": "Power cycle: AC off → 2–5 min → on (DC isolated for DC work)",
+          "ur": "Power cycle: AC off → 2–5 minute → on (DC work ke liye DC isolate)"
+        },
+        {
+          "en": "Clean vents and heatsink and re-seat the temperature sensor plug; if it still runs hot the sensor is replaced.",
+          "ur": "Vents aur heatsink saaf karein aur temp sensor ka plug dobara lagayein; phir bhi garmi rahe to sensor replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "03",
+      "aliases": [
+        "03"
+      ],
+      "title": {
+        "en": "Battery voltage too high",
+        "ur": "Battery voltage zyada"
+      },
+      "meaning": {
+        "en": "Battery over-charge / high.",
+        "ur": "Battery over-charge / zyada."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Charger output too high or battery cells failing",
+          "ur": "Charger ka output zyada hai ya battery cells kharab ho rahe hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC and disconnect the battery before any measurement.",
+          "ur": "Kisi bhi naap se pehle power off karein, AC isolate karein aur battery disconnect karein."
+        },
+        {
+          "en": "Measure battery voltage with a multimeter — well above the normal charge level means over-charge; check the charger output.",
+          "ur": "Multimeter se battery voltage naap lein — normal charge level se kaafi zyada ho to over-charge hai; charger ka output check karein."
+        },
+        {
+          "en": "Stop charging if the voltage is high and have a technician check the charge circuit and relay, then retest.",
+          "ur": "Voltage zyada ho to charging rok dein aur technician se charge circuit aur relay check karwayein, phir dobara check karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "relatedCodes": [
+        "04"
+      ]
+    },
+    {
+      "code": "04",
+      "aliases": [
+        "04"
+      ],
+      "title": {
+        "en": "Battery voltage too low",
+        "ur": "Battery voltage kam"
+      },
+      "meaning": {
+        "en": "Battery below cut-off.",
+        "ur": "Battery cut-off se neeche."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Battery deeply discharged or weak with age",
+          "ur": "Battery geheri discharge ho gayi ya umar se kamzor ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC before checking the battery wiring.",
+          "ur": "Battery wiring check karne se pehle power off karke AC isolate karein."
+        },
+        {
+          "en": "Measure the battery resting voltage with a multimeter and charge it fully, then power on and retest.",
+          "ur": "Multimeter se battery ki resting voltage naap lein aur use mukammal charge karein, phir on karke dobara check karein."
+        },
+        {
+          "en": "If voltage drops fast under load the battery is weak and must be replaced; also clean and tighten the terminals.",
+          "ur": "Load par voltage jaldi gir jaye to battery kamzor hai aur use badalna chahiye; terminals bhi saaf karke kassein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "relatedCodes": [
+        "03"
+      ]
+    },
+    {
+      "code": "05",
+      "aliases": [
+        "05"
+      ],
+      "title": {
+        "en": "Output short or internal over-temp",
+        "ur": "Output short ya internal over-temp"
+      },
+      "meaning": {
+        "en": "Short or converter >120°C.",
+        "ur": "Short ya converter >120°C."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Output short circuit or converter overheating",
+          "ur": "Output mein short circuit hai ya converter zyada garm ho raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off at once, isolate AC and DC, and treat DC terminals as live even with breakers off.",
+          "ur": "Foran power off karein, AC aur DC isolate karein, aur breakers off hone par bhi DC terminals ko live maan lein."
+        },
+        {
+          "en": "Disconnect the load and check the output wiring for short or burn marks with the supply isolated.",
+          "ur": "Supply isolate karke load disconnect karein aur output wiring par short ya jale hue nishan check karein."
+        },
+        {
+          "en": "If no external short is found the converter is overheating — a technician checks cooling and internal parts before restart.",
+          "ur": "Bahar koi short na mila to converter zyada garm ho raha hai — restart se pehle technician cooling aur andar ke parts check kare."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "06",
+      "aliases": [
+        "06"
+      ],
+      "title": {
+        "en": "Output voltage too high",
+        "ur": "Output voltage zyada"
+      },
+      "meaning": {
+        "en": "Output outside window.",
+        "ur": "Output window se bahar."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Load too heavy or output feedback faulty",
+          "ur": "Load zyada hai ya output feedback kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC before probing the output terminals.",
+          "ur": "Output terminals probe karne se pehle power off karke AC isolate karein."
+        },
+        {
+          "en": "After a safe restart, measure output voltage and frequency with a multimeter and compare them with the manual's normal window.",
+          "ur": "Safe restart ke baad multimeter se output voltage aur frequency naap kar manual ke normal window se compare karein."
+        },
+        {
+          "en": "If the output stays out of range, check the load type and settings; a persistent fault goes to the repair centre.",
+          "ur": "Output range se bahar rahe to load ki qism aur settings check karein; fault lagu rahe to repair centre jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "relatedCodes": [
+        "58"
+      ]
+    },
+    {
+      "code": "07",
+      "aliases": [
+        "07"
+      ],
+      "title": {
+        "en": "Overload time out",
+        "ur": "Load zyada, time out"
+      },
+      "meaning": {
+        "en": "Load ≥105–110% timer expired.",
+        "ur": "Load ≥105–110% timer khatam."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Load kept above 105–110% for too long",
+          "ur": "Load 105–110% se zyada der tak laga raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC, then remove the heavy load from the output.",
+          "ur": "Power off karke AC isolate karein, phir output se bhaari load utarein."
+        },
+        {
+          "en": "Measure the load with a clamp meter, keep it below the inverter rating and power on again to retest.",
+          "ur": "Clamp meter se load naap lein, inverter rating se kam rakhein aur phir on karke dobara check karein."
+        },
+        {
+          "en": "If the overload returns on a light load, a technician checks the output board and relay.",
+          "ur": "Halka load par bhi overload wapas aaye to technician output board aur relay check kare."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "08",
+      "aliases": [
+        "08"
+      ],
+      "title": {
+        "en": "Bus voltage too high / internal failed",
+        "ur": "Bus zyada / internal fail"
+      },
+      "meaning": {
+        "en": "Bus over-voltage or internal group.",
+        "ur": "Bus over-voltage ya internal group."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Input or grid voltage too high, or internal group failure",
+          "ur": "Input ya grid voltage zyada hai, ya internal group fail ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC and DC before probing; the DC bus stays charged for some time after power off.",
+          "ur": "Probe karne se pehle power off karein, AC aur DC isolate karein; DC bus power off ke baad der tak charge rehta hai."
+        },
+        {
+          "en": "A technician checks the DC bus with a multimeter after safe discharge, and the input voltage feeding it.",
+          "ur": "Technician safe discharge ke baad multimeter se DC bus naap le aur usko dene wali input voltage bhi check kare."
+        },
+        {
+          "en": "High grid or PV input often causes bus over-voltage; internal failure needs the repair centre.",
+          "ur": "Grid ya PV input zyada hone se bus over-voltage aata hai; andar ki failure ke liye repair centre zaroori."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 4KW manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2022/12/Crown-Micro-XAVIER-4KW.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "relatedCodes": [
+        "09",
+        "53",
+        "57"
+      ]
+    },
+    {
+      "code": "09",
+      "aliases": [
+        "09"
+      ],
+      "title": {
+        "en": "Bus soft start failed",
+        "ur": "Bus soft start fail"
+      },
+      "meaning": {
+        "en": "Soft-start failed.",
+        "ur": "Soft-start fail."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Weak battery or pre-charge circuit not working",
+          "ur": "Battery kamzor hai ya pre-charge circuit kaam nahi kar raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC and DC and do not switch on again and again.",
+          "ur": "Power off karein, AC aur DC isolate karein aur baar baar on na karein."
+        },
+        {
+          "en": "Measure input voltage and battery voltage with a multimeter before one retry — both must be in normal range.",
+          "ur": "Ek baar try se pehle multimeter se input voltage aur battery voltage naap lein — dono normal range mein hone chahiye."
+        },
+        {
+          "en": "If soft start still fails, a technician checks the pre-charge circuit and relay; a repair centre may be needed.",
+          "ur": "Phir bhi soft start fail ho to technician pre-charge circuit aur relay check kare; zaroorat par repair centre lage."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 4KW manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2022/12/Crown-Micro-XAVIER-4KW.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "relatedCodes": [
+        "08"
+      ]
+    },
+    {
+      "code": "10",
+      "aliases": [
+        "10"
+      ],
+      "title": {
+        "en": "PV over current",
+        "ur": "PV over-current"
+      },
+      "meaning": {
+        "en": "PV input over-current (3.6/4/5.6KW tables; not on 3KW).",
+        "ur": "PV over-current (3.6/4/5.6KW; 3KW par nahi)."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "PV string sized too big for this model's input limit",
+          "ur": "Is model ke liye PV string bohot bari hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC and cover or disconnect the PV strings — the PV input stays live in daylight.",
+          "ur": "Power off karein, AC isolate karein aur PV strings ko cover ya disconnect karein — din ke waqt PV input live rehta hai."
+        },
+        {
+          "en": "Check the PV string size against the model's table in the manual and reduce panels in series if it is over the limit.",
+          "ur": "PV string ka size manual ki apni table se compare karein aur limit zyada ho to series mein panels kam karein."
+        },
+        {
+          "en": "Inspect the PV input wiring for shorts; if the current is still high, a technician checks the charge stage.",
+          "ur": "PV input wiring mein short check karein; current phir bhi zyada rahe to technician charge stage check kare."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3.6/5.6KW manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2022/12/Crown-micro-Xavier-3.6KW5.6KW.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12"
+      ],
+      "title": {
+        "en": "Temperature sensor not connected / malfunction",
+        "ur": "Temp sensor dhila/kharab"
+      },
+      "meaning": {
+        "en": "Temp sensor fault (Xavier 3KVA TS only).",
+        "ur": "Temp sensor ka masla — sirf Xavier 3KVA TS model par."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Temp sensor plug loose or sensor circuit open",
+          "ur": "Temp sensor ka plug dhila ya sensor circuit khula hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC and let the unit cool before opening the panel.",
+          "ur": "Power off karein, AC isolate karein aur panel kholne se pehle unit ko thanda hone dein."
+        },
+        {
+          "en": "Re-seat the temperature sensor plug and check that the sensor wiring is not loose or broken.",
+          "ur": "Temp sensor ka plug dobara lagayein aur sensor ki wiring dhili ya tooti to nahi hai check karein."
+        },
+        {
+          "en": "Measure the sensor with a multimeter — an open or very high reading means the sensor is bad and is replaced.",
+          "ur": "Multimeter se sensor naap lein — open ya bohot zyada reading aaye to sensor kharab hai aur use badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Xavier 3KVA troubleshooting (ManualsLib p30)",
+        "url": "https://www.manualslib.com/manual/3064131",
+        "retrieved": "2026-09-24"
+      },
+      "relatedCodes": [
+        "02"
+      ]
+    },
+    {
+      "code": "51",
+      "aliases": [
+        "51"
+      ],
+      "title": {
+        "en": "Over current or surge",
+        "ur": "Over current / surge"
+      },
+      "meaning": {
+        "en": "Over-current/surge.",
+        "ur": "Current zyada ho gaya ya surge aa gaya."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Heavy load or voltage surge on the supply",
+          "ur": "Load zyada hai ya supply par voltage surge aaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC and disconnect the load before checking.",
+          "ur": "Check karne se pehle power off karein, AC isolate karein aur load disconnect karein."
+        },
+        {
+          "en": "Measure the load with a clamp meter and look for storm or surge conditions on the supply.",
+          "ur": "Clamp meter se load naap lein aur supply par toofan ya surge ki halat dekhein."
+        },
+        {
+          "en": "Remove extra load and restart; if it trips again, a technician checks the output stage.",
+          "ur": "Extra load hata kar restart karein; dobara trip ho to technician output stage check kare."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 4KW manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2022/12/Crown-Micro-XAVIER-4KW.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "52",
+      "aliases": [
+        "52"
+      ],
+      "title": {
+        "en": "Bus voltage too low",
+        "ur": "Bus voltage kam"
+      },
+      "meaning": {
+        "en": "Bus under-voltage.",
+        "ur": "Bus ka voltage kam hai."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Input supply low or battery voltage dropped",
+          "ur": "Input supply kam hai ya battery voltage gir gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC and DC before probing the bus.",
+          "ur": "Bus probe karne se pehle power off karein, AC aur DC isolate karein."
+        },
+        {
+          "en": "Measure input and battery voltage with a multimeter — a low battery or low input pulls the bus down.",
+          "ur": "Multimeter se input aur battery voltage naap lein — battery kam ho ya input kam ho to bus neeche gir jata hai."
+        },
+        {
+          "en": "Charge or replace a weak battery or fix the supply; if the bus stays low, a technician checks the input stage.",
+          "ur": "Kamzor battery charge karein ya badlein, ya supply theek karwayein; bus phir bhi kam rahe to technician input stage check kare."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 4KW manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2022/12/Crown-Micro-XAVIER-4KW.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "53",
+      "aliases": [
+        "53"
+      ],
+      "title": {
+        "en": "Internal components failed",
+        "ur": "Internal component fail"
+      },
+      "meaning": {
+        "en": "Internal group — repair centre.",
+        "ur": "Internal group ka masla — repair centre le jayein."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Internal component failure on the main board",
+          "ur": "Main board par internal component fail ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC and DC and do not keep restarting the unit.",
+          "ur": "Power off karein, AC aur DC isolate karein aur unit ko baar baar restart na karein."
+        },
+        {
+          "en": "With the supply isolated, look and smell for burnt parts, loose connectors or a blown fuse.",
+          "ur": "Supply isolate karke dekhein aur smell karein — jale hue parts, dhile connectors ya fuse phata hua to nahi hai."
+        },
+        {
+          "en": "Internal component failure is not a field fix — send the unit to a repair centre.",
+          "ur": "Internal component ka fault mukammal theek nahi hota — unit ko repair centre bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 4KW manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2022/12/Crown-Micro-XAVIER-4KW.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "relatedCodes": [
+        "08"
+      ]
+    },
+    {
+      "code": "55",
+      "aliases": [
+        "55"
+      ],
+      "title": {
+        "en": "Output voltage unbalanced",
+        "ur": "Output voltage barabar nahi"
+      },
+      "meaning": {
+        "en": "Output unbalanced (official Crown wording — SolarNevs DC-offset claim loses).",
+        "ur": "Output unbalanced (official Crown)."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Uneven load across the output lines",
+          "ur": "Output lines par load barabar nahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC before checking the output wiring.",
+          "ur": "Output wiring check karne se pehle power off karke AC isolate karein."
+        },
+        {
+          "en": "Measure each output line with a multimeter or clamp meter — the readings should be balanced.",
+          "ur": "Har output line ko multimeter ya clamp meter se naap lein — readings barabar honi chahiye."
+        },
+        {
+          "en": "Balance the load and check the output wiring; if it stays unbalanced, a technician checks the output board.",
+          "ur": "Load barabar baant dein aur output wiring check karein; phir bhi unbalance rahe to technician output board check kare."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 4KW manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2022/12/Crown-Micro-XAVIER-4KW.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "57",
+      "aliases": [
+        "57"
+      ],
+      "title": {
+        "en": "Internal components failed (sensor group)",
+        "ur": "Internal fail (sensor group)"
+      },
+      "meaning": {
+        "en": "Internal group.",
+        "ur": "Internal group ka masla."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Sensor group feedback out of range",
+          "ur": "Sensor ki feedback range se bahar hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC and DC before opening the unit.",
+          "ur": "Unit kholne se pehle power off karein, AC aur DC isolate karein."
+        },
+        {
+          "en": "Visually check connectors and sensors for looseness or damage and re-seat them.",
+          "ur": "Connectors aur sensors ko nazar se dekh kar dheele ya kharab hone ka check karein aur dobara lagayein."
+        },
+        {
+          "en": "If the fault stays, a technician checks the sensor group — a repair centre is required.",
+          "ur": "Fault bani rahe to technician sensor group check kare — repair centre zaroori."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 4KW manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2022/12/Crown-Micro-XAVIER-4KW.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "relatedCodes": [
+        "53"
+      ]
+    },
+    {
+      "code": "58",
+      "aliases": [
+        "58"
+      ],
+      "title": {
+        "en": "Output voltage too low / abnormal",
+        "ur": "Output voltage kam / abnormal"
+      },
+      "meaning": {
+        "en": "Output <190 or >260 Vac abnormal.",
+        "ur": "Output <190 ya >260 Vac."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Input supply outside the inverter's working window",
+          "ur": "Input supply inverter ki working window se bahar hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC before measuring the output.",
+          "ur": "Output naapne se pehle power off karke AC isolate karein."
+        },
+        {
+          "en": "Measure the output voltage with a multimeter and note whether it is low or high.",
+          "ur": "Multimeter se output voltage naap lein aur note karein ke kam hai ya zyada."
+        },
+        {
+          "en": "Check the input supply and load balance; an abnormal output that persists needs the repair centre.",
+          "ur": "Input supply aur load balance check karein; output theek na rahe to repair centre zaroori."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 4KW manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2022/12/Crown-Micro-XAVIER-4KW.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "relatedCodes": [
+        "06"
+      ]
+    },
+    {
+      "code": "59",
+      "aliases": [
+        "59"
+      ],
+      "title": {
+        "en": "PV input voltage beyond specification",
+        "ur": "PV voltage spec se bahar"
+      },
+      "meaning": {
+        "en": "String Voc beyond limit — reduce series.",
+        "ur": "String Voc limit se bahar — series kam."
+      },
+      "causes": [
+        {
+          "en": "See manual troubleshooting",
+          "ur": "Manual troubleshooting dekhein"
+        },
+        {
+          "en": "Too many panels in series for the string limit",
+          "ur": "String limit se zyada panels series mein lage hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC and cover the PV strings before working on the PV input.",
+          "ur": "PV input par kaam se pehle power off karein, AC isolate karein aur PV strings ko cover karein."
+        },
+        {
+          "en": "Measure the string open-circuit voltage (Voc) with a multimeter — it must stay within the manual's limit.",
+          "ur": "Multimeter se string ka open-circuit voltage (Voc) naap lein — manual ki limit ke andar rehna chahiye."
+        },
+        {
+          "en": "Reduce the number of panels in series until Voc is within limit, then power on and retest.",
+          "ur": "Voc limit ke andar aane tak series mein panels kam karein, phir on karke dobara check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 4KW manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2022/12/Crown-Micro-XAVIER-4KW.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "W01",
+      "aliases": [
+        "W01"
+      ],
+      "title": {
+        "en": "Fan locked (inverter on)",
+        "ur": "Pankha atka (on)"
+      },
+      "meaning": {
+        "en": "Fan locked (inverter on) — running.",
+        "ur": "Pankha atka hua hai jab inverter on hai aur chalta rehta hai."
+      },
+      "causes": [
+        {
+          "en": "Warning",
+          "ur": "Warning chal raha hai — sirf aagahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: AC off → 2–5 min → on (DC isolated for DC work)",
+          "ur": "Power cycle: AC off → 2–5 minute → on (DC work ke liye DC isolate)"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "blinkPattern": "3/sec"
+    },
+    {
+      "code": "W02",
+      "aliases": [
+        "W02"
+      ],
+      "title": {
+        "en": "Over temperature (no alarm)",
+        "ur": "Over-temp (buzzer nahi)"
+      },
+      "meaning": {
+        "en": "Over temperature (no alarm) — running.",
+        "ur": "Over-temp (buzzer nahi) — chalta rahta."
+      },
+      "causes": [
+        {
+          "en": "Warning",
+          "ur": "Warning chal raha hai — sirf aagahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: AC off → 2–5 min → on (DC isolated for DC work)",
+          "ur": "Power cycle: AC off → 2–5 minute → on (DC work ke liye DC isolate)"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "W03",
+      "aliases": [
+        "W03"
+      ],
+      "title": {
+        "en": "Battery over-charged",
+        "ur": "Over-charge"
+      },
+      "meaning": {
+        "en": "Battery over-charged — running.",
+        "ur": "Over-charge — chalta rahta."
+      },
+      "causes": [
+        {
+          "en": "Warning",
+          "ur": "Warning chal raha hai — sirf aagahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: AC off → 2–5 min → on (DC isolated for DC work)",
+          "ur": "Power cycle: AC off → 2–5 minute → on (DC work ke liye DC isolate)"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "blinkPattern": "1/sec"
+    },
+    {
+      "code": "W04",
+      "aliases": [
+        "W04"
+      ],
+      "title": {
+        "en": "Low battery",
+        "ur": "Battery low"
+      },
+      "meaning": {
+        "en": "Low battery — running.",
+        "ur": "Battery low — chalta rahta."
+      },
+      "causes": [
+        {
+          "en": "Warning",
+          "ur": "Warning chal raha hai — sirf aagahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: AC off → 2–5 min → on (DC isolated for DC work)",
+          "ur": "Power cycle: AC off → 2–5 minute → on (DC work ke liye DC isolate)"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "blinkPattern": "1/sec"
+    },
+    {
+      "code": "W07",
+      "aliases": [
+        "W07"
+      ],
+      "title": {
+        "en": "Overload",
+        "ur": "Load zyada (overload)"
+      },
+      "meaning": {
+        "en": "Overload — running.",
+        "ur": "Overload — chalta rahta."
+      },
+      "causes": [
+        {
+          "en": "Warning",
+          "ur": "Warning chal raha hai — sirf aagahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: AC off → 2–5 min → on (DC isolated for DC work)",
+          "ur": "Power cycle: AC off → 2–5 minute → on (DC work ke liye DC isolate)"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "blinkPattern": "1/0.5s"
+    },
+    {
+      "code": "W10",
+      "aliases": [
+        "W10"
+      ],
+      "title": {
+        "en": "Output power derating",
+        "ur": "Derating"
+      },
+      "meaning": {
+        "en": "Output power derating — running.",
+        "ur": "Derating — chalta rahta."
+      },
+      "causes": [
+        {
+          "en": "Warning",
+          "ur": "Warning chal raha hai — sirf aagahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: AC off → 2–5 min → on (DC isolated for DC work)",
+          "ur": "Power cycle: AC off → 2–5 minute → on (DC work ke liye DC isolate)"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "blinkPattern": "2/3s"
+    },
+    {
+      "code": "W15",
+      "aliases": [
+        "W15"
+      ],
+      "title": {
+        "en": "PV energy is low",
+        "ur": "PV energy kam"
+      },
+      "meaning": {
+        "en": "PV energy is low — running.",
+        "ur": "PV energy kam — chalta rahta."
+      },
+      "causes": [
+        {
+          "en": "Warning",
+          "ur": "Warning chal raha hai — sirf aagahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: AC off → 2–5 min → on (DC isolated for DC work)",
+          "ur": "Power cycle: AC off → 2–5 minute → on (DC work ke liye DC isolate)"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Crown Micro Xavier 3KW user manual (official PDF)",
+        "url": "https://crownmicroglobal.com/wp-content/uploads/2024/01/Xavier-3KW-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "blinkPattern": "2/3s"
+    },
+    {
+      "code": "W16",
+      "aliases": [
+        "W16"
+      ],
+      "title": {
+        "en": "High AC input >280VAC during BUS soft start",
+        "ur": "BUS soft start par AC input >280VAC"
+      },
+      "meaning": {
+        "en": "Source-side high voltage during bus soft start — WAPDA/neutral issue, not inverter fault.",
+        "ur": "BUS soft start par source-side high voltage — WAPDA/neutral masla, inverter fault nahi."
+      },
+      "causes": [
+        {
+          "en": "Utility high / neutral lost",
+          "ur": "Utility zyada / neutral gayab"
+        },
+        {
+          "en": "Tap/wrong supply",
+          "ur": "Tap/ghalat supply"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the inverter and isolate AC before measuring the supply voltage.",
+          "ur": "Supply voltage naapne se pehle inverter power off karke AC isolate karein."
+        },
+        {
+          "en": "Measure the input voltage at the inverter terminals with a multimeter; also check the main breaker and neutral wiring.",
+          "ur": "Inverter ke terminals par multimeter se input voltage naap lein; main breaker aur neutral wiring bhi check karein."
+        },
+        {
+          "en": "If the utility voltage is high or the neutral is lost, keep the inverter off and file a DISCO complaint until supply is normal.",
+          "ur": "Utility voltage zyada ho ya neutral gayab ho to inverter band rakhein aur supply theek hone tak DISCO ki complaint karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "source": {
+        "type": "distributor_page",
+        "title": "SolarNevs Crown inverter error codes guide",
+        "url": "https://solarnevs.com/pk/guides/fixes/crown-inverter-error-codes",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "SolarNevs-only; not confirmed in official PDF excerpt — low.",
+        "ur": "Sirf SolarNevs; official PDF mein confirm nahi — low."
+      }
+    }
+  ]
+}

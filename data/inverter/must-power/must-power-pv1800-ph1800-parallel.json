@@ -1,0 +1,578 @@
+{
+  "schemaVersion": 1,
+  "brandId": "must-power",
+  "series": {
+    "id": "must-power-pv1800-ph1800-parallel",
+    "name": "PV1800-PH1800 Parallel Installation Guide fault codes 80-90",
+    "category": "inverter",
+    "unitType": "generic",
+    "modelPatterns": [
+      "*PV1800*MPK*",
+      "*PH1800*MPK*",
+      "*PV1800*parallel*",
+      "*PH1800*parallel*"
+    ],
+    "notes": "This is a SEPARATE documented table, OEM doc 420-00235-03 'PV1800-PH1800 solar inverter parallel installation guide', and it applies to BOTH PV1800 and PH1800 parallel-capable models - the OEM published one guide for both, so a single series is correct here (unlike SERIES 1 vs 3). These codes only appear when 2 or 3 units are paralleled over the CAN communication cable. In parallel the unit table shows up to 3 units in single phase (15 kVA for 5 kVA, 12 kVA for 4 kVA) or 3-phase from 3 units. Codes 80-90 are entirely separate from the 01-77 range and must never be merged with it."
+  },
+  "codes": [
+    {
+      "code": "80",
+      "aliases": [
+        "80",
+        "Fault 80",
+        "CAN fault",
+        "CAN data loss"
+      ],
+      "title": {
+        "en": "Parallel CAN communication fault",
+        "ur": "Parallel CAN communication mein ghalti"
+      },
+      "meaning": {
+        "en": "The CAN communication link between paralleled units has failed, so the units cannot coordinate.",
+        "ur": "Parallel units ke darmiyan CAN communication link kharab hai jis se units aik doosre se coordinate nahi kar sakte."
+      },
+      "causes": [
+        {
+          "en": "Communication cables between units are not connected well, loose, or a cable is faulty.",
+          "ur": "Units ke darmiyan communication cables theek se nahi lagi, loose hain ya koi cable kharab hai."
+        },
+        {
+          "en": "A unit is off or unpowered while the parallel group is running.",
+          "ur": "Parallel group chal raha ho koi unit off ya unpowered hai."
+        },
+        {
+          "en": "Terminations are wrong, so the CAN bus is not properly referenced end to end.",
+          "ur": "Termination ghalat hai jis se CAN bus poori tarah reference nahi ho raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off all units and isolate AC, PV and battery before touching the CAN cabling.",
+          "ur": "CAN wiring chhoone se pehle sab units off karke AC, PV aur battery disconnect karein."
+        },
+        {
+          "en": "Check if communication cables are connected well and restart the inverter, exactly as the guide's row 80 says.",
+          "ur": "Guide ki 80 row ke mutabiq check karein ke communication cables theek lagi hain aur inverter restart karein."
+        },
+        {
+          "en": "If the problem remains, contact the installer, because this table's remedy ends there.",
+          "ur": "Agar masla bache to installer se rabta karein, kyun ke is table ka hal yahan khatam hota hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "PV1800-PH1800 Solar Inverter Parallel Installation Guide (OEM doc 420-00235-03)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fenk.com.ar/wp-content/uploads/2019/11/PV1800-PH1800-solar-inverter-parallel-installtion-guide.pdf"
+      }
+    },
+    {
+      "code": "81",
+      "aliases": [
+        "81",
+        "Fault 81",
+        "Host loss"
+      ],
+      "title": {
+        "en": "Parallel host (master) lost",
+        "ur": "Parallel host (master) kho gaya"
+      },
+      "meaning": {
+        "en": "A parallel unit has lost the master/host unit it was following.",
+        "ur": "Ek parallel unit ne us host unit ko kho diya jiski woh follow kar raha tha."
+      },
+      "causes": [
+        {
+          "en": "The host unit is powered off while follower units are still running.",
+          "ur": "Host unit power off hai jab ke follower units abhi chal rahe hain."
+        },
+        {
+          "en": "The CAN link to the host has dropped because of a loose or damaged cable.",
+          "ur": "Host se CAN link loose ya damaged cable ki wajah se gir gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power down the whole parallel group, then re-power every unit together in the guide's commissioning order.",
+          "ur": "Poore parallel group ko power down karein, phir sab units ko guide ke commissioning order mein saath chalaayein."
+        },
+        {
+          "en": "Check the communication cable seating at each unit and reseat the CAN connectors.",
+          "ur": "Har unit par communication cable ki seating check karke CAN connectors dobara baithayein."
+        },
+        {
+          "en": "Contact the installer if the host keeps dropping, since the host and slave roles are randomly assigned.",
+          "ur": "Agar host baar baar girta rahe to installer se rabta karein, host aur slave roles randomly assign hote hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "PV1800-PH1800 Solar Inverter Parallel Installation Guide (OEM doc 420-00235-03)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fenk.com.ar/wp-content/uploads/2019/11/PV1800-PH1800-solar-inverter-parallel-installtion-guide.pdf"
+      }
+    },
+    {
+      "code": "82",
+      "aliases": [
+        "82",
+        "Fault 82",
+        "Synchronization loss"
+      ],
+      "title": {
+        "en": "Parallel synchronization lost",
+        "ur": "Parallel synchronization kho gaya"
+      },
+      "meaning": {
+        "en": "A unit has lost synchronisation with the parallel group, so it stops to avoid a back-feed clash.",
+        "ur": "Aik unit parallel group ke saath synchronization kho gaya aur back-feed clash se bachne ke liye ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Not all units had their AC line breakers closed at the same time after a supply interruption.",
+          "ur": "Supply interruption ke baad sab units ke AC line breakers ek saath band nahi hue."
+        },
+        {
+          "en": "A communication cable is loose, so one unit cannot sample the group waveform.",
+          "ur": "Communication cable loose hai jis se aik unit group waveform sample nahi kar sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "The guide notes that units showing 82 will automatically restart, so first switch on all AC line breakers to the grid at the same time.",
+          "ur": "Guide ke mutabiq 82 dikhane wale units khud restart ho jate hain, is liye pehle grid ke saare AC line breakers ek saath on karein."
+        },
+        {
+          "en": "If AC connection is detected again, they work normally, so check that all units see AC before investigating further.",
+          "ur": "Agar AC connection dobara detect ho jaye to ye normal chalte hain, is liye aage jaane se pehle check karein ke sab units AC dekh rahe hain."
+        },
+        {
+          "en": "Re-seat and reseat-check the CAN cables on every unit, then restart the group together.",
+          "ur": "Har unit par CAN cables dobara baithayein aur check karein, phir group ko saath restart karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "PV1800-PH1800 Solar Inverter Parallel Installation Guide (OEM doc 420-00235-03)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fenk.com.ar/wp-content/uploads/2019/11/PV1800-PH1800-solar-inverter-parallel-installtion-guide.pdf"
+      }
+    },
+    {
+      "code": "83",
+      "aliases": [
+        "83",
+        "Fault 83"
+      ],
+      "title": {
+        "en": "Battery voltage differs between units",
+        "ur": "Battery voltage units mein different hai"
+      },
+      "meaning": {
+        "en": "The units in the parallel group see different battery voltages, which the guide ties to not sharing the same battery banks.",
+        "ur": "Parallel group ke units ke battery voltages alag hain, guide isay same battery banks share na karne se jodta hai."
+      },
+      "causes": [
+        {
+          "en": "All inverters do not share the same groups of batteries together.",
+          "ur": "Sab inverters ek hi battery group share nahi kar rahe."
+        },
+        {
+          "en": "One unit's battery fuse or string is open, so it reads a different voltage.",
+          "ur": "Aik unit ka battery fuse ya string khula hai jis se voltage alag dikhta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Make sure all inverters share same groups of batteries together, as the guide's row 83 states.",
+          "ur": "Guide ki 83 row ke mutabiq ensure karein ke sab inverters ek hi battery group share karein."
+        },
+        {
+          "en": "Measure each unit's battery voltage on the LCD and identify which unit is reading low.",
+          "ur": "LCD par har unit ka battery voltage check karke dekhein ke kaun sa unit low par hai."
+        },
+        {
+          "en": "Check the battery fuse and each string on the odd unit, then contact the installer if it persists.",
+          "ur": "Odd unit ka battery fuse aur har string check karein, phir masla barqarar rahe to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "PV1800-PH1800 Solar Inverter Parallel Installation Guide (OEM doc 420-00235-03)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fenk.com.ar/wp-content/uploads/2019/11/PV1800-PH1800-solar-inverter-parallel-installtion-guide.pdf"
+      }
+    },
+    {
+      "code": "84",
+      "aliases": [
+        "84",
+        "Fault 84"
+      ],
+      "title": {
+        "en": "AC input voltage/frequency differ",
+        "ur": "AC input voltage ya frequency alag hai"
+      },
+      "meaning": {
+        "en": "Parallel units are seeing different AC input voltage or frequency, so they cannot be in the same phase.",
+        "ur": "Parallel units alag AC input voltage ya frequency dekh rahe hain jis se woh same phase mein nahi ho sakte."
+      },
+      "causes": [
+        {
+          "en": "The utility wiring connection differs or is loose between units.",
+          "ur": "Units ke darmiyan utility wiring connection alag ya loose hai."
+        },
+        {
+          "en": "One unit is fed by a generator while the others are on utility, or breaker phases differ.",
+          "ur": "Aik unit generator par hai aur baqi utility par, ya breaker phases alag hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the utility wiring connection and restart the inverter, as the guide's row 84 says.",
+          "ur": "Guide ki 84 row ke mutabiq utility wiring connection check karke inverter restart karein."
+        },
+        {
+          "en": "Measure AC input voltage and frequency at each unit's input terminal with a multimeter and compare.",
+          "ur": "Har unit ke input terminal par multimeter se AC input voltage aur frequency check karke compare karein."
+        },
+        {
+          "en": "Confirm every parallel unit is fed from the same source and the same phase, then contact the installer if it remains.",
+          "ur": "Confirm karein ke har parallel unit aik hi source aur aik hi phase se aata hai, phir masla rahe to installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "PV1800-PH1800 Solar Inverter Parallel Installation Guide (OEM doc 420-00235-03)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fenk.com.ar/wp-content/uploads/2019/11/PV1800-PH1800-solar-inverter-parallel-installtion-guide.pdf"
+      }
+    },
+    {
+      "code": "85",
+      "aliases": [
+        "85",
+        "Fault 85",
+        "AC output current unbalance"
+      ],
+      "title": {
+        "en": "AC output current unbalance in parallel",
+        "ur": "AC output current parallel mein unbalanced"
+      },
+      "meaning": {
+        "en": "The units in the parallel group are not sharing output current evenly.",
+        "ur": "Parallel group ke units output current barabar share nahi kar rahe."
+      },
+      "causes": [
+        {
+          "en": "Units restarted at different times so their output current sharing loop has not settled.",
+          "ur": "Units alag alag time par restart hue jis se current sharing loop settle nahi hua."
+        },
+        {
+          "en": "A unit is overloaded relative to the others.",
+          "ur": "Aik unit doosron ke muqabl overload hai."
+        },
+        {
+          "en": "One unit's current sensing is drifting, so it reports the wrong share.",
+          "ur": "Aik unit ka current sensing bigad raha hai jis se woh galat share report karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter, which is the guide's stated remedy for 85.",
+          "ur": "Inverter restart karein, ye guide ka bataya hua hal hai 85 ke liye."
+        },
+        {
+          "en": "Then confirm each unit's load current on the LCD is roughly equal.",
+          "ur": "Phir LCD par har unit ka load current check karein ke taqreeban barabar hai."
+        },
+        {
+          "en": "If one unit is persistently lower, check its current sensor and its load, then contact the installer.",
+          "ur": "Agar aik unit baar baar kam dikh raha ho to uska current sensor aur load check karein, phir installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "PV1800-PH1800 Solar Inverter Parallel Installation Guide (OEM doc 420-00235-03)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fenk.com.ar/wp-content/uploads/2019/11/PV1800-PH1800-solar-inverter-parallel-installtion-guide.pdf"
+      }
+    },
+    {
+      "code": "86",
+      "aliases": [
+        "86",
+        "Fault 86"
+      ],
+      "title": {
+        "en": "AC output mode setting differs",
+        "ur": "AC output mode setting alag hai"
+      },
+      "meaning": {
+        "en": "Parallel units are configured with different AC output modes, so the group cannot run as one.",
+        "ur": "Parallel units alag alag AC output mode mein set hain jis se group ek jaisa chal nahi sakta."
+      },
+      "causes": [
+        {
+          "en": "The DIP switch setting is different between units.",
+          "ur": "Units ke darmiyan DIP switch setting alag hai."
+        },
+        {
+          "en": "The working mode was changed on one unit only after the group was commissioned.",
+          "ur": "Group commission hone ke baad sirf aik unit par working mode badal diya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the inverter and check the DIP switch setting, as the guide's row 86 directs.",
+          "ur": "Inverter off karke DIP switch setting check karein, jaisa guide ki 86 row kehti hai."
+        },
+        {
+          "en": "Set the same working mode on every unit from the LCD, then restart the group together.",
+          "ur": "LCD se har unit par aik hi working mode set karein, phir group ko saath restart karein."
+        },
+        {
+          "en": "Check every unit's DIP switch position against the guide's per-unit table, then contact the installer.",
+          "ur": "Har unit ki DIP switch position ko guide ki per-unit table se check karein, phir installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "PV1800-PH1800 Solar Inverter Parallel Installation Guide (OEM doc 420-00235-03)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fenk.com.ar/wp-content/uploads/2019/11/PV1800-PH1800-solar-inverter-parallel-installtion-guide.pdf"
+      }
+    },
+    {
+      "code": "87",
+      "aliases": [
+        "87",
+        "Fault 87",
+        "Power feedback protection"
+      ],
+      "title": {
+        "en": "Power feedback detected into inverter",
+        "ur": "Inverter mein power feedback detect hui"
+      },
+      "meaning": {
+        "en": "Current has been detected flowing back into an inverter, so the unit protects itself.",
+        "ur": "Inverter mein current wapas aa raha hai jis se unit apni protection chala raha hai."
+      },
+      "causes": [
+        {
+          "en": "The current sharing link between parallel units is not connected, so units fight for output.",
+          "ur": "Parallel units ke darmiyan current sharing link nahi lagi jis se units output ke liye ladte hain."
+        },
+        {
+          "en": "A unit was powered up out of sequence relative to the others.",
+          "ur": "Aik unit baqi ke muqabl out of sequence par power up kiya gaya."
+        },
+        {
+          "en": "A back-feed path exists through load or grid wiring outside the inverter.",
+          "ur": "Inverter ke bahar load ya grid wiring se back-feed ka raasta mojood hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter, which is the guide's stated remedy for 87.",
+          "ur": "Inverter restart karein, ye guide ka bataya hua hal hai 87 ke liye."
+        },
+        {
+          "en": "Check if communication cables are connected well and confirm the current sharing cable is in place between units.",
+          "ur": "Check karein ke communication cables theek lagi hain aur units ke darmiyan current sharing cable lagi hai."
+        },
+        {
+          "en": "If it returns, contact the installer, because persistent back-feed usually means wrong parallel wiring.",
+          "ur": "Wapas aaye to installer se rabta karein, barqarar back-feed aam tor par galat parallel wiring ka matlab hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "PV1800-PH1800 Solar Inverter Parallel Installation Guide (OEM doc 420-00235-03)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fenk.com.ar/wp-content/uploads/2019/11/PV1800-PH1800-solar-inverter-parallel-installtion-guide.pdf"
+      }
+    },
+    {
+      "code": "88",
+      "aliases": [
+        "88",
+        "Fault 88"
+      ],
+      "title": {
+        "en": "Firmware version inconsistent",
+        "ur": "Firmware version same nahi hai"
+      },
+      "meaning": {
+        "en": "The units in the parallel group are running different firmware versions, so they will not share load correctly.",
+        "ur": "Parallel group ke units alag alag firmware version par chal rahe hain jis se woh load sahi share nahi kar sakte."
+      },
+      "causes": [
+        {
+          "en": "One or more units were updated and the rest were not.",
+          "ur": "Aik ya kai units update hue lekin baqi nahi hue."
+        },
+        {
+          "en": "A unit was replaced with a different production batch carrying older firmware.",
+          "ur": "Aik unit alag batch ka lagaya gaya jisme purana firmware hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Update all inverter firmware to the same version, which is the guide's row 88 remedy.",
+          "ur": "Sab inverters ka firmware aik hi version par update karein, ye guide ki 88 row ka hal hai."
+        },
+        {
+          "en": "Note each unit's current version on the LCD before updating, so you can confirm the versions match afterwards.",
+          "ur": "Update se pehle LCD se har unit ka current version note karein taake baad mein match confirm kar sakein."
+        },
+        {
+          "en": "Get the firmware from the OEM manual/download portal for the exact model, and if the problem remains contact the installer.",
+          "ur": "Firmware usi model ke liye OEM manual ya download portal se lein, aur masla bache to installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "PV1800-PH1800 Solar Inverter Parallel Installation Guide (OEM doc 420-00235-03)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fenk.com.ar/wp-content/uploads/2019/11/PV1800-PH1800-solar-inverter-parallel-installtion-guide.pdf"
+      }
+    },
+    {
+      "code": "89",
+      "aliases": [
+        "89",
+        "Fault 89",
+        "Current sharing fault"
+      ],
+      "title": {
+        "en": "Output current of units differs",
+        "ur": "Units ka output current alag alag hai"
+      },
+      "meaning": {
+        "en": "The output current of each unit in the group is different, so the current sharing link is not working.",
+        "ur": "Group mein har unit ka output current alag hai jis se current sharing link kaam nahi kar rahi."
+      },
+      "causes": [
+        {
+          "en": "Communication cables between units are not connected well.",
+          "ur": "Units ke darmiyan communication cables theek se nahi lagi hain."
+        },
+        {
+          "en": "One unit's current sensor is faulty so it does not report its true share.",
+          "ur": "Aik unit ka current sensor kharab hai jis se woh apni asal share report nahi kar raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if communication cables are connected well and restart the inverter, as the guide's row 89 says.",
+          "ur": "Guide ki 89 row ke mutabiq communication cables check karke inverter restart karein."
+        },
+        {
+          "en": "Switch off the whole group, reseat every CAN and current sharing cable, and re-power all units together.",
+          "ur": "Poora group off karke har CAN aur current sharing cable dobara baithayein, aur sab units saath chalaayein."
+        },
+        {
+          "en": "If the problem remains, contact the installer.",
+          "ur": "Agar masla bache to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "PV1800-PH1800 Solar Inverter Parallel Installation Guide (OEM doc 420-00235-03)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fenk.com.ar/wp-content/uploads/2019/11/PV1800-PH1800-solar-inverter-parallel-installtion-guide.pdf"
+      }
+    },
+    {
+      "code": "90",
+      "aliases": [
+        "90",
+        "Fault 90",
+        "CAN ID setting Error"
+      ],
+      "title": {
+        "en": "CAN ID / DIP switch setting error",
+        "ur": "CAN ID ya DIP switch setting error"
+      },
+      "meaning": {
+        "en": "The units in the parallel group do not have unique CAN IDs, so they cannot be addressed individually.",
+        "ur": "Parallel group ke units ke CAN ID unique nahi hain jis se unhein alag alag address nahi kiya ja sakta."
+      },
+      "causes": [
+        {
+          "en": "Two or more units have the same DIP switch position, so they share one CAN ID.",
+          "ur": "Do ya zyada units ki DIP switch position aik hi hai jis se woh aik hi CAN ID share karte hain."
+        },
+        {
+          "en": "The DIP switch is in an undefined position, with neither the master nor the slave pattern set.",
+          "ur": "DIP switch undefined position par hai, na master na slave pattern set hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the inverter and check the DIP switch setting, which is the guide's row 90 remedy.",
+          "ur": "Inverter off karke DIP switch setting check karein, ye guide ki 90 row ka hal hai."
+        },
+        {
+          "en": "For a two-unit single-phase setup, set one unit to key 1 down and keys 2,3,4,5 up, and the other unit to key 2 down and keys 1,3,4,5 up.",
+          "ur": "Do unit ki single-phase setup mein aik unit ka key 1 neeche aur keys 2,3,4,5 up, aur doosre ka key 2 neeche aur keys 1,3,4,5 up set karein."
+        },
+        {
+          "en": "For three-phase operation, use the guide's three inverters wiring diagram and assign a distinct DIP pattern to each unit.",
+          "ur": "Three-phase operation ke liye guide ka teen inverters wiring diagram use karein aur har unit ko alag DIP pattern dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "PV1800-PH1800 Solar Inverter Parallel Installation Guide (OEM doc 420-00235-03)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fenk.com.ar/wp-content/uploads/2019/11/PV1800-PH1800-solar-inverter-parallel-installtion-guide.pdf"
+      }
+    }
+  ]
+}

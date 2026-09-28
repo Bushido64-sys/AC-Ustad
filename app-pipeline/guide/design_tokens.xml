@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  design_tokens.xml — the only place a colour, size or spacing value may be defined.
+  Every contrast ratio below was measured, not estimated. See DESIGN.md §3.
+  Copy into app/src/main/res/values/design_tokens.xml (and values-night/ for the dark block).
+-->
+<resources>
+
+    <!-- ============================================================ -->
+    <!-- BRAND BLUE — the only structural colour                      -->
+    <!-- ============================================================ -->
+
+    <!-- Light mode -->
+    <!-- The blue ramp, for reference: 50 #EFF6FB = surface · 100 #DCEAF5 = surface_alt ·
+         200 #C9DCEA = hairline · 300 #6FB4DE · 400 #4A9DD0 · 500 #2A86C7 · 600 #1668A8 ·
+         800 #0D4C79. The three pale steps are defined ONCE below under their semantic
+         names (surface, surface_alt, hairline) - do not add a second name for a value. -->
+    <color name="blue_300">#6FB4DE</color>  <!-- dark-mode accents & borders ONLY (2.27:1 on white - never a light-mode border, never white text) -->
+    <color name="blue_400">#4A9DD0</color>  <!-- dark-mode hover/press -->
+    <color name="blue_500">#2A86C7</color>  <!-- dark-mode link text (4.82:1 on ink) + light-mode accent BORDER (3.94:1 on white) -->
+    <color name="blue_600">#1668A8</color>  <!-- PRIMARY: buttons, selected nav, fills that carry white text (5.87:1) -->
+    <color name="blue_800">#0D4C79</color>  <!-- pressed state, high-emphasis light-mode link (9.02:1) -->
+
+    <!-- Ink = blue-tinted neutrals. Never pure grey, never pure black. -->
+    <color name="ink">#0B1F2A</color>      <!-- all light-mode text (16.89:1 on canvas) -->
+    <color name="ink_muted">#5A7183</color> <!-- secondary text (5.09:1 on canvas) -->
+    <color name="ink_invert">#F2F6F8</color><!-- all dark-mode text (17.46:1 on canvas) -->
+    <color name="ink_muted_dark">#9FB3C0</color><!-- 8.76:1 on dark canvas -->
+
+    <color name="canvas">#FFFFFF</color>     <!-- light-mode background -->
+    <color name="surface">#EFF6FB</color>    <!-- light-mode card / list surface -->
+    <color name="surface_alt">#DCEAF5</color>
+    <color name="hairline">#C9DCEA</color>
+
+    <!-- Dark mode: blue-black, NOT #000000 (pure black is on the anti-slop ban list) -->
+    <color name="canvas_dark">#0B1116</color>
+    <color name="surface_dark">#141D25</color>
+    <color name="surface_alt_dark">#1B2833</color>
+    <color name="hairline_dark">#24333F</color>
+
+    <color name="on_accent">#FFFFFF</color>  <!-- the ONLY white text token -->
+
+    <!-- ============================================================ -->
+    <!-- SIGNAL — severity & alerts. One hue, five steps.            -->
+    <!-- Used for nothing else. Never decorative.                    -->
+    <!-- ============================================================ -->
+
+    <color name="signal_tint">#FFE7DF</color>  <!-- check_restart / stop_pro background -->
+    <color name="signal_tint_2">#FFC7B4</color>
+    <color name="signal_tint_3">#FFF0EA</color><!-- check_restart background (ink text 15.20) -->
+    <color name="signal_mid">#E24A1E</color>   <!-- 3.61:1 on signal_tint - border use only -->
+    <color name="signal_deep">#B32D0C</color>  <!-- danger fill; white text 6.37:1 -->
+    <color name="signal_stop">#D03F10</color>  <!-- stop_pro border; white text 4.77:1 -->
+    <color name="signal_danger_border">#7E1F06</color><!-- danger 2dp border on signal_deep -->
+    <color name="signal_on_dark">#FF6A3D</color><!-- dark-mode danger fill; ink text 6.67:1 -->
+    <color name="signal_dark_surface">#3A1A10</color><!-- dark-mode tinted chip surface -->
+    <color name="signal_dark_text">#FFB49E</color>   <!-- on signal_dark_surface, 9.19:1 -->
+
+    <!-- self_clear uses a NEUTRAL fill, not a signal shade -->
+    <color name="neutral_fill">#E6EAED</color>  <!-- self_clear chip background, ink text 13.96 -->
+    <!-- Pure black #000000 is banned (RULE 10). The dark canvas is blue-black #0B1116. -->
+
+    <!-- ============================================================ -->
+    <!-- SEVERITY - each level is a FILL + TEXT + BORDER triple.     -->
+    <!-- Always paired with its word (RULE 8). Text ratio >= 4.5.   -->
+    <!-- Text ratios are measured; border ratios in DESIGN.md §3.    -->
+    <!-- ============================================================ -->
+    <!-- danger        : #B32D0C fill + #FFFFFF text (6.37) + 2dp #7E1F06 border -->
+    <!-- stop_pro      : #FFE7DF fill + ink text    (14.27) + 2dp #D03F10 border (4.03 vs fill) -->
+    <!-- check_restart : #FFF0EA fill + ink text    (15.20) + 2dp #E24A1E border (3.61 vs fill) -->
+    <!-- self_clear    : #E6EAED fill + ink text    (13.96) + no border -->
+    <!-- info          : no fill    + ink text    (16.89) + 2dp #C9DCEA border -->
+    <!-- dark danger : #FF6A3D fill + #0B1116 text (6.67) -->
+    <!-- dark stop_pro / check_restart : #3A1A10 fill + #FFB49E text (9.19),
+         keeping the same coloured borders so the ladder reads in both themes -->
+
+    <!-- ============================================================ -->
+    <!-- TYPE — IBM Plex Sans / Plex Sans Condensed / Plex Mono    -->
+    <!-- ============================================================ -->
+
+    <!-- code: IBM Plex Mono, 20sp bold, letterSpacing 0.02 -->
+    <dimen name="type_code">20sp</dimen>
+    <dimen name="type_code_list">18sp</dimen>
+    <!-- title: IBM Plex Sans, 20sp semibold -->
+    <dimen name="type_title">20sp</dimen>
+    <!-- body: IBM Plex Sans, 16sp, lineHeight 24sp (min 16sp per RULE 12) -->
+    <dimen name="type_body">16sp</dimen>
+    <dimen name="type_line_height">24sp</dimen>
+    <!-- list row: 16sp -->
+    <dimen name="type_list">16sp</dimen>
+    <!-- label / chip: 14sp bold - counts as large text (WCAG) -->
+    <dimen name="type_label">14sp</dimen>
+    <!-- caption / meta: 14sp, muted ink, never grey-500 -->
+    <dimen name="type_caption">14sp</dimen>
+    <dimen name="type_mono_meta">14sp</dimen>
+    <dimen name="type_section">18sp</dimen>
+
+    <!-- ============================================================ -->
+    <!-- SPACE — 4dp grid, 8dp rhythm                                -->
+    <!-- ============================================================ -->
+
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_sm">8dp</dimen>
+    <dimen name="space_md">16dp</dimen>
+    <dimen name="space_lg">24dp</dimen>
+    <dimen name="space_xl">32dp</dimen>
+    <!-- horizontal page padding: 16dp -->
+    <dimen name="space_page">16dp</dimen>
+
+    <!-- ============================================================ -->
+    <!-- SHAPE — sharp, never pill (RULE 9)                          -->
+    <!-- ============================================================ -->
+
+    <dimen name="radius_none">0dp</dimen>
+    <dimen name="radius_chip">2dp</dimen>
+    <dimen name="radius_card">4dp</dimen>
+    <dimen name="radius_max">4dp</dimen>
+    <!-- the ink border. 2dp on every card, row, input, chip -->
+    <dimen name="border_width">2dp</dimen>
+    <dimen name="border_focus">3dp</dimen>
+    <!-- hard shadow, primary actions + selected state ONLY -->
+    <dimen name="shadow_offset">3dp</dimen>
+    <dimen name="stroke_selected">4dp</dimen>
+
+    <!-- ============================================================ -->
+    <!-- TOUCH — gloves, cold hands (RULE 16)                        -->
+    <!-- ============================================================ -->
+
+    <dimen name="touch_min">48dp</dimen>
+    <dimen name="row_min">56dp</dimen>
+    <dimen name="star_touch">48dp</dimen>
+    <dimen name="row_content_padding_h">16dp</dimen>
+    <dimen name="row_content_padding_v">12dp</dimen>
+
+    <!-- ============================================================ -->
+    <!-- LAYOUT                                                      -->
+    <!-- ============================================================ -->
+
+    <!-- serialised list beats a grid: codes are strings of 3-12 chars, -->
+    <!-- a fixed-width grid would clip them (DESIGN.md §4.3) -->
+    <bool name="use_list_not_grid">true</bool>
+    <integer name="list_cache_pages">24</integer>
+    <integer name="search_debounce_ms">180</integer>
+    <integer name="search_min_chars">1</integer>
+    <integer name="notes_collapse_chars">180</integer>
+    <!-- browse hint cap: render N brands, then "Show all" -->
+    <integer name="browse_brand_slice">16</integer>
+
+</resources>

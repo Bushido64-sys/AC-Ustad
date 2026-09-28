@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-kh-ka-parallel-relay",
+    "name": "KH/KA (single-phase hybrid) - parallel-system relay and sampling-consistency faults",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*KH*",
+      "*KA*"
+    ],
+    "notes": "KH/KA models verified in the manual's own model list: KH7, KH8, KH9, KH9.9, KH10, KH10.5 and KA7, KA8, KA9, KA9.9, KA10, KA10.5. These rows exist ONLY on the KH/KA and H1/AC1 single-phase tables. The H3 text contains NONE of them - H3 collapses the whole grid-relay group into 'Grid Relay Fault' and omits the Cons Fault family entirely. FoxESS gives every code in this block the same bare 'Disconnect PV, grid and battery, then reconnect' remedy; the actions below are field practice built on the condition each row names. Confidence high because two INDEPENDENT official FoxESS copies (global AU-dated 2025-10-21 and AU V1.0.6) carry the table row-for-row identically."
+  },
+  "codes": [
+    {
+      "code": "Main Relay Open",
+      "aliases": [
+        "Main Relay Open"
+      ],
+      "title": {
+        "en": "Grid relay stayed open on KH/KA",
+        "ur": "KH/KA par grid relay khuli hi rahi"
+      },
+      "meaning": {
+        "en": "The main grid relay inside the inverter did not reach the closed state, so the unit cannot tie into the grid.",
+        "ur": "Inverter ka main grid relay closed halat par nahi pohanch saka, is liye unit grid se nahi jud sakta."
+      },
+      "causes": [
+        {
+          "en": "Grid relay contact welded open, or the relay coil/driver has failed so it never closes.",
+          "ur": "Grid relay ka contact weld hua hai aur khula pada hai, ya relay ki coil/driver kharab hai is liye woh kabhi close nahi hota."
+        },
+        {
+          "en": "The relay drive circuit's DC control fuse has blown.",
+          "ur": "Relay drive circuit ka DC control fuse udd gaya hai."
+        },
+        {
+          "en": "Relay wear from chattering through repeated grid outages, common on an unstable supply.",
+          "ur": "Baar baar grid outages mein relay ka chattering aur us se wear, jo unstable supply par aam hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery completely, then reconnect in the order FoxESS states and re-read the code.",
+          "ur": "AC, PV aur battery poori tarah disconnect karein, phir jaise FoxESS kahe wapas lagayein aur code dobara dekhein."
+        },
+        {
+          "en": "With power dead, check the relay drive fuse and the relay coil supply at the board; a blown fuse here is a five-minute fix.",
+          "ur": "Power murda kar ke, board par relay drive fuse aur relay coil supply check karein; yahan udd hua fuse paanch minute ka kaam hai."
+        },
+        {
+          "en": "If the relay will not close, log code and serial number and raise a service claim for the relay assembly - not a site repair.",
+          "ur": "Agar relay close hi na ho to code aur serial number note karke relay assembly ke liye service claim raise karein - ye site repair nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "DOES NOT EXIST ON H3. The H3 manual has no 'Main Relay Open' string; a three-phase H3 with a grid relay problem reports 'Grid Relay Fault' instead. Give H3 owners that string, never this one.",
+        "ur": "H3 par yeh mojood hi nahi hai. H3 manual mein 'Main Relay Open' string nahi hai; teenon-phase H3 mein grid relay ka masla 'Grid Relay Fault' batata hai. H3 owner ko wohi string dein, ye nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "KH/KA Series User Manual (AU, 2025-10-21), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-KHKA-User-Manua-AU-20251021.pdf"
+      }
+    },
+    {
+      "code": "S1 Close Fault",
+      "aliases": [
+        "S1 Close Fault"
+      ],
+      "title": {
+        "en": "Grid relay S1 stuck closed",
+        "ur": "Grid relay S1 band hi pada"
+      },
+      "meaning": {
+        "en": "The grid relay designated S1 in the inverter is stuck in the closed position instead of opening when commanded.",
+        "ur": "Inverter mein S1 ke naam se jaane wala grid relay command par khulne ke bajaye band hi pada reh gaya hai."
+      },
+      "causes": [
+        {
+          "en": "S1 relay contacts welded closed - a genuine safety fault because the inverter cannot isolate from the grid.",
+          "ur": "S1 relay ke contacts weld hokar band pade hain - yeh asli safety fault hai kyunke inverter grid se alag nahi ho sakta."
+        },
+        {
+          "en": "S1 relay driver or coil failed in the closed-output state.",
+          "ur": "S1 relay ka driver ya coil band output ki halat mein kharab ho gaya."
+        },
+        {
+          "en": "Mechanical binding of the relay armature from dust, humidity or insect ingress in the enclosure.",
+          "ur": "Enclosure mein dhool, nami ya keedon se relay ki armature mein mechanical binding."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery completely and confirm the inverter is dead before opening it; a welded S1 means AC may still be energised.",
+          "ur": "AC, PV aur battery poori tarah disconnect karke confirm karein ke inverter murda hai, phir kholein; weld hua S1 matlab AC ab bhi energised ho sakta hai."
+        },
+        {
+          "en": "With power dead, check the S1 relay contacts for continuity when the relay is commanded open - a continuous reading means welded.",
+          "ur": "Power murda kar ke, relay ko khulne ka command de kar S1 relay contacts ki continuity check karein - mustaqil reading matlab weld hai."
+        },
+        {
+          "en": "Replace the relay assembly rather than the single relay if two or more of S1/S2/M1/M2 report together, and log all codes for the claim.",
+          "ur": "Agar S1/S2/M1/M2 mein se do ya zyada aik saath report karein to aik relay ke bajaye relay assembly badlein, aur claim ke liye tamam codes note karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "S1/S2 are the two phase-side grid relays and M1/M2 the corresponding main-side relays on KH/KA's internal switching. FoxESS does not publish which physical relay is which in the alarm table - confirm the layout from the unit's wiring diagram before ordering a part.",
+        "ur": "KH/KA ke andar S1/S2 phase-side grid relays hain aur M1/M2 un ke mutabiq main-side relays. FoxESS alarm table mein yeh nahi batata ke kaun sa physical relay kaun sa hai - part mangwane se pehle unit ke wiring diagram se layout confirm karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "KH/KA Series User Manual (AU, 2025-10-21), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-KHKA-User-Manua-AU-20251021.pdf"
+      }
+    },
+    {
+      "code": "S2 Close Fault",
+      "aliases": [
+        "S2 Close Fault"
+      ],
+      "title": {
+        "en": "Grid relay S2 stuck closed",
+        "ur": "Grid relay S2 band hi pada"
+      },
+      "meaning": {
+        "en": "The grid relay designated S2 in the inverter is stuck in the closed position instead of opening when commanded.",
+        "ur": "Inverter mein S2 ke naam se jaane wala grid relay command par khulne ke bajaye band hi pada reh gaya hai."
+      },
+      "causes": [
+        {
+          "en": "S2 relay contacts welded closed, so the inverter cannot isolate from the grid.",
+          "ur": "S2 relay ke contacts weld hokar band pade hain, is liye inverter grid se alag nahi ho sakta."
+        },
+        {
+          "en": "S2 relay driver or coil failed in the closed-output state.",
+          "ur": "S2 relay ka driver ya coil band output ki halat mein kharab ho gaya."
+        },
+        {
+          "en": "Relay armature binding from dust, humidity or insects inside the enclosure.",
+          "ur": "Enclosure ke andar dhool, nami ya keedon se relay ki armature binding."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery completely and confirm the inverter is dead before opening the enclosure.",
+          "ur": "Enclosure kholne se pehle AC, PV aur battery poori tarah disconnect karke confirm karein ke inverter murda hai."
+        },
+        {
+          "en": "With power dead and S2 commanded open, measure continuity across the S2 contacts; a continuous reading confirms a welded contact.",
+          "ur": "Power murda kar ke, S2 ko khulne ka command de kar S2 contacts ke aar paas continuity napen; mustaqil reading welded contact confirm karti hai."
+        },
+        {
+          "en": "If S1 and S2 both report, treat the relay assembly as one unit and quote both codes on the service claim.",
+          "ur": "Agar S1 aur S2 dono report karein to relay assembly ko aik hi unit samjhein aur service claim par dono codes likhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "S1 and S2 are the same failure mode on two different relays. Do not send a technician to diagnose 'S2' as a new fault - ask immediately whether S1 also reported, because that changes the answer from 'replace a relay' to 'replace the assembly'.",
+        "ur": "S1 aur S2 do alag relays par wohi failure mode hain. Technician ko 'S2' ko naya fault samajh kar diagnose karne na bhejein - turant poochhein ke S1 ne bhi report kiya tha ya nahi, kyunke is se jawab 'relay badlein' se 'assembly badlein' ho jata hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "KH/KA Series User Manual (AU, 2025-10-21), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-KHKA-User-Manua-AU-20251021.pdf"
+      }
+    },
+    {
+      "code": "M1 Close Fault",
+      "aliases": [
+        "M1 Close Fault"
+      ],
+      "title": {
+        "en": "Grid relay M1 stuck closed",
+        "ur": "Grid relay M1 band hi pada"
+      },
+      "meaning": {
+        "en": "The main-side grid relay designated M1 is stuck closed instead of opening when commanded.",
+        "ur": "Main-side ka grid relay M1 command par khulne ke bajaye band hi pada reh gaya hai."
+      },
+      "causes": [
+        {
+          "en": "M1 relay contacts welded closed.",
+          "ur": "M1 relay ke contacts weld hokar band pade hain."
+        },
+        {
+          "en": "M1 relay driver or coil failed in the closed-output state.",
+          "ur": "M1 relay ka driver ya coil band output ki halat mein kharab ho gaya."
+        },
+        {
+          "en": "Relay armature binding from dust, humidity or insects inside the enclosure.",
+          "ur": "Enclosure ke andar dhool, nami ya keedon se relay armature binding."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery completely and confirm the inverter is dead before opening the enclosure.",
+          "ur": "Enclosure kholne se pehle AC, PV aur battery poori tarah disconnect karke confirm karein ke inverter murda hai."
+        },
+        {
+          "en": "With power dead and M1 commanded open, measure continuity across the M1 contacts to distinguish a welded contact from a driver failure.",
+          "ur": "Power murda kar ke, M1 ko khulne ka command de kar M1 contacts ke aar paas continuity napen, taake welded contact aur driver failure mein farq ho sake."
+        },
+        {
+          "en": "If the contacts are healthy, the driver is the fault - log the code and raise a service claim rather than swapping relays blindly.",
+          "ur": "Agar contacts theek hain to driver kharab hai - relay ko andheray mein badalne ke bajaye code note karke service claim raise karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "M1 and M2 are the main-side counterparts of S1 and S2. FoxESS's KH/KA table gives all four the identical remedy, so the manual alone cannot tell you whether the contact or the driver has failed - the continuity test above is the discriminator.",
+        "ur": "M1 aur M2 S1 aur S2 ke main-side counterparts hain. FoxESS ki KH/KA table chaaron ko bilkul wohi remedy deti hai, is liye manual se yeh nahi pata chalta ke contact kharab hai ya driver - upar wala continuity test hi farq karne wala hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "KH/KA Series User Manual (AU, 2025-10-21), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-KHKA-User-Manua-AU-20251021.pdf"
+      }
+    },
+    {
+      "code": "M2 Close Fault",
+      "aliases": [
+        "M2 Close Fault"
+      ],
+      "title": {
+        "en": "Grid relay M2 stuck closed",
+        "ur": "Grid relay M2 band hi pada"
+      },
+      "meaning": {
+        "en": "The main-side grid relay designated M2 is stuck closed instead of opening when commanded.",
+        "ur": "Main-side ka grid relay M2 command par khulne ke bajaye band hi pada reh gaya hai."
+      },
+      "causes": [
+        {
+          "en": "M2 relay contacts welded closed.",
+          "ur": "M2 relay ke contacts weld hokar band pade hain."
+        },
+        {
+          "en": "M2 relay driver or coil failed in the closed-output state.",
+          "ur": "M2 relay ka driver ya coil band output ki halat mein kharab ho gaya."
+        },
+        {
+          "en": "Relay armature binding from dust, humidity or insects inside the enclosure.",
+          "ur": "Enclosure ke andar dhool, nami ya keedon se relay armature binding."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery completely and confirm the inverter is dead before opening the enclosure.",
+          "ur": "Enclosure kholne se pehle AC, PV aur battery poori tarah disconnect karke confirm karein ke inverter murda hai."
+        },
+        {
+          "en": "With power dead and M2 commanded open, measure continuity across the M2 contacts; continuous means welded, open means the driver or coil.",
+          "ur": "Power murda kar ke, M2 ko khulne ka command de kar M2 contacts ke aar paas continuity napen; mustaqil matlab weld, khuli matlab driver ya coil."
+        },
+        {
+          "en": "Log the code and serial number and raise a service claim for whichever part the test implicates - do not replace relays in pairs without evidence.",
+          "ur": "Code aur serial number note karke jis part ko test implicate kare usi ke liye service claim raise karein - bina saboot ke relays joray mein na badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "If all four of S1, S2, M1 and M2 report at once, the likely single cause is the relay driver board supply, not four failed relays. Check that supply before quoting parts.",
+        "ur": "Agar S1, S2, M1 aur M2 chaaron aik saath report karein to aik hi wajah relay driver board ki supply hai, chaar relays ke kharab hona nahi. Parts quote karne se pehle wo supply check karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "KH/KA Series User Manual (AU, 2025-10-21), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-KHKA-User-Manua-AU-20251021.pdf"
+      }
+    },
+    {
+      "code": "Dci Cons Fault",
+      "aliases": [
+        "Dci Cons Fault",
+        "Dci Cons"
+      ],
+      "title": {
+        "en": "DC-component sample mismatch between units",
+        "ur": "Units ke darmiyan DC-component sample ka mismatch"
+      },
+      "meaning": {
+        "en": "In a parallel KH/KA system, the master and slave units are measuring different DC-component values in the output current, so the inverter refuses to run.",
+        "ur": "Parallel KH/KA system mein master aur slave units output current mein mukhtalif DC-component values naap rahe hain, is liye inverter chalna mana kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "One unit's current-sensing channel has drifted, so it genuinely sees a different DC offset from the others.",
+          "ur": "Aik unit ka current-sensing channel drift ho gaya hai, is liye woh doosron se asal mein mukhtalif DC offset dekhta hai."
+        },
+        {
+          "en": "The CAN link between units is degraded, so the sampled values the units compare are stale or corrupt.",
+          "ur": "Units ke darmiyan CAN link kharaab hai, is liye jo sampled values compare kiye jate hain woh purane ya corrupt hain."
+        },
+        {
+          "en": "Units at different firmware versions, so their sampling and thresholds differ.",
+          "ur": "Units alag alag firmware versions par hain, is liye un ka sampling aur threshold alag hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reconnect as FoxESS directs and re-read the code before touching anything inside.",
+          "ur": "Andar kuch chhune se pehle AC, PV aur battery disconnect kar ke jaise FoxESS kahe wapas lagayein aur code dobara dekhein."
+        },
+        {
+          "en": "Check every CAN link between paralleled units: reseat both ends and confirm the cable is the shielded type run away from AC power cabling.",
+          "ur": "Parallel units ke darmiyan har CAN link check karein: dono taraf wapas baithayein aur cable shielded type ka hai yeh confirm karein, woh AC power wiring se door chala hua ho."
+        },
+        {
+          "en": "Confirm all paralleled units report the same firmware version in the app; update any that differ, then re-test.",
+          "ur": "App mein confirm karein ke tamam parallel units aik hi firmware version bata rahe hain; jo alag hon unhein update kar ke dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The KH/KA table has FOUR sibling consistency codes with identical remedies: 'The grid voltage sample value between master and slave is not consistent' (GridV Cons Fault), 'The grid frequency sample value...' (GridF Cons Fault), 'The dci sample value...' (Dci Cons Fault) and 'The residual current sample value...' (Rc Cons Fault). Only Dci is expanded here for budget reasons. H3 HAS NONE of them.",
+        "ur": "KH/KA table mein CHAAR sibling consistency codes hain jin ki remedies bilkul wohi hain: 'The grid voltage sample value between master and slave is not consistent' (GridV Cons Fault), 'The grid frequency sample value...' (GridF Cons Fault), 'The dci sample value...' (Dci Cons Fault) aur 'The residual current sample value...' (Rc Cons Fault). Sirf Dci yahan budget ki wajah se expand kiya gaya hai. H3 mein in mein se koi bhi nahi hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "KH/KA Series User Manual (AU, 2025-10-21), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-KHKA-User-Manua-AU-20251021.pdf"
+      }
+    }
+  ]
+}

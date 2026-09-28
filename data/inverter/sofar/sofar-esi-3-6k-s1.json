@@ -1,0 +1,377 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sofar",
+  "series": {
+    "id": "sofar-esi-3-6k-s1",
+    "name": "ESI 3-6K-S1 (stacked single-phase hybrid 3-6 kW, PV + BTS 5K battery + EPS)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*ESI*3K-S1*",
+      "*ESI*3.68K-S1*",
+      "*ESI*4K-S1*",
+      "*ESI*4.6K-S1*",
+      "*ESI*5K-S1*",
+      "*ESI*5K-S1-A*",
+      "*ESI*6K-S1*",
+      "*ESI*3-6K-S1*"
+    ],
+    "notes": "Manual Table 6-1 'List of common events' (the manual calls the product 'Stacked optical storage all in one machine', single-phase hybrid energy storage inverter, battery type LiFePO4 BTS 5K). Newest Sofar manual fetched (file dated 2026-03). It is the ONLY table where the battery 8xx/9xx rows and the inverter 0xx rows sit in ONE list, and it uses ID032 for 'N-PE fault' where the HYD 3PH table uses ID032 for the same thing and the EP table uses ID032 for 'OffgridGroundFault' - three different meanings for the same number, which is why these must never be merged."
+  },
+  "codes": [
+    {
+      "code": "ID032",
+      "aliases": [
+        "ID032",
+        "N-PE fault",
+        "Neutral ground fault"
+      ],
+      "title": {
+        "en": "Neutral-earth fault (ID032)",
+        "ur": "Neutral-earth fault - neutral aur earth ke darmiyan fault (ID032)"
+      },
+      "meaning": {
+        "en": "A fault between neutral and protective earth. On the ESI platform this is coded ID032; on the HYD 3PH table ID032 also means N-PE, but on the EP table ID032 means 'OffgridGroundFault'. Names are not portable across tables.",
+        "ur": "Neutral aur protective earth ke darmiyan fault. ESI platform par ye ID032 hai; HYD 3PH table par bhi ID032 ka matlab N-PE hai, lekin EP table par ID032 ka matlab 'OffgridGroundFault' hai. Naam table se bahar kareeb nahi kar sakte."
+      },
+      "causes": [
+        {
+          "en": "Neutral and earth bonded at an unintended point, or a neutral/PE swap at the AC terminals.",
+          "ur": "Neutral aur earth ghalat jagah bond ho gaye, ya AC terminals par neutral/PE swap ho gaya."
+        },
+        {
+          "en": "Neutral conductor broken inside the panel, so the inverter sees an N-PE offset.",
+          "ur": "Panel ke andar neutral conductor kat gaya, is liye inverter ko N-PE offset nazar aaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC breaker and remove the inverter from the panel before touching neutral or earth bars.",
+          "ur": "AC breaker off karke neutral ya earth bar chhoone se pehle inverter panel se nikaalein."
+        },
+        {
+          "en": "Measure continuity between neutral and PE at the inverter AC terminal; it must not read as a low-resistance path.",
+          "ur": "Inverter AC terminal par neutral aur PE ke darmiyan continuity measure karein; ye low-resistance path na de."
+        },
+        {
+          "en": "Confirm the neutral-earth bonding matches the site design and re-torque every neutral lug.",
+          "ur": "Confirm karein ke neutral-earth bonding site design se match karti hai aur har neutral lug dobara tighten karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "ESI 3-6K-S1 User Manual, Table 6-1 List of common events",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20260316/1773653907482011378.pdf"
+      }
+    },
+    {
+      "code": "ID045",
+      "aliases": [
+        "ID045",
+        "CT Disconnect",
+        "CT Disconnected"
+      ],
+      "title": {
+        "en": "CT disconnected (ID045)",
+        "ur": "CT disconnect ho gaya - CT ka link toot gaya (ID045)"
+      },
+      "meaning": {
+        "en": "The current transformer link is lost, so the inverter cannot measure export/import. Manual action: check whether the CT connection is correct.",
+        "ur": "Current transformer ka link kho gaya, is liye inverter export/import nahi nikal sakta. Manual ka action: check karein ke CT connection theek hai ya nahi."
+      },
+      "causes": [
+        {
+          "en": "CT lead unseated, or the clamp opened during a fan or battery service.",
+          "ur": "CT lead seat nahi hua, ya fan ya battery service ke dauran clamp khul gaya."
+        },
+        {
+          "en": "CT direction reversed so it reads negative and the inverter rejects the signal.",
+          "ur": "CT ki direction ulti hai is liye negative read kar raha hai aur inverter signal reject kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC breaker and check whether the CT connection is correct, including the port.",
+          "ur": "AC breaker off karke check karein ke CT connection theek hai, port samet."
+        },
+        {
+          "en": "Confirm the clamp arrow points with grid current flow and sits on the main feed only.",
+          "ur": "Confirm karein ke clamp arrow grid current flow ki taraf hai aur sirf main feed par lagi hai."
+        },
+        {
+          "en": "Re-check the LCD current value; a negative or zero reading confirms a direction or wiring fault.",
+          "ur": "LCD current value dobara dekhein; negative ya zero reading direction ya wiring ki ghalti confirm karta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "ESI 3-6K-S1 User Manual, Table 6-1 List of common events",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20260316/1773653907482011378.pdf"
+      }
+    },
+    {
+      "code": "ID133",
+      "aliases": [
+        "ID133",
+        "EPSBatOCP",
+        "EPS mode battery overcurrent"
+      ],
+      "title": {
+        "en": "EPS mode battery overcurrent (ID133)",
+        "ur": "EPS mode battery overcurrent - backup mein battery ka overcurrent (ID133)"
+      },
+      "meaning": {
+        "en": "The battery overcurrent protection latched permanently while supplying EPS backup. Manual remedy: switch off the inverter, wait 5 minutes, then switch it back on.",
+        "ur": "EPS backup dete waqt battery overcurrent protection permanently trigger ho gaya. Manual ka hal: inverter off karein, 5 minute intezaar karein, phir wapas on karein."
+      },
+      "causes": [
+        {
+          "en": "Backup load above the inverter EPS rating, e.g. a large AC, pump or compressor on transfer.",
+          "ur": "Backup load inverter EPS rating se upar, maslan transfer par bada AC, pump ya compressor."
+        },
+        {
+          "en": "Battery or BMS fault causing a short-like current draw in EPS.",
+          "ur": "Battery ya BMS ki ghalti jis se EPS mein short jaisa current beh raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the EPS/load panel and clamp-meter its total current before re-energising the inverter.",
+          "ur": "Inverter dobara current dene se pehle EPS/load panel isolate karke clamp meter se kul current check karein."
+        },
+        {
+          "en": "Switch the inverter off, wait 5 minutes, then switch it on once to see if the latch was transient.",
+          "ur": "Inverter off karein, 5 minute intezaar karein, phir ek baar on karke dekhein ke latch transient tha ya nahi."
+        },
+        {
+          "en": "If the measured load exceeds the EPS rating, split or downsize the backup loads before retrying.",
+          "ur": "Agar measured load EPS rating se zyada hai to dobara koshish se pehle backup loads ko baant ya kam karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "ESI 3-6K-S1 User Manual, Table 6-1 List of common events",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20260316/1773653907482011378.pdf"
+      }
+    },
+    {
+      "code": "ID152",
+      "aliases": [
+        "ID152",
+        "SafetyVerFault",
+        "Safety parameter version error"
+      ],
+      "title": {
+        "en": "Safety parameter version error (ID152)",
+        "ur": "Safety parameter version error - safety file ka version ghalat (ID152)"
+      },
+      "meaning": {
+        "en": "The imported safety parameter version does not match what the inverter expects, so grid protection settings may be wrong. On this platform the manual's Solution cell for this row is printed as '/', i.e. no user remedy given.",
+        "ur": "Imported safety parameter ka version inverter ki expectation se match nahi karta, is liye grid protection settings ghalat ho sakte hain. Is platform par manual ka Solution cell is row ke liye '/' print hua hai, yani user ke liye hal nahi diya gaya."
+      },
+      "causes": [
+        {
+          "en": "Safety file for the wrong country or an older safety parameter set imported.",
+          "ur": "Galat country ka safety file ya purana safety parameter set import kiya gaya."
+        },
+        {
+          "en": "Firmware updated but the matching safety parameter file was not re-imported.",
+          "ur": "Firmware update ho gaya magar us ke mutabiq safety parameter file dobara import nahi hui."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the safety and safety-software-version entries in the SystemInfo menu and note them.",
+          "ur": "SystemInfo menu mein safety aur safety-software-version entries check kar ke note karein."
+        },
+        {
+          "en": "Re-import the correct country safety file from a USB stick per the manual's commissioning steps.",
+          "ur": "Manual ke commissioning steps ke mutabiq USB se sahi country safety file dobara import karein."
+        },
+        {
+          "en": "Confirm the grid operator's protection profile matches after import before closing the AC breaker.",
+          "ur": "Import ke baad AC breaker band karne se pehle confirm karein ke grid operator ka protection profile match karta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "ESI 3-6K-S1 User Manual, Table 6-1 List of common events",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20260316/1773653907482011378.pdf"
+      }
+    },
+    {
+      "code": "ID808",
+      "aliases": [
+        "ID808",
+        "HS1HighTemp",
+        "Radiator 1 high temperature alarm"
+      ],
+      "title": {
+        "en": "Battery radiator high-temperature alarm (ID808)",
+        "ur": "Battery radiator high temperature alarm - battery garm ho rahi hai (ID808)"
+      },
+      "meaning": {
+        "en": "The battery heat-sink temperature is above the alarm threshold. Manual action: make sure the battery is installed in a cool, well-ventilated place; if installed correctly, contact support.",
+        "ur": "Battery heat-sink temperature alarm threshold se upar hai. Manual ka action: battery thande, well-ventilated jagah lagi honi chahiye; agar theek lagi hai to support se rabta karein."
+      },
+      "causes": [
+        {
+          "en": "Stacked battery modules in a closed cupboard with no airflow between them.",
+          "ur": "Stack kiye battery modules band cupboard mein hain, aapas mein koi airflow nahi."
+        },
+        {
+          "en": "High charge current in high ambient temperature.",
+          "ur": "Zyada ambient temperature mein high charge current."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check where the battery is installed and confirm it is in a cool, well-ventilated place.",
+          "ur": "Dekhein ke battery kahan lagi hai aur confirm karein ke thande, well-ventilated jagah hai."
+        },
+        {
+          "en": "Leave the manual's clearance between stacked battery modules so air can circulate.",
+          "ur": "Stack kiye battery modules ke darmiyan manual ka faasla rakhein takay hawa chale."
+        },
+        {
+          "en": "If the installation is already correct, contact technical support rather than moving the stack repeatedly.",
+          "ur": "Agar installation pehle se theek hai to baar baar stack hatane ke bajaye technical support se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "ESI 3-6K-S1 User Manual, Table 6-1 List of common events",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20260316/1773653907482011378.pdf"
+      }
+    },
+    {
+      "code": "ID864",
+      "aliases": [
+        "ID864",
+        "HS1OverTemp",
+        "Over temperature protection of radiator 1"
+      ],
+      "title": {
+        "en": "Battery radiator over-temperature protection (ID864)",
+        "ur": "Battery radiator over temperature protection - battery band ho gayi (ID864)"
+      },
+      "meaning": {
+        "en": "The battery heat-sink over-temperature protection tripped - the battery is shut down, not just warning. Manual remedy: power off and wait 2 hours.",
+        "ur": "Battery heat-sink ka over-temperature protection trip hua - battery band ho gayi, sirf warning nahi. Manual ka hal: power off karke 2 ghante intezaar karein."
+      },
+      "causes": [
+        {
+          "en": "Module spacing too tight so heat cannot leave the stack between modules.",
+          "ur": "Modules ka faasla bohat kam hai jis se stack ke darmiyan se heat nahi nikal rahi."
+        },
+        {
+          "en": "Battery cabinet in direct sun or a hot store room.",
+          "ur": "Battery cabinet direct sun mein ya garm store room mein hai."
+        },
+        {
+          "en": "One module's cooling fan failed, so its own heat-sink overheats.",
+          "ur": "Kisi module ka cooling fan fail ho gaya, is liye us ka apna heat-sink overheat ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and wait 2 hours as the manual instructs, then re-check before restarting.",
+          "ur": "Manual ke mutabiq power off karke 2 ghante intezaar karein, phir restart se pehle dobara check karein."
+        },
+        {
+          "en": "Measure the module heat-sink temperature with an IR thermometer and identify which module is hottest.",
+          "ur": "IR thermometer se module heat-sink temperature measure karke pehchan ke kaun sa module sab se garm hai."
+        },
+        {
+          "en": "Restore the specified module spacing and ventilation; if one module alone is hot, its fan needs replacement.",
+          "ur": "Specified module spacing aur ventilation wapas karein; agar sirf ek module garm hai to us ka fan replace karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "ESI 3-6K-S1 User Manual, Table 6-1 List of common events",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20260316/1773653907482011378.pdf"
+      }
+    },
+    {
+      "code": "ID865",
+      "aliases": [
+        "ID865",
+        "OverTempFault_Env",
+        "Over temperature protection of ambient temperature"
+      ],
+      "title": {
+        "en": "Battery ambient over-temperature protection (ID865)",
+        "ur": "Battery ambient over temperature protection - battery mahol garm hai (ID865)"
+      },
+      "meaning": {
+        "en": "The battery's ambient over-temperature protection tripped. Manual remedy: power off and wait 2 hours; if the problem is not solved, contact technical support.",
+        "ur": "Battery ka ambient over-temperature protection trip hua. Manual ka hal: power off karke 2 ghante intezaar karein; masla hal na ho to technical support se rabta karein."
+      },
+      "causes": [
+        {
+          "en": "Ambient inside the battery cabinet above the allowed range.",
+          "ur": "Battery cabinet ke andar ka ambient allowed range se upar."
+        },
+        {
+          "en": "Stacked modules sealed in a housing with no heat path to outside.",
+          "ur": "Stack kiye modules aise housing mein band jin ka bahar se koi heat path nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and wait the full 2 hours the manual specifies, then measure cabinet temperature.",
+          "ur": "Manual ke bataye poore 2 ghante power off karke intezaar karein, phir cabinet temperature measure karein."
+        },
+        {
+          "en": "Move the stack to a shaded, ventilated position and keep the stated clearance from walls and heat sources.",
+          "ur": "Stack ko dhallee, ventilated jagah le jayein aur deewar se ke garmi ke source se bataya hua faasla rakhein."
+        },
+        {
+          "en": "If the room is cool and it still trips, the internal ambient sensor needs replacement.",
+          "ur": "Agar kamra thanda hai phir bhi trip ho to andar ka ambient sensor replace karna hoga."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "ESI 3-6K-S1 User Manual, Table 6-1 List of common events",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20260316/1773653907482011378.pdf"
+      }
+    }
+  ]
+}

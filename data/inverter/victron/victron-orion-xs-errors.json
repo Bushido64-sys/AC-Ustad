@@ -1,0 +1,726 @@
+{
+  "schemaVersion": 1,
+  "brandId": "victron",
+  "series": {
+    "id": "victron-orion-xs-errors",
+    "name": "Orion XS DC-DC battery charger — error codes",
+    "category": "inverter",
+    "unitType": "generic",
+    "modelPatterns": [
+      "*Orion XS*",
+      "*Orion-Tr Smart*",
+      "*Orion*DC-DC*"
+    ],
+    "notes": "Orion XS error codes are reported in the VictronConnect app or on a connected GX device - NOT as a front-panel LED blink count. Numbering is Victron's own DC-DC/charger error namespace, completely different from the VE.Bus numbers: e.g. Orion 'Error 1' is battery temperature, while VE.Bus 1 is a failed phase. NEVER cross-map the two. The older Orion-Tr Smart DC-DC uses the same numeric namespace (its manual points at the shared live error-code page for 'Error 2', '26', '27', '116', '119')."
+  },
+  "codes": [
+    {
+      "code": "1",
+      "aliases": [
+        "1",
+        "Orion XS Error 1",
+        "Battery temperature too high"
+      ],
+      "title": {
+        "en": "Battery temperature too high",
+        "ur": "Battery temperature bohat zyada hai"
+      },
+      "meaning": {
+        "en": "Charging has stopped to protect the battery. Auto-resets once the battery cools down.",
+        "ur": "Battery bachane ke liye charging band kar di gayi hai. Battery thanda hote hi khud reset ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Battery genuinely above its permitted charging temperature",
+          "ur": "Battery haqeeqat mein apni charging temperature se upar hai"
+        },
+        {
+          "en": "Charger itself overheated at start-up or float, with no external sensor fitted - then the charger reads hot battery",
+          "ur": "Bahar ka sensor nahi laga to charger ke start-up ya float mein khud garam hua, phir use garam battery samajh aaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure actual battery temperature with a probe thermometer at the cell terminals.",
+          "ur": "Cell terminals par probe thermometer se asal battery temperature nikaalein."
+        },
+        {
+          "en": "Improve ventilation around the battery bank and the charger.",
+          "ur": "Battery bank aur charger ke aar paas hawa ka raasta behtar karein."
+        },
+        {
+          "en": "If no external temperature sensor is fitted, note the error may be a false reading from a hot charger.",
+          "ur": "Agar bahar ka temperature sensor nahi laga hai to yaad rakhein ke ye garam charger ka false reading bhi ho sakta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "2",
+      "aliases": [
+        "2",
+        "Orion XS Error 2",
+        "Battery voltage too high"
+      ],
+      "title": {
+        "en": "Battery voltage too high",
+        "ur": "Battery voltage bohat zyada hai"
+      },
+      "meaning": {
+        "en": "The target battery voltage is too high for the charger. Auto-resets when the voltage drops.",
+        "ur": "Target battery voltage charger ke liye bohat zyada hai. Voltage girne par khud reset ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Other charging equipment connected to the same battery",
+          "ur": "Usi battery se koi aur charging equipment jury hai"
+        },
+        {
+          "en": "A fault in the charge controller",
+          "ur": "Charge controller mein koi fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the battery voltage and compare to the battery type's maximum charge voltage.",
+          "ur": "Battery voltage nikaal kar battery type ki maximum charge voltage se compare karein."
+        },
+        {
+          "en": "Disconnect other chargers one at a time to find which one is overdriving the bank.",
+          "ur": "Baqi chargers ek ek kar ke disconnect karein taake pata chale kaun bank ko zyada charge kar raha hai."
+        },
+        {
+          "en": "Check the configured charge voltage in VictronConnect against the battery datasheet.",
+          "ur": "VictronConnect mein set ki hui charge voltage ko battery datasheet se check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "17",
+      "aliases": [
+        "17",
+        "Orion XS Error 17",
+        "Controller overheated"
+      ],
+      "title": {
+        "en": "Controller overheated despite reduced current",
+        "ur": "Current kam karne par bhi controller garam ho gaya"
+      },
+      "meaning": {
+        "en": "The charger has already reduced its output and still overheated. Auto-resets when it cools.",
+        "ur": "Charger ne output kam kar diya phir bhi garam ho gaya. Thanda hote hi khud reset ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Ambient temperature too high around the charger",
+          "ur": "Charger ke aar paas ambient temperature bohat zyada hai"
+        },
+        {
+          "en": "Charger not mounted for cooling - e.g. lying flat or boxed in",
+          "ur": "Charger cooling ke liye suitable mount nahi hai - maslan flat pada ya box mein band"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the ambient temperature where the charger is installed.",
+          "ur": "Check karein ke charger jahan laga hai wahan ambient temperature kya hai."
+        },
+        {
+          "en": "Mount the charger vertically on a wall with clearance so air can flow past it.",
+          "ur": "Charger ko deewar par vertical lagaayein aur hawa ke liye jagah chhodein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "21",
+      "aliases": [
+        "21",
+        "Orion XS Error 21",
+        "Current sensor issue"
+      ],
+      "title": {
+        "en": "Current sensor out of range",
+        "ur": "Current sensor range se bahar hai"
+      },
+      "meaning": {
+        "en": "Current measurement is out of range. Does NOT auto-reset; a power-cycle of the wiring is required.",
+        "ur": "Current measurement range se bahar hai. Khud reset nahi hota; wiring ka power cycle karna parta hai."
+      },
+      "causes": [
+        {
+          "en": "Wiring disturbed, e.g. during installation work",
+          "ur": "Wiring mein tabdeeli hui ho, maslan installation ke dauran"
+        },
+        {
+          "en": "Hardware defect in the current measurement circuit",
+          "ur": "Current measurement circuit mein hardware defect"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC, then disconnect ALL wires from the charger.",
+          "ur": "AC aur DC disconnect karein, phir charger se tamam wires disconnect karein."
+        },
+        {
+          "en": "Reconnect all wires to make the charger restart, then read the error again.",
+          "ur": "Tamam wires dobara connect karein taake charger restart ho, phir error dobara parhein."
+        },
+        {
+          "en": "If the error remains, contact the dealer - there may be a hardware defect.",
+          "ur": "Agar error qataar rahe to dealer se rabta karein - ho sakta hai hardware defect ho."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "26",
+      "aliases": [
+        "26",
+        "Orion XS Error 26",
+        "Terminal overheated"
+      ],
+      "title": {
+        "en": "Power terminals overheated",
+        "ur": "Power terminals garam ho gaye"
+      },
+      "meaning": {
+        "en": "The power terminals have overheated. Auto-resets once they cool.",
+        "ur": "Power terminals garam ho gaye hain. Thande hote hi khud reset ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Loose terminal connection causing high contact resistance",
+          "ur": "Dheela terminal connection jis se contact resistance zyada hai"
+        },
+        {
+          "en": "Undersized or wrong-strand cable for the current",
+          "ur": "Current ke liye chhoti ya galat strand wali cable"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC, then check the wiring type and the number of strands in the cable.",
+          "ur": "AC aur DC disconnect karein, phir cable ki type aur strands ki tadaad check karein."
+        },
+        {
+          "en": "Re-tighten the power terminals to the torque stated in the manual, and re-check after an hour.",
+          "ur": "Power terminals ko manual di gayi torque par tighten karein, aur aik ghante baad dobara check karein."
+        },
+        {
+          "en": "Fit a cable of adequate cross-section and correct strand type for the charge current.",
+          "ur": "Charge current ke liye kaafi cross-section aur sahi strand type wali cable lagayein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "27",
+      "aliases": [
+        "27",
+        "Orion XS Error 27",
+        "Charger short circuit"
+      ],
+      "title": {
+        "en": "Charger short circuit on battery side",
+        "ur": "Battery side par charger short circuit"
+      },
+      "meaning": {
+        "en": "An over-current condition on the battery side, often from a contactor or from connecting the charger to a large-capacitance inverter with no battery fitted. Auto-resets.",
+        "ur": "Battery side par over-current ki shart, aksar contactor se ya badi capacitance wale inverter se bina battery ke connect karne se. Khud reset hota hai."
+      },
+      "causes": [
+        {
+          "en": "Battery attached through a contactor that chatters or welds",
+          "ur": "Battery aik aise contactor se jury hai jo chatter karta ya weld ho jata hai"
+        },
+        {
+          "en": "Charger started with no battery but connected to a large input-capacitance inverter",
+          "ur": "Charger bina battery ke chala aur badi input capacitance wale inverter se jury tha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC, then check the battery cable and contactor for a short.",
+          "ur": "AC aur DC disconnect karein, phir battery cable aur contactor mein short check karein."
+        },
+        {
+          "en": "Disconnect all power sources, wait 3 minutes, then power up again.",
+          "ur": "Tamam power sources disconnect karein, 3 minute intezaar karein, phir wapas on karein."
+        },
+        {
+          "en": "If the error does not auto-reset after that, the charge controller is probably faulty.",
+          "ur": "Uske baad bhi error khud resolve na ho to charge controller kharab hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "28",
+      "aliases": [
+        "28",
+        "Orion XS Error 28",
+        "Power stage issue"
+      ],
+      "title": {
+        "en": "Power stage issue",
+        "ur": "Power stage mein masla"
+      },
+      "meaning": {
+        "en": "A fault in the charger's switching power stage. Does NOT auto-reset.",
+        "ur": "Charger ke switching power stage mein fault. Khud reset nahi hota."
+      },
+      "causes": [
+        {
+          "en": "Internal switching stage failure",
+          "ur": "Internal switching stage ki failure"
+        },
+        {
+          "en": "Disturbed or transient wiring during operation",
+          "ur": "Operation ke dauran wiring mein tabdeeli ya transient masla"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC, then disconnect all wires from the charger.",
+          "ur": "AC aur DC disconnect karein, phir charger se tamam wires disconnect karein."
+        },
+        {
+          "en": "Reconnect all wires and power up; re-read the error.",
+          "ur": "Tamam wires dobara connect kar ke on karein; error dobara parhein."
+        },
+        {
+          "en": "If it persists the charger is probably faulty - return to the dealer.",
+          "ur": "Agar qataar rahe to charger kharab hai - dealer ko wapas karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "33",
+      "aliases": [
+        "33",
+        "Orion XS Error 33",
+        "Input voltage too high"
+      ],
+      "title": {
+        "en": "Input voltage too high",
+        "ur": "Input voltage bohat zyada hai"
+      },
+      "meaning": {
+        "en": "The input voltage is above the charger's limit. Auto-resets once the input drops to a safe level.",
+        "ur": "Input voltage charger ki limit se upar hai. Input safe level par aane par khud reset ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Starter/alternator charging voltage too high for the charger input",
+          "ur": "Starter/alternator ki charging voltage charger ke input se zyada hai"
+        },
+        {
+          "en": "Two chargers' outputs connected together in parallel",
+          "ur": "Do chargers ke output aapas mein parallel jury ho gaye hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the input voltage at the charger's input terminals with the engine running.",
+          "ur": "Engine chalate hue charger ke input terminals par input voltage nikaalein."
+        },
+        {
+          "en": "Compare to the Orion XS input voltage range in the manual's specification table.",
+          "ur": "Manual ki specification table mein diye Orion XS input voltage range se compare karein."
+        },
+        {
+          "en": "Check that no second charger output is hard-wired in parallel.",
+          "ur": "Check karein ke doosre charger ka output saath hard-wire to nahi kiya gaya."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "67",
+      "aliases": [
+        "67",
+        "Orion XS Error 67",
+        "BMS connection lost"
+      ],
+      "title": {
+        "en": "BMS communication lost",
+        "ur": "BMS ka connection nahi mil raha"
+      },
+      "meaning": {
+        "en": "The charger is set to be BMS-controlled but receives no BMS control messages. After 15 s it drops output to base voltage (12 V); the error itself only shows after 3 min so the BMS can reconnect quietly.",
+        "ur": "Charger BMS control ke liye set hai magar koi BMS control message nahi mil raha. 15 second baad output base voltage (12 V) par gir jata hai; khud error 3 minute baad dikhta hai taake BMS dobara connect ho sake."
+      },
+      "causes": [
+        {
+          "en": "BMS powered down or in a protective shutdown",
+          "ur": "BMS band hai ya protective shutdown mein hai"
+        },
+        {
+          "en": "BMS CAN or communication cable disconnected or faulty",
+          "ur": "BMS ka CAN ya communication cable disconnect ya kharab"
+        },
+        {
+          "en": "Charger configured as BMS-controlled but no BMS is actually installed",
+          "ur": "Charger BMS-controlled set hai magar asal mein koi BMS install hi nahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the BMS status on the VictronConnect device list - is it powered and talking?",
+          "ur": "VictronConnect ki device list mein BMS ka status dekhein - woh on hai aur baat kar raha hai?"
+        },
+        {
+          "en": "Inspect the BMS communication cable and both connectors; reseat them.",
+          "ur": "BMS communication cable aur dono connectors dekhein; dobara lagaayein."
+        },
+        {
+          "en": "If there is genuinely no BMS, change the charge mode to Standalone instead of BMS-controlled.",
+          "ur": "Agar wakai koi BMS nahi hai to charge mode ko BMS-controlled ke bajaye Standalone par kar dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "In VictronConnect this appears as the charger jumping straight from bulk to float. Once communication returns it goes back to bulk on its own.",
+        "ur": "VictronConnect mein ye charger ka seedha bulk se float par jaana dikhta hai. Communication wapas aane par ye khud bulk par wapas chala jata hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "116",
+      "aliases": [
+        "116",
+        "Orion XS Error 116",
+        "Calibration data lost"
+      ],
+      "title": {
+        "en": "Calibration data lost",
+        "ur": "Calibration data kho gaya"
+      },
+      "meaning": {
+        "en": "If this is the ACTIVE error the unit is faulty and must be replaced. If it only appears in history data while the unit works normally, it is safe to ignore - factory-fresh units legitimately log it once.",
+        "ur": "Agar ye ACTIVE error hai to unit kharab hai aur badalna parta hai. Agar sirf history data mein aaye aur unit theek chalta hai to ignore kiya ja sakta hai - factory naye units aik baar ye log karte hain."
+      },
+      "causes": [
+        {
+          "en": "Active error: unit calibration data is gone, hardware fault",
+          "ur": "Active error: unit ka calibration data kho gaya, hardware fault"
+        },
+        {
+          "en": "History only: never cleared after first factory power-up",
+          "ur": "Sirf history mein: factory pehli power-up ke baad kabhi clear nahi hua"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether 116 is the ACTIVE error or only sits in the history log.",
+          "ur": "Check karein ke 116 ACTIVE error hai ya sirf history log mein hai."
+        },
+        {
+          "en": "If ACTIVE: contact the dealer for a replacement unit.",
+          "ur": "Agar ACTIVE hai to dealer se replacement unit ke liye rabta karein."
+        },
+        {
+          "en": "If history only and the unit operates normally, no action needed - do not replace the unit.",
+          "ur": "Agar sirf history mein hai aur unit normal chalta hai to koi karam nahi - unit mat badlein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "117",
+      "aliases": [
+        "117",
+        "Orion XS Error 117",
+        "Incompatible firmware"
+      ],
+      "title": {
+        "en": "Incompatible / incomplete firmware",
+        "ur": "Firmware incompatible ya adhoora hai"
+      },
+      "meaning": {
+        "en": "A firmware update did not complete, so the device is only partially updated. Retrying the update normally fixes it.",
+        "ur": "Firmware update adhoora reh gaya, is liye device aadha updated hai. Update dobara chalane se aam tor par hal ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Device went out of range during an over-the-air update",
+          "ur": "Over-the-air update ke dauran device range se bahar chala gaya"
+        },
+        {
+          "en": "Cable disconnected or power lost during the update session",
+          "ur": "Update session ke dauran cable disconnect hui ya power chala gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Retry the firmware update from VictronConnect using the firmware file.",
+          "ur": "VictronConnect se firmware file le kar update dobara chalayein."
+        },
+        {
+          "en": "If a GX device is connected to VRM, do a remote firmware update from the VRM website.",
+          "ur": "Agar GX device VRM se jury hai to VRM website se remote firmware update karein."
+        },
+        {
+          "en": "Keep the charger powered and the Bluetooth link stable for the whole update.",
+          "ur": "Poori update ke dauran charger ko power aur Bluetooth link mustaqbil rakhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "119",
+      "aliases": [
+        "119",
+        "Orion XS Error 119",
+        "Settings data lost"
+      ],
+      "title": {
+        "en": "Settings data lost / unreadable",
+        "ur": "Settings data kho gaya ya parha nahi ja raha"
+      },
+      "meaning": {
+        "en": "The charger cannot read its configuration and has stopped. Does NOT auto-reset; the documented recovery is a factory reset plus a 3-minute power-off wait.",
+        "ur": "Charger apni configuration nahi parh sakta aur ruk gaya hai. Khud reset nahi hota; bataya hua hal factory reset aur 3 minute power off ke intezaar se hai."
+      },
+      "causes": [
+        {
+          "en": "Configuration memory corrupted, often after an interrupted update",
+          "ur": "Configuration memory corrupt, aksar interrupted update ke baad"
+        },
+        {
+          "en": "Power lost while settings were being written",
+          "ur": "Settings likhte waqt power chala gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restore factory defaults from the three-dot menu at the top right in VictronConnect.",
+          "ur": "VictronConnect ke top right teen-dot menu se factory defaults restore karein."
+        },
+        {
+          "en": "Disconnect the charge controller from all power sources.",
+          "ur": "Charge controller ko tamam power sources se disconnect karein."
+        },
+        {
+          "en": "Wait 3 minutes, then power up again and reconfigure the charger.",
+          "ur": "3 minute intezaar karein, phir wapas on karke charger dobara configure karein."
+        },
+        {
+          "en": "Report it to the Victron dealer for escalation - Victron state this should never happen.",
+          "ur": "Isay Victron dealer ko report karein - Victron ke mutabiq ye hona hi nahi chahiye."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "120",
+      "aliases": [
+        "120",
+        "Orion XS Error 120",
+        "Internal supply voltage error"
+      ],
+      "title": {
+        "en": "Internal supply voltage error",
+        "ur": "Internal supply voltage mein error"
+      },
+      "meaning": {
+        "en": "The unit's own internal diagnostics found a fault with an internal supply voltage. Does NOT auto-reset.",
+        "ur": "Unit ke apne internal diagnostics ne internal supply voltage mein fault dhoondha. Khud reset nahi hota."
+      },
+      "causes": [
+        {
+          "en": "Internal supply rail outside its expected window",
+          "ur": "Internal supply rail apni expected window se bahar"
+        },
+        {
+          "en": "Faulty internal supply stage",
+          "ur": "Internal supply stage kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the installation - cable sizes, terminations and battery connections.",
+          "ur": "Installation check karein - cable sizes, terminations aur battery connections."
+        },
+        {
+          "en": "Restart the unit using the power switch.",
+          "ur": "Unit ko power switch se restart karein."
+        },
+        {
+          "en": "If the error persists, the unit is probably faulty - return to the dealer.",
+          "ur": "Agar error qataar rahe to unit kharab hai - dealer ko wapas karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "122",
+      "aliases": [
+        "122",
+        "Orion XS Error 122",
+        "History data corrupted"
+      ],
+      "title": {
+        "en": "History data corrupted",
+        "ur": "History data corrupt ho gaya"
+      },
+      "meaning": {
+        "en": "Stored history data is corrupt. Does NOT auto-reset; cleared by clearing history in VictronConnect.",
+        "ur": "Store ki hui history data corrupt hai. Khud reset nahi hota; VictronConnect mein history clear karne se saaf hota hai."
+      },
+      "causes": [
+        {
+          "en": "History memory corrupted after a power cut during logging",
+          "ur": "Logging ke dauran power cut ke baad history memory corrupt hua"
+        },
+        {
+          "en": "Firmware or storage fault on the unit",
+          "ur": "Unit par firmware ya storage fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the History screen in VictronConnect for the charger.",
+          "ur": "VictronConnect mein charger ka History screen kholein."
+        },
+        {
+          "en": "Clear the history data to reset the error.",
+          "ur": "Error reset karne ke liye history data clear karein."
+        },
+        {
+          "en": "Only after clearing, check the charger is charging correctly.",
+          "ur": "Clear karne ke baad hi check karein ke charger theek charge kar raha hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Manual - Orion XS 12/12-70A DC-DC battery charger, Rev 00 - 06/2026 - ch. 5.8 Error and warning code overview",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf"
+      }
+    }
+  ]
+}

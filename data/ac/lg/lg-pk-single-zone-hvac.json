@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "brandId": "lg",
+  "series": {
+    "id": "lg-pk-single-zone-hvac",
+    "name": "Single zone wall-mounted HVAC common error codes (DFS-TP-AH-001-US)",
+    "category": "ac",
+    "unitType": "split",
+    "modelPatterns": [
+      "*5*",
+      "*1*",
+      "*3*"
+    ],
+    "notes": "LG tech paper 'Defining Common Error Codes' LS091HSV/LS121HSV (official PDF, high). Numeric codes on US single-zone wall-mount; model-scoped from universal split sheet."
+  },
+  "codes": [
+    {
+      "code": "12",
+      "aliases": [
+        "12",
+        "CH12"
+      ],
+      "title": {
+        "en": "Indoor middle pipe thermistor open/short",
+        "ur": "Indoor middle pipe thermistor khula/short"
+      },
+      "meaning": {
+        "en": "Indoor unit middle pipe thermistor has disconnected or shorted.",
+        "ur": "Indoor unit ka middle pipe thermistor disconnect ho gaya ya short ho gaya hai"
+      },
+      "causes": [
+        {
+          "en": "Sensor plug loose on indoor PCB",
+          "ur": "Indoor PCB par sensor plug loose"
+        },
+        {
+          "en": "Thermistor failed open/short",
+          "ur": "Thermistor khula/short ho gaya"
+        },
+        {
+          "en": "On Dual Inverter tech videos also associated with low gas / sensor group checks",
+          "ur": "Dual Inverter tech videos mein isay gas kam / sensor group checks se bhi jora jata hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat sensor; measure resistance; replace if bad",
+          "ur": "Sensor dobara lagayein; resistance napein; kharab ho to badal dein"
+        },
+        {
+          "en": "If sensors OK, technician checks charge/leak path when CH12 used as gas-low proxy on some models",
+          "ur": "Sensors theek hon to kuch models mein CH12 jab gas-kam ka indicator banta hai, technician charge/leak path check karta hai"
+        },
+        {
+          "en": "Power cycle after repair",
+          "ur": "Marammat ke baad power cycle karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "LG DFS-TP-AH-001-US common error codes",
+        "retrieved": "2026-09-24",
+        "url": "https://www.lg.com/"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Tech-paper definition high confidence; Dual Inverter 'gas low' gloss medium — both recorded, conflict flagged in quarantine 4c.",
+        "ur": "Tech-paper wali definition high confidence hai, Dual Inverter ki 'gas low' wali gloss medium — dono record ki gayi hain, conflict quarantine 4c mein flag hai."
+      },
+      "blinkPattern": "Indoor LED1 (heating) 2x / LED2 (cooling) 1x"
+    },
+    {
+      "code": "31",
+      "aliases": [
+        "31",
+        "CH31"
+      ],
+      "title": {
+        "en": "CT thermistor current too low",
+        "ur": "CT thermistor ka current bahut kam"
+      },
+      "meaning": {
+        "en": "Current to the current transformer (CT) thermistor circuit is too low.",
+        "ur": "Current transformer (CT) thermistor circuit mein current bahut kam hai"
+      },
+      "causes": [
+        {
+          "en": "CT sense circuit open or disconnected on inverter PCB",
+          "ur": "Inverter PCB par CT sense circuit khula ya disconnected"
+        },
+        {
+          "en": "Wiring fault to CT",
+          "ur": "CT ki wiring kharab"
+        },
+        {
+          "en": "PCB assembly fault",
+          "ur": "PCB assembly kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Inspect CT wiring and sense network on outdoor PCB",
+          "ur": "Outdoor PCB par CT wiring aur sense network check karein"
+        },
+        {
+          "en": "Compare with code 40 CT short/open family",
+          "ur": "Code 40 (CT short/open family) se compare karein"
+        },
+        {
+          "en": "Replace outdoor PCB if path failed",
+          "ur": "CT path kharab ho to outdoor PCB replace karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "LG DFS-TP-AH-001-US common error codes",
+        "retrieved": "2026-09-24",
+        "url": "https://www.lg.com/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Unique to this paper among sources gathered; not on Universal sheet.",
+        "ur": "Jo sources jama kiye gaye un mein yeh sirf is paper par hai; Universal sheet par nahi hai."
+      },
+      "blinkPattern": "Indoor/outdoor LED1 3x / LED2 1x (also outdoor LED1 3x / LED2 1x on ODU PCB map)"
+    },
+    {
+      "code": "5",
+      "aliases": [
+        "5",
+        "CH05"
+      ],
+      "title": {
+        "en": "Communication failure indoor to outdoor (numeric models)",
+        "ur": "Numeric display models mein andar se bahar communication fail"
+      },
+      "meaning": {
+        "en": "Communication failure from indoor unit to outdoor unit on numeric LED display models.",
+        "ur": "Numeric LED display wale models mein indoor unit se outdoor unit ki communication nakaam"
+      },
+      "causes": [
+        {
+          "en": "Interconnect wiring open/short",
+          "ur": "Interconnect wiring khula/short"
+        },
+        {
+          "en": "PCB fault either side",
+          "ur": "Kisi ek taraf PCB fault ho sakta hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Same diagnostic as CH05 (code 05 Series A)",
+          "ur": "CH05 jaisi hi diagnostic (Series A code 05)"
+        },
+        {
+          "en": "Measure serial 0-75V DC on terminals",
+          "ur": "Terminals par serial 0-75V DC napein"
+        },
+        {
+          "en": "Repair wiring or replace faulty PCB",
+          "ur": "Wiring ki marammat karein ya kharab PCB badal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "LG DFS-TP-AH-001-US common error codes",
+        "retrieved": "2026-09-24",
+        "url": "https://www.lg.com/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Confirms numeric 5 == CH05 family on dual-LED models.",
+        "ur": "Yeh confirm karta hai ke dual-LED models par numeric 5 CH05 family ke hi hai."
+      },
+      "blinkPattern": "Indoor LED1 (heating) 5x / LED2 none"
+    },
+    {
+      "code": "53",
+      "aliases": [
+        "53",
+        "CH53"
+      ],
+      "title": {
+        "en": "Communication failure outdoor to indoor",
+        "ur": "Outdoor se indoor communication nakaam"
+      },
+      "meaning": {
+        "en": "Communication failure from outdoor unit to indoor unit.",
+        "ur": "Outdoor unit se indoor unit ki communication nakaam."
+      },
+      "causes": [
+        {
+          "en": "Serial line open/short or ODU PCB not sending",
+          "ur": "Serial line khula/short ya ODU PCB send nahi kar raha"
+        },
+        {
+          "en": "IDU not receiving / wiring fault",
+          "ur": "IDU signal receive nahi kar raha / wiring mein fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Diagnose as Universal 53 / CH05 pair",
+          "ur": "Universal 53 / CH05 ke trh"
+        },
+        {
+          "en": "LED map on this paper: indoor LED1 5x / LED2 3x",
+          "ur": "Is paper par LED map: indoor LED1 5x / LED2 3x"
+        },
+        {
+          "en": "Repair cable or PCBs",
+          "ur": "Cable ya PCB ki marammat karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "LG DFS-TP-AH-001-US common error codes",
+        "retrieved": "2026-09-24",
+        "url": "https://www.lg.com/"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU PCB LED1 (green) 5x / LED2 (red) 3x"
+    }
+  ]
+}

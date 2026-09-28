@@ -1,0 +1,321 @@
+{
+  "schemaVersion": 1,
+  "brandId": "simtek",
+  "series": {
+    "id": "mppt-plus-hybrid",
+    "name": "MPPT Plus Hybrid charge controller (text messages)",
+    "category": "inverter",
+    "unitType": "generic",
+    "modelPatterns": [
+      "*MPPT*",
+      "*1224K*",
+      "*48K4*",
+      "*K26*",
+      "*K27*",
+      "*K38*"
+    ],
+    "notes": "Official MPPT manuals use full-word LCD WARNING/ERROR strings, not 2-digit codes."
+  },
+  "codes": [
+    {
+      "code": "PV NOT CONNECTED",
+      "aliases": [
+        "PV NOT CONNECTED"
+      ],
+      "title": {
+        "en": "PV not connected",
+        "ur": "PV munsalik nahin"
+      },
+      "meaning": {
+        "en": "PV panel voltage is too low (not detected as valid array).",
+        "ur": "PV voltage bohat kam (are nahin mila)"
+      },
+      "causes": [
+        {
+          "en": "Array Voc < ~1.5x battery V, open DC breaker, bad string",
+          "ur": "Array Voc battery voltage se kam, DC breaker khula, ya string kharab."
+        },
+        {
+          "en": "DC breaker or isolator left open.",
+          "ur": "DC breaker ya isolator khula hua hai."
+        },
+        {
+          "en": "Loose or corroded DC connector between array and charger.",
+          "ur": "Array aur charger ke darmiyan DC connector dheela ya zang ya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the PV DC isolator, then measure the array open-circuit voltage with a meter — it must be more than 1.5 times the battery voltage.",
+          "ur": "PV DC isolator band karein, phir meter se array ka open-circuit voltage naapein — woh battery voltage se 1.5 guna zyada hona chahiye."
+        },
+        {
+          "en": "Check the DC breaker is closed and the connectors between array and charger are tight and clean.",
+          "ur": "DC breaker band hai ya nahin, aur array se charger ke darmiyan connectors tight aur saaf hain — yeh check karein."
+        },
+        {
+          "en": "Inspect the string for a bad panel or broken cable, replace what is faulty and retest.",
+          "ur": "String mein kharab panel ya tooti hui cable check karein, jo kharab ho use badal kar dobara test karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "MPPT User Manual (Plus Hybrid)",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "FAN FAULT",
+      "aliases": [
+        "FAN FAULT"
+      ],
+      "title": {
+        "en": "Fan fault (temperature sensor faulty)",
+        "ur": "Pankha kharab (temperature sensor kharab)"
+      },
+      "meaning": {
+        "en": "Manual maps FAN FAULT message to temperature sensor faulty.",
+        "ur": "Manual ke mutabiq FAN FAULT message ka matlab hai temperature sensor kharab."
+      },
+      "causes": [
+        {
+          "en": "Failed temp sensor / fan hardware",
+          "ur": "sensor ya Pankha kharab"
+        },
+        {
+          "en": "Fan connector loose or fan supply wire broken.",
+          "ur": "Fan ka connection dheela ya supply wire tooti hui hai."
+        },
+        {
+          "en": "Fan blocked by dust or bearing seized.",
+          "ur": "Fan dhool se roka hua hai ya bearing phans gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the DC switch and wait 5 minutes before opening the unit; check the fan for dust, blocked blades or a seized bearing.",
+          "ur": "DC switch band kar ke 5 minute ruk kar unit kholein; pankha par dhool, ruki hui blades ya phansi hui bearing check karein."
+        },
+        {
+          "en": "With power isolated, spin the fan by hand and check its connector on the board.",
+          "ur": "Power band kar ke pankha haath se ghuma kar dekhein aur board par us ka connector check karein."
+        },
+        {
+          "en": "If the fan or the temperature sensor has failed, send the device to the service centre for repair.",
+          "ur": "Agar pankha ya temperature sensor kharab ho, to device ko repair ke liye service centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "MPPT User Manual (Plus Hybrid)",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Description text says temperature sensor faulty (not only fan).",
+        "ur": "Description text ke mutabiq temperature sensor kharab hai (sirf pankha nahi)."
+      }
+    },
+    {
+      "code": "OVER HEAT",
+      "aliases": [
+        "OVER HEAT"
+      ],
+      "title": {
+        "en": "Over heat",
+        "ur": "zyada hararat"
+      },
+      "meaning": {
+        "en": "Temperature is too high.",
+        "ur": "darja hararat bohat zyada"
+      },
+      "causes": [
+        {
+          "en": "Direct sun, poor ventilation, ambient high",
+          "ur": "Dhoop zyada, hawa kam."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shade and airy install location; do not expose unit to strong sunlight; if remains contact manufacturer",
+          "ur": "Shaded aur hawa wali jagah intezam karein; unit ko tez dhoop se na bachayein; masla hal na ho to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "MPPT User Manual (Plus Hybrid)",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Also in MPPT-User-Manual.pdf and MPPT-USER-MANUAL.Pdf.pdf. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Yeh MPPT-User-Manual.pdf aur MPPT-USER-MANUAL.Pdf.pdf mein bhi hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    },
+    {
+      "code": "OVER CHARGE",
+      "aliases": [
+        "OVER CHARGE"
+      ],
+      "title": {
+        "en": "Over charge",
+        "ur": "zyada charge"
+      },
+      "meaning": {
+        "en": "Battery voltage is too high.",
+        "ur": "battery voltage bohat zyada"
+      },
+      "causes": [
+        {
+          "en": "Loose MPPT-battery connection, wrong full-charge setpoint, cell fault",
+          "ur": "Loose connection ya ghalat setting"
+        },
+        {
+          "en": "Charger full-charge voltage set higher than the battery specification.",
+          "ur": "Charger ka full-charge voltage battery specification se zyada set hai."
+        },
+        {
+          "en": "Battery cell internally shorted or weak, so voltage keeps rising.",
+          "ur": "Battery ka cell andar se short ya kamzor hai, is liye voltage barhta rehta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the DC switch first and check the battery connections for loose joints — this is what the manual instructs.",
+          "ur": "Pehle DC switch band karein aur battery ke connections check karein ke dheele to nahin — manual pehle yahi instruction deta hai."
+        },
+        {
+          "en": "Measure the battery voltage with a meter and compare it with the full-charge specification; check the charger setting if it is high.",
+          "ur": "Meter se battery voltage naapein aur full-charge specification se compare karein; zyada ho to charger setting check karein."
+        },
+        {
+          "en": "If the voltage stays too high with correct settings, a battery cell may be faulty — contact the manufacturer.",
+          "ur": "Sahi settings ke baad bhi voltage zyada rahe, to battery cell kharab ho sakta hai — manufacturer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "MPPT User Manual (Plus Hybrid)",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    },
+    {
+      "code": "HIGH PV VOLTAGE",
+      "aliases": [
+        "HIGH PV VOLTAGE"
+      ],
+      "title": {
+        "en": "High PV voltage",
+        "ur": "PV voltage zyada"
+      },
+      "meaning": {
+        "en": "PV panel voltage exceeded device rated maximum input voltage.",
+        "ur": "PV panel voltage device ki rated maximum had se upar"
+      },
+      "causes": [
+        {
+          "en": "Too many panels in series / wrong Voc",
+          "ur": "series main zyada panel"
+        },
+        {
+          "en": "String extended with extra panels after a change.",
+          "ur": "Badal ke baad string mein aur panels jod diye gaye."
+        },
+        {
+          "en": "Cold weather raised Voc above the device maximum.",
+          "ur": "Sardi mein Voc device ke maximum se upar chala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the DC switch immediately and do not reconnect until the array voltage is confirmed below the rated maximum.",
+          "ur": "Foran DC switch disconnect karein aur array ka voltage rated maximum se neeche confirm hone tak dobara na jodein."
+        },
+        {
+          "en": "Measure the string open-circuit voltage with a meter and count the panels in series against the device rating.",
+          "ur": "Meter se string ka open-circuit voltage naapein aur series mein panels ki tadad device rating se compare karein."
+        },
+        {
+          "en": "Remove panels from the string to bring the voltage down, then reconnect; if the message remains, contact the manufacturer.",
+          "ur": "Voltage kam karne ke liye string se panels hatayein, phir jodein; message bana rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "MPPT User Manual (Plus Hybrid)",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Immediate disconnect instruction -> danger severity. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Foran disconnect karne ka instruction diya gaya hai -> danger severity. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    },
+    {
+      "code": "LOW BATTERY",
+      "aliases": [
+        "LOW BATTERY"
+      ],
+      "title": {
+        "en": "Low battery",
+        "ur": "kam battery"
+      },
+      "meaning": {
+        "en": "Battery voltage is too low.",
+        "ur": "battery voltage bohat kam"
+      },
+      "causes": [
+        {
+          "en": "Heavy DC load / discharged battery",
+          "ur": "zyada load ya battery khaali"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect any load on battery immediately and confirm voltage; after normal if message remains contact manufacturer",
+          "ur": "Battery se koi bhi load foran hatayein aur voltage confirm karein; voltage normal hone ke baad bhi message rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "MPPT User Manual (Plus Hybrid)",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    }
+  ]
+}

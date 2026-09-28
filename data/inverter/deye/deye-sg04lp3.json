@@ -1,0 +1,1555 @@
+{
+  "schemaVersion": 1,
+  "brandId": "deye",
+  "series": {
+    "id": "deye-sg04lp3",
+    "name": "SUN-5/6/8/10/12K-SG04LP3-EU (three-phase 48V low-voltage hybrid)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*SG04LP3*",
+      "SUN-5K-SG04LP3*",
+      "SUN-8K-SG04LP3*",
+      "SUN-12K-SG04LP3*"
+    ],
+    "notes": "Chart 7-1 of the SUN-5-12K-SG04LP3-EU user manual, chapter 7 'Fault information and processing'. 25 fault rows, all Fxx, no warning table on this line. Chart 4-1 LED table again gives Alarm = red led solid light. This is the biggest-selling Deye platform in Pakistan (three-phase 48V with battery). DIVERGENCE FROM SERIES 1: this line adds F01, F07, F15, F16, F21, F46, F55, F62 and drops F35; F15 is 'AC over current fault of software' while SG03LP1 has no F15 at all and uses F18 for the hardware variant. F46 (backup battery fault) exists ONLY here — do not add it to the SG03LP1 or SG01HP3 lookups."
+  },
+  "codes": [
+    {
+      "code": "F01",
+      "aliases": [
+        "F01",
+        "DC input polarity reverse fault",
+        "DC_Inversed_Failure"
+      ],
+      "title": {
+        "en": "DC input polarity reverse fault",
+        "ur": "DC input ki polarity ulat hui hai"
+      },
+      "meaning": {
+        "en": "The PV DC input polarity is reversed, so the inverter cannot start string tracking or accept the array.",
+        "ur": "PV DC input ki polarity ulat hui hai, is liye inverter string tracking start nahi kar sakta aur array nahi le sakta."
+      },
+      "causes": [
+        {
+          "en": "PV string was connected backwards at the DC input connector.",
+          "ur": "PV string DC input connector par ulat kar lagi gayi thi."
+        },
+        {
+          "en": "A string was moved to the wrong MPPT input during rework or extension.",
+          "ur": "Rework ya extension ke dauran koi string galat MPPT input par shift kar di gayi."
+        },
+        {
+          "en": "Reversed polarity DC input protection device or the DC switch is wired backwards.",
+          "ur": "Reversed polarity wala DC input protection device ya DC switch ulta wired hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC switch and confirm DC is dead with a voltage tester before touching any connector.",
+          "ur": "DC switch kholein aur koi connector chhune se pehle voltage tester se DC dead hai confirm karein."
+        },
+        {
+          "en": "Set the multimeter to DC volts, probe the string positive and negative at the DC input and read the sign of the voltage.",
+          "ur": "Multimeter DC volt par set karke string ka positive aur negative DC input par probe karein aur voltage ka sign dekhein."
+        },
+        {
+          "en": "Re-connect the string in the correct polarity, using a polarity-checked plug, then close the DC switch.",
+          "ur": "String ko sahi polarity par wapas jodein, polarity-checked plug use karein, phir DC switch band karein."
+        },
+        {
+          "en": "If DC input polarity is correct and F01 stays, the internal polarity detection circuit is faulty — board-level repair.",
+          "ur": "Agar DC input polarity theek hai phir bhi F01 rahe to internal polarity detection circuit kharab hai, board level repair chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F07",
+      "aliases": [
+        "F07",
+        "DC_START_Failure"
+      ],
+      "title": {
+        "en": "DC_START_Failure (DC bus cannot build)",
+        "ur": "DC_START_Failure (DC bus nahi banta)"
+      },
+      "meaning": {
+        "en": "The DC bus voltage could not be built up from PV or battery at start-up, so the inverter refuses to run.",
+        "ur": "Start-up par PV ya battery se DC bus voltage nahi bana, is liye inverter chalne se inkaar karta hai."
+      },
+      "causes": [
+        {
+          "en": "Battery is absent, deeply discharged, or its fuse / connector is open.",
+          "ur": "Battery mojood nahi, poori tarah discharged, ya uska fuse ya connector khula hua hai."
+        },
+        {
+          "en": "PV array voltage is below the minimum start voltage or a string fuse has blown.",
+          "ur": "PV array ka voltage minimum start voltage se kam hai ya kisi string ka fuse udd chuka hai."
+        },
+        {
+          "en": "DC boost circuit, driver board or its 12V auxiliary supply has failed.",
+          "ur": "DC boost circuit, driver board ya uska 12V auxiliary supply fail ho gaya hai."
+        },
+        {
+          "en": "DC input polarity fault (F01) or insulation fault (F24) is blocking the bus.",
+          "ur": "DC input polarity fault (F01) ya insulation fault (F24) bus ko rok raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the battery first: measure terminal voltage and confirm the fuse and connector are intact.",
+          "ur": "Pehle battery check karein: terminal voltage naalein aur fuse aur connector salamat hai confirm karein."
+        },
+        {
+          "en": "Measure PV string open-circuit voltage and compare it with the minimum DC input voltage in the manual spec.",
+          "ur": "PV string ki open-circuit voltage naalein aur manual spec ke minimum DC input voltage se compare karein."
+        },
+        {
+          "en": "Resolve F01, F23, F24 or any other present code first — F07 is often only the symptom.",
+          "ur": "Pehle F01, F23, F24 ya koi bhi mojood code theek karein, F07 aksar sirf ishara hota hai."
+        },
+        {
+          "en": "Restart the inverter as the manual says; if the fault still exists contact Deye support.",
+          "ur": "Manual ke mutabiq inverter restart karein; fault phir bhi rahe to Deye support se rabta karein."
+        },
+        {
+          "en": "Bus still will not build with good battery and PV: the 12V auxiliary supply and driver board need bench repair.",
+          "ur": "Battery aur PV theek hone par bhi bus na bane to 12V auxiliary supply aur driver board ko bench repair karwana padega."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F13",
+      "aliases": [
+        "F13",
+        "working mode change"
+      ],
+      "title": {
+        "en": "Working mode change indication",
+        "ur": "Working mode change ki indication"
+      },
+      "meaning": {
+        "en": "Not a real fault. F13 is raised when grid type or frequency changes, when battery mode is changed to No battery, and on some old firmware after a work-mode change.",
+        "ur": "Ye asli fault nahi. Grid type ya frequency badalne par, battery mode ko No battery karne par, aur kuch purane firmware par work mode change par F13 aata hai."
+      },
+      "causes": [
+        {
+          "en": "Grid type and frequency settings were changed during commissioning.",
+          "ur": "Commissioning ke dauran grid type aur frequency ki setting badli gayi."
+        },
+        {
+          "en": "Battery mode was changed to No battery mode.",
+          "ur": "Battery mode ko No battery mode par kiya gaya."
+        },
+        {
+          "en": "Older firmware reports F13 on any system work mode change.",
+          "ur": "Purana firmware har system work mode change par F13 report karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait a minute — the manual says F13 generally disappears automatically.",
+          "ur": "Ek minute intezaar karein, manual ke mutabiq F13 khud ba khud clear ho jata hai."
+        },
+        {
+          "en": "Still showing: turn off the DC switch and AC switch, wait one minute, then turn them back on.",
+          "ur": "Phir bhi dikh raha ho to DC switch aur AC switch off karein, ek minute intezaar karein, phir wapas on karein."
+        },
+        {
+          "en": "Note down the grid type, frequency and battery mode you set — support will ask for these.",
+          "ur": "Jo grid type, frequency aur battery mode set kiya usay likh lein, support ye poochega."
+        },
+        {
+          "en": "Code returns on every boot with no change made, contact Deye service.",
+          "ur": "Koi change kiye baghair har restart par code aaye to Deye service se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Kept as isFault true because it is printed inside the fault chart, but the manual treats it as self-clearing — not a dealer trip.",
+        "ur": "Fault chart mein likha hai is liye isFault true hai, lekin manual isay apne aap clear hone wali baat batata hai, dealer jaane ki zaroorat nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F15",
+      "aliases": [
+        "F15",
+        "AC over current fault of software",
+        "AC_OverCurr_SW_Failure"
+      ],
+      "title": {
+        "en": "AC over current fault of software",
+        "ur": "Software wala AC over current fault"
+      },
+      "meaning": {
+        "en": "The inverter's own software detected over current on the AC side of the backup and common load output.",
+        "ur": "Inverter ke apne software ne backup aur common load output ke AC side par over current detect kiya."
+      },
+      "causes": [
+        {
+          "en": "Combined backup plus common load power is above the inverter rating.",
+          "ur": "Backup aur common load ki mil kar power inverter ki rating se upar hai."
+        },
+        {
+          "en": "AC current sensing wiring to the control board is loose.",
+          "ur": "Control board tak AC current sensing ki wiring loose hai."
+        },
+        {
+          "en": "Inrush from a large motor, chiller or compressor starting on the backup output.",
+          "ur": "Backup output par kisi bare motor, chiller ya compressor ke start ka inrush."
+        },
+        {
+          "en": "Three-phase load is very unbalanced, pushing current on one phase past its limit.",
+          "ur": "Three-phase load bahut unbalanced hai, jis se aik phase ka current uski limit cross kar gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC and DC, list every backup and common load in watts, and find the total.",
+          "ur": "AC aur DC off karke har backup aur common load ko watts mein likhein aur total nikalein."
+        },
+        {
+          "en": "Remove the largest load, power up again and see if F15 clears.",
+          "ur": "Sabse bhaari load hata dein, dobara power dein aur dekhein ke F15 clear hota hai ya nahi."
+        },
+        {
+          "en": "With the unit off, check the AC current sensor connector on the control board is fully seated.",
+          "ur": "Unit off karke check karein ke control board ka AC current sensor connector poora baitha hua hai."
+        },
+        {
+          "en": "Stagger the big three-phase loads so they do not all start together, or use a soft starter on the motor.",
+          "ur": "Bhaari three-phase loads ko alag alag chalu karein taake sath start na hon, ya motor par soft starter lagayein."
+        },
+        {
+          "en": "F15 reappears on a light balanced load: the current sensing circuit or firmware needs Deye service.",
+          "ur": "Halke aur balanced load par bhi F15 aaye to current sensing circuit ya firmware ke liye Deye service chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F16",
+      "aliases": [
+        "F16",
+        "AC leakage current fault",
+        "GFCI_Failure"
+      ],
+      "title": {
+        "en": "AC leakage current fault",
+        "ur": "AC leakage current fault, GFCI trigger hua"
+      },
+      "meaning": {
+        "en": "The GFCI/leakage detector has tripped on the AC side. The inverter shuts the AC output off until the leakage is found.",
+        "ur": "AC side par GFCI ya leakage detector trigger ho gaya hai. Inverter leakage dhoondne tak AC output band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "PV side cable or its ground connection is not correct.",
+          "ur": "PV side ka cable ya uska ground connection theek nahi hai."
+        },
+        {
+          "en": "A leaking appliance on the backup or common load is faulting to earth.",
+          "ur": "Backup ya common load par koi appliance earth ke sath leak kar rahi hai."
+        },
+        {
+          "en": "Moisture in a junction box, outdoor socket or AC outlet.",
+          "ur": "Junction box, outdoor socket ya AC outlet mein nama aa chuka hai."
+        },
+        {
+          "en": "The leakage current sensor or its detection circuit has drifted.",
+          "ur": "Leakage current sensor ya uska detection circuit drift kar gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the PV side cable ground connection first — this is the manual's own step 1.",
+          "ur": "Pehle PV side cable ka ground connection check karein, yehi manual ka step 1 hai."
+        },
+        {
+          "en": "Switch off and unplug loads on the backup and common load one by one, re-energising after each, to find the leaking item.",
+          "ur": "Backup aur common load ke loads ek ek karke band kar ke nikalein, har baar dobara power de kar, leak karne wala cheez dhoondhein."
+        },
+        {
+          "en": "Use a clamp meter on the earth/neutral conductor of the AC input and watch the leakage current in mA.",
+          "ur": "AC input ki earth ya neutral conductor par clamp meter lagayein aur leakage current mA mein dekhein."
+        },
+        {
+          "en": "Restart the system two or three times as the manual instructs.",
+          "ur": "Manual ke mutabiq system do ya teen baar restart karein."
+        },
+        {
+          "en": "Fault remains with everything unplugged: inspect the leakage sensor and detection circuit — board-level repair.",
+          "ur": "Sab kuch nikalne par bhi fault rahe to leakage sensor aur detection circuit dekhein, board level repair chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F18",
+      "aliases": [
+        "F18",
+        "AC over current fault of hardware",
+        "Tz_Ac_OverCurr_Fault"
+      ],
+      "title": {
+        "en": "AC over current fault of the hardware",
+        "ur": "Hardware wala AC over current fault"
+      },
+      "meaning": {
+        "en": "The hardware measured AC side over current, unlike F15 which is the software detection. Output is cut until it clears.",
+        "ur": "Hardware ne AC side par over current measure kiya hai, F15 software detection hai. Fault clear hone tak output band rehta hai."
+      },
+      "causes": [
+        {
+          "en": "Backup load plus common load power exceeds the allowed range.",
+          "ur": "Backup load aur common load ki power ijazat shuda range cross kar gayi."
+        },
+        {
+          "en": "The hardware over-current comparison point has drifted on this unit.",
+          "ur": "Is unit par hardware ka over current comparison point drift kar gaya hai."
+        },
+        {
+          "en": "Current sensor or its harness on the power board is faulty.",
+          "ur": "Power board ka current sensor ya uski harness kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the AC and DC switches and reduce the backup and common load first.",
+          "ur": "Pehle AC aur DC switch khol ke backup aur common load kam karein."
+        },
+        {
+          "en": "Clamp-meter each phase of the load and confirm the current is inside the rated output current.",
+          "ur": "Har phase ka load clamp meter se naalein aur check karein ke current rated output current ke andar hai."
+        },
+        {
+          "en": "Restart and check whether the unit returns to normal, as the manual's step 2 says.",
+          "ur": "Manual ke step 2 ke mutabiq restart karke dekhein ke unit normal par wapas aata hai ya nahi."
+        },
+        {
+          "en": "F18 on a light load points to the current sensor or power board — that is a board-level replacement.",
+          "ur": "Halkay load par F18 ka matlab hai ke current sensor ya power board kharab hai, board level replacement hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F20",
+      "aliases": [
+        "F20",
+        "DC over current fault of the hardware",
+        "Tz_Dc_OverCurr_Fault"
+      ],
+      "title": {
+        "en": "DC over current fault of the hardware",
+        "ur": "Hardware wala DC over current fault"
+      },
+      "meaning": {
+        "en": "Hardware over current on the DC side from PV or battery. In off-grid mode a very large startup load can also cause it.",
+        "ur": "PV ya battery se DC side par hardware over current. Off-grid mode mein bohat bare startup load par bhi ye aata hai."
+      },
+      "causes": [
+        {
+          "en": "PV module or battery connection is loose, shorted or on the wrong cable.",
+          "ur": "PV module ya battery ka connection loose, short ya galat cable par hai."
+        },
+        {
+          "en": "Inverter started with a very large off-grid load connected.",
+          "ur": "Inverter bohat bare off-grid load jure hote hue start hua."
+        },
+        {
+          "en": "DC current sensor or its detection circuit has failed.",
+          "ur": "DC current sensor ya uska detection circuit fail ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC and AC switches, wait one minute, then close them again to retry.",
+          "ur": "DC aur AC switch khol ke ek minute intezaar karein, phir band karke dobara try karein."
+        },
+        {
+          "en": "With DC switch open, check every PV and battery connector for full insertion and correct polarity.",
+          "ur": "DC switch khol ke har PV aur battery connector ki poori seating aur sahi polarity check karein."
+        },
+        {
+          "en": "If it tripped in off-grid startup, reduce the load power connected before retrying.",
+          "ur": "Agar off-grid startup par aaya tha to retry se pehle jura hua load power kam kar dein."
+        },
+        {
+          "en": "Measure PV and battery voltage with a multimeter and confirm both sit inside the manual's DC window.",
+          "ur": "Multimeter se PV aur battery voltage naalein aur confirm karein ke dono manual ke DC range ke andar hain."
+        },
+        {
+          "en": "Repetitive F20 with correct wiring and reduced load means the DC current sensor is faulty.",
+          "ur": "Wiring theek aur load kam hone par baar baar F20 ka matlab hai ke DC current sensor kharab hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F21",
+      "aliases": [
+        "F21",
+        "Tz_HV_Overcurr_fault"
+      ],
+      "title": {
+        "en": "BUS over current (Tz_HV_Overcurr_fault)",
+        "ur": "BUS over current, high voltage bus par"
+      },
+      "meaning": {
+        "en": "The DC busbar has drawn over current. The manual points at the PV input and battery current settings first.",
+        "ur": "DC busbar ne over current liya hai. Manual sab se pehle PV input aur battery current ki setting check karne ko kehta hai."
+      },
+      "causes": [
+        {
+          "en": "PV input current or battery current limit is set wrong for the fitted hardware.",
+          "ur": "PV input current ya battery current ki limit lagay huay hardware ke liye galat set hai."
+        },
+        {
+          "en": "Actual PV or battery current exceeds the value entered in the settings.",
+          "ur": "Asli PV ya battery current settings mein dali gayi value se zyada hai."
+        },
+        {
+          "en": "Busbar voltage sensing has drifted so the control loop over-drives the bus.",
+          "ur": "Busbar voltage sensing drift kar gaya hai jis se control loop bus par zyada current chala raha hai."
+        },
+        {
+          "en": "Fault repeats after a firmware update that does not match the hardware.",
+          "ur": "Firmware update ke baad fault dobara aaya jo hardware se match nahi karta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the AC and DC switches before entering any current setting.",
+          "ur": "Koi bhi current setting badalne se pehle AC aur DC switch off karein."
+        },
+        {
+          "en": "Read the actual PV string current and battery charge/discharge current with a clamp meter.",
+          "ur": "Clamp meter se asal PV string current aur battery charge ya discharge current naalein."
+        },
+        {
+          "en": "Compare those readings with the PV input current and battery current values in the settings menu and correct them to the real array.",
+          "ur": "Un readings ko settings menu ke PV input current aur battery current values se compare karke asal array ke mutabiq theek karein."
+        },
+        {
+          "en": "Restart the system two to three times and watch whether F21 clears.",
+          "ur": "System do se teen baar restart karein aur dekhein ke F21 clear hota hai ya nahi."
+        },
+        {
+          "en": "Fault stays with correct settings: check the firmware version matches the hardware, then send for service.",
+          "ur": "Settings theek hone par bhi fault rahe to check karein ke firmware version hardware se match karta hai, phir service ke liye bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F22",
+      "aliases": [
+        "F22",
+        "Tz_EmergStop_Fault"
+      ],
+      "title": {
+        "en": "Emergency stop / remote shutdown",
+        "ur": "Emergency stop ya remote shutdown"
+      },
+      "meaning": {
+        "en": "The inverter has been remotely shut down, so the manual's only instruction is that the inverter is remotely controlled and the installer must be contacted.",
+        "ur": "Inverter ko remotely band kiya gaya hai, is liye manual ka sirf itna kehta hai ke inverter remote control ho raha hai aur installer se rabta karein."
+      },
+      "causes": [
+        {
+          "en": "A stop command was sent from the Deye app, cloud or datalogger.",
+          "ur": "Deye app, cloud ya datalogger se stop command bheja gaya."
+        },
+        {
+          "en": "Generator or smart-switch dry contact is asserted by the site wiring.",
+          "ur": "Generator ya smart switch ka dry contact site wiring se assert kar diya gaya."
+        },
+        {
+          "en": "Smart meter link loss and the fail-safe action is set to stop.",
+          "ur": "Smart meter ka link kat gaya aur fail-safe action stop par set hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the Deye app or logger and look for a stop command; clear it before restarting.",
+          "ur": "Deye app ya logger khol ke stop command dhoondhein; restart se pehle use clear kar dein."
+        },
+        {
+          "en": "With power off, check the generator and smart-switch dry contacts for a shorted or miswired terminal.",
+          "ur": "Power off karke generator aur smart switch ke dry contacts ki short ya galat wiring check karein."
+        },
+        {
+          "en": "Power-cycle DC and AC and confirm whether the code stays away.",
+          "ur": "DC aur AC ko cycle karke confirm karein ke code dobara nahi aata."
+        },
+        {
+          "en": "If nothing was commanded, contact the installer as the manual says — this code is not a user-level repair.",
+          "ur": "Agar kisi ne koi command nahi diya to manual ke mutabiq installer se rabta karein, ye code user level par repair nahi hota."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F23",
+      "aliases": [
+        "F23",
+        "Leakage current fault",
+        "Tz_GFCI_OC_ current is transient over current"
+      ],
+      "title": {
+        "en": "Leakage current transient over current",
+        "ur": "Leakage current ka transient over current"
+      },
+      "meaning": {
+        "en": "A transient leakage current was detected. The manual's first check is the PV side cable ground connection, then two to three restarts.",
+        "ur": "Ek transient leakage current detect hua. Manual ka pehla check PV side cable ka ground connection hai, phir do se teen restart."
+      },
+      "causes": [
+        {
+          "en": "PV side cable ground connection is loose or not made at all.",
+          "ur": "PV side cable ka ground connection loose hai ya bana hi nahi."
+        },
+        {
+          "en": "Wet DC connectors or a PV junction box after rain, dust or fog.",
+          "ur": "Baarish, dhool ya dhund ke baad geele DC connectors ya PV junction box."
+        },
+        {
+          "en": "Damaged cable insulation touching the frame or the PE conductor.",
+          "ur": "Kharab cable insulation frame ya PE conductor ko chhu rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the PV side cable ground connection and re-make the earth termination properly.",
+          "ur": "PV side cable ka ground connection check karein aur earth termination dobara theek tareeqe se banayein."
+        },
+        {
+          "en": "Restart the system two to three times as the manual directs and note whether it stays clear.",
+          "ur": "Manual ke mutabiq system do se teen baar restart karein aur likhein ke fault nahi aata."
+        },
+        {
+          "en": "With DC isolated, insulation-test each PV string and compare with the module datasheet.",
+          "ur": "DC isolate karke har PV string ka insulation test karein aur module datasheet se compare karein."
+        },
+        {
+          "en": "Replace wet or heat-damaged DC connectors, then re-test before putting the array back.",
+          "ur": "Geele ya garmi se kharab DC connectors replace karein, phir array wapas lagane se pehle dobara test karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F24",
+      "aliases": [
+        "F24",
+        "DC insulation failure",
+        "DC_Insulation_Fault"
+      ],
+      "title": {
+        "en": "DC insulation failure (PV to earth)",
+        "ur": "DC insulation failure (PV se earth)"
+      },
+      "meaning": {
+        "en": "PV insulation to earth is too low. Deye removes the PV input; the manual's step 2 is checking the inverter PE cable.",
+        "ur": "PV ka earth ke saath insulation bohat kam hai. Deye PV input disconnect kar deta hai; manual ka step 2 inverter ki PE cable check karna hai."
+      },
+      "causes": [
+        {
+          "en": "PV panel-to-inverter connection is not firm or not correct.",
+          "ur": "PV panel se inverter ka connection mazboot ya sahi nahi hai."
+        },
+        {
+          "en": "The PE cable of the inverter is not connected to ground.",
+          "ur": "Inverter ki PE cable ground se juri nahi hui."
+        },
+        {
+          "en": "DC cable insulation broken by UV, heat, rodents or a sharp edge.",
+          "ur": "DC cable ki insulation UV, garmi, chuhe ya kisi tez dhaar se kharab hui."
+        },
+        {
+          "en": "PV string shorted to the module frame or a grounded rail.",
+          "ur": "PV string module frame ya grounded rail par short ho gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC switch and confirm the PV input is dead before any inspection.",
+          "ur": "DC switch khol ke confirm karein ke PV input dead hai, phir hi inspection shuru karein."
+        },
+        {
+          "en": "Check the inverter PE cable is connected to ground and the earth conductor is continuous.",
+          "ur": "Check karein ke inverter ki PE cable ground se juri hui hai aur earth conductor continuous hai."
+        },
+        {
+          "en": "Inspect every DC connector for full insertion, correct crimp and no water inside the housing.",
+          "ur": "Har DC connector ki poori seating, sahi crimp aur housing mein paani na hone ko check karein."
+        },
+        {
+          "en": "If the fault stays, test one string at a time with the strings disconnected from the inverter and replace the failing cable or connector.",
+          "ur": "Fault rahe to strings inverter se disconnect karke ek ek karke test karein aur fail hone wali cable ya connector replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F26",
+      "aliases": [
+        "F26",
+        "The DC busbar isunbalanced",
+        "BusUnbalance_Fault"
+      ],
+      "title": {
+        "en": "DC busbar is unbalanced",
+        "ur": "DC busbar unbalanced hai"
+      },
+      "meaning": {
+        "en": "The DC busbar halves are out of balance. The manual lists very different three-phase load and DC leakage current as the two triggers.",
+        "ur": "DC busbar ke do hisse balance mein nahi hain. Manual teen phase ka load bohat different hona aur DC leakage current ko do triggers batata hai."
+      },
+      "causes": [
+        {
+          "en": "Three-phase load power is very unbalanced between the phases.",
+          "ur": "Teen phase ka load power phases ke darmiyan bahut unbalanced hai."
+        },
+        {
+          "en": "DC leakage current is present in the PV or DC side.",
+          "ur": "PV ya DC side mein DC leakage current mojood hai."
+        },
+        {
+          "en": "Busbar sensing or the balancing control has drifted.",
+          "ur": "Busbar sensing ya balancing control drift kar gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait a while and check whether the code clears by itself.",
+          "ur": "Kuch der intezaar karein aur dekhein ke code khud clear hota hai ya nahi."
+        },
+        {
+          "en": "Balance the three phases: shift load from the heaviest phase to the lightest so currents match.",
+          "ur": "Teen phases ko balance karein: sabse bhaari phase se load hata kar sabse halkay phase par daalein taake current match kare."
+        },
+        {
+          "en": "Check for DC leakage current, because the manual lists it as a separate cause of F26.",
+          "ur": "DC leakage current check karein, kyunke manual usay F26 ki alag wajah batata hai."
+        },
+        {
+          "en": "Restart the system two to three times and re-read the code.",
+          "ur": "System do se teen baar restart karein aur code dobara dekhein."
+        },
+        {
+          "en": "Balanced loads and no leakage but F26 persists: the busbar sensing channel needs service.",
+          "ur": "Load balance ho aur leakage na ho phir bhi F26 rahe to busbar sensing channel ko service chahiye."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F29",
+      "aliases": [
+        "F29",
+        "Parallel CAN Bus fault",
+        "Parallel_Comm_Fault"
+      ],
+      "title": {
+        "en": "Parallel CAN bus fault",
+        "ur": "Parallel CAN bus par communication fail"
+      },
+      "meaning": {
+        "en": "The CAN communication between paralleled inverters is faulty or the communication address setting is wrong.",
+        "ur": "Parallel inverters ke darmiyan CAN communication kharab hai ya communication address ki setting ghalti hai."
+      },
+      "causes": [
+        {
+          "en": "Parallel communication cable connection is loose.",
+          "ur": "Parallel communication cable ka connection loose hai."
+        },
+        {
+          "en": "Hybrid inverter communication address setting is wrong or duplicated.",
+          "ur": "Hybrid inverter communication address ki setting ghalti ya duplicate hai."
+        },
+        {
+          "en": "One unit is still booting, so the bus is not yet complete.",
+          "ur": "Koi aik unit abhi boot ho raha hai, is liye bus mukammal nahi hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "In parallel mode, check the parallel communication cable connection at every unit.",
+          "ur": "Parallel mode mein har unit par parallel communication cable ka connection check karein."
+        },
+        {
+          "en": "Verify the hybrid inverter communication address setting is unique on each unit and correctly numbered.",
+          "ur": "Har unit par hybrid inverter communication address setting unique aur sahi number par check karein."
+        },
+        {
+          "en": "During the parallel startup period every unit reports F29 until all are ON — judge only after that.",
+          "ur": "Parallel startup ke dauran har unit F29 deta hai jab tak sab ON na hon — uske baad hi faisla karein."
+        },
+        {
+          "en": "If it still exists, power off the set, reseat every comms connector and re-check addressing.",
+          "ur": "Phir bhi rahe to set ka power off karke har comms connector dobara baithayein aur addressing dobara check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F34",
+      "aliases": [
+        "F34",
+        "AC Overcurrent fault",
+        "AC_Overload_Fault"
+      ],
+      "title": {
+        "en": "AC over current fault (backup load)",
+        "ur": "Backup load par AC overload fault"
+      },
+      "meaning": {
+        "en": "The backup load connected is outside the allowed power range, so the inverter drops out.",
+        "ur": "Jura hua backup load ijazat shuda power range se bahar hai, is liye inverter band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Backup load power is above the allowed range for this model.",
+          "ur": "Backup load ki power is model ki ijazat shuda range se upar hai."
+        },
+        {
+          "en": "Large inrush from a motor or compressor on the backup output.",
+          "ur": "Backup output par motor ya compressor ka bara inrush."
+        },
+        {
+          "en": "Parallel units are sharing the same load but the load is not divided.",
+          "ur": "Parallel units wohi load share kar rahe hain lekin load baant nahi gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the backup load connections and make sure the total is inside the allowed power range.",
+          "ur": "Backup load ke connections check karein aur confirm karein ke total ijazat shuda power range ke andar hai."
+        },
+        {
+          "en": "Open the AC and DC switches, remove the biggest load, then power up and re-check.",
+          "ur": "AC aur DC switch khol ke sabse bhaari load hata dein, phir power de kar dobara check karein."
+        },
+        {
+          "en": "Clamp-meter the backup output current in normal running.",
+          "ur": "Backup output ka current normal chalte hue clamp meter se naalein."
+        },
+        {
+          "en": "On parallel systems confirm the load is split between the units and each unit stays under its own rating.",
+          "ur": "Parallel system par confirm karein ke load units mein baanta hua hai aur har unit apni rating ke andar hai."
+        },
+        {
+          "en": "Fault with a small load points to the output current sensor, which needs board-level service.",
+          "ur": "Chhote load par fault ka matlab hai ke output current sensor kharab hai, board level service chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F41",
+      "aliases": [
+        "F41",
+        "Parallel system stop",
+        "Parallel_system_Stop"
+      ],
+      "title": {
+        "en": "Parallel system stop (one unit shut down)",
+        "ur": "Parallel system stop (aik unit band)"
+      },
+      "meaning": {
+        "en": "One hybrid inverter in the parallel set has shut down, so all the others report F41 and stop.",
+        "ur": "Parallel set mein aik hybrid inverter band ho gaya, is liye baqi sab F41 report kar ke ruk jate hain."
+      },
+      "causes": [
+        {
+          "en": "One parallel unit has shut down on any internal fault.",
+          "ur": "Koi aik parallel unit kisi bhi internal fault par band ho gaya."
+        },
+        {
+          "en": "One unit's DC switch is off or its supply is missing.",
+          "ur": "Kisi aik unit ka DC switch band hai ya usay supply nahi mil raha."
+        },
+        {
+          "en": "Communication address setting is duplicated across the set.",
+          "ur": "Set ke andar communication address ki setting duplicate hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the hybrid inverter working status on each unit's LCD one by one.",
+          "ur": "Har unit ke LCD par hybrid inverter ki working status ek ek karke check karein."
+        },
+        {
+          "en": "Find the unit that is in OFF state and clear its own fault code first.",
+          "ur": "OFF state mein jo unit hai use dhoondhein aur pehle uska apna fault code clear karein."
+        },
+        {
+          "en": "If all units are ON and F41 is still shown, power off the set and reseat the CAN and comms cabling.",
+          "ur": "Agar sab units ON hain aur phir bhi F41 dikh raha hai to set ka power off karke CAN aur comms wiring dobara baithayein."
+        },
+        {
+          "en": "Then restart from the master and confirm every unit joins the parallel set.",
+          "ur": "Phir master se restart karke confirm karein ke har unit parallel set mein shaamil ho gaya."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F42",
+      "aliases": [
+        "F42",
+        "AC line low voltage"
+      ],
+      "title": {
+        "en": "AC line low voltage",
+        "ur": "Grid ki AC line voltage kam hai"
+      },
+      "meaning": {
+        "en": "Grid AC voltage is out of the standard specification range, so the inverter stops grid-tied output.",
+        "ur": "Grid ka AC voltage standard specification range se bahar hai, is liye inverter grid output band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Actual grid AC voltage is below the specification range.",
+          "ur": "Asal grid ka AC voltage specification range se kam hai."
+        },
+        {
+          "en": "Grid AC cables are not firmly or correctly connected.",
+          "ur": "Grid ke AC cables mazboot ya sahi tarah se connected nahi hain."
+        },
+        {
+          "en": "Long or undersized AC cable causing a voltage drop at the inverter.",
+          "ur": "Lamba ya chhota AC cable inverter par voltage drop kar raha hai."
+        },
+        {
+          "en": "Grid protection window set tighter than the utility's actual variation.",
+          "ur": "Grid protection range utility ki asli variation se sakht kar di gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the AC voltage with a true-RMS meter at the inverter terminals and compare it with the specification range in the manual.",
+          "ur": "True-RMS meter se inverter terminals par AC voltage naalein aur manual ki specification range se compare karein."
+        },
+        {
+          "en": "Switch off power and re-tighten every grid AC cable terminal, checking L1/L2/N and PE for correct landing.",
+          "ur": "Power off karke har grid AC cable terminal dobara tighten karein aur L1, L2, N aur PE ki sahi jagah landing check karein."
+        },
+        {
+          "en": "If voltage is only low at the inverter, shorten or upsize the grid AC cable run.",
+          "ur": "Agar sirf inverter par voltage kam ho to grid AC cable ki lambai kam karein ya cable size barhayein."
+        },
+        {
+          "en": "Wait for the grid to return to normal and restart; contact Deye if the fault will not clear.",
+          "ur": "Grid normal hone ka intezaar karke restart karein; fault na hathe to Deye se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F46",
+      "aliases": [
+        "F46",
+        "backup battery fault"
+      ],
+      "title": {
+        "en": "Backup battery fault",
+        "ur": "Backup battery fault, battery theek nahi"
+      },
+      "meaning": {
+        "en": "The battery connected to the backup port is not healthy. Deye points at battery status, voltage, SOC and parameter mismatch.",
+        "ur": "Backup port se juri battery theek haal mein nahi hai. Deye battery status, voltage, SOC aur parameters ki mismatch ki taraf ishara karta hai."
+      },
+      "causes": [
+        {
+          "en": "Battery voltage or SOC is outside what the inverter accepts.",
+          "ur": "Battery voltage ya SOC inverter ki ijazat se bahar hai."
+        },
+        {
+          "en": "Battery parameters such as charge/discharge current or float voltage are not the same on all units.",
+          "ur": "Sab units par battery parameters jaise charge ya discharge current ya float voltage aik jaise nahi hain."
+        },
+        {
+          "en": "One parallel unit has a different battery type or capacity setting.",
+          "ur": "Kisi aik parallel unit par battery type ya capacity ki setting alag hai."
+        },
+        {
+          "en": "A cell in the pack has failed or the pack temperature is out of range.",
+          "ur": "Pack ki koi cell fail ho gayi hai ya pack temperature range se bahar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check each battery's status: measure its voltage and SOC and write them down for every unit.",
+          "ur": "Har battery ka status check karein: uska voltage aur SOC naalein aur har unit ka likh lein."
+        },
+        {
+          "en": "With DC off, compare the battery type, capacity, charge current and float voltage settings across all units and make them identical.",
+          "ur": "DC off karke sab units ka battery type, capacity, charge current aur float voltage setting compare karein aur sab ko aik jaisa kar dein."
+        },
+        {
+          "en": "Measure each battery's internal resistance or ask for its BMS history to find a failed cell.",
+          "ur": "Har battery ki internal resistance naalein ya failed cell dhoondne ke liye BMS ki history mangwayein."
+        },
+        {
+          "en": "If one pack is clearly worse, isolate that unit and service or replace that battery only — do not mix packs with different capacities.",
+          "ur": "Agar aik pack saaf tor par kharab ho to us unit ko alag kar ke sirf wohi battery service ya replace karein — alag capacity ke packs aik saath na lagayein."
+        },
+        {
+          "en": "Fault clears and stays away: if not, contact Deye as the manual instructs.",
+          "ur": "Fault clear ho jaye to theek hai; na hatne par manual ke mutabiq Deye se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F47",
+      "aliases": [
+        "F47",
+        "AC over frequency"
+      ],
+      "title": {
+        "en": "AC over frequency",
+        "ur": "Grid frequency zyada hai"
+      },
+      "meaning": {
+        "en": "Grid frequency is outside the specification range, so the inverter stops.",
+        "ur": "Grid frequency specification range se bahar hai, is liye inverter band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Actual grid frequency is out of the specification range.",
+          "ur": "Asal grid frequency specification range se bahar hai."
+        },
+        {
+          "en": "AC cables are not firmly or correctly connected.",
+          "ur": "AC cables mazboot ya sahi tarah se connected nahi hain."
+        },
+        {
+          "en": "Genset supply with an unstable governor, or a wrong 50/60 Hz grid type setting.",
+          "ur": "Unstable governor wala genset supply, ya 50 ya 60 Hz ki galat grid type setting."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the frequency with a clamp meter or multimeter in frequency mode at the AC input.",
+          "ur": "AC input par clamp meter ya multimeter ko frequency mode mein set karke frequency check karein."
+        },
+        {
+          "en": "Compare the reading against the frequency range in the manual specification.",
+          "ur": "Reading ko manual specification ke frequency range se compare karein."
+        },
+        {
+          "en": "Confirm the grid type / frequency setting matches the actual supply.",
+          "ur": "Confirm karein ke grid type aur frequency ki setting asal supply se match karti hai."
+        },
+        {
+          "en": "Switch off and re-tighten all AC cable terminals, then restart once the frequency is in range.",
+          "ur": "Power off karke sab AC cable terminals dobara tighten karein, phir frequency range mein aane par restart karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F48",
+      "aliases": [
+        "F48",
+        "AC lower frequency"
+      ],
+      "title": {
+        "en": "AC lower frequency",
+        "ur": "Grid frequency kam hai"
+      },
+      "meaning": {
+        "en": "Grid frequency is below the specification range, so the inverter stops.",
+        "ur": "Grid frequency specification range se neeche hai, is liye inverter band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Weak grid is dragging frequency below the window.",
+          "ur": "Kamzor grid frequency ko window se neeche gira raha hai."
+        },
+        {
+          "en": "AC cables are not firmly or correctly connected.",
+          "ur": "AC cables mazboot ya sahi tarah se connected nahi hain."
+        },
+        {
+          "en": "Genset running too slow, or 50/60 Hz grid type set against the real supply.",
+          "ur": "Genset bohat dheere chal raha hai, ya asal supply ke khilaf 50 ya 60 Hz grid type set hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the frequency at the AC input and compare it with the manual's specification range.",
+          "ur": "AC input par frequency naalein aur manual ki specification range se compare karein."
+        },
+        {
+          "en": "Check the grid type / frequency setting and set it to the real supply frequency.",
+          "ur": "Grid type aur frequency setting check karein aur use asal supply frequency par set karein."
+        },
+        {
+          "en": "If a genset feeds the inverter, adjust its speed and let the frequency settle before restart.",
+          "ur": "Agar genset inverter ko power de raha ho to uski speed theek karein aur restart se pehle frequency settle hone dein."
+        },
+        {
+          "en": "Re-tighten the AC cable terminals and restart when the grid recovers.",
+          "ur": "AC cable terminals dobara tighten karein aur grid theek hone par restart karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F55",
+      "aliases": [
+        "F55",
+        "DC busbar voltage is too high"
+      ],
+      "title": {
+        "en": "DC busbar voltage is too high",
+        "ur": "DC busbar voltage bohat zyada hai"
+      },
+      "meaning": {
+        "en": "The DC busbar voltage is above the limit. Deye tells you to check battery voltage and the PV input voltage range.",
+        "ur": "DC busbar voltage limit se upar hai. Deye kehta hai ke battery voltage aur PV input voltage ka range check karein."
+      },
+      "causes": [
+        {
+          "en": "Battery voltage is above the allowed DC window for this model.",
+          "ur": "Battery voltage is model ke ijazat shuda DC range se upar hai."
+        },
+        {
+          "en": "PV string voltage is above the maximum DC input, e.g. too many modules in series for cold conditions.",
+          "ur": "PV string ka voltage maximum DC input se upar hai, jaise thand mein modules ki series tadaad zyada ho."
+        },
+        {
+          "en": "Battery type or float voltage is set higher than the battery can safely hold.",
+          "ur": "Battery type ya float voltage battery se zyada set hai jo battery safely hold kar sakta hai."
+        },
+        {
+          "en": "PV input voltage detection has drifted and the unit is over-charging the bus.",
+          "ur": "PV input voltage detection drift kar gaya hai aur unit bus ko zyada charge kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With AC and DC off, measure the battery terminal voltage on a multimeter and compare it with the manual's DC window.",
+          "ur": "AC aur DC off karke multimeter se battery terminal voltage naalein aur manual ke DC range se compare karein."
+        },
+        {
+          "en": "Measure the PV string open-circuit voltage and confirm it is within the allowed PV input range on cold mornings.",
+          "ur": "PV string ki open-circuit voltage naalein aur confirm karein ke thand ke subah bhi ye ijazat shuda PV input range mein hai."
+        },
+        {
+          "en": "Reduce the number of PV modules in series if the cold-morning Voc exceeds the limit.",
+          "ur": "Agar thand ki subah Voc limit cross kare to series mein modules ki tadaad kam karein."
+        },
+        {
+          "en": "Check the battery type and float/charge voltage settings in the LCD match the fitted battery.",
+          "ur": "LCD mein battery type aur float ya charge voltage setting check karein ke lagay huay battery se match karti hai."
+        },
+        {
+          "en": "If measured voltages are inside the window, the busbar voltage detection circuit needs service.",
+          "ur": "Nikalay huay voltages range ke andar hon to busbar voltage detection circuit ko service chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F56",
+      "aliases": [
+        "F56",
+        "DC busbar voltage is too low",
+        "DC_VoltLow_Fault"
+      ],
+      "title": {
+        "en": "DC busbar voltage is too low",
+        "ur": "DC busbar voltage bohat kam hai"
+      },
+      "meaning": {
+        "en": "The DC busbar voltage is below the limit. Deye tells you to check the battery voltage and to charge from PV or grid.",
+        "ur": "DC busbar voltage limit se neeche hai. Deye kehta hai ke battery voltage check karein aur PV ya grid se charge karein."
+      },
+      "causes": [
+        {
+          "en": "Battery voltage has dropped below the allowed window, usually deep discharge.",
+          "ur": "Battery voltage ijazat shuda window se neeche gir gaya hai, aam tor par gehri discharge."
+        },
+        {
+          "en": "PV input voltage is too low to charge, e.g. early morning or shaded array.",
+          "ur": "PV input voltage charge karne ke liye bohat kam hai, jaise subah jaldi ya array par parda."
+        },
+        {
+          "en": "Battery fuse, connector or BMS contact is open.",
+          "ur": "Battery fuse, connector ya BMS ka contact khula hua hai."
+        },
+        {
+          "en": "Charge current setting is too low, so the bus never recovers.",
+          "ur": "Charge current setting bohat kam hai, is liye bus kabhi recover nahi hota."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the battery voltage is too low, using a multimeter on the battery terminals.",
+          "ur": "Multimeter se battery terminals par voltage check karein ke battery voltage bohat kam to nahi hai."
+        },
+        {
+          "en": "If the battery is too low, charge it with PV or grid exactly as the manual instructs.",
+          "ur": "Battery voltage kam ho to manual ke mutabiq use PV ya grid se charge karein."
+        },
+        {
+          "en": "Open the AC and DC switches and check the battery fuse, connector seating and BMS contact.",
+          "ur": "AC aur DC switch khol ke battery fuse, connector ki seating aur BMS contact check karein."
+        },
+        {
+          "en": "Confirm the charge current and float voltage settings are not set too low for the battery.",
+          "ur": "Confirm karein ke charge current aur float voltage ki setting battery ke liye bohat kam to nahi rakhi gayi."
+        },
+        {
+          "en": "Battery charged but the bus stays low: the busbar voltage sampling wiring is faulty.",
+          "ur": "Battery charge ho jaye phir bhi bus kam rahe to busbar voltage sampling wiring kharab hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F58",
+      "aliases": [
+        "F58",
+        "BMS communication fault",
+        "Battery_comm_Lose"
+      ],
+      "title": {
+        "en": "BMS communication fault",
+        "ur": "BMS se communication nahi hai"
+      },
+      "meaning": {
+        "en": "Communication between the hybrid inverter and the battery BMS is lost while BMS_Err-Stop is active.",
+        "ur": "BMS_Err-Stop active hone ke dauran hybrid inverter aur battery BMS ka communication nahi hai."
+      },
+      "causes": [
+        {
+          "en": "BMS_Err-Stop is enabled and the BMS has dropped the CAN link.",
+          "ur": "BMS_Err-Stop on hai aur BMS ne CAN link chhor diya hai."
+        },
+        {
+          "en": "Comms cable is loose, reversed or on the wrong pins.",
+          "ur": "Comms cable loose, ulti ya galat pins par hai."
+        },
+        {
+          "en": "BMS is asleep, on low SOC, or has latched its own fault.",
+          "ur": "BMS so raha hai, low SOC par hai ya apna fault latch kar chuka hai."
+        },
+        {
+          "en": "Battery protocol or type setting does not match the fitted BMS.",
+          "ur": "Battery protocol ya type ki setting lagay huay BMS se match nahi karti."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the comms cable seating and pinout at both the inverter and the BMS, then re-seat it.",
+          "ur": "Inverter aur BMS dono taraf comms cable ki seating aur pinout check karke use dobara baithayein."
+        },
+        {
+          "en": "Confirm the BMS is powered, awake and not stopped on its own low voltage or SOC limit.",
+          "ur": "Confirm karein ke BMS power on, jaag hua aur apne low voltage ya SOC limit par band nahi hua."
+        },
+        {
+          "en": "Set the battery type and protocol on the LCD to the exact model fitted.",
+          "ur": "LCD par battery type aur protocol woh exact model set karein jo lagaya hua hai."
+        },
+        {
+          "en": "If you do not want this stop behaviour, disable BMS_Err-Stop on the LCD — only after the pack is proven good.",
+          "ur": "Agar ye stop behaviour nahi chahiye to LCD se BMS_Err-Stop disable karein, magar sirf tab jab pack theek sabit ho."
+        },
+        {
+          "en": "Fault persists: the BMS module or its CAN transceiver is faulty and needs replacement.",
+          "ur": "Fault phir bhi rahe to BMS module ya uska CAN transceiver kharab hai aur replacement chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F62",
+      "aliases": [
+        "F62",
+        "DRMs0_stop"
+      ],
+      "title": {
+        "en": "DRMs0_stop (demand response active)",
+        "ur": "DRMs0_stop, demand response ne band kiya"
+      },
+      "meaning": {
+        "en": "The DRM port has commanded the inverter to stop. Deye states the DRM function is for the Australia market only.",
+        "ur": "DRM port ne inverter ko band karne ka command diya hai. Deye kehta hai ke DRM function sirf Australia market ke liye hai."
+      },
+      "causes": [
+        {
+          "en": "The utility or a demand response device has asserted the DRM pin.",
+          "ur": "Utility ya kisi demand response device ne DRM pin assert kar diya hai."
+        },
+        {
+          "en": "The DRM wiring on the DRS/D com port is shorted or connected to the wrong pin.",
+          "ur": "DRS ya D com port par DRM wiring short ho gayi hai ya galat pin se juri hai."
+        },
+        {
+          "en": "The DRM function is left enabled on a non-Australian installation with a floating or live DRS pin.",
+          "ur": "Non-Australian installation par DRM function chala chhuda hai aur DRS pin floating ya live hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the DRM function is active on the unit; the manual makes this step 2.",
+          "ur": "Check karein ke DRM function unit par active hai ya nahi, manual isay step 2 batata hai."
+        },
+        {
+          "en": "At the DRS port, measure voltage to ground with a multimeter; a live DRS/D pin is what commands the stop.",
+          "ur": "DRS port par multimeter se ground ke qeemat voltage naalein; live DRS ya D pin hi stop ka command deta hai."
+        },
+        {
+          "en": "If the site is not in Australia, disable DRM in the settings and disconnect the DRS wires, then confirm the pin is dead.",
+          "ur": "Agar site Australia mein nahi hai to settings mein DRM disable karein aur DRS wires disconnect karke confirm karein ke pin dead hai."
+        },
+        {
+          "en": "Restart the system; if it still cannot return to normal contact Deye as the manual says.",
+          "ur": "System restart karein; phir bhi normal par na aaye to manual ke mutabiq Deye se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "In Pakistan this code almost always means a mis-wired or floating DRS pin on the comms connector, not an actual utility demand response event.",
+        "ur": "Pakistan mein ye code aksar DRS pin ki galat wiring ya floating pin ka matlab hota hai, asal utility demand response event ka nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F63",
+      "aliases": [
+        "F63",
+        "ARC fault",
+        "ARC_Fault"
+      ],
+      "title": {
+        "en": "ARC fault (PV arc detection)",
+        "ur": "ARC fault, PV mein arc detect hua"
+      },
+      "meaning": {
+        "en": "The PV arc fault function has tripped. Clear the cable fault, then clear the alarm on the inverter.",
+        "ur": "PV arc fault function trigger ho gaya hai. Cable ka fault theek karein, phir inverter par alarm clear karein."
+      },
+      "causes": [
+        {
+          "en": "DC connector not fully mated, so contacts arc under load.",
+          "ur": "DC connector poora fit nahi hai, is liye load ke neeche contacts arc karte hain."
+        },
+        {
+          "en": "Burnt or badly crimped DC plug.",
+          "ur": "Jala hua ya kharab crimp kiya hua DC plug."
+        },
+        {
+          "en": "PV cable insulation damaged by UV, heat or rodents.",
+          "ur": "UV, garmi ya chuhe se PV cable ki insulation kharab hui."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the PV module cable connections and clear the fault on the cable side first.",
+          "ur": "Pehle PV module cable ke connections check karke us taraf ka fault theek karein."
+        },
+        {
+          "en": "Open the DC switch, confirm DC is dead, then pull and inspect every MC4 pair by hand.",
+          "ur": "DC switch khol ke DC dead confirm karein, phir har MC4 pair haath se nikal kar check karein."
+        },
+        {
+          "en": "Replace any connector that is loose, heat damaged or wrongly crimped.",
+          "ur": "Loose, garmi se kharab ya galat crimp wala connector replace kar dein."
+        },
+        {
+          "en": "After the cable fault is gone, clear the fault and seek Deye help if it will not clear.",
+          "ur": "Cable fault khatam hone ke baad fault clear karein aur na hatne par Deye se madad lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    },
+    {
+      "code": "F64",
+      "aliases": [
+        "F64",
+        "Heat sink high temperaturefailure",
+        "Heatsink_HighTemp_Fault"
+      ],
+      "title": {
+        "en": "Heat sink high temperature failure",
+        "ur": "Heat sink bohat garm ho gaya"
+      },
+      "meaning": {
+        "en": "The heat sink is too hot, so the inverter shut down. Deye asks you to check the ambient temperature and restart after 10 minutes.",
+        "ur": "Heat sink bohat garm hai, is liye inverter band ho gaya. Deye kehta hai ke aam temperature check karein aur 10 minute baad restart karein."
+      },
+      "causes": [
+        {
+          "en": "Working environment temperature is too high for the installation.",
+          "ur": "Installation ki jagah ka working environment temperature bohat zyada hai."
+        },
+        {
+          "en": "Fan is faulty or its cable is not connected, so no forced cooling.",
+          "ur": "Fan kharab hai ya uska cable connected nahi, is liye forced cooling nahi hai."
+        },
+        {
+          "en": "Heat sink is choked with dust or the unit is boxed in with no airflow.",
+          "ur": "Heat sink dhool se band hai ya unit aisa band hai ke hawa nahi aati."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the work environment temperature is too high; measure it where the unit is installed.",
+          "ur": "Check karein ke work environment temperature zyada to nahi hai; jahan unit laga hai wahan temperature naalein."
+        },
+        {
+          "en": "Turn the inverter off for 10 minutes and restart, as the manual instructs.",
+          "ur": "Manual ke mutabiq inverter ko 10 minute ke liye band karke restart karein."
+        },
+        {
+          "en": "With the unit off, check the fan connector and confirm the fan spins freely.",
+          "ur": "Unit off karke fan connector check karein aur confirm karein ke fan azaad chalta hai."
+        },
+        {
+          "en": "Vacuum the heat sink fins and keep the manual's clearance around the unit for airflow.",
+          "ur": "Heat sink ki fins vacuum karein aur unit ke aas paas manual ki clearance hawa ke liye rakhein."
+        },
+        {
+          "en": "Still tripping in a cool ventilated space: the NTC temperature sensor or the fan itself is faulty.",
+          "ur": "Thande aur hawa wale kamre mein bhi aaye to NTC temperature sensor ya fan kharab hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Hybrid Inverter SUN-5K-12K-SG04LP3-EU User Manual (instructions_sun-5-12k-sg04lp3-eu_240203_en)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.deyeinverter.com/deyeinverter/2024/02/03/instructions_sun-5-12k-sg04lp3-eu_240203_en.pdf"
+      }
+    }
+  ]
+}

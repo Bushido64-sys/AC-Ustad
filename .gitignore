@@ -1,0 +1,65 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# AC Ustad — knowledge base repo
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Generated exports (regenerate anytime)
+exports/*
+!exports/.gitkeep
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NOT COMMITTED — and why
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Third-party manufacturer manuals (11 MB of PDFs).
+# These are copyrighted vendor documents used as research inputs. The citations
+# that matter are recorded per code in data/ and per brand in docs/sources/.
+# Do not redistribute them in the repository.
+research-raw/*.pdf
+research-raw/*.doc
+research-raw/*.docx
+# Screenshots from vendor sites are kept: the two PNGs are our own captures of
+# the reference UI. If a vendor-branded asset ever needs to go, delete it here.
+
+# NOTE: app-pipeline/db/kb.sqlite, kb.json, brands.json, search-index.json and
+# data-manifest.json ARE deliberately committed, even though build_kb.py can
+# regenerate them.
+#   - the app builder's first step is to copy kb.sqlite into the Android assets,
+#     so a fresh clone must contain the exact validated database;
+#   - CI_CD.md's "data is up to date" gate is a `git diff --exit-code`, which can
+#     only work on tracked files;
+#   - the build is reproducible (build_kb.py honours KB_BUILT_AT), so these are
+#     never out of date by accident.
+# The source of truth remains data/*.json. If you change data, rebuild and commit
+# the app-pipeline artefacts in the same change.
+
+# The Android app is a SEPARATE repository. Its own copy of the database lives at
+# app/src/main/assets/db/kb.sqlite and is committed there. Never let the two
+# drift apart: both must match the SHA-256 in app-pipeline/data-manifest.json.
+
+# Android / Gradle (for when the app code joins this repo)
+.gradle/
+build/
+local.properties
+*.apk
+*.aab
+*.iml
+.idea/
+captures/
+.externalNativeBuild/
+.cxx/
+*.hprof
+
+# Editors
+.vscode/
+*.swp
+*~

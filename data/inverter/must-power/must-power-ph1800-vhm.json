@@ -1,0 +1,2207 @@
+{
+  "schemaVersion": 1,
+  "brandId": "must-power",
+  "series": {
+    "id": "must-power-ph1800-vhm",
+    "name": "PH1800 (PH18 3-5kW VHM on/off-grid hybrid, Plus / PRO variants)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*PH1800*",
+      "*PH18*",
+      "*PH1800*PRO*",
+      "*PH1800*Plus*",
+      "*PH1800*MPK*"
+    ],
+    "notes": "PH1800 is the on/off-grid (sell-capable) sibling of PV1800 and is a separate documented table - it is NOT merged with SERIES 1. Manual file 420-00333-00 is titled 'PH18 3-5KW VHM on-off-grid MPPT', i.e. grid-tie capable, which is the key behavioural difference from PV1800. IMPORTANT: the wording of every row in this table is identical to SERIES 1, including 03 = battery voltage too high only, and 52/58 WITHOUT the ECO temperature wording. So a PH1800 must not be given the ECO or VPM-II readings. Codes 80-90 for parallel operation are in SERIES 4. PH1800 PRO and PH1800 Plus official PDFs exist but are scanned images with no text layer, so their code tables are listed under NEGATIVE as unverified."
+  },
+  "codes": [
+    {
+      "code": "01",
+      "aliases": [
+        "01",
+        "Fault 01"
+      ],
+      "title": {
+        "en": "Fan locked while inverter was off",
+        "ur": "Fan off state mein atak gaya"
+      },
+      "meaning": {
+        "en": "The cooling fan failed to run while the inverter was switched off, so it is reported as a fan fault.",
+        "ur": "Inverter band karne par cooling fan nahi chala jis se use fan fault report kiya gaya."
+      },
+      "causes": [
+        {
+          "en": "Fan is jammed by dust or a foreign object.",
+          "ur": "Fan dust ya foreign object se jam hai."
+        },
+        {
+          "en": "Fan motor failed or its driver on the main board is open.",
+          "ur": "Fan motor kharab hai ya main board par uska driver open hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off, isolate AC, PV and battery, then open the unit and spin the fan by hand.",
+          "ur": "Off karke AC, PV aur battery disconnect karein, phir unit khol ke haath se fan ghumayein."
+        },
+        {
+          "en": "Replace the fan with the same size and rating, then test again.",
+          "ur": "Wahi size aur rating ka fan lagayein, phir dobara test karein."
+        },
+        {
+          "en": "If a new fan still reports 01, treat the fan drive circuit as a main-board repair.",
+          "ur": "Naye fan par bhi 01 aaye to fan drive circuit ko main board repair samajhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "02",
+      "aliases": [
+        "02",
+        "Fault 02"
+      ],
+      "title": {
+        "en": "Inverter transformer over temperature",
+        "ur": "Inverter transformer zyada garm ho gaya"
+      },
+      "meaning": {
+        "en": "An inverter component exceeded its over-temperature threshold and the unit shut down.",
+        "ur": "Inverter ka koi component temperature limit cross kar gaya aur unit band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Air flow is blocked or the anti-dust mesh is clogged.",
+          "ur": "Hawa ka rasta band hai ya anti-dust mesh ghus gaya hai."
+        },
+        {
+          "en": "Ambient temperature is too high.",
+          "ur": "Ambient temperature zyada hai."
+        },
+        {
+          "en": "Fan has failed so the heatsink is never cooled.",
+          "ur": "Fan kharab hai jis se heatsink kabhi thanda nahi hota."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery before opening the unit.",
+          "ur": "Unit kholne se pehle AC, PV aur battery disconnect karein."
+        },
+        {
+          "en": "Clean the fan and mesh and restore 200 mm side and 300 mm top clearances.",
+          "ur": "Fan aur mesh saaf karein aur 200 mm side, 300 mm upar clearance wapas karein."
+        },
+        {
+          "en": "Measure the heatsink NTC with a multimeter and replace it if open or far from its marked value.",
+          "ur": "Heatsink NTC multimeter se check karein aur khula ya marked value se door ho to replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "03",
+      "aliases": [
+        "03",
+        "Fault 03"
+      ],
+      "title": {
+        "en": "Battery voltage too high",
+        "ur": "Battery voltage zyada high hai"
+      },
+      "meaning": {
+        "en": "Battery voltage went above the safe charging limit. On PH1800 this row does NOT include the AC L/N reversed meaning that PV1800 ECO gives.",
+        "ur": "Battery voltage safe charging limit se upar chala gaya. PH1800 par ye row PV1800 ECO wali AC L/N reversed meaning nahi rakhti."
+      },
+      "causes": [
+        {
+          "en": "Too many cells in series for the configured battery voltage.",
+          "ur": "Configured battery voltage ke liye series mein zyada cells hain."
+        },
+        {
+          "en": "Battery type is set wrong on the LCD, so the charge voltage is too high.",
+          "ur": "LCD par battery type galat hai jis se charge voltage zyada hai."
+        },
+        {
+          "en": "An external charger is overcharging the same bank.",
+          "ur": "Usi bank par koi external charger overcharge kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure battery voltage with a multimeter; above about 58 V on a 48 V lead-acid pack means over-charge.",
+          "ur": "Battery voltage multimeter se check karein, 48 V lead-acid pack par 58 V se upar ka matlab over-charge hai."
+        },
+        {
+          "en": "Re-check Program 14 battery type and max charge voltage against the pack's spec sheet.",
+          "ur": "Program 14 battery type aur max charge voltage ko pack ki spec sheet se dobara match karein."
+        },
+        {
+          "en": "Remove any external charger from the battery and re-test the charge current.",
+          "ur": "Battery se koi bhi external charger nikaal kar charge current dobara test karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "04",
+      "aliases": [
+        "04",
+        "Fault 04"
+      ],
+      "title": {
+        "en": "Battery voltage too low",
+        "ur": "Battery voltage bahut low hai"
+      },
+      "meaning": {
+        "en": "Battery fell below the discharge cut-off, so the inverter shut down.",
+        "ur": "Battery discharge cut-off se neeche gir gaya jis se inverter band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Battery bank is deeply discharged or has lost capacity with age.",
+          "ur": "Battery bank poori tarah discharge hai ya umar ke saath capacity khota gaya hai."
+        },
+        {
+          "en": "Load exceeds what the bank can supply, draining it faster than it charges.",
+          "ur": "Load bank ki capacity se zyada hai aur battery charge se tez drain ho rahi hai."
+        },
+        {
+          "en": "Battery terminals are loose or corroded, giving a false low reading.",
+          "ur": "Battery terminals loose ya corroded hain jis se jhooti low reading aa rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the load and measure battery voltage; a 48 V pack cuts out around 40-42 V.",
+          "ur": "Load disconnect karke battery voltage check karein, 48 V pack aazman 40-42 V par cut out karti hai."
+        },
+        {
+          "en": "Clean and torque the battery terminals, then re-measure at the inverter's battery terminal.",
+          "ur": "Battery terminals saaf karke torque karein, phir inverter ke battery terminal par dobara voltage check karein."
+        },
+        {
+          "en": "Recharge on AC or PV and confirm charge current is actually flowing before reloading.",
+          "ur": "AC ya PV se recharge karein aur dobara load dene se pehle confirm karein ke charge current ja raha hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "05",
+      "aliases": [
+        "05",
+        "Fault 05"
+      ],
+      "title": {
+        "en": "Output short circuited",
+        "ur": "Output short circuit ho gaya"
+      },
+      "meaning": {
+        "en": "The AC output or load wiring has a short, so the inverter cut output to protect itself.",
+        "ur": "AC output ya load wiring short hai jis se inverter ne protection ke liye output cut kiya."
+      },
+      "causes": [
+        {
+          "en": "A load's insulation has failed and is touching the live conductor.",
+          "ur": "Kisi load ki insulation kharab ho kar live conductor ko chhu rahi hai."
+        },
+        {
+          "en": "AC output terminals are loose or a copper strand has bridged L and N.",
+          "ur": "AC output terminals loose hain ya copper ka taar L aur N ko jor raha hai."
+        },
+        {
+          "en": "A motor or pump has locked up and drawn very high current.",
+          "ur": "Motor ya pump jam ho gaya aur bohat high current kheech raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and isolate AC, PV and battery before touching wiring.",
+          "ur": "Wiring chhoone se pehle off karke AC, PV aur battery disconnect karein."
+        },
+        {
+          "en": "Disconnect all loads one at a time and re-power to find the shorted circuit.",
+          "ur": "Ek ek karke saare loads disconnect karein aur dobara power karke short wala circuit dhoondein."
+        },
+        {
+          "en": "With loads removed, check L to N, L to PE and N to PE continuity with a multimeter.",
+          "ur": "Loads nikal kar L se N, L se PE aur N se PE continuity multimeter se check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "06",
+      "aliases": [
+        "06",
+        "Fault 06"
+      ],
+      "title": {
+        "en": "Inverter output voltage is high",
+        "ur": "Inverter output voltage zyada high hai"
+      },
+      "meaning": {
+        "en": "The inverter measured an output voltage outside the acceptable window and shut down.",
+        "ur": "Inverter ne acceptable range se bahar output voltage paaya aur band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Battery is over-charged so output rides above the set value.",
+          "ur": "Battery over-charged hai jis se output set value se upar chala gaya hai."
+        },
+        {
+          "en": "Output voltage sense circuit or its feedback is faulty.",
+          "ur": "Output voltage sense circuit ya uska feedback kharab hai."
+        },
+        {
+          "en": "Poor grid quality or another unit back-feeding the same bus.",
+          "ur": "Grid quality kharab hai ya doosra unit usi bus par back-feed kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read output voltage on the LCD and compare it with the menu's output voltage setting.",
+          "ur": "LCD par output voltage parhein aur menu ki setting se compare karein."
+        },
+        {
+          "en": "Reduce the connected load, which is the manual's first action for 06/58.",
+          "ur": "Connected load kam karein, ye manual 06/58 ka pehla action hai."
+        },
+        {
+          "en": "If the reading is correct but the fault stays, the output sense circuit is a board-level repair.",
+          "ur": "Reading theek ho phir bhi fault rahe to output sense circuit board level repair hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "07",
+      "aliases": [
+        "07",
+        "Fault 07"
+      ],
+      "title": {
+        "en": "Overload time out",
+        "ur": "Overload ka time out"
+      },
+      "meaning": {
+        "en": "The unit ran above 110 percent of rated load until the overload timer expired.",
+        "ur": "Unit rated load ke 110 percent se upar chala jab tak overload timer khatam na hua."
+      },
+      "causes": [
+        {
+          "en": "Too many appliances connected at once.",
+          "ur": "Ek saath bohat zyada appliances lagi hain."
+        },
+        {
+          "en": "A compressor or chimer started and its inrush current tripped protection.",
+          "ur": "Compressor ya chiller start hua aur uska inrush current protection chala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery and remove loads progressively.",
+          "ur": "AC, PV aur battery disconnect karke loads ek ek karke kam karein."
+        },
+        {
+          "en": "Keep the running load under the model's rated power, checked in watts on the LCD.",
+          "ur": "LCD par watts mein chal rahe load ko model ki rated power se neeche rakhein."
+        },
+        {
+          "en": "Give air conditioners and fridges a 2-3 minute restart delay to avoid repeat surges.",
+          "ur": "Air conditioner aur fridge ko 2-3 minute restart delay dein taake dobara surge na ho."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "08",
+      "aliases": [
+        "08",
+        "Fault 08"
+      ],
+      "title": {
+        "en": "Inverter bus voltage is too high",
+        "ur": "Inverter bus voltage zyada high hai"
+      },
+      "meaning": {
+        "en": "The internal DC bus rose above its limit; the manual groups 08 with internal component failure.",
+        "ur": "Internal DC bus apni limit se upar chala gaya, manual 08 ko internal component failure ke saath group karta hai."
+      },
+      "causes": [
+        {
+          "en": "PV open-circuit voltage exceeds the model's maximum PV Voc.",
+          "ur": "PV open-circuit voltage model ke maximum PV Voc se zyada hai."
+        },
+        {
+          "en": "Bus soft-start circuit or bus voltage sense divider has failed.",
+          "ur": "Bus soft-start circuit ya bus voltage sense divider kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure PV Voc with a multimeter in the morning before start and compare with the manual's limit.",
+          "ur": "Subah start se pehle multimeter se PV Voc check karke manual ki limit se compare karein."
+        },
+        {
+          "en": "Isolate AC, PV and battery and check the bus sense divider resistors on the main board.",
+          "ur": "AC, PV aur battery disconnect karke main board par bus sense divider resistors check karein."
+        },
+        {
+          "en": "Treat 08/09/53/57 as a return-to-repair-centre group, as the manual states 'Internal components failed'.",
+          "ur": "08/09/53/57 ko repair centre wala group samajhein, manual kehta hai 'Internal components failed'."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "09",
+      "aliases": [
+        "09",
+        "Fault 09"
+      ],
+      "title": {
+        "en": "Bus soft start failed",
+        "ur": "Bus soft start fail ho gaya"
+      },
+      "meaning": {
+        "en": "The bus voltage did not build up during soft start and the unit locked out.",
+        "ur": "Soft start ke dauran bus voltage nahi bana aur unit lock out ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Soft-start relay or its driver has failed open.",
+          "ur": "Soft-start relay ya uska driver open fail ho gaya hai."
+        },
+        {
+          "en": "Bus stays low because the battery is flat or disconnected.",
+          "ur": "Battery flat ya disconnect hone se bus low rehta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Start the unit with only the battery connected to separate a battery problem from a board problem.",
+          "ur": "Sirf battery ke saath unit chala kar battery ka masla aur board ka masla alag karein."
+        },
+        {
+          "en": "Check battery voltage and the DC fuse in the battery path; replace a blown fuse with the same rating.",
+          "ur": "Battery voltage aur battery path ka DC fuse check karein, ube hua fuse usi rating ka lagayein."
+        },
+        {
+          "en": "If the bus builds but the fault repeats, the soft-start circuit is a main-board repair.",
+          "ur": "Bus ban jaye phir bhi fault dohraye to soft-start circuit main board repair hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "11",
+      "aliases": [
+        "11",
+        "Fault 11"
+      ],
+      "title": {
+        "en": "Main relay failed",
+        "ur": "Main relay fail ho gaya"
+      },
+      "meaning": {
+        "en": "The unit could not switch the main relay between inverter and grid paths.",
+        "ur": "Unit ne main relay inverter aur grid ke darmiyan switch nahi kar paya."
+      },
+      "causes": [
+        {
+          "en": "Relay coil is burnt or contacts have welded after an over-current event.",
+          "ur": "Relay coil jal gaya hai ya over-current ke baad contacts weld ho gaye hain."
+        },
+        {
+          "en": "Relay drive transistor or its flyback protection is open.",
+          "ur": "Relay drive transistor ya uska flyback protection open hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then listen for the relay click when power is applied.",
+          "ur": "AC, PV aur battery disconnect karke power dete waqt relay ki click check karein."
+        },
+        {
+          "en": "Measure relay coil resistance with a multimeter; open or burnt coil means replacing the relay.",
+          "ur": "Relay coil ka resistance multimeter se check karein, khula ya jala coil ka matlab relay replace karna."
+        },
+        {
+          "en": "Confirm the AC input breaker is not stuck and input voltage is in range before replacing the relay.",
+          "ur": "Relay replace karne se pehle confirm karein ke AC input breaker-atka nahi hai aur input voltage range mein hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "21",
+      "aliases": [
+        "21",
+        "Fault 21"
+      ],
+      "title": {
+        "en": "Inverter output voltage sensor error",
+        "ur": "Output voltage sensor mein ghalti"
+      },
+      "meaning": {
+        "en": "The output voltage sensing feedback is out of range so the unit cannot trust its output.",
+        "ur": "Output voltage sensing feedback range se bahar hai jis se unit apne output par bharosa nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Output voltage sense divider or its feedback trace is open.",
+          "ur": "Output voltage sense divider ya uski feedback trace open hai."
+        },
+        {
+          "en": "Sensing connector is loose or oxidised on the control board.",
+          "ur": "Control board par sensing connector loose ya oxidised hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery and reseat the output sense connector.",
+          "ur": "AC, PV aur battery disconnect karke output sense connector dobara baithayein."
+        },
+        {
+          "en": "Measure the sense divider resistors and replace any open or drifted part.",
+          "ur": "Sense divider resistors check karein aur khula ya bigda hua part replace karein."
+        },
+        {
+          "en": "This is a board-level fault; plan for a repair-centre visit.",
+          "ur": "Yeh board level ka fault hai, repair centre visit ka plan karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "22",
+      "aliases": [
+        "22",
+        "Fault 22"
+      ],
+      "title": {
+        "en": "Inverter grid voltage sensor error",
+        "ur": "Grid voltage sensor mein ghalti"
+      },
+      "meaning": {
+        "en": "The grid voltage sensing channel is reporting an implausible value.",
+        "ur": "Grid voltage sensing channel se implausible value aa raha hai."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage sense circuit is damaged or has drifted in calibration.",
+          "ur": "Grid voltage sense circuit damage hai ya calibration bigad gayi hai."
+        },
+        {
+          "en": "Loose or burnt connector in the grid sensing harness.",
+          "ur": "Grid sensing harness mein connector loose ya jala hua hai."
+        },
+        {
+          "en": "Floating neutral or shared neutral between units corrupts the sensing reference.",
+          "ur": "Floating neutral ya units ke darmiyan shared neutral sensing reference kharab kar deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage directly at the AC input terminal with a multimeter.",
+          "ur": "Multimeter se AC input terminal par seedha grid voltage check karein."
+        },
+        {
+          "en": "Isolate AC, PV and battery, reseat the grid sense connector and inspect for burnt pins.",
+          "ur": "AC, PV aur battery disconnect karke grid sense connector dobara baithayein aur jalay pins dekhein."
+        },
+        {
+          "en": "Check neutral and PE bonding at the distribution board, since PH1800 is grid-tie capable and a shared neutral is common.",
+          "ur": "Distribution board par neutral aur PE bonding check karein, PH1800 grid-tie capable hai aur shared neutral aam hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "23",
+      "aliases": [
+        "23",
+        "Fault 23"
+      ],
+      "title": {
+        "en": "Inverter output current sensor error",
+        "ur": "Output current sensor mein ghalti"
+      },
+      "meaning": {
+        "en": "The output current sensing channel is out of range or not credible.",
+        "ur": "Output current sensing channel range se bahar ya unreliable value de raha hai."
+      },
+      "causes": [
+        {
+          "en": "Output current sensor has failed or drifted out of calibration.",
+          "ur": "Output current sensor kharab ho gaya hai ya calibration bigad gayi hai."
+        },
+        {
+          "en": "Sensor supply or signal trace on the main board is open.",
+          "ur": "Main board par sensor supply ya signal trace open hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Compare the LCD load current with a clamp meter on the output conductor.",
+          "ur": "LCD ka load current aur output conductor par clamp meter ki reading compare karein."
+        },
+        {
+          "en": "Isolate AC, PV and battery and reseat the sensor connector and check its 5 V supply.",
+          "ur": "AC, PV aur battery disconnect karke sensor connector dobara baithayein aur uski 5 V supply check karein."
+        },
+        {
+          "en": "Replace the current sensor if it is stuck at zero or full scale.",
+          "ur": "Sensor zero ya full scale par atak ho to use replace karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "24",
+      "aliases": [
+        "24",
+        "Fault 24"
+      ],
+      "title": {
+        "en": "Inverter grid current sensor error",
+        "ur": "Grid current sensor mein ghalti"
+      },
+      "meaning": {
+        "en": "The grid current sensing channel is out of range or not credible.",
+        "ur": "Grid current sensing channel range se bahar ya unreliable value de raha hai."
+      },
+      "causes": [
+        {
+          "en": "Grid current sensor failed or lost its zero offset.",
+          "ur": "Grid current sensor kharab ho gaya hai ya zero offset bigad gaya hai."
+        },
+        {
+          "en": "CT or shunt wiring to the sensor is open or badly terminated.",
+          "ur": "Sensor se CT ya shunt wiring open ya behtareen terminate hui hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Compare the LCD grid current with a clamp meter on the grid cable simultaneously.",
+          "ur": "Usi waqt LCD ka grid current aur grid cable par clamp meter ki reading compare karein."
+        },
+        {
+          "en": "Isolate AC, PV and battery and check the sensor harness continuity and pins.",
+          "ur": "AC, PV aur battery disconnect karke sensor harness continuity aur pins check karein."
+        },
+        {
+          "en": "Replace the grid current sensor if open or pinned, then re-verify current direction.",
+          "ur": "Grid current sensor khula ya pinned ho to replace karke current direction dobara verify karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "25",
+      "aliases": [
+        "25",
+        "Fault 25"
+      ],
+      "title": {
+        "en": "Inverter load current sensor error",
+        "ur": "Load current sensor mein ghalti"
+      },
+      "meaning": {
+        "en": "The load current sensing channel is out of range or not credible.",
+        "ur": "Load current sensing channel range se bahar ya unreliable value de raha hai."
+      },
+      "causes": [
+        {
+          "en": "Load current sensor failed or its hall output is stuck.",
+          "ur": "Load current sensor kharab ho gaya hai ya hall output atak gaya hai."
+        },
+        {
+          "en": "Sensor ribbon damaged near the moving fan or connector loose.",
+          "ur": "Sensor ribbon fan ke paas damage hua hai ya connector loose hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery and reseat the load current sensor connector.",
+          "ur": "AC, PV aur battery disconnect karke load current sensor connector dobara baithayein."
+        },
+        {
+          "en": "Compare the LCD load current with a clamp meter on the AC output.",
+          "ur": "LCD ka load current aur AC output par clamp meter ki reading compare karein."
+        },
+        {
+          "en": "Replace the sensor if its output is stuck, keeping the board if the sensor tests good.",
+          "ur": "Sensor output atak ho to sensor replace karein, sensor theek nikle to board rakhein."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "26",
+      "aliases": [
+        "26",
+        "Fault 26"
+      ],
+      "title": {
+        "en": "Inverter grid over current error",
+        "ur": "Grid current zyada ho gaya"
+      },
+      "meaning": {
+        "en": "Grid current exceeded the allowed limit in either direction.",
+        "ur": "Grid current kisi bhi direction mein allowed limit se zyada ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Grid AC breaker or cable is too small for the inverter's current.",
+          "ur": "Grid AC breaker ya cable inverter ke current ke liye choti hai."
+        },
+        {
+          "en": "A large motor or compressor starts at the same time on the same supply.",
+          "ur": "Usi supply par koi bada motor ya compressor usi waqt start hota hai."
+        },
+        {
+          "en": "Weak supply or transformer makes current rise on the inverter side.",
+          "ur": "Kamzor supply ya transformer ki wajah se inverter side par current barh jaata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery and check grid cable size and breaker rating against the manual's table.",
+          "ur": "AC, PV aur battery disconnect karke manual ki table se grid cable size aur breaker rating check karein."
+        },
+        {
+          "en": "Stagger large motor and air conditioner starts so they do not switch with the inverter.",
+          "ur": "Bade motor aur air conditioner ke start stagger karein taake inverter ke saath ek saath na chalein."
+        },
+        {
+          "en": "Measure grid current with a clamp meter at peak load to see whether the source or the unit is the limit.",
+          "ur": "Peak load par clamp meter se grid current check karein ke limit source ki hai ya unit ki."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "27",
+      "aliases": [
+        "27",
+        "Fault 27"
+      ],
+      "title": {
+        "en": "Inverter radiator over temperature",
+        "ur": "Inverter radiator zyada garm"
+      },
+      "meaning": {
+        "en": "The inverter heatsink overheated and the unit shut down to protect its power devices.",
+        "ur": "Inverter ka heatsink zyada garm ho gaya aur unit ne apne power devices bachane ke liye band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Ventilation is blocked or the unit is inside a closed cabinet.",
+          "ur": "Ventilation band hai ya unit band cabinet ke andar hai."
+        },
+        {
+          "en": "Fan has failed or runs slow.",
+          "ur": "Fan kharab hai ya dheere chal raha hai."
+        },
+        {
+          "en": "Ambient temperature exceeds the unit's rating.",
+          "ur": "Ambient temperature unit ki rating se upar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then clean the heatsink fins and the fan.",
+          "ur": "AC, PV aur battery disconnect karke heatsink fins aur fan saaf karein."
+        },
+        {
+          "en": "Restore 200 mm side and 300 mm top and bottom clearances around the unit.",
+          "ur": "Unit ke aas paas 200 mm side aur 300 mm upar neeche clearance wapas karein."
+        },
+        {
+          "en": "Replace the fan if it does not spin freely, then re-run and watch for 27 within minutes.",
+          "ur": "Fan azaad na ghoome to replace karein, phir dobara chala kar minute mein 27 aata hai ya nahi dekhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "31",
+      "aliases": [
+        "31",
+        "Fault 31"
+      ],
+      "title": {
+        "en": "Solar charger battery voltage class error",
+        "ur": "Solar charger battery voltage class ki ghalti"
+      },
+      "meaning": {
+        "en": "The MPPT charger detected a battery voltage outside the configured battery class.",
+        "ur": "MPPT charger ne configured battery class se bahar battery voltage paayi."
+      },
+      "causes": [
+        {
+          "en": "Battery nominal voltage setting does not match the connected bank.",
+          "ur": "Battery nominal voltage setting connected bank se match nahi karti."
+        },
+        {
+          "en": "One battery string is disconnected or reversed.",
+          "ur": "Battery ka aik string disconnect ya reverse hai."
+        },
+        {
+          "en": "Lithium BMS has cut the pack so the charger sees an abnormal voltage.",
+          "ur": "Lithium BMS ne pack cut kar diya jis se charger ko abnormal voltage dikh rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure each battery string and confirm all are within 0.2 V of each other.",
+          "ur": "Har battery string check karein aur confirm karein ke sab 0.2 V ke andar hain."
+        },
+        {
+          "en": "Re-set the battery nominal voltage to the bank's real series voltage, then restart.",
+          "ur": "Battery nominal voltage bank ki asal series voltage par set karke restart karein."
+        },
+        {
+          "en": "Check every string's polarity with a multimeter before reconnecting.",
+          "ur": "Reconnect karne se pehle multimeter se har string ki polarity check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "32",
+      "aliases": [
+        "32",
+        "Fault 32"
+      ],
+      "title": {
+        "en": "Solar charger current sensor error",
+        "ur": "Solar charger current sensor mein ghalti"
+      },
+      "meaning": {
+        "en": "The MPPT charger's current sensing is out of range, so solar charging is stopped.",
+        "ur": "MPPT charger ka current sensing range se bahar hai jis se solar charging band ho gayi."
+      },
+      "causes": [
+        {
+          "en": "Solar charge current sensor failed or drifted.",
+          "ur": "Solar charge current sensor kharab ho gaya hai ya bigad gaya hai."
+        },
+        {
+          "en": "Sensor harness or connector on the charger board is open or loose.",
+          "ur": "Charger board par sensor harness ya connector open ya loose hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery and reseat the solar current sensor connector.",
+          "ur": "AC, PV aur battery disconnect karke solar current sensor connector dobara baithayein."
+        },
+        {
+          "en": "Compare the LCD PV charging current with a clamp meter on the PV cable.",
+          "ur": "LCD ka PV charging current aur PV cable par clamp meter ki reading compare karein."
+        },
+        {
+          "en": "Replace the current sensor if it reads open or pinned.",
+          "ur": "Current sensor khula ya pinned ho to replace karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "33",
+      "aliases": [
+        "33",
+        "Fault 33"
+      ],
+      "title": {
+        "en": "Solar charger current is uncontrollable",
+        "ur": "Solar charger current control mein nahi"
+      },
+      "meaning": {
+        "en": "The MPPT current control loop has lost control and shut the charger down.",
+        "ur": "MPPT current control loop control kho gaya aur charger band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "PV current went far above the configured maximum solar charge current.",
+          "ur": "PV current configured maximum solar charge current se kaafi upar chala gaya."
+        },
+        {
+          "en": "Current control driver or its sensing resistor network has failed.",
+          "ur": "Current control driver ya uska sensing resistor network kharab ho gaya."
+        },
+        {
+          "en": "PV array miswired so several strings feed one MPPT input.",
+          "ur": "PV array galat wired hai aur kai strings aik MPPT input ko feed kar rahi hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the array's Voc and Isc stay under the manual's limits for this model.",
+          "ur": "Confirm karein ke array ki Voc aur Isc manual ki is model ki limits ke andar hain."
+        },
+        {
+          "en": "Lower the maximum solar charge current on the LCD and restart to see if 33 clears.",
+          "ur": "LCD par maximum solar charge current kam karke restart karein aur dekhein ke 33 hatta hai ya nahi."
+        },
+        {
+          "en": "Power down and inspect the current sense divider and driver transistor with a multimeter.",
+          "ur": "Power down karke current sense divider aur driver transistor multimeter se check karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "41",
+      "aliases": [
+        "41",
+        "Fault 41"
+      ],
+      "title": {
+        "en": "Inverter grid voltage is low",
+        "ur": "Inverter grid voltage low hai"
+      },
+      "meaning": {
+        "en": "Incoming grid voltage fell below the acceptable window, so the unit left grid mode.",
+        "ur": "Aane wala grid voltage acceptable range se neeche gir gaya jis se unit grid mode se bahar aa gaya."
+      },
+      "causes": [
+        {
+          "en": "Utility or generator supply has sagged, or a large motor is starting on the same line.",
+          "ur": "Utility ya generator supply gir gaya, ya usi line par bada motor start ho raha hai."
+        },
+        {
+          "en": "Grid AC input cable is too thin or too long, causing a drop at the inverter terminals.",
+          "ur": "Grid AC input cable patli ya lambi hai jis se inverter terminal par drop hota hai."
+        },
+        {
+          "en": "AC input voltage range is set to a narrow UPS window instead of wide.",
+          "ur": "AC input voltage range narrow UPS window par set hai, wide ke bajaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage at the inverter's AC input terminal, not at the meter.",
+          "ur": "Grid voltage meter par nahi, inverter ke AC input terminal par check karein."
+        },
+        {
+          "en": "Widen the AC input voltage range to the wide appliance setting if the load allows it.",
+          "ur": "AC input voltage range wide appliance setting par karein agar load ijazat de."
+        },
+        {
+          "en": "Upsize the grid AC cable and breaker per the manual's cable table to remove the drop.",
+          "ur": "Manual ki cable table ke mutabiq grid AC cable aur breaker upgrade karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "42",
+      "aliases": [
+        "42",
+        "Fault 42"
+      ],
+      "title": {
+        "en": "Inverter grid voltage is high",
+        "ur": "Inverter grid voltage high hai"
+      },
+      "meaning": {
+        "en": "Incoming grid voltage rose above the acceptable window, so the unit left grid mode.",
+        "ur": "Aane wala grid voltage acceptable range se upar chala gaya jis se unit grid mode se bahar aa gaya."
+      },
+      "causes": [
+        {
+          "en": "Utility is over-voltage, or a generator is running without an AVR.",
+          "ur": "Utility over-voltage hai ya generator bina AVR ke chal raha hai."
+        },
+        {
+          "en": "Several grid-tied inverters are back-feeding the same bus.",
+          "ur": "Kai grid-tied inverters usi bus par back-feed kar rahe hain."
+        },
+        {
+          "en": "Neutral to earth shift in the building inflates the measured phase voltage.",
+          "ur": "Building mein neutral se earth shift measured phase voltage barha deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage at the inverter terminal over several minutes to confirm it is really over.",
+          "ur": "Kai minute tak inverter terminal par grid voltage check karein taake confirm ho ke woh sach mein zyada hai."
+        },
+        {
+          "en": "If a generator feeds the unit, confirm the generator has a regulated AVR output.",
+          "ur": "Generator unit ko feed kar raha ho to regulated AVR output confirm karein."
+        },
+        {
+          "en": "Check PE and neutral bonding so a shift is not inflating the reading.",
+          "ur": "PE aur neutral bonding check karein taake shift reading na barhaye."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "43",
+      "aliases": [
+        "43",
+        "Fault 43"
+      ],
+      "title": {
+        "en": "Inverter grid under frequency",
+        "ur": "Inverter grid frequency low hai"
+      },
+      "meaning": {
+        "en": "Grid frequency fell below the accepted band, so the unit disconnected from grid.",
+        "ur": "Grid frequency accepted range se neeche gir gayi jis se unit grid se disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Utility or generator is running at a low frequency.",
+          "ur": "Utility ya generator low frequency par chal raha hai."
+        },
+        {
+          "en": "Generator is overloaded and has dropped its speed.",
+          "ur": "Generator overload ho kar speed gira chuka hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read grid frequency on the LCD and compare with 50 Hz for the local supply.",
+          "ur": "LCD par grid frequency dekhein aur local supply ke 50 Hz se compare karein."
+        },
+        {
+          "en": "If a generator is the source, reduce load so it holds frequency, then restart.",
+          "ur": "Source generator ho to load kam karke frequency stable karein, phir restart karein."
+        },
+        {
+          "en": "Let the unit retry automatically once frequency returns to band.",
+          "ur": "Frequency wapas aate hi unit ko khud retry karne dein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "44",
+      "aliases": [
+        "44",
+        "Fault 44"
+      ],
+      "title": {
+        "en": "Inverter grid over frequency",
+        "ur": "Inverter grid frequency high hai"
+      },
+      "meaning": {
+        "en": "Grid frequency rose above the accepted band, so the unit disconnected from grid.",
+        "ur": "Grid frequency accepted range se upar chali gayi jis se unit grid se disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Generator is running at too high a frequency or its governor has failed.",
+          "ur": "Generator bohat high frequency par chal raha hai ya uska governor kharab hai."
+        },
+        {
+          "en": "Utility supply frequency is genuinely out of the national band.",
+          "ur": "Utility supply ki frequency wakai national range se bahar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check frequency at the LCD and at the meter to know which device is wrong.",
+          "ur": "LCD aur meter dono par frequency check karein taake pata chale konsi device ghalat hai."
+        },
+        {
+          "en": "If a generator is the source, service its governor or AVR instead of changing inverter settings.",
+          "ur": "Source generator ho to inverter settings badalne ke bajaye governor ya AVR service karwayein."
+        },
+        {
+          "en": "Allow automatic retry before touching any wiring.",
+          "ur": "Wiring chhoone se pehle automatic retry hone dein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "51",
+      "aliases": [
+        "51",
+        "Fault 51"
+      ],
+      "title": {
+        "en": "Inverter over current protection error",
+        "ur": "Inverter over current protection"
+      },
+      "meaning": {
+        "en": "Output current exceeded the protection limit because of a surge or overload.",
+        "ur": "Surge ya overload ki wajah se output current protection limit cross kar gaya."
+      },
+      "causes": [
+        {
+          "en": "A motor, compressor or pump started with high inrush current.",
+          "ur": "Motor, compressor ya pump high inrush current ke saath start hua."
+        },
+        {
+          "en": "AC output is shorted, or too many loads are connected.",
+          "ur": "AC output short hai ya bohat zyada loads lagi hain."
+        },
+        {
+          "en": "Load rating is mismatched with the inverter's output current.",
+          "ur": "Load rating inverter ke output current se match nahi karti."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the unit once, as the manual instructs for 51.",
+          "ur": "Manual ke mutabiq unit ek baar restart karein."
+        },
+        {
+          "en": "If it returns, reduce load by switching equipment off one at a time.",
+          "ur": "Wapas aaye to equipment ek ek karke band kar ke load kam karein."
+        },
+        {
+          "en": "Compare the load's rated current with the inverter's output current.",
+          "ur": "Load ka rated current inverter ke output current se compare karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "52",
+      "aliases": [
+        "52",
+        "Fault 52"
+      ],
+      "title": {
+        "en": "Inverter bus voltage is too low",
+        "ur": "Inverter bus voltage bahut low hai"
+      },
+      "meaning": {
+        "en": "The internal DC bus is too low to run the inverter stage. PH1800 does NOT add the component-temperature meaning that PV1800 ECO gives.",
+        "ur": "Internal DC bus inverter stage chalane ke liye bahut low hai. PH1800 par PV1800 ECO wali component-temperature meaning nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Battery bank is deeply discharged or a string has opened.",
+          "ur": "Battery bank poori tarah discharge hai ya koi string khul gayi hai."
+        },
+        {
+          "en": "DC/DC boost stage or bus capacitor is faulty.",
+          "ur": "DC/DC boost stage ya bus capacitor kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter with only the battery connected, PV and AC isolated.",
+          "ur": "Sirf battery ke saath inverter restart karein, PV aur AC disconnect karke."
+        },
+        {
+          "en": "Measure battery voltage and the DC fuse in the battery path; replace a blown fuse with the same rating.",
+          "ur": "Battery voltage aur battery path ka DC fuse check karein, ube hua fuse usi rating ka lagayein."
+        },
+        {
+          "en": "If it continues with a healthy battery, the manual directs a main-board check of the boost and inverter stages.",
+          "ur": "Sehatar battery par bhi rahe to manual boost aur inverter stages ka main board check karne kehta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "53",
+      "aliases": [
+        "53",
+        "Fault 53"
+      ],
+      "title": {
+        "en": "Inverter soft start failed",
+        "ur": "Inverter soft start fail"
+      },
+      "meaning": {
+        "en": "The inverter stage did not ramp up its output; grouped with internal component failure.",
+        "ur": "Inverter stage ne output ramp up nahi kiya, internal component failure ke saath group kiya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Soft-start resistor or relay on the main board has failed.",
+          "ur": "Main board par soft-start resistor ya relay kharab ho gaya hai."
+        },
+        {
+          "en": "Bus voltage too low because the battery is flat.",
+          "ur": "Battery flat hone se bus voltage bahut low hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, measure battery voltage and recharge the bank before retrying.",
+          "ur": "AC, PV aur battery disconnect karke battery voltage check karein aur dobara try se pehle recharge karein."
+        },
+        {
+          "en": "Inspect the soft-start resistor and relay with a multimeter and replace open or burnt parts.",
+          "ur": "Soft-start resistor aur relay multimeter se check karke khula ya jala part replace karein."
+        },
+        {
+          "en": "Plan for a board-level repair, since 08/09/53/57 is the manual's internal-failure group.",
+          "ur": "Board level repair ka plan karein, 08/09/53/57 manual ka internal-failure group hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "55",
+      "aliases": [
+        "55",
+        "Fault 55"
+      ],
+      "title": {
+        "en": "Over DC voltage in AC output",
+        "ur": "AC output par DC voltage zyada hai"
+      },
+      "meaning": {
+        "en": "DC is present on the AC output, described by the manual as unbalanced output voltage.",
+        "ur": "AC output par DC mojood hai, manual isay unbalanced output voltage kehta hai."
+      },
+      "causes": [
+        {
+          "en": "A snubber or filter capacitor has failed and passes DC to the output.",
+          "ur": "Snubber ya filter capacitor kharab ho kar output tak DC pass kar raha hai."
+        },
+        {
+          "en": "One inverter IGBT or MOSFET is damaged so its half bridge is asymmetric.",
+          "ur": "Aik inverter IGBT ya MOSFET damage hua hai jis se half bridge asymmetric hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then measure DC volts on the AC output with the meter on the DC range.",
+          "ur": "AC, PV aur battery disconnect karke meter DC range par set karke AC output par DC voltage check karein."
+        },
+        {
+          "en": "Check output filter and snubber capacitors on the main board for short or open.",
+          "ur": "Main board par output filter aur snubber capacitors ko short ya open check karein."
+        },
+        {
+          "en": "If a power device is damaged, replace all devices in that bridge, not just the failed one.",
+          "ur": "Power device damage ho to us bridge ke tamam devices replace karein, sirf kharab wala nahi."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "56",
+      "aliases": [
+        "56",
+        "Fault 56"
+      ],
+      "title": {
+        "en": "Battery connection is open",
+        "ur": "Battery connection open hai"
+      },
+      "meaning": {
+        "en": "The unit cannot see the battery bank, which usually means an open connection or a burnt DC fuse.",
+        "ur": "Unit battery bank ko nahi dekh pa raha, aam tor par open connection ya jula DC fuse."
+      },
+      "causes": [
+        {
+          "en": "Battery cable is not connected right, or a ring terminal has come off.",
+          "ur": "Battery cable theek connected nahi ya ring terminal nikal gaya hai."
+        },
+        {
+          "en": "The DC fuse in the battery path is burnt.",
+          "ur": "Battery path ka DC fuse jal chuka hai."
+        },
+        {
+          "en": "A battery string is open because a cell failed.",
+          "ur": "Battery string khuli hai kyun ke aik cell kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the battery cable connection first.",
+          "ur": "Pehle battery cable connection check karein."
+        },
+        {
+          "en": "Test the DC fuse with a multimeter continuity test and replace with the exact same rating.",
+          "ur": "DC fuse ko multimeter continuity test se check karke bilkul usi rating ka lagayein."
+        },
+        {
+          "en": "Measure each battery string and cell to find the open string or dead cell.",
+          "ur": "Har battery string aur cell check kar ke khula string ya kharab cell dhoondein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "57",
+      "aliases": [
+        "57",
+        "Fault 57"
+      ],
+      "title": {
+        "en": "Inverter control current sensor error",
+        "ur": "Control current sensor mein ghalti"
+      },
+      "meaning": {
+        "en": "The control board's current sensing channel failed; grouped with internal component failure.",
+        "ur": "Control board ka current sensing channel kharab ho gaya, internal component failure ke saath group kiya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Control board current sense resistor or amplifier has failed.",
+          "ur": "Control board ka current sense resistor ya amplifier kharab ho gaya hai."
+        },
+        {
+          "en": "Sensing connector is loose or oxidised.",
+          "ur": "Sensing connector loose ya oxidised hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery and reseat the control board current sense connector.",
+          "ur": "AC, PV aur battery disconnect karke control board ka current sense connector dobara baithayein."
+        },
+        {
+          "en": "Check the current sense resistor network and replace open or drifted resistors.",
+          "ur": "Current sense resistor network check karke khula ya bigda resistor replace karein."
+        },
+        {
+          "en": "Treat 08/09/53/57 as a return-to-repair-centre group per the manual.",
+          "ur": "Manual ke mutabiq 08/09/53/57 ko repair centre wala group samajhein."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "58",
+      "aliases": [
+        "58",
+        "Fault 58"
+      ],
+      "title": {
+        "en": "Inverter output voltage is too low",
+        "ur": "Inverter output voltage bahut low hai"
+      },
+      "meaning": {
+        "en": "Output voltage fell below the acceptable window. On PH1800 this row does NOT include the component-temperature meaning that PV1800 ECO gives.",
+        "ur": "Output voltage acceptable range se neeche gir gaya. PH1800 par is row mein PV1800 ECO wali component-temperature meaning nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Battery is deeply discharged so output cannot be held.",
+          "ur": "Battery poori tarah discharge hai jis se output nahi tikka sakta."
+        },
+        {
+          "en": "Output voltage sense circuit has drifted, causing a false low trip.",
+          "ur": "Output voltage sense circuit bigad gaya hai jis se jhooti low trip ho rahi hai."
+        },
+        {
+          "en": "Load draws more than the inverter can supply.",
+          "ur": "Load inverter ki capacity se zyada kheech raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load and restart, then measure battery voltage.",
+          "ur": "Connected load kam karke restart karein, phir battery voltage check karein."
+        },
+        {
+          "en": "Recharge the bank if battery voltage is below the discharge cut-off.",
+          "ur": "Battery voltage discharge cut-off se neeche ho to bank recharge karein."
+        },
+        {
+          "en": "If load and battery are healthy, return the unit to the repair centre as the manual's 06/58 row states.",
+          "ur": "Load aur battery sehatar hon to manual ki 06/58 row ke mutabiq unit repair centre bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "61",
+      "aliases": [
+        "61",
+        "Warning 61"
+      ],
+      "title": {
+        "en": "Warning: fan locked while inverter is on",
+        "ur": "Warning: fan on state mein atka"
+      },
+      "meaning": {
+        "en": "The fan stalled after the inverter was already running; a warning, not a fault.",
+        "ur": "Inverter chal raha tha aur uske baad fan atak gaya, ye warning hai fault nahi."
+      },
+      "causes": [
+        {
+          "en": "Fan slowed by dust, hair or insects pulled in through the vents.",
+          "ur": "Vents se kheenchay gaye dust, baal ya keedhe fan ko slow kar dete hain."
+        },
+        {
+          "en": "Fan bearings worn so the motor draws excessive current.",
+          "ur": "Fan ke bearings kharab ho gaye aur motor bohat zyada current kheech raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Recognise the display state: the red Fault LED flashes for a warning and is solid for a fault.",
+          "ur": "Display state pehchanein, warning par red Fault LED flashing hai aur fault par solid."
+        },
+        {
+          "en": "At the next safe window, isolate AC, PV and battery and clean the fan and vents.",
+          "ur": "Agli safe opportunity par AC, PV aur battery disconnect karke fan aur vents saaf karein."
+        },
+        {
+          "en": "Replace the fan if it is noisy, slow or not spinning freely.",
+          "ur": "Fan shor machata ho, slow ho ya azaad na ghoome to replace karein."
+        }
+      ],
+      "severity": "info",
+      "display": "indoor",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "62",
+      "aliases": [
+        "62",
+        "Warning 62"
+      ],
+      "title": {
+        "en": "Warning: second fan locked while on",
+        "ur": "Warning: doosra fan on state mein atka"
+      },
+      "meaning": {
+        "en": "The unit's second fan stalled while running; a warning.",
+        "ur": "Unit ka doosra fan chalte hue atka gaya, ye warning hai."
+      },
+      "causes": [
+        {
+          "en": "Second fan is jammed by dust or its bearing has seized.",
+          "ur": "Doosra fan dust se jam hai ya bearing seize ho gaya hai."
+        },
+        {
+          "en": "Second fan's supply or driver is weak, so it stalls under load.",
+          "ur": "Doosre fan ki supply ya driver kamzor hai jis se load par atak jaata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check both fans physically; the 62 row simply states the second fan is locked while on.",
+          "ur": "Dono fans dekh kar check karein, 62 row kehti hai ke doosra fan on hone par atka hai."
+        },
+        {
+          "en": "Isolate AC, PV and battery, then clean or replace the second fan with the same rating.",
+          "ur": "AC, PV aur battery disconnect karke doosre fan ko saaf ya usi rating se replace karein."
+        },
+        {
+          "en": "Verify both fans spin from a cold start, because a stalled fan escalates into fault 02 or 27.",
+          "ur": "Cold start par dono fans ghoomne ka check karein, atka fan baad mein fault 02 ya 27 ban sakta hai."
+        }
+      ],
+      "severity": "info",
+      "display": "indoor",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "63",
+      "aliases": [
+        "63",
+        "Warning 63"
+      ],
+      "title": {
+        "en": "Warning: battery is over-charged",
+        "ur": "Warning: battery over-charge"
+      },
+      "meaning": {
+        "en": "Battery voltage exceeded the normal charging window, so charging is limited.",
+        "ur": "Battery voltage normal charging window se upar chala gaya jis se charging limit ho gayi."
+      },
+      "causes": [
+        {
+          "en": "Battery type is set wrong in the LCD menu, so charge voltage is too high.",
+          "ur": "LCD menu mein battery type galat hai jis se charge voltage zyada hai."
+        },
+        {
+          "en": "Very high ambient temperature has lifted the float voltage.",
+          "ur": "Bohat high ambient temperature ne float voltage barha di hai."
+        },
+        {
+          "en": "Too many cells in series for the pack design.",
+          "ur": "Pack design ke muqabl mein series mein zyada cells hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure battery voltage and compare with the pack's recommended float voltage.",
+          "ur": "Battery voltage check karke pack ke recommended float voltage se compare karein."
+        },
+        {
+          "en": "Re-check battery type and max charge voltage on the LCD and observe again after settling.",
+          "ur": "LCD par battery type aur max charge voltage dobara check karke settle hone ke baad dekhein."
+        },
+        {
+          "en": "Remove any external charger from the battery and re-test.",
+          "ur": "Battery se koi bhi external charger nikaal kar dobara test karein."
+        }
+      ],
+      "severity": "info",
+      "display": "indoor",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "64",
+      "aliases": [
+        "64",
+        "Warning 64"
+      ],
+      "title": {
+        "en": "Warning: low battery",
+        "ur": "Warning: battery low"
+      },
+      "meaning": {
+        "en": "Battery reached the low-voltage warning level and the unit is about to stop.",
+        "ur": "Battery low voltage warning level par pahunch gaya aur unit rukne wala hai."
+      },
+      "causes": [
+        {
+          "en": "Load drains the battery faster than PV or AC can recharge it.",
+          "ur": "Load battery ko PV ya AC se tez drain kar raha hai."
+        },
+        {
+          "en": "Battery bank has aged and no longer holds charge.",
+          "ur": "Battery bank umar ke saath ab charge hold nahi karti."
+        },
+        {
+          "en": "AC input is absent and it is night or heavy cloud.",
+          "ur": "AC input mojood nahi aur raat ya badi badal chal rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read battery voltage and load watts on the LCD to see the discharge rate.",
+          "ur": "LCD par battery voltage aur watt mein load dekhein taake discharge rate pata chale."
+        },
+        {
+          "en": "Switch off non-essential loads so the battery recovers before cut-off.",
+          "ur": "Battery cut-off se pehle recover ho jaye uske liye ghair-zaroori loads band kar dein."
+        },
+        {
+          "en": "Recharge on AC or PV and confirm charge current is flowing; if not, treat it as a battery wiring fault.",
+          "ur": "AC ya PV se recharge karke confirm karein ke charge current ja raha hai, warna battery wiring fault samajhein."
+        }
+      ],
+      "severity": "info",
+      "display": "indoor",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "67",
+      "aliases": [
+        "67",
+        "Warning 67"
+      ],
+      "title": {
+        "en": "Warning: overload",
+        "ur": "Warning: load zyada hai"
+      },
+      "meaning": {
+        "en": "Load is above rated output; a warning that precedes fault 07.",
+        "ur": "Load rated output se zyada hai, ye warning hai jo fault 07 se pehle aati hai."
+      },
+      "causes": [
+        {
+          "en": "More appliances connected than the rated power.",
+          "ur": "Rated power se zyada appliances lagi hain."
+        },
+        {
+          "en": "A large motor or compressor running alongside normal load.",
+          "ur": "Normal load ke saath bada motor ya compressor chal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Add up the running load in watts on the LCD and keep it under rated power.",
+          "ur": "LCD par chal rahe load watts mein jama karke rated power se neeche rakhein."
+        },
+        {
+          "en": "Switch off non-essential equipment before the warning escalates to fault 07.",
+          "ur": "Warning fault 07 ban se pehle ghair-zaroori equipment band kar dein."
+        },
+        {
+          "en": "Move heavy motor loads to a separate unit, since surge current causes most overloads.",
+          "ur": "Bhaari motor load alag unit par le jaayein, zyada tar overload surge current ki wajah se hote hain."
+        }
+      ],
+      "severity": "info",
+      "display": "indoor",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "70",
+      "aliases": [
+        "70",
+        "Warning 70"
+      ],
+      "title": {
+        "en": "Warning: output power derating",
+        "ur": "Warning: output power kam ho rahi hai"
+      },
+      "meaning": {
+        "en": "The inverter is deliberately reducing its output, normally because grid voltage is low.",
+        "ur": "Inverter apni output jaan bujh kar kam kar raha hai, aam tor par grid voltage low hone ki wajah se."
+      },
+      "causes": [
+        {
+          "en": "AC input voltage has dropped, so the unit derates to stay connected.",
+          "ur": "AC input voltage gir gaya hai jis se unit derate hokar connected rehta hai."
+        },
+        {
+          "en": "Internal temperature is rising, so the unit derates to protect itself.",
+          "ur": "Internal temperature barh rahi hai jis se unit apni protection ke liye power kam karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check grid voltage on the LCD against the low-loss threshold that triggers derating.",
+          "ur": "LCD par grid voltage ko derating trigger karne wale low-loss threshold se check karein."
+        },
+        {
+          "en": "Check whether heatsink temperature is also high, because 70 can precede fault 27.",
+          "ur": "Yeh bhi check karein ke heatsink temperature high hai ya nahi, 70 fault 27 se pehle aa sakta hai."
+        },
+        {
+          "en": "Upsize the grid AC cable or clear the supply if the voltage drop is a wiring problem.",
+          "ur": "Voltage drop wiring ka masla ho to grid AC cable upgrade karein ya supply saaf karein."
+        }
+      ],
+      "severity": "info",
+      "display": "indoor",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "72",
+      "aliases": [
+        "72",
+        "Warning 72"
+      ],
+      "title": {
+        "en": "Warning: solar charger stopped, low battery",
+        "ur": "Warning: solar charger battery low par ruk gaya"
+      },
+      "meaning": {
+        "en": "The MPPT charger shut down to avoid over-discharging a low battery.",
+        "ur": "MPPT charger ne low battery ko over-discharge se bachane ke liye band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Battery voltage is below the solar charge cut-off, at night or in heavy cloud.",
+          "ur": "Battery voltage solar charge cut-off se neeche hai, raat ya badi badal mein."
+        },
+        {
+          "en": "PV array is producing too little to charge safely.",
+          "ur": "PV array itni kam power bana raha hai ke safe charging mumkin nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm battery voltage and PV power on the LCD to know whether this is night-time or a PV fault.",
+          "ur": "LCD par battery voltage aur PV power check karein taake raat ka waqt hai ya PV fault ye pata chale."
+        },
+        {
+          "en": "Do not force charging; let PV recharge the bank in daylight.",
+          "ur": "Zor se charging na karein, din mein PV se bank recharge hone dein."
+        },
+        {
+          "en": "If PV power shows zero in daylight, check the PV DC breaker, Voc and string fuses.",
+          "ur": "Agar din mein bhi PV power zero dikhaye to PV DC breaker, Voc aur string fuses check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "indoor",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "73",
+      "aliases": [
+        "73",
+        "Warning 73"
+      ],
+      "title": {
+        "en": "Warning: solar charger stopped, high PV voltage",
+        "ur": "Warning: solar charger zyada PV voltage par ruk gaya"
+      },
+      "meaning": {
+        "en": "The MPPT charger stopped because the PV array voltage exceeded the safe limit.",
+        "ur": "MPPT charger ruk gaya kyun ke PV array ka voltage safe limit cross kar gaya."
+      },
+      "causes": [
+        {
+          "en": "PV open-circuit voltage exceeds the inverter's max PV Voc, common in cold weather.",
+          "ur": "PV open-circuit voltage inverter ke max PV Voc se zyada hai, thande mausam mein ye aam hai."
+        },
+        {
+          "en": "Too many panels in series with no temperature derating applied.",
+          "ur": "Series mein zyada panels hain aur temperature derating nahi ki gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure PV open-circuit voltage at the inverter's PV terminals with the inverter off.",
+          "ur": "Inverter off kar ke multimeter se inverter ke PV terminals par open-circuit voltage check karein."
+        },
+        {
+          "en": "Compare with the manual's maximum PV array open circuit voltage and remove panels if over.",
+          "ur": "Manual ke maximum PV array open circuit voltage se compare karke zyada ho to panels nikaal dein."
+        },
+        {
+          "en": "Confirm the PV DC breaker is closed, since an open breaker also stops solar charging.",
+          "ur": "PV DC breaker band hai ya nahi confirm karein, breaker khula hone par bhi solar charging rukti hai."
+        }
+      ],
+      "severity": "info",
+      "display": "indoor",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "74",
+      "aliases": [
+        "74",
+        "Warning 74"
+      ],
+      "title": {
+        "en": "Warning: solar charger stopped, over load",
+        "ur": "Warning: solar charger load zyada par ruk gaya"
+      },
+      "meaning": {
+        "en": "The solar charger stopped because the PV array output exceeded what it can handle.",
+        "ur": "Solar charger ruk gaya kyun ke PV array ka output uski capacity se zyada tha."
+      },
+      "causes": [
+        {
+          "en": "PV array wattage exceeds the inverter's maximum solar charge power.",
+          "ur": "PV array ki wattage inverter ke maximum solar charge power se zyada hai."
+        },
+        {
+          "en": "Two strings are paralleled on a single MPPT input without support.",
+          "ur": "Do strings bina support ke aik MPPT input par jodi gayi hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Compare the array's rated wattage with the manual's maximum PV array power.",
+          "ur": "Array ki rated wattage ko manual ke maximum PV array power se compare karein."
+        },
+        {
+          "en": "Reduce the maximum solar charge current on the LCD to bring the charger inside its limit.",
+          "ur": "LCD par maximum solar charge current kam karke charger ko limit ke andar laayein."
+        },
+        {
+          "en": "Check PV string fuses and connectors for a poor joint if the array is correctly sized.",
+          "ur": "Array sahi size ka ho phir bhi trip kare to PV string fuses aur connectors mein kharab joint check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "indoor",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "75",
+      "aliases": [
+        "75",
+        "Warning 75"
+      ],
+      "title": {
+        "en": "Warning: solar charger over temperature",
+        "ur": "Warning: solar charger zyada garm"
+      },
+      "meaning": {
+        "en": "The MPPT charger reduced or stopped charging because its own temperature is too high.",
+        "ur": "MPPT charger ne apne temperature zyada hone ki wajah se charging kam ya band kar di."
+      },
+      "causes": [
+        {
+          "en": "Ambient room temperature is very high.",
+          "ur": "Kamre ka ambient temperature bohat high hai."
+        },
+        {
+          "en": "Charger heatsink is blocked by dust or the fan is not running.",
+          "ur": "Charger heatsink dust se band hai ya fan nahi chal raha."
+        },
+        {
+          "en": "Battery is hot because it sits close to the charger.",
+          "ur": "Battery garm hai kyun ke charger ke qareeb rakhi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the unit's own fan is running; the red LED flashing means warning, solid means fault.",
+          "ur": "Check karein ke unit ka fan chal raha hai ya nahi, red LED flashing warning hai solid fault hai."
+        },
+        {
+          "en": "Install with the documented clearance and out of direct sun on the heatsink.",
+          "ur": "Documented clearance ke saath aise jagah lagayein ke heatsink par seedhi dhoop na pade."
+        },
+        {
+          "en": "Improve ventilation in the install room, the usual root cause of 75.",
+          "ur": "Install room ki ventilation behtar karein, 75 ki aam wajah yahi hai."
+        }
+      ],
+      "severity": "info",
+      "display": "indoor",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "76",
+      "aliases": [
+        "76",
+        "Warning 76"
+      ],
+      "title": {
+        "en": "Warning: PV charger communication error",
+        "ur": "Warning: PV charger se aaparas nahi ho raha"
+      },
+      "meaning": {
+        "en": "The PV charger board is not communicating correctly with the main controller.",
+        "ur": "PV charger board main controller se theek se communicate nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "Inter-board communication harness or connector is loose.",
+          "ur": "Inter-board communication harness ya connector loose hai."
+        },
+        {
+          "en": "Charger board has failed and no longer answers the controller.",
+          "ur": "Charger board kharab ho gaya hai aur controller ka jawab nahi deta."
+        },
+        {
+          "en": "Firmware versions between boards are mismatched.",
+          "ur": "Boards ke darmiyan firmware versions mismatch hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery and reseat the inter-board communication cable at both ends.",
+          "ur": "AC, PV aur battery disconnect karke inter-board communication cable dono taraf se baithayein."
+        },
+        {
+          "en": "Check the harness for a broken conductor with a multimeter continuity test.",
+          "ur": "Harness ka toota conductor multimeter continuity test se dhoondein."
+        },
+        {
+          "en": "Update the inverter firmware to the latest version so both boards match.",
+          "ur": "Inverter firmware latest version par update karein taake dono boards match hon."
+        }
+      ],
+      "severity": "info",
+      "display": "indoor",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    },
+    {
+      "code": "77",
+      "aliases": [
+        "77",
+        "Warning 77"
+      ],
+      "title": {
+        "en": "Warning: parameter error",
+        "ur": "Warning: parameter ki ghalti"
+      },
+      "meaning": {
+        "en": "A stored setting is invalid or inconsistent, so the unit falls back or asks for reconfiguration.",
+        "ur": "Koi stored setting invalid ya inconsistent hai jis se unit default par aata hai ya dobara configuration maangta hai."
+      },
+      "causes": [
+        {
+          "en": "Settings were changed but the inverter was not restarted.",
+          "ur": "Settings badle gaye lekin inverter restart nahi hua."
+        },
+        {
+          "en": "Battery type or voltage setting does not match the connected bank.",
+          "ur": "Battery type ya voltage setting connected bank se match nahi karti."
+        },
+        {
+          "en": "Parameter memory was disturbed by a power cut during a save.",
+          "ur": "Save ke dauran power cut ki wajah se parameter memory bigad gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reboot the unit and re-read the battery type, charge voltage and output voltage settings.",
+          "ur": "Unit reboot karke battery type, charge voltage aur output voltage settings dobara parhein."
+        },
+        {
+          "en": "Correct the settings against the battery spec sheet, save, then restart.",
+          "ur": "Settings ko battery spec sheet ke mutabiq theek karein, save karke restart karein."
+        },
+        {
+          "en": "If 77 returns after correct settings, do a factory reset from the reset menu and reconfigure from the manual.",
+          "ur": "Setting theek hone par bhi 77 aaye to reset menu se factory reset karke manual ke mutabiq dobara set karein."
+        }
+      ],
+      "severity": "info",
+      "display": "indoor",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - HYBRID SOLAR INVERTER 3KW-5KW, PH18 3-5KW VHM on-off-grid MPPT (OEM doc 420-00333-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.megasolar.com.ua/wp-content/uploads/2025/04/alfa.solar-must-pv18-5048-vhm-5kvt.pdf"
+      }
+    }
+  ]
+}

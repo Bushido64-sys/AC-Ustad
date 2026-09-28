@@ -1,0 +1,2609 @@
+{
+  "schemaVersion": 1,
+  "brandId": "mitsubishi-electric",
+  "series": {
+    "id": "mitsubishi-electric-mrslim-a-control",
+    "name": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash)",
+    "category": "ac",
+    "unitType": "split",
+    "modelPatterns": [
+      "*P*",
+      "*E*",
+      "*U*",
+      "*F*",
+      "*A*",
+      "*0*"
+    ],
+    "notes": "A-control check codes for wall splits + Mr. Slim P-Series A. Primary = ME Malaysia troubleshooting (official, high) corroborated by MrSlimErrorCode-V2.pdf (ME SG), ME UK/IE Fault Code Check List (orionair mirror), ME HK user manual, arma.org.au PDF. High. Remote check / outdoor LED / central controller display routes."
+  },
+  "codes": [
+    {
+      "code": "00",
+      "aliases": [
+        "00"
+      ],
+      "title": {
+        "en": "No fault (normal)",
+        "ur": "Koi kharabi nahi (normal)"
+      },
+      "meaning": {
+        "en": "Self-diagnosis reports no abnormality; the check display returns 00.",
+        "ur": "Self-diagnosis mein koi kharabi nahi milti; check display par 00 aata hai."
+      },
+      "causes": [
+        {
+          "en": "Unit is operating within normal parameters",
+          "ur": "Unit normal parameters ke andar kaam kar rahi hai."
+        },
+        {
+          "en": "No fault is latched in the indoor controller memory",
+          "ur": "Indoor controller memory mein koi fault save nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If the unit still misbehaves, check filters, airflow and set temperature rather than the code",
+          "ur": "Agar unit phir bhi theek na chale to code ki bajaye filters, airflow aur set temperature check karein."
+        },
+        {
+          "en": "Clear the code history after service and re-test",
+          "ur": "Service ke baad code history clear karein aur dobara test karein."
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "source": {
+        "type": "official_support",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S1]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectricmalaysia.com/troubleshooting-ac/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "00 is explicitly defined as None (Normal) in the official ME Malaysia and ME HK user-manual tables.",
+        "ur": "Official ME Malaysia aur ME HK user-manual tables mein 00 ko explicitly None (Normal) define kiya gaya hai."
+      }
+    },
+    {
+      "code": "P1",
+      "aliases": [
+        "P1",
+        "P-1"
+      ],
+      "title": {
+        "en": "Room temperature thermistor abnormality",
+        "ur": "Room temperature thermistor mein kharabi"
+      },
+      "meaning": {
+        "en": "The room air temperature thermistor (TH1 / RT1) reads open or short circuit, so the unit cannot judge room temperature.",
+        "ur": "Room air temperature thermistor (TH1 / RT1) open ya short ho gaya hai, is liye unit room temperature ka andaza nahi laga sakti."
+      },
+      "causes": [
+        {
+          "en": "Bad contact of the thermistor connector on the indoor controller board",
+          "ur": "Indoor controller board par thermistor connector ka contact theek nahi hai."
+        },
+        {
+          "en": "Damaged / drifted thermistor (open or shorted element)",
+          "ur": "Thermistor kharab ho gaya ho ya value drift kar rahi ho (element open/short)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check and re-seat the TH1 connector, then measure thermistor resistance against the official table (0°C ≈ 15 kΩ, 20°C ≈ 6.3–6.4 kΩ, 30°C ≈ 4.3 kΩ)",
+          "ur": "TH1 connector check karke dobara theek se lagayein, phir official table se thermistor ki resistance naapein (0°C ≈ 15 kΩ, 20°C ≈ 6.3–6.4 kΩ, 30°C ≈ 4.3 kΩ)."
+        },
+        {
+          "en": "If resistance is in spec but the code persists, replace the indoor controller board",
+          "ur": "Agar resistance specification mein hai lekin code barqarar rahe to indoor controller board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S1]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectricmalaysia.com/troubleshooting-ac/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Confirmed identical across S1, S2, S8, S10, S12 — highest-agreement code in the set.",
+        "ur": "S1, S2, S8, S10, S12 mein yeh bilkul same confirm hua hai — poore set mein sab se zyada agreement wala code."
+      },
+      "blinkPattern": "Indoor upper lamp: 1-time flash every 0.5 s; wireless remote beeper: 1 time; P-Series A: LED1 4 flashes / LED2 1 flash"
+    },
+    {
+      "code": "P2",
+      "aliases": [
+        "P2",
+        "P-2"
+      ],
+      "title": {
+        "en": "Indoor coil / liquid pipe thermistor abnormality",
+        "ur": "Indoor coil / liquid pipe thermistor mein kharabi"
+      },
+      "meaning": {
+        "en": "The indoor heat-exchanger (coil / liquid pipe) thermistor TH2 reads open or short circuit.",
+        "ur": "Indoor heat exchanger (coil / liquid pipe) ka thermistor TH2 open ya short ho gaya hai, jis se pipe ki temperature theek se nahi mil rahi."
+      },
+      "causes": [
+        {
+          "en": "Contact failure of the TH2 connector on the indoor controller board",
+          "ur": "Indoor controller board par TH2 connector ka contact nahi banta."
+        },
+        {
+          "en": "Thermistor open / short or mounted off the pipe",
+          "ur": "Thermistor open/short ho ya pipe par sahi jagah na laga ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure TH2 resistance and compare with the official resistance table; check the pipe holder position",
+          "ur": "TH2 ki resistance naapein aur official resistance table se compare karein; pipe holder ki position check karein."
+        },
+        {
+          "en": "If resistance is normal, replace the indoor controller board",
+          "ur": "Agar resistance normal ho to indoor controller board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S1]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectricmalaysia.com/troubleshooting-ac/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S2 groups P2 with P9 in beeper count 2; S12 lists P2 as pipe/liquid thermistor TH2.",
+        "ur": "S2 beeper count 2 mein P2 ko P9 ke sath group karta hai; S12 mein P2 pipe/liquid thermistor TH2 hai."
+      },
+      "blinkPattern": "Indoor upper lamp: 2-time flash, 2.5 s OFF; wireless remote beeper: 2 times (also covers P9)"
+    },
+    {
+      "code": "P4",
+      "aliases": [
+        "P4",
+        "P-4"
+      ],
+      "title": {
+        "en": "Drain sensor abnormality / float switch connector open",
+        "ur": "Drain sensor kharab / float switch connector open"
+      },
+      "meaning": {
+        "en": "The condensate drain sensor circuit is open or shorted (or the float-switch connector is unplugged), so overflow cannot be detected.",
+        "ur": "Condensate drain sensor ka circuit open ya short hai (ya float switch connector nikal hua hai), is liye overflow detect nahi ho sakta."
+      },
+      "causes": [
+        {
+          "en": "Loose or disconnected drain-sensor / float-switch connector (CN31 / CN4F)",
+          "ur": "Drain-sensor / float-switch connector (CN31 / CN4F) dhila ho ya khud juda ho jaye."
+        },
+        {
+          "en": "Damaged drain sensor element",
+          "ur": "Drain sensor ka element kharab ho jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check and re-seat the CN31 / CN4F connector on the indoor controller board",
+          "ur": "Indoor controller board par CN31 / CN4F connector check karke dobara theek se lagayein."
+        },
+        {
+          "en": "Measure sensor resistance (same characteristic table as P1) and replace the sensor if it is out of range",
+          "ur": "Sensor ki resistance naapein (wahi characteristic table jo P1 mein hai) aur agar range se bahar ho to sensor badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S2]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.sg/getmedia/2d5c4795-7b48-4a89-adff-ae5589e21020/MrSlimErrorCode-V2.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S2 wording for P4 is 'Float switch connector open'; S10/S12 wording is 'drain sensor abnormality' — same circuit.",
+        "ur": "P4 ke liye S2 ka alfaz 'Float switch connector open' hai; S10/S12 ka alfaz 'drain sensor abnormality' hai — wahi circuit."
+      },
+      "blinkPattern": "Wireless remote beeper: 4 times; P-Series A: LED1 4 flashes / LED2 2 flashes"
+    },
+    {
+      "code": "P5",
+      "aliases": [
+        "P5",
+        "P-5"
+      ],
+      "title": {
+        "en": "Drain pump error / drain overflow protection",
+        "ur": "Drain pump ki ghalti / drain overflow protection"
+      },
+      "meaning": {
+        "en": "The drain pump is not running or high condensate level has been detected and overflow protection has tripped.",
+        "ur": "Drain pump nahi chal raha ya condensate ka level zyada hone par overflow protection chali hai."
+      },
+      "causes": [
+        {
+          "en": "Drain pump motor failure or pump not receiving power",
+          "ur": "Drain pump motor fail ho jaye ya pump ko power na mile."
+        },
+        {
+          "en": "Blocked drain pipe / tray, or a faulty float switch keeping the level high",
+          "ur": "Drain pipe / tray block ho, ya float switch kharab ho jis se level high bana rahe ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the drain pump supply and windings, and confirm it actually pumps",
+          "ur": "Drain pump ki supply aur windings check karein, aur confirm karein ke woh sach mein pani phenk raha hai."
+        },
+        {
+          "en": "Clear the drain line and tray, clean the filter, then re-run and re-check the float switch",
+          "ur": "Drain line aur tray kholein, filter saaf karein, phir unit dobara chalayein aur float switch ko dobara check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S2]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.sg/getmedia/2d5c4795-7b48-4a89-adff-ae5589e21020/MrSlimErrorCode-V2.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Water leakage complaints in PK installs are usually P5/PA rather than a genuine refrigerant fault.",
+        "ur": "PK installs mein pani ke leakage ki shikayat aksar P5/PA hoti hai, asal refrigerant fault nahi hota."
+      },
+      "blinkPattern": "Wireless remote beeper: 5 times (also covers PA); P-Series A: LED1 4 flashes / LED2 2 flashes"
+    },
+    {
+      "code": "P6",
+      "aliases": [
+        "P6",
+        "P-6"
+      ],
+      "title": {
+        "en": "Freeze (cooling) / overheat (heating) protection operation",
+        "ur": "Freeze (cooling) / overheat (heating) protection chala"
+      },
+      "meaning": {
+        "en": "The indoor coil has frozen in cooling or overheated in heating, so the unit stops to protect the heat exchanger.",
+        "ur": "Cooling mein indoor coil par barf lag gayi ya heating mein coil zyada garm ho gayi, is liye heat exchanger bachane ke liye unit band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Dirty air filter or blocked heat exchanger reducing airflow",
+          "ur": "Air filter ganda ho ya heat exchanger block ho jis se airflow kam ho."
+        },
+        {
+          "en": "Short air cycle (obstruction around inlet/outlet) or indoor fan motor problem",
+          "ur": "Short air cycle ho (inlet/outlet ke ird-gird rukawat) ya indoor fan motor mein masla ho."
+        },
+        {
+          "en": "Refrigerant undercharge / abnormal refrigerant temperature",
+          "ur": "Refrigerant kam ho ya refrigerant ki temperature abnormal ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean the air filter and heat exchanger and clear obstructions from the air path",
+          "ur": "Air filter aur heat exchanger saaf karein aur air path se rukawatein hata dein."
+        },
+        {
+          "en": "Check the indoor fan motor and measure refrigerant charge / operating pressures",
+          "ur": "Indoor fan motor check karein aur refrigerant charge / operating pressures naapein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Most common PK field code after filter neglect; often clears after cleaning but recurs if charge is low.",
+        "ur": "Filter ki safai na karne ke baad PK mein yeh sab se aam field code hai; aksar safai ke baad theek ho jata hai lekin charge kam ho to wapas aata hai."
+      },
+      "blinkPattern": "Wireless remote beeper: 6 times; P-Series A: LED1 4 flashes / LED2 3 flashes"
+    },
+    {
+      "code": "P8",
+      "aliases": [
+        "P8",
+        "P-8"
+      ],
+      "title": {
+        "en": "Abnormal pipe temperature / 4-way valve pipe temperature",
+        "ur": "Pipe temperature abnormal / 4-way valve pipe temperature"
+      },
+      "meaning": {
+        "en": "No expected temperature change was seen at the indoor coil pipe within the detection window, or the 4-way valve / pipe temperature is out of range.",
+        "ur": "Detection window mein indoor coil ki pipe par temperature ka expected badlav nahi dekha gaya, ya 4-way valve / pipe temperature range se bahar hai."
+      },
+      "causes": [
+        {
+          "en": "Refrigerant leakage or insufficient charge",
+          "ur": "Refrigerant leak ho ya charge kam ho."
+        },
+        {
+          "en": "Outdoor unit tripped / stop valve not fully open",
+          "ur": "Outdoor unit trip ho jaye / stop valve puri tarah khula na ho."
+        },
+        {
+          "en": "Thermistor TH2/TH5 not seated, or extension piping reversed on multi-unit connections",
+          "ur": "Thermistor TH2/TH5 sahi tarah laga na ho, ya multi-unit connections mein extension piping ulti ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the service valves, check the outdoor unit status and leak-test the circuit, then re-gas and vacuum",
+          "ur": "Service valves kholein, outdoor unit ki halat check karein aur circuit ka leak-test karein, phir gas vacuum karke bharein."
+        },
+        {
+          "en": "Re-seat the pipe thermistors and verify piping/wiring polarity on twin or triple connections",
+          "ur": "Pipe thermistors ko dobara theek se lagayein aur twin/triple connections mein piping/wiring ki polarity verify karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S12 states the usual cause is refrigerant leakage; S1 assigns the outdoor 4-way-valve/pipe-temperature meaning.",
+        "ur": "S12 ke mutabiq aam wajah refrigerant leakage hai; S1 outdoor 4-way-valve/pipe-temperature matlab deta hai."
+      },
+      "blinkPattern": "Wireless remote beeper: 8 times; P-Series A: LED1 4 flashes / LED2 4 flashes"
+    },
+    {
+      "code": "P9",
+      "aliases": [
+        "P9",
+        "P-9"
+      ],
+      "title": {
+        "en": "Condenser/evaporator pipe thermistor (TH5) abnormality",
+        "ur": "Condenser/evaporator pipe thermistor (TH5) mein kharabi"
+      },
+      "meaning": {
+        "en": "The TH5 pipe thermistor (condenser/evaporator side) is open, shorted or disconnected from the board.",
+        "ur": "TH5 pipe thermistor (condenser/evaporator side) open ho gaya, short ho gaya ya board se nikal gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Open / short circuit of the TH5 element",
+          "ur": "TH5 element open/short circuit ho jaye."
+        },
+        {
+          "en": "Connector (CN44) contact failure on the indoor controller board",
+          "ur": "Indoor controller board par connector (CN44) ka contact nahi banta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure TH5 resistance against the official table and check the CN44 connector",
+          "ur": "TH5 ki resistance official table se naapein aur CN44 connector check karein."
+        },
+        {
+          "en": "If the thermistor tests good, replace the indoor controller board",
+          "ur": "Agar thermistor ki test theek aaye to indoor controller board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S2]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.sg/getmedia/2d5c4795-7b48-4a89-adff-ae5589e21020/MrSlimErrorCode-V2.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S8 lists P9 separately from P2 even though both land on LED1 4-flash / LED2 1-flash.",
+        "ur": "S8 mein P9 ko P2 se alag rakha hai halanke dono LED1 4-flash / LED2 1-flash par aate hain."
+      },
+      "blinkPattern": "Wireless remote beeper: 2 times (grouped with P2); P-Series A: LED1 4 flashes / LED2 1 flash"
+    },
+    {
+      "code": "PA",
+      "aliases": [
+        "PA",
+        "P-A"
+      ],
+      "title": {
+        "en": "Forced compressor stop (water leakage abnormality)",
+        "ur": "Pani ki kharabi ki wajah se compressor band"
+      },
+      "meaning": {
+        "en": "The controller has forced the compressor off because a water-leakage / drain-overflow condition was detected.",
+        "ur": "Pani ke leakage ya drain overflow ki condition detect hone ki wajah se controller ne compressor ko majboor band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "Float switch stuck or triggered by condensate in the tray",
+          "ur": "Float switch atka ho jaye ya tray mein pani se trigger ho jaye."
+        },
+        {
+          "en": "Drain overflow caused by a blocked drain line",
+          "ur": "Drain line block hone ki wajah se drain overflow ho jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Empty and clean the drain tray, free the float switch and clear the drain path",
+          "ur": "Drain tray khali karein aur saaf karein, float switch azaad karein aur drain path kholein."
+        },
+        {
+          "en": "Power-cycle the unit after the tray is dry and confirm the float switch operation",
+          "ur": "Tray sukha hone ke baad unit ka power cycle karein aur float switch ka kaam confirm karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S2]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.sg/getmedia/2d5c4795-7b48-4a89-adff-ae5589e21020/MrSlimErrorCode-V2.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "ME UK checklist calls the same protection 'water leak' behaviour on PWFY/City Multi as code 2500.",
+        "ur": "ME UK checklist usi protection ko PWFY/City Multi par code 2500 ki tarah 'water leak' behaviour kehte hain."
+      },
+      "blinkPattern": "Wireless remote beeper: 5 times (grouped with P5)"
+    },
+    {
+      "code": "PB",
+      "aliases": [
+        "PB",
+        "P-B"
+      ],
+      "title": {
+        "en": "Indoor unit fan motor error",
+        "ur": "Indoor unit fan motor kharab"
+      },
+      "meaning": {
+        "en": "The indoor fan motor is not producing the expected rotation feedback (locked, disconnected or PCB fault).",
+        "ur": "Indoor fan motor expected rotation feedback nahi de raha (lock ho gaya, disconnect ya PCB kharab)."
+      },
+      "causes": [
+        {
+          "en": "Indoor fan motor failure or blocked impeller",
+          "ur": "Indoor fan motor fail ho jaye ya impeller block ho jaye."
+        },
+        {
+          "en": "Motor connector / indoor PCB fault",
+          "ur": "Motor connector / indoor PCB mein masla ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the fan connector, rotate the impeller by hand and measure the motor windings",
+          "ur": "Fan connector check karein, impeller ko haath se ghumayein aur motor ki windings naapein."
+        },
+        {
+          "en": "Replace the indoor fan motor, or the indoor PCB if the motor tests good",
+          "ur": "Indoor fan motor badlein, ya agar motor ki test theek aaye to indoor PCB badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S1]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectricmalaysia.com/troubleshooting-ac/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Written as 'Pb' on remote displays and 'PB' in check tables — same code.",
+        "ur": "Remote displays par 'Pb' likha jata hai aur check tables mein 'PB' — wahi code."
+      },
+      "blinkPattern": "Indoor upper lamp: 4-time flash, 2.5 s OFF (inverter only); also 11-time flash for rotation-feedback loss; wireless remote beeper: 11 times"
+    },
+    {
+      "code": "PL",
+      "aliases": [
+        "PL",
+        "P-L"
+      ],
+      "title": {
+        "en": "Outdoor refrigerant system abnormality",
+        "ur": "Outdoor refrigerant system mein kharabi"
+      },
+      "meaning": {
+        "en": "The outdoor refrigerant circuit is abnormal — typically a gas leak, long pump-down or short-cycling condition.",
+        "ur": "Outdoor refrigerant circuit abnormal hai — aam tor par gas leak, lamba pump-down ya short cycling ki wajah se."
+      },
+      "causes": [
+        {
+          "en": "Refrigerant leak in the connecting pipes or indoor/outdoor joints",
+          "ur": "Connecting pipes ya indoor/outdoor joints mein refrigerant leak ho."
+        },
+        {
+          "en": "Unit pumped down for a long time, low charge, or outdoor fan locked causing short cycle",
+          "ur": "Unit kaafi der se pump down rahi ho, charge kam ho, ya outdoor fan lock hone se short cycle bane."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Leak-test the whole circuit, repair the leak, evacuate and re-gas to specification",
+          "ur": "Poore circuit ka leak-test karein, leak theek karein, vacuum karein aur specification ke mutabiq gas bharein."
+        },
+        {
+          "en": "Open the stop valves, check the outdoor fan motor and confirm the unit is not short cycling",
+          "ur": "Stop valves kholein, outdoor fan motor check karein aur confirm karein ke unit short cycle nahi kar rahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S1]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectricmalaysia.com/troubleshooting-ac/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Condition text on the official ME Malaysia page: 'Unit has been pump down for a long time / Refrigerant amount is low / Unit is short cycling / Outdoor fan motor locks up'.",
+        "ur": "Official ME Malaysia page ka condition text: 'Unit ko kaafi der se pump down kiya gaya hai / Refrigerant kam hai / Unit short cycle kar rahi hai / Outdoor fan motor lock ho jata hai'."
+      },
+      "blinkPattern": "Indoor upper lamp: 14-time flash, 2.5 s OFF; wireless remote beeper: 14 times"
+    },
+    {
+      "code": "EE",
+      "aliases": [
+        "EE",
+        "E-E"
+      ],
+      "title": {
+        "en": "Combination error between indoor and outdoor unit",
+        "ur": "Indoor aur outdoor unit ka combination sahi nahi"
+      },
+      "meaning": {
+        "en": "The indoor and outdoor units cannot be used together — capacity code, connected-unit count or model combination is invalid.",
+        "ur": "Indoor aur outdoor units aik sath use nahi ho sakte — capacity code, connected unit ki tadaad ya model combination ghalat hai."
+      },
+      "causes": [
+        {
+          "en": "Wrong capacity code (SW2) set on the indoor board",
+          "ur": "Indoor board par capacity code (SW2) galat set ho."
+        },
+        {
+          "en": "Wrong number of connected indoor units / branch boxes, or incompatible models",
+          "ur": "Connected indoor units / branch boxes ki tadaad galat ho, ya models match nahi karte."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Correct the SW2 capacity code and the outdoor model-selection dip switches (SW5-3…SW5-8)",
+          "ur": "SW2 capacity code aur outdoor model-selection dip switches (SW5-3…SW5-8) theek karein."
+        },
+        {
+          "en": "Power down for 5 minutes, correct the connection count within limits, then power up again",
+          "ur": "5 minute ke liye power band karein, connection ki tadaad limit ke andar theek karein, phir dobara power on karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S2]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.sg/getmedia/2d5c4795-7b48-4a89-adff-ae5589e21020/MrSlimErrorCode-V2.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Shows as EF/7100-family on City Multi when the system is on M-Net.",
+        "ur": "Jab system M-Net par hota hai to City Multi par yeh EF/7100-family ke tor par dikhta hai."
+      },
+      "blinkPattern": "Wireless remote beeper: 7 times"
+    },
+    {
+      "code": "EF",
+      "aliases": [
+        "EF",
+        "E-F"
+      ],
+      "title": {
+        "en": "Non-defined error / M-NET transmission error",
+        "ur": "Non-defined error / M-NET transmission kharab"
+      },
+      "meaning": {
+        "en": "An undefined check code, usually noise on the transmission line or an M-NET communication disturbance.",
+        "ur": "Check code ki definition nahi hai, aam tor par transmission line par noayz ya M-NET communication mein kharabi."
+      },
+      "causes": [
+        {
+          "en": "Noise interference on the remote-controller or indoor/outdoor connecting wire",
+          "ur": "Remote-controller ya indoor/outdoor connecting wire par noise interference ho."
+        },
+        {
+          "en": "Wrong controller type (e.g. MA remote PAR-21MAA) fitted on the line",
+          "ur": "Line par ghalat controller type laga ho (misal ke tor par MA remote PAR-21MAA)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power down the outdoor unit for 30 seconds and switch it back on, then re-read the code",
+          "ur": "Outdoor unit ko 30 second ke liye band karein aur phir on karein, us ke baad code dobara parhein."
+        },
+        {
+          "en": "Check earth bonding, cable type and controller type; re-check after removing the noise source",
+          "ur": "Earth bonding, cable type aur controller type check karein; noise source hatane ke baad dobara check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "EF is the 'non-defined' bucket — treat it as a wiring/noise investigation, not a part failure.",
+        "ur": "EF 'non-defined' category hai — isay wiring/noayz ki investigation maano, kisi part ki kharabi nahi."
+      },
+      "blinkPattern": "P-Series A: LED1 2 flashes / LED2 4 flashes; central controller 6607"
+    },
+    {
+      "code": "E0",
+      "aliases": [
+        "E0",
+        "E-0",
+        "EO"
+      ],
+      "title": {
+        "en": "Remote controller transmission/receiving error",
+        "ur": "Remote controller ke bhejne aur lenay mein ghalti"
+      },
+      "meaning": {
+        "en": "The remote controller could not receive (or send) a valid signal to/from the unit.",
+        "ur": "Remote controller unit se valid signal receive (ya bhej) nahi kar saka."
+      },
+      "causes": [
+        {
+          "en": "Remote controller receiving/transmitting circuit fault or weak batteries",
+          "ur": "Remote controller ki receiving/transmitting circuit kharab ho ya batteries kamzor hon."
+        },
+        {
+          "en": "Noise or poor wiring on the remote-controller line; wrong master/slave setting",
+          "ur": "Remote-controller line par noise ho ya wiring kamzor ho; master/slave setting galat ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Replace the remote batteries, move within 2 m and re-run the CHECK procedure",
+          "ur": "Remote ki batteries badlein, 2 meter ke andar aayein aur CHECK procedure dobara chalayein."
+        },
+        {
+          "en": "Check the remote wiring, master/slave (group) settings and eliminate noise sources",
+          "ur": "Remote ki wiring, master/slave (group) settings check karein aur noise sources khatam karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "user_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S11]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.hk/uploads/download/496/JG79Y754H02.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S2 groups E0/E3 as 'Remote controller transmission error'.",
+        "ur": "S2 E0/E3 ko 'Remote controller transmission error' ke tor par group karta hai."
+      },
+      "blinkPattern": "Wireless remote beeper: no fixed count (shown as '-' in S2); P-Series A: LED1 2 flashes / LED2 3 flashes"
+    },
+    {
+      "code": "E1",
+      "aliases": [
+        "E1",
+        "E-1"
+      ],
+      "title": {
+        "en": "Remote controller control board error",
+        "ur": "Remote controller ke control board mein ghalti"
+      },
+      "meaning": {
+        "en": "The remote controller's own control board is faulty (or its address setting is wrong in a grouped system).",
+        "ur": "Remote controller ka apna control board kharab hai (ya grouped system mein us ki address setting ghalat hai)."
+      },
+      "causes": [
+        {
+          "en": "Faulty remote-controller control board",
+          "ur": "Remote-controller control board kharab ho."
+        },
+        {
+          "en": "Wrong addressing when several remotes are grouped or twinned",
+          "ur": "Kai remotes group ya twin hone par address galat set ho jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the addressing / master-slave settings; on twinned systems confirm wiring goes to the master indoor only",
+          "ur": "Addressing / master-slave settings check karein; twinned systems par confirm karein ke wiring sirf master indoor par jati hai."
+        },
+        {
+          "en": "Replace the remote controller if the code persists with a known-good indoor unit",
+          "ur": "Agar ache indoor unit ke sath bhi code barqarar rahe to remote controller badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "user_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S11]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.hk/uploads/download/496/JG79Y754H02.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Do not confuse with bulao.pk's 'E1 = indoor room temperature sensor' (quarantined, Q1).",
+        "ur": "Isay bulao.pk ke 'E1 = indoor room temperature sensor' ke sath ghalat mat samajhein (quarantined, Q1)."
+      },
+      "blinkPattern": "Wireless remote beeper: shown as '-' in S2; P-Series A: LED1/LED2 not used"
+    },
+    {
+      "code": "E2",
+      "aliases": [
+        "E2",
+        "E-2"
+      ],
+      "title": {
+        "en": "Remote controller control board error",
+        "ur": "Remote controller ke control board ki ghalti (dusra code)"
+      },
+      "meaning": {
+        "en": "Second remote-controller control-board fault code, used when more than one abnormal point exists on the controller.",
+        "ur": "Remote controller ke control board ki dusri ghalti ka code, jo controller par ek se zyada abnormal point hone par istemal hota hai."
+      },
+      "causes": [
+        {
+          "en": "Faulty remote-controller control board",
+          "ur": "Remote-controller control board kharab ho."
+        },
+        {
+          "en": "Wrong addressing in grouped or twinned installations",
+          "ur": "Grouped ya twinned installations mein address galat ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify group addressing and the master indoor connection",
+          "ur": "Group addressing aur master indoor ka connection verify karein."
+        },
+        {
+          "en": "Replace the remote controller if the fault follows the remote",
+          "ur": "Agar fault remote ke sath sath jata rahe to remote controller badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "user_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S11]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.hk/uploads/download/496/JG79Y754H02.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S8 lists E1/E2 without LED flash codes — confirm on the remote display only.",
+        "ur": "S8 mein E1/E2 bina LED flash codes ke diye gaye hain — sirf remote display par confirm karein."
+      },
+      "blinkPattern": "Grouped with E1 as 'Remote controller control board error'"
+    },
+    {
+      "code": "E3",
+      "aliases": [
+        "E3",
+        "E-3"
+      ],
+      "title": {
+        "en": "Remote controller transmitting error",
+        "ur": "Remote controller ka signal nahi bhej pa raha"
+      },
+      "meaning": {
+        "en": "The remote controller is not transmitting its signal to the indoor unit.",
+        "ur": "Remote controller indoor unit ko apna signal nahi bhej raha."
+      },
+      "causes": [
+        {
+          "en": "Remote controller transmitting circuit fault",
+          "ur": "Remote controller ki transmitting circuit kharab ho."
+        },
+        {
+          "en": "Wiring/termination fault or noise on the remote line",
+          "ur": "Remote line par wiring/termination mein masla ho ya noise ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check remote-controller wiring and connectors; replace batteries and retry",
+          "ur": "Remote-controller ki wiring aur connectors check karein; batteries badlein aur dobara koshish karein."
+        },
+        {
+          "en": "If other codes appear instead, replace the remote controller",
+          "ur": "Agar uski jagah dusre codes aayein to remote controller badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "user_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S11]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.hk/uploads/download/496/JG79Y754H02.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S12 defines E3 as remote-control transmission error located at the remote control.",
+        "ur": "S12 E3 ko remote control par milne wala transmission error define karta hai."
+      },
+      "blinkPattern": "P-Series A: LED1 2 flashes / LED2 3 flashes"
+    },
+    {
+      "code": "E4",
+      "aliases": [
+        "E4",
+        "E-4"
+      ],
+      "title": {
+        "en": "Remote controller signal receiving error",
+        "ur": "Remote ka signal indoor nahi samajh pa raha"
+      },
+      "meaning": {
+        "en": "The indoor unit cannot receive the remote controller's signal.",
+        "ur": "Indoor unit remote controller ka signal receive nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Remote controller not transmitting, or out of range / obstacles",
+          "ur": "Remote controller transmit na kare, ya range se bahar / rukawat ho."
+        },
+        {
+          "en": "Indoor receiver circuit or wiring fault, electrical noise",
+          "ur": "Indoor receiver circuit ya wiring mein masla ho, ya electrical noise ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Move within 2 m, point at the receiver and retry the CHECK procedure with fresh batteries",
+          "ur": "2 meter ke andar aayein, receiver ki taraf point karein aur nayi batteries ke sath CHECK procedure dobara karein."
+        },
+        {
+          "en": "Turn off noise sources (inverter lamps, TV, speakers) and check the remote wiring",
+          "ur": "Noise sources band karein (inverter lamps, TV, speakers) aur remote ki wiring check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S1]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectricmalaysia.com/troubleshooting-ac/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S12 separates E4 (receiving, indoor) from E5 (transmitting, indoor).",
+        "ur": "S12 mein E4 (receiving, indoor) aur E5 (transmitting, indoor) alag alag rakhe gaye hain."
+      },
+      "blinkPattern": "Wireless remote beeper: 9 times (grouped with E5)"
+    },
+    {
+      "code": "E5",
+      "aliases": [
+        "E5",
+        "E-5"
+      ],
+      "title": {
+        "en": "Remote controller transmission error",
+        "ur": "Remote ka signal indoor tak nahi ja raha"
+      },
+      "meaning": {
+        "en": "The indoor unit reports the remote controller's transmission path as faulty.",
+        "ur": "Indoor unit ke mutabiq remote controller ka transmission raasta kharab hai."
+      },
+      "causes": [
+        {
+          "en": "Remote controller transmitting circuit fault",
+          "ur": "Remote controller ki transmitting circuit kharab ho."
+        },
+        {
+          "en": "Wiring fault or noise on the remote line",
+          "ur": "Remote line par wiring mein masla ho ya noise ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the remote wiring and connectors, then re-run the CHECK procedure",
+          "ur": "Remote ki wiring aur connectors check karein, phir CHECK procedure dobara chalayein."
+        },
+        {
+          "en": "Replace the remote controller if the fault follows it",
+          "ur": "Agar fault remote ke sath sath jata rahe to remote controller badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "user_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S11]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.hk/uploads/download/496/JG79Y754H02.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Quarantined source Q1 gives a completely different meaning for E5 — ignore.",
+        "ur": "Quarantined source Q1 E5 ke liye bilkul alag matlab deta hai — isay ignore karein."
+      },
+      "blinkPattern": "P-Series A: LED1 2 flashes / LED2 3 flashes"
+    },
+    {
+      "code": "E6",
+      "aliases": [
+        "E6",
+        "E-6"
+      ],
+      "title": {
+        "en": "Indoor/outdoor communication signal error",
+        "ur": "Indoor aur outdoor ke darmiyan signal nahi mil raha"
+      },
+      "meaning": {
+        "en": "Serial signal between indoor and outdoor units is missing or being received incorrectly (indoor side).",
+        "ur": "Indoor aur outdoor units ke darmiyan serial signal nahi aa raha ya ghalat mil raha hai (indoor side)."
+      },
+      "causes": [
+        {
+          "en": "Outdoor unit powered up before the indoor unit at start-up",
+          "ur": "Start-up par indoor unit se pehle outdoor unit on ho jaye."
+        },
+        {
+          "en": "Mis-wiring / open circuit on S1-S2-S3, or a drain pump wired into S1 and S2 injecting noise",
+          "ur": "S1-S2-S3 par galat wiring/open circuit ho, ya drain pump S1 aur S2 par laga kar noise dale."
+        },
+        {
+          "en": "Noise entry into the connecting wire or a failed indoor/outdoor P.C. board",
+          "ur": "Connecting wire mein noise ghus jaye, ya indoor/outdoor P.C. board fail ho jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power up indoor first, then outdoor; if locked out, switch the outdoor power off for 3–5 minutes and re-apply",
+          "ur": "Pehle indoor power on karein, phir outdoor; agar lock out ho jaye to outdoor power 3–5 minute band karein aur phir dobara on karein."
+        },
+        {
+          "en": "Check S1/S2/S3 wiring and voltages (control 10–24 Vdc between S2 and S3), remove pumps from the signal path, and re-check",
+          "ur": "S1/S2/S3 ki wiring aur voltages check karein (control 10–24 Vdc, S2 aur S3 ke darmiyan), signal path se pumps hatayein, aur dobara check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S1]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectricmalaysia.com/troubleshooting-ac/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Most common first-visit code; official ME Trane US video S18 covers this exact fault in detail.",
+        "ur": "Pehli visit mein sab se aam code; official ME Trane US video S18 isi fault ko detail mein cover karta hai."
+      },
+      "blinkPattern": "Indoor upper lamp: 3-time flash, 2.5 s OFF; wireless remote beeper: 3 times; P-Series A: LED1 2 flashes / LED2 2 flashes (central 6840)"
+    },
+    {
+      "code": "E7",
+      "aliases": [
+        "E7",
+        "E-7"
+      ],
+      "title": {
+        "en": "Indoor/outdoor communication error — transmitting (indoor)",
+        "ur": "Indoor/outdoor communication error — signal nahi gaya (transmitting, indoor)"
+      },
+      "meaning": {
+        "en": "The indoor unit cannot transmit to the outdoor unit (serial signal transmission side).",
+        "ur": "Indoor unit outdoor unit ko signal nahi bhej sakta (serial signal transmission side)."
+      },
+      "causes": [
+        {
+          "en": "Same power-up order / wiring issues as E6",
+          "ur": "Yeh E6 jaisa hi power-up order / wiring masla hai."
+        },
+        {
+          "en": "Condensate pump wired across S2-S3, low 12/24 Vdc on S2-S3, or a failing indoor board",
+          "ur": "Condensate pump S2-S3 par laga ho, S2-S3 par 12/24 Vdc kam ho, ya indoor board fail ho raha ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure 12/24 Vdc on S2 and S3 at the outdoor terminal block and check for grounded S3",
+          "ur": "Outdoor terminal block par S2 aur S3 se 12/24 Vdc naapein aur grounded S3 ke liye check karein."
+        },
+        {
+          "en": "Re-power in the correct order (indoor then outdoor) and replace the indoor P.C. board if voltage is correct but the code remains",
+          "ur": "Sahi tarteeb se dobara power dein (pehle indoor phir outdoor) aur agar voltage theek ho lekin code rahe to indoor P.C. board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "E6 and E7 are reported together as '3-time flash' by beeper count.",
+        "ur": "Beeper count ke mutabiq E6 aur E7 ko sath mein '3-time flash' ke tor par bataya jata hai."
+      },
+      "blinkPattern": "Indoor upper lamp: 3-time flash, 2.5 s OFF; wireless remote beeper: 3 times; P-Series A: LED1 2 flashes / LED2 2 flashes"
+    },
+    {
+      "code": "E8",
+      "aliases": [
+        "E8",
+        "E-8"
+      ],
+      "title": {
+        "en": "Indoor/outdoor communication error — receiving (outdoor)",
+        "ur": "Indoor/outdoor communication error — signal receive nahi hua (receiving, outdoor)"
+      },
+      "meaning": {
+        "en": "The outdoor unit cannot receive the indoor unit's serial signal.",
+        "ur": "Outdoor unit indoor unit ka serial signal receive nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Outdoor unit powered before indoor, or indoor isolator off during operation",
+          "ur": "Indoor se pehle outdoor on ho jaye, ya operation ke doran indoor isolator band ho."
+        },
+        {
+          "en": "Noise / mis-wiring on the indoor-outdoor connecting wire",
+          "ur": "Indoor-outdoor connecting wire par noise ho ya galat wiring ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Re-power indoor first, then outdoor; verify 10–24 Vdc control signal at S2/S3",
+          "ur": "Pehle indoor phir outdoor ko dobara power dein; S2/S3 par 10–24 Vdc control signal verify karein."
+        },
+        {
+          "en": "Check the connecting wire and replace the indoor or outdoor P.C. board if the code recurs after a clean re-check",
+          "ur": "Connecting wire check karein aur agar saaf re-check ke baad bhi code wapas aaye to indoor ya outdoor P.C. board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S1]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectricmalaysia.com/troubleshooting-ac/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S1 places E8/E9/EC in the outdoor-unit group of the check table.",
+        "ur": "S1 check table ke outdoor-unit group mein E8/E9/EC ko shamil karta hai."
+      },
+      "blinkPattern": "Outdoor check display: E8; SUY outdoor LED: 6-time flash / 2.5 s OFF (with E9); wireless remote beeper: pattern B, 1 time for E9"
+    },
+    {
+      "code": "E9",
+      "aliases": [
+        "E9",
+        "E-9"
+      ],
+      "title": {
+        "en": "Indoor/outdoor communication error — transmitting (outdoor)",
+        "ur": "Indoor/outdoor communication error — outdoor se indoor ko signal nahi gaya (outdoor)"
+      },
+      "meaning": {
+        "en": "The outdoor unit cannot transmit to the indoor unit.",
+        "ur": "Outdoor unit indoor unit ko signal nahi bhej sakta."
+      },
+      "causes": [
+        {
+          "en": "Power-up sequence or wiring fault between indoor and outdoor",
+          "ur": "Indoor aur outdoor ke darmiyan power-up sequence ho ya wiring mein masla ho."
+        },
+        {
+          "en": "Failed indoor or outdoor P.C. board / noise",
+          "ur": "Indoor ya outdoor P.C. board fail ho jaye / noise ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the indoor/outdoor connecting wire and re-power in the correct sequence",
+          "ur": "Indoor/outdoor connecting wire check karein aur sahi tarteeb se dobara power dein."
+        },
+        {
+          "en": "Replace the indoor or outdoor P.C. board if the fault persists after a clean re-check",
+          "ur": "Agar saaf re-check ke baad bhi fault rahe to indoor ya outdoor P.C. board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S2]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.sg/getmedia/2d5c4795-7b48-4a89-adff-ae5589e21020/MrSlimErrorCode-V2.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Cross-checks with the official ME Trane US E6/E9 video (S18).",
+        "ur": "Isay official ME Trane US E6/E9 video (S18) se cross-check kiya jata hai."
+      },
+      "blinkPattern": "Wireless remote beeper: pattern B, 1 time; SUY outdoor LED: 6-time flash / 2.5 s OFF (with E8)"
+    },
+    {
+      "code": "EA",
+      "aliases": [
+        "EA",
+        "E-A"
+      ],
+      "title": {
+        "en": "Mis-wiring or too many indoor units",
+        "ur": "Indoor/outdoor ki ghalat wiring ya units zyada"
+      },
+      "meaning": {
+        "en": "The indoor/outdoor connecting wire is mis-wired or the number of connected indoor units exceeds the outdoor unit's limit.",
+        "ur": "Indoor/outdoor ki connecting wire galat lagi hai ya lage hue indoor units ki tadaad outdoor unit ki limit se zyada hai."
+      },
+      "causes": [
+        {
+          "en": "More indoor units connected than allowed",
+          "ur": "Allowed se zyada indoor units jude hue hain."
+        },
+        {
+          "en": "Converse wiring / disconnection of the connecting cable, or noise",
+          "ur": "Connecting cable ki wiring ulti ho ya cable khudi juda ho, ya noise ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the number of indoor units against the outdoor unit limit and re-terminate S1-S2-S3 correctly",
+          "ur": "Indoor units ki tadaad outdoor unit limit se compare karein aur S1-S2-S3 ko sahi tarah dobara terminate karein."
+        },
+        {
+          "en": "Power down, re-check the wiring, then power up and re-read the code",
+          "ur": "Power band karein, wiring dobara check karein, phir power on karke code dobara parhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S12 (arma) wording: 'Mis-wiring of indoor/outdoor unit. Exceed the number of indoor unit connection. Inspected unit: Outdoor.'",
+        "ur": "S12 (arma) ka alfaz: 'Indoor/outdoor unit ki galat wiring. Indoor unit connections ki tadaad zyada. Jo unit dekhi gayi: Outdoor.'"
+      },
+      "blinkPattern": "P-Series A: central controller 6844; no LED1/LED2 flash defined"
+    },
+    {
+      "code": "EB",
+      "aliases": [
+        "EB",
+        "E-B"
+      ],
+      "title": {
+        "en": "Mis-wiring / disconnection of indoor-outdoor connecting wire",
+        "ur": "Indoor-outdoor connecting wire galat lagi ya tooti hui hai"
+      },
+      "meaning": {
+        "en": "The indoor/outdoor interconnecting cable is open, reversed or poorly terminated.",
+        "ur": "Indoor/outdoor ki connecting cable khuli hai, ulti lagi hai ya us ki termination theek nahi hui."
+      },
+      "causes": [
+        {
+          "en": "Loose or broken interconnecting cable",
+          "ur": "Interconnecting cable dhili ho ya toot jaye."
+        },
+        {
+          "en": "Wrong cable size/specification or noise interference",
+          "ur": "Cable ka size/specification galat ho ya noise interference ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Re-terminate and continuity-test the connecting cable end to end",
+          "ur": "Connecting cable ko end-to-end dobara terminate karein aur continuity test karein."
+        },
+        {
+          "en": "Use the specified cable size and re-check after removing noise sources",
+          "ur": "Specified cable size istemal karein aur noise sources hatane ke baad dobara check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Same family as EA; EB is the disconnection/mis-wiring variant.",
+        "ur": "Yeh EA ke hi family ka hai; EB disconnect/galat wiring wala version hai."
+      },
+      "blinkPattern": "P-Series A: central controller 6845"
+    },
+    {
+      "code": "EC",
+      "aliases": [
+        "EC",
+        "E-C"
+      ],
+      "title": {
+        "en": "Start-up time over",
+        "ur": "Start hone mein waqt zyada lag gaya"
+      },
+      "meaning": {
+        "en": "The unit failed to finish initialisation after power-up within the allowed time.",
+        "ur": "Power on hone ke baad unit ijazat time mein apni initialisation poori nahi kar saka."
+      },
+      "causes": [
+        {
+          "en": "Communication fault during start-up",
+          "ur": "Start-up ke doran communication fault ho."
+        },
+        {
+          "en": "Noise interference or wrong cable size/specification",
+          "ur": "Noise interference ho ya cable ka size/specification ghalat ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the breaker off, wait, and re-power to attempt a clean initialisation",
+          "ur": "Breaker band karein, thori der rukein aur dobara power dein taake theek se initialise ho sake."
+        },
+        {
+          "en": "Check the connecting cable specification and remove noise sources, then re-read the code",
+          "ur": "Connecting cable ki specification check karein, noise sources hatayein aur phir code dobara parhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S1]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectricmalaysia.com/troubleshooting-ac/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Listed under outdoor unit in the official ME Malaysia table.",
+        "ur": "Official ME Malaysia table mein isay outdoor unit ke tehat list kiya gaya hai."
+      },
+      "blinkPattern": "P-Series A: central controller 6846; shown on the outdoor check display"
+    },
+    {
+      "code": "ED",
+      "aliases": [
+        "ED",
+        "E-D"
+      ],
+      "title": {
+        "en": "Serial communication error between outdoor boards",
+        "ur": "Outdoor boards ke darmiyan serial communication kharab"
+      },
+      "meaning": {
+        "en": "Serial communication between the outdoor control boards (or M-Net interface board) has failed.",
+        "ur": "Outdoor control boards (ya M-Net interface board) ke darmiyan serial communication kharab ho gayi hai."
+      },
+      "causes": [
+        {
+          "en": "M-Net interface board incorrectly fitted",
+          "ur": "M-Net interface board ghalat tareeqe se laga hua ho."
+        },
+        {
+          "en": "Loose CN2/CN4 connectors or a failed communication circuit on the power board",
+          "ur": "CN2/CN4 connectors dhile hon ya power board par communication circuit fail ho jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the CN2/CN4 connectors and confirm the M-Net interface board is correctly installed",
+          "ur": "CN2/CN4 connectors check karein aur confirm karein ke M-Net interface board sahi tarah installed hai."
+        },
+        {
+          "en": "Replace the inverter / outdoor power P.C. board if the fault recurs after re-seating",
+          "ur": "Dobara theek se lagane ke baad bhi fault wapas aaye to inverter / outdoor power P.C. board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "ED on Mr. Slim maps to City Multi fault 403 when the system is on M-Net.",
+        "ur": "Mr. Slim par ED M-Net par hone par City Multi fault 403 ko represent karta hai."
+      },
+      "blinkPattern": "P-Series A: LED1 2 flashes / LED2 5 flashes; central controller 403"
+    },
+    {
+      "code": "U1",
+      "aliases": [
+        "U1",
+        "U-1"
+      ],
+      "title": {
+        "en": "Abnormal high pressure (63H high-pressure switch operated)",
+        "ur": "High pressure abnormal hai (63H high pressure switch chala)"
+      },
+      "meaning": {
+        "en": "The high-pressure switch 63H/TRS has tripped, or high pressure is detected in the system.",
+        "ur": "High pressure switch 63H/TRS chala hai, ya system mein high pressure detect hua hai."
+      },
+      "causes": [
+        {
+          "en": "Outdoor fan failure or blocked/dirty outdoor heat exchanger and filters",
+          "ur": "Outdoor fan fail ho jaye ya outdoor heat exchanger/filters band ya ganda hon."
+        },
+        {
+          "en": "Short air cycle around the outdoor unit, or indoor filter blocked during heating",
+          "ur": "Outdoor unit ke ird-gird short air cycle ho, ya heating ke doran indoor filter block ho."
+        },
+        {
+          "en": "High-pressure switch connector open / LEV malfunction",
+          "ur": "High-pressure switch connector khula ho ya LEV mein masla ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check and clean the heat exchangers and filters, confirm the outdoor fan runs, and check for a short air cycle",
+          "ur": "Heat exchangers aur filters check karke saaf karein, confirm karein ke outdoor fan chal raha hai aur short air cycle ke liye dekhein."
+        },
+        {
+          "en": "Check the 63H/TRS connector continuity and the LEV operation; reset only after pressures are confirmed normal",
+          "ur": "63H/TRS connector ki continuity aur LEV ka kaam check karein; sirf pressures normal confirm hone ke baad reset karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S8 maps U1 to City Multi fault 1302 — same physical condition on VRF.",
+        "ur": "S8 U1 ko City Multi fault 1302 par map karta hai — VRF par wahi physical condition."
+      },
+      "blinkPattern": "P-Series A: LED1 3 flashes / LED2 2 flashes (central 1302); pattern B beeper: 6 times (with Ud); PUY LED1 3-time / LED2 2-time blink"
+    },
+    {
+      "code": "U2",
+      "aliases": [
+        "U2",
+        "U-2"
+      ],
+      "title": {
+        "en": "High discharge temperature / 49C thermostat",
+        "ur": "Discharge temperature zyada ya refrigerant kam"
+      },
+      "meaning": {
+        "en": "Discharge temperature is too high, the compressor inner thermostat 49C has operated, or the charge is low.",
+        "ur": "Discharge temperature bohat zyada hai, compressor ka andar thermostat 49C chala hai, ya charge kam hai."
+      },
+      "causes": [
+        {
+          "en": "Refrigerant shortage / gas leak",
+          "ur": "Refrigerant ki kami ho ya gas leak ho."
+        },
+        {
+          "en": "Faulty discharge thermistor TH4 or high ambient running conditions",
+          "ur": "Discharge thermistor TH4 kharab ho ya operating conditions bohat zyada hon."
+        },
+        {
+          "en": "49C inner thermostat (or external klixon) tripping",
+          "ur": "49C inner thermostat (ya external klixon) trip kar jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Leak-test, re-gas and verify discharge temperature with the service tool",
+          "ur": "Leak-test karein, dobara gas bharein aur service tool se discharge temperature verify karein."
+        },
+        {
+          "en": "Measure TH4 and check condenser airflow/ambient; inspect 49C only after confirming pressures",
+          "ur": "TH4 naapein aur condenser ki airflow/ambient check karein; 49C sirf pressures confirm hone ke baad dekhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Maps to City Multi 1102 (discharge temperature fault).",
+        "ur": "City Multi 1102 (discharge temperature fault) par map hota hai."
+      },
+      "blinkPattern": "P-Series A: LED1 3 flashes / LED2 1 flash (central 1102); pattern B beeper: 5 times"
+    },
+    {
+      "code": "U3",
+      "aliases": [
+        "U3",
+        "U-3"
+      ],
+      "title": {
+        "en": "Discharge temperature thermistor open/short",
+        "ur": "Discharge temperature thermistor open ya short ho gaya hai"
+      },
+      "meaning": {
+        "en": "The discharge temperature thermistor (TH4) is open or shorted.",
+        "ur": "Discharge temperature thermistor (TH4) open ya short ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Thermistor open/short or disconnected from the board",
+          "ur": "Thermistor open/short ho jaye ya board se alag ho jaye."
+        },
+        {
+          "en": "Damaged lead wire / pinched cable",
+          "ur": "Lead wire damage ho jaye ya cable dab jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure TH4 resistance and check connectors on the outdoor controller board",
+          "ur": "TH4 ki resistance naapein aur outdoor controller board par connectors check karein."
+        },
+        {
+          "en": "Replace the thermistor, or the outdoor board if the reading is normal but the code persists",
+          "ur": "Thermistor badlein, ya agar reading normal ho lekin code barqarar rahe to outdoor board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S1]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectricmalaysia.com/troubleshooting-ac/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S1 groups U3/U4 as 'Outdoor thermistors'.",
+        "ur": "S1 U3/U4 ko 'Outdoor thermistors' ke tor par group karta hai."
+      },
+      "blinkPattern": "Indoor upper lamp: 6-time flash, 2.5 s OFF (inverter only); pattern B beeper: 3 times (with U4); P-Series A: LED1 3 flashes / LED2 5 flashes (central 5104)"
+    },
+    {
+      "code": "U4",
+      "aliases": [
+        "U4",
+        "U-4"
+      ],
+      "title": {
+        "en": "Outdoor thermistors open/short",
+        "ur": "Outdoor ke thermistors khule ya short ho gaye hain"
+      },
+      "meaning": {
+        "en": "One or more outdoor thermistors (defrost, fin, P.C. board, ambient, outdoor heat exchanger) read open or short.",
+        "ur": "Outdoor ka koi ya kai thermistor (defrost, fin, P.C. board, ambient, outdoor heat exchanger) open ya short dikha raha hai."
+      },
+      "causes": [
+        {
+          "en": "Thermistor open/short or connector not seated",
+          "ur": "Thermistor open/short ho jaye ya connector baitha na ho."
+        },
+        {
+          "en": "Damaged lead wire or failed outdoor controller input circuit",
+          "ur": "Lead wire damage ho ya outdoor controller input circuit fail ho jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure each outdoor thermistor against the resistance table and check all connectors",
+          "ur": "Har outdoor thermistor ko resistance table se naapein aur sab connectors check karein."
+        },
+        {
+          "en": "Replace the faulty thermistor, or the outdoor controller board if all readings are normal",
+          "ur": "Jo thermistor kharab ho use badlein, ya agar sab readings normal hon to outdoor controller board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S1]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectricmalaysia.com/troubleshooting-ac/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S1's outdoor group explicitly lists defrost / fin / P.C. board / ambient / outdoor heat exchanger thermistors.",
+        "ur": "S1 ka outdoor group specifically defrost / fin / P.C. board / ambient / outdoor heat exchanger thermistors list karta hai."
+      },
+      "blinkPattern": "Indoor upper lamp: 6-time flash, 2.5 s OFF (inverter only); pattern B beeper: 3 times (with U3); P-Series A: LED1 3 flashes / LED2 5 flashes (central 5105)"
+    },
+    {
+      "code": "U5",
+      "aliases": [
+        "U5",
+        "U-5"
+      ],
+      "title": {
+        "en": "Inverter heat sink temperature too high",
+        "ur": "Inverter heat sink temperature bahut zyada"
+      },
+      "meaning": {
+        "en": "The inverter heat sink has overheated (TH8/THHS out of range), so the drive backs off or stops.",
+        "ur": "Inverter heat sink zyada garm ho gaya hai (TH8/THHS out of range), jis se drive back off ya band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Blocked airflow through the heat sink or failed inverter fan",
+          "ur": "Heat sink ka airflow block ho ya inverter fan fail ho jaye."
+        },
+        {
+          "en": "Missing silicone paste / poorly mounted IGBT",
+          "ur": "Silicone paste na lagi ho ya IGBT theek se mounted na ho."
+        },
+        {
+          "en": "Faulty heat sink thermistor",
+          "ur": "Heat sink thermistor kharab ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clear the air passage around the heat sink and check the inverter fan",
+          "ur": "Heat sink ke ird-gird ka rasta saaf karein aur inverter fan check karein."
+        },
+        {
+          "en": "Read the heat sink temperature on the service tool (or PAR-21) and replace the thermistor/board if it reads incorrectly",
+          "ur": "Service tool (ya PAR-21) se heat sink ka temperature parhein aur agar ghalat aaye to thermistor/board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Common in PK summer ambient >45°C if the outdoor unit location is congested.",
+        "ur": "PK mein summer ambient 45°C se zyada aur outdoor unit ki jagah congested ho to yeh code aam hai."
+      },
+      "blinkPattern": "P-Series A: LED1 3 flashes / LED2 6 flashes (central 4230); pattern B beeper: 7 times"
+    },
+    {
+      "code": "U6",
+      "aliases": [
+        "U6",
+        "U-6"
+      ],
+      "title": {
+        "en": "Compressor overcurrent / power module abnormality",
+        "ur": "Compressor overcurrent / power module kharabi"
+      },
+      "meaning": {
+        "en": "Overcurrent was detected at the compressor or the inverter power module reports a fault.",
+        "ur": "Compressor par overcurrent detect hua ya inverter power module fault report kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Loose, disconnected or reversed compressor wiring",
+          "ur": "Compressor ki wiring dhili, khuli ya ulti lage ho jaye."
+        },
+        {
+          "en": "Locked/seized compressor or defective IPM / outdoor power board",
+          "ur": "Compressor lock/seize ho jaye ya IPM / outdoor power board kharab ho."
+        },
+        {
+          "en": "Low supply voltage",
+          "ur": "Supply voltage kam ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Carry out the inverter output test and electrical checks to the compressor; measure winding resistance",
+          "ur": "Inverter output test aur compressor ke electrical checks karein; winding ki resistance naapein."
+        },
+        {
+          "en": "Check supply voltage and tighten/re-terminate the compressor connector; replace the power board if the module is faulty",
+          "ur": "Supply voltage check karein aur compressor connector ko kassi karke dobara lagayein; agar module kharab ho to power board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Do not reset repeatedly — repeated U6 usually means a locked compressor or failed IPM.",
+        "ur": "Baar baar reset na karein — U6 ka dohrana zyada tar band compressor ya fail IPM ki nishani hai."
+      },
+      "blinkPattern": "P-Series A: LED1 3 flashes / LED2 4 flashes (central 4250); pattern B beeper: 9 times"
+    },
+    {
+      "code": "U7",
+      "aliases": [
+        "U7",
+        "U-7"
+      ],
+      "title": {
+        "en": "Low discharge superheat",
+        "ur": "Discharge superheat kam hai"
+      },
+      "meaning": {
+        "en": "Superheat at the compressor discharge is too low, usually because of a thermistor or LEV problem.",
+        "ur": "Compressor ke discharge par superheat bohat kam hai, aam tor par thermistor ya LEV ki kharabi ki wajah se."
+      },
+      "causes": [
+        {
+          "en": "TH4 reading incorrect or disconnected",
+          "ur": "TH4 ki reading ghalat ho ya woh juda hua ho."
+        },
+        {
+          "en": "LEV coil/connector disconnection or LEV performance failure",
+          "ur": "LEV coil/connector alag ho jaye ya LEV ka performance fail ho jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify the TH4 reading against actual temperature and check the connector",
+          "ur": "TH4 ki reading asal temperature se compare karein aur connector check karein."
+        },
+        {
+          "en": "Check LEV operation and refrigerant charge; correct the charge if needed",
+          "ur": "LEV ka kaam aur refrigerant charge check karein; zaroorat ho to charge theek karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Maps to City Multi 1500/1501 family (superheat due to low discharge temperature).",
+        "ur": "City Multi 1500/1501 family par map hota hai (superheat ki wajah se discharge temperature kam hona)."
+      },
+      "blinkPattern": "P-Series A: LED1 3 flashes / LED2 1 flash (central 1520); pattern B beeper: 10 times"
+    },
+    {
+      "code": "U8",
+      "aliases": [
+        "U8",
+        "U-8"
+      ],
+      "title": {
+        "en": "Outdoor unit fan protection stop",
+        "ur": "Outdoor unit fan protection ke liye band ho gaya"
+      },
+      "meaning": {
+        "en": "The outdoor fan motor stopped or its rotational speed is abnormal, triggering protection.",
+        "ur": "Outdoor fan motor band ho gaya ya us ki speed abnormal hai, jis se protection chali hai."
+      },
+      "causes": [
+        {
+          "en": "Outdoor fan motor failure or seized bearing",
+          "ur": "Outdoor fan motor fail ho jaye ya bearing jam ho jaye."
+        },
+        {
+          "en": "CNF connector loose / outdoor multi controller board fault",
+          "ur": "CNF connector dhila ho ya outdoor multi controller board mein masla ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the outdoor fan motor and its connector (CNF) and free any obstruction",
+          "ur": "Outdoor fan motor aur uska connector (CNF) check karein aur koi rukawat hata dein."
+        },
+        {
+          "en": "Replace the fan motor, or the outdoor board if the motor tests good",
+          "ur": "Fan motor badlein, ya agar motor ki test theek aaye to outdoor board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S2]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.sg/getmedia/2d5c4795-7b48-4a89-adff-ae5589e21020/MrSlimErrorCode-V2.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Outdoor airflow blockage from PK dust/lint is a frequent root cause.",
+        "ur": "PK ki dust/lint ki wajah se outdoor airflow block hona aam root cause hai."
+      },
+      "blinkPattern": "Pattern B beeper: 8 times; PUY LED1 3-time / LED2 3-time blink (grouped with Ud)"
+    },
+    {
+      "code": "U9",
+      "aliases": [
+        "U9",
+        "U-9"
+      ],
+      "title": {
+        "en": "Abnormal voltage / synchronous signal fault",
+        "ur": "Voltage ghair mamooli ya sync signal masla"
+      },
+      "meaning": {
+        "en": "Over-voltage or under-voltage, or an abnormal synchronising signal on the main circuit.",
+        "ur": "Over voltage ya under voltage, ya main circuit par synchronising signal abnormal hai."
+      },
+      "causes": [
+        {
+          "en": "Mains voltage outside the allowable range (common with PK voltage swings)",
+          "ur": "Mains voltage allowed range se bahar ho (PK mein voltage swings aam hain)."
+        },
+        {
+          "en": "Disconnected CN2/CN5 or primary current sensor failure",
+          "ur": "CN2/CN5 alag ho jaye ya primary current sensor fail ho jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the supply voltage across phases and fit/verify a stabiliser if the mains is unstable",
+          "ur": "Phases par supply voltage naapein aur agar mains unstable ho to stabiliser lagayein/verify karein."
+        },
+        {
+          "en": "Check CN2/CN5 connectors and the current sensor; re-run after the supply is stable",
+          "ur": "CN2/CN5 connectors aur current sensor check karein; supply stable hone ke baad dobara chalayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S2]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.sg/getmedia/2d5c4795-7b48-4a89-adff-ae5589e21020/MrSlimErrorCode-V2.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Voltage-related codes are disproportionately common in Pakistan due to load-shedding and low mains.",
+        "ur": "Load-shedding aur low mains ki wajah se voltage wale codes Pakistan mein normal se zyada aam hain."
+      },
+      "blinkPattern": "Pattern B beeper: 11 times (grouped with UH); PUY LED1 7-time / LED2 7-time blink"
+    },
+    {
+      "code": "UH",
+      "aliases": [
+        "UH",
+        "U-H"
+      ],
+      "title": {
+        "en": "Current sensor error / abnormal running current",
+        "ur": "Current sensor ki ghalti / abnormal running current"
+      },
+      "meaning": {
+        "en": "The current sensor reads out of range (typically <1 A or >40 A) or reports an abnormal value.",
+        "ur": "Current sensor ki parya range se bahar hai (aam tor par 1 A se kam ya 40 A se zyada) ya ghalat value de raha hai."
+      },
+      "causes": [
+        {
+          "en": "ACCT/DCCT current sensor fault",
+          "ur": "ACCT/DCCT current sensor mein masla ho."
+        },
+        {
+          "en": "Loose CN5 connections or outdoor power board failure",
+          "ur": "CN5 connections dhile hon ya outdoor power board fail ho jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the CN5 connector and measure the running current against the expected range",
+          "ur": "CN5 connector check karein aur running current expected range se naapein."
+        },
+        {
+          "en": "Replace the current sensor or outdoor power board after verifying the load is normal",
+          "ur": "Load normal confirm karne ke baad current sensor ya outdoor power board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "On City Multi the equivalent is 5300/5301 current sensor fault.",
+        "ur": "City Multi par equivalent 5300/5301 current sensor fault hai."
+      },
+      "blinkPattern": "Pattern B beeper: 11 times (grouped with U9)"
+    },
+    {
+      "code": "UE",
+      "aliases": [
+        "UE",
+        "U-E"
+      ],
+      "title": {
+        "en": "Stop valve / closed valve",
+        "ur": "oalo bnd hai"
+      },
+      "meaning": {
+        "en": "A refrigerant stop valve is closed (or an LEV is blocked), so no proper circulation is possible.",
+        "ur": "Refrigerant stop valve band hai (ya LEV block hai), jis se gas theek se nahi ghoom rahi."
+      },
+      "causes": [
+        {
+          "en": "Outdoor liquid/gas service valve left closed after installation or service",
+          "ur": "Installation ya service ke baad outdoor liquid/gas service valve band reh gayi ho."
+        },
+        {
+          "en": "Malfunction / blockage of outdoor LEV (LEV-A)",
+          "ur": "Outdoor LEV (LEV-A) malfunction/blockage ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Fully open the liquid and gas service valves and re-check",
+          "ur": "Liquid aur gas service valves puri tarah kholein aur dobara check karein."
+        },
+        {
+          "en": "Check LEV-A operation and clear any blockage before re-gassing",
+          "ur": "Gas dobara bharein se pehle LEV-A ka kaam check karein aur blockage door karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S1]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectricmalaysia.com/troubleshooting-ac/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Classic post-installation fault — valves not opened after pump-down.",
+        "ur": "Classic post-installation fault — pump-down ke baad valves khuli nahi ki jati."
+      },
+      "blinkPattern": "SUY outdoor LED: 11-time flash / 2.5 s OFF"
+    },
+    {
+      "code": "UP",
+      "aliases": [
+        "UP",
+        "U-P"
+      ],
+      "title": {
+        "en": "Compressor overcurrent interruption (outdoor power system)",
+        "ur": "Compressor overcurrent se interruption (outdoor power system)"
+      },
+      "meaning": {
+        "en": "The compressor was stopped because an overcurrent condition was detected in the outdoor power system.",
+        "ur": "Outdoor power system mein overcurrent ki condition detect hone ki wajah se compressor band kar diya gaya."
+      },
+      "causes": [
+        {
+          "en": "Compressor connector loose / disconnected",
+          "ur": "Compressor connector dhila ho ya juda na ho."
+        },
+        {
+          "en": "Inverter or compressor fault, stop valve closed",
+          "ur": "Inverter ya compressor mein masla ho, ya stop valve band ho."
+        },
+        {
+          "en": "Decreased supply voltage",
+          "ur": "Supply voltage kam ho jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reconnect the compressor connector and inspect the wiring for looseness or reversal",
+          "ur": "Compressor connector dobara lagayein aur wiring mein dhilapan ya ulti lagne ke liye check karein."
+        },
+        {
+          "en": "Check the inverter and compressor, open the stop valves, and confirm the supply voltage",
+          "ur": "Inverter aur compressor check karein, stop valves kholein aur supply voltage confirm karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S2]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.sg/getmedia/2d5c4795-7b48-4a89-adff-ae5589e21020/MrSlimErrorCode-V2.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "SUY uses LED flash count, PUY uses LED1/LED2 colour combination — same code, different display.",
+        "ur": "SUY LED flash count use karta hai, PUY LED1/LED2 colour combination — wahi code, alag display."
+      },
+      "blinkPattern": "Pattern B beeper: 2 times; SUY outdoor LED: 1-time flash every 2.5 s; PUY LED1 4-time / LED2 4-time blink (with UF/UH/U6)"
+    },
+    {
+      "code": "UD",
+      "aliases": [
+        "UD",
+        "U-d"
+      ],
+      "title": {
+        "en": "Overheat protection (TH3 / 63HS saturation temperature)",
+        "ur": "Overheat ki protection (TH3 / 63HS saturation temperature)"
+      },
+      "meaning": {
+        "en": "Overheat protection has operated when the relevant temperature (TH3 or 63HS saturation) reached the trip point.",
+        "ur": "Jab mumayim temperature (TH3 ya 63HS saturation) trip point tak aa gayi to overheat protection chal di."
+      },
+      "causes": [
+        {
+          "en": "Reduced airflow through the condenser or dirty heat exchanger",
+          "ur": "Condenser ka airflow kam ho ya heat exchanger ganda ho."
+        },
+        {
+          "en": "Faulty TH3 thermistor or high-pressure sensor input",
+          "ur": "TH3 thermistor kharab ho ya high-pressure sensor input mein masla ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean the heat exchanger and confirm fan operation and airflow",
+          "ur": "Heat exchanger saaf karein aur fan ki operation aur airflow confirm karein."
+        },
+        {
+          "en": "Measure TH3 against the resistance table and replace the sensor if it is out of range",
+          "ur": "TH3 ko resistance table se naapein aur agar range se bahar ho to sensor badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "other",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S12]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.arma.org.au/wp-content/uploads/2017/02/Mitsubishi-Error-Codes.pdf"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "S2 phrases the grouped condition as 'Abnormal high pressure (63H worked)/Overheat protection operation'; confidence medium because only S12 gives the standalone definition.",
+        "ur": "S2 isi condition ko 'Abnormal high pressure (63H worked)/Overheat protection operation' ke tor par bayan karta hai; confidence medium kyunke sirf S12 standalone definition deta hai."
+      },
+      "blinkPattern": "Pattern B beeper: 6 times (grouped with U1)"
+    },
+    {
+      "code": "UF",
+      "aliases": [
+        "UF",
+        "U-F"
+      ],
+      "title": {
+        "en": "Compressor overcurrent — locked compressor",
+        "ur": "Compressor overcurrent — compressor jam gaya"
+      },
+      "meaning": {
+        "en": "Overcurrent was interrupted because the compressor was locked at start-up or during operation.",
+        "ur": "Overcurrent rok diya gaya kyunke compressor start-up par ya chalta hua lock ho gaya tha."
+      },
+      "causes": [
+        {
+          "en": "Closed stop valve or decreased supply voltage",
+          "ur": "Stop valve band ho ya supply voltage kam ho jaye."
+        },
+        {
+          "en": "Loose/reversed compressor wiring or wrong model-selection DIP switch",
+          "ur": "Compressor ki wiring dhili/ulti ho ya model-selection DIP switch ghalat ho."
+        },
+        {
+          "en": "Defective compressor or outdoor power board",
+          "ur": "Compressor ya outdoor power board kharab ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the stop valves, verify supply voltage and check the SW5 model-selection switches",
+          "ur": "Stop valves kholein, supply voltage verify karein aur SW5 model-selection switches check karein."
+        },
+        {
+          "en": "Check compressor windings and connections; replace the compressor or power board after isolation",
+          "ur": "Compressor ki windings aur connections check karein; isolation ke baad compressor ya power board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S12 lists two variants of UF (start-up locked / operating locked).",
+        "ur": "S12 UF ke do variants list karta hai (start-up locked / operating locked)."
+      },
+      "blinkPattern": "Pattern B beeper: 4 times; PUY LED1 4-time / LED2 4-time blink (with UP/UH/U6)"
+    },
+    {
+      "code": "F1",
+      "aliases": [
+        "F1",
+        "F-1"
+      ],
+      "title": {
+        "en": "Reverse phase detection",
+        "ur": "Phase ki ulat (reverse phase)"
+      },
+      "meaning": {
+        "en": "The phase rotation of the incoming 3-phase supply is reversed.",
+        "ur": "Aane wali 3-phase supply ka phase rotation ulat gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Phase rotation of the supply is wrong",
+          "ur": "Supply ki phase rotation ghalat ho."
+        },
+        {
+          "en": "Loss of a phase through the noise filter, or a blown fuse",
+          "ur": "Noise filter ki wajah se koi phase gayab ho jaye ya fuse uda ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Swap any two phases at the outdoor power supply and re-power",
+          "ur": "Outdoor power supply par koi bhi do phases aapas mein badlein aur dobara power dein."
+        },
+        {
+          "en": "Check fuses, the noise filter and incoming supply voltage",
+          "ur": "Fuses, noise filter aur incoming supply voltage check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "3-phase Mr. Slim / VRF only. Maps to City Multi 4103.",
+        "ur": "Sirf 3-phase Mr. Slim / VRF. City Multi 4103 par map hota hai."
+      },
+      "blinkPattern": "P-Series A: LED1 1 flash / LED2 1 flash (central 4103)"
+    },
+    {
+      "code": "F3",
+      "aliases": [
+        "F3",
+        "F-3"
+      ],
+      "title": {
+        "en": "63L low pressure switch open",
+        "ur": "63L low pressure switch open ho gaya hai"
+      },
+      "meaning": {
+        "en": "The low-pressure switch 63L is open (disconnected, contact failure, or genuine low pressure).",
+        "ur": "Low pressure switch 63L open hai — disconnect, contact failure ya asal mein pressure kam hona."
+      },
+      "causes": [
+        {
+          "en": "63L switch disconnected or contact failure",
+          "ur": "63L switch juda ho jaye ya contact fail ho."
+        },
+        {
+          "en": "Low charge / blocked filter causing genuine low pressure",
+          "ur": "Refrigerant kam ho ya filter block ho jis se asal low pressure bane."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the 63L wiring and continuity with a tester",
+          "ur": "63L ki wiring aur tester se continuity check karein."
+        },
+        {
+          "en": "If continuity is good, check the refrigerant charge and filter condition",
+          "ur": "Continuity theek ho to refrigerant charge aur filter ki halat check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S12 describes F3 as '63L connector open'.",
+        "ur": "S12 F3 ko '63L connector open' batata hai."
+      },
+      "blinkPattern": "P-Series A: LED1 1 flash / LED2 2 flashes (central 5202)"
+    },
+    {
+      "code": "F5",
+      "aliases": [
+        "F5",
+        "F-5"
+      ],
+      "title": {
+        "en": "63H high pressure switch open",
+        "ur": "63H high pressure switch open ho gaya hai"
+      },
+      "meaning": {
+        "en": "The high-pressure switch 63H/TRS is open — disconnected, contact failure or real high pressure.",
+        "ur": "High pressure switch 63H/TRS open hai — disconnect, contact failure ya asal mein pressure zyada hona."
+      },
+      "causes": [
+        {
+          "en": "63H/TRS switch disconnected or contact failure",
+          "ur": "63H/TRS switch juda ho jaye ya contact fail ho."
+        },
+        {
+          "en": "Blocked condenser, faulty outdoor fan or overcharge causing genuine high pressure",
+          "ur": "Condenser block, outdoor fan kharab ho ya overcharge ki wajah se asal high pressure bane."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the 63H/TRS connector on the outdoor board and the switch continuity",
+          "ur": "Outdoor board par 63H/TRS connector aur switch ki continuity check karein."
+        },
+        {
+          "en": "Investigate high-pressure causes: clean the coil, check the fan, verify charge",
+          "ur": "High-pressure ki wajahen dhundein: coil saaf karein, fan check karein aur charge verify karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S2]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.sg/getmedia/2d5c4795-7b48-4a89-adff-ae5589e21020/MrSlimErrorCode-V2.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S2 lists F5 as the first PUY outdoor check code with explicit LED1/LED2 indication.",
+        "ur": "S2 F5 ko PUY outdoor check codes mein pehle number par clear LED1/LED2 indication ke sath list karta hai."
+      },
+      "blinkPattern": "P-Series A: LED1 1 flash / LED2 2 flashes (central 5201); PUY: LED1 1-time / LED2 2-time blink"
+    },
+    {
+      "code": "FA",
+      "aliases": [
+        "FA",
+        "F-A"
+      ],
+      "title": {
+        "en": "51CM overcurrent relay connector open",
+        "ur": "51CM overcurrent relay ka connector open ho gaya hai"
+      },
+      "meaning": {
+        "en": "The 51CM overcurrent relay contact is open (trip or contact failure).",
+        "ur": "51CM overcurrent relay ka contact open hai (trip ya contact failure)."
+      },
+      "causes": [
+        {
+          "en": "Thermal relay tripped or contact failure",
+          "ur": "Thermal relay trip ho jaye ya contact fail ho."
+        },
+        {
+          "en": "Defective relay board / genuine overcurrent",
+          "ur": "Relay board kharab ho ya asal overcurrent ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the 51CM relay connection and reset it only after confirming compressor current is normal",
+          "ur": "51CM relay ka connection check karein aur sirf compressor current normal confirm hone ke baad reset karein."
+        },
+        {
+          "en": "Check the relay board if the contact does not close with the system healthy",
+          "ur": "Agar system healthy hone ke baad bhi contact close na ho to relay board check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S12 wording: 'FA — L2-phased open phase or 51CM connector open'; S8 wording is 51CM connector open.",
+        "ur": "S12 ka alfaz: 'FA — L2-phased open phase ya 51CM connector open'; S8 ka alfaz 51CM connector open hai."
+      },
+      "blinkPattern": "P-Series A: LED1 1 flash / LED2 2 flashes (central 4108)"
+    },
+    {
+      "code": "FC",
+      "aliases": [
+        "FC",
+        "F-C"
+      ],
+      "title": {
+        "en": "Nonvolatile memory data error",
+        "ur": "Memory ke data mein ghalti"
+      },
+      "meaning": {
+        "en": "Data in the non-volatile memory of the outdoor/inverter board could not be read correctly.",
+        "ur": "Outdoor ya inverter board ki non-volatile memory ka data theek se parha nahi ja saka."
+      },
+      "causes": [
+        {
+          "en": "Corrupted EEPROM data on the control board",
+          "ur": "Control board par EEPROM data corrupt ho jaye."
+        },
+        {
+          "en": "Power interruption during write, or board failure",
+          "ur": "Write ke doran power interruption aaye ya board fail ho jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power-cycle and re-read; if the code persists, replace the inverter P.C. board",
+          "ur": "Power-cycle dein aur dobara parhein; agar code barqarar rahe to inverter P.C. board badlein."
+        },
+        {
+          "en": "After board replacement, re-enter the model-selection settings",
+          "ur": "Board badlene ke baad model-selection settings dobara enter karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S1]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectricmalaysia.com/troubleshooting-ac/"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "S2 lists FC under 'Outdoor control system — Replace inverter P.C. board'.",
+        "ur": "S2 FC ko 'Outdoor control system — inverter P.C. board badlein' ke tehat list karta hai."
+      },
+      "blinkPattern": "SUY outdoor LED: appears alongside the outdoor control system indication (2-time flash group in S2, 'FC')"
+    },
+    {
+      "code": "Fd",
+      "aliases": [
+        "Fd",
+        "F-d"
+      ],
+      "title": {
+        "en": "Different voltage (supply/phase mismatch)",
+        "ur": "Voltage alag hai (supply/phase ki mismatch)"
+      },
+      "meaning": {
+        "en": "The unit detected a voltage condition different from its configured supply (e.g. wrong voltage setting or single/three-phase mismatch).",
+        "ur": "Unit ne apni set ki hui supply se alag voltage ki condition parya ki, jaise galat voltage setting ya single/three phase ki mismatch."
+      },
+      "causes": [
+        {
+          "en": "Unit configured for a different supply voltage/phase",
+          "ur": "Unit kisi doosre supply voltage/phase ke liye configured ho."
+        },
+        {
+          "en": "Unstable or unbalanced mains supply",
+          "ur": "Mains supply unstable ya unbalanced ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify the nameplate voltage/phase against the actual supply and correct the setting",
+          "ur": "Nameplate ka voltage/phase asal supply se compare karein aur setting theek karein."
+        },
+        {
+          "en": "Stabilise the supply and re-check after power-cycling",
+          "ur": "Supply ko stable karein aur power-cycle ke baad dobara check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "user_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S11]",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mitsubishielectric.com.hk/uploads/download/496/JG79Y754H02.pdf"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Present in the official ME HK and ME Malaysia user tables; no separate LED pattern published — confidence medium.",
+        "ur": "Official ME HK aur ME Malaysia user tables mein maujood; alag LED pattern publish nahi — confidence medium."
+      }
+    },
+    {
+      "code": "A0",
+      "aliases": [
+        "A0",
+        "A-0"
+      ],
+      "title": {
+        "en": "Duplicate address on the transmission line",
+        "ur": "Transmission line par duplicate address"
+      },
+      "meaning": {
+        "en": "Two or more units (outdoor, indoor, Lossnay or remote) are set to the same address.",
+        "ur": "Do ya zyada units (outdoor, indoor, Lossnay ya remote) ka aik hi address set kiya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Duplicate address setting after a board replacement or commissioning change",
+          "ur": "Board change ya commissioning change ke baad duplicate address ban jaye."
+        },
+        {
+          "en": "Noise interference on the indoor/outdoor connectors",
+          "ur": "Indoor/outdoor connectors par noise interference ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Re-assign unique addresses and power-cycle the system",
+          "ur": "Unique addresses dobara assign karein aur system ka power cycle karein."
+        },
+        {
+          "en": "Check connectors for noise and re-read the code after restart",
+          "ur": "Connectors ko noise ke liye check karein aur restart ke baad code dobara parhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Same condition as City Multi 6600 / PUMY (A0).",
+        "ur": "City Multi 6600 / PUMY (A0) ke sath wahi condition."
+      },
+      "blinkPattern": "P-Series A: LED1 2 flashes / LED2 5 flashes; central controller 6600"
+    },
+    {
+      "code": "A6",
+      "aliases": [
+        "A6",
+        "A-6"
+      ],
+      "title": {
+        "en": "Communication error with the communication processor",
+        "ur": "Communication processor se communication error"
+      },
+      "meaning": {
+        "en": "The transmission processor did not exchange data (e.g. Lossnay address not transmitted).",
+        "ur": "Transmission processor ne data exchange nahi kiya (jaise Lossnay ka address transmit nahi hua)."
+      },
+      "causes": [
+        {
+          "en": "M-Net wiring fault or transmission voltage out of range",
+          "ur": "M-Net wiring mein masla ho ya transmission voltage range se bahar ho."
+        },
+        {
+          "en": "Faulty communication processor hardware or noise/lightning surge",
+          "ur": "Communication processor hardware kharab ho ya noise/lightning surge aaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check M-Net wiring, polarity and line voltage",
+          "ur": "M-Net wiring, polarity aur line voltage check karein."
+        },
+        {
+          "en": "Power down for 30 s and re-start; replace the board if the error recurs",
+          "ur": "30 second ke liye power dein aur phir restart karein; agar error dobara aaye to board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Same condition as City Multi 6606 / PUMY (A6).",
+        "ur": "City Multi 6606 / PUMY (A6) ke sath wahi condition."
+      },
+      "blinkPattern": "P-Series A: LED1 2 flashes / LED2 5 flashes; central controller 6606"
+    },
+    {
+      "code": "A7",
+      "aliases": [
+        "A7",
+        "A-7"
+      ],
+      "title": {
+        "en": "No ACK error on the transmission line",
+        "ur": "Transmission line par ACK na milne ki ghalti"
+      },
+      "meaning": {
+        "en": "A unit on the M-Net line did not acknowledge a transmission request (no response from the addressed unit).",
+        "ur": "M-Net line par kisi unit ne transmission request ka jawab (ACK) nahi diya (jise address diya gaya us se koi jawab nahi aaya)."
+      },
+      "causes": [
+        {
+          "en": "Address changed while powered, or a unit at the far end is missing",
+          "ur": "Power on rehte hue address badal gaya ho, ya door wali unit missing ho."
+        },
+        {
+          "en": "Line too long / wrong cable type, too many units, or a failed controller",
+          "ur": "Line bohat lambi ho / cable ka type ghalat ho, units zyada hon ya controller fail ho jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check M-Net line voltage (~25 V), cable type (shielded CVVS/CPEVS/MVVS) and length limits (≤200 m farthest end)",
+          "ur": "M-Net line voltage (~25 V), cable type (shielded CVVS/CPEVS/MVVS) aur length limits (farthest end ≤200 m) check karein."
+        },
+        {
+          "en": "Power down 5 minutes, restore power and re-read; replace the faulty controller if it persists",
+          "ur": "5 minute ke liye power dein, wapas power on karein aur dobara parhein; agar barqarar rahe to kharab controller badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Same condition as City Multi 6607 / PUMY (A7). Frequently seen on large PK VRF installs after a board swap.",
+        "ur": "City Multi 6607 / PUMY (A7) ke sath wahi condition. Board swap ke baad bari PK VRF installs mein aksar milta hai."
+      },
+      "blinkPattern": "P-Series A: LED1 2 flashes / LED2 5 flashes; central controller 6607"
+    },
+    {
+      "code": "A8",
+      "aliases": [
+        "A8",
+        "A-8"
+      ],
+      "title": {
+        "en": "No response error on the transmission line",
+        "ur": "Transmission line par koi jawab nahi aaya"
+      },
+      "meaning": {
+        "en": "No response frame came back on the transmission line — usually noise, cable problems or too many units.",
+        "ur": "Transmission line par koi jawab frame wapas nahi aaya — aam tor par noayz, cable ki kharabi ya bohat zyada units."
+      },
+      "causes": [
+        {
+          "en": "Continuous transmission failure caused by noise",
+          "ur": "Noise ki wajah se continuous transmission failure ho."
+        },
+        {
+          "en": "Line voltage/signal drop beyond limits or wrong wire diameter",
+          "ur": "Line voltage/signal limits se bahar gir jaye ya wire diameter ghalat ho."
+        },
+        {
+          "en": "Faulty controller at the source of the error",
+          "ur": "Error ke source par controller hi kharab ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power down for 5 minutes, then restore power and re-read the code",
+          "ur": "5 minute ke liye power dein, phir wapas power on karein aur code dobara parhein."
+        },
+        {
+          "en": "Verify line type, diameter ≥1.25 mm², remote-controller line ≤12 m, and farthest unit ≤200 m",
+          "ur": "Line type verify karein, diameter ≥1.25 mm², remote-controller line ≤12 m aur farthest unit ≤200 m hona chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Mr. Slim / split A-control check codes (P/E/U/F/A letter+digit + LED flash) [S8]",
+        "retrieved": "2026-09-24",
+        "url": "https://orionair.co.uk/PDF/Mitsubishi_elec_Fault_codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Same condition as City Multi 6608 / PUMY (A8).",
+        "ur": "City Multi 6608 / PUMY (A8) ke sath wahi condition."
+      },
+      "blinkPattern": "P-Series A: LED1 2 flashes / LED2 5 flashes; central controller 6608"
+    }
+  ]
+}

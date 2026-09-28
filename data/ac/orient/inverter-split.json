@@ -1,0 +1,2331 @@
+{
+  "schemaVersion": 1,
+  "brandId": "orient",
+  "series": {
+    "id": "inverter-split",
+    "name": "Splits — Inverter & Fixed-Speed (shared platform)",
+    "category": "ac",
+    "unitType": "split",
+    "modelPatterns": [
+      "*"
+    ],
+    "notes": "Orient wall splits (Cooltron, Smartron, Ecotron, Ultron, Megatron, Gigatron, QG, AUX-sourced, Vibe/AK, fixed-speed) share one display-code platform. Official core = 16 codes from Orient's 2020 blog (recovered via Wayback): E0–E5, E8, Eb, F0–F4, F6, F8, F9. Extended set (E6/E7/E9/EA, F5/F7/FA/FC/Fd, P0–P9, L0–L3, EC, LE01) comes from PK technician/retailer sources — see per-code confidence. Major F-series conflicts with AYS Online are recorded in each code's notes (official wording wins where they disagree). AUX is an OEM partner: AUX-published tables rhyme with Orient on many E/F entries but are not Orient-badged (docs/sources/orient.md). Reset (all models): remote OFF → breaker OFF 5–10 min → breaker ON → remote ON. Orient says reset = erase board memory, not just on/off. Service UAN: 0800-ORIENT / 0800-11635. Floor-standing-only codes live in floor-standing.json (all split codes also apply there)."
+  },
+  "codes": [
+    {
+      "code": "E0",
+      "aliases": [
+        "E0"
+      ],
+      "title": {
+        "en": "Indoor Unit Overcurrent Protection",
+        "ur": "Indoor unit overcurrent protection"
+      },
+      "meaning": {
+        "en": "The indoor unit drew more current than allowed (overload or electrical fault) and protection tripped.",
+        "ur": "Indoor unit ne allowed se zyada current liya (overload ya electrical fault) aur protection trip ho gayi."
+      },
+      "causes": [
+        {
+          "en": "Overloaded indoor circuit / faulty wiring",
+          "ur": "Indoor circuit overload / wiring kharab"
+        },
+        {
+          "en": "Indoor PCB or fan motor drawing excessive current",
+          "ur": "Indoor PCB ya fan motor zyada current le raha hai"
+        },
+        {
+          "en": "Compressor-related stress reflected on the indoor side (some models)",
+          "ur": "Kuch models par compressor ka load indoor side par reflect hota hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Power isolated: check indoor wiring terminals and the circuit breaker",
+          "ur": "Power band karke indoor wiring terminals aur circuit breaker check karein"
+        },
+        {
+          "en": "If it trips again immediately: technician-level indoor PCB/motor diagnosis — do not keep restarting",
+          "ur": "Foran dobara trip ho to technician indoor PCB/motor dekhe — baar baar restart na karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "relatedCodes": [
+        "E4",
+        "E5"
+      ]
+    },
+    {
+      "code": "E1",
+      "aliases": [
+        "E1"
+      ],
+      "title": {
+        "en": "Indoor Room Temperature Sensor Fault",
+        "ur": "Indoor room temperature sensor ki fault"
+      },
+      "meaning": {
+        "en": "The indoor room-air temperature sensor (T1) is open, shorted, drifted or its connector is loose.",
+        "ur": "Room air ka temperature sensor (T1) open/short/drift ho gaya ya connector dhila hai."
+      },
+      "causes": [
+        {
+          "en": "Faulty or drifted room temperature sensor",
+          "ur": "Room temperature sensor kharab ya drift"
+        },
+        {
+          "en": "Loose sensor plug / damaged wire at indoor PCB",
+          "ur": "Sensor plug dhila ya indoor PCB par wire damage"
+        },
+        {
+          "en": "Sensor exposed to direct sun or a heat source",
+          "ur": "Sensor seedhi dhoop ya heat source ke qareeb"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Check sensor seating and wiring at the indoor PCB (power isolated)",
+          "ur": "Power band karke sensor aur wiring indoor PCB par check karein"
+        },
+        {
+          "en": "Measure sensor resistance and replace if out of spec (technician)",
+          "ur": "Technician resistance nape aur ghalat ho to sensor badlein"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "relatedCodes": [
+        "E2",
+        "E3"
+      ]
+    },
+    {
+      "code": "E2",
+      "aliases": [
+        "E2"
+      ],
+      "title": {
+        "en": "Outdoor Condenser Temperature Sensor Fault",
+        "ur": "Outdoor condenser temperature sensor ki fault"
+      },
+      "meaning": {
+        "en": "The outdoor condenser coil temperature sensor (T3) or its wiring is faulty.",
+        "ur": "Outdoor condenser coil ka sensor (T3) ya uski wire kharab hai."
+      },
+      "causes": [
+        {
+          "en": "Faulty outdoor coil sensor",
+          "ur": "Outdoor coil sensor kharab"
+        },
+        {
+          "en": "Connector loose / wire damaged at outdoor PCB",
+          "ur": "Outdoor PCB par connector dhila ya wire damage"
+        },
+        {
+          "en": "Outdoor unit overheating / blocked airflow",
+          "ur": "Outdoor unit overheat / hawa ka rasta block"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; ensure 2+ feet clearance around outdoor unit and clean the coil",
+          "ur": "Power off karke outdoor ke aage 2 feet jagah aur saaf coil check karein"
+        },
+        {
+          "en": "Inspect sensor and connector at outdoor PCB",
+          "ur": "Outdoor PCB par sensor aur connector check karein"
+        },
+        {
+          "en": "Replace sensor if readings are wrong (technician)",
+          "ur": "Reading ghalat ho to sensor badlein (technician)"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "relatedCodes": [
+        "E1",
+        "E3",
+        "F6"
+      ]
+    },
+    {
+      "code": "E3",
+      "aliases": [
+        "E3"
+      ],
+      "title": {
+        "en": "Indoor Evaporator (Coil) Temperature Sensor Fault",
+        "ur": "Indoor evaporator/coil temperature sensor ki fault"
+      },
+      "meaning": {
+        "en": "The indoor evaporator pipe temperature sensor (T2) is faulty or disconnected. Frequently seen on Orient DC inverters (video evidence).",
+        "ur": "Evaporator pipe ka sensor (T2) kharab ya disconnect hai. Orient DC inverter par aksar aata hai (video evidence)."
+      },
+      "causes": [
+        {
+          "en": "Faulty pipe sensor or loose connection",
+          "ur": "Pipe sensor kharab ya connection dhila"
+        },
+        {
+          "en": "Sensor wire damaged (rats, service)",
+          "ur": "Sensor wire chuhe/service se damage"
+        },
+        {
+          "en": "Sensor fallen out of the coil pocket",
+          "ur": "Sensor coil pocket se bahar"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Inspect sensor placement in the coil and continuity to indoor PCB",
+          "ur": "Coil mein sensor ki jagah aur indoor PCB tak continuity check karein"
+        },
+        {
+          "en": "Replace sensor if resistance is wrong (technician)",
+          "ur": "Resistance ghalat ho to sensor badlein (technician)"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "relatedCodes": [
+        "E1",
+        "E2"
+      ]
+    },
+    {
+      "code": "E4",
+      "aliases": [
+        "E4"
+      ],
+      "title": {
+        "en": "AC or DC Motor Error",
+        "ur": "AC ya DC motor ki fault"
+      },
+      "meaning": {
+        "en": "The unit detected a problem with an AC or DC fan motor (indoor blower or outdoor fan depending on model).",
+        "ur": "Unit ko kisi AC ya DC fan motor mein masla mila (model ke mutabiq indoor blower ya outdoor fan)."
+      },
+      "causes": [
+        {
+          "en": "Motor winding open/short or motor seized",
+          "ur": "Motor winding open/short ya motor jam"
+        },
+        {
+          "en": "Loose motor connector / damaged harness",
+          "ur": "Motor connector dhila ho ya harness kharab ho"
+        },
+        {
+          "en": "Fan capacitor weak (AC-motor models)",
+          "ur": "Fan capacitor kamzor (AC-motor models)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Power isolated: check that the fan spins freely and connectors are tight",
+          "ur": "Power band karke fan azaad ghoomta ho aur connectors kasi hon check karein"
+        },
+        {
+          "en": "Technician tests motor voltages/continuity and capacitor; replace as needed",
+          "ur": "Technician motor voltage/continuity aur capacitor check kare; zaroorat ho to badlein"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "relatedCodes": [
+        "F0",
+        "E6"
+      ]
+    },
+    {
+      "code": "E5",
+      "aliases": [
+        "E5"
+      ],
+      "title": {
+        "en": "Indoor–Outdoor Unit Communication Error",
+        "ur": "Indoor–outdoor unit communication ki fault"
+      },
+      "meaning": {
+        "en": "The indoor and outdoor units have lost communication (signal wire, outdoor main PCB, or indoor PCB).",
+        "ur": "Indoor aur outdoor units aapas mein baat karna band kar gaye (signal wire, outdoor main PCB ya indoor PCB)."
+      },
+      "causes": [
+        {
+          "en": "Loose, corroded or broken interconnect cable",
+          "ur": "Interconnect cable dhili, zang ya tooti"
+        },
+        {
+          "en": "Poor/ unstable supply disturbing the communication line",
+          "ur": "Voltage unstable hona communication line bigaar raha hai"
+        },
+        {
+          "en": "Outdoor main PCB or indoor PCB communication circuit fault",
+          "ur": "Outdoor main PCB ya indoor PCB ka communication circuit kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Power isolated: re-check both terminal blocks — wires tight, clean, correct order",
+          "ur": "Power band karke dono terminal blocks dobara check karein — wires saaf, kasi hui, sahi order mein"
+        },
+        {
+          "en": "Use a stabilizer if the area has low/high voltage",
+          "ur": "Ilaake mein voltage kharab ho to stabilizer lagwayein"
+        },
+        {
+          "en": "If still present: technician checks outdoor/main PCB (common Orient E5 class)",
+          "ur": "Phir bhi aaye to technician outdoor/main PCB check kare (Orient mein E5 ka common class)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "relatedCodes": [
+        "E8",
+        "F8",
+        "P1"
+      ]
+    },
+    {
+      "code": "E6",
+      "aliases": [
+        "E6"
+      ],
+      "title": {
+        "en": "Compressor Overload (split) / Sliding Door (cabinet)",
+        "ur": "Split par compressor overload / cabinet par sliding door fault"
+      },
+      "meaning": {
+        "en": "On wall splits Electra Fix lists E6 as compressor overload protection. On vertical/cabinet Orient units mbsmpro lists E6 as a sliding-door (motorized door) fault. Meaning is unit-type dependent.",
+        "ur": "Wall split par Electra Fix E6 ko compressor overload kehta hai. Vertical/cabinet Orient par mbsmpro E6 ko sliding door (motorized door) fault kehta hai. Matlab unit type par depend karta hai."
+      },
+      "causes": [
+        {
+          "en": "Compressor overload: high pressure, dirty condenser, electrical issue (split reading)",
+          "ur": "Compressor overload: pressure zyada, ganda condenser, electrical masla (split wala matlab)"
+        },
+        {
+          "en": "Sliding-door latch/sensor not closed (cabinet reading)",
+          "ur": "Sliding door latch/sensor band nahi (cabinet wala matlab)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Stop the unit and let the compressor cool; wash outdoor coil",
+          "ur": "Unit band karein aur compressor ko thanda hone dein; outdoor coil dhoyein"
+        },
+        {
+          "en": "On cabinet units: check door fully closed and door sensor switch",
+          "ur": "Cabinet units par door mukammal band ho aur door sensor switch check karein"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — Orient Inverter AC Error Code List",
+        "retrieved": "2026-09-23",
+        "url": "https://electrafix.pk/orient-inverter-ac-error-code-list-f1-e-common-troubleshooting-tips"
+      },
+      "notes": {
+        "en": "CONFLICT: Electra Fix = compressor overload; mbsmpro = sliding door fault (cabinet only). Treat as model/unit-type dependent — see also floor-standing.json.",
+        "ur": "CONFLICT: Electra Fix = compressor overload; mbsmpro = sliding door fault (sirf cabinet). Model/unit type par depend maan lein — floor-standing.json bhi dekhein."
+      },
+      "relatedCodes": [
+        "F5",
+        "P4"
+      ]
+    },
+    {
+      "code": "E7",
+      "aliases": [
+        "E7"
+      ],
+      "title": {
+        "en": "Outdoor Fan Motor Error",
+        "ur": "Outdoor fan motor ki fault"
+      },
+      "meaning": {
+        "en": "Electra Fix lists E7 as an outdoor fan motor error on Orient. Not present in the official Orient table — model-dependent extension.",
+        "ur": "Electra Fix Orient par E7 ko outdoor fan motor error kehta hai. Official Orient table mein nahi — model-dependent extension."
+      },
+      "causes": [
+        {
+          "en": "Outdoor fan blocked or motor failed",
+          "ur": "Outdoor fan block ya motor kharab"
+        },
+        {
+          "en": "Outdoor fan capacitor weak / wiring fault",
+          "ur": "Outdoor fan capacitor kamzor ho ya wiring mein fault ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; clear debris around outdoor fan and check blades turn freely",
+          "ur": "Power off karke outdoor fan ke aage ka mala saaf karein aur blade ko azaad ghoomne dein"
+        },
+        {
+          "en": "Technician tests fan motor and capacitor",
+          "ur": "Technician fan motor aur capacitor test kare"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — Orient Inverter AC Error Code List",
+        "retrieved": "2026-09-23",
+        "url": "https://electrafix.pk/orient-inverter-ac-error-code-list-f1-e-common-troubleshooting-tips"
+      },
+      "notes": {
+        "en": "Not in official Orient table; single Orient-specific technician source (Electra Fix). Confidence medium — verify on your model.",
+        "ur": "Official Orient table mein nahi; sirf ek Orient technician source (Electra Fix). Confidence medium — apne model par verify karein."
+      },
+      "relatedCodes": [
+        "F0",
+        "E4"
+      ]
+    },
+    {
+      "code": "E8",
+      "aliases": [
+        "E8"
+      ],
+      "title": {
+        "en": "Display Board ↔ Main PCB Communication Fault",
+        "ur": "Display board aur main PCB mein communication fault"
+      },
+      "meaning": {
+        "en": "The indoor display board is not talking to the main indoor PCB (ribbon cable, connector, or board failure). Corroborated by PK service content (bulao.pk).",
+        "ur": "Indoor display board aur main PCB aapas mein baat nahi kar rahe (ribbon cable, connector ya board). PK service content (bulao.pk) se bhi support mila hai."
+      },
+      "causes": [
+        {
+          "en": "Ribbon cable unseated between display and PCB",
+          "ur": "Display aur PCB ke darmiyan ribbon cable dhili"
+        },
+        {
+          "en": "Faulty display board or main indoor PCB",
+          "ur": "Display board ya main indoor PCB kharab"
+        },
+        {
+          "en": "Corroded connector pins",
+          "ur": "Connector pins par zang/kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; reseat the display ribbon cable carefully",
+          "ur": "Power off karke display ribbon cable ko savadhan se dobara lagayein"
+        },
+        {
+          "en": "Inspect connector pins for loose contact",
+          "ur": "Connector pins loose contact ke liye dekhein"
+        },
+        {
+          "en": "If code returns: technician tests/replaces display board or PCB",
+          "ur": "Code wapas aaye to technician display board ya PCB test/badalay"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "relatedCodes": [
+        "E5",
+        "P9"
+      ]
+    },
+    {
+      "code": "E9",
+      "aliases": [
+        "E9"
+      ],
+      "title": {
+        "en": "Humidity Sensor Failure (advanced models)",
+        "ur": "Humidity sensor failure (advanced models)"
+      },
+      "meaning": {
+        "en": "The humidity sensor on advanced Orient models with humidity-control features has failed.",
+        "ur": "Humidity-control feature wali advanced Orient models mein humidity sensor kharab ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Humidity sensor module faulty",
+          "ur": "Humidity sensor module kharab"
+        },
+        {
+          "en": "Wiring/connector issue to indoor PCB",
+          "ur": "Indoor PCB tak wiring/connector masla"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle; if persists, technician replaces humidity sensor module",
+          "ur": "Reset karein; phir raha to technician humidity sensor module badle"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "notes": {
+        "en": "Not in official Orient table; single extended technical source (mbsmpro). Advanced/humidity models only.",
+        "ur": "Official Orient table mein nahi; sirf ek extended technical source (mbsmpro). Sirf advanced/humidity models par."
+      },
+      "relatedCodes": [
+        "E1"
+      ]
+    },
+    {
+      "code": "EA",
+      "aliases": [
+        "EA"
+      ],
+      "title": {
+        "en": "Indoor Fan Zero-Crossing Detection Fault",
+        "ur": "Indoor fan zero-crossing detection fault"
+      },
+      "meaning": {
+        "en": "The indoor fan motor controller cannot detect the AC zero-crossing points needed to synchronize the fan motor.",
+        "ur": "Indoor fan motor controller AC ke zero-crossing points detect nahi kar pata jo fan motor ko synchronize karne ke liye zaroori hain."
+      },
+      "causes": [
+        {
+          "en": "Zero-crossing detection circuit / module faulty on indoor PCB",
+          "ur": "Indoor PCB par zero-crossing detection circuit/module kharab"
+        },
+        {
+          "en": "Mains waveform disturbed (rare)",
+          "ur": "Mains waveform bigad hua (rare)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Technician: replace zero-crossing detection module or service/replace indoor PCB",
+          "ur": "Technician: zero-crossing module badlein ya indoor PCB service/replace karein"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "notes": {
+        "en": "Not in official Orient table; extended technical source (mbsmpro). Related outdoor twin is Fd.",
+        "ur": "Official Orient table mein nahi; extended technical source (mbsmpro). Outdoor wala twin Fd hai."
+      },
+      "relatedCodes": [
+        "Fd",
+        "E4"
+      ]
+    },
+    {
+      "code": "Eb",
+      "aliases": [
+        "Eb"
+      ],
+      "title": {
+        "en": "Indoor Unit PCB Error",
+        "ur": "Indoor unit PCB ki fault"
+      },
+      "meaning": {
+        "en": "Official wording: indoor unit PCB error. Extended sources describe the same slot as an indoor EEPROM fault — both mean the indoor control board needs service.",
+        "ur": "Official: indoor unit PCB error. Extended sources usi slot ko indoor EEPROM fault kehte hain — dono ka matlab hai indoor control board ko service chahiye."
+      },
+      "causes": [
+        {
+          "en": "Indoor main PCB hardware fault / surge damage",
+          "ur": "Indoor main PCB kharab ho ya surge se damage ho"
+        },
+        {
+          "en": "EEPROM chip corrupted or failed (extended reading)",
+          "ur": "EEPROM chip corrupt ya kharab (extended wala matlab)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle once; if it remains, technician board diagnosis",
+          "ur": "Ek baar reset karein; raha to technician board diagnosis"
+        },
+        {
+          "en": "Check house earthing/surge protection",
+          "ur": "Ghar ki earthing/surge protection check karein"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "notes": {
+        "en": "CONFLICT: Official = 'Indoor Unit PCB Error'; mbsmpro = indoor EEPROM fault. Primary = official (broader PCB error); EEPROM is a common cause under it.",
+        "ur": "CONFLICT: Official kehti hai indoor unit PCB error; mbsmpro indoor EEPROM fault. Primary official hai (broad PCB error) — EEPROM iske under ek common cause hai."
+      },
+      "relatedCodes": [
+        "E8",
+        "F9"
+      ]
+    },
+    {
+      "code": "F0",
+      "aliases": [
+        "F0"
+      ],
+      "title": {
+        "en": "Outdoor Fan Motor Error",
+        "ur": "Outdoor fan motor ki fault"
+      },
+      "meaning": {
+        "en": "The outdoor condenser fan motor is not running correctly (blocked, failed motor, or weak capacitor).",
+        "ur": "Outdoor condenser fan motor theek nahi chal raha (block, motor kharab ya capacitor kamzor)."
+      },
+      "causes": [
+        {
+          "en": "Outdoor fan blocked by debris or motor failed",
+          "ur": "Outdoor fan mala se block ho ya motor kharab ho"
+        },
+        {
+          "en": "Outdoor fan capacitor weak",
+          "ur": "Outdoor fan capacitor kamzor"
+        },
+        {
+          "en": "Fan wiring/connector loose at outdoor PCB",
+          "ur": "Outdoor PCB par fan wiring dhili"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; clear debris and check blades turn freely",
+          "ur": "Power off karke mala saaf karein aur blade ko azaad ghoomne dein"
+        },
+        {
+          "en": "Technician tests fan motor and capacitor",
+          "ur": "Technician fan motor aur capacitor test kare"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "notes": {
+        "en": "CONFLICT: Official + Electra Fix = outdoor fan motor; AYS Online = low refrigerant level. Primary = official.",
+        "ur": "CONFLICT: Official + Electra Fix = outdoor fan; AYS Online = kam gas. Primary = official."
+      },
+      "relatedCodes": [
+        "E4",
+        "F1"
+      ]
+    },
+    {
+      "code": "F1",
+      "aliases": [
+        "F1"
+      ],
+      "title": {
+        "en": "Outdoor Module (IPM) Protection",
+        "ur": "Outdoor module (IPM) ki protection"
+      },
+      "meaning": {
+        "en": "The outdoor inverter power module (IPM) tripped — overheat, short, or drive-stage fault.",
+        "ur": "Outdoor inverter power module (IPM) trip hua — overheat, short ya drive-stage fault."
+      },
+      "causes": [
+        {
+          "en": "Module overheating / blocked outdoor airflow",
+          "ur": "Module zyada garam ho jaye ya outdoor airflow block ho"
+        },
+        {
+          "en": "Voltage spikes damaging the drive stage",
+          "ur": "Voltage spike se drive stage thes"
+        },
+        {
+          "en": "IPM or outdoor PCB failure",
+          "ur": "IPM ya outdoor PCB kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, cool the unit, improve clearance around outdoor unit",
+          "ur": "Power off karke unit thanda karein, outdoor ke aage jagah barhayein"
+        },
+        {
+          "en": "One reset after cooling",
+          "ur": "Thanda hone ke baad ek baar reset karein"
+        },
+        {
+          "en": "If it returns: technician outdoor PCB/IPM repair — do not loop restarts",
+          "ur": "Wapas aaye to technician outdoor PCB/IPM dekhe — restart loop na banayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "notes": {
+        "en": "CONFLICT: Official + Electra Fix = outdoor module protection; AYS Online = indoor PCB communication error. Primary = official.",
+        "ur": "CONFLICT: Official + Electra Fix = outdoor module protection; AYS Online = indoor PCB communication error. Primary official wala hai."
+      },
+      "relatedCodes": [
+        "F2",
+        "P4",
+        "F3"
+      ]
+    },
+    {
+      "code": "F2",
+      "aliases": [
+        "F2"
+      ],
+      "title": {
+        "en": "Outdoor PFC (Power Factor Correction) Protection",
+        "ur": "Outdoor PFC (power factor correction) ki protection"
+      },
+      "meaning": {
+        "en": "The PFC stage of the outdoor board reported a fault — usually unstable mains or PFC circuit failure.",
+        "ur": "Outdoor board ka PFC stage fault batata hai — aam tor par kharab mains ya PFC circuit kharab."
+      },
+      "causes": [
+        {
+          "en": "Unstable / low / high mains voltage",
+          "ur": "Mains voltage unstable, kam ya zyada"
+        },
+        {
+          "en": "PFC capacitor/reactor or board fault",
+          "ur": "PFC capacitor/reactor ya board kharab"
+        },
+        {
+          "en": "Loose supply wiring",
+          "ur": "Supply wiring dhili"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check input voltage with a meter; stabilizer in bad areas",
+          "ur": "Meter se input voltage check karein; kharab area mein stabilizer lagayein"
+        },
+        {
+          "en": "Power cycle after voltage is stable",
+          "ur": "Voltage theek hone par reset karein"
+        },
+        {
+          "en": "If repeats on stable supply: technician board service",
+          "ur": "Theek voltage par baar baar aaye to technician board service kare"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "notes": {
+        "en": "CONFLICT: Official + Electra Fix = PFC protection; AYS Online = indoor coil temperature sensor error. Primary = official.",
+        "ur": "CONFLICT: Official + Electra Fix = PFC protection; AYS Online = indoor coil temperature sensor error. Primary official wala hai."
+      },
+      "relatedCodes": [
+        "F1",
+        "P0",
+        "F7"
+      ]
+    },
+    {
+      "code": "F3",
+      "aliases": [
+        "F3"
+      ],
+      "title": {
+        "en": "Compressor Start Failure or Out-of-Step Error",
+        "ur": "Compressor start nahi ho pa raha ya out-of-step"
+      },
+      "meaning": {
+        "en": "The compressor failed to start within the expected time or lost rotor synchronism (out-of-step).",
+        "ur": "Compressor mutawaqqa time par start nahi hua ya rotor ka synchronization toot gaya (out-of-step)."
+      },
+      "causes": [
+        {
+          "en": "Weak/damaged start relay or capacitor",
+          "ur": "Start relay ya capacitor kamzor/kharab"
+        },
+        {
+          "en": "Compressor windings open/short or compressor stuck",
+          "ur": "Compressor winding open/short ya compressor jam"
+        },
+        {
+          "en": "Low voltage at start / out-of-step drive fault",
+          "ur": "Start par voltage kam / out-of-step drive fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check supply voltage under load (technician)",
+          "ur": "Technician load par voltage check kare"
+        },
+        {
+          "en": "Technician tests relay/capacitor and compressor continuity to earth",
+          "ur": "Technician relay/capacitor aur compressor continuity to earth check kare"
+        },
+        {
+          "en": "Compressor replacement if windings are bad",
+          "ur": "Winding kharab ho to compressor badalna parega"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "notes": {
+        "en": "CONFLICT: Official + Electra Fix = compressor start/out-of-step; AYS Online = outdoor ambient temperature sensor error. Primary = official.",
+        "ur": "CONFLICT: Official + Electra Fix = compressor start/out-of-step; AYS Online = outdoor ambient temperature sensor error. Primary official wala hai."
+      },
+      "relatedCodes": [
+        "F1",
+        "EC",
+        "L2"
+      ]
+    },
+    {
+      "code": "F4",
+      "aliases": [
+        "F4"
+      ],
+      "title": {
+        "en": "Outdoor Discharge (Exhaust) Temperature Sensor Fault",
+        "ur": "Outdoor discharge/exhaust temperature sensor ki fault"
+      },
+      "meaning": {
+        "en": "The compressor discharge (exhaust) temperature sensor is open, shorted or out of position — protects against overheating.",
+        "ur": "Compressor discharge (exhaust) temperature sensor open/short ya jagah se hat gaya — overheat se bachata hai."
+      },
+      "causes": [
+        {
+          "en": "Discharge sensor open/short or seating wrong",
+          "ur": "Discharge sensor open/short ya jagah ghalat"
+        },
+        {
+          "en": "Compressor overheating (high discharge temp)",
+          "ur": "Compressor overheat (discharge temp zyada)"
+        },
+        {
+          "en": "Outdoor PCB sensor input fault",
+          "ur": "Outdoor PCB ka sensor input fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and cool down; clean filters and outdoor coil",
+          "ur": "Power off karke thanda karein; filters aur outdoor coil saaf karein"
+        },
+        {
+          "en": "Technician: check discharge sensor resistance and seating",
+          "ur": "Technician discharge sensor ki resistance aur jagah check kare"
+        },
+        {
+          "en": "If sensor OK: check gas charge and compressor (technician)",
+          "ur": "Sensor theek ho to gas charge aur compressor check karein (technician)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "notes": {
+        "en": "CONFLICT: Official + Electra Fix = outdoor discharge sensor; AYS Online = outdoor pipe temperature sensor (same family, different label). Primary = official.",
+        "ur": "CONFLICT: Official + Electra Fix = outdoor discharge sensor; AYS Online = outdoor pipe temperature sensor (same family, alag label). Primary official wala hai."
+      },
+      "relatedCodes": [
+        "F5",
+        "P5",
+        "F3"
+      ]
+    },
+    {
+      "code": "F5",
+      "aliases": [
+        "F5"
+      ],
+      "title": {
+        "en": "Discharge Temp Sensor Fault (or top-cover protection)",
+        "ur": "Discharge temperature sensor fault (ya top-cover protection)"
+      },
+      "meaning": {
+        "en": "Two readings: (1) discharge temperature sensor fault (AYS + Electra Fix); (2) compressor top-cover / over-temperature protection (mbsmpro).",
+        "ur": "Do tarah ke readings: (1) discharge temperature sensor fault (AYS + Electra Fix); (2) compressor top-cover / over-temperature protection (mbsmpro)."
+      },
+      "causes": [
+        {
+          "en": "Faulty discharge sensor / loose connection",
+          "ur": "Discharge sensor kharab / connection dhili"
+        },
+        {
+          "en": "Compressor internal temperature too high (top-cover protection reading)",
+          "ur": "Compressor andar se bohat garam (top-cover protection wala matlab)"
+        },
+        {
+          "en": "Low refrigerant or blocked condenser driving high discharge temp",
+          "ur": "Kam gas ya block condenser se discharge temp zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean filters/condenser and power off to cool",
+          "ur": "Filters/condenser saaf karein aur power off karke thanda karein"
+        },
+        {
+          "en": "Technician checks discharge sensor and compressor temperature",
+          "ur": "Technician discharge sensor aur compressor temperature check kare"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — Orient Inverter AC Error Code List",
+        "retrieved": "2026-09-23",
+        "url": "https://electrafix.pk/orient-inverter-ac-error-code-list-f1-e-common-troubleshooting-tips"
+      },
+      "notes": {
+        "en": "CONFLICT: AYS + Electra Fix = discharge temperature sensor; mbsmpro = compressor top-cover protection. Primary = discharge sensor (2 sources).",
+        "ur": "CONFLICT: AYS + Electra Fix kehti hai discharge temperature sensor; mbsmpro compressor top-cover protection. Primary discharge sensor hai (2 sources)."
+      },
+      "relatedCodes": [
+        "F4",
+        "P5"
+      ]
+    },
+    {
+      "code": "F6",
+      "aliases": [
+        "F6"
+      ],
+      "title": {
+        "en": "Outdoor Room (Ambient) Temperature Sensor Fault",
+        "ur": "Outdoor room/ambient temperature sensor ki fault"
+      },
+      "meaning": {
+        "en": "The outdoor ambient temperature sensor is faulty or its wiring is damaged. (AYS groups F6/F8/F9 as overload-class on some models.)",
+        "ur": "Outdoor ambient temperature sensor kharab hai ya wire damage hai. (Kuch models par AYS F6/F8/F9 ko overload class mein group karta hai.)"
+      },
+      "causes": [
+        {
+          "en": "Outdoor ambient sensor open/short or loose",
+          "ur": "Outdoor ambient sensor open/short ya dhila"
+        },
+        {
+          "en": "Sensor wiring damage at outdoor unit",
+          "ur": "Outdoor par sensor wire damage"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Technician checks outdoor ambient sensor and connector",
+          "ur": "Technician outdoor ambient sensor aur connector check kare"
+        },
+        {
+          "en": "Replace sensor if reading is wrong",
+          "ur": "Reading ghalat ho to sensor badlein"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "notes": {
+        "en": "CONFLICT: Official = outdoor room sensor; AYS groups F6 with F8/F9 as overload/overcurrent/high-temperature (model-dependent). Primary = official.",
+        "ur": "CONFLICT: Official = outdoor room sensor; AYS F6 ko F8/F9 ke sath overload/overcurrent/high-temp group karta hai (model-dependent). Primary = official."
+      },
+      "relatedCodes": [
+        "E2",
+        "F4"
+      ]
+    },
+    {
+      "code": "F7",
+      "aliases": [
+        "F7"
+      ],
+      "title": {
+        "en": "Over/Under-Voltage Protection (or outdoor coil sensor)",
+        "ur": "Over/under-voltage protection (ya outdoor coil sensor)"
+      },
+      "meaning": {
+        "en": "No official Orient F7. mbsmpro: supply voltage above ~264V or below ~176V. Electra Fix: outdoor coil temperature sensor. Model-dependent — check your model.",
+        "ur": "Official Orient mein F7 nahi. mbsmpro: supply voltage ~264V se upar ya ~176V se neeche. Electra Fix: outdoor coil temperature sensor. Model-dependent — apna model dekhein."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage too high/low (voltage reading)",
+          "ur": "Grid voltage zyada/kam (voltage wala matlab)"
+        },
+        {
+          "en": "Outdoor coil sensor fault (sensor reading)",
+          "ur": "Outdoor coil sensor fault (sensor wala matlab)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure mains with a meter (~220V ±10%); install stabilizer if unstable",
+          "ur": "Meter se mains napein (~220V ±10%); unstable ho to stabilizer lagayein"
+        },
+        {
+          "en": "If voltage is fine: technician checks outdoor coil sensor (Electra Fix path)",
+          "ur": "Voltage theek ho to technician outdoor coil sensor dekhe (Electra Fix wala rasta)"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "low",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "notes": {
+        "en": "CONFLICT / no official F7: mbsmpro = over/under voltage protection; Electra Fix = outdoor coil sensor. Two mutually exclusive single sources — verify on your model. Low confidence.",
+        "ur": "CONFLICT / official mein F7 nahi: mbsmpro = over/under voltage; Electra Fix = outdoor coil sensor. Do alag single sources — apne model par verify karein. Low confidence."
+      },
+      "relatedCodes": [
+        "F2",
+        "P0",
+        "E2"
+      ]
+    },
+    {
+      "code": "F8",
+      "aliases": [
+        "F8"
+      ],
+      "title": {
+        "en": "Outdoor PCB ↔ Module Board Communication Error",
+        "ur": "Outdoor PCB aur module board mein communication fault"
+      },
+      "meaning": {
+        "en": "The outdoor main PCB cannot communicate with the inverter/module board.",
+        "ur": "Outdoor main PCB inverter/module board se baat nahi kar pata."
+      },
+      "causes": [
+        {
+          "en": "Module board connectors loose / wiring fault",
+          "ur": "Module board ke connectors dhile hon ya wiring mein fault ho"
+        },
+        {
+          "en": "Outdoor main PCB or module board failure",
+          "ur": "Outdoor main PCB ya module board kharab"
+        },
+        {
+          "en": "Communication fuse/track damaged",
+          "ur": "Communication fuse/track damage"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; reseat module board connectors carefully",
+          "ur": "Power off karke module board connectors ko ehtiyat se dobara lagayein"
+        },
+        {
+          "en": "Technician checks communication wiring and both boards",
+          "ur": "Technician communication wiring aur dono boards check kare"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "notes": {
+        "en": "CONFLICT: Official = outdoor PCB↔module communication; AYS groups F8 with F6/F9 as overload-class (model-dependent). Primary = official.",
+        "ur": "CONFLICT: Official = outdoor PCB↔module communication; AYS F8 ko F6/F9 ke sath overload class group karta hai. Primary = official."
+      },
+      "relatedCodes": [
+        "F1",
+        "E5"
+      ]
+    },
+    {
+      "code": "F9",
+      "aliases": [
+        "F9"
+      ],
+      "title": {
+        "en": "Outdoor Unit PCB Error",
+        "ur": "Outdoor unit PCB ki fault"
+      },
+      "meaning": {
+        "en": "Official: outdoor unit PCB error. Extended source reads the same slot as outdoor EEPROM fault. Both mean the outdoor control board needs service.",
+        "ur": "Official: outdoor unit PCB error. Extended source usi slot ko outdoor EEPROM fault kehta hai. Dono ka matlab outdoor control board ko service chahiye."
+      },
+      "causes": [
+        {
+          "en": "Outdoor main PCB hardware fault / surge damage",
+          "ur": "Outdoor main PCB kharab ho ya surge se damage ho"
+        },
+        {
+          "en": "Outdoor EEPROM corrupted (extended reading)",
+          "ur": "Outdoor EEPROM corrupt (extended wala matlab)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle once; if remains, technician outdoor board diagnosis",
+          "ur": "Ek baar reset karein; raha to technician outdoor board diagnosis"
+        },
+        {
+          "en": "Check earthing and surge protection",
+          "ur": "Earthing aur surge protection check karein"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Orient official blog (BlueEast 17 Jun 2020) — recovered via Internet Archive capture 2025-01-23",
+        "retrieved": "2026-09-23",
+        "url": "https://web.archive.org/web/20250123161111/https://orient.com.pk/blogs/updates/some-basic-air-conditioner-error-codes-and-what-they-mean"
+      },
+      "notes": {
+        "en": "CONFLICT: Official = outdoor PCB error; mbsmpro = outdoor EEPROM fault; AYS groups F9 with F6/F8 as high-temperature class. Primary = official.",
+        "ur": "CONFLICT: Official = outdoor PCB error; mbsmpro = outdoor EEPROM; AYS F9 ko high-temp class group karta hai. Primary = official."
+      },
+      "relatedCodes": [
+        "F1",
+        "F8",
+        "Eb"
+      ]
+    },
+    {
+      "code": "FA",
+      "aliases": [
+        "FA"
+      ],
+      "title": {
+        "en": "Suction Temperature Sensor Fault (AYS: current error)",
+        "ur": "Suction temperature sensor fault (AYS wala current error)"
+      },
+      "meaning": {
+        "en": "Two readings: (1) suction (compressor inlet) temperature sensor fault — mbsmpro + Scribd agree; (2) compressor current error — AYS only.",
+        "ur": "Do tarah ke readings: (1) suction (compressor inlet) temperature sensor fault — mbsmpro + Scribd ittefaq karte hain; (2) compressor current error — sirf AYS."
+      },
+      "causes": [
+        {
+          "en": "Suction temperature sensor open/short or out of position",
+          "ur": "Suction temperature sensor open/short ya jagah se hat gaya"
+        },
+        {
+          "en": "Compressor current sensing fault (AYS alternate)",
+          "ur": "Compressor current sensing fault (AYS wala alternate)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Technician checks suction sensor resistance and seating",
+          "ur": "Technician suction sensor ki resistance aur jagah check kare"
+        },
+        {
+          "en": "If sensor OK: technician checks compressor running amps / current sensor",
+          "ur": "Sensor theek ho to technician compressor ke ampere / current sensor dekhe"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "notes": {
+        "en": "CONFLICT: mbsmpro + Scribd = suction temperature sensor; AYS = compressor current error. Primary = suction sensor (2 agreeing sources).",
+        "ur": "CONFLICT: mbsmpro + Scribd = suction temperature sensor; AYS = compressor current error. Primary suction sensor hai (2 sources)."
+      },
+      "relatedCodes": [
+        "F4",
+        "F3"
+      ]
+    },
+    {
+      "code": "FC",
+      "aliases": [
+        "FC"
+      ],
+      "title": {
+        "en": "Four-Way Valve Switching Fault (heat-pump models)",
+        "ur": "Heat pump models par 4-way valve switching fault"
+      },
+      "meaning": {
+        "en": "The 4-way reversing valve fails to switch between heating and cooling (heat-pump models only).",
+        "ur": "4-way reversing valve heating aur cooling ke darmiyan switch nahi karta (sirf heat-pump models)."
+      },
+      "causes": [
+        {
+          "en": "4-way valve coil open/short",
+          "ur": "4-way valve coil open/short ho jaye"
+        },
+        {
+          "en": "Valve stuck / not shifting",
+          "ur": "Valve jam / shift nahi ho raha"
+        },
+        {
+          "en": "Wiring fault to valve coil",
+          "ur": "Valve coil tak wiring fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "On heat models: technician tests valve coil voltage and continuity",
+          "ur": "Heat models par technician valve coil ki voltage/continuity check kare"
+        },
+        {
+          "en": "Replace 4-way valve assembly if stuck (technician)",
+          "ur": "Jam ho to 4-way valve assembly badlein (technician)"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "relatedCodes": [
+        "F3"
+      ]
+    },
+    {
+      "code": "Fd",
+      "aliases": [
+        "Fd"
+      ],
+      "title": {
+        "en": "Outdoor Fan Zero-Crossing Detection Fault",
+        "ur": "Outdoor fan zero-crossing detection fault"
+      },
+      "meaning": {
+        "en": "Like EA but for the outdoor condenser fan motor controller — zero-crossing points not detected.",
+        "ur": "EA jaisa lekin outdoor condenser fan motor controller ke liye — zero-crossing points detect nahi ho rahe."
+      },
+      "causes": [
+        {
+          "en": "Zero-crossing detection circuit/module faulty on outdoor board",
+          "ur": "Outdoor board par zero-crossing circuit/module kharab"
+        },
+        {
+          "en": "Outdoor fan motor controller fault",
+          "ur": "Outdoor fan motor controller kharab ho jata hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Technician: replace zero-crossing module or service outdoor board",
+          "ur": "Technician: zero-crossing module badlein ya outdoor board service karein"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "relatedCodes": [
+        "EA",
+        "F0"
+      ]
+    },
+    {
+      "code": "P0",
+      "aliases": [
+        "P0"
+      ],
+      "title": {
+        "en": "Module Under-Voltage Fault",
+        "ur": "Module under-voltage fault"
+      },
+      "meaning": {
+        "en": "The control/inverter module saw supply voltage below the safe window and shut down.",
+        "ur": "Control/inverter module ko supply voltage safe window se neeche mili aur unit band ho gayi."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage too low / brownout",
+          "ur": "Grid voltage bohat kam / brownout"
+        },
+        {
+          "en": "Loose mains connection or weak stabilizer",
+          "ur": "Mains connection dhili ya stabilizer kamzor"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure mains voltage; do not run on very low voltage",
+          "ur": "Mains voltage napein; bohat kam voltage par na chalayein"
+        },
+        {
+          "en": "Install/repair stabilizer; check breaker terminals",
+          "ur": "Stabilizer lagayein/repair karein; breaker terminals check karein"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "distributor_page",
+        "title": "AYS Online — Orient Inverter AC Error Code List",
+        "retrieved": "2026-09-23",
+        "url": "https://www.aysonline.pk/docs/orient-air-conditioner-error-codes"
+      },
+      "notes": {
+        "en": "AYS lists P0 as module under-voltage. mbsmpro uses L0 for module under-voltage on another display series — both kept as published. Related: F7 (voltage class), L0.",
+        "ur": "AYS P0 ko module under-voltage kehta hai. mbsmpro doosre display series par L0 use karta hai — dono jaise publish hue hain rakhe. Related: F7 (voltage class), L0."
+      },
+      "relatedCodes": [
+        "L0",
+        "F7"
+      ]
+    },
+    {
+      "code": "P1",
+      "aliases": [
+        "P1"
+      ],
+      "title": {
+        "en": "Indoor–Outdoor PCB Communication Error (AYS)",
+        "ur": "Indoor–outdoor PCB communication error (AYS)"
+      },
+      "meaning": {
+        "en": "AYS publishes P1 as indoor–outdoor PCB communication failure. The official table uses E5 for the same class — different display series/firmware possible.",
+        "ur": "AYS P1 ko indoor–outdoor PCB communication failure batata hai. Official table usi class ke liye E5 use karta hai — alag display series/firmware ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Interconnect signal wire fault",
+          "ur": "Interconnect signal wire mein fault ho"
+        },
+        {
+          "en": "Indoor or outdoor PCB communication circuit",
+          "ur": "Indoor ya outdoor PCB communication circuit"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Power isolated: check interconnect cable and terminals",
+          "ur": "Power band karke interconnect cable aur terminals check karein"
+        },
+        {
+          "en": "If persists: technician PCB diagnosis (same class as E5)",
+          "ur": "Raha to technician PCB diagnosis (E5 ke sath class)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "distributor_page",
+        "title": "AYS Online — Orient Inverter AC Error Code List",
+        "retrieved": "2026-09-23",
+        "url": "https://www.aysonline.pk/docs/orient-air-conditioner-error-codes"
+      },
+      "notes": {
+        "en": "Not in official Orient table; AYS-only. Cross-reference official E5 (indoor–outdoor communication). Treat as alternate display code for the same class.",
+        "ur": "Official Orient table mein nahi; sirf AYS. Official E5 se cross-reference karein (indoor–outdoor communication). Usi class ka alternate display code maan lein."
+      },
+      "relatedCodes": [
+        "E5",
+        "E8"
+      ]
+    },
+    {
+      "code": "P2",
+      "aliases": [
+        "P2"
+      ],
+      "title": {
+        "en": "High-Voltage Protection (>~264V)",
+        "ur": "High-voltage protection (~264V se upar)"
+      },
+      "meaning": {
+        "en": "Input voltage rose above the safe upper limit; the compressor was shut down to protect it.",
+        "ur": "Input voltage safe upper limit se upar chali gayi; compressor mehfoos rakhne ke liye band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage too high / unstable supply",
+          "ur": "Grid voltage zyada / supply unstable"
+        },
+        {
+          "en": "House wiring/earthing issues",
+          "ur": "Ghar ki wiring/earthing masla"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check mains with a meter (should be ~220V ±10%)",
+          "ur": "Meter se mains check karein (~220V ±10% hona chahiye)"
+        },
+        {
+          "en": "Install voltage stabilizer/AVR if the area fluctuates",
+          "ur": "Ilake mein fluctuation ho to stabilizer/AVR lagayein"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "relatedCodes": [
+        "P0",
+        "F7",
+        "L0"
+      ]
+    },
+    {
+      "code": "P3",
+      "aliases": [
+        "P3"
+      ],
+      "title": {
+        "en": "Low-Refrigerant (Lack of Fluid) Protection",
+        "ur": "Kam gas (lack of fluid) protection"
+      },
+      "meaning": {
+        "en": "System pressure/charge is too low; compressor stopped to avoid damage from running without enough refrigerant.",
+        "ur": "System ka pressure/charge bohat kam hai; kam gas ke sath chalne se compressor mehfoos rakhne ke liye band hua."
+      },
+      "causes": [
+        {
+          "en": "Refrigerant leak (flare joints, coil, valves)",
+          "ur": "Gas leak — flare joints, coil ya valves par"
+        },
+        {
+          "en": "Blockage in filter/drier or capillary",
+          "ur": "Filter/drier ya capillary mein blockage"
+        },
+        {
+          "en": "Indoor airflow very low causing freezing",
+          "ur": "Indoor airflow bohat kam — barf jamna"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Stop the unit; check for ice on pipes",
+          "ur": "Unit band karein; pipes par barf dekhein"
+        },
+        {
+          "en": "Clean filters and ensure airflow both sides",
+          "ur": "Filters saaf karein aur dono taraf airflow confirm karein"
+        },
+        {
+          "en": "Technician: pressure test, leak repair, recharge",
+          "ur": "Technician pressure test, leak repair aur gas charge karke dega"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "relatedCodes": [
+        "F3",
+        "P4"
+      ]
+    },
+    {
+      "code": "P4",
+      "aliases": [
+        "P4"
+      ],
+      "title": {
+        "en": "Outdoor Coil Overload Protection",
+        "ur": "Outdoor coil overload protection"
+      },
+      "meaning": {
+        "en": "The outdoor coil is overloaded (heat rejection too high / capacity cut). Capacity is reduced to protect the system.",
+        "ur": "Outdoor coil par overload hai (heat rejection zyada / capacity cut). System ko bachane ke liye capacity kam kar di gayi."
+      },
+      "causes": [
+        {
+          "en": "Dirty/blocked outdoor coil",
+          "ur": "Ganda/block outdoor coil"
+        },
+        {
+          "en": "High ambient temperature / direct sun on unit",
+          "ur": "Bahar temperature zyada / unit par seedhi dhoop"
+        },
+        {
+          "en": "Outdoor fan weak (airflow low)",
+          "ur": "Outdoor fan kamzor (airflow kam)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; wash outdoor coil and clear space around the unit",
+          "ur": "Power off karke outdoor coil dhoyein aur ird-gird jagah khali karein"
+        },
+        {
+          "en": "Check outdoor fan runs when unit is on (technician if not)",
+          "ur": "Unit on par outdoor fan chalta ho check karein (na chale to technician)"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "relatedCodes": [
+        "F0",
+        "P6"
+      ]
+    },
+    {
+      "code": "P5",
+      "aliases": [
+        "P5"
+      ],
+      "title": {
+        "en": "Discharge (Exhaust) High-Temperature Protection",
+        "ur": "Discharge/exhaust high-temperature protection"
+      },
+      "meaning": {
+        "en": "Compressor discharge temperature went too high; the unit cycles the compressor off to protect it.",
+        "ur": "Compressor discharge temperature bohat zyada ho gayi; compressor ko bachane ke liye unit usse cycle par band kar rahi hai."
+      },
+      "causes": [
+        {
+          "en": "Low refrigerant / dirty condenser / blocked airflow",
+          "ur": "Kam gas / ganda condenser / block airflow"
+        },
+        {
+          "en": "Discharge sensor misreading",
+          "ur": "Discharge sensor ghalat reading de raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean filters and outdoor coil; restore airflow",
+          "ur": "Filters aur outdoor coil saaf karein; airflow theek karein"
+        },
+        {
+          "en": "Power off to cool, then one reset",
+          "ur": "Power off karke thanda karein, phir ek reset"
+        },
+        {
+          "en": "If repeats: technician checks gas charge and sensors",
+          "ur": "Baar baar aaye to technician gas charge aur sensors dekhe"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "relatedCodes": [
+        "F4",
+        "F5",
+        "P6"
+      ]
+    },
+    {
+      "code": "P6",
+      "aliases": [
+        "P6"
+      ],
+      "title": {
+        "en": "High-Temperature Protection",
+        "ur": "High-temperature protection"
+      },
+      "meaning": {
+        "en": "A high-temperature protection trip (typically compressor/board temperature). Unit reduces compressor speed or stops.",
+        "ur": "High-temperature protection trip (aam tor par compressor/board temperature). Unit compressor ki speed kam karti hai ya band karti hai."
+      },
+      "causes": [
+        {
+          "en": "Overheating from dirty coils, low gas, or high ambient",
+          "ur": "Ganda coil, kam gas ya zyada ambient se overheat"
+        },
+        {
+          "en": "Blocked ventilation around indoor or outdoor unit",
+          "ur": "Indoor/outdoor ke aage hawa ka rasta block"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean filters and both coils; clear obstructions",
+          "ur": "Filters aur dono coils saaf karein; rukawatein hatayein"
+        },
+        {
+          "en": "Power off 30 minutes to cool, then restart",
+          "ur": "30 minute power off karke thanda karein, phir restart"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "relatedCodes": [
+        "P4",
+        "P5"
+      ]
+    },
+    {
+      "code": "P7",
+      "aliases": [
+        "P7"
+      ],
+      "title": {
+        "en": "Anti-Freezing Protection (evaporator ice)",
+        "ur": "Anti-freezing protection (evaporator par barf)"
+      },
+      "meaning": {
+        "en": "The indoor evaporator is freezing; the unit may switch to a brief heating/defrost behaviour and reduce cooling.",
+        "ur": "Indoor evaporator jam raha hai; unit thori der heating/defrost par switch kar sakti hai aur cooling kam ho jati hai."
+      },
+      "causes": [
+        {
+          "en": "Dirty filters / low airflow",
+          "ur": "Ganda filter / airflow kam"
+        },
+        {
+          "en": "Low refrigerant",
+          "ur": "Kam gas"
+        },
+        {
+          "en": "Indoor fan weak",
+          "ur": "Indoor fan kamzor"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean filters immediately and check airflow from the indoor unit",
+          "ur": "Filters foran saaf karein aur indoor se hawa check karein"
+        },
+        {
+          "en": "If ice keeps forming: technician checks gas charge and indoor fan",
+          "ur": "Barf banti rahi to technician gas charge aur indoor fan dekhe"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "relatedCodes": [
+        "P3",
+        "E6"
+      ]
+    },
+    {
+      "code": "P8",
+      "aliases": [
+        "P8"
+      ],
+      "title": {
+        "en": "Outdoor Panel Communication Error",
+        "ur": "Outdoor panel communication error"
+      },
+      "meaning": {
+        "en": "The outdoor panel/board lost communication with its paired control section — limited operation until restored.",
+        "ur": "Outdoor panel/board ne apne paired control section se baat band kar di — theek hone tak limited operation."
+      },
+      "causes": [
+        {
+          "en": "Loose outdoor board connectors",
+          "ur": "Outdoor board ke connectors dhile"
+        },
+        {
+          "en": "Outdoor PCB or panel fault",
+          "ur": "Outdoor PCB ya panel kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Power isolated: reseat outdoor board connectors",
+          "ur": "Power band karke outdoor board connectors dobara lagayein"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "relatedCodes": [
+        "F8",
+        "E5"
+      ]
+    },
+    {
+      "code": "P9",
+      "aliases": [
+        "P9"
+      ],
+      "title": {
+        "en": "Display Panel ↔ Main Control Board Communication Failure",
+        "ur": "Display panel aur main control board communication failure"
+      },
+      "meaning": {
+        "en": "The display panel cannot talk to the main control board — system may reset and the remote can appear unresponsive.",
+        "ur": "Display panel main control board se baat nahi kar pata — system reset ho sakta hai aur remote response na de."
+      },
+      "causes": [
+        {
+          "en": "Ribbon cable / connector between display and main board",
+          "ur": "Display aur main board ke darmiyan ribbon cable/connector"
+        },
+        {
+          "en": "Faulty display panel or main control board",
+          "ur": "Display panel ya main control board kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; reseat display connectors and ribbon cable",
+          "ur": "Power off karke display connectors aur ribbon cable dobara lagayein"
+        },
+        {
+          "en": "If returns: technician display/main board diagnosis",
+          "ur": "Wapas aaye to technician display/main board dekhe"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "distributor_page",
+        "title": "AYS Online — Orient Inverter AC Error Code List",
+        "retrieved": "2026-09-23",
+        "url": "https://www.aysonline.pk/docs/orient-air-conditioner-error-codes"
+      },
+      "relatedCodes": [
+        "E8",
+        "Eb"
+      ]
+    },
+    {
+      "code": "L0",
+      "aliases": [
+        "L0"
+      ],
+      "title": {
+        "en": "Module Under-Voltage Fault (L-series display)",
+        "ur": "Module under-voltage fault (L-series display)"
+      },
+      "meaning": {
+        "en": "Module supply voltage too low (mbsmpro L-series). Same fault class as P0 on other display series.",
+        "ur": "Module ki supply voltage bohat kam (mbsmpro L-series). Doosri display series par P0 ke sath class."
+      },
+      "causes": [
+        {
+          "en": "Low mains / weak control-rail supply to module",
+          "ur": "Mains kam / module tak control-rail supply kamzor"
+        },
+        {
+          "en": "Loose power connection at module",
+          "ur": "Module par power connection dhili"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure mains and module supply rails (technician)",
+          "ur": "Technician mains aur module supply rails napein"
+        },
+        {
+          "en": "Fix stabilizer / wiring before further restarts",
+          "ur": "Aage restart se pehle stabilizer/wiring theek karein"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "relatedCodes": [
+        "P0",
+        "F7"
+      ]
+    },
+    {
+      "code": "L1",
+      "aliases": [
+        "L1"
+      ],
+      "title": {
+        "en": "Phase Current Over-Current Protection",
+        "ur": "Phase current over-current protection"
+      },
+      "meaning": {
+        "en": "Measured phase/compressor current exceeded the allowed limit; protection stopped the drive.",
+        "ur": "Phase/compressor ka measured current allowed limit se upar gaya; protection ne drive band kar di."
+      },
+      "causes": [
+        {
+          "en": "Compressor drawing high amps (seized, low gas, short)",
+          "ur": "Compressor zyada ampere le raha (jam, kam gas, short)"
+        },
+        {
+          "en": "Current sensor fault / misreading",
+          "ur": "Current sensor kharab / ghalat reading"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep resetting on a hard over-current",
+          "ur": "Power off; hard over-current par baar baar restart na karein"
+        },
+        {
+          "en": "Technician measures running amps and checks current sensor",
+          "ur": "Technician running ampere nape aur current sensor check kare"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "relatedCodes": [
+        "F1",
+        "F3"
+      ]
+    },
+    {
+      "code": "L2",
+      "aliases": [
+        "L2"
+      ],
+      "title": {
+        "en": "Compressor Out-of-Step Fault",
+        "ur": "Compressor out-of-step fault"
+      },
+      "meaning": {
+        "en": "The compressor lost synchronism with the inverter drive (out-of-step).",
+        "ur": "Compressor ka inverter drive ke sath synchronization toot gaya (out-of-step)."
+      },
+      "causes": [
+        {
+          "en": "Drive/board fault losing rotor sync",
+          "ur": "Drive/board fault se rotor sync toota"
+        },
+        {
+          "en": "Compressor mechanical issue",
+          "ur": "Compressor ka mechanical masla"
+        },
+        {
+          "en": "Voltage disturbance during start",
+          "ur": "Start ke dauran voltage disturbance"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off 10 minutes, one restart attempt",
+          "ur": "10 minute ke liye power off rakhein, phir ek restart karein"
+        },
+        {
+          "en": "If returns: technician inverter board / compressor diagnosis — do not loop",
+          "ur": "Wapas aaye to technician inverter board/compressor dekhe — loop na banayein"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "relatedCodes": [
+        "F3",
+        "L1"
+      ]
+    },
+    {
+      "code": "L3",
+      "aliases": [
+        "L3"
+      ],
+      "title": {
+        "en": "Compressor Oil Lack / Compressor Failure",
+        "ur": "Compressor mein oil kam / compressor failure"
+      },
+      "meaning": {
+        "en": "Compressor is running (or locked) without adequate oil — risk of seizure; may need oil charge or compressor replacement.",
+        "ur": "Compressor bina theek oil ke chal raha (ya jam hai) — jam hone ka khatra; oil charge ya compressor replacement lag sakti hai."
+      },
+      "causes": [
+        {
+          "en": "Oil loss / long-running without maintenance",
+          "ur": "Oil loss / bina service ke zyada der chalna"
+        },
+        {
+          "en": "Compressor internal wear",
+          "ur": "Compressor ke andar wear"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off immediately — do not keep restarting",
+          "ur": "Foran power off — baar baar restart na karein"
+        },
+        {
+          "en": "Technician checks oil condition and compressor mechanical state",
+          "ur": "Technician ki oil condition aur compressor mechanical state check kare"
+        },
+        {
+          "en": "If the code returns after reset, stop and call Orient service (0800-11635)",
+          "ur": "Reset ke baad code wapas aaye to band karein aur Orient service bulayain (0800-11635)"
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "mbsmpro — ORIENT Inverter AC Error Codes (E1–L3 technical guide)",
+        "retrieved": "2026-09-23",
+        "url": "https://mbsmpro.com/orient-inverter-ac-error-codes/"
+      },
+      "relatedCodes": [
+        "L2",
+        "F3"
+      ]
+    },
+    {
+      "code": "EC",
+      "aliases": [
+        "EC"
+      ],
+      "title": {
+        "en": "Compressor-Class Protection (meaning unverified for Orient)",
+        "ur": "Compressor-class protection (Orient ke liye meaning confirm nahi)"
+      },
+      "meaning": {
+        "en": "A real Pakistani user reported EC on an Orient inverter (PakWheels thread title). No Orient-published meaning was found; multi-brand convention treats EC as compressor overload/current-class protection.",
+        "ur": "Ek Pakistani user ne Orient inverter par EC report kiya (PakWheels thread). Orient ki taraf se published meaning nahi mili; multi-brand practice mein EC aam tor par compressor overload/current class ki protection hoti hai."
+      },
+      "causes": [
+        {
+          "en": "Compressor overload / high current (typical multi-brand reading)",
+          "ur": "Compressor overload / zyada current (multi-brand aam matlab)"
+        },
+        {
+          "en": "Dirty condenser, low gas, or voltage issues feeding the compressor",
+          "ur": "Ganda condenser, kam gas ya voltage masla jo compressor ko affect kare"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Stop the unit and let the compressor cool 30 minutes",
+          "ur": "Unit band karein aur compressor ko 30 minute thanda hone dein"
+        },
+        {
+          "en": "Clean outdoor coil; check supply voltage/stabilizer",
+          "ur": "Outdoor coil saaf karein; supply voltage/stabilizer check karein"
+        },
+        {
+          "en": "If EC returns: technician ampere, capacitor, gas, compressor check",
+          "ur": "EC wapas aaye to technician ampere, capacitor, gas, compressor dekhe"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "low",
+      "source": {
+        "type": "forum",
+        "title": "PakWheels forum — orient inverter error code EC",
+        "retrieved": "2026-09-23",
+        "url": "https://www.pakwheels.com/forums/t/orient-inverter-error-code-ec/250786"
+      },
+      "notes": {
+        "en": "Occurrence: Orient-specific PakWheels thread. Meaning is NOT published by Orient — multi-brand compressor-class convention used; verify on your model.",
+        "ur": "Occurrence: Orient ka PakWheels thread. Orient ne meaning publish NAHI ki — multi-brand compressor-class practice use ki; apne model par verify karein."
+      },
+      "relatedCodes": [
+        "F3",
+        "F1"
+      ]
+    },
+    {
+      "code": "LE01",
+      "aliases": [
+        "LE01"
+      ],
+      "title": {
+        "en": "Fault Code LE01 (meaning unverified)",
+        "ur": "LE01 code (meaning confirm nahi)"
+      },
+      "meaning": {
+        "en": "LE01 has appeared in Orient-tagged technician video/search evidence but no Orient source defines it. On similar LED-display platforms such codes are often communication or LED-indicator class — unverified for Orient.",
+        "ur": "LE01 Orient-tagged technician video/search evidence mein aaya hai lekin koi Orient source define nahi karta. Similar LED-display platforms par aise codes aam tor par communication ya LED-indicator class hote hain — Orient ke liye unverified."
+      },
+      "causes": [
+        {
+          "en": "Unverified for Orient — check model manual / Orient service",
+          "ur": "Orient ke liye unverified — model manual / Orient service"
+        },
+        {
+          "en": "Indoor–outdoor communication failure (typical on similar LED-display platforms)",
+          "ur": "Indoor–outdoor communication ka nuqsaan (similar LED-display platforms par aam)"
+        },
+        {
+          "en": "LED indicator or indoor board class fault — unverified for Orient",
+          "ur": "LED indicator ya indoor board class ki fault — Orient ke liye verify nahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note the exact display characters and call Orient service (0800-11635)",
+          "ur": "Exact display note karein aur Orient service ko bulayein (0800-11635)"
+        },
+        {
+          "en": "Power cycle once and observe",
+          "ur": "Ek baar reset karke observe karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "low",
+      "source": {
+        "type": "video",
+        "title": "Technician video/search evidence for Orient LE01 (research pass)",
+        "retrieved": "2026-09-23"
+      },
+      "notes": {
+        "en": "Weak evidence only (video/search tag from research pass). Meaning not recovered — do not assume a diagnosis from this entry alone.",
+        "ur": "Sirf weak evidence (research pass ka video/search tag). Meaning recover nahi hua — sirf is entry se diagnosis na karein."
+      }
+    }
+  ]
+}

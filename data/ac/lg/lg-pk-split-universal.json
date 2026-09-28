@@ -1,0 +1,2421 @@
+{
+  "schemaVersion": 1,
+  "brandId": "lg",
+  "series": {
+    "id": "lg-pk-split-universal",
+    "name": "Universal split fault codes (indoor 01-10, outdoor 21-105, HL/CL/Po)",
+    "category": "ac",
+    "unitType": "split",
+    "modelPatterns": [
+      "*0*",
+      "*1*",
+      "*2*",
+      "*3*",
+      "*4*",
+      "*5*",
+      "*6*",
+      "*7*",
+      "*HL*",
+      "*CL*",
+      "*Po*"
+    ],
+    "notes": "LG Air Conditioning Universal Split Fault Codes Sheet (Macedo/Orion, Oct 2010, service manual PDF). LED tens/units scheme. High (official LG service sheet lineage). Covers wall-mount split indoor + outdoor numeric codes."
+  },
+  "codes": [
+    {
+      "code": "01",
+      "aliases": [
+        "01",
+        "CH01",
+        "C1"
+      ],
+      "title": {
+        "en": "Indoor air sensor open/short",
+        "ur": "Indoor air sensor khula/short"
+      },
+      "meaning": {
+        "en": "Return-air thermistor on indoor PCB is open circuit or shorted.",
+        "ur": "Indoor PCB ka return-air thermistor open circuit mein hai ya short ho gaya hai"
+      },
+      "causes": [
+        {
+          "en": "Sensor plug loose or disconnected from indoor PCB",
+          "ur": "Sensor plug loose ya indoor PCB se disconnect"
+        },
+        {
+          "en": "Thermistor failed open/short (moisture or age)",
+          "ur": "Thermistor khula/short ho gaya (moisture ya umar se)"
+        },
+        {
+          "en": "Wiring harness chafed or rodent damage",
+          "ur": "Wiring harness ghis gayi ya chuha ne kaata"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off 5 minutes; reseat sensor connector; retest",
+          "ur": "Power 5 minute ke liye band karein; sensor connector sahi se lagayein; dobara check karein"
+        },
+        {
+          "en": "Measure thermistor resistance vs temperature (roughly 10–20 kΩ at room temp) or DC across it; replace if out of curve",
+          "ur": "Thermistor ka resistance temperature ke mqable napein (room temperature par taqreeban 10 se 20 kilo-ohm) ya us par DC napein; curve se bahar ho to sensor badal dein"
+        },
+        {
+          "en": "If wiring and sensor OK, inspect indoor PCB connector/solder joints",
+          "ur": "Wiring aur sensor theek hon to indoor PCB ke connector/solder joints check karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Same meaning as official Africa CH01 sensor page.",
+        "ur": "Is ka matlab official Africa CH01 sensor page se milta julta hai."
+      },
+      "blinkPattern": "Fascia/remote: code 01 (tens Sleep/Filter, units power LED)"
+    },
+    {
+      "code": "02",
+      "aliases": [
+        "02",
+        "CH02",
+        "C2"
+      ],
+      "title": {
+        "en": "Indoor inlet pipe sensor open/short",
+        "ur": "Indoor inlet pipe sensor khula/short"
+      },
+      "meaning": {
+        "en": "Indoor coil inlet pipe thermistor open or shorted.",
+        "ur": "Indoor coil ke inlet pipe ka thermistor khula ya short ho gaya hai"
+      },
+      "causes": [
+        {
+          "en": "Sensor connector not seated on indoor PCB",
+          "ur": "Sensor connector indoor PCB par sahi se nahi laga"
+        },
+        {
+          "en": "Pipe sensor damaged during installation or coil work",
+          "ur": "Installation ya coil ke kaam ke doran pipe sensor kharab ho gaya"
+        },
+        {
+          "en": "Sensor out of tolerance (open/short)",
+          "ur": "Sensor tolerance se bahar khula/short"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat connector and clear code after power cycle",
+          "ur": "Connector dobara lagayein aur power cycle ke baad code clear karein"
+        },
+        {
+          "en": "Compare resistance to coil-sensor curve (0–70°C scale in sheet); replace if bad",
+          "ur": "Resistance ko sheet ka coil-sensor curve (0-70C scale) se compare karein; kharab ho to badal dein"
+        },
+        {
+          "en": "Check kinked or oil-starved liquid line (secondary)",
+          "ur": "Peechay muday ya oil se khali liquid line bhi check karein (secondary)"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "Code 02 on remote/fascia"
+    },
+    {
+      "code": "03",
+      "aliases": [
+        "03",
+        "CH03",
+        "C3"
+      ],
+      "title": {
+        "en": "Indoor ↔ wired remote communication fault",
+        "ur": "Andar ka wired remote se communication fault"
+      },
+      "meaning": {
+        "en": "Wired remote and indoor unit not exchanging data (common in group control).",
+        "ur": "Wired remote aur indoor unit ke darmiyan data ki aamdaad nahi ho rahi (group control mein aam baat hai)"
+      },
+      "causes": [
+        {
+          "en": "Remote back switch left on Single (SG) instead of Group (GR1)",
+          "ur": "Remote ka peeche wala switch Single (SG) par chhor diya, Group (GR1) par nahi"
+        },
+        {
+          "en": "Miswired 3-wire remote cable (12V / GND / signal)",
+          "ur": "3-wire remote cable ki wiring galat (12V / GND / signal)"
+        },
+        {
+          "en": "Open/short on remote signal line",
+          "ur": "Remote signal line par open/short"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Set remote DIP to Group/GR1, power reset 2 minutes",
+          "ur": "Remote ka DIP Group/GR1 par set karein, 2 minute power reset karein"
+        },
+        {
+          "en": "Verify red=12V DC, brown/black=0V, yellow=signal fluctuating 8–12V DC",
+          "ur": "Check karein: red=12V DC, brown/black=0V, yellow=signal jo 8-12V DC par fluctuate karta ho"
+        },
+        {
+          "en": "Rewire per group-control diagram; remove extra devices on remote bus",
+          "ur": "Group-control diagram ke mutabiq wiring dobara karein; remote bus par maujood extra devices nikaal dein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "Code 03"
+    },
+    {
+      "code": "04",
+      "aliases": [
+        "04",
+        "CH04",
+        "C4",
+        "FL"
+      ],
+      "title": {
+        "en": "Drain pump / float switch (high-level water)",
+        "ur": "Drain pump / float switch — paani high level par"
+      },
+      "meaning": {
+        "en": "Float switch open (condensate high level) or CN FLOAT jumper missing on units without drain pump; window/portable may show CH04/FL when tank full.",
+        "ur": "Float switch khula (condensate high level) ya drain pump wale unit mein CN FLOAT jumper missing; window/portable mein tank bharne par CH04/FL aa sakta hai"
+      },
+      "causes": [
+        {
+          "en": "Blocked drain hose or dirty drain pan",
+          "ur": "Drain hose block ya drain pan ganda"
+        },
+        {
+          "en": "Float stuck or drain pump failed",
+          "ur": "Float atka hua ya drain pump kharab"
+        },
+        {
+          "en": "Missing blue jumper on CN FLOAT (non-pump models) or after PCB swap",
+          "ur": "CN FLOAT par blue jumper missing (non-pump models) ya PCB badalne ke baad"
+        },
+        {
+          "en": "High ambient humidity (window/portable evaporation overload)",
+          "ur": "Zyada humidity (window/portable mein evaporation overload)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, drain condensate (rear drain port/hose), clean pan, reset",
+          "ur": "Bijli band karein, condensate nikalein (peeche ke drain port/hose se), pan saaf karein aur reset dein"
+        },
+        {
+          "en": "Clear drain line; ensure slope; refit CN FLOAT jumper if missing",
+          "ur": "Drain line saaf karein, slope theek karein aur agar CN FLOAT jumper gayab ho to dobara lagayein"
+        },
+        {
+          "en": "Fault appears ~3.5 min after float rises; clear needs power reset (40s lockout)",
+          "ur": "Float upar jane ke ~3.5 minute baad fault aata hai; clear karne ke liye power reset chahiye (40s lockout)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Official Guide: ceiling types = drain issue; window/portable = tank drain. Alias FL on some firmware.",
+        "ur": "Official Guide: ceiling types mein drain ka masla, window/portable mein tank drain. Kuch firmware par alias FL hai."
+      },
+      "blinkPattern": "Code 04"
+    },
+    {
+      "code": "05",
+      "aliases": [
+        "05",
+        "CH05",
+        "C5",
+        "E0",
+        "CH53",
+        "53"
+      ],
+      "title": {
+        "en": "Indoor ↔ outdoor communication error",
+        "ur": "Indoor ↔ outdoor communication mein kharabi"
+      },
+      "meaning": {
+        "en": "Serial communication between indoor and outdoor lost; indoor shows CH05, outdoor PCB shows 53, some remotes show E0. Appears ~5 minutes after power-up.",
+        "ur": "Indoor aur outdoor ke darmiyan serial communication tot gaya; indoor CH05 dikhata hai, outdoor PCB par 53, kuch remotes E0. Power-up ke ~5 minute baad aata hai."
+      },
+      "causes": [
+        {
+          "en": "Interconnect cable miswired, open, short, or neutral switched",
+          "ur": "Interconnect cable ki wiring galat, khuli, short ya neutral switched"
+        },
+        {
+          "en": "Loose terminals at IDU or ODU terminal block / PCB plugs",
+          "ur": "IDU ya ODU ke terminal block / PCB plugs par loose terminal"
+        },
+        {
+          "en": "Another device (pump, meter) tapped on comms pair",
+          "ur": "Koi aur device (pump, meter) comms pair par laga ho"
+        },
+        {
+          "en": "Indoor or outdoor PCB fault, blown control fuse, EEV/compressor down to earth dragging the bus",
+          "ur": "Indoor ya outdoor PCB kharab, control fuse jala hua, ya EEV/compressor earth par short hokar bus ko neeche kheench raha ho"
+        },
+        {
+          "en": "Unstable mains after install/relocation (official)",
+          "ur": "Install/relocation ke baad mains unstable (official)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle 5 minutes; if fresh install, check piping/wiring with installer",
+          "ur": "5 minute power cycle karein; agar naya install hua ho to installer se piping/wiring check karwaayein"
+        },
+        {
+          "en": "On ODU PCB: green LED = power; red flickering = RX OK; solid red = no RX from IDU; dark = ODU PCB/power fault",
+          "ur": "ODU PCB par: green LED = power; red blink = theek; red steady = IDU se signal nahi; dark = ODU PCB/power fault"
+        },
+        {
+          "en": "Measure 0–75 V DC fluctuating on terminals 2–3; isolate wire 3 to split IDU vs ODU side",
+          "ur": "Terminals 2-3 par 0-75 V DC fluctuating napein; wire 3 ko alag karke IDU aur ODU side ki alag alag check karein"
+        },
+        {
+          "en": "Before replacing ODU PCB: check fuse cause, fan motors, reversing valve coil, reactor, EEV, compressor to earth",
+          "ur": "ODU PCB badalne se pehle fuse ka reason, fan motors, reversing valve coil, reactor, EEV aur compressor ko earth check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Official Guide groups CH05/E0/CH53. 'EO' on some models = kW Manager, not a fault.",
+        "ur": "Official Guide CH05/E0/CH53 ko aik hi group ke tor par count karta hai. Kuch models par 'EO' kW Manager hota hai, fault nahi."
+      },
+      "blinkPattern": "IDU: CH05; ODU LEDs: red 5 blinks / green 3 blinks (code 53)"
+    },
+    {
+      "code": "06",
+      "aliases": [
+        "06",
+        "CH06",
+        "C6"
+      ],
+      "title": {
+        "en": "Indoor outlet pipe sensor open/short",
+        "ur": "Indoor outlet pipe sensor khula/short"
+      },
+      "meaning": {
+        "en": "Indoor coil outlet pipe thermistor open or shorted.",
+        "ur": "Indoor coil ke outlet pipe ka thermistor khula ya short ho gaya hai"
+      },
+      "causes": [
+        {
+          "en": "Sensor plug loose on indoor PCB",
+          "ur": "Indoor PCB par sensor plug loose"
+        },
+        {
+          "en": "Thermistor failure",
+          "ur": "Thermistor kharab"
+        },
+        {
+          "en": "Connector corrosion (monsoon humidity)",
+          "ur": "Connector mein zang/nami (monsoon humidity)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat and power cycle",
+          "ur": "Dobara lagayein aur power cycle dein"
+        },
+        {
+          "en": "Verify resistance curve; replace sensor",
+          "ur": "Resistance curve check karein; sensor badal dein"
+        },
+        {
+          "en": "Inspect indoor PCB socket",
+          "ur": "Andar ke PCB socket ko dekhein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "Code 06"
+    },
+    {
+      "code": "07",
+      "aliases": [
+        "07",
+        "CH07",
+        "C7"
+      ],
+      "title": {
+        "en": "Different operation mode (mode conflict)",
+        "ur": "Alag operation mode (mode conflict)"
+      },
+      "meaning": {
+        "en": "One or more indoor units set to a mode that conflicts with the master/condenser mode (e.g. heat vs cool).",
+        "ur": "Aik ya zyada indoor units aisa mode par hain jo master/condenser mode se takra raha hai (jaise heat vs cool)"
+      },
+      "causes": [
+        {
+          "en": "In multi/2-in-1, a slave set to cooling while master heats (or reverse)",
+          "ur": "Multi/2-in-1 mein slave cooling par aur master heating par hai (ya iska ulta)"
+        },
+        {
+          "en": "Living room cooling, bedroom heating on shared system",
+          "ur": "Shared system par living room cooling, bedroom heating"
+        },
+        {
+          "en": "Master unit switched off so another unit became master with different mode",
+          "ur": "Master unit band hone se doosra unit master ban gaya jiska mode alag tha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Set all indoor units to same mode (all cool or all heat); fan/purify unrestricted",
+          "ur": "Tamam indoor units ko aik hi mode par set karein (sab cool ya sab heat); fan/purify par koi pabandi nahi"
+        },
+        {
+          "en": "Power off at remote, turn on, change mode; clears when modes match",
+          "ur": "Remote se power off karein, on karein, mode change karein; modes match hone par code clear ho jata hai"
+        },
+        {
+          "en": "Dehumidify cannot run with heat on same combination",
+          "ur": "Isi combination mein heating ke sath dehumidify nahi chal sakta"
+        }
+      ],
+      "severity": "self_clear",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Official Guide full mode matrix for 2-in-1 floor+wall.",
+        "ur": "Official Guide mein 2-in-1 floor+wall ka poora mode matrix maujood hai."
+      },
+      "blinkPattern": "Code 07; indoor indicator may blink at 2s intervals (official)"
+    },
+    {
+      "code": "09",
+      "aliases": [
+        "09",
+        "CH09",
+        "C9"
+      ],
+      "title": {
+        "en": "EEPROM checksum error",
+        "ur": "EEPROM checksum ka error"
+      },
+      "meaning": {
+        "en": "EEPROM on indoor PCB reports checksum mismatch — defective PCB or bad EEPROM connection.",
+        "ur": "Indoor PCB ka EEPROM checksum mismatch bata raha hai — PCB kharab ya EEPROM connection kharab"
+      },
+      "causes": [
+        {
+          "en": "EEPROM not seated / dry joints on socket",
+          "ur": "EEPROM sahi se nahi baitha ya socket par dry joints hain"
+        },
+        {
+          "en": "Wrong PCB assembly fitted",
+          "ur": "Ghalat PCB assembly laga di gayi"
+        },
+        {
+          "en": "EEPROM data corrupted after power surge",
+          "ur": "Power surge ke baad EEPROM ka data corrupt ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check loose connections/dry joints where EEPROM meets main PCB; repair",
+          "ur": "Jahan EEPROM main PCB se milta hai wahan loose connection/dry joints check karein; marammat karein"
+        },
+        {
+          "en": "Confirm correct PCB revision; reseat EEPROM",
+          "ur": "Sahi PCB revision confirm karein, phir EEPROM dobara lagayein"
+        },
+        {
+          "en": "Replace PCB if nothing found",
+          "ur": "Kuch na mile to PCB badal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "Code 09"
+    },
+    {
+      "code": "10",
+      "aliases": [
+        "10",
+        "CH10",
+        "CA",
+        "E6"
+      ],
+      "title": {
+        "en": "Indoor BLDC fan motor lock",
+        "ur": "Andar ka BLDC fan motor lock"
+      },
+      "meaning": {
+        "en": "Indoor fan motor not rotating / rotation not detected — motor or indoor PCB defective.",
+        "ur": "Indoor fan motor ghoom nahi raha ya rotation detect nahi ho rahi — motor ya indoor PCB kharab"
+      },
+      "causes": [
+        {
+          "en": "Fan blade jammed by debris or ice",
+          "ur": "Gadda ya barf se fan blade jam"
+        },
+        {
+          "en": "Hall sensor / feedback circuit fault (fan revs fast then stops)",
+          "ur": "Hall sensor / feedback circuit kharab (fan tez ghoomne ke baad ruk jata hai)"
+        },
+        {
+          "en": "Motor winding open/short or connector loose",
+          "ur": "Motor winding khula/short ya connector loose"
+        },
+        {
+          "en": "Indoor PCB not driving 360V DC / 0–5V speed command",
+          "ur": "Indoor PCB 360V DC / 0-5V speed command nahi de raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; free the wheel; check windings and PCB output to motor",
+          "ur": "Bijli band karein, pahiya azad karein, phir windings aur motor ke PCB output check karein"
+        },
+        {
+          "en": "Inspect 5-wire BLDC harness (360V DC, 15V electronics, 0–5V speed) and hall feedback",
+          "ur": "5-wire BLDC harness check karein (360V DC, 15V electronics, 0-5V speed) aur hall feedback dekhein"
+        },
+        {
+          "en": "Replace indoor fan motor or PCB as required (motor+driver often one unit)",
+          "ur": "Zaroorat ho to fan motor ya PCB replace karein (motor aur driver aik hi unit hote hain)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Official alias E6. Urdu-Hindi YouTube (SUPER REFRIGERATION) corroborates indoor fan/PCB and outdoor temp sensor secondary causes.",
+        "ur": "Official alias E6 hai. Urdu-Hindi YouTube (SUPER REFRIGERATION) bhi andar ke fan/PCB aur bahar ke temp sensor ko secondary causes batata hai."
+      },
+      "blinkPattern": "Code 10 (Multi: red 1 flash, green none = CA)"
+    },
+    {
+      "code": "HL",
+      "aliases": [
+        "HL",
+        "Hard Lock"
+      ],
+      "title": {
+        "en": "Hard lock (external control)",
+        "ur": "Lock lga hua hai (external control)"
+      },
+      "meaning": {
+        "en": "Unit locked by dry contact or central controller — not an internal fault.",
+        "ur": "Unit dry contact ya central controller se band hai — koi andar ka fault nahi"
+      },
+      "causes": [
+        {
+          "en": "BMS/central controller commanding off",
+          "ur": "BMS/central controller off ka command bhej raha hai"
+        },
+        {
+          "en": "External dry contact closed",
+          "ur": "External dry contact band (closed) hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Release external lock / check controller schedule",
+          "ur": "Bahar ka lock kholein / controller ka schedule check karein"
+        },
+        {
+          "en": "Verify dry-contact wiring",
+          "ur": "Dry-contact ki wiring check karein"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "Display shows HL"
+    },
+    {
+      "code": "CL",
+      "aliases": [
+        "CL",
+        "Child Lock"
+      ],
+      "title": {
+        "en": "Child lock selected",
+        "ur": "Child lock on"
+      },
+      "meaning": {
+        "en": "Not an error — child lock feature on.",
+        "ur": "Yeh error nahi — child lock feature on hai"
+      },
+      "causes": [
+        {
+          "en": "Timer + Min buttons held 3 seconds accidentally",
+          "ur": "Ghalti se Timer aur Min buttons 3 second tak pakde rahe"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Press Timer and Min together 3 seconds to toggle off",
+          "ur": "Timer aur Min ko saath daba kar 3 second tak rakhein, band ho jayega"
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "CL on display (status On)"
+    },
+    {
+      "code": "Po",
+      "aliases": [
+        "Po",
+        "Jet Cool"
+      ],
+      "title": {
+        "en": "Jet Cool mode selected",
+        "ur": "Jet Cool mode faal"
+      },
+      "meaning": {
+        "en": "Not an error — Jet Cool (rapid cool) mode active.",
+        "ur": "Yeh kharabi nahi — Jet Cool (rapid cool) mode chal raha hai."
+      },
+      "causes": [
+        {
+          "en": "Jet Cool button pressed",
+          "ur": "Jet Cool button dabba diya gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Press Jet Cool button to toggle off",
+          "ur": "Jet Cool button dabakar band karein"
+        }
+      ],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "Po on display"
+    },
+    {
+      "code": "21",
+      "aliases": [
+        "21",
+        "CH21"
+      ],
+      "title": {
+        "en": "IPM fault / compressor overcurrent (DC peak)",
+        "ur": "IPM mein fault / compressor ka overcurrent (DC peak)"
+      },
+      "meaning": {
+        "en": "Inverter DC power circuit overcurrent (>14 A DC) — IPM fault, bad inverter PCB, or compressor shorted/to earth.",
+        "ur": "Inverter DC power circuit mein zyada current (>14 A DC) — IPM fault, inverter PCB kharab, ya compressor short/earth par."
+      },
+      "causes": [
+        {
+          "en": "Compressor winding short or insulation breakdown",
+          "ur": "Compressor winding short ya insulation kharab"
+        },
+        {
+          "en": "Inverter PCB / IPM failure",
+          "ur": "Inverter PCB / IPM kharab ho jana"
+        },
+        {
+          "en": "Compressor seized dragging high current",
+          "ur": "Compressor jam ho kar zyada current le raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect compressor: U-V, V-W, W-U each 0.25–5 ohm; megger any terminal to earth >2 Mohm",
+          "ur": "Compressor alag karein: U-V, V-W, W-U har aik 0.25-5 ohm; kisi bhi terminal ko earth se >2 Mohm megger se check karein"
+        },
+        {
+          "en": "If compressor passes, test inverter output (all 3 phases equal max) or LG inverter tester (all 6 LEDs equal)",
+          "ur": "Compressor theek ho to inverter output check karein (teenon phases barabar max) ya LG inverter tester (6 LED barabar)"
+        },
+        {
+          "en": "Replace failed compressor or inverter PCB",
+          "ur": "Kharab compressor ya inverter PCB replace karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "LG official service video covers CH21 with same checks.",
+        "ur": "LG ki official service video mein CH21 ke wahi checks diye gaye hain."
+      },
+      "blinkPattern": "ODU LED01G red 2x / LED02G green 1x"
+    },
+    {
+      "code": "22",
+      "aliases": [
+        "22",
+        "CH22"
+      ],
+      "title": {
+        "en": "CT2 max current",
+        "ur": "CT2 mein zyada current"
+      },
+      "meaning": {
+        "en": "Current transformer 2 sees AC input current above limit (sheet: >14 A).",
+        "ur": "Current transformer 2 par AC input current limit se zyada hai (sheet: >14 A)."
+      },
+      "causes": [
+        {
+          "en": "Overloaded system / restricted airflow / EEV issue",
+          "ur": "System par zyada load, restricted airflow ya EEV masla"
+        },
+        {
+          "en": "Compressor high run current",
+          "ur": "Compressor zyada run current le raha hai"
+        },
+        {
+          "en": "Inverter PCB current-sense fault",
+          "ur": "Inverter PCB ka current-sense fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Follow inverter test procedure from sheet; check load conditions",
+          "ur": "Sheet ka inverter test procedure follow karein; load conditions check karein"
+        },
+        {
+          "en": "Clear airflow, verify EEV, measure actual run current",
+          "ur": "Airflow saaf karein, EEV verify karein aur asli run current naapein"
+        },
+        {
+          "en": "Replace inverter PCB if sense circuit bad",
+          "ur": "Sense circuit kharab ho to inverter PCB badal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 2x / green 2x"
+    },
+    {
+      "code": "23",
+      "aliases": [
+        "23",
+        "CH23"
+      ],
+      "title": {
+        "en": "DC link low voltage",
+        "ur": "DC link ki voltage kam"
+      },
+      "meaning": {
+        "en": "DC bus to inverter below 140 V DC (should be ~370 V single-phase / ~600 V three-phase).",
+        "ur": "DC bus voltage inverter tak 140V se kam gir rahi hai (single-phase ~370V / three-phase ~600V hona chahiye)."
+      },
+      "causes": [
+        {
+          "en": "Inverter charging resistor / precharge circuit fault (often non-replaceable part on PCB)",
+          "ur": "Inverter charging resistor / precharge circuit kharab (aksar PCB par non-replaceable part)"
+        },
+        {
+          "en": "Rectifier or DC bus capacitor failure",
+          "ur": "Rectifier ya DC bus capacitor kharab"
+        },
+        {
+          "en": "Mains too low feeding the drive",
+          "ur": "Drive ko chalane wala mains voltage bohat kam"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Run unit and measure DC at inverter capacitors vs spec",
+          "ur": "Unit chala kar inverter capacitors par DC napein aur spec se compare karein"
+        },
+        {
+          "en": "Verify mains voltage under load",
+          "ur": "Load ke under mains voltage check karein"
+        },
+        {
+          "en": "Replace outdoor PCB if charging path failed",
+          "ur": "Charging path kharab ho to outdoor PCB replace karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 2x / green 3x"
+    },
+    {
+      "code": "24",
+      "aliases": [
+        "24",
+        "CH24"
+      ],
+      "title": {
+        "en": "Low / high pressure switch open",
+        "ur": "Low / high pressure switch khula"
+      },
+      "meaning": {
+        "en": "LP switch opened (suction <0.5 bar) or HP switch opened (>41 bar); latches after 5 trips in 1 hour.",
+        "ur": "LP switch khula (suction <0.5 bar) ya HP switch khula (>41 bar); 1 ghante mein 5 trips par latch ho jata hai"
+      },
+      "causes": [
+        {
+          "en": "Low charge / leak (LP trip)",
+          "ur": "gys km ya lyk ayl py)"
+        },
+        {
+          "en": "Blocked condenser / non-condensables / overcharge (HP trip)",
+          "ur": "Condenser block, non-condensable gas ya zyada charge (HP trip)"
+        },
+        {
+          "en": "CN PRESS link missing on boards without pressure switches",
+          "ur": "Pressure switch na hone wale board par CN PRESS link missing"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off ODU 2 minutes to clear latch; find why switch tripped",
+          "ur": "ODU ko 2 minute band karke latch clear karein; switch kyun trip hua, woh dhoondein"
+        },
+        {
+          "en": "Leak test / correct charge; clean condenser airflow",
+          "ur": "Leak test karein / charge theek karein, condenser ki airflow saaf rakhein"
+        },
+        {
+          "en": "Refit CN PRESS link if missing (transfer from old PCB)",
+          "ur": "Link gayab ho to wapas laga dein (purane PCB se transfer karein)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Distinct from CH38/F4 low-refrigerant soft code.",
+        "ur": "Yeh CH38/F4 wale low-refrigerant soft code se alag hai."
+      },
+      "blinkPattern": "ODU red 2x / green 4x"
+    },
+    {
+      "code": "25",
+      "aliases": [
+        "25",
+        "CH25"
+      ],
+      "title": {
+        "en": "AC input low/high voltage",
+        "ur": "AC input ki voltage kam/zyada"
+      },
+      "meaning": {
+        "en": "Mains outside 140-300 V AC window.",
+        "ur": "Mains voltage 140-300 V AC range se bahar hai"
+      },
+      "causes": [
+        {
+          "en": "Utility brownout or overvoltage (common in PK load-shedding areas)",
+          "ur": "Utility brownout ya overvoltage (Pakistan ke load-shedding ilaqon mein aam)"
+        },
+        {
+          "en": "Wrong supply (phase/neutral) or undersized wiring",
+          "ur": "Galat supply (phase/neutral) ya choti wiring"
+        },
+        {
+          "en": "Outdoor PCB voltage-sense fault if supply is correct",
+          "ur": "Supply theek ho to outdoor PCB ka voltage-sense fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure L-N under load; correct supply or fit stabilizer within spec",
+          "ur": "Load ke under L-N napein; supply theek karein ya spec ke mutabiq stabilizer lagayein"
+        },
+        {
+          "en": "If voltage normal and fault persists, replace ODU PCB",
+          "ur": "Voltage normal ho aur fault phir bhi rahe to ODU PCB badal dein"
+        },
+        {
+          "en": "Check breaker and cable size",
+          "ur": "Breaker aur cable ka size check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 2x / green 5x"
+    },
+    {
+      "code": "26",
+      "aliases": [
+        "26",
+        "CH26"
+      ],
+      "title": {
+        "en": "DC compressor position / start failure (seized)",
+        "ur": "DC compressor ki position / start fail (jam gaya)"
+      },
+      "meaning": {
+        "en": "Inverter compressor rotor position not detected or compressor seized — start whine stops after 3 attempts.",
+        "ur": "Inverter compressor ki rotor position detect nahi ho rahi ya compressor jam ho gaya — 3 koshishon ke baad start ki awaaz band ho jati hai"
+      },
+      "causes": [
+        {
+          "en": "Mechanically seized compressor",
+          "ur": "Compressor mechanically jam ho gaya"
+        },
+        {
+          "en": "Rotor position sensor / harness fault",
+          "ur": "Rotor position sensor ya harness kharab"
+        },
+        {
+          "en": "Inverter drive not producing start pattern",
+          "ur": "Inverter drive start pattern nahi bana raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off 5 minutes; verify compressor connections; restart and listen for start attempt",
+          "ur": "5 minute ke liye bijli band rakhein, compressor ke connections check karein, phir restart karke start ki awaz suniye"
+        },
+        {
+          "en": "If no rotation: test inverter output / replace compressor or ODU PCB",
+          "ur": "Rotation na ho to inverter output test karein ya compressor / ODU PCB badal dein"
+        },
+        {
+          "en": "Check for overheating lockout before forcing restart",
+          "ur": "Zor se start karne se pehle overheating lockout check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 2x / green 6x"
+    },
+    {
+      "code": "27",
+      "aliases": [
+        "27",
+        "CH27"
+      ],
+      "title": {
+        "en": "PSC fault (reactor / IGBT overcurrent)",
+        "ur": "PSC ka fault — reactor / IGBT overcurrent"
+      },
+      "meaning": {
+        "en": "Inverter module prospective short-circuit path fault; reactor disconnected or out of spec.",
+        "ur": "Inverter module ka short-circuit path fault; reactor disconnect ya spec se bahar"
+      },
+      "causes": [
+        {
+          "en": "Reactor open or loose on PCB",
+          "ur": "PCB par reactor khula ya loose"
+        },
+        {
+          "en": "IGBT module damage",
+          "ur": "IGBT module kharab ho jana"
+        },
+        {
+          "en": "AC-DC converter path overcurrent",
+          "ur": "AC-DC converter path par zyada current"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check reactor connected; resistance should be well under 1 ohm",
+          "ur": "Reactor ka connection check karein; resistance 1 ohm se kaafi kam honi chahiye"
+        },
+        {
+          "en": "Run inverter test; replace inverter PCB if module bad",
+          "ur": "Inverter test karein; module kharab ho to inverter PCB badal dein"
+        },
+        {
+          "en": "Inspect for carbonized IPM terminals (official video flow)",
+          "ur": "IPM terminals par karbon ke sur ke nishan dekhein (official video flow)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "LG official YouTube: CH21/26/27/29 troubleshooting.",
+        "ur": "LG official YouTube par CH21/26/27/29 ka troubleshooting maujood hai."
+      },
+      "blinkPattern": "ODU red 2x / green 7x"
+    },
+    {
+      "code": "28",
+      "aliases": [
+        "28",
+        "CH28"
+      ],
+      "title": {
+        "en": "DC link high voltage",
+        "ur": "DC link ki voltage zyada"
+      },
+      "meaning": {
+        "en": "DC bus to inverter too high (Multi sheet: >420 V DC).",
+        "ur": "Inverter ka DC bus bohat zyada (Multi sheet: >420 V DC)"
+      },
+      "causes": [
+        {
+          "en": "Mains overvoltage or regenerative overshoot",
+          "ur": "Mains overvoltage ya regenerative overshoot"
+        },
+        {
+          "en": "DC bus capacitor / discharge path fault",
+          "ur": "DC bus capacitor ya discharge path kharab hona"
+        },
+        {
+          "en": "Outdoor PCB fault",
+          "ur": "Outdoor PCB kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure DC at capacitors vs 370/600 V spec under run",
+          "ur": "Chalte waqt capacitors par DC 370/600 V spec se compare karte hue napein"
+        },
+        {
+          "en": "Verify mains; replace ODU PCB if stable supply yet fault returns",
+          "ur": "Mains check karein; supply stable ho aur phir bhi fault aaye to ODU PCB badal dein"
+        },
+        {
+          "en": "Do not keep running — risk to IPM",
+          "ur": "Chalna band kar dein — IPM ko khatra hai"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 2x / green 8x"
+    },
+    {
+      "code": "29",
+      "aliases": [
+        "29",
+        "CH29"
+      ],
+      "title": {
+        "en": "Inverter compressor overcurrent (>30 A)",
+        "ur": "Inverter compressor mein zyada current (>30 A)"
+      },
+      "meaning": {
+        "en": "Inverter compressor input current over 30 A.",
+        "ur": "Inverter compressor ka input current 30 A se zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Overload operation: pipe restriction, dirty air, EEV defect, overcharge",
+          "ur": "Overload chalna: pipe mein rukawat, gandi hawa, EEV kharab, zyada charge"
+        },
+        {
+          "en": "Compressor insulation/motor damage",
+          "ur": "Compressor insulation ya motor kharab"
+        },
+        {
+          "en": "Low input voltage",
+          "ur": "Input voltage kam"
+        },
+        {
+          "en": "ODU inverter PCB assembly damage",
+          "ur": "ODU ke inverter PCB assembly kharab ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Correct overload causes (clean coil, open valves, fix EEV, adjust charge)",
+          "ur": "Overload ki wajuhat theek karein (coil saaf karein, valves kholein, EEV theek karein, charge adjust karein)"
+        },
+        {
+          "en": "Check input voltage and compressor megger",
+          "ur": "Input voltage check karein aur compressor ka megger lein"
+        },
+        {
+          "en": "Replace compressor or inverter PCB",
+          "ur": "Compressor ya inverter PCB replace karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Official YouTube covers CH29 with IPM/DC-link checks.",
+        "ur": "Official YouTube mein CH29 ke IPM/DC-link checks shamil hain."
+      },
+      "blinkPattern": "ODU red 2x / green 9x"
+    },
+    {
+      "code": "32",
+      "aliases": [
+        "32",
+        "CH32",
+        "CH36"
+      ],
+      "title": {
+        "en": "Inverter compressor discharge temp high (>105C)",
+        "ur": "Inverter compressor ka discharge temperature zyada (>105C)"
+      },
+      "meaning": {
+        "en": "Inverter compressor discharge above 105C — usually low refrigerant or system blockage.",
+        "ur": "Inverter compressor discharge 105C se upar — aam tor par refrigerant kam ya system mein blockage"
+      },
+      "causes": [
+        {
+          "en": "Refrigerant undercharge or leak",
+          "ur": "gys km ya lyk"
+        },
+        {
+          "en": "Capillary/EEV blockage or filter drier clog",
+          "ur": "Capillary ya EEV block, ya filter drier clog"
+        },
+        {
+          "en": "Poor condenser airflow raising head pressure and superheat",
+          "ur": "Condenser airflow kharab hone se head pressure aur superheat barha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power reset 2 min; if runs, discharge should stay ~50C above ambient — watch until stable",
+          "ur": "2 minute power reset karein; chalne par discharge ambient se ~50C upar tikau rahe — stable hone tak nazar rakhein"
+        },
+        {
+          "en": "Leak search, correct charge, verify EEV/filters",
+          "ur": "Leak dhoondein, charge theek karein, EEV/filters check karein"
+        },
+        {
+          "en": "Do not long-run while hot — compressor damage risk",
+          "ur": "Garam haalat mein lamba na chalayein — compressor kharab hone ka khatra"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "LG Africa official groups CH32/33/36/38/F4 as refrigerant-family codes.",
+        "ur": "LG Africa official CH32/33/36/38/F4 ko refrigerant-family codes ke tor par group karta hai."
+      },
+      "blinkPattern": "ODU red 3x / green 2x"
+    },
+    {
+      "code": "33",
+      "aliases": [
+        "33",
+        "CH33"
+      ],
+      "title": {
+        "en": "Constant-speed compressor discharge temp high (>105C)",
+        "ur": "Constant-speed compressor ka discharge temperature zyada (>105C)"
+      },
+      "meaning": {
+        "en": "Fixed-speed compressor discharge over 105C — low gas or blockage.",
+        "ur": "Fixed-speed compressor ka discharge 105C se upar — gas kam ya blockage"
+      },
+      "causes": [
+        {
+          "en": "Undercharge/leak",
+          "ur": "gys km/lyk"
+        },
+        {
+          "en": "System restriction",
+          "ur": "System mein restriction"
+        },
+        {
+          "en": "Dirty condenser / high ambient",
+          "ur": "Condenser ganda ya ambient temperature zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reset 2 min; verify discharge vs ambient rule of thumb",
+          "ur": "2 minute ka reset dein, phir discharge vs ambient ko rule of thumb se verify karein"
+        },
+        {
+          "en": "Correct charge and airflow",
+          "ur": "Charge aur airflow theek karein"
+        },
+        {
+          "en": "Technician leak/blockage diagnosis",
+          "ur": "Technician se leak/blockage diagnosis karwaayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 3x / green 3x"
+    },
+    {
+      "code": "39",
+      "aliases": [
+        "39",
+        "CH39"
+      ],
+      "title": {
+        "en": "PFC communication error (PFC to inverter PCB)",
+        "ur": "PFC communication mein kharabi (PFC se inverter PCB)"
+      },
+      "meaning": {
+        "en": "Communication lost between PFC board and inverter PCB.",
+        "ur": "PFC board aur inverter PCB ke beech communication toot gaya hai"
+      },
+      "causes": [
+        {
+          "en": "PCB defect or wiring defect",
+          "ur": "PCB kharab ya wiring kharab"
+        },
+        {
+          "en": "Mismatched micom software versions",
+          "ur": "Micom ke software versions ek jaise nahi hain"
+        },
+        {
+          "en": "ODU inverter PCB assembly damage",
+          "ur": "ODU ka inverter PCB assembly kharab ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check/repair wiring between boards",
+          "ur": "Boards ke darmiyan wiring check/marammat karein"
+        },
+        {
+          "en": "Confirm matching software versions",
+          "ur": "Ke software versions ek jaise hain yeh confirm karein"
+        },
+        {
+          "en": "Replace ODU inverter PCB if fault remains",
+          "ur": "Fault baqi rahe to ODU inverter PCB replace karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 3x / green 9x"
+    },
+    {
+      "code": "40",
+      "aliases": [
+        "40",
+        "CH40"
+      ],
+      "title": {
+        "en": "CT circuit malfunction",
+        "ur": "CT circuit mein kharabi"
+      },
+      "meaning": {
+        "en": "Current transformer circuit in inverter AC path faulty.",
+        "ur": "Inverter ke AC path ka current transformer circuit kharab"
+      },
+      "causes": [
+        {
+          "en": "CT sensing circuit open/short on inverter PCB",
+          "ur": "Inverter PCB par CT sensing circuit khula/short"
+        },
+        {
+          "en": "Wiring harness issue to CT",
+          "ur": "CT ki wiring harness masla"
+        },
+        {
+          "en": "PCB assembly failure",
+          "ur": "PCB assembly kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Refer to inverter testing procedure at end of sheet",
+          "ur": "Sheet ke aakhir mein di gayi inverter testing procedure dekhein"
+        },
+        {
+          "en": "Inspect CT connections on outdoor PCB",
+          "ur": "Outdoor PCB par CT connections check karein"
+        },
+        {
+          "en": "Replace outdoor PCB if CT path failed",
+          "ur": "CT path kharab ho to outdoor PCB replace karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 4x / green none"
+    },
+    {
+      "code": "41",
+      "aliases": [
+        "41",
+        "CH41"
+      ],
+      "title": {
+        "en": "Inverter compressor discharge pipe sensor open/short",
+        "ur": "Inverter compressor ke discharge pipe sensor ka open/short"
+      },
+      "meaning": {
+        "en": "Discharge pipe thermistor on inverter compressor open or shorted.",
+        "ur": "Inverter compressor ke discharge pipe ka thermistor khula ya short ho gaya hai"
+      },
+      "causes": [
+        {
+          "en": "Sensor plug loose or thermistor failed",
+          "ur": "Sensor plug loose ya thermistor kharab"
+        },
+        {
+          "en": "Harness damaged by heat at discharge line",
+          "ur": "Discharge line ke paas harness garmi se kharab"
+        },
+        {
+          "en": "Indoor/outdoor PCB connector fault",
+          "ur": "Indoor/outdoor PCB connector kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Compare resistance to discharge-sensor curve (20-110C scale); replace if bad",
+          "ur": "Resistance ko discharge-sensor curve (20-110C scale) se compare karein; kharab ho to badal dein"
+        },
+        {
+          "en": "Reseat connector; repair harness",
+          "ur": "Connector dobara lagayein, harness ki marammat karein"
+        },
+        {
+          "en": "Check PCB socket if sensor good",
+          "ur": "Sensor sahi ho to PCB socket check karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 4x / green 1x"
+    },
+    {
+      "code": "44",
+      "aliases": [
+        "44",
+        "CH44"
+      ],
+      "title": {
+        "en": "Outdoor air sensor open/short",
+        "ur": "Outdoor air sensor khula/short"
+      },
+      "meaning": {
+        "en": "Outdoor ambient air thermistor open or shorted.",
+        "ur": "Outdoor ambient air thermistor khula ya short ho gaya hai"
+      },
+      "causes": [
+        {
+          "en": "Sensor plug loose on outdoor PCB",
+          "ur": "Outdoor PCB par sensor plug loose"
+        },
+        {
+          "en": "Thermistor failed (sun/heat aging)",
+          "ur": "Thermistor kharab (dhoop/garmi se aging)"
+        },
+        {
+          "en": "Rodent chewed harness",
+          "ur": "Chuha ne harness kaata"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat; measure resistance vs ambient curve; replace sensor",
+          "ur": "Dobara lagayein; ambient curve ke mqable resistance napein; sensor badal dein"
+        },
+        {
+          "en": "Inspect outdoor PCB connector",
+          "ur": "Bahar ke PCB connector ko dekhein"
+        },
+        {
+          "en": "Repair harness damage",
+          "ur": "Harness ki marammat karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Official Africa page groups CH44 with outdoor sensors.",
+        "ur": "Official Africa page CH44 ko bahar ke sensors ke sath group karta hai."
+      },
+      "blinkPattern": "ODU red 4x / green 4x"
+    },
+    {
+      "code": "45",
+      "aliases": [
+        "45",
+        "CH45"
+      ],
+      "title": {
+        "en": "Outdoor condenser coil pipe sensor open/short",
+        "ur": "Bahar ke condenser coil pipe sensor ka open/short"
+      },
+      "meaning": {
+        "en": "Condenser coil (middle/outlet) thermistor open or shorted.",
+        "ur": "Condenser coil (middle/outlet) ka thermistor khula ya short ho gaya hai"
+      },
+      "causes": [
+        {
+          "en": "Sensor connector loose or thermistor failed",
+          "ur": "Sensor connector loose ya thermistor kharab"
+        },
+        {
+          "en": "Sensor damaged during coil cleaning",
+          "ur": "Coil ki safai ke doran sensor kharab ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat and verify against coil curve; replace if needed",
+          "ur": "Dobara lagayein aur coil curve se verify karein; zaroorat ho to badal dein"
+        },
+        {
+          "en": "Check outdoor PCB socket",
+          "ur": "Bahar ke PCB socket ko check karein"
+        },
+        {
+          "en": "Careful coil wash to avoid sensor breakage",
+          "ur": "Coil dhote waqt ehtiyat karein taake sensor na toote"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 4x / green 5x"
+    },
+    {
+      "code": "46",
+      "aliases": [
+        "46",
+        "CH46"
+      ],
+      "title": {
+        "en": "Outdoor suction pipe sensor open/short",
+        "ur": "Outdoor suction pipe sensor khula/short"
+      },
+      "meaning": {
+        "en": "Compressor suction line thermistor open or shorted.",
+        "ur": "Compressor suction line ka thermistor khula ya short ho gaya hai"
+      },
+      "causes": [
+        {
+          "en": "Sensor plug loose or thermistor failed",
+          "ur": "Sensor plug loose ya thermistor kharab"
+        },
+        {
+          "en": "Harness damage at suction line",
+          "ur": "Suction line par harness kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat; measure resistance; replace sensor if out of curve",
+          "ur": "Dobara lagayein; resistance napein; curve se bahar ho to sensor badal dein"
+        },
+        {
+          "en": "Inspect PCB connector and harness routing",
+          "ur": "PCB connector aur harness ki routing check karein"
+        },
+        {
+          "en": "Verify readings vs actual line temperature after repair",
+          "ur": "Marammat ke baad readings ko asli line temperature se compare karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 4x / green 6x"
+    },
+    {
+      "code": "47",
+      "aliases": [
+        "47",
+        "CH47"
+      ],
+      "title": {
+        "en": "Constant-speed compressor discharge sensor open/short",
+        "ur": "Constant-speed compressor ke discharge sensor ka open/short"
+      },
+      "meaning": {
+        "en": "Discharge pipe thermistor for constant-speed compressor open or shorted.",
+        "ur": "Constant-speed compressor ka discharge pipe thermistor khula ya short ho gaya hai"
+      },
+      "causes": [
+        {
+          "en": "Sensor failure or loose plug",
+          "ur": "Sensor kharab ya plug loose"
+        },
+        {
+          "en": "Heat-damaged harness at discharge",
+          "ur": "Discharge par garmi se harness kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Test against discharge curve; replace sensor",
+          "ur": "Discharge curve ke against test karein; sensor badal dein"
+        },
+        {
+          "en": "Reseat connector; repair harness",
+          "ur": "Connector ko dobara lagayein aur harness theek karein"
+        },
+        {
+          "en": "Confirm PCB socket",
+          "ur": "PCB socket ko confirm karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 4x / green 7x"
+    },
+    {
+      "code": "48",
+      "aliases": [
+        "48",
+        "CH48"
+      ],
+      "title": {
+        "en": "Discharge and air sensor both open (dual sensor unplugged)",
+        "ur": "Discharge aur air sensor dono khule (dual sensor ka plug nahi)"
+      },
+      "meaning": {
+        "en": "Discharge sensor and outdoor air sensor share one connector; both reading open = plug not seated. On Multi V, may mean outdoor coil sensor fault instead.",
+        "ur": "Discharge sensor aur outdoor air sensor aik hi connector par hain; dono ka reading khula ho to matlab plug sahi se nahi laga. Multi V par iska matlab outdoor coil sensor fault bhi ho sakta hai"
+      },
+      "causes": [
+        {
+          "en": "Shared CN plug unplugged after service",
+          "ur": "Service ke baad shared CN plug nikal diya"
+        },
+        {
+          "en": "Connector latch broken",
+          "ur": "Connector ka latch toota hua"
+        },
+        {
+          "en": "Both sensors failed open simultaneously (rare)",
+          "ur": "Dono sensors aik hi waqt khule (kam hota hai)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Plug the dual-sensor connector back into outdoor PCB",
+          "ur": "Dual-sensor connector ko outdoor PCB par wapas laga dein"
+        },
+        {
+          "en": "Inspect connector for damage; replace harness",
+          "ur": "Connector kharab hai ya nahi dekhein; harness badal dein"
+        },
+        {
+          "en": "If code persists, test each sensor separately",
+          "ur": "Code phir bhi rahe to har sensor ko alag alag test karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Ample Air notes Multi V meaning as outdoor coil sensor — same code number, product-dependent meaning.",
+        "ur": "Ample Air ke according Multi V mein isi code ka matlab bahar ka coil sensor hai — code number wahi, matlab product par depend karta hai."
+      },
+      "blinkPattern": "ODU red 4x / green 8x"
+    },
+    {
+      "code": "51",
+      "aliases": [
+        "51",
+        "CH51"
+      ],
+      "title": {
+        "en": "Over capacity combination",
+        "ur": "Capacity se zyada ka combination"
+      },
+      "meaning": {
+        "en": "Connected indoor units total capacity exceeds outdoor unit allowance.",
+        "ur": "Lagaye hue indoor units ki kul capacity outdoor unit ki allowance se zyada hai"
+      },
+      "causes": [
+        {
+          "en": "Wrong IDU/ODU match after renovation or spare parts swap",
+          "ur": "Renovation ya spare parts badalne ke baad galat IDU/ODU match"
+        },
+        {
+          "en": "Over-connected multi split branches",
+          "ur": "Multi split mein zyada branches lage hue hain"
+        },
+        {
+          "en": "Sub ODU dip-switch settings wrong (VRF-adjacent installs)",
+          "ur": "Sub ODU ki dip-switch settings galat (VRF-adjacent installs)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "List model numbers of all IDUs and ODU; verify combination chart",
+          "ur": "Tamam IDUs aur ODU ke model numbers likhein aur combination chart se verify karein"
+        },
+        {
+          "en": "Remove excess indoor units or fit correctly rated ODU",
+          "ur": "Zaroorat se zyada indoor units hata dein ya sahi rating wala ODU lagayein"
+        },
+        {
+          "en": "Correct dip switches if applicable",
+          "ur": "Mumkin ho to dip switches theek karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 5x / green 1x"
+    },
+    {
+      "code": "52",
+      "aliases": [
+        "52",
+        "CH52"
+      ],
+      "title": {
+        "en": "Main micom to sub micom communication error",
+        "ur": "Main micom aur sub micom ka communication error"
+      },
+      "meaning": {
+        "en": "Communication lost between main and sub CPUs on outdoor main PCB.",
+        "ur": "Outdoor main PCB par main aur sub CPUs ke beech communication toot gaya hai"
+      },
+      "causes": [
+        {
+          "en": "PCB damage or wiring defect",
+          "ur": "PCB kharab ho gaya ya wiring kharab"
+        },
+        {
+          "en": "Firmware/version mismatch between micoms",
+          "ur": "Micoms ke darmiyan firmware/version mismatch"
+        },
+        {
+          "en": "Power supply glitch corrupting bus",
+          "ur": "Power supply glitch se bus corrupt"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reset power; if code returns replace outdoor main PCB",
+          "ur": "Power reset karein; code wapas aaye to outdoor main PCB replace karein"
+        },
+        {
+          "en": "Look for burn marks / damaged traces before replacing",
+          "ur": "Badalne se pehle jalne ya tootne ke nishan dekhein"
+        },
+        {
+          "en": "Confirm correct PCB assembly",
+          "ur": "Sahi PCB assembly ki tasdeeq karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 5x / green 2x"
+    },
+    {
+      "code": "53-2",
+      "aliases": [
+        "53-2",
+        "Outdoor display of CH05"
+      ],
+      "title": {
+        "en": "Indoor to outdoor communication error (ODU side)",
+        "ur": "Indoor se outdoor communication error (ODU side)"
+      },
+      "meaning": {
+        "en": "Outdoor unit reports lost serial link to indoor — same physical fault as CH05, displayed as 53 on outdoor PCB.",
+        "ur": "Outdoor unit ko indoor se serial link toota hua mehsoos hota hai — CH05 jaisi hi physical fault, outdoor PCB par 53 dikhta hai"
+      },
+      "causes": [
+        {
+          "en": "Same as CH05: cable, terminals, PCB, or earth leakage on bus",
+          "ur": "CH05 jaisi hi: cable, terminal, PCB, ya bus par earth leakage"
+        },
+        {
+          "en": "IDU not powered while ODU is",
+          "ur": "ODU on hai magar IDU band hai"
+        },
+        {
+          "en": "Wrong interconnect polarity/terminals after rewire",
+          "ur": "Dobara wiring karne ke baad interconnect polarity/terminals galat"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Diagnose as CH05 (see code 05)",
+          "ur": "CH05 ki tarah diagnose karein (code 05 dekhein)"
+        },
+        {
+          "en": "Confirm both units energized and comms wire on correct terminals",
+          "ur": "Confirm karein ke dono units on hain aur comms wire sahi terminals par hai"
+        },
+        {
+          "en": "Measure 0-75 V DC fluctuating on outdoor terminals 2-3",
+          "ur": "Outdoor terminals 2-3 par 0-75 V DC fluctuating napein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Multi sheet: CH05 indoor / 53 outdoor for same fault.",
+        "ur": "Multi sheet mein isi fault ke liye CH05 andar aur 53 bahar liya jata hai."
+      },
+      "blinkPattern": "ODU red 5x / green 3x"
+    },
+    {
+      "code": "54",
+      "aliases": [
+        "54",
+        "CH54"
+      ],
+      "title": {
+        "en": "3-phase reverse or missing phase",
+        "ur": "3-phase reverse ya missing phase"
+      },
+      "meaning": {
+        "en": "Outdoor 3-phase supply has a phase missing or phases reversed.",
+        "ur": "Outdoor 3-phase supply mein koi phase missing hai ya phases reverse hain"
+      },
+      "causes": [
+        {
+          "en": "Utility phase lost or wrong phase rotation after wiring work",
+          "ur": "Wiring kaam ke baad utility ka phase gaya ya phase sequence galat"
+        },
+        {
+          "en": "Loose phase terminal",
+          "ur": "Phase terminal loose"
+        },
+        {
+          "en": "Breaker pole not making",
+          "ur": "Breaker ka pole theek se contact nahi banata"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check ~415V AC across red-blue, blue-yellow, red-yellow",
+          "ur": "Red-blue, blue-yellow aur red-yellow par ~415V AC napein"
+        },
+        {
+          "en": "If all present but reverse: power off, swap red and yellow cores, reset",
+          "ur": "Agar sab maujood hon lekin reverse hon: power off karein, red aur yellow cores ki sarpak badlein, reset karein"
+        },
+        {
+          "en": "Inform electrician if supply side phase wrong",
+          "ur": "Supply side par phase galat ho to electrician ko bataayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Official Guide: may appear after outage or electrical work; does not self-clear without power cycle.",
+        "ur": "Official Guide: bijli band hone ya electrical kaam ke baad aa sakta hai; power cycle kiye baghair khud clear nahi hota."
+      },
+      "blinkPattern": "ODU red 5x / green 4x"
+    },
+    {
+      "code": "60",
+      "aliases": [
+        "60",
+        "CH60"
+      ],
+      "title": {
+        "en": "Outdoor PCB EEPROM checksum mismatch",
+        "ur": "Bahar ke PCB EEPROM ka checksum match nahi"
+      },
+      "meaning": {
+        "en": "Outdoor unit PCB EEPROM data checksum failed.",
+        "ur": "Outdoor unit PCB ke EEPROM ka data checksum fail ho gaya"
+      },
+      "causes": [
+        {
+          "en": "Wrong PCB assembly installed",
+          "ur": "Ghalat PCB assembly laga diya gaya"
+        },
+        {
+          "en": "Dry joints at EEPROM socket",
+          "ur": "EEPROM socket par dry solder joints hain"
+        },
+        {
+          "en": "EEPROM corrupted by surge",
+          "ur": "Surge se EEPROM corrupt"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm correct PCB; reseat EEPROM; check dry joints",
+          "ur": "Sahi PCB confirm karein, EEPROM dobara lagayein aur dry joints check karein"
+        },
+        {
+          "en": "Replace outdoor PCB if nothing found",
+          "ur": "Kuch na mile to outdoor PCB badal dein"
+        },
+        {
+          "en": "Investigate surge protection if recurring",
+          "ur": "Baar bar aaye to surge protection check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 6x / green none"
+    },
+    {
+      "code": "61",
+      "aliases": [
+        "61",
+        "CH61",
+        "P4",
+        "P6",
+        "P7",
+        "P8",
+        "CH34"
+      ],
+      "title": {
+        "en": "High temperature protection (condenser coil high / overheat)",
+        "ur": "Zyada temperature se protection (condenser coil high / overheat)"
+      },
+      "meaning": {
+        "en": "Cooling: outdoor condenser coil temperature high (sheet >65C). Heating: indoor overheat (official). May display as P4/P6/P7/P8/CH34 on some models.",
+        "ur": "Cooling mein: outdoor condenser coil temperature zyada (sheet >65C). Heating mein: indoor overheat (official). Kuch models par P4/P6/P7/P8/CH34 bhi dikhta hai"
+      },
+      "causes": [
+        {
+          "en": "Blocked outdoor coil (bags, dirt) or recirculating hot air",
+          "ur": "Outdoor coil par blockage (kura, gand) ya garam hawa wapas ghoom rahi hai"
+        },
+        {
+          "en": "Enclosed balcony / no ventilation window / air guide missing",
+          "ur": "Band balcony / ventilation window nahi / air guide gayab"
+        },
+        {
+          "en": "Dirty indoor filter causing poor heat-mode airflow (heating case)",
+          "ur": "Heating mein gande indoor filter ki wajah se airflow kam"
+        },
+        {
+          "en": "Nitrogen or non-condensables in system",
+          "ur": "System mein nitrogen ya non-condensable gas"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clear space around ODU; open ventilation window; add air guide (LG: ~6-8C drop)",
+          "ur": "ODU ke aas paas jagah khali karein; ventilation window kholein; air guide lagayein (LG: ~6-8C farq)"
+        },
+        {
+          "en": "Clean outdoor coil and indoor filter",
+          "ur": "Bahar ka coil aur andar ka filter saaf karein"
+        },
+        {
+          "en": "Power cycle to clear (does not auto-clear per official); if persists call technician",
+          "ur": "Clear karne ke liye power cycle karein (official ke mutabiq khud clear nahi hota); phir bhi rahe to technician bulayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Official Guide adds heating-mode indoor overheat interpretation and alias list.",
+        "ur": "Official Guide heating-mode mein andar ke overheat ka matlab aur alias ki list bhi add karta hai."
+      },
+      "blinkPattern": "ODU red 6x / green 1x; remote may show CH61 or P4/P6/P7/P8/CH34"
+    },
+    {
+      "code": "62",
+      "aliases": [
+        "62",
+        "CH62"
+      ],
+      "title": {
+        "en": "Inverter heat sink overheat (>85C)",
+        "ur": "Inverter heat sink zyada garm (>85C)"
+      },
+      "meaning": {
+        "en": "Outdoor inverter heat-sink thermistor measured over 85C; unit shuts down.",
+        "ur": "Outdoor inverter ke heat-sink thermistor ki reading 85C se upar; unit band ho jata hai"
+      },
+      "causes": [
+        {
+          "en": "Debris blocking heat-sink fins",
+          "ur": "Heat-sink fins par gadda/blockage"
+        },
+        {
+          "en": "Heat-sink thermistor error (see code 65)",
+          "ur": "Heat-sink ka thermistor error (code 65 dekhein)"
+        },
+        {
+          "en": "Inverter cooling fan failure on Multi V style units",
+          "ur": "Multi V jaise units mein inverter cooling fan kharab"
+        },
+        {
+          "en": "Sustained high load / high ambient",
+          "ur": "Lamba waqt tak zyada load ya zyada ambient temperature"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; clean heat sink and outdoor coil",
+          "ur": "Bijli band karein, heat sink aur bahar ka coil saaf karein"
+        },
+        {
+          "en": "Verify heat-sink fan running; test thermistor (code 65)",
+          "ur": "Heat-sink wala fan chal raha hai yeh verify karein, thermistor test karein (code 65)"
+        },
+        {
+          "en": "Do not keep running hot — stop and service",
+          "ur": "Garam chalate rahe band na karein — rok kar service karwaayein"
+        }
+      ],
+      "severity": "danger",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 6x / green 2x"
+    },
+    {
+      "code": "63",
+      "aliases": [
+        "63",
+        "CH63"
+      ],
+      "title": {
+        "en": "Condenser coil pipe temperature too low",
+        "ur": "Condenser coil pipe ka temperature bahut kam"
+      },
+      "meaning": {
+        "en": "Condenser coil pipe thermistor reading abnormally low (possible sensor fault or freeze condition).",
+        "ur": "Condenser coil pipe ka thermistor bohat kam reading de raha hai (sensor fault ya jam/freeze ho sakta hai)"
+      },
+      "causes": [
+        {
+          "en": "Thermistor open reading low / failed",
+          "ur": "Thermistor khula, reading kam / kharab"
+        },
+        {
+          "en": "Low ambient / unit running in extreme cold without control",
+          "ur": "Kam ambient / bahut sardi mein bina control ke chalna"
+        },
+        {
+          "en": "Refrigerant distribution issue",
+          "ur": "Refrigerant distribution masla"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Test condenser pipe thermistor; replace if bad",
+          "ur": "Condenser pipe sensor test karein; kharab ho to badal dein"
+        },
+        {
+          "en": "Check operating mode and ambient; correct charge if liquid floodback suspected",
+          "ur": "Operating mode aur ambient check karein; liquid floodback ka shak ho to charge theek karein"
+        },
+        {
+          "en": "Inspect PCB input if sensor OK",
+          "ur": "Sensor sahi ho to PCB input check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 6x / green 3x"
+    },
+    {
+      "code": "65",
+      "aliases": [
+        "65",
+        "CH65"
+      ],
+      "title": {
+        "en": "Heat sink thermistor open/short",
+        "ur": "Heat sink thermistor khula/short"
+      },
+      "meaning": {
+        "en": "Inverter PCB heat-sink thermistor open or shorted.",
+        "ur": "Inverter PCB ke heat-sink ka thermistor khula ya short ho gaya hai"
+      },
+      "causes": [
+        {
+          "en": "Sensor plug loose on outdoor inverter PCB",
+          "ur": "Outdoor inverter PCB par sensor plug loose"
+        },
+        {
+          "en": "Thermistor failed",
+          "ur": "Thermistor kharab"
+        },
+        {
+          "en": "Connector heat damage",
+          "ur": "Garmi se connector kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat; measure resistance vs ambient curve; replace sensor",
+          "ur": "Dobara lagayein; ambient curve ke mqable resistance napein; zaroorat ho to sensor replace karein"
+        },
+        {
+          "en": "Check PCB socket and harness",
+          "ur": "PCB socket aur harness check karein"
+        },
+        {
+          "en": "Clean heat sink while servicing",
+          "ur": "sros ke sath hyt snk saf kary"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 6x / green 5x"
+    },
+    {
+      "code": "67",
+      "aliases": [
+        "67",
+        "CH67",
+        "EF"
+      ],
+      "title": {
+        "en": "Outdoor BLDC fan motor lock",
+        "ur": "Bahar ka BLDC fan motor lock"
+      },
+      "meaning": {
+        "en": "Outdoor fan rotation not detected — fan motor or drive circuit problem.",
+        "ur": "Outdoor fan ki rotation detect nahi ho rahi — fan motor ya drive circuit masla"
+      },
+      "causes": [
+        {
+          "en": "Fan seized by debris or bearing failure",
+          "ur": "Gadda se fan jam ya bearing kharab"
+        },
+        {
+          "en": "Hall sensor / feedback fault (fast spin then stop)",
+          "ur": "Hall sensor / feedback kharab (tez ghoomne ke baad ruk jata hai)"
+        },
+        {
+          "en": "Motor winding open/short or PCB drive failure",
+          "ur": "Motor winding open/short ya PCB drive kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; free outdoor fan; check windings and PCB output",
+          "ur": "Bijli band karein, bahar ka fan azad karein, phir windings aur PCB output check karein"
+        },
+        {
+          "en": "Check 5-wire DC fan harness and hall feedback (~12V feed)",
+          "ur": "5-tear wala DC fan harness aur hall feedback (~12V feed) check karein"
+        },
+        {
+          "en": "Replace outdoor fan motor (driver integrated) or PCB",
+          "ur": "Outdoor fan motor (driver integrated) ya PCB replace karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Official alias EF; CH67/EF grouped as outdoor fan in official Guide.",
+        "ur": "Official alias EF hai; official Guide mein CH67/EF ko bahar ke fan ke tor par group kiya gaya hai."
+      },
+      "blinkPattern": "ODU red 6x / green 7x"
+    },
+    {
+      "code": "73",
+      "aliases": [
+        "73",
+        "CH73"
+      ],
+      "title": {
+        "en": "PFC fault (software) overcurrent peak",
+        "ur": "PFC ka fault (software) mein overcurrent peak"
+      },
+      "meaning": {
+        "en": "Inverter PCB input current over 48 A peak for 2 ms (PFC software protection).",
+        "ur": "Inverter PCB ka input current 2 millisecond ke liye 48 A peak se upar gaya (PFC software protection)"
+      },
+      "causes": [
+        {
+          "en": "Overload operation: pipe restriction, restricted airflow, EEV defect, overcharge",
+          "ur": "Overload chalna: pipe mein rukawat, airflow kam, EEV kharab, zyada charge"
+        },
+        {
+          "en": "Compressor insulation or motor damage",
+          "ur": "Compressor insulation ya motor kharab"
+        },
+        {
+          "en": "Input voltage abnormal or power wiring abnormal",
+          "ur": "Input voltage ya power wiring galat"
+        },
+        {
+          "en": "Inverter PCB assembly damage",
+          "ur": "Inverter PCB assembly kharab ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clear overload causes; verify mains and wiring",
+          "ur": "Overload ki wajuhat theek karein; mains aur wiring check karein"
+        },
+        {
+          "en": "Compressor insulation and inverter tests",
+          "ur": "Compressor ki insulation aur inverter ke tests karein"
+        },
+        {
+          "en": "Replace inverter PCB if fault remains",
+          "ur": "Fault baqi rahe to inverter PCB replace karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "blinkPattern": "ODU red 7x / green 3x"
+    },
+    {
+      "code": "105",
+      "aliases": [
+        "105",
+        "CH105"
+      ],
+      "title": {
+        "en": "Main outdoor PCB to fan PCB communication error",
+        "ur": "Main outdoor PCB aur fan PCB ka communication error"
+      },
+      "meaning": {
+        "en": "Communication lost between outdoor main PCB and outdoor fan PCB.",
+        "ur": "Outdoor main PCB aur outdoor fan PCB ke beech communication toot gaya hai"
+      },
+      "causes": [
+        {
+          "en": "Open/short of communication line between main and fan PCBs",
+          "ur": "Main aur fan PCBs ke beech communication line khula/short"
+        },
+        {
+          "en": "Communication cable plug loose",
+          "ur": "Communication cable ka plug loose"
+        },
+        {
+          "en": "Fan PCB not powered / communication LED off",
+          "ur": "Fan PCB bijli par nahi / communication LED band"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check open/short on comm line between boards",
+          "ur": "Boards ke beech communication line par open/short check karein"
+        },
+        {
+          "en": "Reseat communication cable plugs; confirm comm LED",
+          "ur": "Communication cable ke plugs dobara lagayein, comm LED confirm karein"
+        },
+        {
+          "en": "Replace fan PCB or main PCB after isolation",
+          "ur": "Alag karke fan PCB ya main PCB replace karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Universal Split Fault Codes Sheet",
+        "retrieved": "2026-09-24",
+        "url": "https://www.mbsm.pro/wp-content/uploads/2026/01/LG_Split_Systems_Fault_Codes.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Ample Air CH105/108 duplicate claims quarantined as VRF; this Universal definition is authoritative for splits.",
+        "ur": "Ample Air ki CH105/108 wali duplicate claims ko VRF ke tor par quarantine kiya gaya hai; splits ke liye yeh Universal definition authoritative hai."
+      },
+      "blinkPattern": "ODU red 6x / green 5x (per outdoor LED map for 105)"
+    }
+  ]
+}

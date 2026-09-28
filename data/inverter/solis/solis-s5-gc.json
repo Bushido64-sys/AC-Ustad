@@ -1,0 +1,633 @@
+{
+  "schemaVersion": 1,
+  "brandId": "solis",
+  "series": {
+    "id": "solis-s5-gc",
+    "name": "S5-GC(25-50)K / S5-GC(50-60)K (three-phase commercial string 25-60kW, AFCI)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*S5-GC*"
+    ],
+    "notes": "Commercial three-phase string. LCD prints TEXT names only. Table 9.1 of this manual carries two AFCI-only rows (AFCI self-detection, Arcing protection) that the S5-GR3P 3-13k table does NOT have, so this block is kept separate from SERIES 2. Only THREE LEDs on this model (POWER / OPERATION / ALARM) - no battery LED, no Bluetooth LED. This block is also the home of the on-grid-scope parallel and 3-phase communication codes (1060-106C) because the official Solis alarm library files them under 'Only Grid Connection'; the hybrid blocks keep their own 1060-106C rows with DIFFERENT names - see CONFLICTS."
+  },
+  "codes": [
+    {
+      "code": "AFCI self-detection (model with AFCI module)",
+      "aliases": [
+        "AFCI self-detection (model with AFCI module)",
+        "AFCI module self-detect fault",
+        "AFCI self-detect fault",
+        "AFCI self-detection"
+      ],
+      "title": {
+        "en": "AFCI module self-test fault",
+        "ur": "AFCI module ka self-test fault"
+      },
+      "meaning": {
+        "en": "The built-in arc-fault detection module failed its own power-on self test, so the inverter will not run with AFCI enabled.",
+        "ur": "Built-in arc-fault detection module apna power-on self test fail kar chuka hai, is liye AFCI on par inverter chalega nahi."
+      },
+      "causes": [
+        {
+          "en": "AFCI module board not seated or its ribbon cable unplugged",
+          "ur": "AFCI module board fit nahi hai ya uska ribbon cable nikal hua hai"
+        },
+        {
+          "en": "AFCI firmware version mismatch after a partial update",
+          "ur": "Adhoora update ke baad AFCI firmware version mismatch ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch AC and DC off, wait for the LEDs and LCD to go dark, then power up once and note whether the message returns.",
+          "ur": "AC aur DC off karein, LEDs aur LCD band hone tak wait karein, phir ek baar power karke dekhein ke message wapas aata hai ya nahi."
+        },
+        {
+          "en": "With power removed, reseat the AFCI board and its ribbon connector, then re-run the AFCI ON/OFF check in Advanced Settings > 0010 > Special Settings > AFCI Set.",
+          "ur": "Power nikal kar AFCI board aur uska ribbon connector dobara fit karein, phir Advanced Settings > 0010 > Special Settings > AFCI Set mein AFCI ON/OFF check dobara karein."
+        },
+        {
+          "en": "If the AFCI module still fails its self test after a clean power cycle, the module itself is defective - request an RMA replacement.",
+          "ur": "Clean power cycle ke baad bhi AFCI module apna self test fail kare to module hi kharab hai - RMA replacement maangein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The S5-GC manual prints this row as text only. The official Solis alarm library files the AFCI self-test as '1040 AFCI-Check / AFCI self-test failure' on hybrid platforms, so 1040 is listed as an alias but is not printed on the S5-GC LCD.",
+        "ur": "S5-GC manual mein ye row sirf text ke tor par hai. Official Solis alarm library hybrid platform par AFCI self-test ko '1040 AFCI-Check' ke tor par rakhta hai, is liye 1040 alias mein hai lekin S5-GC LCD par nahi chhota."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-GC(25-50)K Three Phase Inverter User Manual EUR V1.3, Table 9.1 Fault message and description + Table 3.1 Status Indicator Lights",
+        "retrieved": "2026-09-26",
+        "url": "https://www.helius.com.ua/wp-content/uploads/solis_manual_s5-gc25-50k_eur_v1320240619.pdf"
+      }
+    },
+    {
+      "code": "Arcing protection (model with AFCI module)",
+      "aliases": [
+        "Arcing protection (model with AFCI module)",
+        "Detect arc in DC circuit",
+        "Arcing protection",
+        "ARC-FAULT"
+      ],
+      "title": {
+        "en": "DC arc fault detected (Arcing protection)",
+        "ur": "DC arc fault detect hua (Arcing protection)"
+      },
+      "meaning": {
+        "en": "The AFCI module sensed an arc in the DC circuit and locked the inverter out until the arc is removed.",
+        "ur": "AFCI module ne DC circuit mein arc detect kiya aur arc hatne tak inverter ko lock kar diya."
+      },
+      "causes": [
+        {
+          "en": "Loose or badly crimped MC4 connector, or DC cable pinched under the array",
+          "ur": "Loose ya khulon se crimped MC4 connector, ya array ke neeche pinch hua DC cable"
+        },
+        {
+          "en": "Damaged module backsheet, cracked panel glass or a connector with stripped-back insulation",
+          "ur": "Kharab module backsheet, cracked panel ka glass, ya insulation nikal chuki connector"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn AC and DC off, then walk the whole string in daylight and look for a blackened, melted or loose MC4 pair.",
+          "ur": "AC aur DC off karein, phir din mein poori string check karein aur kala, pighla hua ya loose MC4 pair dhoondein."
+        },
+        {
+          "en": "Discharge the DC side, then crimp every connector again with a proper crimp tool and confirm polarity is correct.",
+          "ur": "DC side discharge karein, phir har connector ko proper crimp tool se dobara crimp karein aur polarity sahi hai confirm karein."
+        },
+        {
+          "en": "Measure PV+ and PV- to earth with a multimeter; a reading that does not fall between 5 % and 95 % of one module Voc points to a damaged string.",
+          "ur": "Multimeter se PV+ aur PV- ko earth ke against measure karein; jo reading ek module ke Voc ke 5 % se 95 % ke darmiyan na giray to kharab string ka pata chal jata hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Yellow alarm LED flashing + arc message on LCD",
+      "confidence": "high",
+      "notes": {
+        "en": "On the S5-GC the LCD shows the text 'Arcing protection'; the hex form 1041 ARC-FAULT is what the official Solis library and SolisCloud use for the same event.",
+        "ur": "S5-GC par LCD text 'Arcing protection' dikhata hai; hex form 1041 ARC-FAULT wohi event official Solis library aur SolisCloud mein use hota hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-GC(25-50)K Three Phase Inverter User Manual EUR V1.3, Table 9.1 Fault message and description + Table 3.1 Status Indicator Lights",
+        "retrieved": "2026-09-26",
+        "url": "https://www.helius.com.ua/wp-content/uploads/solis_manual_s5-gc25-50k_eur_v1320240619.pdf"
+      }
+    },
+    {
+      "code": "G-IMP",
+      "aliases": [
+        "G-IMP",
+        "High grid impedance"
+      ],
+      "title": {
+        "en": "High grid impedance (G-IMP)",
+        "ur": "Grid impedance zyada (G-IMP)"
+      },
+      "meaning": {
+        "en": "The inverter sees too much impedance between itself and the grid, usually a long or thin AC interconnect cable on a 25-60 kW unit.",
+        "ur": "Inverter aur grid ke darmiyan impedance zyada hai, aksar 25-60 kW unit par lamba ya patla AC interconnect cable."
+      },
+      "causes": [
+        {
+          "en": "AC interconnect cable undersized or longer than the inverter spec allows",
+          "ur": "AC interconnect cable chhota ya manual se zyada lamba hai"
+        },
+        {
+          "en": "Loose AC lugs at the inverter or the main panel adding contact resistance",
+          "ur": "Inverter ya main panel par AC lugs loose hain jis se contact resistance barh gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure L1-L2, L2-L3 and L3-L1 at the inverter and again at the main panel while the plant is at full output, and write down the difference.",
+          "ur": "Plant poora output par hone ke waqt inverter par L1-L2, L2-L3 aur L3-L1 measure karein aur phir main panel par bhi, farq note karein."
+        },
+        {
+          "en": "If the drop across the run is high, fit a larger cross-section AC cable as the Solis cable specification requires.",
+          "ur": "Agar run par drop zyada hai to Solis cable specification ke mutabiq bari cross-section AC cable lagayein."
+        },
+        {
+          "en": "Only widen the protection window through User-Define if the DISCO / utility allows it in writing.",
+          "ur": "DISCO ya utility likhit ijazat de tabhi User-Define se protection window barhayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-GC(25-50)K Three Phase Inverter User Manual EUR V1.3, Table 9.1 Fault message and description + Table 3.1 Status Indicator Lights",
+        "retrieved": "2026-09-26",
+        "url": "https://www.helius.com.ua/wp-content/uploads/solis_manual_s5-gc25-50k_eur_v1320240619.pdf"
+      }
+    },
+    {
+      "code": "No power",
+      "aliases": [
+        "No power",
+        "Inverter no power on LCD"
+      ],
+      "title": {
+        "en": "No power on LCD (inverter dead)",
+        "ur": "LCD par power nahi (inverter dead)"
+      },
+      "meaning": {
+        "en": "The screen is completely dead. On a three-phase S5-GC the DC input must be above 350 V for the unit to even start.",
+        "ur": "Screen bilkul dead hai. Three-phase S5-GC par DC input start karne ke liye 350 V se upar hona chahiye."
+      },
+      "causes": [
+        {
+          "en": "DC switch open, DCDB tripped, or the PV string disconnected",
+          "ur": "DC switch khula, DCDB trip, ya PV string disconnect"
+        },
+        {
+          "en": "PV+/- reversed so the unit never starts",
+          "ur": "PV+/- reverse hai is liye unit start hi nahi hota"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the DC switch and the DCDB first, then measure each string Voc at the inverter DC terminals with the DC switch OFF.",
+          "ur": "Pehle DC switch aur DCDB check karein, phir DC switch OFF karke har string ka Voc inverter DC terminal par measure karein."
+        },
+        {
+          "en": "Confirm polarity: on a three-phase unit every string must read above 350 V open-circuit.",
+          "ur": "Polarity confirm karein: three-phase unit par har string ka open-circuit reading 350 V se upar honi chahiye."
+        },
+        {
+          "en": "Close the AC breaker and DCDB, then power up in the manual order (AC first, DC after 60 s) and watch all three LEDs.",
+          "ur": "AC breaker aur DCDB band karein, phir manual ke order par power karein (pehle AC, 60 second baad DC) aur teenon LEDs dekhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-GC(25-50)K Three Phase Inverter User Manual EUR V1.3, Table 9.1 Fault message and description + Table 3.1 Status Indicator Lights",
+        "retrieved": "2026-09-26",
+        "url": "https://www.helius.com.ua/wp-content/uploads/solis_manual_s5-gc25-50k_eur_v1320240619.pdf"
+      }
+    },
+    {
+      "code": "LCD show initializing all the time",
+      "aliases": [
+        "LCD show initializing all the time",
+        "Can not start-up"
+      ],
+      "title": {
+        "en": "Stuck on initializing, cannot start",
+        "ur": "Initializing par atka hua, start nahi ho raha"
+      },
+      "meaning": {
+        "en": "The unit powers up but never leaves the initializing state, so the main screen stays blank.",
+        "ur": "Unit power le leta hai lekin initializing state se bahar nahi nikalta, is liye main screen khaali rehta hai."
+      },
+      "causes": [
+        {
+          "en": "Connector on the main board or the power board has come loose",
+          "ur": "Main board ya power board ka connector loose ho gaya"
+        },
+        {
+          "en": "DSP-to-power-board connector unseated after transport or a firmware update",
+          "ur": "Transport ya firmware update ke baad DSP-to-power-board connector fit nahi raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch AC and DC off and wait a full 5 minutes for the bus to discharge before touching anything.",
+          "ur": "Kuch bhi chhoone se pehle AC aur DC off karein aur bus discharge hone ke liye poore 5 minute wait karein."
+        },
+        {
+          "en": "With the power off, reseat every connector on the main board and power board, especially the DSP-to-power-board connector.",
+          "ur": "Power off kar ke main board aur power board ke har connector, khaas kar DSP-to-power-board connector, dobara fit karein."
+        },
+        {
+          "en": "Power up and check the OPERATION LED: solid ON means running, FLASHING means still initializing.",
+          "ur": "Power karke OPERATION LED dekhein: solid ON ka matlab chal raha hai, FLASHING ka matlab abhi initialize ho raha hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-GC(25-50)K Three Phase Inverter User Manual EUR V1.3, Table 9.1 Fault message and description + Table 3.1 Status Indicator Lights",
+        "retrieved": "2026-09-26",
+        "url": "https://www.helius.com.ua/wp-content/uploads/solis_manual_s5-gc25-50k_eur_v1320240619.pdf"
+      }
+    },
+    {
+      "code": "OV-TEM",
+      "aliases": [
+        "OV-TEM",
+        "Over Temperature",
+        "1032"
+      ],
+      "title": {
+        "en": "Over temperature (OV-TEM)",
+        "ur": "Temperature zyada (OV-TEM)"
+      },
+      "meaning": {
+        "en": "The inverter detected a high ambient or heatsink temperature on a 25-60 kW cabinet and stopped.",
+        "ur": "25-60 kW cabinet par inverter ne ambient ya heatsink temperature zyada detect ki aur ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Direct afternoon sun on the inverter cabinet",
+          "ur": "Dopahar ki dhoop seedhi inverter cabinet par gir rahi hai"
+        },
+        {
+          "en": "Blocked heatsink airflow from dust, mud or a soffit above",
+          "ur": "Heatsink ka airflow dhool, gadda ya upar ke chhat se band ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure ambient temperature next to the cabinet with a thermometer and compare it with the internal temperature in Advanced Information > Running Status.",
+          "ur": "Cabinet ke paas thermometer se ambient temperature measure karein aur Advanced Information > Running Status ke internal temperature se compare karein."
+        },
+        {
+          "en": "Clear dust from the heatsink and restore the clearance given in the installation section; keep direct sun off the cabinet.",
+          "ur": "Heatsink ki dhool saaf karein aur installation section di hui clearance wapas rakhein; cabinet par seedhi dhoop na aane dein."
+        },
+        {
+          "en": "If ambient is under 60 °C and it still trips, the internal NTC sensor or the external fan is at fault - RMA.",
+          "ur": "Agar ambient 60 °C se kam hai phir bhi trip kare to internal NTC sensor ya external fan kharab hai - RMA."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-GC(25-50)K Three Phase Inverter User Manual EUR V1.3, Table 9.1 Fault message and description + Table 3.1 Status Indicator Lights",
+        "retrieved": "2026-09-26",
+        "url": "https://www.helius.com.ua/wp-content/uploads/solis_manual_s5-gc25-50k_eur_v1320240619.pdf"
+      }
+    },
+    {
+      "code": "1065",
+      "aliases": [
+        "1065",
+        "HeartbeatLose",
+        "1065 DATA:0000"
+      ],
+      "title": {
+        "en": "Parallel heartbeat lost (1065 HeartbeatLose)",
+        "ur": "Parallel heartbeat kho gaya (1065 HeartbeatLose)"
+      },
+      "meaning": {
+        "en": "In a multi-inverter 3-phase plant the master stopped answering on the parallel communication bus, so the group shut down.",
+        "ur": "Multi-inverter 3-phase plant mein master ne parallel communication bus par jawab dena band kar diya, is liye poora group band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Parallel communication cable loose, missing cores or unshielded",
+          "ur": "Parallel communication cable loose, kuch cores missing, ya unshielded"
+        },
+        {
+          "en": "DIP / address switches of two inverters set to the same value",
+          "ur": "Do inverters ke DIP ya address switches same value par set hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power down the whole group, then reseat the 8-core shielded parallel cable at both ends and confirm every core is continuous.",
+          "ur": "Poore group ko power down karein, phir 8-core shielded parallel cable dono taraf se dobara fit karein aur har core ki continuity check karein."
+        },
+        {
+          "en": "Verify the DIP switch positions of every inverter, and make sure only one unit is set as master.",
+          "ur": "Har inverter ke DIP switch ki position verify karein, aur confirm karein ke sirf ek unit master hai."
+        },
+        {
+          "en": "Power the group back up and confirm the alarm clears; if it returns immediately, replace the parallel cable with a known-good one.",
+          "ur": "Group dobara power karein aur alarm hatne ki confirm karein; foran wapas aaye to parallel cable ko chalte hue cable se replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "In the official Solis library 1065 is filed twice: 'Only Grid Connection' = HeartbeatLose and 'Only Energy Storage' = HeartbeatLose. Same name, different status codes, so the numeric code alone is not safe to reuse across platforms.",
+        "ur": "Official Solis library mein 1065 do jagah hai: 'Only Grid Connection' = HeartbeatLose aur 'Only Energy Storage' = HeartbeatLose. Naam same hai lekin status code alag, is liye sirf number ko platform ke darmiyan reuse karna safe nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-GC(25-50)K Three Phase Inverter User Manual EUR V1.3, Table 9.1 Fault message and description + Table 3.1 Status Indicator Lights",
+        "retrieved": "2026-09-26",
+        "url": "https://www.helius.com.ua/wp-content/uploads/solis_manual_s5-gc25-50k_eur_v1320240619.pdf"
+      }
+    },
+    {
+      "code": "1064",
+      "aliases": [
+        "1064",
+        "Addr-Conflict",
+        "1064 DATA:0000"
+      ],
+      "title": {
+        "en": "Inverter address conflict (1064 Addr-Conflict)",
+        "ur": "Do inverters ka address aapas mein same (1064 Addr-Conflict)"
+      },
+      "meaning": {
+        "en": "Two or more inverters in the parallel group are configured with the same address, so the master sees duplicate replies.",
+        "ur": "Parallel group mein do ya zyada inverters ka address same hai, is liye master ko duplicate reply dikhti hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter cloned with the same address during a firmware reflash or a unit swap",
+          "ur": "Firmware reflash ya unit exchange ke waqt clone kiye gaye inverter ka address same reh gaya"
+        },
+        {
+          "en": "Address not reset after a master unit was replaced on site",
+          "ur": "Master unit badalne ke baad address reset nahi kiya gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Go to Settings on each inverter and read out the slave address one unit at a time, writing the value down.",
+          "ur": "Har inverter par Settings mein jayein aur slave address ek-ek karke padhein, value note kar lein."
+        },
+        {
+          "en": "Give every unit a unique address, keeping address 1 for the master only, then power cycle the group.",
+          "ur": "Har unit ko unique address dein, sirf master ka 1 rakhein, phir group ko power cycle karein."
+        },
+        {
+          "en": "Re-check the addresses after the restart; two units still reporting the same number means the address did not save.",
+          "ur": "Restart ke baad address dobara check karein; do unit ka number aaj bhi same ho to address save nahi hua."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-GC(25-50)K Three Phase Inverter User Manual EUR V1.3, Table 9.1 Fault message and description + Table 3.1 Status Indicator Lights",
+        "retrieved": "2026-09-26",
+        "url": "https://www.helius.com.ua/wp-content/uploads/solis_manual_s5-gc25-50k_eur_v1320240619.pdf"
+      }
+    },
+    {
+      "code": "106B",
+      "aliases": [
+        "106B",
+        "CAN BUS LOSE",
+        "106B DATA:0000",
+        "CAN-BUS-Lose"
+      ],
+      "title": {
+        "en": "CAN bus communication lost (106B)",
+        "ur": "CAN bus communication kho gaya (106B)"
+      },
+      "meaning": {
+        "en": "The internal CAN bus between the inverters in the group has dropped, so the group cannot run as one unit.",
+        "ur": "Group ke inverters ke darmiyan internal CAN bus gir gaya, is liye group ek unit ke tor par nahi chal sakta."
+      },
+      "causes": [
+        {
+          "en": "CAN / parallel signal connector not fully seated",
+          "ur": "CAN ya parallel signal connector puri tarah fit nahi hua"
+        },
+        {
+          "en": "Shield or earth of the communication cable broken, letting noise into the bus",
+          "ur": "Communication cable ka shield ya earth toota, is liye bus mein noise aa raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch everything off, then push each CAN connector home with a firm click and check the earth of the communication cable.",
+          "ur": "Sab kuch off karein, phir har CAN connector ko zor se click ke saath baithayein aur communication cable ki earth check karein."
+        },
+        {
+          "en": "Measure the resistance of the CAN_H and CAN_L wires end to end; both wires must read the same low resistance with no break.",
+          "ur": "CAN_H aur CAN_L wire ki aakhir se aakhir resistance measure karein; dono wires ki low resistance same honi chahiye, koi break nahi."
+        },
+        {
+          "en": "If the wiring measures good, power up one unit at a time to find which unit is holding the bus down, then RMA that unit.",
+          "ur": "Wiring theek nikle to ek-ek karke unit power karein aur dekhein kaun sa unit bus ko rok raha hai, phir us unit ka RMA karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-GC(25-50)K Three Phase Inverter User Manual EUR V1.3, Table 9.1 Fault message and description + Table 3.1 Status Indicator Lights",
+        "retrieved": "2026-09-26",
+        "url": "https://www.helius.com.ua/wp-content/uploads/solis_manual_s5-gc25-50k_eur_v1320240619.pdf"
+      }
+    },
+    {
+      "code": "106C",
+      "aliases": [
+        "106C",
+        "3P_CreateFail",
+        "106C DATA:0000"
+      ],
+      "title": {
+        "en": "Three-phase network create failure (106C)",
+        "ur": "Three-phase network banane mein failure (106C)"
+      },
+      "meaning": {
+        "en": "The three-phase networking configuration is wrong: a phase is missing or one inverter is assigned to two phases.",
+        "ur": "Three-phase networking configuration ghalat hai: koi phase missing hai ya ek inverter do phases par set hai."
+      },
+      "causes": [
+        {
+          "en": "One phase of the three-phase networking system has no inverter assigned",
+          "ur": "Three-phase networking system ki ek phase par koi inverter assign nahi hai"
+        },
+        {
+          "en": "Phase assignment on an inverter changed without re-running the network setup",
+          "ur": "Phase assignment badal diya gaya lekin network setup dobara nahi chalaya gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open Advanced Settings > 0010 on each inverter and write down which phases it is assigned to.",
+          "ur": "Har inverter par Advanced Settings > 0010 kholein aur note karein ke usse kaun si phases di gayi hain."
+        },
+        {
+          "en": "Confirm with a phase rotation meter at the main panel that the grid is L1-L2-L3, then correct the per-inverter phase setting.",
+          "ur": "Main panel par phase rotation meter se confirm karein ke grid L1-L2-L3 hai, phir per-inverter phase setting theek karein."
+        },
+        {
+          "en": "Look for a fault on any member inverter of the group, fix it, then fully power off the group and bring it back up.",
+          "ur": "Group ke kisi member inverter ka fault dhoondein, theek karein, phir group ko poori tarah power off karke dobara chalayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "notes": {
+        "en": "The official Solis library gives 106C the name 3P_CreateFail on the grid-connection scope and 3P_CreateFaACil on the energy-storage scope, so the same number has two spellings across platforms.",
+        "ur": "Official Solis library mein 106C ka naam grid-connection scope par 3P_CreateFail hai aur energy-storage scope par 3P_CreateFaACil, is liye ek hi number ke do roop hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-GC(25-50)K Three Phase Inverter User Manual EUR V1.3, Table 9.1 Fault message and description + Table 3.1 Status Indicator Lights",
+        "retrieved": "2026-09-26",
+        "url": "https://www.helius.com.ua/wp-content/uploads/solis_manual_s5-gc25-50k_eur_v1320240619.pdf"
+      }
+    },
+    {
+      "code": "OPERATION LED",
+      "aliases": [
+        "OPERATION LED",
+        "OPERATION",
+        "Green LED",
+        "Operation indicator"
+      ],
+      "title": {
+        "en": "OPERATION LED (run / initialising)",
+        "ur": "OPERATION LED (chalna / initialize hona)"
+      },
+      "meaning": {
+        "en": "Solid ON means the inverter is supplying power; FLASHING means it is still initialising; OFF means it has stopped supplying.",
+        "ur": "Solid ON ka matlab inverter power de raha hai; FLASHING ka matlab abhi initialize ho raha hai; OFF ka matlab power dena band kar chuka hai."
+      },
+      "causes": [
+        {
+          "en": "Normal running state",
+          "ur": "Normal chalne ki halat"
+        },
+        {
+          "en": "Self-check / initialisation state after a power cycle",
+          "ur": "Power cycle ke baad self-check ya initialisation ki halat"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed when solid ON; read the LCD home screen for live power figures.",
+          "ur": "Solid ON par koi action nahi; live power ke liye LCD home screen padhein."
+        },
+        {
+          "en": "If the LED has been FLASHING for more than 5 minutes, follow the initializing-fault procedure.",
+          "ur": "Agar LED 5 minute se zyada FLASHING kar raha ho to initializing-fault wali procedure follow karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "OPERATION LED solid ON = running, FLASHING = initialising, OFF = stopped",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-GC(25-50)K Three Phase Inverter User Manual EUR V1.3, Table 9.1 Fault message and description + Table 3.1 Status Indicator Lights",
+        "retrieved": "2026-09-26",
+        "url": "https://www.helius.com.ua/wp-content/uploads/solis_manual_s5-gc25-50k_eur_v1320240619.pdf"
+      }
+    },
+    {
+      "code": "ALARM LED",
+      "aliases": [
+        "ALARM LED",
+        "ALARM",
+        "Yellow alarm LED",
+        "Red alarm LED"
+      ],
+      "title": {
+        "en": "ALARM LED (fault present)",
+        "ur": "ALARM LED (fault mojood)"
+      },
+      "meaning": {
+        "en": "ON means a fault or alarm condition has been detected. On the S5-GC the earth-fault case flashes the yellow alarm indicator and shows PVISO-PRO on the LCD.",
+        "ur": "ON ka matlab fault ya alarm detect hua hai. S5-GC par earth-fault ki surat mein yellow alarm indicator flash karta hai aur LCD par PVISO-PRO aata hai."
+      },
+      "causes": [
+        {
+          "en": "Any entry in the alarm log - the LED only signals, it does not identify the code",
+          "ur": "Alarm log mein koi bhi entry - LED sirf ishara karta hai, code nahi batata"
+        },
+        {
+          "en": "PV earth fault: the manual states the yellow alarm indicator flashes and PVISO-PRO shows on the LCD",
+          "ur": "PV earth fault: manual ke mutabiq yellow alarm indicator flash karta hai aur LCD par PVISO-PRO aata hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open Enter > Down > Advanced Information > password 0010 > Alarm Message to read the last 100 alarms with date and time.",
+          "ur": "Enter > Down > Advanced Information > password 0010 > Alarm Message kholein aur date-time ke saath pichle 100 alarms padhein."
+        },
+        {
+          "en": "If the yellow alarm LED is flashing, treat it as a PV earth fault: isolate AC and PV before any insulation measurement.",
+          "ur": "Agar yellow alarm LED flash kar raha ho to use PV earth fault samajhein: insulation measure karne se pehle AC aur PV isolate karein."
+        },
+        {
+          "en": "Write down the alarm text, the Information-menu readings and the inverter serial number before calling service.",
+          "ur": "Service call karne se pehle alarm text, Information-menu readings aur inverter serial number likh lein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "ALARM LED solid ON = fault, flashing yellow = PV earth fault (PVISO-PRO)",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-GC(25-50)K Three Phase Inverter User Manual EUR V1.3, Table 9.1 Fault message and description + Table 3.1 Status Indicator Lights",
+        "retrieved": "2026-09-26",
+        "url": "https://www.helius.com.ua/wp-content/uploads/solis_manual_s5-gc25-50k_eur_v1320240619.pdf"
+      }
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "brandId": "cyberpower",
+  "series": {
+    "id": "cyberpower-vp-eilcd",
+    "name": "VP700E(I)LCD / VP1000E(I)LCD / VP1200E(I)LCD / VP1600E(I)LCD (line-interactive 700-1600VA, 230V)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*VP700E*LCD*",
+      "*VP1000E*LCD*",
+      "*VP1200E*LCD*",
+      "*VP1600E*LCD*"
+    ],
+    "notes": "IMPORTANT CONFLICT SOURCE: this family's fault list is documented in the Function Setup Guide under 'Last Fault Reason' and contains ONLY E01, E02, E21, E22 - there is NO E11 Battery Overvoltage, even though E21 and E22 are semantically identical to the CP AVRLCD/PFCLCD families. Same code strings, different set. Do not assume E11 exists on a VP unit, and do not assume a VP unit's E22 wording matches the CP series. Manual also documents overload protection as 'On Utility: Circuit Breaker, On Battery: Internal Current Limiting' and audible alarms as 'On Battery, Low Battery, Overload'."
+  },
+  "codes": [
+    {
+      "code": "E01",
+      "aliases": [
+        "E01",
+        "Last Fault Reason"
+      ],
+      "title": {
+        "en": "E01 Charger fault (Over Charge)",
+        "ur": "E01 Charger fault (Over Charge) - charger battery ko zyada charge kar raha"
+      },
+      "meaning": {
+        "en": "The setup menu's 'Last Fault Reason' page reports that the last fault was a charger overcharge. Same meaning as the E01 on the CP series.",
+        "ur": "Setup menu ka 'Last Fault Reason' page batata hai ke aakhri fault charger overcharge tha. Matlab CP series ke E01 ke barabar hi hai."
+      },
+      "causes": [
+        {
+          "en": "Charger over-voltage sensing has failed and is not cutting the charge.",
+          "ur": "Charger over-voltage sensing kharab ho gayi hai aur charge band nahi kar rahi."
+        },
+        {
+          "en": "The battery bank is aged, overheated or swollen, dragging the charger into overcharge.",
+          "ur": "Battery bank purani, garmi se kharab ya phooli hui hai, charger ko overcharge mein kheench rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, unplug mains and disconnect the internal battery quick-connect before opening the case.",
+          "ur": "Case kholne se pehle UPS off karein, mains nikaal dein aur internal battery quick-connect disconnect kar dein."
+        },
+        {
+          "en": "Measure each battery on DC volts; a healthy 12V cell reads 12.6-13.0V and should stay under about 13.8V.",
+          "ur": "Har battery DC volt par measure karein; healthy 12V cell 12.6-13.0V par hota hai aur 13.8V se kam rehna chahiye."
+        },
+        {
+          "en": "Replace the whole battery pack with the specified battery, keeping cells matched in series.",
+          "ur": "Poori battery pack ko spec wali battery se badal dein, series mein cells jor ke rakhein."
+        },
+        {
+          "en": "Read 'Last Fault Reason' again after the fix to confirm the code has cleared, since this page is the only place the unit shows it.",
+          "ur": "Islih ke baad dobara 'Last Fault Reason' dekhein taake confirm ho ke code clear ho gaya, kyunke yeh page hi aakhri jagah hai jahan unit yeh dikhata hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "VP700/1000/1200/1600E(I)LCD User's Manual - Function Setup Guide, Last Fault Reason",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn-reichelt.de/documents/datenblatt/E910/CP_VP1200EILCD_MAN-EN.pdf"
+      }
+    },
+    {
+      "code": "E02",
+      "aliases": [
+        "E02"
+      ],
+      "title": {
+        "en": "E02 Charger fault (No Charge)",
+        "ur": "E02 Charger fault (No Charge) - charger charge hi nahi kar raha"
+      },
+      "meaning": {
+        "en": "The setup menu's 'Last Fault Reason' page reports that the last fault was a charger no-charge condition - the charger is not charging the battery.",
+        "ur": "Setup menu ka 'Last Fault Reason' page batata hai ke aakhri fault charger no-charge tha - charger battery charge nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "Internal battery connector is unplugged or the terminal is loose/corroded.",
+          "ur": "Internal battery connector nikaala hua hai ya terminal dheela/zanga hai."
+        },
+        {
+          "en": "Battery pack is dead or one cell in the series string has failed open.",
+          "ur": "Battery pack dead hai ya series string mein koi cell open ho kar kharab hai."
+        },
+        {
+          "en": "Battery branch fuse or the charger MOSFET section has failed.",
+          "ur": "Battery branch fuse ya charger MOSFET section kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate first: off, unplug mains, disconnect the internal battery quick-connect.",
+          "ur": "Pehle isolate karein: off, mains nikaal dein, internal battery quick-connect disconnect kar dein."
+        },
+        {
+          "en": "Check battery DC voltage; a rested healthy 12V battery reads 12.4-12.7V and near 0V means it must be replaced.",
+          "ur": "Battery DC voltage check karein; aaram wali healthy 12V battery 12.4-12.7V par hoti hai aur 0V ke qareeb ho to badalni hai."
+        },
+        {
+          "en": "With mains reconnected, measure charge voltage at the battery terminals; 13.5-14V is healthy and near 0V means the charger or its fuse has failed.",
+          "ur": "Mains wapas lagane ke baad battery terminals par charge voltage measure karein; 13.5-14V healthy hai aur 0V ke qareeb charger ya us ka fuse kharab hai."
+        },
+        {
+          "en": "Replace a dead pack with the specified battery; if E02 persists on a new pack the charger board has failed - contact CyberPower support.",
+          "ur": "Dead pack ko spec wali battery se badal dein; nayi pack par bhi E02 rahe to charger board kharab hai - CyberPower support se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "VP700/1000/1200/1600E(I)LCD User's Manual - Function Setup Guide, Last Fault Reason",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn-reichelt.de/documents/datenblatt/E910/CP_VP1200EILCD_MAN-EN.pdf"
+      }
+    },
+    {
+      "code": "E21",
+      "aliases": [
+        "E21",
+        "Output short"
+      ],
+      "title": {
+        "en": "E21 Output short",
+        "ur": "E21 Output short - output short circuit"
+      },
+      "meaning": {
+        "en": "The setup menu's 'Last Fault Reason' page reports that the last fault was an output short circuit. Note the VP manual's own wording is 'Output short', not 'Battery Output Short Fault'.",
+        "ur": "Setup menu ka 'Last Fault Reason' page batata hai ke aakhri fault output short circuit tha. Dhyan dein VP manual ki apni wording 'Output short' hai, 'Battery Output Short Fault' nahi."
+      },
+      "causes": [
+        {
+          "en": "A connected appliance has failed short-circuiting.",
+          "ur": "Koi connected appliance short ho kar kharab ho gaya hai."
+        },
+        {
+          "en": "A power strip or extension lead has a crushed or cut live core.",
+          "ur": "Power strip ya extension lead ka live core kata ya daba hua hai."
+        },
+        {
+          "en": "Outlet terminals loose/bridged, or a cable pinched behind the unit.",
+          "ur": "Outlet terminals dheele/bridge hue hain, ya unit ke peeche koi cable pincha hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, unplug mains and disconnect the internal battery, then unplug every load from all UPS outlets.",
+          "ur": "UPS off karein, mains aur internal battery disconnect karein, phir tamam UPS outlets se saara load nikaal dein."
+        },
+        {
+          "en": "Reconnect devices one at a time; the device that restores E21 is the short - unplug it and have it repaired.",
+          "ur": "Devices ek-ek karke wapas lagayein; jis device se E21 wapas aaye wohi short hai - use nikaal dein aur repair karwayein."
+        },
+        {
+          "en": "With the unit isolated, use a multimeter on continuity/ohms from each outlet to neutral; near-zero ohms confirms the short path.",
+          "ur": "Unit isolate karne ke baad multimeter continuity/ohms par har outlet ko neutral se check karein; zero ke qareeb ohms short path confirm karte hain."
+        },
+        {
+          "en": "If every outlet measures clean and E21 still returns, the inverter output stage has failed - contact CyberPower support.",
+          "ur": "Agar har outlet clean nikle phir bhi E21 aaye to inverter output stage kharab hai - CyberPower support se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "VP700/1000/1200/1600E(I)LCD User's Manual - Function Setup Guide, Last Fault Reason",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn-reichelt.de/documents/datenblatt/E910/CP_VP1200EILCD_MAN-EN.pdf"
+      }
+    },
+    {
+      "code": "E22",
+      "aliases": [
+        "E22",
+        "Over load"
+      ],
+      "title": {
+        "en": "E22 Over load",
+        "ur": "E22 Over load - load capacity se zyada"
+      },
+      "meaning": {
+        "en": "The setup menu's 'Last Fault Reason' page reports that the last fault was an overload. The VP manual's own wording is simply 'Over load'.",
+        "ur": "Setup menu ka 'Last Fault Reason' page batata hai ke aakhri fault overload tha. VP manual ki apni wording sirf 'Over load' hai."
+      },
+      "causes": [
+        {
+          "en": "Total connected load exceeds the unit's VA rating (e.g. 960W on VP1600E(I)LCD).",
+          "ur": "Total connected load unit ki VA rating se zyada hai (jaise VP1600E(I)LCD par 960W)."
+        },
+        {
+          "en": "A high inrush device tripped the overload when mains returned.",
+          "ur": "Bade inrush wale device ne mains wapas aate hi overload kar diya."
+        },
+        {
+          "en": "The circuit breaker has tripped on overload and stayed out.",
+          "ur": "Circuit breaker overload par trip ho kar bahar reh gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If an overload is detected the unit emits one long beep: turn the UPS off and unplug at least one piece of equipment from the battery power supplied outlets.",
+          "ur": "Overload detect hone par unit aik lamba beep deta hai: UPS off karein aur battery power supplied outlets se kam az kam ek equipment nikaal dein."
+        },
+        {
+          "en": "Make sure the circuit breaker is depressed, then turn the UPS on, as the manual's BASIC OPERATION step instructs.",
+          "ur": "Manual ke BASIC OPERATION step ke mutabiq confirm karein ke circuit breaker neeche dabba hua hai, phir UPS on karein."
+        },
+        {
+          "en": "Total the connected load on a power meter and keep it within the unit's stated capacity (700VA/390W, 1000VA/550W, 1200VA/720W, 1600VA/960W).",
+          "ur": "Connected load power meter par total karein aur unit ki bataye capacity ke andar rakhein (700VA/390W, 1000VA/550W, 1200VA/720W, 1600VA/960W)."
+        },
+        {
+          "en": "If a large-inrush appliance must stay connected, put it on mains directly or reconnect it last after everything else has settled.",
+          "ur": "Agar bade inrush wala appliance lagna hi hai to use seedha mains par rakhein ya sab kuch settle hone ke baad sab se aakhir mein wapas lagayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "VP700/1000/1200/1600E(I)LCD User's Manual - Function Setup Guide, Last Fault Reason",
+        "retrieved": "2026-09-26",
+        "url": "https://cdn-reichelt.de/documents/datenblatt/E910/CP_VP1200EILCD_MAN-EN.pdf"
+      }
+    }
+  ]
+}

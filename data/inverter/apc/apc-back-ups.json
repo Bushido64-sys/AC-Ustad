@@ -1,0 +1,867 @@
+{
+  "schemaVersion": 1,
+  "brandId": "apc",
+  "series": {
+    "id": "apc-back-ups",
+    "name": "APC Back-UPS XS and Back-UPS LCD (F01-F09 system fault codes)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*Back-UPS*",
+      "BX1300G*",
+      "BX1500G*",
+      "BN1350G*",
+      "BX950MI*",
+      "BX1300LCD*",
+      "*Back-UPS Pro*",
+      "*Back-UPS XS*"
+    ],
+    "notes": "Two APC Back-UPS manuals were fetched and BOTH publish an identical F01-F09 list, so they are recorded as one Back-UPS series with the cross-manual confirmation noted in CONFLICTS. This is a different code namespace from Smart-UPS (F## on Smart-UPS C means something else entirely - see Series 1). APC's own split of the list matters in the field: F01 and F02 have a published user remedy ('Turn the Back-UPS off. Disconnect non-essential equipment from the Battery Backup outlets and then turn Back-UPS on.'), while F03-F09 are explicitly 'not user serviceable. Contact APC Technical Support for assistance.' Codes are shown on the LCD as F## with all front panel indicators flashing."
+  },
+  "codes": [
+    {
+      "code": "F01",
+      "aliases": [
+        "F01"
+      ],
+      "title": {
+        "en": "On-Battery Overload (F01)",
+        "ur": "On-battery par overload (F01)"
+      },
+      "meaning": {
+        "en": "While running on battery the load drew more than the unit can deliver, so the inverter shut the output down.",
+        "ur": "Battery par chalte waqt load ne unit ki capacity se zyada kheencha, is liye inverter ne output band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Too many devices on the Battery Backup outlets.",
+          "ur": "Battery Backup outlets par bohat zyada devices lagi hain."
+        },
+        {
+          "en": "A connected device with a locked motor or a seized compressor drawing inrush current on battery.",
+          "ur": "Kisi connected device ka motor jam ya compressor atka hua hai jo battery par inrush current kheech raha hai."
+        },
+        {
+          "en": "The unit is at the bottom of its runtime and even a normal load exceeds what is left.",
+          "ur": "Unit apni runtime ke bilkul aakhir par hai aur aam load bhi baqi power se zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the Back-UPS off first, as APC instructs, before touching any load.",
+          "ur": "Jaise APC kahe, koi bhi load chhoone se pehle Back-UPS off karein."
+        },
+        {
+          "en": "Disconnect non-essential equipment from the Battery Backup outlets, then turn the Back-UPS back on.",
+          "ur": "Battery Backup outlets se naami equipment disconnect karein, phir Back-UPS dobara on karein."
+        },
+        {
+          "en": "Move what you can to the SURGE ONLY outlets, which are not backed up and so do not count toward the load.",
+          "ur": "Jitna mumkin ho usay SURGE ONLY outlets par le jayein - yeh backup nahi hote is liye load mein count nahi hote."
+        },
+        {
+          "en": "Measure the load in watts on the LCD and, if it is under rating, re-add devices one at a time to find the offender.",
+          "ur": "LCD par watts mein load parhein, aur agar rating ke neeche ho to devices aik-aik karke dobara jorr ke ghalat device dhoondein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "System fault symbol and F01 flash on and off, with all front panel indicators flashing",
+      "confidence": "high",
+      "notes": {
+        "en": "F01 is one of only two Back-UPS faults APC gives a user remedy for. Everything F03-F09 is dealer territory.",
+        "ur": "F01 un do Back-UPS faults mein se aik hai jis ka APC user ka hal deta hai. F03-F09 poora dealer ka kaam hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    },
+    {
+      "code": "F02",
+      "aliases": [
+        "F02"
+      ],
+      "title": {
+        "en": "On-Battery Output Short (F02)",
+        "ur": "On-battery output par short (F02)"
+      },
+      "meaning": {
+        "en": "The output is shorted while the unit is on battery, so the UPS has shut down to prevent a very high current.",
+        "ur": "Unit battery par hone ke dauran output short ho gaya hai, is liye UPS ne bohat high current rokne ke liye band ho kar diya."
+      },
+      "causes": [
+        {
+          "en": "A connected device with failed internal insulation shorting line to neutral.",
+          "ur": "Kisi connected device ki andar ki insulation kharab ho kar line se neutral short kar rahi hai."
+        },
+        {
+          "en": "Damaged extension lead or adapter pinched under furniture or behind a cabinet.",
+          "ur": "Extension lead ya adapter damaged hai jo furniture ke neeche ya cabinet ke peeche nichal hua hai."
+        },
+        {
+          "en": "A wet or damaged outlet or a rodent-chewed cable in a warehouse or store room.",
+          "ur": "Geela ya damaged outlet, ya godown mein chuhe ka kucha hua cable."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the Back-UPS off, disconnect mains and remove the internal battery before investigating wiring.",
+          "ur": "Back-UPS off karein, mains disconnect karein aur wiring dekhne se pehle andar ki battery nikaal dein."
+        },
+        {
+          "en": "Disconnect all load, then measure continuity from each Battery Backup outlet to neutral with a multimeter; expect no continuity.",
+          "ur": "Saara load disconnect karein, phir har Battery Backup outlet se neutral ki continuity multimeter se nikaalein; continuity nahi honi chahiye."
+        },
+        {
+          "en": "Reconnect devices one at a time to identify which one is shorted, and inspect every extension lead along its full length.",
+          "ur": "Devices aik-aik karke dobara connect karke dhoondein kaun short hai, aur har extension lead poori tarah check karein."
+        },
+        {
+          "en": "Replace any damaged lead or outlet - a chewed or pinched cable is a fire risk, not just a fault to work around.",
+          "ur": "Har damaged lead ya outlet badal dein - chuha ya nichla hua cable aag ka khatra hai, sirf fault nahi."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "System fault symbol and F02 flash on and off, with all front panel indicators flashing",
+      "confidence": "high",
+      "notes": {
+        "en": "Same user remedy as F01 in APC's table: turn off, disconnect non-essential equipment from the Battery Backup outlets, turn on.",
+        "ur": "APC table mein F01 jaisa hi user hal: off karein, Battery Backup outlets se naami equipment disconnect karein, dobara on karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    },
+    {
+      "code": "F03",
+      "aliases": [
+        "F03"
+      ],
+      "title": {
+        "en": "On-Battery Xcap Overload (F03)",
+        "ur": "On-battery Xcap overload (F03)"
+      },
+      "meaning": {
+        "en": "The inverter's output X capacitor has drawn too much reactive current on battery, so the unit has shut down.",
+        "ur": "Inverter ka output X capacitor battery par bohat zyada reactive current kheech chuka hai, is liye unit band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Output X capacitor failed shorted, drawing heavy capacitive current every cycle.",
+          "ur": "Output X capacitor short ho kar kharab hai jis se har cycle mein bhaari capacitive current kheech raha hai."
+        },
+        {
+          "en": "A load on the unit that is heavily capacitive, such as a large motor or long fluorescent bank.",
+          "ur": "Unit par aisa load jo bhaari capacitive hai, maslan bara motor ya lambi fluorescent lamp bank."
+        },
+        {
+          "en": "Deteriorated X capacitors across the aged board, as happens on an out-of-warranty unit.",
+          "ur": "Warranty khatam ho gayi unit par board ke purane X capacitors bhi bigad chuke hote hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "APC's published action is: turn the Back-UPS off, disconnect mains, and let the capacitors discharge before any work.",
+          "ur": "APC ka bataya hua amal: Back-UPS off karein, mains disconnect karein, aur koi kaam karne se pehle capacitors discharge hone dein."
+        },
+        {
+          "en": "Disconnect all load and power the unit from mains, then check whether F03 appears without any load attached.",
+          "ur": "Saara load disconnect karein aur unit mains par chala dein, phir dekhein ke bina load ke bhi F03 aata hai ya nahi."
+        },
+        {
+          "en": "If F03 appears unloaded, the X capacitors are faulty and the board needs component-level service; measure each capacitor's value and leakage with an ESR/capacitance meter.",
+          "ur": "Agar bina load F03 aaye to X capacitors kharab hain aur board ko component level par service chahiye; har capacitor ki value aur leakage ESR/capacitance meter se nikaalein."
+        },
+        {
+          "en": "If F03 only appears with a specific load, move that load to the SURGE ONLY outlets and re-test the battery runtime.",
+          "ur": "Agar F03 sirf kisi khaas load par aaye to us load ko SURGE ONLY outlets par le jayein aur battery runtime dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "APC: 'Faults F03-F09 are not user serviceable. Contact APC Technical Support for assistance.' Do not open the unit.",
+        "ur": "APC: 'Faults F03-F09 user ke liye nahi hain. Madad ke liye APC Technical Support se rabta karein.' Unit na kholein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    },
+    {
+      "code": "F04",
+      "aliases": [
+        "F04"
+      ],
+      "title": {
+        "en": "Clamp Short (F04)",
+        "ur": "Clamp short (F04)"
+      },
+      "meaning": {
+        "en": "The surge protection clamp on the output has shorted, so the unit has shut down.",
+        "ur": "Output par surge protection clamp short ho gaya hai, is liye unit band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "MOV clamp failed shorted after absorbing a surge, which is its designed sacrificial action.",
+          "ur": "Surge absorb karne ke baad MOV clamp short ho kar kharab hua hai - yahi iska qurbani hona hai."
+        },
+        {
+          "en": "Repeated small surges or a very high installation voltage slowly degrading the clamp.",
+          "ur": "Baar baar chhote surge ya bohat oopper installation voltage clamp ko dheere dheere kharab karte hain."
+        },
+        {
+          "en": "Clamp's thermal fuse link blown, leaving the short path conducting permanently.",
+          "ur": "Clamp ka thermal fuse link uth gaya hai, jis se short raasta hamesha conduct karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the Back-UPS off, unplug mains and remove the internal battery before inspecting the output board.",
+          "ur": "Output board dekhne se pehle Back-UPS off karein, mains se nikaalein aur andar ki battery nikaal dein."
+        },
+        {
+          "en": "Measure each surge clamp to neutral with a multimeter; a healthy clamp reads open, a failed one reads near zero.",
+          "ur": "Har surge clamp ko neutral ke mutabiq multimeter se nikaalein; sehat clamp khuli parhta hai, kharab wala zero ke qareeb."
+        },
+        {
+          "en": "Check whether the surge protection has been doing its job by asking what event preceded the fault; a lightning strike explains the failure.",
+          "ur": "Dhoondein ke fault se pehle kya hua tha; agar bijli kaRuaab (lightning) hua tha to clamp ki kharabi samajh aati hai."
+        },
+        {
+          "en": "Install properly rated external surge protection upstream, because a sacrificial clamp needs a backup protector to take the next strike.",
+          "ur": "Upstream par sahi rating ka external surge protection lagayein, kyunke qurbani clamp ko agla strike rokne ke liye dusra protector chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "A blown clamp is evidence the protection worked. Replacing only the clamp without upstream protection repeats the failure.",
+        "ur": "Clamp uth jaana ishara hai ke protection ne kaam kiya. Sirf clamp badal kar upstream protection na lagaya to kharabi dobara jayegi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    },
+    {
+      "code": "F05",
+      "aliases": [
+        "F05"
+      ],
+      "title": {
+        "en": "Charge Fault (F05)",
+        "ur": "Charge fault (F05)"
+      },
+      "meaning": {
+        "en": "The battery charging circuit has faulted, so the pack is not charging and the runtime is at risk.",
+        "ur": "Battery charging circuit mein fault aa gaya hai, is liye pack charge nahi ho rahi aur runtime par khatra hai."
+      },
+      "causes": [
+        {
+          "en": "Internal battery fuse or connector disconnected, so the charger sees no pack.",
+          "ur": "Internal battery fuse ya connector disconnect hai, jis se charger ko pack hi nazar nahi aata."
+        },
+        {
+          "en": "Battery pack aged beyond replacement, so the charger refuses or cannot charge it.",
+          "ur": "Battery pack badalne ki had se oopper purani ho chuki hai, jis se charger use charge hi nahi kar sakta."
+        },
+        {
+          "en": "Charger circuit component failure on the board.",
+          "ur": "Board par charger circuit ka koi component kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the Back-UPS off, unplug mains and remove the internal battery, then reseat the battery connector firmly.",
+          "ur": "Back-UPS off karein, mains se nikaalein aur andar ki battery nikaal dein, phir battery connector mazbooti se dobara baitha dein."
+        },
+        {
+          "en": "Measure the internal battery fuse for continuity; replace with the same rating if it is open.",
+          "ur": "Internal battery fuse ki continuity nikaalein; khuli ho to usi rating se badal dein."
+        },
+        {
+          "en": "Measure the pack's DC voltage; a healthy 12 V pack sits near 13.5-13.8 V on float, so a pack at 11 V or less needs replacing.",
+          "ur": "Pack ka DC voltage nikaalein; sehat 12 V pack float par 13.5-13.8 V ke qareeb hota hai, is liye 11 V ya us se kam ho to badalna hai."
+        },
+        {
+          "en": "If the connector and fuse are good and the pack is healthy, the charger board needs component-level service.",
+          "ur": "Agar connector aur fuse theek hain aur pack sehat hai to charger board ko component level par service chahiye."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Also watch the separate 'Replace Battery' indicator, which turns on for this condition without a fault code being shown.",
+        "ur": "Alag 'Replace Battery' indicator bhi dekhein, jo is halat mein on ho jata hai jab fault code na dikhe."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    },
+    {
+      "code": "F06",
+      "aliases": [
+        "F06"
+      ],
+      "title": {
+        "en": "Relay Welding (F06)",
+        "ur": "Relay welding (F06)"
+      },
+      "meaning": {
+        "en": "A transfer relay has welded closed, so the unit cannot isolate the utility path as it should.",
+        "ur": "Transfer relay jalm kar band ho gaya hai, is liye unit utility raasta isolate nahi kar sakta jaise chahiye."
+      },
+      "causes": [
+        {
+          "en": "Relay contacts welded from the inrush current on every transfer.",
+          "ur": "Har transfer par inrush current se relay ke contacts jalm (weld) gaye hain."
+        },
+        {
+          "en": "Relay contacts pitted by long service life, so they cannot interrupt cleanly.",
+          "ur": "Lamba service life se relay ke contacts ghis chuke hain jis se saaf interruption nahi hota."
+        },
+        {
+          "en": "Relay coil or armature mechanism failed, so the relay cannot open at all.",
+          "ur": "Relay coil ya armature mechanism kharab ho gaya hai jis se relay khul hi nahi sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the Back-UPS off, unplug mains and remove the internal battery, then confirm the relay position unpowered.",
+          "ur": "Back-UPS off karein, mains se nikaalein aur andar ki battery nikaal dein, phir unpowered state mein relay ki position confirm karein."
+        },
+        {
+          "en": "Measure the relay coil continuity/resistance across its pins after lifting it clear of the board.",
+          "ur": "Relay ko board se alag kar ke uske pins par coil continuity/resistance nikaalein."
+        },
+        {
+          "en": "Inspect the contact faces for welding pitting or discoloration; a welded relay must be replaced, not cleaned.",
+          "ur": "Contact faces par welding pitting ya rang badla dekhein; jalmaya relay badalna hota hai, saaf karne se kaam nahi chalega."
+        },
+        {
+          "en": "Replace the relay and check why the transfers are so frequent; a weak battery causes constant transfers and burns relay contacts.",
+          "ur": "Relay badal dein aur yeh bhi dekhein ke transfers itne zyada kyun hain; kamzor battery baar baar transfer karwa kar relay contacts jalati hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "A weak battery is the usual root cause of welding relay contacts - fix the battery, not only the relay.",
+        "ur": "Relay contacts welding ki asal wajah aam tor par kamzor battery hai - sirf relay nahi, battery bhi theek karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    },
+    {
+      "code": "F07",
+      "aliases": [
+        "F07"
+      ],
+      "title": {
+        "en": "Temperature (F07)",
+        "ur": "Temperature masla (F07)"
+      },
+      "meaning": {
+        "en": "The internal temperature has exceeded the safe limit, so the unit has shut down.",
+        "ur": "Andar ki temperature safe limit se upar chala gayi hai, is liye unit band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Fan failed, so no air is being moved over the transformer and power stage.",
+          "ur": "Fan kharab ho gaya hai jis se transformer aur power stage par se hawa nahi chal rahi."
+        },
+        {
+          "en": "Unit placed in a closed cabinet or against a hot wall with no clearance.",
+          "ur": "Unit band cabinet mein ya garam deewar ke saath rakha hai bina kisi clearance ke."
+        },
+        {
+          "en": "Dust build-up on the fan and heatsink blocking airflow.",
+          "ur": "Fan aur heatsink par dhool jama hokar airflow block kar raha hai."
+        },
+        {
+          "en": "Overload running the unit hot continuously, e.g. a computer on full output for days.",
+          "ur": "Unit ko mustaqal overload garam kar raha hai, maslan computer ko poori output par kai din chala raha hona."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the Back-UPS off, unplug mains and remove the internal battery, then check the fan spins freely by hand.",
+          "ur": "Back-UPS off karein, mains se nikaalein aur andar ki battery nikaal dein, phir check karein ke fan haath se azaad ghoomta hai."
+        },
+        {
+          "en": "Clean the fan and any dust on the vents with compressed air, and confirm airflow moves a tissue held at the vent.",
+          "ur": "Fan aur vents par ke dhool ko compressed air se saaf karein, aur vent par tissue rakh kar airflow verify karein."
+        },
+        {
+          "en": "Relocate the unit into open air with clearance on all sides as the manual specifies, out of direct sun and away from heat sources.",
+          "ur": "Unit ko khule hawa mein manual ke mutabiq charon taraf clearance ke saath le jayein, seedhi dhoop se door aur garmi ke sarkaron se door."
+        },
+        {
+          "en": "Reduce the load so the unit is not running continuously at its limit, and re-test by running a self-test on mains.",
+          "ur": "Load kam karein taake unit musalsal apni limit par na chale, aur mains par self-test chala kar dobara test karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "In Pakistani summers a Back-UPS inside a closed wooden cupboard will hit F07 regularly; the fix is placement, not the UPS.",
+        "ur": "Pakistani garmi mein band lakdi cupboard ka Back-UPS aksar F07 deta hai; hal rakhne ki jagah hai, UPS ka nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    },
+    {
+      "code": "F08",
+      "aliases": [
+        "F08"
+      ],
+      "title": {
+        "en": "Fan Fault (F08)",
+        "ur": "Fan fault (F08)"
+      },
+      "meaning": {
+        "en": "The cooling fan has failed or is not being commanded, so the unit will overheat if left running.",
+        "ur": "Cooling fan kharab ho gaya hai ya use command nahi mil raha, is liye unit chalte rehne par garam ho jayega."
+      },
+      "causes": [
+        {
+          "en": "Fan motor bearing seized or the motor has failed.",
+          "ur": "Fan motor ka bearing jam ho gaya ya motor kharab ho gaya hai."
+        },
+        {
+          "en": "Fan connector or its supply has failed, so the fan never receives power.",
+          "ur": "Fan ka connector ya uski supply kharab hai jis se fan ko bijli hi nahi milti."
+        },
+        {
+          "en": "Fan blades broken or jammed by dust so the fan runs but moves no air.",
+          "ur": "Fan blades toot chuke hain ya dhool se jam hain jis se fan chalti hai magar hawa nahi chalati."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the Back-UPS off, unplug mains and remove the internal battery, then check the fan for seized bearings or broken blades.",
+          "ur": "Back-UPS off karein, mains se nikaalein aur andar ki battery nikaal dein, phir fan ke jam bearings ya toote blades dekhein."
+        },
+        {
+          "en": "Measure the fan's supply voltage with the unit on mains; no supply means the connector or board is at fault, not the fan.",
+          "ur": "Unit mains par ho to fan ki supply voltage nikaalein; supply na ho to kharabi fan mein nahi, connector ya board mein hai."
+        },
+        {
+          "en": "Clean the fan and its housing with compressed air, and confirm air actually moves at the vent with a tissue.",
+          "ur": "Fan aur housing ko compressed air se saaf karein, aur vent par tissue rakh kar hawa ka chalna confirm karein."
+        },
+        {
+          "en": "Replace the fan with a matching size, voltage and airflow rating so cooling is not reduced, and re-run self-test.",
+          "ur": "Fan ko milan jaisa size, voltage aur airflow rating se badal dein taake cooling kam na ho, aur self-test dobara chalayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do not just clear the fault and keep running - an unprotected unit will next report F07 or cook itself.",
+        "ur": "Sirf fault clear kar ke chalate mat rahen - bacha hua unit agli baar F07 dega ya khud kharab ho jayega."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    },
+    {
+      "code": "F09",
+      "aliases": [
+        "F09"
+      ],
+      "title": {
+        "en": "Internal Fault (F09)",
+        "ur": "Internal fault (F09)"
+      },
+      "meaning": {
+        "en": "A general internal fault has been detected that does not map to a more specific code.",
+        "ur": "Ek aam internal fault detect hua hai jo kisi khaas code se map nahi hota."
+      },
+      "causes": [
+        {
+          "en": "One of the more specific internal codes (F03-F08) has been seen and then latched as a general internal fault.",
+          "ur": "Koi khaas internal code (F03-F08) dekha gaya aur phir aam internal fault ke taur par latch ho gaya."
+        },
+        {
+          "en": "Control board failure with no more specific indication available.",
+          "ur": "Control board ki kharabi jiska koi khaas ishara mojood nahi."
+        },
+        {
+          "en": "Supply or rail fault inside the unit affecting several subsystems at once.",
+          "ur": "Unit ki andar ki supply ya rail ki kharabi jo kai subsystems ko ek saath mutasir karti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the Back-UPS off, unplug mains and remove the internal battery before any investigation, as APC requires for F03-F09.",
+          "ur": "APC ke mutabiq F03-F09 ke liye: koi dekhne ka kaam karne se pehle Back-UPS off karein, mains se nikaalein aur andar ki battery nikaal dein."
+        },
+        {
+          "en": "Note whether the fault appeared at switch-on, during a transfer, or only while on battery; that pattern narrows the cause quickly.",
+          "ur": "Note karein ke fault switch-on par aaya, transfer ke dauran, ya sirf battery par - yeh andaza wajah jaldi chhota kar deta hai."
+        },
+        {
+          "en": "Measure the battery connector, fuse and pack voltage first, because a bad battery produces several internal codes at once.",
+          "ur": "Pehle battery connector, fuse aur pack voltage nikaalein, kyunke kharab battery kai internal codes aik saath paida karta hai."
+        },
+        {
+          "en": "If nothing obvious is found, the board needs component-level diagnosis; take the unit to an authorised APC service centre.",
+          "ur": "Agar koi saaf wajah na mile to board ko component level par diagnose karwana hoga; unit ko authorized APC service centre le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "F09 is the catch-all internal fault. Treat it as 'internal, needs the board looked at', not as a single known problem.",
+        "ur": "F09 aik catch-all internal fault hai. Ise 'internal, board dekha zaroori' samajhein, kisi aik khaas masle ke taur par nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    },
+    {
+      "code": "LED-SYSTEM-FAULT",
+      "aliases": [
+        "LED-SYSTEM-FAULT",
+        "SYSTEM FAULT indicator"
+      ],
+      "title": {
+        "en": "SYSTEM FAULT indicator on, all indicators flashing",
+        "ur": "SYSTEM FAULT indicator on, sab indicators flash"
+      },
+      "meaning": {
+        "en": "An internal system fault is present; the number on the LCD identifies which of F01-F09 it is.",
+        "ur": "Andar ka system fault mojood hai; LCD par number batata hai ke F01-F09 mein se kaunsa hai."
+      },
+      "causes": [
+        {
+          "en": "Any of the F01-F09 internal faults is active on the unit.",
+          "ur": "Unit par F01-F09 mein se koi bhi internal fault active hai."
+        },
+        {
+          "en": "On older Back-UPS LCD models the fault number is shown as F01 to F09 beside a flashing fault symbol.",
+          "ur": "Purane Back-UPS LCD models par fault number F01 se F09 flashing fault symbol ke saath dikhaya jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Match the number on the LCD to the corresponding Fault Message in the System Faults table, exactly as APC instructs.",
+          "ur": "Jaise APC kahe, LCD par number ko System Faults table mein us Fault Message se match karein."
+        },
+        {
+          "en": "Write the number down before power-cycling, because the code is not stored and will be gone after a power-off.",
+          "ur": "Power-cycle karne se pehle number likh lein, kyunke code store nahi hota aur power off ke baad gayab ho jata hai."
+        },
+        {
+          "en": "For F01 and F02 follow APC's published remedy; for F03-F09 contact an authorised service centre as APC requires.",
+          "ur": "F01 aur F02 par APC ka bataya hua amal karein; F03-F09 par jaise APC kahe authorized service centre se rabta karein."
+        },
+        {
+          "en": "Confirm the real cause with a meter and multimeter rather than replacing the whole unit on the fault code alone.",
+          "ur": "Sirf fault code par poora unit badalne ke bajaye meter aur multimeter se asal wajah confirm karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "SYSTEM FAULT indicator illuminated and all front panel indicators flashing",
+      "confidence": "high",
+      "notes": {
+        "en": "APC's own wording: 'There is an internal fault. Determine which internal fault message is displayed by matching the number displayed on the LCD with the corresponding Fault Message (see System Faults) and contact APC Technical Support.'",
+        "ur": "APC ka apna alfaz: 'Andar ka fault hai. LCD par number ko us Fault Message se match karke pata karein (System Faults dekhein) aur APC Technical Support se rabta karein.'"
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    },
+    {
+      "code": "LED-REPLACE-BATTERY",
+      "aliases": [
+        "LED-REPLACE-BATTERY",
+        "REPLACE BATTERY indicator"
+      ],
+      "title": {
+        "en": "Replace Battery indicator illuminated",
+        "ur": "Replace Battery indicator chalu"
+      },
+      "meaning": {
+        "en": "The battery has reached the end of its useful life and must be replaced; the unit may be audibly warning once an hour.",
+        "ur": "Battery apni useful life ke ant tak pohanch gayi hai aur badalni chahiye; unit ghante mein aik baar awaaz de sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Battery at the end of its rated service life, typically 3-5 years.",
+          "ur": "Battery apni rated service life ke ant par hai, aam tor par 3-5 saal."
+        },
+        {
+          "en": "Battery has not been recharged after repeated outages.",
+          "ur": "Baar baar outages ke baad battery dobara charge nahi hui."
+        },
+        {
+          "en": "Reachable battery cartridge at end of life - APC's answer on BX1300G/BX1500G is 'Replace the battery (APCRBC124)'.",
+          "ur": "Reachable battery cartridge umar ke aakhir par - APC ka BX1300G/BX1500G par jawab hai 'Battery badal dein (APCRBC124)'."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the Back-UPS off, unplug mains and remove the old cartridge, following the manual's battery replacement procedure.",
+          "ur": "Manual ki battery replacement tareebi follow kar ke Back-UPS off karein, mains se nikaalein aur purana cartridge nikaal dein."
+        },
+        {
+          "en": "Check the battery connector is fully seated; a loose connector is often mistaken for an expired battery.",
+          "ur": "Check karein ke battery connector poori tarah baitha hai; loose connector ko aksar expired battery samajh liya jata hai."
+        },
+        {
+          "en": "Fit the correct replacement battery - APC specifies APCRBC124 for the BX1300G/BX1500G, and the correct type and number for your model.",
+          "ur": "Sahi replacement battery lagayein - APC BX1300G/BX1500G ke liye APCRBC124 batata hai, aur aapke model ke liye sahi type aur number."
+        },
+        {
+          "en": "Charge the new battery on mains for the time the manual specifies, then re-run self-test to confirm the indicator clears.",
+          "ur": "Nayi battery ko manual ki batay hui der mains par charge karein, phir self-test chala kar indicator mitne ki tasdeq karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "REPLACE BATTERY indicator illuminated; unit beeps for one minute every five hours (Back-UPS XS) or once every 2 seconds when flashing (Smart-UPS)",
+      "confidence": "high",
+      "notes": {
+        "en": "APC's published action on the Back-UPS: 'The battery has reached the end of its useful life. Replace the battery (APCRBC124).'",
+        "ur": "APC ka Back-UPS par bataya hua amal: 'Battery apni useful life ke ant par pohanch gayi hai. Battery badal dein (APCRBC124).'"
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    },
+    {
+      "code": "LED-ON-BATTERY",
+      "aliases": [
+        "LED-ON-BATTERY",
+        "On Battery indicator"
+      ],
+      "title": {
+        "en": "On Battery indicator on",
+        "ur": "On Battery indicator chalu"
+      },
+      "meaning": {
+        "en": "The unit is supplying power to the Battery Backup outlets from the battery because utility power is absent or out of tolerance.",
+        "ur": "Unit battery se Battery Backup outlets ko power de raha hai kyunke utility power mojood nahi ya tolerance se bahar hai."
+      },
+      "causes": [
+        {
+          "en": "A utility outage or a voltage too far outside the unit's transfer window.",
+          "ur": "Utility outage ya unit ki transfer window se bahar voltage."
+        },
+        {
+          "en": "The plug partially pulled out of the wall outlet, so the unit sees no utility power.",
+          "ur": "Plug wall outlet mein se aadha nikal gaya hai jis se unit ko utility power nazar nahi aati."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed during a genuine outage; this is correct behaviour and the unit is protecting the load.",
+          "ur": "Asal outage mein koi karakari zaroori nahi; yehi theek amal hai aur unit load ki hifazat kar raha hai."
+        },
+        {
+          "en": "If utility is actually present, check the wall outlet is live by testing it with another known-good device.",
+          "ur": "Agar utility waqai mojood hai to check karein ke wall outlet mein bijli hai, kisi doosre azeen device se test kar ke."
+        },
+        {
+          "en": "Check the plug is fully seated and that the input circuit breaker has not tripped; reset the breaker if it has.",
+          "ur": "Check karein ke plug poori tarah baitha hai aur input circuit breaker trip to nahi hua; hua ho to reset karein."
+        },
+        {
+          "en": "If the unit is switching to battery while good mains is present, the input voltage may be outside the transfer window - adjust sensitivity per the manual.",
+          "ur": "Agar ache mains mojood hone par bhi unit battery par ja raha hai to input voltage transfer window ke bahar ho sakti hai - manual ke mutabiq sensitivity adjust karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "On Battery indicator on; unit beeps 4 times every 30 seconds",
+      "confidence": "high",
+      "notes": {
+        "en": "APC: 'The beeping stops when utility power is restored or the Back-UPS is turned off.'",
+        "ur": "APC: 'Beeping utility power ki wapsi ya Back-UPS band karne par ruk jata hai.'"
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    },
+    {
+      "code": "LED-LOW-BATTERY",
+      "aliases": [
+        "LED-LOW-BATTERY",
+        "Low Battery indicator"
+      ],
+      "title": {
+        "en": "Low Battery indicator on / continuous beeping",
+        "ur": "Low Battery indicator chalu / musalsal beeping"
+      },
+      "meaning": {
+        "en": "The battery is near total discharge, so the unit is warning continuously and will shut down shortly.",
+        "ur": "Battery poori discharge ke qareeb hai, is liye unit musalsal ehtiyat kar raha hai aur jald band ho jayegi."
+      },
+      "causes": [
+        {
+          "en": "Outage has lasted longer than the pack's remaining runtime.",
+          "ur": "Outage pack ki baaki runtime se lambi rahi."
+        },
+        {
+          "en": "Load higher than the pack was sized for, draining it faster than designed.",
+          "ur": "Load pack ki bajaye se zyada hai, jis se pack bajaye se tez drain ho raha hai."
+        },
+        {
+          "en": "Battery aged and holding far less charge than its rating.",
+          "ur": "Battery purani ho chuki hai aur rating se bohat kam charge rakhti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down non-essential load immediately to slow the discharge; the unit will shut down on its own if left.",
+          "ur": "Discharge dheema karne ke liye foran naami load band karein; chhor diya to unit khud band ho jayegi."
+        },
+        {
+          "en": "Do not attempt to start a large motor from a low battery; a stalled motor will trip the unit again.",
+          "ur": "Kam battery se bara motor start karne ki koshish na karein; atka hua motor unit dobara trip kar dega."
+        },
+        {
+          "en": "Confirm the mains has returned before the unit shuts down, otherwise the load loses power abruptly.",
+          "ur": "Unit band hone se pehle confirm karein ke mains wapas aa gaya hai, warna load ki bijli achanak chali jayegi."
+        },
+        {
+          "en": "Once mains returns, charge the pack for the full time the manual specifies before relying on it again.",
+          "ur": "Mains wapas aane par pack ko manual ki batay hui poori der charge karein, phir us par bharosa karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Low Battery indicator on; unit beeps continuously",
+      "confidence": "high",
+      "notes": {
+        "en": "APC: 'The beeping stops when utility power is restored or the Back-UPS is turned off.'",
+        "ur": "APC: 'Beeping utility power ki wapsi ya Back-UPS band karne par ruk jata hai.'"
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    },
+    {
+      "code": "LED-OVERLOAD",
+      "aliases": [
+        "LED-OVERLOAD",
+        "OVERLOAD indicator"
+      ],
+      "title": {
+        "en": "Overload indicator on / constant tone",
+        "ur": "Overload indicator chalu / musalsal awaaz"
+      },
+      "meaning": {
+        "en": "The equipment connected draws more power than the unit can provide, so the unit warns with a constant tone.",
+        "ur": "Judi equipment unit ki capacity se zyada power kheech rahi hai, is liye unit musalsal awaaz de kar ehtiyat karta hai."
+      },
+      "causes": [
+        {
+          "en": "Too much equipment connected, or load added after installation.",
+          "ur": "Bohat zyada equipment lagi hai, ya installation ke baad load barha diya gaya."
+        },
+        {
+          "en": "A load with a locked rotor or a seized compressor drawing inrush current.",
+          "ur": "Aisa load jiska rotor jam ya compressor atak gaya aur inrush current kheech raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect equipment from the Battery Backup outlets one item at a time until the tone and indicator clear.",
+          "ur": "Equipment ko Battery Backup outlets se aik-aik karke disconnect karein jab tak awaaz aur indicator na mithe."
+        },
+        {
+          "en": "Move the non-essential equipment to the SURGE ONLY outlets, which are not backed up.",
+          "ur": "Naami equipment SURGE ONLY outlets par le jayein, jo backup nahi hote."
+        },
+        {
+          "en": "Read the load in watts on the LCD and compare with the unit's rating; if the total is under rating, one device is faulting.",
+          "ur": "LCD par watts mein load parhein aur unit ki rating se compare karein; agar kul rating se kam ho to koi aik device kharab hai."
+        },
+        {
+          "en": "If a single device trips the overload, disconnect and test that device on its own before condemning the UPS.",
+          "ur": "Agar aik hi device overload par trip kare to us device ko alag karke test karein, UPS kharab kehne se pehle."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Overload indicator on or the overload icon flashing; unit emits a constant tone",
+      "confidence": "high",
+      "notes": {
+        "en": "APC: 'The alarm stops when nonessential equipment is disconnected from the Battery Backup outlets or the Back-UPS is turned off.'",
+        "ur": "APC: 'Alarm ruk jata hai jab naami equipment Battery Backup outlets se disconnect ho jaye ya Back-UPS band kar diya jaye.'"
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "APC Back-UPS BX1500G / BX1300G / BN1350G User Manual (BU-UM-990-3508-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://coasttec.com/uploads/manuals/BX1500G.pdf"
+      }
+    }
+  ]
+}

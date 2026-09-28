@@ -1,0 +1,589 @@
+{
+  "schemaVersion": 1,
+  "brandId": "eaton",
+  "series": {
+    "id": "eaton-9px",
+    "name": "9PX / 9PX Gen2 (online UPS 700VA-11kVA)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*9PX*",
+      "*9P*"
+    ],
+    "notes": "The 9PX family does NOT use numeric A/F codes in the manual; it uses named LCD conditions with LED + beeper patterns, and separate Event log / Fault log lists on the front panel. Second source: Eaton 9PX Gen2 5-11 kVA Advanced user manual (https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-9px-gen2-emea/9px-gen2-resources-emea/eaton-9px-5-11-kva-gen2-advanced-user-manual-en-us.pdf) reproduces the same 11 conditions; the only difference found is UPS overtemperature, which the Gen2 manual gives as 'Beep continuous' instead of '1 beep every 3 seconds'. Do NOT reuse 9E A/F codes for a 9PX."
+  },
+  "codes": [
+    {
+      "code": "Battery mode",
+      "aliases": [
+        "Battery mode",
+        "Battery mode LED On"
+      ],
+      "title": {
+        "en": "Battery mode (UPS running on battery)",
+        "ur": "Battery mode (UPS battery par chal raha hai)"
+      },
+      "meaning": {
+        "en": "Utility power has failed and the UPS is supplying the load from its batteries. This is a status, not a fault.",
+        "ur": "Utility power chala gaya hai aur UPS load ko apni batteries se de raha hai. Ye status hai, fault nahi."
+      },
+      "causes": [
+        {
+          "en": "The utility supply has failed or is out of the transfer window.",
+          "ur": "Utility supply chala gaya hai ya transfer range se bahar hai."
+        },
+        {
+          "en": "The user has deliberately switched the UPS to battery mode to run on battery.",
+          "ur": "User ne jaanbujhkar UPS ko battery mode par switch kiya hai taake battery par chale."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Save your work and prepare connected equipment for shutdown, because runtime is finite.",
+          "ur": "Apna kaam bacha lein aur connected equipment ko shutdown ke liye tayyar karein, kyunke runtime mehdud hai."
+        },
+        {
+          "en": "Read the remaining runtime and battery level from the LCD so you know how long you have.",
+          "ur": "LCD se baaqi runtime aur battery level parhein taake pata chale kitna waqt bacha hai."
+        },
+        {
+          "en": "When mains returns, confirm the UPS has gone back to Normal mode and the battery is charging (charging indicator on).",
+          "ur": "Mains wapas aane par confirm karein ke UPS Normal mode wapas aa gaya hai aur battery charge ho rahi hai (charging indicator on)."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "Battery-mode LED solid On, 1 beep every 10 seconds",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9PX 3-6k / 8k / 11k UPS and EBM - Installation and user manual",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-9px-ups/user-guides/eaton-9px-31-6k,8k,11k-userguides-en.pdf"
+      }
+    },
+    {
+      "code": "Battery low",
+      "aliases": [
+        "Battery low",
+        "Battery low LED On"
+      ],
+      "title": {
+        "en": "Battery low (low runtime warning)",
+        "ur": "Battery low (runtime khatam hone wali hai)"
+      },
+      "meaning": {
+        "en": "The UPS is on battery and the battery has reached its low-charge warning level. Runtime left is short.",
+        "ur": "UPS battery par hai aur battery low-charge warning level par aa chuki hai. Baqi runtime bohat kam hai."
+      },
+      "causes": [
+        {
+          "en": "The outage has lasted long enough to drain the batteries down to the warning level.",
+          "ur": "Outage itni der rahi ke batteries warning level tak drain ho gayin."
+        },
+        {
+          "en": "The battery string is aged and holds less charge than rated.",
+          "ur": "Battery string purani hai aur rated se kam charge rakhti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down non-essential equipment now to extend the remaining runtime.",
+          "ur": "Baaqi runtime barhane ke liye abhi ghair zaroori equipment band kar dein."
+        },
+        {
+          "en": "Read the actual remaining runtime on the LCD; the manual warns the estimate varies a lot with load and EBM count.",
+          "ur": "LCD par asal baaqi runtime parhein; manual kehti hai ke estimate load aur EBM ki tadaad ke saath bohat badalti hai."
+        },
+        {
+          "en": "Do not start large loads now; if mains returns, let the UPS charge on utility for 48 hours.",
+          "ur": "Ab bade loads start na karein; mains wapas aaye to UPS ko 48 ghante utility par charge karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "Battery-low LED solid On, 1 beep every 3 seconds",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9PX 3-6k / 8k / 11k UPS and EBM - Installation and user manual",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-9px-ups/user-guides/eaton-9px-31-6k,8k,11k-userguides-en.pdf"
+      }
+    },
+    {
+      "code": "No battery",
+      "aliases": [
+        "No battery",
+        "No battery LED On"
+      ],
+      "title": {
+        "en": "No battery (batteries disconnected)",
+        "ur": "No battery (batteries disconnect hain)"
+      },
+      "meaning": {
+        "en": "The UPS has lost the battery string; if mains fails now the load gets no backup. Continuous beep means this is logged as a fault.",
+        "ur": "UPS ki battery string kho gayi hai; ab mains chala to load ko koi backup nahi milega. Continuous beep ka matlab hai ke ye fault ke taur par log hota hai."
+      },
+      "causes": [
+        {
+          "en": "The internal battery connector is unplugged or the connector is not fully seated.",
+          "ur": "Internal battery connector nahi laga hua ya poori tarah seat nahi hua."
+        },
+        {
+          "en": "The external battery module (EBM) power connector or its detection connector is unplugged.",
+          "ur": "External battery module (EBM) ka power connector ya us ka detection connector nahi laga hua."
+        },
+        {
+          "en": "A battery harness or connector pin is loose, corroded, bent or broken.",
+          "ur": "Battery harness ya connector ka pin dhile, zang khaa, muda ya toota hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Transfer the load to bypass (or shut down safely), switch the UPS off, unplug the mains, then use insulated gloves and tools.",
+          "ur": "Load bypass par transfer karein (ya mehfoof se band karein), UPS band karein, mains nikaal dein, phir insulated gloves aur tools use karein."
+        },
+        {
+          "en": "Verify that all batteries are properly connected; reseat the EBM power and detection connectors firmly.",
+          "ur": "Check karein ke saari batteries theek se lagi hain; EBM power aur detection connectors ko mazbooti se dobara baitha dein."
+        },
+        {
+          "en": "Measure the DC voltage across the battery terminals with a DMM; no reading means the string is open or dead.",
+          "ur": "DMM se battery terminals par DC voltage maarein; koi reading nahi ka matlab hai ke string khuli ya marri hui hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "No-battery LED On, continuous beep",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9PX 3-6k / 8k / 11k UPS and EBM - Installation and user manual",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-9px-ups/user-guides/eaton-9px-31-6k,8k,11k-userguides-en.pdf"
+      }
+    },
+    {
+      "code": "Battery fault",
+      "aliases": [
+        "Battery fault",
+        "Battery fault LED On"
+      ],
+      "title": {
+        "en": "Battery fault (battery test failed)",
+        "ur": "Battery fault (battery test fail)"
+      },
+      "meaning": {
+        "en": "The battery test failed because of bad or disconnected batteries, or the minimum battery voltage was reached during ABM cycling.",
+        "ur": "Battery test fail ho gaya kyunke batteries kharab ya disconnect hain, ya ABM cycling mein battery ka minimum voltage aa gaya."
+      },
+      "causes": [
+        {
+          "en": "One or more battery cells are dead, shorted, or the string is at end of life.",
+          "ur": "Battery ke koi aik ya zyada cells mar chuke hain, short hain, ya string end of life par hai."
+        },
+        {
+          "en": "A battery connector is disconnected, so the test sees an abnormal string.",
+          "ur": "Battery connector disconnect hai, is liye test ko string ajeeb nazar aati hai."
+        },
+        {
+          "en": "In ABM (Advanced Battery Management) cycling the battery reached its minimum voltage.",
+          "ur": "ABM (Advanced Battery Management) cycling mein battery ka minimum voltage aa gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify that all batteries are properly connected with the UPS switched off and mains unplugged.",
+          "ur": "UPS band karke aur mains nikal kar check karein ke saari batteries theek se lagi hain."
+        },
+        {
+          "en": "Measure each cell in the string with a DMM and replace the string as a set if readings are unequal or below specification.",
+          "ur": "DMM se string ka har cell voltage maarein; readings barabar na hon ya specification se neeche hon to poori string set ke taur par replace karein."
+        },
+        {
+          "en": "Start a new battery test on the front panel; if the condition persists, contact your service representative.",
+          "ur": "Front panel se naya battery test chalayein; agar masla barqarar rahe to apne service representative se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Battery-fault LED On, continuous beep",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9PX 3-6k / 8k / 11k UPS and EBM - Installation and user manual",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-9px-ups/user-guides/eaton-9px-31-6k,8k,11k-userguides-en.pdf"
+      }
+    },
+    {
+      "code": "The UPS does not provide the expected backup time",
+      "aliases": [
+        "The UPS does not provide the expected backup time",
+        "Short runtime"
+      ],
+      "title": {
+        "en": "Short runtime (expected backup not achieved)",
+        "ur": "Backup time itni kam hai jitni umeed thi nahi"
+      },
+      "meaning": {
+        "en": "On discharge the UPS does not run for the rated time; the batteries need charging or service.",
+        "ur": "Discharge par UPS rated time tak nahi chalta; batteries ko charging ya servicing chahiye."
+      },
+      "causes": [
+        {
+          "en": "The batteries have not been charged (new unit, or long time on bypass/unused).",
+          "ur": "Batteries charge nahi hain (naya unit, ya lambi der bypass par ya istemal na hua)."
+        },
+        {
+          "en": "The battery string has aged and lost capacity.",
+          "ur": "Battery string purani ho chuki hai aur capacity khoyi hai."
+        },
+        {
+          "en": "The load is higher than the rating used to work out the expected runtime.",
+          "ur": "Load un rating se zyada hai jis se expected runtime nikala gaya tha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Apply utility power for 48 hours to charge the batteries, then run a battery test again.",
+          "ur": "Batteries charge karne ke liye 48 ghante utility power dein, phir battery test dobara chalayein."
+        },
+        {
+          "en": "Measure the actual load with a clamp meter and compare it with the runtime table for that load level.",
+          "ur": "Clamp meter se asal load maarein aur us load level ke runtime table se tulna karein."
+        },
+        {
+          "en": "If runtime is still short after 48 h of charging, contact your service representative for battery replacement.",
+          "ur": "48 ghante charging ke baad bhi runtime kam ho to battery tabdeeli ke liye apne service representative se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9PX 3-6k / 8k / 11k UPS and EBM - Installation and user manual",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-9px-ups/user-guides/eaton-9px-31-6k,8k,11k-userguides-en.pdf"
+      }
+    },
+    {
+      "code": "Bypass mode",
+      "aliases": [
+        "Bypass mode",
+        "Bypass mode LED is on"
+      ],
+      "title": {
+        "en": "Bypass mode (load not protected)",
+        "ur": "Bypass mode (load protected nahi)"
+      },
+      "meaning": {
+        "en": "The load is being fed from the bypass source. It is powered but not protected by the UPS.",
+        "ur": "Load bypass source se chal raha hai. Power mil rahi hai magar UPS se protection nahi hai."
+      },
+      "causes": [
+        {
+          "en": "An overload or a fault has occurred, so the UPS transferred to bypass.",
+          "ur": "Overload ya fault aaya hai, is liye UPS bypass par transfer ho gaya."
+        },
+        {
+          "en": "A command was received that placed the UPS in bypass mode.",
+          "ur": "Koi aisa command mila hai jis ne UPS ko bypass mode par rakha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check for one of the following alarms: overtemperature, overload or UPS failure.",
+          "ur": "In mein se koi aik alarm check karein: overtemperature, overload ya UPS failure."
+        },
+        {
+          "en": "Read the Event log and Fault log on the front panel to find which alarm sent the unit to bypass.",
+          "ur": "Front panel se Event log aur Fault log parhein taake pata chale kaunsa alarm unit ko bypass par le gaya."
+        },
+        {
+          "en": "Once the cause is fixed, use the front panel to return the UPS to Normal mode and confirm the inverter is supplying the load.",
+          "ur": "Wajah theek hone ke baad front panel se UPS ko Normal mode par laayein aur confirm karein ke inverter load de raha hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "Bypass LED solid On",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9PX 3-6k / 8k / 11k UPS and EBM - Installation and user manual",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-9px-ups/user-guides/eaton-9px-31-6k,8k,11k-userguides-en.pdf"
+      }
+    },
+    {
+      "code": "Power overload",
+      "aliases": [
+        "Power overload",
+        "Power overload LED On"
+      ],
+      "title": {
+        "en": "Power overload (load above UPS capacity)",
+        "ur": "Power overload (load UPS capacity se zyada)"
+      },
+      "meaning": {
+        "en": "Power demand is above 100% of the UPS nominal rating, so the unit is in overload and may go to bypass or shut down.",
+        "ur": "Power demand UPS nominal rating ke 100% se zyada hai, is liye unit overload mein hai aur bypass par ja sakta hai ya band ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "More equipment is connected than the UPS capacity allows.",
+          "ur": "UPS capacity se zyada equipment lagaya gaya hai."
+        },
+        {
+          "en": "A large inrush load such as a motor or compressor was switched on.",
+          "ur": "Koi bada inrush load jaise motor ya compressor on kiya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off and disconnect the output before removing any load.",
+          "ur": "Koi bhi load hatane se pehle UPS band karein aur output disconnect karein."
+        },
+        {
+          "en": "Remove some of the equipment from the UPS until the load percentage on the display is below 100%.",
+          "ur": "Display ka load percentage 100% se neeche aane tak UPS se kuch equipment nikaalte jayein."
+        },
+        {
+          "en": "Check the specific output overload range in the manual's User Settings / specification table for your model.",
+          "ur": "Apne model ki User Settings ya specification table mein diye gaye khaas output overload range check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Power-overload LED On, continuous beep",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9PX 3-6k / 8k / 11k UPS and EBM - Installation and user manual",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-9px-ups/user-guides/eaton-9px-31-6k,8k,11k-userguides-en.pdf"
+      }
+    },
+    {
+      "code": "UPS overtemperature",
+      "aliases": [
+        "UPS overtemperature",
+        "UPS overtemperature LED On"
+      ],
+      "title": {
+        "en": "UPS overtemperature (internal too hot)",
+        "ur": "UPS overtemperature (andar bohat garm)"
+      },
+      "meaning": {
+        "en": "Internal temperature is too high or a fan has failed. At warning level the UPS keeps running, but a further 10 degrees C rise makes it go to bypass or shut down.",
+        "ur": "Andar ka temperature bohat zyada hai ya fan kharab ho gaya hai. Warning level par UPS chalta rehta hai, magar 10 degree C aur izafa badhay to bypass par chala jata hai ya band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "The cooling fan has failed or is not running at all.",
+          "ur": "Cooling fan kharab ho gaya hai ya bilkul nahi chal raha."
+        },
+        {
+          "en": "Vents are blocked by dust or the unit is installed with airflow restricted on all sides.",
+          "ur": "Vents dhool se band hain ya unit aik taraf se bhi saans nahi le sakta."
+        },
+        {
+          "en": "Ambient temperature in the room is very high (hot closet, direct sun, poor air conditioning).",
+          "ur": "Kamre ka ambient temperature bohat zyada hai (garm cabinet, seedhi dhoop, kamzor air conditioning)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clear vents and remove any heat sources. Allow the UPS to cool, and ensure the airflow around the UPS is not restricted.",
+          "ur": "Vents saaf karein aur heat source hata dein. UPS ko thanda hone dein, aur UPS ke gird ka airflow band na ho."
+        },
+        {
+          "en": "Measure ambient temperature with a thermometer; it should not exceed 40 degrees C for this model.",
+          "ur": "Thermometer se ambient temperature maarein; is model ke liye ye 40 degree C se zyada na honi chahiye."
+        },
+        {
+          "en": "Restart the UPS once it has cooled; if the condition continues to persist, contact your service representative and check/replace the fan.",
+          "ur": "Thanda hone ke baad UPS restart karein; masla barqarar rahe to apne service representative se rabta karein aur fan check/replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "Overtemperature LED On, 1 beep every 3 seconds (9PX Gen2 manual: continuous beep)",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9PX 3-6k / 8k / 11k UPS and EBM - Installation and user manual",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-9px-ups/user-guides/eaton-9px-31-6k,8k,11k-userguides-en.pdf"
+      }
+    },
+    {
+      "code": "The UPS does not start",
+      "aliases": [
+        "The UPS does not start",
+        "UPS does not start - input source / RPO"
+      ],
+      "title": {
+        "en": "The UPS does not start (input / RPO)",
+        "ur": "UPS start nahi ho raha (input / RPO)"
+      },
+      "meaning": {
+        "en": "The unit will not start because either the input source is not connected correctly, or the Remote Power Off switch is active / the RPO connector is missing.",
+        "ur": "Unit start nahi ho raha kyunke ya to input source theek se connect nahi, ya Remote Power Off switch active hai / RPO connector missing hai."
+      },
+      "causes": [
+        {
+          "en": "The input source is not connected correctly, or the input breaker is open.",
+          "ur": "Input source theek se connect nahi, ya input breaker khula hai."
+        },
+        {
+          "en": "The Remote Power Off (RPO) switch is active.",
+          "ur": "Remote Power Off (RPO) switch active hai."
+        },
+        {
+          "en": "The RPO connector is missing from its terminal.",
+          "ur": "RPO connector apne terminal se missing hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the input connections with a DMM: confirm mains voltage at the input terminal block and that the input breaker is closed.",
+          "ur": "DMM se input connections check karein: input terminal block par mains voltage confirm karein aur input breaker band hai ya nahi."
+        },
+        {
+          "en": "If the UPS Status menu displays the \"Remote Power Off\" notice, deactivate the RPO input.",
+          "ur": "Agar UPS Status menu par \"Remote Power Off\" ka notice aaye to RPO input ko deactivate karein."
+        },
+        {
+          "en": "Check the battery connections too, then retry the start with the front-panel ON button.",
+          "ur": "Battery connections bhi check karein, phir front panel ke ON button se dobara start karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9PX 3-6k / 8k / 11k UPS and EBM - Installation and user manual",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-9px-ups/user-guides/eaton-9px-31-6k,8k,11k-userguides-en.pdf"
+      }
+    },
+    {
+      "code": "Input bad wiring / Output bad wiring",
+      "aliases": [
+        "Input bad wiring / Output bad wiring",
+        "Input bad wiring",
+        "Output bad wiring"
+      ],
+      "title": {
+        "en": "Input/Output bad wiring (terminal block wrong)",
+        "ur": "Input/Output wiring ghalat (terminal block par galat)"
+      },
+      "meaning": {
+        "en": "The input or output cables are not connected to the correct terminal blocks, so the unit is flagging continuous beep.",
+        "ur": "Input ya output cables theek terminal blocks se nahi juri hain, is liye unit continuous beep de raha hai."
+      },
+      "causes": [
+        {
+          "en": "Input or output cables landed on the wrong terminal block.",
+          "ur": "Input ya output cables galat terminal block par lage hue hain."
+        },
+        {
+          "en": "A terminal screw was not tightened, so the conductor is loose.",
+          "ur": "Terminal screw kasa nahi gaya, is liye conductor dhila hai."
+        },
+        {
+          "en": "Phase/neutral/earth conductors are swapped at the terminal block.",
+          "ur": "Phase/neutral/earth conductors terminal block par aapas mein badal diye gaye hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Transfer the load to bypass or shut down safely, then switch the UPS off and unplug the mains before touching terminals.",
+          "ur": "Load bypass par transfer karein ya mehfoof se band karein, phir terminal chhoone se pehle UPS band karein aur mains nikaal dein."
+        },
+        {
+          "en": "Connect correctly the Input/Output cables, matching each conductor label on the cable to the terminal marking.",
+          "ur": "Input/Output cables theek se lagayein, har conductor ka label terminal ke marking se milayein."
+        },
+        {
+          "en": "Tighten every terminal screw and re-torque the compression lugs; verify earth continuity (<1 ohm) to the panel earth bar.",
+          "ur": "Har terminal screw kheench lein aur compression lugs dobara torque dein; panel earth bar tak earth continuity (1 ohm se kam) verify karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "LED On, continuous beep",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9PX 3-6k / 8k / 11k UPS and EBM - Installation and user manual",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-9px-ups/user-guides/eaton-9px-31-6k,8k,11k-userguides-en.pdf"
+      }
+    },
+    {
+      "code": "MBP disconnected",
+      "aliases": [
+        "MBP disconnected",
+        "HotSwap MBP disconnected"
+      ],
+      "title": {
+        "en": "MBP disconnected (HotSwap bypass module lost)",
+        "ur": "MBP disconnected (HotSwap bypass module nahi mila)"
+      },
+      "meaning": {
+        "en": "The HotSwap Maintenance Bypass Pod is no longer connected to the UPS, so the service bypass path has been lost.",
+        "ur": "HotSwap Maintenance Bypass Pod UPS se ab connect nahi hai, is liye service bypass ka raasta kho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "The MBP detection connector has been unplugged from the UPS.",
+          "ur": "MBP ka detection connector UPS se nikal gaya hai."
+        },
+        {
+          "en": "The MBP has been pulled out or moved for maintenance and not fully re-seated.",
+          "ur": "MBP maintenance ke liye nikal ya hataya gaya aur poori tarah dobara nahi baitha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If the HotSwap MBP is connected to the UPS, check that the detection connector is correctly plugged.",
+          "ur": "Agar HotSwap MBP UPS se juri hai to check karein ke detection connector theek plug hai."
+        },
+        {
+          "en": "Re-seat both the MBP power connector and the detection connector, then confirm the UPS sees the module in the menu.",
+          "ur": "MBP power connector aur detection connector dono dobara baitha dein, phir confirm karein ke UPS menu mein module nazar aa raha hai."
+        },
+        {
+          "en": "Check the detection connector pins for bent or corroded contacts with a DMM continuity test.",
+          "ur": "DMM continuity test se detection connector ke pins ko mudha ya zang khaye hone ke liye check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9PX 3-6k / 8k / 11k UPS and EBM - Installation and user manual",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-9px-ups/user-guides/eaton-9px-31-6k,8k,11k-userguides-en.pdf"
+      }
+    }
+  ]
+}

@@ -1,0 +1,358 @@
+{
+  "schemaVersion": 1,
+  "brandId": "solis",
+  "series": {
+    "id": "solis-s6-eh3p",
+    "name": "S6-EH3P(5-10)K-H / (12-20)K-H / (29.9-50)K-H (three-phase hybrid + high-voltage battery)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*S6-EH3P*",
+      "*S6-3P*"
+    ],
+    "notes": "Third code dialect: the LCD prints the plain text name, but the SolisAI APP alarm page prints a SEPARATE numeric 'Alarm Code' plus an 'Alarm Grade' (EMGR = emergency, Hint = informational). The screenshot in the manual shows 'Alarm Message: HeartbeatLose / Alarm Code: 1065 / Alarm Grade: EMGR'. The fault table itself still uses the S5 hybrid NAME (10xx DATA:xxxx) form. This block must NOT be merged with SERIES 1/2 (on-grid 10xx means different things) nor with SERIES 4 (single-phase 48 V hybrid)."
+  },
+  "codes": [
+    {
+      "code": "1065",
+      "aliases": [
+        "1065",
+        "HeartbeatLose",
+        "1065 DATA:0000",
+        "HeartbeatLose (Alarm Grade: EMGR)"
+      ],
+      "title": {
+        "en": "HeartbeatLose (APP code 1065, grade EMGR)",
+        "ur": "HeartbeatLose, yaani parallel link kho gaya (APP code 1065, grade EMGR)"
+      },
+      "meaning": {
+        "en": "The parallel communication heartbeat between S6-EH3P units is lost, so the redundant group shut down.",
+        "ur": "S6-EH3P units ke darmiyan parallel communication heartbeat kho gaya, is liye redundant group band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "The connection between the parallel communication wire is not normal",
+          "ur": "Parallel communication wire ka connection normal nahi hai"
+        },
+        {
+          "en": "Master address not set to 1, or two units left set as master",
+          "ur": "Master ka address 1 par set nahi, ya do units master hi chhor diye gaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power down the group and check the parallel communication cable: shielded, 8-core, seated at both P-A and P-B terminals.",
+          "ur": "Group power down karke parallel communication cable check karein: shielded, 8-core, P-A aur P-B dono terminals par fit."
+        },
+        {
+          "en": "Verify there is a master inverter in the parallel system and confirm its address is set to 1, then confirm the DIP switch settings of every unit.",
+          "ur": "Confirm karein ke parallel system mein master inverter hai aur uska address 1 par set hai, phir har unit ke DIP switch settings confirm karein."
+        },
+        {
+          "en": "Restart the system and confirm whether the fault continues; if it does not clear, contact the manufacturer's customer service - do not keep power cycling.",
+          "ur": "System restart karke dekhein ke fault rehta hai ya nahi; hat na aaye to manufacturer ke customer service se rabta karein - baar baar power cycle na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S6-EH3P(29.9-50)K-H-EU User Manual, Section 4.1 Intelligent LED Indicators, Section 5.6.4 Alarm, Table 7.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://files.plytix.com/api/v1.1/file/public_files/pim/assets/a0/a3/55/66/6655a3a08760800001e22681/texts/16/c2/2c/67/672cc21631f4815187dae04c/User%20Manual%20-%20Solis%20-%20S6-EH3P(29.9-50)K-H-EU.pdf"
+      }
+    },
+    {
+      "code": "OV-Vbatt-H / OV-BUS-H (1051 DATA:0000)",
+      "aliases": [
+        "OV-Vbatt-H / OV-BUS-H (1051 DATA:0000)",
+        "OV-Vbatt-H",
+        "OV-BUS-H",
+        "1051 DATA:0000",
+        "OV-BATT-H"
+      ],
+      "title": {
+        "en": "Battery overvoltage hardware / VBUS (1051)",
+        "ur": "Battery ka hardware overvoltage ya VBUS rail par protection (1051)"
+      },
+      "meaning": {
+        "en": "The high-voltage battery hardware overvoltage protection tripped, so the S6-EH3P has locked out.",
+        "ur": "High-voltage battery ka hardware overvoltage protection trigger ho gaya, is liye S6-EH3P lock out ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Battery circuit breaker tripping under charge",
+          "ur": "Charge ke waqt battery circuit breaker trip ho raha hai"
+        },
+        {
+          "en": "Battery pack damaged or a cell overcharged in the 150-800 V pack",
+          "ur": "Battery pack damaged hai ya 150-800 V pack mein koi cell overcharge ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if the battery circuit breaker is tripping: watch the breaker while the unit is charging and note whether it trips at a repeatable SoC.",
+          "ur": "Check karein ke battery circuit breaker trip to nahi ho raha: unit charge karte waqt breaker par nazar rakhein aur note karein ke kisi khaas SoC par repeat hota hai ya nahi."
+        },
+        {
+          "en": "Measure the pack voltage at the inverter battery port with a multimeter and compare it with the BMS value in SolisCloud; a large gap points to wiring or BMS.",
+          "ur": "Multimeter se inverter battery port par pack voltage measure karein aur SolisCloud ke BMS value se compare karein; bara farq wiring ya BMS ka masla hai."
+        },
+        {
+          "en": "Check if the battery is damaged: if the breaker is healthy and the pack reads over-voltage, have the battery vendor test the pack before condemning the inverter.",
+          "ur": "Check karein ke battery damaged hai ya nahi: breaker theek hai aur pack over-voltage parha raha hai to inverter kharab karne se pehle battery vendor se pack test karwa lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "For the (29.9-50)K-H the battery range is 150-800 V with two battery inputs and CAN/RS485, so a battery overvoltage here is a HV event, not the 42-58 V event of the RHI / S5-EH1P-L.",
+        "ur": "(29.9-50)K-H mein battery range 150-800 V hai aur do battery inputs hain, CAN/RS485 ke saath, is liye yahan battery overvoltage ek HV event hai, RHI / S5-EH1P-L wale 42-58 V event nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S6-EH3P(29.9-50)K-H-EU User Manual, Section 4.1 Intelligent LED Indicators, Section 5.6.4 Alarm, Table 7.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://files.plytix.com/api/v1.1/file/public_files/pim/assets/a0/a3/55/66/6655a3a08760800001e22681/texts/16/c2/2c/67/672cc21631f4815187dae04c/User%20Manual%20-%20Solis%20-%20S6-EH3P(29.9-50)K-H-EU.pdf"
+      }
+    },
+    {
+      "code": "LmtByVg",
+      "aliases": [
+        "LmtByVg",
+        "Volt-Watt mode"
+      ],
+      "title": {
+        "en": "Volt-Watt power limit active (LmtByVg)",
+        "ur": "Volt-Watt ke tehat power limit lagay huay (LmtByVg)"
+      },
+      "meaning": {
+        "en": "Because the grid voltage is high, the inverter has automatically reduced output under the Volt-Watt response curve required by the local safety rules.",
+        "ur": "Grid voltage zyada hone ki wajah se inverter ne local safety rules ke mutabiq Volt-Watt response curve ke tehat output khud kam kar diya."
+      },
+      "causes": [
+        {
+          "en": "Local safety regulations require Volt-Watt when grid voltage is high",
+          "ur": "Local safety regulations grid voltage zyada hone par Volt-Watt maangte hain"
+        },
+        {
+          "en": "Factory test mode left enabled after commissioning",
+          "ur": "Commissioning ke baad factory test mode on chhor diya gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed - this is a normal safety response to high grid voltage.",
+          "ur": "Koi action nahi chahiye - grid voltage zyada hone par ye normal safety response hai."
+        },
+        {
+          "en": "If you need to close the mode: Main menu > Advanced Settings > Password 0010 > STD mode settings > Working Mode > Working mode: NULL > Save and exit.",
+          "ur": "Agar mode band karna ho to: Main menu > Advanced Settings > Password 0010 > STD mode settings > Working Mode > Working mode: NULL > Save and exit."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S6-EH3P(29.9-50)K-H-EU User Manual, Section 4.1 Intelligent LED Indicators, Section 5.6.4 Alarm, Table 7.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://files.plytix.com/api/v1.1/file/public_files/pim/assets/a0/a3/55/66/6655a3a08760800001e22681/texts/16/c2/2c/67/672cc21631f4815187dae04c/User%20Manual%20-%20Solis%20-%20S6-EH3P(29.9-50)K-H-EU.pdf"
+      }
+    },
+    {
+      "code": "StandbySynoch",
+      "aliases": [
+        "StandbySynoch",
+        "Off grid status to On grid status"
+      ],
+      "title": {
+        "en": "Syncing from off-grid back to grid (StandbySynoch)",
+        "ur": "Off-grid se grid par wapas sync ho raha hai (StandbySynoch)"
+      },
+      "meaning": {
+        "en": "The inverter is holding in standby and waiting for the grid to come back so it can resynchronise voltage, phase and frequency.",
+        "ur": "Inverter standby mein hai aur grid aane ka intezaar kar raha hai taake voltage, phase aur frequency dobara match kar sake."
+      },
+      "causes": [
+        {
+          "en": "Grid outage that has now ended",
+          "ur": "Grid ka outage jo ab khatam ho gaya"
+        },
+        {
+          "en": "Generator made the grid and the inverter is re-checking phase sequence",
+          "ur": "Generator ne grid chala diya aur inverter phase sequence dobara check kar raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed - the device is in normal operation while it resynchronises.",
+          "ur": "Koi action nahi chahiye - device resync hone tak normal chal raha hai."
+        },
+        {
+          "en": "If it stays in StandbySynoch for more than a few minutes, measure grid voltage and frequency at the AC terminal to confirm the grid is inside the allowed window.",
+          "ur": "Agar kai minute se zyada StandbySynoch par raha ho to AC terminal par grid voltage aur frequency measure karke confirm karein ke grid allowed window ke andar hai."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S6-EH3P(29.9-50)K-H-EU User Manual, Section 4.1 Intelligent LED Indicators, Section 5.6.4 Alarm, Table 7.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://files.plytix.com/api/v1.1/file/public_files/pim/assets/a0/a3/55/66/6655a3a08760800001e22681/texts/16/c2/2c/67/672cc21631f4815187dae04c/User%20Manual%20-%20Solis%20-%20S6-EH3P(29.9-50)K-H-EU.pdf"
+      }
+    },
+    {
+      "code": "GridToLoad",
+      "aliases": [
+        "GridToLoad",
+        "Grid to load"
+      ],
+      "title": {
+        "en": "Transferring from grid to load (GridToLoad)",
+        "ur": "Grid se load par transfer ho raha hai (GridToLoad)"
+      },
+      "meaning": {
+        "en": "The inverter has detected a grid event and is switching its output from grid-tied mode to the load/backup path.",
+        "ur": "Inverter ne grid par koi event detect kiya hai aur apna output grid-tied mode se load/backup path par switch kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Grid loss, voltage sag or frequency excursion starting",
+          "ur": "Grid loss, voltage sag ya frequency excursion shuru hona"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed; the transfer is automatic.",
+          "ur": "Koi action nahi chahiye; transfer automatic hai."
+        },
+        {
+          "en": "If the transfer fails or the unit trips on switch-over, check the generator input phase sequence matches the grid L1-L2-L3 order.",
+          "ur": "Agar transfer fail ho ya switch-over par unit trip kare to generator input ka phase sequence grid ke L1-L2-L3 order se match karta hai check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S6-EH3P(29.9-50)K-H-EU User Manual, Section 4.1 Intelligent LED Indicators, Section 5.6.4 Alarm, Table 7.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://files.plytix.com/api/v1.1/file/public_files/pim/assets/a0/a3/55/66/6655a3a08760800001e22681/texts/16/c2/2c/67/672cc21631f4815187dae04c/User%20Manual%20-%20Solis%20-%20S6-EH3P(29.9-50)K-H-EU.pdf"
+      }
+    },
+    {
+      "code": "Battery LED",
+      "aliases": [
+        "Battery LED",
+        "Battery indicator",
+        "Battery 1/2 indicator",
+        "Battery LED blue green yellow"
+      ],
+      "title": {
+        "en": "Battery LED (charge/discharge/idle/alarm)",
+        "ur": "Battery LED se pata chalta hai pack charge, discharge, idle ya alarm mein hai"
+      },
+      "meaning": {
+        "en": "Colour and breathing direction of the Battery LED tell you which pack is charging, discharging, idle or in alarm.",
+        "ur": "Battery LED ka rang aur breathing direction batata hai ke kaun sa pack charge ho raha hai, discharge ho raha hai, idle hai ya alarm mein hai."
+      },
+      "causes": [
+        {
+          "en": "Normal battery state indication on the front panel",
+          "ur": "Front panel par battery ka normal halat dikhaya jana"
+        },
+        {
+          "en": "Battery 1 or 2 is in alarm when the LED turns yellow",
+          "ur": "LED yellow ho jaye to Battery 1 ya 2 alarm halat mein hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the pack state in the app: with a yellow Battery LED, check each pack's SoC and BMS status on the APP alarm page.",
+          "ur": "App mein pack state padhein: Battery LED yellow ho to APP alarm page par har pack ka SoC aur BMS status check karein."
+        },
+        {
+          "en": "If the LED is OFF while a pack is fitted, check that the battery breaker is closed and the battery model is not set to 'No Battery'.",
+          "ur": "Agar pack lage hone par bhi LED OFF ho to battery breaker band hai aur battery model 'No Battery' par to nahi, yeh check karein."
+        },
+        {
+          "en": "Note that battery/WiFi/Ethernet/Bluetooth indicators turn off after 1 minute to save power; short-press the Power LED to wake them again.",
+          "ur": "Yeh yaad rakhein ke battery/WiFi/Ethernet/Bluetooth indicators 1 minute baad power bachane ke liye band ho jate hain; dobara jaganey ke liye Power LED par short-press karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Blue breathing = Battery 1 charging; Green breathing = Battery 2 charging; Blue breathing in reverse = Battery 1 discharging; Green breathing in reverse = Battery 2 discharging; Blue solid = Battery 1 idle; Green solid = Battery 2 idle; Yellow solid = Battery 1 alarm; Yellow flashing = Battery 2 alarm; OFF = no battery",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S6-EH3P(29.9-50)K-H-EU User Manual, Section 4.1 Intelligent LED Indicators, Section 5.6.4 Alarm, Table 7.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://files.plytix.com/api/v1.1/file/public_files/pim/assets/a0/a3/55/66/6655a3a08760800001e22681/texts/16/c2/2c/67/672cc21631f4815187dae04c/User%20Manual%20-%20Solis%20-%20S6-EH3P(29.9-50)K-H-EU.pdf"
+      }
+    },
+    {
+      "code": "Power LED",
+      "aliases": [
+        "Power LED",
+        "Power indicator",
+        "Red flashing every 3s"
+      ],
+      "title": {
+        "en": "Power LED (normal / warning / alarm)",
+        "ur": "Power LED se normal chalna, warning ya alarm pata chalta hai"
+      },
+      "meaning": {
+        "en": "Blue solid means the inverter is running normally, yellow solid is a warning, and red solid or red flashing every 3 s is an alarm you must read in the app.",
+        "ur": "Blue solid ka matlab inverter normal chal raha hai, yellow solid warning hai, aur red solid ya har 3 second par red flashing alarm hai jo app mein padhna zaroori hai."
+      },
+      "causes": [
+        {
+          "en": "Normal running state",
+          "ur": "Normal chalne ki halat"
+        },
+        {
+          "en": "Alarm present - the manual says to connect by Bluetooth tool to determine the alarm code",
+          "ur": "Alarm mojood - manual ke mutabiq Bluetooth tool se connect karke alarm code pata karein"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If the LED is red, connect to the inverter with the Bluetooth tool and read the alarm code; the LED alone does not identify the fault.",
+          "ur": "Agar LED red ho to Bluetooth tool se inverter se connect karke alarm code padhein; LED akela fault nahi batata."
+        },
+        {
+          "en": "The Power indicator stays on at lower brightness after the other LEDs sleep; short-press it to wake all indicators.",
+          "ur": "Baaki LEDs sone ke baad Power indicator kam brightness par on rehta hai; sab indicators jaganey ke liye us par short-press karein."
+        },
+        {
+          "en": "If a Table 7.1 fault is showing, switch the inverter off and wait 5 minutes before restarting, per the manual note.",
+          "ur": "Agar Table 7.1 ka koi fault aa raha ho to manual ke note ke mutabiq inverter band karke 5 minute wait karein phir restart karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Blue solid ON = normally operating; Yellow solid ON = warning; Red solid ON or flashing every 3s = alarm",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S6-EH3P(29.9-50)K-H-EU User Manual, Section 4.1 Intelligent LED Indicators, Section 5.6.4 Alarm, Table 7.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://files.plytix.com/api/v1.1/file/public_files/pim/assets/a0/a3/55/66/6655a3a08760800001e22681/texts/16/c2/2c/67/672cc21631f4815187dae04c/User%20Manual%20-%20Solis%20-%20S6-EH3P(29.9-50)K-H-EU.pdf"
+      }
+    }
+  ]
+}

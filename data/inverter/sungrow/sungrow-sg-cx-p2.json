@@ -1,0 +1,1881 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sungrow",
+  "series": {
+    "id": "sungrow-sg-cx-p2",
+    "name": "SG75CX-P2 / SG110CX-P2 / SG125CX-P2 (three-phase commercial string 75-125kW)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*SG75CX*",
+      "*SG110CX*",
+      "*SG125CX*",
+      "*CX-P2*",
+      "*SG30CX*",
+      "*SG60CX*"
+    ],
+    "notes": "PK-relevant because Energy For You (Sungrow Pakistan distributor) markets SH125CX commercially; the SG125CX-P2 is the same 125 kW three-phase commercial class. This manual documents the table as 'all PV inverters' and warns only some rows apply to the purchased model. Two structural differences from sungrow-sg-rs: (a) it HAS a rich 7-state LED table incl. Bluetooth blink (0.2s fast) and a distinctive PID-recovery pattern, whereas SG2-6RS has only 4 plain states; (b) it has NO optimizer sub-table (no 4/512/1024) even though the SG2.0-6.0RS manual does. Codes carry no leading zeros. Code 39 is explicitly named '(Earth Fault)' here but not in the RS manuals. NEVER merge with sungrow-sg (G2 Premium) - that line splits grid codes into stage I/II, this one does not."
+  },
+  "codes": [
+    {
+      "code": "2, 3, 14, 15",
+      "aliases": [
+        "2, 3, 14, 15",
+        "2",
+        "3",
+        "14",
+        "15",
+        "E002",
+        "E003",
+        "E014",
+        "E015"
+      ],
+      "title": {
+        "en": "Grid Overvoltage (2, 3, 14, 15)",
+        "ur": "Grid voltage zyada (2, 3, 14, 15)"
+      },
+      "meaning": {
+        "en": "Grid voltage above the set limit. The inverter reconnects to the grid once voltage is normal.",
+        "ur": "Grid voltage set limit se zyada hai. Voltage theek hote hi inverter grid se dobara jud jata hai."
+      },
+      "causes": [
+        {
+          "en": "Actual grid voltage higher than the set overvoltage value.",
+          "ur": "Asli grid voltage set overvoltage value se zyada hai."
+        },
+        {
+          "en": "Overvoltage protection parameters not matched to the local grid standard.",
+          "ur": "Overvoltage protection parameters local grid standard se match nahi karte."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual grid voltage and compare with the set value in the App.",
+          "ur": "Asli grid voltage naalein aur App ke set value se compare karein."
+        },
+        {
+          "en": "If the grid is genuinely high, contact the local electric power company for a solution.",
+          "ur": "Agar grid sach mein high hai to local electric power company se hal manga dein."
+        },
+        {
+          "en": "Only with the local power operator's consent, adjust the overvoltage protection value via the App or LCD.",
+          "ur": "Sirf local power operator ki ijazat se App ya LCD se overvoltage protection value adjust karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "4, 5",
+      "aliases": [
+        "4, 5",
+        "4",
+        "5",
+        "E004",
+        "E005"
+      ],
+      "title": {
+        "en": "Grid Undervoltage (4, 5)",
+        "ur": "Grid voltage kam (4, 5)"
+      },
+      "meaning": {
+        "en": "Grid voltage below the set limit. The inverter waits and reconnects when the grid recovers.",
+        "ur": "Grid voltage set limit se neeche hai. Grid theek hote hi inverter dobara jud jata hai."
+      },
+      "causes": [
+        {
+          "en": "Actual grid voltage lower than the set undervoltage value.",
+          "ur": "Asli grid voltage set undervoltage value se kam hai."
+        },
+        {
+          "en": "AC cable not firmly in place.",
+          "ur": "AC cable mazbooti se baithi nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual grid voltage at the inverter AC terminals.",
+          "ur": "Inverter ke AC terminals par asli grid voltage naalein."
+        },
+        {
+          "en": "Check whether the AC cable is firmly in place and re-torque all terminals.",
+          "ur": "Check karein AC cable mazbooti se baithi hai aur tamam terminals dobara tighten karein."
+        },
+        {
+          "en": "If the grid is genuinely low, ask the power company to correct it before raising the trip value.",
+          "ur": "Agar grid sach mein kam hai to trip value barhane se pehle power company se theek karwane ko kahen."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "8",
+      "aliases": [
+        "8",
+        "E008"
+      ],
+      "title": {
+        "en": "Grid Overfrequency (8)",
+        "ur": "Grid frequency zyada (8)"
+      },
+      "meaning": {
+        "en": "Grid frequency above the permitted band; the inverter waits for the grid to return to normal.",
+        "ur": "Grid frequency permitted range se zyada hai; inverter grid theek hone ka intezaar karta hai."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency beyond the set range, often a generator-backed supply.",
+          "ur": "Grid frequency set range se bahar, aksar generator wali supply."
+        },
+        {
+          "en": "Grid frequency beyond the set range, often a generator-backed supply.",
+          "ur": "Grid frequency set range se bahar, aksar generator wali supply."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual grid frequency and confirm it is beyond the set range.",
+          "ur": "Asli grid frequency naalein aur confirm karein ke set range se bahar hai."
+        },
+        {
+          "en": "If out of range, ask the local electric power company or genset owner to correct it.",
+          "ur": "Agar range se bahar hai to local electric power company ya genset owner se theek karwane ko kahen."
+        },
+        {
+          "en": "Check whether the protection parameters are appropriately set via the App or LCD.",
+          "ur": "Check karein App ya LCD se protection parameters theek set hain ya nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "9",
+      "aliases": [
+        "9",
+        "E009"
+      ],
+      "title": {
+        "en": "Grid Underfrequency (9)",
+        "ur": "Grid frequency kam (9)"
+      },
+      "meaning": {
+        "en": "Grid frequency below the permitted band; the inverter waits for the grid to return to normal.",
+        "ur": "Grid frequency permitted range se neeche hai; inverter grid theek hone ka intezaar karta hai."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency beyond the set range, e.g. an overloaded generator or a large motor start.",
+          "ur": "Grid frequency set range se bahar, jaise overloaded generator ya koi bara motor start."
+        },
+        {
+          "en": "Grid frequency beyond the set range, e.g. an overloaded generator or a large motor start.",
+          "ur": "Grid frequency set range se bahar, jaise overloaded generator ya koi bara motor start."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual grid frequency and note the reading and the trip time.",
+          "ur": "Asli grid frequency naalein aur reading aur trip ka waqt note karein."
+        },
+        {
+          "en": "If beyond the set range, ask the local electric power company to correct it.",
+          "ur": "Agar set range se bahar hai to local electric power company se theek karwane ko kahen."
+        },
+        {
+          "en": "Check whether the protection parameters are appropriately set via the App or LCD.",
+          "ur": "Check karein App ya LCD se protection parameters theek set hain ya nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "10",
+      "aliases": [
+        "10",
+        "E010"
+      ],
+      "title": {
+        "en": "Grid Power Outage (10)",
+        "ur": "Grid ki bijli chali gayi (10)"
+      },
+      "meaning": {
+        "en": "The grid supply was lost or not detected, so the inverter disconnected to avoid islanding.",
+        "ur": "Grid supply chala gaya ya detect nahi hua, is liye inverter islanding se bachne ke liye disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Actual grid outage or the AC circuit breaker has tripped.",
+          "ur": "Asli grid outage ya AC circuit breaker trip ho gaya."
+        },
+        {
+          "en": "AC cable loose, or live and N connected to the wrong terminals.",
+          "ur": "AC cable loose, ya live aur N galat terminals se jude hue hain."
+        },
+        {
+          "en": "AC circuit breaker not connected.",
+          "ur": "AC circuit breaker jari nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the grid supplies power reliably with a meter at the distribution board.",
+          "ur": "Distribution board par meter se check karein ke grid mehfooz power de raha hai."
+        },
+        {
+          "en": "Check whether the AC cable is firmly in place and re-torque every AC terminal.",
+          "ur": "Check karein AC cable mazbooti se baithi hai aur har AC terminal dobara tighten karein."
+        },
+        {
+          "en": "Verify the AC cable is on the correct terminals - live and N must not be swapped.",
+          "ur": "Confirm karein AC cable sahi terminals par hain - live aur N swap na hon."
+        },
+        {
+          "en": "Check the AC circuit breaker is connected.",
+          "ur": "Check karein AC circuit breaker jari (connected) hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12",
+        "E012"
+      ],
+      "title": {
+        "en": "Excess Leakage Current (12)",
+        "ur": "Leakage current zyada (12)"
+      },
+      "meaning": {
+        "en": "Insulation leakage current was too high, often from damp conditions; the inverter reconnects once conditions improve.",
+        "ur": "Insulation leakage current bohat zyada tha, aksar geele mahol ki wajah se; conditions theek hote hi inverter dobara jud jata hai."
+      },
+      "causes": [
+        {
+          "en": "Poor sunlight or a damp environment around the modules and cables.",
+          "ur": "Modules aur cables ke aas paas dhoop kam ya geela mahol."
+        },
+        {
+          "en": "AC or DC cable insulation degraded.",
+          "ur": "AC ya DC cable ki insulation kharab ho gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Let the environment dry out - the inverter usually reconnects by itself.",
+          "ur": "Mahol sukha hone dein - inverter aam tor par khud dobara jud jata hai."
+        },
+        {
+          "en": "If the environment is normal, check AC and DC cable insulation with an insulation tester.",
+          "ur": "Agar mahol normal hai to insulation tester se AC aur DC cable ki insulation check karein."
+        },
+        {
+          "en": "Replace any cable with failed insulation and re-seal the damp connectors.",
+          "ur": "Insulation fail hui cable badal dein aur geele connectors dobara seal karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "13",
+      "aliases": [
+        "13",
+        "E013"
+      ],
+      "title": {
+        "en": "Grid Abnormal (13)",
+        "ur": "Grid ka readout kharab (13)"
+      },
+      "meaning": {
+        "en": "A general grid parameter went outside the set range - grid quality not covered by a specific voltage or frequency code.",
+        "ur": "Grid ka koi aam parameter set range se bahar chala gaya - wo grid quality masla jo kisi khaas voltage ya frequency code se cover nahi hota."
+      },
+      "causes": [
+        {
+          "en": "Grid parameter such as distortion or inter-harmonics exceeds the set range.",
+          "ur": "Grid parameter jaise distortion ya harmonics set range se zyada hai."
+        },
+        {
+          "en": "Unstable local supply from a weak or overloaded distribution transformer.",
+          "ur": "Kamzor ya overloaded distribution transformer se unstable local supply."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual grid; if parameters exceed the set range, ask the power company for a solution.",
+          "ur": "Asli grid naalein; parameters set range se zyada hon to power company se hal manga dein."
+        },
+        {
+          "en": "Record the grid condition and trip time so the utility can investigate.",
+          "ur": "Trip ka grid condition aur waqt note karein taake utility investigate kar sake."
+        },
+        {
+          "en": "Do not widen the protection window yourself as a first step.",
+          "ur": "Pehla step apne aap protection window bara na karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "17",
+      "aliases": [
+        "17",
+        "E017"
+      ],
+      "title": {
+        "en": "Grid Voltage Imbalance (17)",
+        "ur": "Grid phase voltages ka farq zyada (17)"
+      },
+      "meaning": {
+        "en": "The three phase grid voltages differ by more than allowed. Expected on this 75-125 kW three-phase commercial unit.",
+        "ur": "Teen phase grid voltages ka farq mojood se zyada hai. Is 75-125 kW teen phase commercial unit par ye aam baat hai."
+      },
+      "causes": [
+        {
+          "en": "Large single-phase loads unevenly distributed across the three phases.",
+          "ur": "Teen phases par bare single-phase loads uneven taqseem hue hain."
+        },
+        {
+          "en": "Unbalanced distribution transformer or a weak neutral at this commercial connection.",
+          "ur": "Is commercial connection par unbalanced distribution transformer ya kamzor neutral."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual grid voltage on all three phases and compare the readings.",
+          "ur": "Teen phases ka asli grid voltage naalein aur readings compare karein."
+        },
+        {
+          "en": "If the phase voltages differ greatly, contact the electric power company for a solution.",
+          "ur": "Agar phase voltages mein bohat farq ho to electric power company se hal manga dein."
+        },
+        {
+          "en": "If within the power company's permissible range, adjust the imbalance parameter via the App or LCD.",
+          "ur": "Agar power company ki permissible range mein hai to App ya LCD se imbalance parameter adjust karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "28, 29, 208, 212, 448-479",
+      "aliases": [
+        "28, 29, 208, 212, 448-479",
+        "28",
+        "29",
+        "208",
+        "212",
+        "448-479",
+        "E028",
+        "E029"
+      ],
+      "title": {
+        "en": "PV Reserve [sic] Fault (28, 29, 208, 212, 448-479)",
+        "ur": "PV Reverse [sic] Fault (28, 29, 208, 212, 448-479)"
+      },
+      "meaning": {
+        "en": "PV strings are wired in reverse polarity. Codes 28-29 map to PV1-PV2; 448-479 to string 1-32.",
+        "ur": "PV strings ulta polarity se jade hain. Codes 28-29 PV1-PV2 ke hain; 448-479 string 1-32 ke hain."
+      },
+      "causes": [
+        {
+          "en": "MC4 connector crimped backwards during installation.",
+          "ur": "Installation ke dauraan MC4 connector ulta crimp ho gaya."
+        },
+        {
+          "en": "String cables swapped at the DC input terminals of a 9-12 MPP tracker unit.",
+          "ur": "9-12 MPP tracker unit ke DC input terminals par string cables aapas mein badal diye gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the corresponding string is of reverse polarity with a meter before touching anything.",
+          "ur": "Kuch bhi chhune se pehle meter se check karein ke us string ki polarity reverse hai ya nahi."
+        },
+        {
+          "en": "If reverse, disconnect the DC switch and adjust the polarity once string current drops below 0.5 A.",
+          "ur": "Agar reverse hai to DC switch disconnect karke string current 0.5 A se neeche hone par polarity adjust karein."
+        },
+        {
+          "en": "Then re-measure the open-circuit voltage to confirm correct polarity before re-energising.",
+          "ur": "Phir sahi polarity ki tasdeeq ke liye open-circuit voltage dobara naalein, phir dobara power dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The manual prints 'PV Reserve Con-nection Fault' - a typo for 'PV Reverse'. The SH manual prints it correctly. Recorded verbatim in the title so the typo is visible in the KB.",
+        "ur": "Manual 'PV Reserve Con-nection Fault' likhta hai - ye 'PV Reverse' ka typo hai. SH manual ise theek likhta hai. Typo KB mein nazar aaye is liye title mein verbatim rakha gaya hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "532-547, 564-579",
+      "aliases": [
+        "532-547, 564-579",
+        "532-547",
+        "564-579"
+      ],
+      "title": {
+        "en": "PV Reverse Connection Alarm (532-547, 564-579)",
+        "ur": "PV string ulti polarity, alarm (532-547, 564-579)"
+      },
+      "meaning": {
+        "en": "Reverse polarity on a monitored string. Codes 532-547 map to string 1-16; 564-579 to string 17-32.",
+        "ur": "Monitored string par reverse polarity. Codes 532-547 string 1-16 ke hain; 564-579 string 17-32 ke hain."
+      },
+      "causes": [
+        {
+          "en": "String connected in reverse polarity, or a monitoring channel reporting the wrong direction.",
+          "ur": "String reverse polarity se jodi, ya monitoring channel galat direction report kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the corresponding string is of reverse polarity and adjust the polarity once current is below 0.5 A.",
+          "ur": "Check karein us string ki polarity reverse hai ya nahi aur current 0.5 A se neeche hone par polarity adjust karein."
+        },
+        {
+          "en": "If the wiring is correct, check the monitoring device on that specific string.",
+          "ur": "Agar wiring sahi hai to us khaas string ka monitoring device check karein."
+        },
+        {
+          "en": "If the alarm still exists, contact Sungrow Power Customer Service.",
+          "ur": "Agar alarm phir bhi rahe to Sungrow Power Customer Service se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Named 'Alarm' in the manual, so isFault is false.",
+        "ur": "Manual mein 'Alarm' likha hai, is liye isFault false hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "548-563, 580-595",
+      "aliases": [
+        "548-563, 580-595",
+        "548-563",
+        "580-595"
+      ],
+      "title": {
+        "en": "PV Abnormal Alarm (548-563, 580-595)",
+        "ur": "PV string ka voltage/current ghalat, alarm (548-563, 580-595)"
+      },
+      "meaning": {
+        "en": "String voltage or current is abnormal - a mismatch, sheltering or a fuse problem. Codes 548-563 map to string 1-16; 580-595 to string 17-32.",
+        "ur": "String ka voltage ya current abnormal hai - mismatch, sheltering ya fuse ki masla. Codes 548-563 string 1-16 ke hain; 580-595 string 17-32 ke hain."
+      },
+      "causes": [
+        {
+          "en": "Module sheltered by dust, bird droppings or other obstruction - common on large commercial rooftop arrays.",
+          "ur": "Module par dhool, parinde ki keed ya doosri cheez chhaayi hui hai - bade commercial rooftop arrays par aam baat hai."
+        },
+        {
+          "en": "Battery board wiring loose in the combiner.",
+          "ur": "Combiner mein battery board ki wiring loose hai."
+        },
+        {
+          "en": "DC fuse in that string damaged or blown.",
+          "ur": "Us string ka DC fuse kharab ya uda hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the corresponding module is sheltered; remove the shelter and ensure module cleanliness.",
+          "ur": "Check karein module dhakka hua hai ya nahi; dhakka hata dein aur module saaf karein."
+        },
+        {
+          "en": "Check whether the battery board wiring is loose and make it reliably connected.",
+          "ur": "Check karein battery board ki wiring loose hai ya nahi aur mazbooti se jodein."
+        },
+        {
+          "en": "Check if the DC fuse is damaged; replace it with the correct rating.",
+          "ur": "Check karein DC fuse kharab hai ya nahi; sahi rating ka naya lagayein."
+        },
+        {
+          "en": "If the alarm still exists, contact Sungrow Power Customer Service.",
+          "ur": "Agar alarm phir bhi rahe to Sungrow Power Customer Service se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "This unit has NO battery, yet the row still says 'battery board wiring' - carried over verbatim from the shared hybrid-platform table. On CX-P2 this means the COMBINER board wiring, not a battery board.",
+        "ur": "Is unit mein koi battery nahi hai, magar row mein phir bhi 'battery board wiring' likha hai - ye shared hybrid-platform table se verbatim aaya hai. CX-P2 par is ka matlab COMBINER board ki wiring hai, battery board ki nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "37",
+      "aliases": [
+        "37",
+        "E037"
+      ],
+      "title": {
+        "en": "Excessively High Ambient Temperature (37)",
+        "ur": "Ambient temperature zyada (37)"
+      },
+      "meaning": {
+        "en": "Inverter or module temperature above the limit. The inverter resumes when the temperature returns to normal.",
+        "ur": "Inverter ya module ka temperature limit se zyada hai. Temperature theek hote hi wapas chal pada hai."
+      },
+      "causes": [
+        {
+          "en": "Ambient temperature at the site too high, typical of an unventilated plant room.",
+          "ur": "Site ka ambient temperature bohat zyada hai, ventilation na wali plant room mein aam baat hai."
+        },
+        {
+          "en": "Poor ventilation or direct sunlight on the enclosure.",
+          "ur": "Kam ventilation ya enclosure par seedhi dhoop."
+        },
+        {
+          "en": "Cooling fan not running properly on this fan-cooled 125 kW unit.",
+          "ur": "Is fan-cooled 125 kW unit par cooling fan theek se nahi chal raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the ambient temperature of the inverter is too high and wait for it to drop.",
+          "ur": "Check karein inverter ka ambient temperature bohat zyada hai ya nahi aur girne dein."
+        },
+        {
+          "en": "Check whether the inverter is in a well-ventilated place and confirm clearance around it.",
+          "ur": "Check karein inverter ventilation wali jagah hai aur aas paas ki required jagah hai ya nahi."
+        },
+        {
+          "en": "If exposed to direct sunlight, shield it; then check the fan is running properly and replace it if not.",
+          "ur": "Agar seedhi dhoop mein hai to shield karein; phir check karein fan theek chal raha hai aur na chal raha ho to badal dein."
+        },
+        {
+          "en": "Contact Sungrow Power Customer Service if the fault is due to other causes and persists.",
+          "ur": "Agar fault doosri wajuh se hai aur phir bhi rahta hai to Sungrow Power Customer Service se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "43",
+      "aliases": [
+        "43",
+        "E043"
+      ],
+      "title": {
+        "en": "Excessively Low Ambient Temperature (43)",
+        "ur": "Ambient temperature bohat kam (43)"
+      },
+      "meaning": {
+        "en": "Ambient temperature below the operating range. The inverter must be stopped and restarted when temperature recovers.",
+        "ur": "Ambient temperature operating range se neeche hai. Temperature theek hote hi inverter band karke dobara start karna hoga."
+      },
+      "causes": [
+        {
+          "en": "Winter or night-time ambient temperature below the inverter's minimum operating temperature.",
+          "ur": "Sarmay ya raat ka ambient temperature inverter ke minimum operating temperature se neeche."
+        },
+        {
+          "en": "Winter or night-time ambient temperature below the inverter's minimum operating temperature.",
+          "ur": "Sarmay ya raat ka ambient temperature inverter ke minimum operating temperature se neeche gir gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Stop and disconnect the inverter as the manual directs.",
+          "ur": "Manual ke mutabiq inverter band karke disconnect karein."
+        },
+        {
+          "en": "Restart the inverter when the ambient temperature rises within the operation temperature range.",
+          "ur": "Jab ambient temperature operation temperature range mein aa jaye to inverter restart karein."
+        },
+        {
+          "en": "Note the seasonal limit for the site owner - Pakistani winter nights commonly trip this code.",
+          "ur": "Site owner ko seasonal limit bata dein - Pakistan ki sarmay ki raatein aam tor par ye code trigger karti hain."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "39",
+      "aliases": [
+        "39",
+        "E039"
+      ],
+      "title": {
+        "en": "Low System Insulation Resistance / Earth Fault (39)",
+        "ur": "System Insulation Resistance kam / Earth Fault (39)"
+      },
+      "meaning": {
+        "en": "Insulation resistance to earth is too low, i.e. an earth fault exists. The inverter stops to avoid shock.",
+        "ur": "Earth ke khilaf insulation resistance bohat kam hai, yaani earth fault maujood hai. Shock se bachne ke liye inverter band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "ISO resistance protection value set excessively high, outside local regulations.",
+          "ur": "ISO resistance protection value bohat high rakha gaya, local regulations se bahar."
+        },
+        {
+          "en": "String or DC cable short-circuited to ground, or damaged insulation layer.",
+          "ur": "String ya DC cable ground se short ho gaya, ya insulation layer kharab."
+        },
+        {
+          "en": "Rain and moisture getting into connectors on a large outdoor array.",
+          "ur": "Bade outdoor array par baarish ki moisture connectors mein aa rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the ISO resistance protection value is excessively high in the App or LCD and ensure it complies with local regulations.",
+          "ur": "App ya LCD mein check karein ISO resistance protection value bohat high to nahi, aur local regulations ke mutabiq hone ko confirm karein."
+        },
+        {
+          "en": "Check the resistance to ground of the string and DC cable, and correct any short circuit or damaged insulation layer.",
+          "ur": "String aur DC cable ki ground ke khilaf resistance check karein, aur koi short circuit ya kharab insulation layer theek karein."
+        },
+        {
+          "en": "If the cable is normal and the fault only occurs on rainy days, re-check when the weather clears.",
+          "ur": "Agar cable normal hai aur fault sirf baarish ke din aata hai to mausam kharab hone par dobara check karein."
+        },
+        {
+          "en": "This manual also lists checking battery cables - on CX-P2 there is no battery, so substitute the combiner/earthing cable check.",
+          "ur": "Is manual mein battery cables check karne ko bhi likha hai - CX-P2 par koi battery nahi, is liye us ki jagah combiner/earthing cable check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This manual names code 39 explicitly as '(Earth Fault)'. The single-phase RS and SH manuals name the same 39 as 'Low System Insulation Resistance' with no earth-fault wording. Same code, slightly different naming - do not treat as a different fault.",
+        "ur": "Ye manual code 39 ko saaf '(Earth Fault)' kehta hai. Single-phase RS aur SH manuals isi 39 ko 'Low System Insulation Resistance' kehte hain, earth-fault lafz ke baghair. Same code, thora mukhtalif naam - alag fault na samajhein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "106",
+      "aliases": [
+        "106",
+        "E106"
+      ],
+      "title": {
+        "en": "Grounding Cable Fault (106)",
+        "ur": "Earth wire mein fault (106)"
+      },
+      "meaning": {
+        "en": "The AC ground cable is not correctly connected, or its insulation to the live wire is not normal.",
+        "ur": "AC ground cable sahi se judi nahi hai, ya live wire ke khilaf us ki insulation normal nahi hai."
+      },
+      "causes": [
+        {
+          "en": "AC cable not correctly connected to the PE terminal.",
+          "ur": "AC cable PE terminal par sahi se judi nahi hai."
+        },
+        {
+          "en": "Insulation between the ground cable and the live wire is not normal.",
+          "ur": "Ground cable aur live wire ke darmiyan insulation normal nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the AC cable is correctly connected to the PE terminal.",
+          "ur": "Check karein AC cable PE terminal par sahi se judi hai ya nahi."
+        },
+        {
+          "en": "Check the insulation between the ground cable and the live wire with an insulation tester.",
+          "ur": "Insulation tester se ground cable aur live wire ke darmiyan insulation check karein."
+        },
+        {
+          "en": "Re-torque the PE terminal or replace the ground cable, then contact service if it persists.",
+          "ur": "PE terminal dobara tighten karein ya ground cable badal dein, phir phir bhi rahe to service se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "88",
+      "aliases": [
+        "88",
+        "E088"
+      ],
+      "title": {
+        "en": "Electric Arc Fault (88)",
+        "ur": "Bijli ke chingaar ka fault (88)"
+      },
+      "meaning": {
+        "en": "The AFCI detected an arc in the PV DC wiring. Urgent fire risk on a 125 kW multi-string array.",
+        "ur": "AFCI ne PV DC wiring mein arc detect kiya. 125 kW multi-string array par ye fori fire risk hai."
+      },
+      "causes": [
+        {
+          "en": "Loose terminal or fuse, or a weak contact on one of the many PV string connections.",
+          "ur": "Bohat se PV string connections mein kisi ek par loose terminal ya fuse, ya kamzor contact."
+        },
+        {
+          "en": "DC cable damaged or a burnt component arcing under load.",
+          "ur": "DC cable kharab ya load par jala hua component chingaar maar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the DC power supply first, then check every DC cable, connection terminal and fuse for damage or weakness.",
+          "ur": "Pehle DC power supply disconnect karein, phir har DC cable, connection terminal aur fuse ko nuksan ya kamzori ke liye check karein."
+        },
+        {
+          "en": "Replace the damaged cable, fasten the terminal or fuse, and replace the burnt component.",
+          "ur": "Kharab cable badal dein, terminal ya fuse tighten karein, aur jala hua component badal dein."
+        },
+        {
+          "en": "Reconnect the DC power supply, then clear the arc fault via the App or LCD.",
+          "ur": "DC power supply dobara jodein, phir App ya LCD se arc fault clear karein."
+        },
+        {
+          "en": "On an array of this size use a thermal camera on the combiner boxes to find the hot connection fast.",
+          "ur": "Is size ke array par combiner boxes par thermal camera se garam connection jaldi dhoondein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "84",
+      "aliases": [
+        "84",
+        "E084"
+      ],
+      "title": {
+        "en": "Reverse Connection Alarm of the Meter/CT (84)",
+        "ur": "Meter/CT ka Reverse Connection Alarm (84)"
+      },
+      "meaning": {
+        "en": "The export meter or CT is connected backwards, so export readings will be wrong.",
+        "ur": "Export meter ya CT ulta juda hai, is liye export readings ghalat honge."
+      },
+      "causes": [
+        {
+          "en": "Meter connected to the wrong point in the circuit.",
+          "ur": "Meter circuit mein galat jagah laga hai."
+        },
+        {
+          "en": "Meter input and output wiring reversed.",
+          "ur": "Meter ka input aur output wiring aapas mein ulat diya gaya hai."
+        },
+        {
+          "en": "Existing inverter enabled without the correct rated power setting on a multi-inverter site.",
+          "ur": "Multi-inverter site par existing inverter enable kiya gaya magar rated power setting sahi nahi ki gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if the meter is wrongly connected and move it to the correct export-side point.",
+          "ur": "Check karein meter galat jagah lagi hai ya nahi aur use sahi export-side jagah le jayein."
+        },
+        {
+          "en": "Check if the input and output wiring of the meter is reversed and swap the two conductors.",
+          "ur": "Check karein meter ka input aur output wiring ulat diya gaya hai ya nahi aur do conductors aapas mein badal dein."
+        },
+        {
+          "en": "If the existing system is enabled, check that the rated power setting of the existing inverter is correct.",
+          "ur": "Agar existing system enabled hai to check karein ke existing inverter ki rated power setting sahi hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "514",
+      "aliases": [
+        "514",
+        "W514",
+        "E514"
+      ],
+      "title": {
+        "en": "Meter Communication Abnormal Alarm (514)",
+        "ur": "Meter se baat nahi ban rahi, alarm (514)"
+      },
+      "meaning": {
+        "en": "The inverter cannot read the export meter. Generation continues; only monitoring is affected.",
+        "ur": "Inverter export meter nahi parh sakta. Generation chalti rehti hai; sirf monitoring ka nuksan hai."
+      },
+      "causes": [
+        {
+          "en": "Communication cable or terminals abnormal, loose or not correctly shielded.",
+          "ur": "Communication cable ya terminals kharab, loose ya sahi tareeqe se shield nahi hui."
+        },
+        {
+          "en": "RS485 A/B polarity swapped on a long commercial-site cable run.",
+          "ur": "Lambi commercial-site cable run par RS485 ki A/B polarity swap ho gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the communication cable and terminals and correct them for a reliable connection.",
+          "ur": "Communication cable aur terminals check karke theek karein taake reliable connection ho."
+        },
+        {
+          "en": "Reconnect the communication cable of the meter.",
+          "ur": "Meter ka communication cable dobara jodein."
+        },
+        {
+          "en": "Swap RS485 A/B if it still fails - verify polarity at both ends of a long run.",
+          "ur": "Agar phir bhi na ho to RS485 A/B aapas mein badal dein - lambi run ke dono siron par polarity verify karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "323",
+      "aliases": [
+        "323",
+        "E323"
+      ],
+      "title": {
+        "en": "Grid Confrontation (323)",
+        "ur": "Grid se takrao - dono taraf power (323)"
+      },
+      "meaning": {
+        "en": "The inverter's output port is wired to the actual grid, so two sources are back-feeding each other. Illegal and dangerous.",
+        "ur": "Inverter ka output port asal grid se juda hai, is liye do sources aapas mein power wapas bhej rahe hain. Yeh qanooni aur khatarnaak hai."
+      },
+      "causes": [
+        {
+          "en": "Output port wired to the utility grid instead of to the intended separate load panel.",
+          "ur": "Output port utility grid se juda hai bajaye ke sochay huay alag load panel se."
+        },
+        {
+          "en": "Installer error during the grid-tie connection.",
+          "ur": "Grid-tie connection ke dauraan installer ki ghalti."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the output port is connected to the actual grid.",
+          "ur": "Check karein output port asal grid se juda hua hai ya nahi."
+        },
+        {
+          "en": "If it is, disconnect it from the grid immediately - this is the first action.",
+          "ur": "Agar haan hai to turant grid se disconnect kar dein - ye sab se pehla action hai."
+        },
+        {
+          "en": "Rewire to the intended separate panel and verify isolation with a meter before restarting.",
+          "ur": "Sochay huay alag panel mein dobara jodein aur restart se pehle meter se isolation verify karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "75",
+      "aliases": [
+        "75",
+        "E075"
+      ],
+      "title": {
+        "en": "Inverter Parallel Communication Alarm (75)",
+        "ur": "Parallel inverters ki baat nahi (75)"
+      },
+      "meaning": {
+        "en": "Communication between paralleled inverters is unreliable, so the parallel group is degraded.",
+        "ur": "Parallel inverters ke darmiyan communication reliable nahi hai, is liye parallel group kamzor ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Communication cable or terminals abnormal, loose or not correctly terminated.",
+          "ur": "Communication cable ya terminals kharab, loose ya sahi tareeqe se terminate nahi hue."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the communication cable and terminals and correct them for a reliable connection.",
+          "ur": "Communication cable aur terminals check karke theek karein taake reliable connection ho."
+        },
+        {
+          "en": "Reconnect the communication cable between the parallel units.",
+          "ur": "Parallel units ke darmiyan communication cable dobara jodein."
+        },
+        {
+          "en": "Confirm the master/slave roles are set correctly for the parallel group.",
+          "ur": "Confirm karein parallel group ke liye master/slave roles sahi set hain."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Parallel operation is a real supported function on commercial 75-125 kW units, so this code is expected here.",
+        "ur": "Commercial 75-125 kW units par parallel operation asal supported function hai, is liye ye code yahan aana mumkin hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "264-283",
+      "aliases": [
+        "264-283"
+      ],
+      "title": {
+        "en": "MPPT Reverse Connection (264-283)",
+        "ur": "MPPT input mein string ulti (264-283)"
+      },
+      "meaning": {
+        "en": "A string is reverse connected into a specific MPPT input. Codes 264-279 map to string 1-20.",
+        "ur": "Koi string kisi khaas MPPT input mein ulta polarity se jodi gayi hai. Codes 264-279 string 1-20 ke hain."
+      },
+      "causes": [
+        {
+          "en": "String connected to the wrong MPPT input on a tracker with 9-12 MPPTs.",
+          "ur": "9-12 MPPT wale tracker par string galat MPPT input se jodi gayi."
+        },
+        {
+          "en": "The connector at that MPPT is reversed.",
+          "ur": "Us MPPT ka connector ulta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the corresponding string is of reverse polarity and correct it once current drops below 0.5 A.",
+          "ur": "Check karein us string ki polarity reverse hai ya nahi aur current 0.5 A se neeche girne par theek karein."
+        },
+        {
+          "en": "Confirm the string is on the MPPT input it is rated for - a 125 kW unit has many inputs to confuse.",
+          "ur": "Confirm karein string us MPPT input par hai jis ke liye rated hai - 125 kW unit mein inputs bohat hain jahan ghalti ho sakti hai."
+        },
+        {
+          "en": "Re-measure the open-circuit voltage at the string before re-energising.",
+          "ur": "Dobara power dene se pehle string ka open-circuit voltage dobara naalein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "332-363",
+      "aliases": [
+        "332-363"
+      ],
+      "title": {
+        "en": "Boost Capacitor Overvoltage Alarm (332-363)",
+        "ur": "Boost capacitor ka over-voltage alarm (332-363)"
+      },
+      "meaning": {
+        "en": "A boost capacitor is running at overvoltage. The inverter can keep running while this is investigated.",
+        "ur": "Koi boost capacitor overvoltage par chal raha hai. Jitni der jaanch chal rahi hai, inverter chalta rahe sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Boost capacitor ageing or a DC link capacitor losing capacitance.",
+          "ur": "Boost capacitor ki umar ya DC link capacitor ka capacitance kam hona."
+        },
+        {
+          "en": "Foreign material or an environmental issue on the boost stage.",
+          "ur": "Boost stage par bahri cheez ya mahol ki masla."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "The inverter can continue running - note the code and monitor the trend rather than powering down immediately.",
+          "ur": "Inverter chalta rahe sakta hai - turant band karne ke bajaye code note karein aur trend dekhein."
+        },
+        {
+          "en": "Check the related wiring and terminals, and for foreign material or other environmental abnormalities.",
+          "ur": "Related wiring aur terminals check karein, aur bahri cheez ya doosri environmental abnormality dekhein."
+        },
+        {
+          "en": "Take the corresponding corrective measures when necessary, then re-check.",
+          "ur": "Jab zarurat ho to mutabiq corrective measures lein, phir dobara check karein."
+        },
+        {
+          "en": "If the fault persists, contact Sungrow Power Customer Service.",
+          "ur": "Agar fault phir bhi rahe to Sungrow Power Customer Service se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "364-395",
+      "aliases": [
+        "364-395"
+      ],
+      "title": {
+        "en": "Boost Capacitor Overvoltage Fault (364-395)",
+        "ur": "Boost capacitor ka over-voltage fault (364-395)"
+      },
+      "meaning": {
+        "en": "The boost capacitor overvoltage has escalated to a fault. A full 15-minute AC/DC restart cycle is required.",
+        "ur": "Boost capacitor overvoltage fault tak pohanch gaya hai. Poora 15 minute ka AC/DC restart cycle zaruri hai."
+      },
+      "causes": [
+        {
+          "en": "Boost capacitor failed or lost capacitance after the alarm stage was not addressed.",
+          "ur": "Alert ignore karne ke baad boost capacitor fail ho gaya ya us ka capacitance kam ho gaya."
+        },
+        {
+          "en": "A second cause is not published - the manual gives only the restart procedure for this row.",
+          "ur": "Doosri wajah publish nahi - manual is row ke liye sirf restart procedure deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the AC and DC switches. (This unit has no battery, so no battery-side switch step applies.)",
+          "ur": "AC aur DC switches disconnect karein. (Is unit mein koi battery nahi, is liye battery-side switch ka step applicable nahi.)"
+        },
+        {
+          "en": "Close the AC and DC switches in turn 15 minutes later and restart the system.",
+          "ur": "15 minute baad AC aur DC switches ek ek karke band karein aur system restart karein."
+        },
+        {
+          "en": "Confirm the code does not return; a repeat means the capacitor has actually failed.",
+          "ur": "Confirm karein code wapas nahi aata; dobara aane ka matlab hai capacitor asal mein fail ho gaya hai."
+        },
+        {
+          "en": "If the fault persists, contact Sungrow Power Customer Service.",
+          "ur": "Agar fault phir bhi rahe to Sungrow Power Customer Service se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "1548-1579",
+      "aliases": [
+        "1548-1579"
+      ],
+      "title": {
+        "en": "String Current Reflux (1548-1579)",
+        "ur": "String ka current peeche beh raha (1548-1579)"
+      },
+      "meaning": {
+        "en": "Current is flowing backwards from one string into another, usually because that string has fewer modules or is shaded.",
+        "ur": "Ek string se doosri mein current peeche beh raha hai, aam tor par is liye ke us string mein modules kam hain ya woh shaded hai."
+      },
+      "causes": [
+        {
+          "en": "Fewer PV modules in that string than in the other paralleled strings.",
+          "ur": "Us string mein doosri parallel strings se kam PV modules hain."
+        },
+        {
+          "en": "PV module partially shaded - very common on large commercial rooftop arrays.",
+          "ur": "PV module adhoora shaded hai - bade commercial rooftop arrays par bohat aam baat hai."
+        },
+        {
+          "en": "PV module mounted in the wrong orientation.",
+          "ur": "PV module galat direction mein laga hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the number of PV modules in the flagged string against the other strings, and adjust the configuration with DC off once current is below 0.5 A.",
+          "ur": "Flag hui string ke modules ki tadaad doosri strings se compare karein, aur current 0.5 A se neeche hone par DC off karke configuration adjust karein."
+        },
+        {
+          "en": "Check whether the PV module is shaded; on commercial arrays check for parapet, AC duct or other structure shadows.",
+          "ur": "Check karein PV module shaded to nahi; commercial arrays par parapet, AC duct ya doosri structure ki saaya dekhein."
+        },
+        {
+          "en": "Disconnect the DC switch and check the open-circuit voltage once current is below 0.5 A.",
+          "ur": "DC switch disconnect karke current 0.5 A se neeche hone par open-circuit voltage check karein."
+        },
+        {
+          "en": "Check the wiring, the PV module configuration and the module orientation.",
+          "ur": "Wiring, PV module configuration aur module ki direction check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "1600-1615, 1632-1655",
+      "aliases": [
+        "1600-1615, 1632-1655",
+        "1600-1615",
+        "1632-1655",
+        "E1600"
+      ],
+      "title": {
+        "en": "PV Grounding Fault (1600-1615, 1632-1655)",
+        "ur": "PV ka earth fault (1600-1615, 1632-1655)"
+      },
+      "meaning": {
+        "en": "A string has a ground fault. Never unplug PV terminals while DC current is above 0.5 A.",
+        "ur": "Kisi string par ground fault hai. DC current 0.5 A se upar hone par PV terminals kabhi na nikaalein."
+      },
+      "causes": [
+        {
+          "en": "String cable insulation damaged and touching the frame or a metal structure.",
+          "ur": "String cable ki insulation kharab ho kar frame ya metal structure ko chhu rahi hai."
+        },
+        {
+          "en": "Module or junction box water ingress creating a path to earth.",
+          "ur": "Module ya junction box mein paas ja kar earth tak raasta ban gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "When the fault occurs, it is forbidden to directly disconnect the DC switch and unplug PV terminals when the direct current is greater than 0.5 A.",
+          "ur": "Fault hone par, jab direct current 0.5 A se zyada ho to DC switch seedha disconnect karna aur PV terminals nikalna mana hai."
+        },
+        {
+          "en": "Wait until the direct current of the inverter falls below 0.5 A, then disconnect the DC switch and unplug the faulty strings.",
+          "ur": "Inverter ka direct current 0.5 A se neeche girne ka intezaar karein, phir DC switch disconnect karke kharab strings nikaal dein."
+        },
+        {
+          "en": "Do not reinsert the faulty strings before the grounding fault is cleared.",
+          "ur": "Grounding fault hal hone se pehle kharab strings dobara mat lagayein."
+        },
+        {
+          "en": "Contact Sungrow Customer Service if the fault is not caused by the foregoing reasons and still exists.",
+          "ur": "Agar upar wali wajuhon se nahi hua aur phir bhi mojood hai to Sungrow Customer Service se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "1616",
+      "aliases": [
+        "1616",
+        "E1616"
+      ],
+      "title": {
+        "en": "System Hardware Fault (1616)",
+        "ur": "System ka hardware fault (1616)"
+      },
+      "meaning": {
+        "en": "A hardware-level fault inside the inverter. The manual explicitly forbids powering the inverter back up.",
+        "ur": "Inverter ke andar hardware level ka fault hai. Manual saaf mana karta hai ke inverter dobara power on na kiya jaye."
+      },
+      "causes": [
+        {
+          "en": "Internal component failure detected at hardware level (board, sensor or power stage).",
+          "ur": "Hardware level par internal component failure detect hua (board, sensor ya power stage)."
+        },
+        {
+          "en": "A second cause is not published - the manual gives a prohibition plus a service instruction instead of a diagnosis.",
+          "ur": "Doosri wajah bhi publish nahi - manual diagnosis ke bajaye prohibition aur service instruction deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "It is prohibited to disconnect the DC switch when the DC current is greater than 0.5 A when the fault occurs.",
+          "ur": "Fault hone ke waqt DC current 0.5 A se zyada ho to DC switch disconnect karna mana hai."
+        },
+        {
+          "en": "Disconnect the DC switch only when the inverter DC side current drops below 0.5 A.",
+          "ur": "DC switch sirf tab disconnect karein jab inverter ke DC side ka current 0.5 A se neeche gir jaye."
+        },
+        {
+          "en": "It is prohibited to power up the inverter again - contact Sungrow Customer Service.",
+          "ur": "Inverter dobara power on karna mana hai - Sungrow Customer Service se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The strictest code in this table: no restart step at all. On a 125 kW unit the DC side can carry hundreds of amps, so the 0.5 A rule must be verified with a clamp meter, not assumed.",
+        "ur": "Is table ka sab se sakht code: bilkul koi restart step nahi. 125 kW unit par DC side se s hundreds of amps ja sakte hain, is liye 0.5 A ka rule clamp meter se verify karein, maan na lein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "SYSTEM_FAULT_RANGES",
+      "aliases": [
+        "SYSTEM_FAULT_RANGES",
+        "System Fault",
+        "7",
+        "11",
+        "16",
+        "19-25",
+        "30-34",
+        "36",
+        "38",
+        "40-42",
+        "44-50",
+        "52-58",
+        "60-69",
+        "85",
+        "87",
+        "92",
+        "93",
+        "100-105",
+        "107-114",
+        "116-124",
+        "200-211",
+        "248-255",
+        "300-322",
+        "324-328",
+        "401-412",
+        "600-603",
+        "605",
+        "608",
+        "612",
+        "616",
+        "620",
+        "622-624",
+        "800",
+        "802",
+        "804",
+        "807",
+        "1096-1122"
+      ],
+      "title": {
+        "en": "System Fault (large code range)",
+        "ur": "System Fault (bohat bara code range)"
+      },
+      "meaning": {
+        "en": "A catch-all row covering roughly 150 unnamed internal hardware and control fault codes.",
+        "ur": "Ye ek catch-all row hai jo lagbhag 150 unnamed internal hardware aur control fault codes ko cover karta hai."
+      },
+      "causes": [
+        {
+          "en": "Internal hardware or control fault in the inverter, device by device within the listed range.",
+          "ur": "Listed range mein kisi bhi device ka internal hardware ya control fault."
+        },
+        {
+          "en": "The manual gives no per-code causes, so any specific code in the range can only be diagnosed from the symptom.",
+          "ur": "Manual per-code wajah nahi deta, is liye range ka koi bhi khaas code sirf symptom se diagnose ho sakta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the inverter to return to normal on its own first.",
+          "ur": "Pehle inverter ko khud theek hone ka intezaar karein."
+        },
+        {
+          "en": "Disconnect the AC and DC switches (no battery on this model).",
+          "ur": "AC aur DC switches disconnect karein (is model mein battery nahi)."
+        },
+        {
+          "en": "Close the AC and DC switches in turn 15 minutes later and restart the system.",
+          "ur": "15 minute baad AC aur DC switches ek ek karke band karein aur system restart karein."
+        },
+        {
+          "en": "If the fault still exists, contact Sungrow Customer Service.",
+          "ur": "Agar fault phir bhi rahe to Sungrow Customer Service se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "One entry with the range in aliases, matching how the manual documents it. This manual's list ends at 1096-1122, matching SH8.0-10RS, NOT the single-phase RS manual's 1096-1118. See CONFLICTS.",
+        "ur": "Ek entry, aliases mein range, manual ke mutabiq. Is manual ki list 1096-1122 par khatam hoti hai, SH8.0-10RS se match karti hai, single-phase RS ki 1096-1118 se nahi. CONFLICTS dekhein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "SYSTEM_ALARM_RANGES",
+      "aliases": [
+        "SYSTEM_ALARM_RANGES",
+        "System Alarm",
+        "59",
+        "70-74",
+        "76-83",
+        "89",
+        "216-218",
+        "220-233",
+        "432-434",
+        "500-513",
+        "515-518",
+        "635-638",
+        "900",
+        "901",
+        "910",
+        "911",
+        "996"
+      ],
+      "title": {
+        "en": "System Alarm (large code range)",
+        "ur": "System Alarm (bohat bara code range)"
+      },
+      "meaning": {
+        "en": "A catch-all warning-class row. The inverter keeps running while these minor internal conditions are corrected.",
+        "ur": "Ye ek catch-all warning-class row hai. In in chhoti internal ghalatiyon ke dauraan inverter chalta rahta hai."
+      },
+      "causes": [
+        {
+          "en": "Minor internal wiring or terminal abnormality, foreign material, or an environmental issue.",
+          "ur": "Internal wiring ya terminal ki chhoti ghalati, bahri cheez, ya mahol ki masla."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "The inverter can continue running - no urgent shutdown needed.",
+          "ur": "Inverter chalta rahe sakta hai - foran band karne ki zarurat nahi."
+        },
+        {
+          "en": "Check the related wiring and terminals, and for foreign material or other environmental abnormalities.",
+          "ur": "Related wiring aur terminals check karein, aur bahri cheez ya doosri environmental abnormality dekhein."
+        },
+        {
+          "en": "Take the corresponding corrective measures when necessary.",
+          "ur": "Jab zarurat ho to mutabiq corrective measures lein."
+        },
+        {
+          "en": "If the fault persists, contact Sungrow Power Customer Service.",
+          "ur": "Agar fault phir bhi rahe to Sungrow Power Customer Service se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "One entry with the range in aliases, as documented. The list is identical to the single-phase RS and SH System Alarm rows.",
+        "ur": "Ek entry, aliases mein range, jaise document kiya gaya hai. Ye list single-phase RS aur SH ke System Alarm rows ke bilkul same hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "LED_BLUE_ON",
+      "aliases": [
+        "LED_BLUE_ON",
+        "Blue On",
+        "LED Blue On"
+      ],
+      "title": {
+        "en": "LED blue on - normal grid operation",
+        "ur": "LED blue chala - grid par theek chal raha hai"
+      },
+      "meaning": {
+        "en": "The blue LED is on: the device is connected to the grid and operating normally.",
+        "ur": "Blue LED on hai: device grid se juda hai aur normally kaam kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Normal grid-tied generation within all limits.",
+          "ur": "Sab limits ke andar normal grid par generation."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed - this is the healthy state.",
+          "ur": "Koi action ki zarurat nahi - ye theek hal ka state hai."
+        },
+        {
+          "en": "Confirm active power in iSolarCloud as a sanity check.",
+          "ur": "Sanity check ke taur par iSolarCloud mein active power confirm karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Blue LED steady on",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "LED_BLUE_FAST_02S",
+      "aliases": [
+        "LED_BLUE_FAST_02S",
+        "Blue Fast blink",
+        "Bluetooth"
+      ],
+      "title": {
+        "en": "LED blue fast blink 0.2s - Bluetooth connected",
+        "ur": "LED blue tez blink 0.2s - Bluetooth connected"
+      },
+      "meaning": {
+        "en": "The blue LED blinks fast at 0.2s period: the Bluetooth connection is established and data communication is happening.",
+        "ur": "Blue LED 0.2s period par tez blink karta hai: Bluetooth connection establish ho gaya hai aur data communication chal raha hai."
+      },
+      "causes": [
+        {
+          "en": "Technician or app connected over Bluetooth for commissioning or monitoring.",
+          "ur": "Commissioning ya monitoring ke liye technician ya app Bluetooth se juda hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed - this is a normal communication state, not a fault.",
+          "ur": "Koi action ki zarurat nahi - ye normal communication state hai, fault nahi."
+        },
+        {
+          "en": "If nobody is connected, disconnect the phone and confirm the LED settles to blue on.",
+          "ur": "Agar koi juda nahi hai to phone disconnect karein aur confirm karein LED blue on par aa jata hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Blue LED fast blink, period 0.2s",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "LED_BLUE_SLOW_2S",
+      "aliases": [
+        "LED_BLUE_SLOW_2S",
+        "Blue Slow blink",
+        "standby"
+      ],
+      "title": {
+        "en": "LED blue slow blink 2s - standby or startup",
+        "ur": "LED blue dheema blink 2s - standby ya startup"
+      },
+      "meaning": {
+        "en": "The blue LED blinks slowly at 2s period: the device is in standby or startup and is NOT feeding power into the grid. No system fault is present.",
+        "ur": "Blue LED 2s period par dheere blink karta hai: device standby ya startup mein hai aur grid mein power nahi bhej raha. Koi system fault nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Grid parameters not yet satisfied, so the inverter is waiting to connect.",
+          "ur": "Grid parameters abhi satisfy nahi hue, is liye inverter connect hone ka intezaar kar raha hai."
+        },
+        {
+          "en": "Startup self-test in progress after power-on.",
+          "ur": "Power-on ke baad startup self-test chal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait 1-3 minutes for the startup self-test to complete before assuming a fault.",
+          "ur": "Fault samajhne se pehle startup self-test poora hone ka 1-3 minute intezaar karein."
+        },
+        {
+          "en": "Check grid voltage, frequency and that the AC breaker is closed.",
+          "ur": "Grid voltage, frequency aur AC breaker bandh (closed) hone ki tasdeeq karein."
+        },
+        {
+          "en": "If standby persists beyond 10 minutes, check the App or LCD for an active code.",
+          "ur": "Agar standby 10 minute se zyada rahe to App ya LCD mein koi active code check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Blue LED slow blink, period 2s, no system fault",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "LED_BLUE_PID_RECOVERY",
+      "aliases": [
+        "LED_BLUE_PID_RECOVERY",
+        "PID recovery",
+        "LED PID pattern"
+      ],
+      "title": {
+        "en": "LED blue slow blink once then fast 3x - PID recovery",
+        "ur": "LED blue ek baar dheema phir tez 3 baar - PID recovery"
+      },
+      "meaning": {
+        "en": "A distinctive diagnostic pattern: the blue LED slow-blinks once then fast-blinks three times, indicating the inverter is running PID (potential induced degradation) recovery.",
+        "ur": "Ek khaas diagnostic pattern: blue LED ek baar dheere blink karta hai phir tez teen baar - is ka matlab inverter PID (potential induced degradation) recovery chala raha hai."
+      },
+      "causes": [
+        {
+          "en": "Automatic anti-PID recovery routine energising the PV array overnight to remove moisture-induced leakage.",
+          "ur": "Automatic anti-PID recovery routine raat ko PV array ko energise karke moisture-induced leakage hatata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "This is a normal routine, not a fault - do not interrupt it by switching off the DC.",
+          "ur": "Ye normal routine hai, fault nahi - DC off karke ise interrupt na karein."
+        },
+        {
+          "en": "Allow it to finish; PV generation is stopped while PID recovery runs.",
+          "ur": "Ise poora hone dein; PID recovery chalne ke dauraan PV generation band rehta hai."
+        },
+        {
+          "en": "If this pattern appears during daytime production, check the PID recovery schedule in the App.",
+          "ur": "Agar ye pattern din mein production ke dauraan aaye to App mein PID recovery ka schedule check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Blue LED slow blink once, then fast blink three times",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "LED_RED_ON",
+      "aliases": [
+        "LED_RED_ON",
+        "Red On",
+        "LED Red On"
+      ],
+      "title": {
+        "en": "LED red on - fault, cannot connect to grid",
+        "ur": "LED red on - fault, grid se nahi jud sakta"
+      },
+      "meaning": {
+        "en": "The red LED is on: a fault has occurred and the device cannot connect to the grid.",
+        "ur": "Red LED on hai: fault aa gaya hai aur device grid se nahi jud sakta."
+      },
+      "causes": [
+        {
+          "en": "Any active fault code preventing grid connection - read the code from the App or LCD.",
+          "ur": "Grid connection rokne wala koi bhi active fault code - code App ya LCD se parh lein."
+        },
+        {
+          "en": "A grounding fault also forces the red state - the manual states a ground fault turns the LED indicator red.",
+          "ur": "Earth fault bhi red state par majboor karta hai - manual ke mutabiq earth fault LED indicator ko red kar deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the active fault code from iSolarCloud or the LCD before doing anything to the unit.",
+          "ur": "Unit par kuch karne se pehle iSolarCloud ya LCD se active fault code parh lein."
+        },
+        {
+          "en": "Then look that code up in the fault table and follow its corrective measures.",
+          "ur": "Phir woh code fault table mein dhoondein aur us ke corrective measures follow karein."
+        },
+        {
+          "en": "Check AC and DC isolation before re-testing, since a red light on this model usually follows a lockout.",
+          "ur": "Dobara test karne se pehle AC aur DC isolation check karein, kyun ke is model par red light aam tor par lockout ke baad aati hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Red LED steady on",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "LED_RED_BLINK",
+      "aliases": [
+        "LED_RED_BLINK",
+        "Red Blink",
+        "LED Red Blink"
+      ],
+      "title": {
+        "en": "LED red blinking - Bluetooth plus system fault",
+        "ur": "LED red blink - Bluetooth aur system fault"
+      },
+      "meaning": {
+        "en": "The red LED blinks: Bluetooth is connected with data communication in progress AND a system fault is present.",
+        "ur": "Red LED blink karta hai: Bluetooth juda hai aur data communication chal raha hai AUR system fault bhi maujood hai."
+      },
+      "causes": [
+        {
+          "en": "A system fault is active while a phone is connected over Bluetooth.",
+          "ur": "Phone Bluetooth se jude hote hue system fault active hai."
+        },
+        {
+          "en": "A grounding fault is one of the underlying causes while Bluetooth is connected.",
+          "ur": "Earth fault in underlying causes mein se ek hai jab Bluetooth juda hua ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the active fault code in the App first - the App will show the code even while Bluetooth is connected.",
+          "ur": "Pehle App mein active fault code parh lein - Bluetooth jude hone par bhi App code dikhata hai."
+        },
+        {
+          "en": "Follow that code's corrective measures; the blinking LED itself adds no extra information.",
+          "ur": "Us code ke corrective measures follow karein; khud blink karti LED koi extra maloomati nahi deti."
+        },
+        {
+          "en": "If no code is shown, power-cycle once with AC and DC isolated for 15 minutes.",
+          "ur": "Agar koi code na dikhe to AC aur DC isolate kar ke 15 minute baad ek baar power cycle karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Red LED blinking",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    },
+    {
+      "code": "LED_GRAY_OFF",
+      "aliases": [
+        "LED_GRAY_OFF",
+        "Gray OFF",
+        "LED Gray Off"
+      ],
+      "title": {
+        "en": "LED gray off - both sides powered down",
+        "ur": "LED gray off - dono taraf band"
+      },
+      "meaning": {
+        "en": "The gray LED is off: both the AC and DC sides are powered down. Voltage may still be present on the AC side after the indicator is off.",
+        "ur": "Gray LED off hai: AC aur DC dono taraf band hain. Indicator bujhne ke baad bhi AC side par voltage maujood ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "AC breaker and DC switch both open, or the inverter has no power at all.",
+          "ur": "AC breaker aur DC switch dono khule hain, ya inverter ko bilkul power nahi mil raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the AC breaker and DC switch are set for the intended state.",
+          "ur": "Check karein AC breaker aur DC switch sochay huay state mein hain ya nahi."
+        },
+        {
+          "en": "Treat the AC side as live even with the indicator off, and verify with a meter before touching terminals.",
+          "ur": "Indicator off hone par bhi AC side ko live samajhein, aur terminals chhune se pehle meter se tasdeeq karein."
+        },
+        {
+          "en": "If power is expected but the LED is off, verify supplies with a meter then contact Sungrow.",
+          "ur": "Agar power mojood hona chahiye magar LED off hai to meter se supply verify kar ke Sungrow se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Gray LED off, no light",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SG125/110/75CX-P2-UEN-Ver14-202303 User Manual, 2.4 LED Indicator + 9 Troubleshooting and Maintenance (9.1)",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/application/pdf/2023/04/11/SG125_110_75CX-P2-UEN-Ver14-202303.pdf"
+      }
+    }
+  ]
+}

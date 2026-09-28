@@ -1,0 +1,767 @@
+{
+  "schemaVersion": 1,
+  "brandId": "huawei",
+  "series": {
+    "id": "huawei-luna2000-s0-alarm",
+    "name": "LUNA2000-(5-30)-S0 battery / Smart String ESS (numbered alarm table, LUNA2000-5/10/15-S0 generation)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*LUNA2000-5-S0*",
+      "*LUNA2000-10-S0*",
+      "*LUNA2000-15-S0*",
+      "*LUNA2000-5-10-15-S0*",
+      "*LUNA2000-5KW-C0*",
+      "*LUNA2000-5-E0*"
+    ],
+    "notes": "Battery-side alarm table, read on the FusionSolar app via the paired SUN2000. Huawei uses [Battery-1/2] placeholders meaning whichever power control module is affected. This is a SEPARATE table from SERIES 7 (LUNA2000-S1) - the same numeric code has a different meaning/wording in each. Codes 3047 and 3061 wording differs between S0 and S1."
+  },
+  "codes": [
+    {
+      "code": "3000",
+      "aliases": [
+        "3000",
+        "Low battery DC input bus voltage"
+      ],
+      "title": {
+        "en": "Low Battery DC Input Bus Voltage",
+        "ur": "Battery DC input bus voltage kam hai"
+      },
+      "meaning": {
+        "en": "The battery DC bus voltage is too low, so the battery cannot support the system.",
+        "ur": "Battery ka DC bus voltage bohat kam hai, is liye battery system ko support nahi kar sakti."
+      },
+      "causes": [
+        {
+          "en": "The DC bus voltage of the battery is low.",
+          "ur": "Battery ka DC bus voltage kam hai."
+        },
+        {
+          "en": "The battery DC switch is OFF.",
+          "ur": "Battery DC switch OFF hai."
+        },
+        {
+          "en": "The battery cables are not correctly connected.",
+          "ur": "Battery cables theek se connected nahi hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the inverter AC output switch, inverter DC input switch and battery DC switch, then wait 5 minutes.",
+          "ur": "Inverter AC output switch, inverter DC input switch aur battery DC switch band karein, phir 5 minute intezaar karein."
+        },
+        {
+          "en": "Check the battery power cable connections on the [Battery-1/2] power control module against the quick installation guide.",
+          "ur": "[Battery-1/2] power control module par battery power cable connections ko quick installation guide ke mutabiq check karein."
+        },
+        {
+          "en": "Once the cables are confirmed correct, turn on in sequence: battery DC switch, AC output switch, inverter DC input switch.",
+          "ur": "Cables sahi confirm hone ke baad is tarah on karein: battery DC switch, AC output switch, inverter DC input switch."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3001",
+      "aliases": [
+        "3001",
+        "Abnormal battery power control module"
+      ],
+      "title": {
+        "en": "Abnormal Battery Power Control Module",
+        "ur": "Battery power control module abnormal hai"
+      },
+      "meaning": {
+        "en": "A major fault occurred on the internal circuit of the battery power control module (PCS-side controller of the battery).",
+        "ur": "Battery power control module ke internal circuit par major fault aaya hai (battery ka PCS-side controller)."
+      },
+      "causes": [
+        {
+          "en": "A major fault has occurred on the internal circuit of the battery power control module.",
+          "ur": "Battery power control module ke internal circuit par major fault aaya hai."
+        },
+        {
+          "en": "Internal communication of the power control module is abnormal - listed as an explicit second cause for this same alarm ID 3001 in the LUNA2000-S1 Table 7-2 (Issue 06).",
+          "ur": "Power control module ki internal communication abnormal hai - isi alarm ID 3001 ke liye LUNA2000-S1 Table 7-2 (Issue 06) mein doosri explicit wajah ke tor par listed hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off inverter AC output switch, inverter DC input switch and battery DC switch; wait 5 minutes, then turn battery DC switch back on first.",
+          "ur": "Inverter AC output switch, inverter DC input switch aur battery DC switch band karein; 5 minute intezaar karein, phir pehle battery DC switch on karein."
+        },
+        {
+          "en": "Watch the battery fault indicator: the manual says a steady-on fault indicator confirms a persistent module fault.",
+          "ur": "Battery fault indicator dekhein: manual ke mutabiq steady-on fault indicator persistent module fault confirm karta hai."
+        },
+        {
+          "en": "If the fault indicator is still steady on after the restart, record the module position and contact your dealer or Huawei support.",
+          "ur": "Restart ke baad bhi fault indicator steady on ho to module ki position note karke dealer ya Huawei support se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3002",
+      "aliases": [
+        "3002",
+        "Battery power control module overtemperature"
+      ],
+      "title": {
+        "en": "Battery Power Control Module Overtemperature",
+        "ur": "Battery power control module garm ho gaya (overtemperature)"
+      },
+      "meaning": {
+        "en": "The power control module is running hot - poor ventilation, excessive ambient temperature, or a module fault.",
+        "ur": "Power control module garm chal raha hai - ventilation kam, ambient temperature zyada, ya module fault."
+      },
+      "causes": [
+        {
+          "en": "The installation position of the battery power control module is not well ventilated.",
+          "ur": "Battery power control module ki installation jagah well ventilated nahi hai."
+        },
+        {
+          "en": "The ambient temperature is excessively high.",
+          "ur": "Ambient temperature bohat zyada hai."
+        },
+        {
+          "en": "The battery power control module is abnormal.",
+          "ur": "Battery power control module abnormal hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the ventilation and whether the ambient temperature at the [Battery-1/2] module exceeds the upper threshold.",
+          "ur": "[Battery-1/2] module par ventilation check karein aur ambient temperature upper threshold se zyada to nahi hai."
+        },
+        {
+          "en": "Improve airflow: clear any wall gap obstruction and keep the documented clearance around the heat sink.",
+          "ur": "Airflow behtar karein: deewar ke gap ki rukaawat saaf karein aur heat sink ke aas paas documented clearance rakhein."
+        },
+        {
+          "en": "Measure temperature at the heat sink with a contact thermometer; if ventilation and ambient are already within limits, suspect the module.",
+          "ur": "Contact thermometer se heat sink ka temperature measure karein; agar ventilation aur ambient pehle se limits mein hain to module par shak karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3003",
+      "aliases": [
+        "3003",
+        "Battery power control module fuse blown"
+      ],
+      "title": {
+        "en": "Battery Power Control Module Fuse Blown",
+        "ur": "Battery power control module ka fuse udd gaya"
+      },
+      "meaning": {
+        "en": "The fuse inside the battery power control module has blown, usually after an overcurrent event inside the battery.",
+        "ur": "Battery power control module ka fuse udd gaya hai, aam tor par battery ke andar overcurrent ke baad."
+      },
+      "causes": [
+        {
+          "en": "The fuse of the battery power control module is blown.",
+          "ur": "Battery power control module ka fuse udd gaya hai."
+        },
+        {
+          "en": "An internal overcurrent or short has already damaged the module - replacing only the fuse may not clear it.",
+          "ur": "Internal overcurrent ya short module ko pehle hi kharab kar chuka hai - sirf fuse badalna kaafi na ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off inverter AC output switch, inverter DC input switch and battery DC switch, and wait 5 minutes.",
+          "ur": "Inverter AC output switch, inverter DC input switch aur battery DC switch band karein, aur 5 minute intezaar karein."
+        },
+        {
+          "en": "Replace the fuse of the [Battery-1/2] power control module with the exact rating specified in the manual.",
+          "ur": "[Battery-1/2] power control module ka fuse manual mein diye gaye exact rating se badal dein."
+        },
+        {
+          "en": "Turn on in sequence (battery DC, AC output, inverter DC input). If the new fuse also blows, the module is damaged - stop and escalate.",
+          "ur": "Is tarah on karein (battery DC, AC output, inverter DC input). Agar naya fuse bhi udd jaye to module kharab hai - ruk kar escalate karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3004",
+      "aliases": [
+        "3004",
+        "Battery power control module reversely connected"
+      ],
+      "title": {
+        "en": "Battery Power Control Module Reversely Connected",
+        "ur": "Battery power control module ulti polarity se connected hai"
+      },
+      "meaning": {
+        "en": "The positive and negative battery terminals are wired reversed between the power control module and the inverter.",
+        "ur": "Power control module aur inverter ke darmiyan battery ke positive aur negative terminals ulhe polarity se lage hain."
+      },
+      "causes": [
+        {
+          "en": "Positive and negative terminals are reversely connected when the module connects to the inverter.",
+          "ur": "Module inverter se connect hote waqt positive aur negative terminals ulhe polarity se hain."
+        },
+        {
+          "en": "Polarity is reversed on the DC bus cable run rather than at the module, so the fault presents at the module even though the module's own wiring is correct.",
+          "ur": "Polarity module par nahi, DC bus cable run mein uli hui hai, is liye module apni wiring sahi hone ke bawajood fault dikhata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not power anything up. Isolate all three switches and wait 5 minutes first.",
+          "ur": "Kuch bhi power up na karein. Teeno switches isolate karein aur pehle 5 minute intezaar karein."
+        },
+        {
+          "en": "Verify polarity with a DC voltmeter across the battery-side cable ends before re-terminating anything.",
+          "ur": "Dobara terminate karne se pehle battery-side cable ke ends par DC voltmeter se polarity verify karein."
+        },
+        {
+          "en": "Re-terminate to the quick installation guide, then power up in the manual's sequence.",
+          "ur": "Quick installation guide ke mutabiq dobara terminate karein, phir manual ke sequence se power up karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3005",
+      "aliases": [
+        "3005",
+        "Battery power control module DC switch OFF"
+      ],
+      "title": {
+        "en": "Battery Power Control Module DC Switch OFF",
+        "ur": "Battery power control module ka DC switch OFF hai"
+      },
+      "meaning": {
+        "en": "The battery's own DC switch is off, or the DC bus cable to the module is disconnected, so the battery is not reachable.",
+        "ur": "Battery ka apna DC switch off hai, ya module ka DC bus cable disconnect hai, is liye battery reachable nahi."
+      },
+      "causes": [
+        {
+          "en": "The DC switch of the battery power control module is OFF.",
+          "ur": "Battery power control module ka DC switch OFF hai."
+        },
+        {
+          "en": "The DC bus cable to the battery power control module is disconnected.",
+          "ur": "Battery power control module ka DC bus cable disconnect hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off inverter AC output switch, inverter DC input switch and battery DC switch, then wait 5 minutes.",
+          "ur": "Inverter AC output switch, inverter DC input switch aur battery DC switch band karein, phir 5 minute intezaar karein."
+        },
+        {
+          "en": "Check the DC bus cable connection and the battery DC switch handle position on the [Battery-1/2] module.",
+          "ur": "[Battery-1/2] module par DC bus cable connection aur battery DC switch handle ki position check karein."
+        },
+        {
+          "en": "Turn on in sequence and confirm the battery appears online in the app.",
+          "ur": "Is tarah on karke app par confirm karein ke battery online aa gayi hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3006",
+      "aliases": [
+        "3006",
+        "Abnormal battery expansion module"
+      ],
+      "title": {
+        "en": "Abnormal Battery Expansion Module",
+        "ur": "Battery expansion module abnormal hai"
+      },
+      "meaning": {
+        "en": "A major fault occurred on the internal circuit of the battery expansion module (the stackable pack).",
+        "ur": "Battery expansion module ke internal circuit par major fault aaya hai (stacking wala pack)."
+      },
+      "causes": [
+        {
+          "en": "A major fault has occurred on the internal circuit of the battery expansion module.",
+          "ur": "Battery expansion module ke internal circuit par major fault aaya hai."
+        },
+        {
+          "en": "Power or communication cables between power control module and expansion module are loose.",
+          "ur": "Power control module aur expansion module ke darmiyan power ya communication cable loose hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check that the power cables and communication cables between modules are correctly seated and torqued.",
+          "ur": "Check karein ke modules ke darmiyan power aur communication cables sahi se baithi hain aur torque ki gayi hain."
+        },
+        {
+          "en": "Reseat the communication connector at both ends; a single high-resistance pin produces this alarm.",
+          "ur": "Communication connector dono ends par dobara laga dein; ek high-resistance pin se yeh alarm aa jata hai."
+        },
+        {
+          "en": "If the alarm remains with the fault indicator steady on, note the expansion module position and escalate to dealer or Huawei support.",
+          "ur": "Agar fault indicator steady on hone par alarm bana rahe to expansion module ki position note karke dealer ya Huawei support ko batayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3007",
+      "aliases": [
+        "3007",
+        "Battery expansion module cable disconnected"
+      ],
+      "title": {
+        "en": "Battery Expansion Module Cable Disconnected",
+        "ur": "Battery expansion module ka cable disconnect hai"
+      },
+      "meaning": {
+        "en": "The cable to a battery expansion module is disconnected, so that pack is not in the communication chain.",
+        "ur": "Battery expansion module ka cable disconnect hai, is liye woh pack communication chain mein nahi hai."
+      },
+      "causes": [
+        {
+          "en": "A battery expansion module cable is disconnected.",
+          "ur": "Battery expansion module ka cable disconnect hai."
+        },
+        {
+          "en": "A battery expansion module is abnormal (second listed cause).",
+          "ur": "Battery expansion module abnormal hai (doosri listed wajah)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off inverter AC output switch, inverter DC input switch and battery DC switch, and wait 5 minutes.",
+          "ur": "Inverter AC output switch, inverter DC input switch aur battery DC switch band karein, aur 5 minute intezaar karein."
+        },
+        {
+          "en": "Trace the daisy-chain cables between expansion modules and reseat every connector, including the last module's terminator.",
+          "ur": "Expansion modules ke darmiyan daisy-chain cables trace karke har connector dobara laga dein, aakhri module ke terminator samet."
+        },
+        {
+          "en": "Power back in the manual sequence and confirm the expansion module count in the app matches the physical count.",
+          "ur": "Manual sequence se power on karein aur app mein expansion module ki tadaad physical tadaad se match karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3008",
+      "aliases": [
+        "3008",
+        "Battery expansion module overtemperature"
+      ],
+      "title": {
+        "en": "Battery Expansion Module Overtemperature",
+        "ur": "Battery expansion module garm ho gaya (overtemperature)"
+      },
+      "meaning": {
+        "en": "A battery pack is running hot - the installation position is poorly ventilated or ambient is too high.",
+        "ur": "Battery pack garm chal raha hai - installation jagah ventilation kamzor hai ya ambient zyada hai."
+      },
+      "causes": [
+        {
+          "en": "The battery installation position is not well ventilated.",
+          "ur": "Battery ki installation position well ventilated nahi hai."
+        },
+        {
+          "en": "The ambient temperature is excessively high.",
+          "ur": "Ambient temperature bohat zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check ventilation and ambient temperature at each expansion module's position.",
+          "ur": "Har expansion module ki position par ventilation aur ambient temperature check karein."
+        },
+        {
+          "en": "Keep the documented clearance to walls and clear any stacked equipment above the packs.",
+          "ur": "Deewar se documented clearance rakhein aur packs ke upar rakhta koi equipment saaf karein."
+        },
+        {
+          "en": "In Pakistan summer peak, check whether the shaded side of the cabinet is the one facing the wall; reposition if so.",
+          "ur": "Pakistan mein summer peak par check karein ke cabinet ka shaded side hi deewar ki taraf hai; agar haan to position badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3009",
+      "aliases": [
+        "3009",
+        "Battery expansion module low temperature"
+      ],
+      "title": {
+        "en": "Battery Expansion Module Low Temperature",
+        "ur": "Battery expansion module ka temperature kam hai"
+      },
+      "meaning": {
+        "en": "Ambient temperature in the installation positions is too low, or the expansion module is abnormal.",
+        "ur": "Installation positions ka ambient temperature bohat kam hai, ya expansion module abnormal hai."
+      },
+      "causes": [
+        {
+          "en": "The ambient temperature is excessively low.",
+          "ur": "Ambient temperature bohat kam hai."
+        },
+        {
+          "en": "A battery expansion module is abnormal.",
+          "ur": "Battery expansion module abnormal hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check ambient temperature in the installation positions of the expansion modules.",
+          "ur": "Expansion modules ki installation positions ka ambient temperature check karein."
+        },
+        {
+          "en": "In cold weather, confirm the pack self-heating is active and not blocked by a covered cabinet.",
+          "ur": "Cold weather mein confirm karein ke pack ka self-heating on hai aur covered cabinet se block nahi hai."
+        },
+        {
+          "en": "If the module is genuinely at fault, allow the pack to warm naturally and re-check before replacing anything.",
+          "ur": "Agar module waqai faulty hai to pack ko naturally garm hone dein aur kuch badalne se pehle dobara check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3010",
+      "aliases": [
+        "3010",
+        "Battery expansion module short circuit"
+      ],
+      "title": {
+        "en": "Battery Expansion Module Short Circuit",
+        "ur": "Battery expansion module mein short circuit"
+      },
+      "meaning": {
+        "en": "A battery expansion module is short-circuited, or the module is abnormal. Treat as a fire-risk event.",
+        "ur": "Battery expansion module short-circuited hai, ya module abnormal hai. Aag ke khatre ka event samajhein."
+      },
+      "causes": [
+        {
+          "en": "The battery expansion module is short-circuited.",
+          "ur": "Battery expansion module short-circuited hai."
+        },
+        {
+          "en": "A battery expansion module is abnormal (second listed cause).",
+          "ur": "Battery expansion module abnormal hai (doosri listed wajah)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off inverter AC output switch, inverter DC input switch and battery DC switch, and wait 5 minutes before touching anything.",
+          "ur": "Kuch chhune se pehle inverter AC output switch, inverter DC input switch aur battery DC switch band karein aur 5 minute intezaar karein."
+        },
+        {
+          "en": "With DC isolated, measure each expansion module's internal resistance to identify the shorted pack.",
+          "ur": "DC isolate kar ke har expansion module ka internal resistance measure karke shorted pack pehchan lein."
+        },
+        {
+          "en": "Do not re-energise a shorted pack; quarantine it and escalate to dealer or Huawei support.",
+          "ur": "Shorted pack dobara power na dein; use isolate karke dealer ya Huawei support ko batayein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3011",
+      "aliases": [
+        "3011",
+        "Battery expansion module undervoltage"
+      ],
+      "title": {
+        "en": "Battery Expansion Module Undervoltage",
+        "ur": "Battery expansion module undervoltage"
+      },
+      "meaning": {
+        "en": "The voltage of a battery expansion module is low. Usually clears once charging resumes or sunlight/AC reverse charging is available.",
+        "ur": "Battery expansion module ka voltage kam hai. Charging resume hone ya sunlight/AC reverse charging milne par aam tor par khatam ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "The voltage of a battery expansion module is low.",
+          "ur": "Battery expansion module ka voltage kam hai."
+        },
+        {
+          "en": "The input voltage of a battery expansion module is insufficient to charge it.",
+          "ur": "Battery expansion module ka input voltage charge karne ke liye kaafi nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether sunlight is sufficient or AC reverse charging is permitted - the manual conditions recovery on this.",
+          "ur": "Check karein ke sunlight kaafi hai ya AC reverse charging ki ijazat hai - manual recovery isi par shart karta hai."
+        },
+        {
+          "en": "Confirm the DC bus voltage at the power control module is above the pack's minimum charge threshold.",
+          "ur": "Confirm karein ke power control module par DC bus voltage pack ke minimum charge threshold se upar hai."
+        },
+        {
+          "en": "Do not force-charge a deeply discharged pack; follow the manual's hibernation/wake procedure instead.",
+          "ur": "Bohat discharge hua pack force-charge na karein; manual ka hibernation/wake tareeqa follow karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3047",
+      "aliases": [
+        "3047",
+        "Battery Pack Undervoltage",
+        "Cell undervoltage (3047-1 / 3047-2)"
+      ],
+      "title": {
+        "en": "Battery Pack Undervoltage (cell protection)",
+        "ur": "Battery pack undervoltage (cell protection)"
+      },
+      "meaning": {
+        "en": "The battery pack or an individual cell voltage is too low. The manual splits this into 3047-1 (pack undervoltage protection) and 3047-2 (cell undervoltage protection).",
+        "ur": "Battery pack ya kisi ek cell ka voltage bohat kam hai. Manual ise 3047-1 (pack undervoltage protection) aur 3047-2 (cell undervoltage protection) mein baantta hai."
+      },
+      "causes": [
+        {
+          "en": "The voltage of the battery pack or its cell is too low.",
+          "ur": "Battery pack ya uske cell ka voltage bohat kam hai."
+        },
+        {
+          "en": "Cell undervoltage protection has latched (3047-2) after a deep discharge.",
+          "ur": "Deep discharge ke baad cell undervoltage protection latch ho gaya (3047-2)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the PV array is actually generating before expecting the pack to recover - check PV voltage at the pack input.",
+          "ur": "Pack ki recovery ki umeed karne se pehle confirm karein ke PV array actually generate kar raha hai - pack input par PV voltage check karein."
+        },
+        {
+          "en": "Check the battery DC switch and every battery-to-inverter cable for an open connection.",
+          "ur": "Battery DC switch aur battery se inverter tak ke har cable ko open connection ke liye check karein."
+        },
+        {
+          "en": "If the pack is deeply discharged, use the documented hibernation then wake sequence; do not jump-start with an external supply.",
+          "ur": "Agar pack deep discharge ho chuka hai to documented hibernation phir wake sequence use karein; external supply se jump start na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3050",
+      "aliases": [
+        "3050",
+        "Inconsistent ESS Versions",
+        "PCU version vs other modules"
+      ],
+      "title": {
+        "en": "Inconsistent ESS Firmware Versions",
+        "ur": "ESS ke firmware versions inconsistent hain"
+      },
+      "meaning": {
+        "en": "The control unit firmware version is inconsistent with the versions of the other modules in the system.",
+        "ur": "Control unit ka firmware version system ke baaki modules ke versions se inconsistent hai."
+      },
+      "causes": [
+        {
+          "en": "The version of the battery power control module is inconsistent with that of the battery packs.",
+          "ur": "Battery power control module ka version battery packs ke version se inconsistent hai."
+        },
+        {
+          "en": "The update failed part-way through a stack.",
+          "ur": "Stack update ke dauran beech mein fail ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the firmware version of the control unit and each pack in the app to find which one is out of step.",
+          "ur": "App par control unit aur har pack ka firmware version padhein dekhne ke liye ke kaun sa baqi se alag hai."
+        },
+        {
+          "en": "Run the app's ESS update so every module converges on the same version.",
+          "ur": "App ka ESS update chalayein taake har module ek hi version par aa jaye."
+        },
+        {
+          "en": "If the update fails repeatedly, contact your dealer or technical support instead of forcing a version skip.",
+          "ur": "Agar update baar baar fail ho to zor se version skip karne ke bajaye dealer ya technical support se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "3061",
+      "aliases": [
+        "3061",
+        "Battery Pack Lifespan Reached",
+        "End of life"
+      ],
+      "title": {
+        "en": "Battery Pack Lifespan Reached",
+        "ur": "Battery pack ki lifespan khatam ho gayi"
+      },
+      "meaning": {
+        "en": "The battery has reached the end of its designed lifespan and needs recycling. Not a repairable fault.",
+        "ur": "Battery ki design ki hui lifespan khatam ho gayi hai aur recycling zaroori hai. Yeh gair-qaabil-e-tamir fault hai."
+      },
+      "causes": [
+        {
+          "en": "The battery has reached its lifespan through normal ageing and charge cycles.",
+          "ur": "Battery apni lifespan tak normal ageing aur charge cycles ke zariye pohanch gayi hai."
+        },
+        {
+          "en": "No electrical or firmware fault is involved - the manual lists ageing and cycling only, so this is a wear-out condition rather than a defect.",
+          "ur": "Isme koi electrical ya firmware fault shamil nahi hai - manual sirf ageing aur cycling list karta hai, is liye yeh defect nahi balki wear-out condition hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm remaining capacity in the app before condemning - a single module may be flagged while others are healthy.",
+          "ur": "Kharab karne se pehle app mein baaki capacity confirm karein - ho sakta hai ek module flag ho aur baaki healthy hon."
+        },
+        {
+          "en": "Contact the local recycling agency named in the manual for compliant disposal.",
+          "ur": "Manual mein bataye gaye local recycling agency se rabta karein taaki disposal compliant ho."
+        },
+        {
+          "en": "Record the serial number and warranty status; end-of-life is a warranty exclusion, not a defect claim.",
+          "ur": "Serial number aur warranty status note karein; end-of-life warranty exclusion hai, defect claim nahi."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Section 8.3 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    }
+  ]
+}

@@ -1,0 +1,390 @@
+{
+  "schemaVersion": 1,
+  "brandId": "huawei",
+  "series": {
+    "id": "huawei-luna2000-s1-led",
+    "name": "LUNA2000-S1 system running indication and ESS indication (Tables 6-3 first power-on, 6-4 system running)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*LUNA2000-7-S1*",
+      "*LUNA2000-14-S1*",
+      "*LUNA2000-21-S1*",
+      "*LUNA2000-5-S1*",
+      "*LUNA2000-10KW-C1*",
+      "*LUNA2000-7-E1*"
+    ],
+    "notes": "S1 uses WHITE LEDs and a capsule-shaped indicator, unlike the S0 green ring (SERIES 6). Four indicators exist: 1 Energy Storage Control Unit, 2 Energy Storage Module, 3 Circular SOC, 4 Capsule-shaped. Table key: short intervals = on 0.2s/off 0.2s, long intervals = on 2s/off 2s. Codes are LED state strings, not numeric alarm IDs. Very relevant to PK because LUNA2000-7/14/21-S1 is the model Huawei lists for Pakistan."
+  },
+  "codes": [
+    {
+      "code": "Indicator 1 Blinking white at long intervals + Indicator 2 Blinking white at long intervals",
+      "aliases": [
+        "Indicator 1 Blinking white at long intervals + Indicator 2 Blinking white at long intervals",
+        "Standby mode"
+      ],
+      "title": {
+        "en": "Standby mode",
+        "ur": "Standby mode (ESS intezaar mein hai)"
+      },
+      "meaning": {
+        "en": "Both module indicators blinking white at long intervals - the ESS is in standby.",
+        "ur": "Dono module indicators long intervals par white blink - ESS standby mein hai."
+      },
+      "causes": [
+        {
+          "en": "PV present but not enough to charge, or the inverter has not called for power.",
+          "ur": "PV mojood hai lehongi charge karne ke liye kaafi nahi, ya inverter ne power nahi maangi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the app for a paused schedule or a limiter that is holding the ESS in standby.",
+          "ur": "App par paused schedule ya limiter check karein jo ESS ko standby mein rok raha hai."
+        },
+        {
+          "en": "If standby persists in full sun with no schedule, check the AC switch and the battery DC switch.",
+          "ur": "Agar poori dhoop mein schedule ke baghair standby bana rahe to AC switch aur battery DC switch check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Indicators 1 and 2 blinking white at long intervals (on 2s, off 2s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Tables 6-3 and 6-4 indicator definitions",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "Indicator 1 Blinking red at short intervals",
+      "aliases": [
+        "Indicator 1 Blinking red at short intervals",
+        "Battery power control module environment alarm",
+        "ESCU env alarm LED"
+      ],
+      "title": {
+        "en": "Control Unit Environment Alarm",
+        "ur": "Control unit environment alarm (ESCU ka around ka masla)"
+      },
+      "meaning": {
+        "en": "Indicator 1 blinking fast red marks an environmental alarm on the Energy Storage Control Unit - typically temperature.",
+        "ur": "Indicator 1 fast red blink Energy Storage Control Unit ka environmental alarm batata hai - aam tor par temperature."
+      },
+      "causes": [
+        {
+          "en": "Control unit overtemperature, matching alarm 3002.",
+          "ur": "Control unit overtemperature, jo alarm 3002 se match karta hai."
+        },
+        {
+          "en": "Enclosure humidity or condensation causing an environmental trip.",
+          "ur": "Enclosure mein humidity ya condensation se environmental trip hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the numeric alarm in the app; expect 3002 for overtemperature.",
+          "ur": "App mein numeric alarm padhein; overtemperature ke liye 3002 aayega."
+        },
+        {
+          "en": "Measure temperature at the control unit and confirm the wall clearance and cabinet airflow.",
+          "ur": "Control unit par temperature measure karein aur deewar clearance aur cabinet airflow confirm karein."
+        },
+        {
+          "en": "Check for water ingress at gland entries, dry the enclosure, then restart in the manual sequence.",
+          "ur": "Gland entries par paani ka dakhil check karke enclosure sukha dein, phir manual sequence mein restart karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Indicator 1 blinking red at short intervals (on 0.2s, off 0.2s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Tables 6-3 and 6-4 indicator definitions",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "Indicator 2 Blinking red at short intervals",
+      "aliases": [
+        "Indicator 2 Blinking red at short intervals",
+        "Battery expansion module environment alarm",
+        "Pack env alarm LED"
+      ],
+      "title": {
+        "en": "Expansion Module Environment Alarm",
+        "ur": "Expansion module environment alarm (pack ka masla)"
+      },
+      "meaning": {
+        "en": "Indicator 2 blinking fast red marks an environmental alarm on a battery expansion module.",
+        "ur": "Indicator 2 fast red blink battery expansion module ka environmental alarm batata hai."
+      },
+      "causes": [
+        {
+          "en": "Pack overtemperature, matching alarm 3008.",
+          "ur": "Pack overtemperature, jo alarm 3008 se match karta hai."
+        },
+        {
+          "en": "Pack low temperature, matching alarm 3009.",
+          "ur": "Pack low temperature, jo alarm 3009 se match karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the numeric alarm in the app to separate 3008 (hot) from 3009 (cold).",
+          "ur": "App par numeric alarm padhein taake 3008 (garm) aur 3009 (thanda) alag karein."
+        },
+        {
+          "en": "Measure that pack's surface temperature with a contact thermometer and compare with sibling packs.",
+          "ur": "Us pack ka surface temperature contact thermometer se measure karke padosi packs se compare karein."
+        },
+        {
+          "en": "Only one pack blinking means that pack is the problem - fix its position, do not condemn the whole stack.",
+          "ur": "Sirf ek pack blink kar raha hai to masla usi pack ka hai - uski position theek karein, poora stack condemn na karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Indicator 2 blinking red at short intervals (on 0.2s, off 0.2s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Tables 6-3 and 6-4 indicator definitions",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "Indicator 1 Steady red",
+      "aliases": [
+        "Indicator 1 Steady red",
+        "Battery power control module fault",
+        "ESCU fault LED"
+      ],
+      "title": {
+        "en": "Control Unit Fault",
+        "ur": "Control unit fault hai"
+      },
+      "meaning": {
+        "en": "Indicator 1 solid red: the manual states the battery power control module (ESCU) is faulty.",
+        "ur": "Indicator 1 solid red: manual ke mutabiq battery power control module (ESCU) faulty hai."
+      },
+      "causes": [
+        {
+          "en": "Internal circuit fault in the ESCU, e.g. alarm 3001 Abnormal battery power control module.",
+          "ur": "ESCU ka internal circuit fault, maslan alarm 3001 Abnormal battery power control module."
+        },
+        {
+          "en": "Fuse blown inside the ESCU, e.g. alarm 3003.",
+          "ur": "ESCU ke andar fuse udd gaya, maslan alarm 3003."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the numeric alarm in the app - steady red narrows it to 3001/3003 territory, it does not identify the cause.",
+          "ur": "App par numeric alarm padhein - steady red use 3001/3003 ki taraf narrows karta hai, wajah nahi batata."
+        },
+        {
+          "en": "Power off all three switches and wait 5 minutes before opening the cabinet.",
+          "ur": "Cabinet kholne se pehle teeno switches band karke 5 minute intezaar karein."
+        },
+        {
+          "en": "If 3003, verify the fuse rating against the manual before fitting a new one; a wrong rating is a fire risk.",
+          "ur": "Agar 3003 hai to naya fuse lagane se pehle manual ke mutabiq rating verify karein; galat rating aag ka khatra hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Indicator 1 steady red",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Tables 6-3 and 6-4 indicator definitions",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "Indicator 2 Steady red",
+      "aliases": [
+        "Indicator 2 Steady red",
+        "Battery expansion module fault",
+        "Pack fault LED"
+      ],
+      "title": {
+        "en": "Expansion Module Fault",
+        "ur": "Expansion module fault hai"
+      },
+      "meaning": {
+        "en": "Indicator 2 solid red: the manual states the battery expansion module is faulty.",
+        "ur": "Indicator 2 solid red: manual ke mutabiq battery expansion module faulty hai."
+      },
+      "causes": [
+        {
+          "en": "Internal circuit fault in the pack, e.g. alarm 3006 Abnormal battery expansion module.",
+          "ur": "Pack ka internal circuit fault, maslan alarm 3006 Abnormal battery expansion module."
+        },
+        {
+          "en": "Pack cable disconnected or pack short circuit, e.g. alarms 3007 or 3010.",
+          "ur": "Pack ka cable disconnect hai ya pack short hai, maslan alarms 3007 ya 3010."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the numeric alarm in the app and identify the pack position before touching connectors.",
+          "ur": "Connectors chhune se pehle app par numeric alarm padhein aur pack position pehchan lein."
+        },
+        {
+          "en": "Power off all three switches, wait 5 minutes, then reseat and torque the pack power and communication terminals.",
+          "ur": "Teeno switches band karke 5 minute intezaar karein, phir pack power aur communication terminals dobara lagake torque karein."
+        },
+        {
+          "en": "If steady red returns with terminals proven sound, plan module replacement - the pack has failed internally.",
+          "ur": "Agar terminals theek hone ke baad bhi steady red aaye to module replacement plan karein - pack andar se fail ho chuka hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Indicator 2 steady red",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Tables 6-3 and 6-4 indicator definitions",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "Capsule-shaped indicator Blinking white at short intervals",
+      "aliases": [
+        "Capsule-shaped indicator Blinking white at short intervals",
+        "Device upgrade and maintenance status"
+      ],
+      "title": {
+        "en": "Device upgrade and maintenance in progress",
+        "ur": "Device upgrade aur maintenance chal raha hai"
+      },
+      "meaning": {
+        "en": "The capsule-shaped indicator blinks white at short intervals while a firmware upgrade or local maintenance runs.",
+        "ur": "Capsule-shaped indicator short intervals par white blink karta hai jab firmware upgrade ya local maintenance chal raha hota hai."
+      },
+      "causes": [
+        {
+          "en": "Firmware upgrade or local maintenance session active on the ESS.",
+          "ur": "ESS par firmware upgrade ya local maintenance session chal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not cut power during this state; an interrupted upgrade can leave the unit uncommissioned.",
+          "ur": "Is state mein power na katte hain; upgrade interrupt hone se unit uncommissioned reh sakta hai."
+        },
+        {
+          "en": "After the upgrade the manual expects an automatic restart with the indicator settling to steady white.",
+          "ur": "Upgrade ke baad manual ko automatic restart aur indicator ke steady white par settle hona expect karta hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Capsule-shaped indicator blinking white at short intervals (on 0.2s, off 0.2s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Tables 6-3 and 6-4 indicator definitions",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "Capsule-shaped indicator Blinking white at long intervals",
+      "aliases": [
+        "Capsule-shaped indicator Blinking white at long intervals",
+        "Indicator pulsating during operation"
+      ],
+      "title": {
+        "en": "Indicator pulsating during operation",
+        "ur": "Operation ke dauran indicator pulsate kar raha hai"
+      },
+      "meaning": {
+        "en": "The capsule-shaped indicator blinks white at long intervals while the ESS is charging or discharging.",
+        "ur": "Capsule-shaped indicator long intervals par white blink karta hai jab ESS charge ya discharge ho rahi hai."
+      },
+      "causes": [
+        {
+          "en": "Normal charge or discharge activity.",
+          "ur": "Normal charge ya discharge activity."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed; the circular SOC indicator carries the actual SOC reading.",
+          "ur": "Koi action zaroori nahi; actual SOC circular SOC indicator par dikhta hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Capsule-shaped indicator blinking white at long intervals (on 2s, off 2s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Tables 6-3 and 6-4 indicator definitions",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "First power-on: both indicators blink white slowly 3 times, SOC shows after capsule blinks 3 times, capsule steady on",
+      "aliases": [
+        "First power-on: both indicators blink white slowly 3 times, SOC shows after capsule blinks 3 times, capsule steady on",
+        "First power-on sequence",
+        "Black start sequence"
+      ],
+      "title": {
+        "en": "First power-on / black-start sequence",
+        "ur": "First power-on / black start sequence"
+      },
+      "meaning": {
+        "en": "Expected first power-on behaviour with no AC input: blink white slowly three times on each module indicator, then the capsule-shaped indicator blinks three times, SOC displays, and the capsule indicator goes steady on.",
+        "ur": "AC input ke baghair expected first power-on behaviour: har module indicator tees baar slowly white blink, phir capsule-shaped indicator tees baar blink, SOC display hota hai, aur capsule indicator steady on ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Correct commissioning behaviour after the black start button is pressed with no AC input.",
+          "ur": "AC input ke baghair black start button dabaya jane ke baad sahi commissioning behaviour."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not treat this pattern as a fault - it is the documented normal first power-on sequence.",
+          "ur": "Is pattern ko fault na samajhein - yeh documented normal first power-on sequence hai."
+        },
+        {
+          "en": "If the sequence stops partway, wait the full window the manual allows before concluding a fault, then check the battery DC switch.",
+          "ur": "Agar sequence beech mein ruk jaye to fault ka faisla karne se pehle manual ki di hui poori window wait karein, phir battery DC switch check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Indicators 1 and 2 blinking white slowly three times; capsule indicator blinking three times then steady on",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Tables 6-3 and 6-4 indicator definitions",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    }
+  ]
+}

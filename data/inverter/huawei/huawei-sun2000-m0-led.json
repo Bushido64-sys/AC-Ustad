@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "brandId": "huawei",
+  "series": {
+    "id": "huawei-sun2000-m0-led",
+    "name": "SUN2000-(8KTL...20KTL)-M0 LED1/LED2/LED3 indicator states (Table 2-2 LED indicator description)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*SUN2000-8KTL-M0*",
+      "*SUN2000-10KTL-M0*",
+      "*SUN2000-12KTL-M0*",
+      "*SUN2000-15KTL-M0*",
+      "*SUN2000-17KTL-M0*",
+      "*SUN2000-20KTL-M0*"
+    ],
+    "notes": "LED behaviour table, NOT a numbered fault-code table. Codes here are the physical LED state strings. Red rows are generic alarm indications with no alarm ID - the technician must open the FusionSolar/SUN2000 app to get the actual numeric alarm. Distinct from SERIES 4 (USL0 LEDs, which add orange backup-mode rows) and SERIES 10 (M2/MG 4-indicator panel)."
+  },
+  "codes": [
+    {
+      "code": "LED1 Steady green + LED2 Steady green",
+      "aliases": [
+        "LED1 Steady green + LED2 Steady green",
+        "Grid-tied mode indication"
+      ],
+      "title": {
+        "en": "Operating in grid-tied mode",
+        "ur": "Grid-tied mode mein chal raha hai (normal)"
+      },
+      "meaning": {
+        "en": "Both running LEDs solid green: the inverter is exporting to the grid normally.",
+        "ur": "Dono running LEDs solid green: inverter normally grid mein power de raha hai."
+      },
+      "causes": [
+        {
+          "en": "Normal operation, AC and DC both live.",
+          "ur": "Normal operation, AC aur DC dono live hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed; this is the healthy state.",
+          "ur": "Koi action zaroori nahi; yeh healthy state hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Table 2-2 LED indicator description",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "LED1 Off / LED2 Off",
+      "aliases": [
+        "LED1 Off / LED2 Off",
+        "DC off"
+      ],
+      "title": {
+        "en": "DC side is off",
+        "ur": "DC band hai"
+      },
+      "meaning": {
+        "en": "Both running LEDs off - the DC input is not live. The AC may still be on, so check the external AC switch.",
+        "ur": "Dono running LEDs off - DC input live nahi hai. AC ab bhi on ho sakta hai, is liye external AC switch check karein."
+      },
+      "causes": [
+        {
+          "en": "DC switch off, or PV voltage below the MPPT startup threshold (night/no irradiance).",
+          "ur": "DC switch off hai, ya PV voltage MPPT startup threshold se kam hai (raat/irradiance nahi)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note the manual caveat: the AC may be on. Verify the external AC switch position before touching the DC side.",
+          "ur": "Manual ka note yaad rakhein: AC on ho sakta hai. DC side chhune se pehle external AC switch ki position verify karein."
+        },
+        {
+          "en": "At night both LEDs being off is normal; re-check after sunrise.",
+          "ur": "Raat mein dono LEDs off hona normal hai; sunrise ke baad dobara check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Table 2-2 LED indicator description",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "LED1 Blinking red at short intervals (0.2s on / 0.2s off)",
+      "aliases": [
+        "LED1 Blinking red at short intervals (0.2s on / 0.2s off)",
+        "DC environmental alarm",
+        "DC env alarm LED"
+      ],
+      "title": {
+        "en": "DC environmental alarm",
+        "ur": "DC environmental alarm (PV side ka masla)"
+      },
+      "meaning": {
+        "en": "LED1 blinking fast red marks an environmental (external) fault on the DC/PV side. The numeric code is in the app.",
+        "ur": "LED1 fast red blink DC/PV side ka environmental (external) fault batata hai. Numeric code app mein hota hai."
+      },
+      "causes": [
+        {
+          "en": "PV string wiring, polarity or insulation problem on the DC side.",
+          "ur": "PV string wiring, polarity ya insulation ka masla DC side par."
+        },
+        {
+          "en": "PV string open-circuit voltage too high or too low.",
+          "ur": "PV string open-circuit voltage bohat zyada ya bohat kam hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Connect with the FusionSolar app to read the numeric alarm ID before touching the DC side.",
+          "ur": "DC side chhune se pehle FusionSolar app se connect karke numeric alarm ID padh lein."
+        },
+        {
+          "en": "Open the app's DC-environmental troubleshooting page; it guides the string to check.",
+          "ur": "App ka DC-environmental troubleshooting page kholein; yeh check karne wali string batata hai."
+        },
+        {
+          "en": "Isolate AC and PV before re-torquing MC4 connectors or re-seating strings.",
+          "ur": "MC4 connectors dobara torque karne ya strings dobara lagane se pehle AC aur PV disconnect karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "LED1 blinking red at short intervals (on 0.2s, off 0.2s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Table 2-2 LED indicator description",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "LED2 Blinking red at short intervals (0.2s on / 0.2s off)",
+      "aliases": [
+        "LED2 Blinking red at short intervals (0.2s on / 0.2s off)",
+        "AC environmental alarm",
+        "AC env alarm LED"
+      ],
+      "title": {
+        "en": "AC environmental alarm",
+        "ur": "AC environmental alarm (grid ka masla)"
+      },
+      "meaning": {
+        "en": "LED2 blinking fast red marks an environmental (external) fault on the AC/grid side. The numeric code is in the app.",
+        "ur": "LED2 fast red blink AC/grid side ka environmental (external) fault batata hai. Numeric code app mein hota hai."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage, frequency or phase imbalance outside the allowed window.",
+          "ur": "Grid voltage, frequency ya phase imbalance allowed window se bahar hai."
+        },
+        {
+          "en": "AC switch open or grid outage.",
+          "ur": "AC switch khula hai ya grid outage hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the numeric alarm ID in the app; it distinguishes 2032-2038 grid alarms from 2051/2061 earth alarms.",
+          "ur": "App mein numeric alarm ID padhein; yeh 2032-2038 grid alarms ko 2051/2061 earth alarms se alag karta hai."
+        },
+        {
+          "en": "Measure grid voltage and frequency at the AC terminals before assuming the inverter is at fault.",
+          "ur": "Inverter ko fault na samajhein, pehle AC terminals par grid voltage aur frequency measure karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "LED2 blinking red at short intervals (on 0.2s, off 0.2s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Table 2-2 LED indicator description",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "LED1 Steady red + LED2 Steady red",
+      "aliases": [
+        "LED1 Steady red + LED2 Steady red",
+        "Steady red / steady red",
+        "Fault indication"
+      ],
+      "title": {
+        "en": "Fault indication (steady red both LEDs)",
+        "ur": "Fault indication (dono LEDs steady red)"
+      },
+      "meaning": {
+        "en": "A fault exists inside the inverter; both running LEDs are solid red.",
+        "ur": "Inverter ke andar fault hai; dono running LEDs solid red hain."
+      },
+      "causes": [
+        {
+          "en": "Internal device fault such as alarm 2064 Device Fault.",
+          "ur": "Internal device fault, maslan alarm 2064 Device Fault."
+        },
+        {
+          "en": "Internal insulation or grounding fault such as 2051, 2061 or 2062.",
+          "ur": "Internal insulation ya grounding fault, maslan 2051, 2061 ya 2062."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Get the numeric alarm ID from the app first - steady red alone does not identify the fault.",
+          "ur": "Pehle app se numeric alarm ID lein - sirf steady red fault ki pehchan nahi karta."
+        },
+        {
+          "en": "Power off in the documented order (AC output switch, then DC input switch) and wait 5 minutes.",
+          "ur": "Documented order se band karein (AC output switch, phir DC input switch) aur 5 minute intezaar karein."
+        },
+        {
+          "en": "Record the alarm ID and Cause ID before restarting; they are what Huawei support needs.",
+          "ur": "Restart karne se pehle alarm ID aur Cause ID note karein; Huawei support ko yahi chahiye hote hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "LED1 steady red, LED2 steady red",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Table 2-2 LED indicator description",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "LED3 Off",
+      "aliases": [
+        "LED3 Off",
+        "No communication"
+      ],
+      "title": {
+        "en": "No communication",
+        "ur": "Communication nahi hai"
+      },
+      "meaning": {
+        "en": "The comms LED is off - the management system is not talking to the inverter.",
+        "ur": "Comms LED off hai - management system inverter se baat nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "Smart Dongle or WiFi not fitted, or the network link is down.",
+          "ur": "Smart Dongle ya WiFi nahi laga, ya network link down hai."
+        },
+        {
+          "en": "The inverter is fully powered down.",
+          "ur": "Inverter poori tarah band hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If the unit is generating, check the dongle LEDs and the router/AP it is registered to.",
+          "ur": "Agar unit generate kar raha hai to dongle LEDs aur uska registered router/AP check karein."
+        },
+        {
+          "en": "If the unit is off, use a multimeter to confirm whether PV and AC are actually energised before assuming a comms fault.",
+          "ur": "Agar unit off hai to comms fault maan lene se pehle multimeter se confirm karein ke PV aur AC actually energized hain ya nahi."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "LED3 off",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Table 2-2 LED indicator description",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    }
+  ]
+}

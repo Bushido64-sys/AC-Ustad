@@ -1,0 +1,1227 @@
+{
+  "schemaVersion": 1,
+  "brandId": "huawei",
+  "series": {
+    "id": "huawei-sun2000-m0-3ph-string",
+    "name": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 (three-phase string inverter, numbered alarm table)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*SUN2000-8KTL-M0*",
+      "*SUN2000-10KTL-M0*",
+      "*SUN2000-12KTL-M0*",
+      "*SUN2000-15KTL-M0*",
+      "*SUN2000-17KTL-M0*",
+      "*SUN2000-20KTL-M0*",
+      "*-M0*"
+    ],
+    "notes": "Huawei severity terms in this table are Major / Minor / Warning, which are NOT the same as the newer Major-alarm-shuts-down convention. Mapped here to stop_pro / check_restart / self_clear. Codes 2001-2072 and 61440 are read on the FusionSolar/SUN2000 app, SmartLogger or NMS - the inverter itself has no display. SEVERITY CONFLICTS with SERIES 3 (USL0): 2063 Overtemperature is Minor here but Major in USL0, and 2065 Upgrade Failed is Minor here but Major in USL0. Do not merge with SERIES 3."
+  },
+  "codes": [
+    {
+      "code": "2001",
+      "aliases": [
+        "2001",
+        "High String Input Voltage",
+        "PV1/PV2 overvoltage"
+      ],
+      "title": {
+        "en": "High String Input Voltage",
+        "ur": "PV string input voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "Too many PV modules are connected in series, so the string open-circuit voltage exceeds the inverter's maximum input voltage.",
+        "ur": "PV string mein modules zyada series mein hain, is liye open-circuit voltage inverter ki maximum se zyada ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Too many modules wired in series in the PV array.",
+          "ur": "PV array mein series mein modules ki tadaad zyada hai."
+        },
+        {
+          "en": "Series count differs per MPPT: Cause ID 1 = PV1 and PV2, Cause ID 2 = PV3 and PV4.",
+          "ur": "Har MPPT par series count alag hai: Cause ID 1 = PV1 aur PV2, Cause ID 2 = PV3 aur PV4."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With the DC switch OFF, measure the string Voc with a multimeter rated 1100 V DC or higher.",
+          "ur": "DC switch OFF kar ke, 1100 V DC ya us se upar wale multimeter se string ka Voc measure karein."
+        },
+        {
+          "en": "Recount the modules in series on the reported string and reconfigure so Voc stays under the inverter maximum.",
+          "ur": "Mashoor string ke series modules dobara gin lein aur configuration aise karein ke Voc inverter ki maximum se kam rahe."
+        },
+        {
+          "en": "Confirm the alarm clears by itself once the array is correctly configured, then re-close the DC switch.",
+          "ur": "Array sahi se configure hone ke baad alarm apne aap khatam hona chahiye, phir DC switch dobara band karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2002",
+      "aliases": [
+        "2002",
+        "DC Arc Fault",
+        "PV arc fault"
+      ],
+      "title": {
+        "en": "DC Arc Fault",
+        "ur": "DC arc fault (PV wiring mein charcha)"
+      },
+      "meaning": {
+        "en": "The PV string power cable is arcing or has a poor/loose connection. Fire risk - treat as urgent.",
+        "ur": "PV string power cable mein arc ya loose connection hai. Aag ka khatra hai - foran dekh lein."
+      },
+      "causes": [
+        {
+          "en": "PV string power cable arcs under load.",
+          "ur": "Load ke waqt PV string power cable mein arc ban raha hai."
+        },
+        {
+          "en": "Loose or poorly crimped MC4 connector. Cause ID 1 = PV1/PV2, Cause ID 2 = PV3/PV4.",
+          "ur": "MC4 connector loose hai ya theek se crimp nahi hua. Cause ID 1 = PV1/PV2, Cause ID 2 = PV3/PV4."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then inspect every MC4 connector on the flagged string in daylight for scorch marks.",
+          "ur": "AC aur PV disconnect kar ke, mashoor string ke har MC4 connector ko din mein dekh kar soor ke nishaan check karein."
+        },
+        {
+          "en": "Re-crimp or replace the affected connector with an approved type; never tape a hot connector.",
+          "ur": "Affected connector ko dobara crimp karein ya approved type se badal dein; garam connector par tape mat lagayein."
+        },
+        {
+          "en": "After clearing, this alarm must be reset manually in the app, then restart the inverter.",
+          "ur": "Fault hatane ke baad yeh alarm app se manually reset karna hota hai, phir inverter restart karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2011",
+      "aliases": [
+        "2011",
+        "String Reversed",
+        "PV polarity reversed"
+      ],
+      "title": {
+        "en": "PV String Reversely Connected",
+        "ur": "PV string ulti polarity se lagi hai"
+      },
+      "meaning": {
+        "en": "A PV string is wired into the inverter with polarity reversed.",
+        "ur": "Koi PV string inverter mein ulti polarity se lagi hai."
+      },
+      "causes": [
+        {
+          "en": "PV string connected to the wrong input / swapped polarity. Cause ID 1-4 map to PV1-PV4.",
+          "ur": "PV string galat input par lagi hai ya polarity swap ho gayi. Cause ID 1-4 PV1 se PV4 tak map hote hain."
+        },
+        {
+          "en": "The string is landed on the wrong MPPT input, so it reads as reversed even when the module-to-string wiring itself is correct.",
+          "ur": "String galat MPPT input par lagi hai, is liye module se string ki wiring sahi hone par bhi yeh reversed nazar aati hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for night or shading so string current drops below 0.5 A before touching anything.",
+          "ur": "Kuch karne se pehle raat ya shadow ka intezaar karein jab tak string current 0.5 A se neeche na gir jaye."
+        },
+        {
+          "en": "Set the DC SWITCH to OFF, then correct the string polarity at the input terminals.",
+          "ur": "DC SWITCH ko OFF karein, phir input terminals par string ki polarity theek karein."
+        },
+        {
+          "en": "Re-measure polarity with a DC voltmeter (positive reading on the marked + input) before switching DC back on.",
+          "ur": "DC wapas on karne se pehle DC voltmeter se polarity dobara check karein (marked + input par positive reading aaye)."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2012",
+      "aliases": [
+        "2012",
+        "String Current Backfeed",
+        "String mismatch"
+      ],
+      "title": {
+        "en": "String Current Backfeed",
+        "ur": "String current backfeed (shorter string ka current)"
+      },
+      "meaning": {
+        "en": "Too few modules in series on one string, so its end voltage is lower than the parallel strings and current flows back into it.",
+        "ur": "Ek string mein modules kam hain, is liye uska end voltage parallel strings se kam hai aur current wapas us mein ja raha hai."
+      },
+      "causes": [
+        {
+          "en": "Fewer modules in series on this string than on the strings running parallel with it (Cause ID 1-4 = PV1-PV4).",
+          "ur": "Is string mein parallel wali doosri strings se modules kam hain (Cause ID 1-4 = PV1-PV4)."
+        },
+        {
+          "en": "Partial shading on this string only.",
+          "ur": "Sirf is string par partial shading hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Count series modules on the flagged string and compare with the parallel strings; equalise the counts.",
+          "ur": "Mashoor string ke series modules gin kar parallel strings se compare karein; tadaad barabar karein."
+        },
+        {
+          "en": "Wait until string current falls below 0.5 A, set DC SWITCH to OFF, then adjust the module count.",
+          "ur": "Jab tak string current 0.5 A se neeche na gir jaye, wait karein, DC SWITCH OFF karke module ki tadaad adjust karein."
+        },
+        {
+          "en": "Check for shading with an irradiance meter or by inspecting at different sun angles, then verify string Voc is normal.",
+          "ur": "Shading check karne ke liye irradiance meter use karein ya alag alag dhoop ke angles par dekhein, phir string ka Voc normal check karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2031",
+      "aliases": [
+        "2031",
+        "Output phase wire short-circuited to PE"
+      ],
+      "title": {
+        "en": "Output Phase Wire Short-Circuit to PE",
+        "ur": "Output phase wire PE se short ho gaya"
+      },
+      "meaning": {
+        "en": "Impedance of an output phase wire to PE is low or short-circuited, so the inverter has earthed the AC output.",
+        "ur": "Output phase wire ka PE se impedance kam hai ya short, is liye inverter ne AC output disconnect kar diya."
+      },
+      "causes": [
+        {
+          "en": "Damaged AC cable insulation touching the PE conductor or enclosure metal.",
+          "ur": "AC cable ki insulation kharab hai aur woh PE conductor ya enclosure metal ko chhu rahi hai."
+        },
+        {
+          "en": "Water or moisture tracking inside the AC output gland.",
+          "ur": "AC output gland ke andar paani ya nami leakage ho rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open AC switch first, lock it out, and tag it before any measurement.",
+          "ur": "Pehle AC switch kholein, lock out karein aur tag lagayein, phir koi bhi measurement karein."
+        },
+        {
+          "en": "Measure each phase conductor to PE with a megohmmeter and find the low-impedance leg.",
+          "ur": "Har phase conductor ko PE ke against megohmmeter se measure karke kam impedance wali leg dhoondein."
+        },
+        {
+          "en": "Replace the damaged cable section or gland, then re-test before re-energising.",
+          "ur": "Kharab cable section ya gland badal dein, phir dobara test karke hi energise karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2032",
+      "aliases": [
+        "2032",
+        "Grid Failure",
+        "No AC / grid outage"
+      ],
+      "title": {
+        "en": "Grid Failure",
+        "ur": "Grid failure (AC ya grid ka nahi chalna)"
+      },
+      "meaning": {
+        "en": "The inverter has lost the grid or the AC supply. Usually clears automatically once the grid is back.",
+        "ur": "Inverter ne grid ya AC supply khoya hai. Grid aane par khud ba khud theek ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "The power grid has an outage (Cause ID 1).",
+          "ur": "Grid mein outage hai (Cause ID 1)."
+        },
+        {
+          "en": "The AC circuit is disconnected or the AC switch is off.",
+          "ur": "AC circuit disconnect hai ya AC switch band hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure AC voltage at the inverter terminals with a multimeter to confirm the grid is present.",
+          "ur": "Confirm karne ke liye multimeter se inverter terminals par AC voltage measure karein."
+        },
+        {
+          "en": "Check the AC switch and the AC cable terminations for a loose or open connection.",
+          "ur": "AC switch aur AC cable ke terminations ko loose ya khuli connection ke liye check karein."
+        },
+        {
+          "en": "Do not force a reset while the grid is absent; the inverter will retry on its own.",
+          "ur": "Grid ki absence mein zor se reset na karein; inverter apne aap retry karega."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2033",
+      "aliases": [
+        "2033",
+        "Grid Undervoltage",
+        "LVRT trip"
+      ],
+      "title": {
+        "en": "Grid Undervoltage",
+        "ur": "Grid undervoltage (voltage kam)"
+      },
+      "meaning": {
+        "en": "Grid voltage fell below the undervoltage threshold, or stayed low longer than the LVRT period.",
+        "ur": "Grid voltage undervoltage threshold se neeche gir gaya, ya LVRT time se zyada der kam raha."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage below the lower threshold (Cause ID 1).",
+          "ur": "Grid voltage lower threshold se kam hai (Cause ID 1)."
+        },
+        {
+          "en": "Undervoltage lasted longer than the configured LVRT value.",
+          "ur": "Undervoltage configured LVRT value se zyada der raha."
+        },
+        {
+          "en": "Heavy load on a weak local distribution line, common on Pakistani feeder faults.",
+          "ur": "Kamzor local distribution line par heavy load — Pakistan mein feeder fault par aam baat hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage at the inverter AC terminals under load, not at an empty socket.",
+          "ur": "Grid voltage inverter ke AC terminals par load ke saath measure karein, khali socket par nahi."
+        },
+        {
+          "en": "Check the AC switch and output power cable connection if the fault persists for a long time.",
+          "ur": "Agar fault lambe arse tak rahe to AC switch aur output power cable ki connection check karein."
+        },
+        {
+          "en": "Only with the power operator's consent, adjust the undervoltage threshold via app, SmartLogger or NMS.",
+          "ur": "Sirf power operator ki ijazat se app, SmartLogger ya NMS par undervoltage threshold change karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2034",
+      "aliases": [
+        "2034",
+        "Grid Overvoltage",
+        "HVRT trip"
+      ],
+      "title": {
+        "en": "Grid Overvoltage",
+        "ur": "Grid overvoltage (voltage zyada)"
+      },
+      "meaning": {
+        "en": "Grid voltage rose above the upper threshold, or stayed high longer than the HVRT period.",
+        "ur": "Grid voltage upper threshold se upar chala gaya, ya HVRT period se zyada der high raha."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage beyond the upper threshold (Cause ID 1).",
+          "ur": "Grid voltage upper threshold se upar hai (Cause ID 1)."
+        },
+        {
+          "en": "High voltage persisted longer than the configured HVRT value.",
+          "ur": "High voltage configured HVRT value se zyada der raha."
+        },
+        {
+          "en": "Long cable run to the inverter raises the voltage seen at the AC terminals at peak generation.",
+          "ur": "Inverter tak lamba cable peak generation par AC terminals par voltage barha deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage at the inverter AC terminals and log the peak value over one clear day.",
+          "ur": "Inverter ke AC terminals par grid voltage measure karein aur ek saaf din ka peak value note karein."
+        },
+        {
+          "en": "If voltage is genuinely above the utility limit, report it to the local power operator.",
+          "ur": "Agar voltage waqai utility ki limit se upar hai to local power operator ko report karein."
+        },
+        {
+          "en": "Do not raise the threshold on your own; it needs the operator's written consent.",
+          "ur": "Apne aap threshold barhana nahi hai; uske liye operator ki likhit ijazat chahiye."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2035",
+      "aliases": [
+        "2035",
+        "Unbalanced Grid Voltage",
+        "Grid phase imbalance"
+      ],
+      "title": {
+        "en": "Unbalanced Grid Voltage",
+        "ur": "Unbalanced grid voltage (phase voltage ka farq)"
+      },
+      "meaning": {
+        "en": "The difference between grid phase voltages exceeds the upper threshold.",
+        "ur": "Grid phase voltages ka farq upper threshold se zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Phase-to-phase voltage difference above the upper limit (Cause ID 1).",
+          "ur": "Phase-to-phase voltage ka farq upper limit se upar hai (Cause ID 1)."
+        },
+        {
+          "en": "Single-phase loads badly distributed across the three phases.",
+          "ur": "Teen phases par single-phase load khayal se baant na ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure all three phase-to-neutral voltages with a clamp meter or multimeter and record them.",
+          "ur": "Clamp meter ya multimeter se teenon phase-to-neutral voltages measure kar record karein."
+        },
+        {
+          "en": "Check the AC output power cable terminations for a loose high-resistance connection on one phase.",
+          "ur": "AC output power cable ke terminations check karein ke kisi ek phase par loose connection to nahi hai."
+        },
+        {
+          "en": "If cabling is sound, report the persistent imbalance to the local power operator.",
+          "ur": "Agar wiring theek hai to lambe arse ki imbalance local power operator ko report karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2036",
+      "aliases": [
+        "2036",
+        "Grid Overfrequency"
+      ],
+      "title": {
+        "en": "Grid Overfrequency",
+        "ur": "Grid overfrequency"
+      },
+      "meaning": {
+        "en": "Actual grid frequency is higher than the standard required for the local grid.",
+        "ur": "Actual grid frequency local grid ke standard se zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency above the local standard limit (Cause ID 1).",
+          "ur": "Grid frequency local standard limit se upar hai (Cause ID 1)."
+        },
+        {
+          "en": "Generator-backed supply or a lightly loaded feeder running at over-frequency.",
+          "ur": "Generator se chalti supply ya halki load par chal raha feeder over-frequency par."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the live frequency from the inverter display/app, not from a cheap clamp meter.",
+          "ur": "Live frequency inverter ki app ya display se dekhein, sasti clamp meter se nahi."
+        },
+        {
+          "en": "If it is occasional, wait for the grid to normalise; the inverter auto-recovers.",
+          "ur": "Agar baar baar nahi hai to grid normal hone ka intezaar karein; inverter khud recover ho jata hai."
+        },
+        {
+          "en": "If frequent, log the frequency and report to the power operator; adjust threshold only with their consent.",
+          "ur": "Agar baar baar ho to frequency note karke power operator ko batayein; threshold sirf unhi ki ijazat se badlein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2037",
+      "aliases": [
+        "2037",
+        "Grid Underfrequency"
+      ],
+      "title": {
+        "en": "Grid Underfrequency",
+        "ur": "Grid underfrequency"
+      },
+      "meaning": {
+        "en": "Actual grid frequency is lower than the standard required for the local grid.",
+        "ur": "Actual grid frequency local grid ke standard se kam hai."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency below the local standard limit (Cause ID 1).",
+          "ur": "Grid frequency local standard limit se kam hai (Cause ID 1)."
+        },
+        {
+          "en": "Heavy generator loading on a weak local grid pulling frequency down.",
+          "ur": "Kamzor local grid par generator ka heavy load frequency gir raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the live frequency on the inverter app while recording whether load shedding is happening upstream.",
+          "ur": "Inverter app par live frequency dekhein aur note karein ke upstream par load shedding ho rahi hai ya nahi."
+        },
+        {
+          "en": "If occasional, let the inverter auto-recover once frequency returns inside the window.",
+          "ur": "Agar occasional hai to frequency window mein wapas aane par inverter ko khud recover hone dein."
+        },
+        {
+          "en": "If frequent, report to the power operator before touching the underfrequency threshold.",
+          "ur": "Agar baar baar ho to underfrequency threshold chhune se pehle power operator ko batayein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2038",
+      "aliases": [
+        "2038",
+        "Unstable Grid Frequency"
+      ],
+      "title": {
+        "en": "Unstable Grid Frequency",
+        "ur": "Grid frequency unstable hai"
+      },
+      "meaning": {
+        "en": "The rate of change of grid frequency does not comply with the local grid standard.",
+        "ur": "Grid frequency ka badalne ki rate local grid standard ke mutabiq nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency change rate violates the local grid code (Cause ID 1).",
+          "ur": "Grid frequency change rate local grid code ka khilaf hai (Cause ID 1)."
+        },
+        {
+          "en": "Large motor or generator starting/stopping on the same feeder.",
+          "ur": "Usi feeder par koi bada motor ya generator start/stop ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Log frequency over time in the app or NMS and note the timestamps of large loads switching.",
+          "ur": "App ya NMS par time ke saath frequency log karein aur bade loads switch hone ke time note karein."
+        },
+        {
+          "en": "Check whether a neighbour generator or large motor starts exactly when the alarm appears.",
+          "ur": "Check karein ke alarm kaane waqt hi koi padosi ka generator ya bada motor start hota hai ya nahi."
+        },
+        {
+          "en": "If cabling and load are fine, report the unstable frequency to the power operator.",
+          "ur": "Agar wiring aur load theek hain to power operator ko unstable frequency report karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2039",
+      "aliases": [
+        "2039",
+        "Output Overcurrent"
+      ],
+      "title": {
+        "en": "Output Overcurrent",
+        "ur": "Output overcurrent (AC current zyada)"
+      },
+      "meaning": {
+        "en": "A sudden grid voltage drop or a short circuit pushed the inverter's transient output current above the protection threshold.",
+        "ur": "Grid voltage ka sudden girna ya short circuit ne inverter ke transient output current ko protection threshold se upar le jaaya."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage drops dramatically or the grid is short-circuited (Cause ID 1).",
+          "ur": "Grid voltage achanak gir gaya ya grid short ho gaya (Cause ID 1)."
+        },
+        {
+          "en": "Inverter transient output current exceeded the upper threshold, tripping protection.",
+          "ur": "Inverter ka transient output current upper threshold se upar gaya aur protection chali."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "First let the inverter auto-recover; it monitors external conditions in real time.",
+          "ur": "Pehle inverter ko khud recover hone dein; yeh real time par external conditions monitor karta hai."
+        },
+        {
+          "en": "If the alarm repeats and cuts production, isolate AC and check the output circuit for a short with a multimeter.",
+          "ur": "Agar alarm dohray aur production roke to AC isolate kar ke multimeter se output circuit mein short check karein."
+        },
+        {
+          "en": "Check the AC cable terminations and the AC switch for a hot or loose joint.",
+          "ur": "AC cable terminations aur AC switch ko garam ya loose joint ke liye check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2040",
+      "aliases": [
+        "2040",
+        "Output DC Component Overhigh"
+      ],
+      "title": {
+        "en": "Output DC Component Overhigh",
+        "ur": "Output ka DC component zyada hai"
+      },
+      "meaning": {
+        "en": "The DC component of the inverter's output current exceeded the specified upper threshold.",
+        "ur": "Inverter output current ka DC component specified upper threshold se upar chala gaya."
+      },
+      "causes": [
+        {
+          "en": "DC component of the SUN2000 output current exceeded the upper limit (Cause ID 1).",
+          "ur": "SUN2000 output current ka DC component upper limit se upar gaya (Cause ID 1)."
+        },
+        {
+          "en": "Distorted or unstable grid waveform from a weak or overloaded feeder.",
+          "ur": "Kamzor ya overloaded feeder se grid waveform bigda hua ya unstable hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Record the live waveform and frequency on the inverter app before any hardware work.",
+          "ur": "Koi hardware kaam karne se pehle inverter app par live waveform aur frequency record karein."
+        },
+        {
+          "en": "If it repeats, isolate AC and verify the PE and N connections are correct and tight.",
+          "ur": "Agar dohraye to AC isolate karke PE aur N connections sahi aur mazboot hain check karein."
+        },
+        {
+          "en": "If the grid waveform is the cause, report the distortion to the power operator rather than changing the inverter.",
+          "ur": "Agar wajah grid waveform hai to inverter badalne ke bajaye power operator ko distortion batayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2051",
+      "aliases": [
+        "2051",
+        "Abnormal Residual Current",
+        "Riso / leakage current"
+      ],
+      "title": {
+        "en": "Abnormal Residual Current",
+        "ur": "Abnormal residual current (leakage current zyada)"
+      },
+      "meaning": {
+        "en": "Insulation impedance from the input side to PE fell while the inverter was running, so the RCD/residual-current protection acted.",
+        "ur": "Inverter chalte waqt input side se PE ki insulation impedance gir gayi, is liye RCD ne kaam kiya."
+      },
+      "causes": [
+        {
+          "en": "Insulation impedance of the input side to PE decreased during operation (Cause ID 1).",
+          "ur": "Chalne ke dauran input side se PE ki insulation impedance kam ho gayi (Cause ID 1)."
+        },
+        {
+          "en": "Wet, dusty or rodent-damaged PV string insulation after monsoon humidity.",
+          "ur": "Monsoon humidity ke baad geeli, dhool bhari ya chuhe se kharab PV string insulation."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then measure each string's resistance to PE with a megohmmeter at 500 V or 1000 V test voltage.",
+          "ur": "AC aur PV disconnect kar ke, har string ka PE ke against resistance 500 V ya 1000 V test voltage par megohmmeter se measure karein."
+        },
+        {
+          "en": "Split the array string by string to find the wet or damaged section; look for cracked backsheets and chewed cables.",
+          "ur": "Har string ko alag alag karke geela ya kharab hissa dhoondein; cracked backsheet aur chuhiye se kaata cable dekhein."
+        },
+        {
+          "en": "Dry the affected connectors, replace damaged insulation, and only then reset the protection threshold.",
+          "ur": "Affected connectors ko sukha dein, kharab insulation badal dein, phir hi protection threshold reset karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2061",
+      "aliases": [
+        "2061",
+        "Abnormal Grounding",
+        "PE / N earth fault"
+      ],
+      "title": {
+        "en": "Abnormal Grounding",
+        "ur": "Abnormal grounding (earth connection kharab)"
+      },
+      "meaning": {
+        "en": "The PE cable or neutral-earth arrangement is wrong, so the inverter's residual voltage check tripped.",
+        "ur": "PE cable ya neutral-earth ka connection ghalat hai, is liye inverter ka residual voltage check chala."
+      },
+      "causes": [
+        {
+          "en": "The N cable or ground cable is not connected (Cause ID 1).",
+          "ur": "N cable ya ground cable connected nahi hai (Cause ID 1)."
+        },
+        {
+          "en": "When the PV array is earthed, the inverter output is not connected to an isolation transformer.",
+          "ur": "PV array grounded hone par inverter output isolation transformer se connected nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the inverter and verify the PE cable is bonded to the enclosure earth stud with a low-resistance joint.",
+          "ur": "Inverter band karein aur check karein ke PE cable enclosure earth stud se kam resistance ke joint se lagi hai."
+        },
+        {
+          "en": "On a TN grid, measure the neutral-to-earth voltage; it should be near zero.",
+          "ur": "TN grid par neutral-to-earth voltage measure karein; yeh lagbhag zero hona chahiye."
+        },
+        {
+          "en": "If an isolation transformer is fitted, set Grounding inspection to Disable via app, SmartLogger or NMS.",
+          "ur": "Agar isolation transformer laga hai to app, SmartLogger ya NMS par Grounding inspection ko Disable karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2062",
+      "aliases": [
+        "2062",
+        "Low Insulation Resistance",
+        "PV insulation fault"
+      ],
+      "title": {
+        "en": "Low Insulation Resistance",
+        "ur": "Low insulation resistance (PV insulation kam)"
+      },
+      "meaning": {
+        "en": "The PV array's resistance to ground is too low: either a short to PE, or damp air has degraded the insulation between modules and ground.",
+        "ur": "PV array ka ground ke against resistance kam hai: ya to PE se short hai, ya damp weather mein module aur ground ke darmiyan insulation kharab ho gaya."
+      },
+      "causes": [
+        {
+          "en": "PV array is short-circuited with PE (Cause ID 1).",
+          "ur": "PV array PE se short ho gaya hai (Cause ID 1)."
+        },
+        {
+          "en": "Ambient air around the PV array is damp, so insulation between array and ground is poor.",
+          "ur": "PV array ke aas paas ka hawa damp hai, is liye array aur ground ke darmiyan insulation kamzor hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV first; then measure the array-to-ground output resistance with a megohmmeter.",
+          "ur": "Pehle AC aur PV disconnect karein; phir megohmmeter se array-to-ground output resistance measure karein."
+        },
+        {
+          "en": "Confirm the inverter PE cable is correctly connected before hunting array faults.",
+          "ur": "Array fault dhoondne se pehle confirm karein ke inverter ka PE cable theek se connected hai."
+        },
+        {
+          "en": "Clean and dry connectors, replace cracked MC4 parts, and re-measure before resetting the threshold.",
+          "ur": "Connectors saaf aur sukha karein, cracked MC4 parts badal dein, aur threshold reset karne se pehle dobara measure karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2063",
+      "aliases": [
+        "2063",
+        "Overtemperature",
+        "Inverter overtemperature"
+      ],
+      "title": {
+        "en": "Overtemperature",
+        "ur": "Overtemperature (inverter garm ho gaya)"
+      },
+      "meaning": {
+        "en": "The inverter's internal temperature is high - poor ventilation, high ambient, or a unit fault.",
+        "ur": "Inverter ka andar ka temperature zyada hai - ventilation kam, ambient zyada, ya unit mein kharabi."
+      },
+      "causes": [
+        {
+          "en": "SUN2000 installed where ventilation is poor (Cause ID 1).",
+          "ur": "SUN2000 aise jagah lagai hai jahan ventilation kam hai (Cause ID 1)."
+        },
+        {
+          "en": "Ambient temperature exceeds the upper threshold.",
+          "ur": "Ambient temperature upper threshold se zyada hai."
+        },
+        {
+          "en": "The SUN2000 is not working properly (internal or fan fault).",
+          "ur": "SUN2000 theek nahi chal raha (internal ya fan fault)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure ambient temperature at the installation point with an IR or contact thermometer.",
+          "ur": "Installation point par IR ya contact thermometer se ambient temperature measure karein."
+        },
+        {
+          "en": "Check for blocked air paths, a hot wall behind the unit, or stacked equipment above it; clear at least the documented clearance.",
+          "ur": "Blocked air paths, unit ke peechhe garm deewar ya upar rakhte samay equipment check karein; kam az kam documented clearance rakhein."
+        },
+        {
+          "en": "Confirm the internal fan runs (M0 is fanless - an audible fan means a different model); on fan models clean the fan and filter.",
+          "ur": "Confirm karein ke internal fan chal raha hai (M0 fanless hai - sunai de raha fan matlab model hi different hai); fan wale models par fan aur filter saaf karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2064",
+      "aliases": [
+        "2064",
+        "Device Fault",
+        "Internal circuit fault"
+      ],
+      "title": {
+        "en": "Device Fault",
+        "ur": "Device fault (inverter ki andar ki kharabi)"
+      },
+      "meaning": {
+        "en": "An unrecoverable fault occurred on a circuit inside the inverter. Cause IDs 1-12 identify which internal circuit.",
+        "ur": "Inverter ke andar kisi circuit par unrecoverable fault aaya hai. Cause ID 1-12 batata hai ke kaun sa circuit."
+      },
+      "causes": [
+        {
+          "en": "Unrecoverable fault on an internal circuit, Cause ID 1-12.",
+          "ur": "Internal circuit par unrecoverable fault, Cause ID 1-12."
+        },
+        {
+          "en": "The fault is current-dependent: the manual's note that Cause ID 1 must be handled only below 1 A PV string current shows this circuit trips on load, not at rest.",
+          "ur": "Fault current par depend karta hai: manual ka note ke Cause ID 1 ko sirf 1 A PV string current se neeche handle karna hai, is liye yeh circuit load par trip karta hai, khud to nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the AC output switch, then the DC input switch, and wait 5 minutes before doing anything.",
+          "ur": "AC output switch band karein, phir DC input switch band karein, aur kuch karne se pehle 5 minute intezaar karein."
+        },
+        {
+          "en": "Turn them back on in the reverse order and watch the app for the same Cause ID.",
+          "ur": "Ulta order mein on karein aur app par wahi Cause ID dobara aata hai ya nahi dekhein."
+        },
+        {
+          "en": "If Cause ID is 1, do this step only while PV string current is below 1 A, then note the Cause ID for Huawei support.",
+          "ur": "Agar Cause ID 1 hai to yeh kaam sirf PV string current 1 A se kam hone par karein, phir Huawei support ke liye Cause ID note karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2065",
+      "aliases": [
+        "2065",
+        "Upgrade Failed or Software Version Unmatch",
+        "Firmware upgrade failed"
+      ],
+      "title": {
+        "en": "Upgrade Failed / Software Version Mismatch",
+        "ur": "Upgrade fail ya software version mismatch"
+      },
+      "meaning": {
+        "en": "A firmware upgrade did not complete normally. Cause IDs 1, 2 and 4 are listed in this manual.",
+        "ur": "Firmware upgrade normally complete nahi hua. Is manual mein Cause ID 1, 2 aur 4 listed hain."
+      },
+      "causes": [
+        {
+          "en": "The upgrade process did not end normally (Cause ID 1, 2, 4).",
+          "ur": "Upgrade process normally end nahi hua (Cause ID 1, 2, 4)."
+        },
+        {
+          "en": "Inverter stuck in initialisation state with PV inputs disconnected, then reconnected.",
+          "ur": "Inverter initialisation state mein atak gaya, PV inputs disconnect karke dobara connect kiye gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Run the upgrade again using a SanDisk, Netac or Kingston USB flash drive with the script at the root.",
+          "ur": "SanDisk, Netac ya Kingston USB flash drive se upgrade dobara chalayein, script root mein rakhein."
+        },
+        {
+          "en": "Leave PV disconnected during the retry so the unit reaches the upgrade state, then reconnect PV only after the restart.",
+          "ur": "Retry ke dauran PV disconnect chhodein taake unit upgrade state tak pahunche, restart ke baad hi PV dobara connect karein."
+        },
+        {
+          "en": "If it fails several times, record the Cause ID and escalate to Huawei support instead of repeating blindly.",
+          "ur": "Agar kai baar fail ho to Cause ID note karke Huawei support ko batayein, baar baar anjaan retry na karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2066",
+      "aliases": [
+        "2066",
+        "License Expired",
+        "Privilege certificate expired"
+      ],
+      "title": {
+        "en": "License Expired",
+        "ur": "License expire ho gaya (privilege certificate)"
+      },
+      "meaning": {
+        "en": "The privilege certificate has entered its grace period, or the privilege feature will soon become invalid.",
+        "ur": "Privilege certificate grace period mein aa gaya hai, ya privilege feature jald invalid ho jayega."
+      },
+      "causes": [
+        {
+          "en": "The privilege certificate has entered the grace period (Cause ID 1).",
+          "ur": "Privilege certificate grace period mein aa gaya hai (Cause ID 1)."
+        },
+        {
+          "en": "The privilege feature will become invalid soon.",
+          "ur": "Privilege feature jald invalid ho jayega."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Apply for a new certificate for the exact serial number of the unit.",
+          "ur": "Unit ke exact serial number ke liye naya certificate apply karein."
+        },
+        {
+          "en": "Load the new certificate via the app, SmartLogger or NMS and confirm the grace-period alarm clears.",
+          "ur": "Naya certificate app, SmartLogger ya NMS se load karein aur confirm karein ke grace-period alarm khatam ho gaya."
+        },
+        {
+          "en": "Check the inverter's date and time are correct first; a wrong clock can make a valid certificate look expired.",
+          "ur": "Pehle inverter ki date aur time sahi hain ya nahi check karein; galat clock valid certificate ko expired dikha deta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2067",
+      "aliases": [
+        "2067",
+        "Faulty Power Collector",
+        "Power meter comms fault"
+      ],
+      "title": {
+        "en": "Faulty Power Collector",
+        "ur": "Faulty power collector (power meter ki comms)"
+      },
+      "meaning": {
+        "en": "Communication between the inverter and the power meter (collector) has been interrupted.",
+        "ur": "Inverter aur power meter (collector) ke darmiyan communication toot gaya hai."
+      },
+      "causes": [
+        {
+          "en": "The power meter communication is interrupted (Cause ID 1).",
+          "ur": "Power meter ki communication interrupt ho gayi (Cause ID 1)."
+        },
+        {
+          "en": "RS485 wiring polarity swapped or screen at both ends.",
+          "ur": "RS485 wiring ki polarity uli hui hai ya dono taraf se shield nahi hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the power meter model setting in the inverter matches the physical meter model.",
+          "ur": "Confirm karein ke inverter mein power meter ka model setting physical meter ke model se match karta hai."
+        },
+        {
+          "en": "Check the RS485 communication parameters on both the meter and the SUN2000 are identical.",
+          "ur": "Check karein ke RS485 communication parameters meter aur SUN2000 dono par identical hain."
+        },
+        {
+          "en": "Verify the meter is powered and the RS485 cable A/B conductors are correctly terminated.",
+          "ur": "Verify karein ke meter powered hai aur RS485 cable ke A/B conductors sahi terminate hain."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "2072",
+      "aliases": [
+        "2072",
+        "Transient AC Overvoltage"
+      ],
+      "title": {
+        "en": "Transient AC Overvoltage",
+        "ur": "Transient AC overvoltage (momentary voltage spike)"
+      },
+      "meaning": {
+        "en": "The inverter measured an AC phase voltage above its transient overvoltage protection threshold.",
+        "ur": "Inverter ne AC phase voltage ko transient overvoltage protection threshold se upar detect kiya."
+      },
+      "causes": [
+        {
+          "en": "Inverter detected a phase voltage above the transient AC overvoltage threshold (Cause ID 1).",
+          "ur": "Inverter ne transient AC overvoltage threshold se upar phase voltage detect kiya (Cause ID 1)."
+        },
+        {
+          "en": "Switch-on surge from the grid, e.g. when a large capacitor bank or transformer is energised.",
+          "ur": "Grid se switch-on surge, jaise bada capacitor bank ya transformer on hone par."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Log the AC peak voltage in the app during the event to see how far above the threshold it went.",
+          "ur": "Event ke dauran app par AC peak voltage log karein dekhne ke liye ke threshold se kitna upar gaya."
+        },
+        {
+          "en": "If grid connection voltage exceeds the upper limit, report it to the local power operator.",
+          "ur": "Agar grid connection voltage upper limit se upar hai to local power operator ko report karein."
+        },
+        {
+          "en": "Only with operator consent, raise the transient overvoltage threshold via app, SmartLogger or NMS.",
+          "ur": "Sirf operator ki ijazat se app, SmartLogger ya NMS par transient overvoltage threshold barhayein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    },
+    {
+      "code": "61440",
+      "aliases": [
+        "61440",
+        "Monitoring Unit Faulty",
+        "Flash memory fault"
+      ],
+      "title": {
+        "en": "Monitoring Unit Faulty",
+        "ur": "Monitoring unit faulty (flash memory ki kharabi)"
+      },
+      "meaning": {
+        "en": "The monitoring unit's flash memory is insufficient or has bad sectors, so logging and monitoring fail.",
+        "ur": "Monitoring unit ki flash memory kam hai ya us mein bad sectors hain, is liye logging aur monitoring fail ho gayi."
+      },
+      "causes": [
+        {
+          "en": "The flash memory is insufficient (Cause ID 1).",
+          "ur": "Flash memory insufficient hai (Cause ID 1)."
+        },
+        {
+          "en": "The flash memory has bad sectors.",
+          "ur": "Flash memory mein bad sectors hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the AC output switch, then the DC input switch, and wait 5 minutes.",
+          "ur": "AC output switch band karein, phir DC input switch band karein, aur 5 minute intezaar karein."
+        },
+        {
+          "en": "Turn the AC switch on first, then the DC switch, and confirm the alarm clears in the app.",
+          "ur": "Pehle AC switch on karein, phir DC switch, aur app par alarm khatam hone ki tasdeeq karein."
+        },
+        {
+          "en": "If the flash keeps failing, note the serial number and log export and raise a warranty case for the board.",
+          "ur": "Agar flash baar baar fail ho to serial number aur log export note karke board ke liye warranty case raise karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(8KTL, 10KTL, 12KTL, 15KTL, 17KTL, 20KTL)-M0 User Manual, Issue 03 (2019-07-19), Section 7.2 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/-/media/Solar/attachment/pdf/au/service/commercial/SUN2000-8-20KTL-M0-User_Manual.pdf"
+      }
+    }
+  ]
+}

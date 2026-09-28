@@ -1,0 +1,486 @@
+{
+  "schemaVersion": 1,
+  "brandId": "huawei",
+  "series": {
+    "id": "huawei-luna2000-107-215-smartstring-alarmref",
+    "name": "LUNA2000-(107-215) Series Smart String ESS (LUNA2000-215-2S10 / 2S11 / 2S12, 161-2S11, 107-1S11) standalone Alarm Reference",
+    "category": "inverter",
+    "unitType": "generic",
+    "modelPatterns": [
+      "*LUNA2000-215-2S10*",
+      "*LUNA2000-215-2S11*",
+      "*LUNA2000-215-2S12*",
+      "*LUNA2000-161-2S11*",
+      "*LUNA2000-107-1S11*",
+      "*LUNA2000-107-215*"
+    ],
+    "notes": "SUBSET of the table: the source document contains 202 numeric alarms across subsystems (Battery Pack, Balancing Module, BMU, RPCB, DCDC, PCS, LTMS, ESU); the 9 rows here are the safety-critical and Pakistan-plausible subset, chosen to fit the brief's code budget. Codes NOT extracted from this same document include the whole liquid-cooling/HVAC sub-plant (see QUARANTINE) and the Balancing Module / BMU / RPCB / DCDC / PCS long tails. This is the ONLY Huawei solar document found that is a dedicated, numbered, subsystem-organised Alarm Reference (202 codes, 3100-3913) - the format the KB brief anticipated. It is C&I/container scale (215 kWh), not the residential LUNA2000-S1, so use it for plant-level work only. Code strings are exactly as printed, e.g. \"3100\", with sub-variants like \"3107-1\" implied by Reason ID. Severity is Major/Minor/Warning and Clearance Category is ADAC (auto-clear) or ADMC (manual clear). Liquid-cooling/HVAC sub-plant codes 3620-3725 are QUARANTINED - see QUARANTINE. ALARM ID SPACE COLLISION: 3000-3066 exist in BOTH this document's sibling residential tables and the LUNA2000-S0/S1 tables with completely different meanings (e.g. 3100 here is a battery pack alarm, but 3000-3066 in S0/S1 are ESS module alarms). Do not cross-map."
+  },
+  "codes": [
+    {
+      "code": "3100",
+      "aliases": [
+        "3100",
+        "Battery Pack and External Power Connected Abnormally"
+      ],
+      "title": {
+        "en": "Battery Pack and External Power Connected Abnormally",
+        "ur": "Battery pack aur external power ka connection abnormal hai"
+      },
+      "meaning": {
+        "en": "The pack copper bar has overheated, so the pack is locked out of service. ADAC, auto-clears once the bar cools.",
+        "ur": "Pack ka copper bar garm ho gaya hai, is liye pack service se lock ho gaya. ADAC - thanda hone par khud clear ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "The battery pack copper bar experiences overtemperature.",
+          "ur": "Battery pack ka copper bar overtemperature jhel raha hai."
+        },
+        {
+          "en": "Loss of cooling that lets the joint run hot - the manual's fix path is a 30-minute quiescent wait followed by a joint inspection, which is a heat-soak diagnosis, not a sensor fault.",
+          "ur": "Cooling ka loss jis ki wajah se joint garam chalta hai - manual ka ilaaj 30 minute ruke rehne ke baad joint inspection hai, jo heat-soak diagnosis hai, sensor fault nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the ESS is neither charging nor discharging, then wait 30 minutes and check whether the alarm clears.",
+          "ur": "Confirm karein ke ESS na charge ho raha ho na discharge, phir 30 minute intezaar karke check karein ke alarm khatam hua ya nahi."
+        },
+        {
+          "en": "If it persists, power off the ESS per the user manual and wait 5 minutes before opening anything.",
+          "ur": "Agar bana rahe to user manual ke mutabiq ESS band karein aur kuch kholne se pehle 5 minute intezaar karein."
+        },
+        {
+          "en": "Wearing PPE, open the pack front panel and check whether the positive and negative copper bars are loose; tighten the screws if so.",
+          "ur": "PPE pehn kar pack ka front panel kholein aur check karein ke positive aur negative copper bars loose hain ya nahi; loose hon to screws tighten karein."
+        },
+        {
+          "en": "Start the ESS on the user interface afterwards; if the alarm persists, export logs and contact technical support.",
+          "ur": "Uske baad user interface par ESS start karein; alarm bana rahe to logs export karke technical support se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "LUNA2000-(107-215) Series Smart String ESS Alarm Reference, Issue 03 (2025-07-22)",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/fileadmin/user_upload/AlarmReference_LUNA2000-215-2S10_V03_2025-07-22_EN.pdf"
+      }
+    },
+    {
+      "code": "3104",
+      "aliases": [
+        "3104",
+        "Battery Overcurrent Protection"
+      ],
+      "title": {
+        "en": "Battery Overcurrent Protection",
+        "ur": "Battery overcurrent protection (current zyada)"
+      },
+      "meaning": {
+        "en": "Battery current exceeded its upper limit and the protection has engaged. ADMC - must be cleared manually.",
+        "ur": "Battery current apni upper limit se upar gaya aur protection chala. ADMC - manually clear karna hota hai."
+      },
+      "causes": [
+        {
+          "en": "The battery pack current exceeds the upper limit.",
+          "ur": "Battery pack ka current upper limit se upar chala gaya."
+        },
+        {
+          "en": "Power or communications cables of the ESS incorrectly connected.",
+          "ur": "ESS ke power ya communications cables galat se connected hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the power and communications cables of the ESS are correctly connected.",
+          "ur": "Check karein ke ESS ke power aur communications cables theek se connected hain ya nahi."
+        },
+        {
+          "en": "If cables are correct, clear the alarm on the user interface and restart the ESS from there.",
+          "ur": "Agar cables theek hain to user interface par alarm clear karke wahan se ESS restart karein."
+        },
+        {
+          "en": "If cables are wrong, correct them per the user manual and repeat the clear-and-restart step.",
+          "ur": "Agar cables galat hain to user manual ke mutabiq theek karke clear aur restart dohra dein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "LUNA2000-(107-215) Series Smart String ESS Alarm Reference, Issue 03 (2025-07-22)",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/fileadmin/user_upload/AlarmReference_LUNA2000-215-2S10_V03_2025-07-22_EN.pdf"
+      }
+    },
+    {
+      "code": "3107",
+      "aliases": [
+        "3107",
+        "Battery Pack Locked"
+      ],
+      "title": {
+        "en": "Battery Pack Locked",
+        "ur": "Battery pack lock ho gaya hai"
+      },
+      "meaning": {
+        "en": "The pack is locked out, usually after a copper bar or cell insulation problem. ADMC - manual clear required.",
+        "ur": "Pack lock out ho gaya hai, aam tor par copper bar ya cell insulation ki kharabi ke baad. ADMC - manual clear zaroori hai."
+      },
+      "causes": [
+        {
+          "en": "Battery pack copper bar connection is abnormal or the cell has insulation requirements that are not met.",
+          "ur": "Battery pack copper bar ka connection abnormal hai ya cell ki insulation requirements poori nahi hoti."
+        },
+        {
+          "en": "The same loose positive/negative copper bar root cause as alarm 3100, which this document gives an identical troubleshooting path to.",
+          "ur": "Alarm 3100 jaisa hi loose positive/negative copper bar root cause, jis ka is document mein bilkul wahi troubleshooting path hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the ESS is neither charging nor discharging, then clear the alarm on the user interface.",
+          "ur": "Confirm karein ke ESS na charge ho raha ho na discharge, phir user interface par alarm clear karein."
+        },
+        {
+          "en": "If it does not clear, power off the ESS per the manual, wait 5 minutes, and put on protective equipment before opening the pack.",
+          "ur": "Agar clear na ho to manual ke mutabiq ESS band karein, 5 minute intezaar karein, aur pack kholne se pehle protective equipment pehnein."
+        },
+        {
+          "en": "Check the positive and negative copper bar screws for looseness and tighten them; re-start from the user interface.",
+          "ur": "Positive aur negative copper bar ke screws ki looseness check karke tighten karein; phir user interface se dobara start karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "LUNA2000-(107-215) Series Smart String ESS Alarm Reference, Issue 03 (2025-07-22)",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/fileadmin/user_upload/AlarmReference_LUNA2000-215-2S10_V03_2025-07-22_EN.pdf"
+      }
+    },
+    {
+      "code": "3116",
+      "aliases": [
+        "3116",
+        "PACK Thermal Runaway"
+      ],
+      "title": {
+        "en": "PACK Thermal Runaway",
+        "ur": "PACK thermal runaway (pack mein aag/smoke ka khatra)"
+      },
+      "meaning": {
+        "en": "A battery pack has abnormal temperature and poses thermal runaway risk. This is a life-safety event, not a service call.",
+        "ur": "Battery pack ka temperature abnormal hai aur thermal runaway ka khatra hai. Yeh zindagi ki safety ka masla hai, service call nahi."
+      },
+      "causes": [
+        {
+          "en": "The battery pack has abnormal temperature and thermal runaway risk.",
+          "ur": "Battery pack ka temperature abnormal hai aur thermal runaway ka khatra hai."
+        },
+        {
+          "en": "A cell-level fault such as overvoltage, undervoltage or sampling abnormality.",
+          "ur": "Cell level fault jaise overvoltage, undervoltage ya sampling abnormality."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Observe the system remotely for 30 minutes. During observation do NOT approach the ESS or open the cabin doors.",
+          "ur": "System ko remote 30 minute dekhein. Is dauran ESS ke paas mat jayein aur cabin doors mat kholein."
+        },
+        {
+          "en": "Watch for other exceptions during that window: abnormal battery voltage, abnormal battery temperature, combustible gas concentration.",
+          "ur": "Us window mein baaki exceptions dekhein: abnormal battery voltage, abnormal battery temperature, combustible gas concentration."
+        },
+        {
+          "en": "If no exception is found in 30 minutes, send trained personnel to observe; if a thermal event is confirmed, evacuate and call emergency services.",
+          "ur": "Agar 30 minute mein koi exception nahi mila to trained personnel bhej ke observation karwayein; thermal event confirm ho to evacuate karke emergency services bulayein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "LUNA2000-(107-215) Series Smart String ESS Alarm Reference, Issue 03 (2025-07-22)",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/fileadmin/user_upload/AlarmReference_LUNA2000-215-2S10_V03_2025-07-22_EN.pdf"
+      }
+    },
+    {
+      "code": "3408",
+      "aliases": [
+        "3408",
+        "DCDC Liquid Cooling Abnormal"
+      ],
+      "title": {
+        "en": "DCDC Liquid Cooling Abnormal",
+        "ur": "DCDC liquid cooling abnormal hai"
+      },
+      "meaning": {
+        "en": "The DC-DC converter's liquid cooling has faulted or its I/O self-test failed, so battery temperature cannot be controlled.",
+        "ur": "DC-DC converter ki liquid cooling fault ho gayi ya uska I/O self-test fail hua, is liye battery temperature control nahi ho sakti."
+      },
+      "causes": [
+        {
+          "en": "The DCDC liquid cooling has faulted.",
+          "ur": "DCDC liquid cooling fault ho gayi hai."
+        },
+        {
+          "en": "The DCDC I/O self-test is abnormal - the manual lists this separately from the cooling fault in the same sentence.",
+          "ur": "DCDC ka I/O self-test abnormal hai - manual ise usi sentence mein cooling fault se alag list karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the ESS per the manual, then check that the DCDC communications port and the RCM CON4 communications port are both securely connected.",
+          "ur": "Manual ke mutabiq ESS band karein, phir check karein ke DCDC communications port aur RCM ka CON4 communications port dono securely connected hain."
+        },
+        {
+          "en": "After 5 minutes, power on the ESS per the manual and reset the system on the user interface.",
+          "ur": "5 minute baad manual ke mutabiq ESS power on karke user interface par system reset karein."
+        },
+        {
+          "en": "If the alarm persists, export logs and contact technical support - a cooling fault left unattended overheats the packs.",
+          "ur": "Agar alarm bana rahe to logs export karke technical support se rabta karein - cooling fault ko nazarandaz kiya jaye to packs garm ho jate hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "LUNA2000-(107-215) Series Smart String ESS Alarm Reference, Issue 03 (2025-07-22)",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/fileadmin/user_upload/AlarmReference_LUNA2000-215-2S10_V03_2025-07-22_EN.pdf"
+      }
+    },
+    {
+      "code": "3503",
+      "aliases": [
+        "3503",
+        "PCS Grid Phase Wire Short-Circuited to PE"
+      ],
+      "title": {
+        "en": "PCS Grid Phase Wire Short-Circuited to PE",
+        "ur": "PCS grid phase wire PE se short ho gayi"
+      },
+      "meaning": {
+        "en": "An AC output phase wire of the PCS is short-circuited to PE, so the inverter has dropped off-grid.",
+        "ur": "PCS ki AC output phase wire PE se short ho gayi hai, is liye inverter grid se utar gaya hai."
+      },
+      "causes": [
+        {
+          "en": "The AC output phase wire is short-circuited to PE.",
+          "ur": "AC output phase wire PE se short ho gayi hai."
+        },
+        {
+          "en": "Ages or dust on the AC busbars, which can bridge to earth in humid conditions.",
+          "ur": "AC busbars par ghisay ya dhool jo humid conditions mein earth se bridge kar sakti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the ESS per the user manual.",
+          "ur": "User manual ke mutabiq ESS band karein."
+        },
+        {
+          "en": "Turn off the secondary circuit breaker of the transformer and lock it out.",
+          "ur": "Transformer ka secondary circuit breaker band karke lock out karein."
+        },
+        {
+          "en": "Use a megohmmeter to measure impedance between the AC side and ground; if below roughly 100 kOhm, rectify the fault.",
+          "ur": "Megohmmeter se AC side aur ground ke darmiyan impedance measure karein; agar 100 kOhm se kam hai to fault theek karein."
+        },
+        {
+          "en": "If the impedance is normal, contact technical support rather than re-energising.",
+          "ur": "Agar impedance normal hai to dobara energise karne ke bajaye technical support se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "LUNA2000-(107-215) Series Smart String ESS Alarm Reference, Issue 03 (2025-07-22)",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/fileadmin/user_upload/AlarmReference_LUNA2000-215-2S10_V03_2025-07-22_EN.pdf"
+      }
+    },
+    {
+      "code": "3516",
+      "aliases": [
+        "3516",
+        "Low PCS Insulation Resistance"
+      ],
+      "title": {
+        "en": "Low PCS Insulation Resistance",
+        "ur": "Low PCS insulation resistance (PCS insulation kam)"
+      },
+      "meaning": {
+        "en": "The PCS insulation resistance to ground is below the protection threshold, so the unit has disconnected from the grid.",
+        "ur": "PCS ka ground ke khilaf insulation resistance protection threshold se kam hai, is liye unit grid se disconnect ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "The PCS side is short-circuited to ground.",
+          "ur": "PCS side ground se short ho gaya hai."
+        },
+        {
+          "en": "The PCS has operated in a damp environment and insulation between the PCS and ground has degraded.",
+          "ur": "PCS damp environment mein chala hai aur PCS aur ground ke darmiyan insulation kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Set the insulation resistance protection threshold on the user interface to the minimum value allowed by the grid standard.",
+          "ur": "User interface par insulation resistance protection threshold ko grid standard ke mutabiq minimum value par set karein."
+        },
+        {
+          "en": "Power off the ESS per the manual before any measurement.",
+          "ur": "Koi bhi measurement karne se pehle manual ke mutabiq ESS band karein."
+        },
+        {
+          "en": "Check that the device PE cable is correctly connected.",
+          "ur": "Check karein ke device ka PE cable correctly connected hai."
+        },
+        {
+          "en": "Use a megohmmeter to check common-mode insulation, splitting the circuit to locate the low-resistance section.",
+          "ur": "Common-mode insulation check karne ke liye megohmmeter use karein aur circuit baant kar kam-resistance hissa dhoondein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "LUNA2000-(107-215) Series Smart String ESS Alarm Reference, Issue 03 (2025-07-22)",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/fileadmin/user_upload/AlarmReference_LUNA2000-215-2S10_V03_2025-07-22_EN.pdf"
+      }
+    },
+    {
+      "code": "3675",
+      "aliases": [
+        "3675",
+        "Electric heater fault (LTMS)"
+      ],
+      "title": {
+        "en": "LTMS Electric Heater Fault",
+        "ur": "LTMS electric heater fault hai"
+      },
+      "meaning": {
+        "en": "The LTMS electric heater cannot run properly, so the thermal system cannot keep battery temperature in range.",
+        "ur": "LTMS ka electric heater theek se nahi chal raha, is liye thermal system battery temperature range mein nahi rakh sakta."
+      },
+      "causes": [
+        {
+          "en": "The cable to the electric heater is loose or damaged.",
+          "ur": "Electric heater ka cable loose ya damaged hai."
+        },
+        {
+          "en": "The coolant is insufficient, i.e. there is a leak in the LTMS or a pipe.",
+          "ur": "Coolant kam hai, matlab LTMS ya pipe mein leakage hai."
+        },
+        {
+          "en": "The electric heater itself is faulty.",
+          "ur": "Electric heater khud faulty hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the ESS per the manual first.",
+          "ur": "Pehle manual ke mutabiq ESS band karein."
+        },
+        {
+          "en": "Check whether the heater cable is disconnected or broken; if so, reconnect the electric heater connector.",
+          "ur": "Check karein ke heater cable disconnect ya toota hai ya nahi; agar haan to electric heater connector dobara laga dein."
+        },
+        {
+          "en": "Check for leakage in the LTMS or a pipe; if leakage exists, replace the LTMS per the maintenance manual.",
+          "ur": "LTMS ya pipe mein leakage check karein; leakage ho to maintenance manual ke mutabiq LTMS badal dein."
+        },
+        {
+          "en": "If the cable and coolant are proven good, replace the LTMS per the maintenance manual.",
+          "ur": "Agar cable aur coolant dono theek nikle to maintenance manual ke mutabiq LTMS badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "LUNA2000-(107-215) Series Smart String ESS Alarm Reference, Issue 03 (2025-07-22)",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/fileadmin/user_upload/AlarmReference_LUNA2000-215-2S10_V03_2025-07-22_EN.pdf"
+      }
+    },
+    {
+      "code": "3900",
+      "aliases": [
+        "3900",
+        "High Relative Humidity Inside ESS Cabin"
+      ],
+      "title": {
+        "en": "High Relative Humidity Inside ESS Cabin",
+        "ur": "ESS cabin mein humidity zyada hai (condensation ka khatra)"
+      },
+      "meaning": {
+        "en": "Cabin relative humidity is high. The system still charges and discharges, but there is a condensation risk.",
+        "ur": "Cabin ki relative humidity zyada hai. System ab bhi charge aur discharge ho raha hai, lekin condensation ka khatra hai."
+      },
+      "causes": [
+        {
+          "en": "Dehumidification fails.",
+          "ur": "Dehumidification fail ho gayi hai."
+        },
+        {
+          "en": "ESS doors not completely closed let cabin humidity in - the manual lists door closure as a check alongside LTMS state and temperature control mode.",
+          "ur": "ESS doors poori tarah band na hon se cabin mein humidity aa rahi hai - manual door closure ko LTMS state aur temperature control mode ke saath hi check batata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Ensure the temperature control mode is set to automatic, not manual.",
+          "ur": "Confirm karein ke temperature control mode automatic par set hai, manual par nahi."
+        },
+        {
+          "en": "Check whether the LTMS is normal and whether the ESS doors are completely closed.",
+          "ur": "Check karein ke LTMS normal hai aur ESS doors poori tarah band hain."
+        },
+        {
+          "en": "In humid climates, add a door seal inspection and check that the cabinet is not in a shaded pocket trapping vapour.",
+          "ur": "Humid climates mein door seal inspection bhi karein aur check karein ke cabinet aise shaded jagah nahi hai jahan vapour atak jaye."
+        },
+        {
+          "en": "If the alarm persists, export logs and contact technical support - condensation on HV terminals is a safety issue.",
+          "ur": "Agar alarm bana rahe to logs export karke technical support se rabta karein - HV terminals par condensation safety ka masla hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "LUNA2000-(107-215) Series Smart String ESS Alarm Reference, Issue 03 (2025-07-22)",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/fileadmin/user_upload/AlarmReference_LUNA2000-215-2S10_V03_2025-07-22_EN.pdf"
+      }
+    }
+  ]
+}

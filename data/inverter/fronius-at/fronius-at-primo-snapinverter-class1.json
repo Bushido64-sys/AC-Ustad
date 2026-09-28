@@ -1,0 +1,373 @@
+{
+  "schemaVersion": 1,
+  "brandId": "fronius-at",
+  "series": {
+    "id": "fronius-at-primo-snapinverter-class1",
+    "name": "Fronius Primo 208-240 (SnapINverter) - Class 1 status codes",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*Primo 208-240*",
+      "*Primo 3.0-1*",
+      "*Primo 3.5-1*",
+      "*Primo 3.8-1*",
+      "*Primo 4.0-1*",
+      "*Primo 5.0-1*",
+      "*Primo 6.0-1*",
+      "*Primo 7.6-1*",
+      "*Primo 8.2-1*",
+      "*Primo 10.0-1*",
+      "*Primo 11.4-1*",
+      "*Primo 12.5-1*",
+      "*Primo 15.0-1*"
+    ],
+    "notes": "SnapINverter Primo, legacy line, 3-digit codes on the inverter LCD (STATE 102 etc.). Fronius states these codes are 'typically temporary' and their cause lies in the grid: 'No device fault has occurred.' Behaviour and remedy text is identical for all seven codes in the published table. Primo Lite shares the Primo SnapINverter platform; Fronius publishes no separate Primo Lite state-code table (see NEGATIVE). Equivalent GEN24 4-digit equivalents: 102->1114, 103->1119, 105->1035, 106->1037, 112->1076, 107/108->1004."
+  },
+  "codes": [
+    {
+      "code": "102",
+      "aliases": [
+        "102"
+      ],
+      "title": {
+        "en": "AC voltage too high (102)",
+        "ur": "AC voltage bohat zyada hai (102)"
+      },
+      "meaning": {
+        "en": "The grid voltage is above the permissible range, so the inverter has disconnected and is testing the grid. It resumes feed-in automatically once the voltage is back in range.",
+        "ur": "Grid voltage permissible range se upar hai, is liye inverter disconnect ho gaya aur grid test kar raha hai. Voltage wapas range mein aate hi feed-in khud shuru kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Genuine grid overvoltage, e.g. a long lightly loaded feeder with high PV export.",
+          "ur": "Grid ka waqai overvoltage, jaise lamba halka load wala feeder jahan PV export zyada ho."
+        },
+        {
+          "en": "Inverter AC voltage measurement fault reporting a false high.",
+          "ur": "Inverter ka AC voltage measurement fault jis se ghalat high reading aaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the grid connections and measure the actual AC voltage at the inverter with a true-RMS multimeter.",
+          "ur": "Grid connections check karein aur true-RMS multimeter se inverter par asal AC voltage measure karein."
+        },
+        {
+          "en": "Let the inverter complete its grid observation period and resume on its own before intervening - Fronius states no device fault has occurred.",
+          "ur": "Inverter ko apna grid observation period poora karne dein aur khud resume hone dein - Fronius kehta hai koi device fault nahi hua."
+        },
+        {
+          "en": "If it keeps recurring, contact the system installer; do not change grid limits yourself.",
+          "ur": "Agar baar baar aata rahe to system installer se rabta karein; grid limits apne aap na badlein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "103",
+      "aliases": [
+        "103"
+      ],
+      "title": {
+        "en": "AC voltage too low (103)",
+        "ur": "AC voltage bohat kam hai (103)"
+      },
+      "meaning": {
+        "en": "The grid voltage is below the permissible range; the inverter has disconnected and waits for the grid to return to range.",
+        "ur": "Grid voltage permissible range se neeche hai; inverter disconnect ho gaya hai aur grid ko range mein aane ka intezaar kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage sagging from a heavy local load or a fault on the feeder.",
+          "ur": "Bara local load ya feeder par fault ki wajah se grid voltage gir raha hai."
+        },
+        {
+          "en": "AC breaker tripped or a loose AC / neutral connection.",
+          "ur": "AC breaker trip ho gaya ya AC / neutral connection dheeli hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the AC breaker is fully on and tighten the AC and neutral terminals at the inverter with the correct torque.",
+          "ur": "Check karein ke AC breaker poori tarah on hai aur inverter par AC aur neutral terminals sahi torque par kasa dein."
+        },
+        {
+          "en": "Measure AC voltage at the inverter while the event occurs; if the distribution board reads normal, suspect a long or undersized AC cable run.",
+          "ur": "Event ke dauran inverter par AC voltage measure karein; agar distribution board par normal ho to lamba ya chhota AC cable ka shak karein."
+        },
+        {
+          "en": "If it keeps recurring, contact the system installer to review the country setup undervoltage limits.",
+          "ur": "Agar baar baar aata rahe to system installer se country setup ki undervoltage limits dobara check karwayein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "105",
+      "aliases": [
+        "105"
+      ],
+      "title": {
+        "en": "AC frequency too high (105)",
+        "ur": "AC frequency zyada hai (105)"
+      },
+      "meaning": {
+        "en": "The grid frequency is above the permissible range, so the inverter has disconnected and is testing the grid.",
+        "ur": "Grid frequency permissible range se upar hai, is liye inverter disconnect ho gaya aur grid test kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency above the country-setup overfrequency limit.",
+          "ur": "Grid frequency country setup ke overfrequency limit se upar hai."
+        },
+        {
+          "en": "A local generator or CHP unit pulling the frequency up on the same feeder.",
+          "ur": "Wahi feeder par koi local generator ya CHP unit frequency upar le raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the grid frequency with a clamp meter at the inverter AC terminals.",
+          "ur": "Clamp meter se inverter ke AC terminals par grid frequency measure karein."
+        },
+        {
+          "en": "Let the inverter run its observation period and reconnect automatically - Fronius states no device fault has occurred.",
+          "ur": "Inverter ko observation period poora karne dein aur khud reconnect hone dein - Fronius kehta hai koi device fault nahi hua."
+        },
+        {
+          "en": "If it keeps recurring, have the installer check the country setup with the utility rather than altering frequency limits.",
+          "ur": "Agar baar baar aata rahe to installer se utility ke saath country setup check karwayein, frequency limits badalne ke bajaye."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "106",
+      "aliases": [
+        "106"
+      ],
+      "title": {
+        "en": "AC frequency too low (106)",
+        "ur": "AC frequency kam hai (106)"
+      },
+      "meaning": {
+        "en": "The grid frequency is below the permissible range; the inverter has disconnected and is testing the grid.",
+        "ur": "Grid frequency permissible range se neeche hai; inverter disconnect ho gaya aur grid test kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency below the country-setup underfrequency limit.",
+          "ur": "Grid frequency country setup ke underfrequency limit se neeche hai."
+        },
+        {
+          "en": "Large motor starting on the same feeder, or a weak grid connection.",
+          "ur": "Wahi feeder par bara motor start ho raha hai, ya grid connection kamzor hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the grid frequency with a clamp meter and note the time of day it happens.",
+          "ur": "Clamp meter se grid frequency measure karein aur note karein ke din ka kis waqt hota hai."
+        },
+        {
+          "en": "Wait for the grid to normalise; the inverter reconnects on its own after the observation period.",
+          "ur": "Grid normal hone dein; observation period ke baad inverter khud reconnect ho jata hai."
+        },
+        {
+          "en": "If it keeps recurring, contact the system installer - do not change the rated frequency yourself.",
+          "ur": "Agar baar baar aata rahe to system installer se rabta karein - rated frequency apne aap na badlein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "107",
+      "aliases": [
+        "107"
+      ],
+      "title": {
+        "en": "No AC grid detected (107)",
+        "ur": "Koi AC grid detect nahi hui (107)"
+      },
+      "meaning": {
+        "en": "The inverter detects no AC grid, so it cannot connect or feed in. It tests continuously and reconnects when the grid returns.",
+        "ur": "Inverter ko koi AC grid detect nahi ho rahi, is liye connect ya feed nahi kar sakta. Ye lagatar test karta hai aur grid wapas aate hi reconnect ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "AC breaker open, or the AC isolator / disconnect switch is off.",
+          "ur": "AC breaker khula hai, ya AC isolator / disconnect switch band hai."
+        },
+        {
+          "en": "Utility supply outage on this site.",
+          "ur": "Is site par utility supply chala gaya hai."
+        },
+        {
+          "en": "Broken or disconnected AC wiring between the grid and the inverter.",
+          "ur": "Grid aur inverter ke darmiyan AC wiring kat gayi ya disconnect ho gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the AC breaker and the external AC disconnect and confirm the utility supply is present at the site.",
+          "ur": "AC breaker aur external AC disconnect check karein aur confirm karein ke site par utility supply maujood hai."
+        },
+        {
+          "en": "Measure AC voltage at the inverter AC terminals with a multimeter; expect 208-240 V (+10% / -12%) on this model line.",
+          "ur": "Multimeter se inverter ke AC terminals par AC voltage measure karein; is model line par 208-240 V (+10% / -12%) expect karein."
+        },
+        {
+          "en": "If voltage is present at the inverter but 107 persists, inspect the AC wiring and terminations for a break and retighten/replace as needed.",
+          "ur": "Agar inverter par voltage maujood ho lekin 107 rahe to AC wiring aur terminations mein break check karein aur zarurat ho to dobara kasa dein ya badlein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "108",
+      "aliases": [
+        "108"
+      ],
+      "title": {
+        "en": "Stand-alone operation detected (108)",
+        "ur": "Stand-alone operation detect hua (108)"
+      },
+      "meaning": {
+        "en": "The inverter detected stand-alone (island) operation - it is feeding an isolated part of the grid - and disconnected.",
+        "ur": "Inverter ne stand-alone (island) operation detect ki - ye grid ke alag hisse ko feed kar raha tha - aur disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "A part of the grid has become disconnected from the utility supply while generation and load happen to balance.",
+          "ur": "Grid ka koi hissa utility supply se disconnect ho gaya jabke generation aur load aik taraf balance mein hain."
+        },
+        {
+          "en": "Back-feed or generator contact that can energise the inverter AC terminals from another source.",
+          "ur": "Back-feed ya generator contact jo doosre source se inverter ke AC terminals ko energise kar sakta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not defeat the anti-islanding function - it is a grid-code safety requirement.",
+          "ur": "Anti-islanding function ko disable na karein - ye grid-code ki safety requirement hai."
+        },
+        {
+          "en": "Check for any back-feed path: a generator changeover, a second inverter on the same AC node, or a wrongly wired changeover switch.",
+          "ur": "Har back-feed path check karein: generator changeover, usi AC node par doosra inverter, ya ghalat se wired changeover switch."
+        },
+        {
+          "en": "Restore the utility supply, then let the inverter pass its observation period and reconnect; contact the installer if it recurs.",
+          "ur": "Utility supply wapas karein, phir inverter ko observation period poora karne dein aur reconnect hone dein; dohra ho to installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "112",
+      "aliases": [
+        "112",
+        "RCMU error"
+      ],
+      "title": {
+        "en": "RCMU error - residual current (112)",
+        "ur": "Residual current unit ki kharabi (112)"
+      },
+      "meaning": {
+        "en": "The residual current monitoring unit has detected a residual current and the inverter has stopped feed-in. Fronius lists it as a grid-side class 1 code.",
+        "ur": "Residual current monitoring unit ne residual current detect kiya aur inverter ne feed-in band kar di. Fronius ise grid side ka class 1 code list karta hai."
+      },
+      "causes": [
+        {
+          "en": "Insulation fault on the PV array, DC wiring or inside the inverter producing residual current.",
+          "ur": "PV array, DC wiring ya inverter ke andar insulation fault jo residual current bana raha hai."
+        },
+        {
+          "en": "Wet junction box, cable gland or module back sheet after rain, dew or cleaning.",
+          "ur": "Barish, oos ya dhoane ke baad geela junction box, cable gland ya module back sheet."
+        },
+        {
+          "en": "Nuisance RCMU tripping from a DC-side EMI filter or an unsuitable RCD type on the AC side.",
+          "ur": "DC side ke EMI filter ya AC side par galat RCD type ki wajah se nuisance RCMU tripping."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC, then measure insulation resistance per string to earth with a Riso/megger to localise the fault.",
+          "ur": "AC aur DC isolate karein, phir har string ka earth ke saath insulation resistance Riso/megger se nikaal kar fault ki jagah dhoondein."
+        },
+        {
+          "en": "Open and dry or replace any junction box, connector or module with water ingress, corrosion or damaged insulation.",
+          "ur": "Paani ghusay, zang lage ya damaged insulation wala koi bhi junction box, connector ya module khol kar sukhaayein ya badlein."
+        },
+        {
+          "en": "Only after the insulation fault is confirmed fixed, restart and clear the status code; contact the system installer if it recurs.",
+          "ur": "Sirf insulation fault theek hone ki tasdeeq ke baad restart karke status code clear karein; dohra to system installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    }
+  ]
+}

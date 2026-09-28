@@ -1,0 +1,446 @@
+{
+  "schemaVersion": 1,
+  "brandId": "simtek",
+  "series": {
+    "id": "flux",
+    "name": "Flux STK-PV9000 / STK-PV14000",
+    "category": "inverter",
+    "unitType": "off_grid_inverter",
+    "modelPatterns": [
+      "*STK-PV9000*",
+      "*STK-PV14000*",
+      "*FLUX*"
+    ],
+    "notes": "Official Flux manual codes 00-08 mixed warning/fault (separate numbering from SIMREX/SIMRON — do not merge)."
+  },
+  "codes": [
+    {
+      "code": "00",
+      "aliases": [
+        "00"
+      ],
+      "title": {
+        "en": "Short Circuit",
+        "ur": "short circuit"
+      },
+      "meaning": {
+        "en": "Output short circuit; after 3 tries inverter shuts down, restart required.",
+        "ur": "output short circuit 3 koshishon ke baad band re-start darkaar"
+      },
+      "causes": [
+        {
+          "en": "Shorted load or wiring",
+          "ur": "load/wiring short"
+        },
+        {
+          "en": "Damaged appliance or tool creating the short on the output.",
+          "ur": "Kharab appliance ya tool output par short bana raha hai."
+        },
+        {
+          "en": "Moisture or a loose joint in the output wiring.",
+          "ur": "Output wiring mein pani (moisture) ya dheela joint hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC input and PV DC switch at once and unplug the suspected load — never test a short with the unit live.",
+          "ur": "AC input aur PV DC switch foran band karein aur shak wala load plug se nikaal dein — unit chalte hue short test na karein."
+        },
+        {
+          "en": "With supply isolated, check the output wiring and each appliance visually and with a meter; repair or remove anything faulty.",
+          "ur": "Supply band kar ke output wiring aur har appliance nazar aur meter se check karein; jo kharab ho use theek ya hatayein."
+        },
+        {
+          "en": "Reconnect a known-good load and restart; if the code returns after three tries, send the unit for repair.",
+          "ur": "Koi known-good load laga kar restart karein; teen tries ke baad code wapas aaye to unit repair ke liye bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Flux Series Users Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/Flux-Series-Users-Manual-Final.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Warning table labeled WARNING INDICATOR but short circuit is fault-like.",
+        "ur": "Warning table mein ise WARNING INDICATOR likha gaya hai, magar short circuit fault jaisa hai."
+      }
+    },
+    {
+      "code": "02",
+      "aliases": [
+        "02"
+      ],
+      "title": {
+        "en": "Over Load",
+        "ur": "Over load"
+      },
+      "meaning": {
+        "en": "After 3 tries inverter will shut down, restart is required.",
+        "ur": "3 koshishon ke baad band re-start darkaar"
+      },
+      "causes": [
+        {
+          "en": "Load exceeds rating",
+          "ur": "load zyada"
+        },
+        {
+          "en": "Motor or pump start current above the inverter rating.",
+          "ur": "Motor ya pump ka start current inverter rating se zyada hai."
+        },
+        {
+          "en": "Too many appliances switched on together.",
+          "ur": "Ek sath bohat sare appliances on ho gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the load by switching off equipment, then restart the unit so the inverter runs within its rating.",
+          "ur": "Equipment band kar ke load kam karein, phir unit restart karein taake inverter apni rating ke andar chale."
+        },
+        {
+          "en": "Check the total load with a clamp meter if available — motors and pumps draw a high start current.",
+          "ur": "Agar clamp meter ho to total load check karein — motors aur pump start par zyada current lete hain."
+        },
+        {
+          "en": "Restart only after the load is below the rating; if the unit still shuts down, split the load or have it checked.",
+          "ur": "Load rating se neeche hone ke baad hi restart karein; phir bhi unit band ho to load baant dein ya check karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Flux Series Users Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/Flux-Series-Users-Manual-Final.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "06",
+      "aliases": [
+        "06"
+      ],
+      "title": {
+        "en": "High PV1 Current",
+        "ur": "PV1 current zyada"
+      },
+      "meaning": {
+        "en": "After 3 tries inverter shuts down, restart required.",
+        "ur": "3 koshishon ke baad band re-start darkaar"
+      },
+      "causes": [
+        {
+          "en": "PV1 current over limit",
+          "ur": "PV1 current zyada"
+        },
+        {
+          "en": "PV1 string oversized or a damaged panel leaking current.",
+          "ur": "PV1 string zyada bada hai ya kharab panel current leak kar raha hai."
+        },
+        {
+          "en": "Water or dust in the PV1 DC connectors.",
+          "ur": "PV1 DC connectors mein paani ya dhool hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the PV DC isolator first, then inspect the PV1 string for damaged panels, water or loose connectors.",
+          "ur": "Pehle PV DC isolator band karein, phir PV1 string check karein ke panels kharab, paani ya connectors dheele to nahin."
+        },
+        {
+          "en": "Measure the PV1 current and voltage with a meter and confirm they are within the unit rating; reduce parallel strings if high.",
+          "ur": "Meter se PV1 current aur voltage naapein aur confirm karein ke woh unit rating ke andar hai; zyada ho to parallel strings kam karein."
+        },
+        {
+          "en": "Fix or replace the faulty panel or connector, then restart; if the message repeats, contact the manufacturer.",
+          "ur": "Kharab panel ya connector theek/badal kar restart karein; message dobara aaye to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Flux Series Users Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/Flux-Series-Users-Manual-Final.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "07",
+      "aliases": [
+        "07"
+      ],
+      "title": {
+        "en": "High PV2 Current",
+        "ur": "PV2 current zyada"
+      },
+      "meaning": {
+        "en": "After 3 tries inverter shuts down, restart required.",
+        "ur": "3 koshishon ke baad band re-start darkaar"
+      },
+      "causes": [
+        {
+          "en": "PV2 current over limit",
+          "ur": "PV2 current zyada"
+        },
+        {
+          "en": "PV2 string oversized or a damaged panel leaking current.",
+          "ur": "PV2 string zyada bada hai ya kharab panel current leak kar raha hai."
+        },
+        {
+          "en": "Water or dust in the PV2 DC connectors.",
+          "ur": "PV2 DC connectors mein paani ya dhool hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the PV DC isolator first, then inspect the PV2 string for damaged panels, water or loose connectors.",
+          "ur": "Pehle PV DC isolator band karein, phir PV2 string check karein ke panels kharab, paani ya connectors dheele to nahin."
+        },
+        {
+          "en": "Measure the PV2 current and voltage with a meter and confirm they are within the unit rating; reduce parallel strings if high.",
+          "ur": "Meter se PV2 current aur voltage naapein aur confirm karein ke woh unit rating ke andar hai; zyada ho to parallel strings kam karein."
+        },
+        {
+          "en": "Fix or replace the faulty panel or connector, then restart; if the message repeats, contact the manufacturer.",
+          "ur": "Kharab panel ya connector theek/badal kar restart karein; message dobara aaye to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Flux Series Users Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/Flux-Series-Users-Manual-Final.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "08",
+      "aliases": [
+        "08"
+      ],
+      "title": {
+        "en": "Low AC Output Voltage",
+        "ur": "AC output voltage kam"
+      },
+      "meaning": {
+        "en": "After 3 tries inverter shuts down, restart required.",
+        "ur": "3 koshishon ke baad band re-start darkaar"
+      },
+      "causes": [
+        {
+          "en": "Grid collapse under load / output sag",
+          "ur": "Grid load ke darmiyan gir jaye ya output voltage gir jaye."
+        },
+        {
+          "en": "Weak mains supply or voltage drop on a long input cable.",
+          "ur": "Kamzor mains supply ya lambi input cable par voltage drop."
+        },
+        {
+          "en": "Loose AC input connection or a tripped input breaker.",
+          "ur": "AC input connection dheela hai ya input breaker trip ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load and check the mains supply with a meter before restarting.",
+          "ur": "Load kam karein aur restart se pehle meter se mains supply check karein."
+        },
+        {
+          "en": "Check the AC input wiring and breaker for loose terminals or a tripped breaker.",
+          "ur": "AC input wiring aur breaker check karein ke terminals dheele ya breaker to nahi trip."
+        },
+        {
+          "en": "Restart on a lighter load; if the mains keep collapsing under load, have the input circuit checked.",
+          "ur": "Halke load par restart karein; load par baar baar mains girein to input circuit check karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Flux Series Users Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/Flux-Series-Users-Manual-Final.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "W01",
+      "aliases": [
+        "W01",
+        "01"
+      ],
+      "title": {
+        "en": "Inverter Over Heat",
+        "ur": "Inverter mein zyada heat"
+      },
+      "meaning": {
+        "en": "Shift to bypass mode; when temperature normal, inverter restarts automatically.",
+        "ur": "Bypass mode: temperature normal par khud ba khud re-start"
+      },
+      "causes": [
+        {
+          "en": "High ambient / heavy load / blocked vents",
+          "ur": "hararat/load/hawa band"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Improve cooling; auto-restarts when cool",
+          "ur": "Thandak barhayein, khud ba khud re-start"
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Flux Series Users Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/Flux-Series-Users-Manual-Final.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    },
+    {
+      "code": "W03",
+      "aliases": [
+        "W03",
+        "03"
+      ],
+      "title": {
+        "en": "High Bus Voltage",
+        "ur": "Bus voltage zyada"
+      },
+      "meaning": {
+        "en": "Inverter will stop; when voltage in range, restarts automatically.",
+        "ur": "Inverter roke ga, voltage normal par khud ba khud re-start"
+      },
+      "causes": [
+        {
+          "en": "Bus over-voltage condition",
+          "ur": "Bus par voltage zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for bus to fall in range; inspect if repeats",
+          "ur": "voltage normal hone ka intezar"
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Flux Series Users Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/Flux-Series-Users-Manual-Final.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    },
+    {
+      "code": "W04",
+      "aliases": [
+        "W04",
+        "04"
+      ],
+      "title": {
+        "en": "High PV1 Voltage",
+        "ur": "PV1 voltage zyada"
+      },
+      "meaning": {
+        "en": "Inverter stops; auto-restarts when voltage returns in range.",
+        "ur": "Inverter roke ga, voltage normal par khud ba khud re-start"
+      },
+      "causes": [
+        {
+          "en": "PV string Voc too high / wrong series count",
+          "ur": "PV series ghalat"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce series modules; wait for normal",
+          "ur": "series panel kam karein"
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Flux Series Users Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/Flux-Series-Users-Manual-Final.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    },
+    {
+      "code": "W05",
+      "aliases": [
+        "W05",
+        "05"
+      ],
+      "title": {
+        "en": "High PV2 Voltage",
+        "ur": "PV2 voltage zyada"
+      },
+      "meaning": {
+        "en": "Second PV tracker over-voltage; stop then auto-restart in range.",
+        "ur": "Doosre PV tracker par over-voltage; ruk kar khud ba khud range mein dobara start."
+      },
+      "causes": [
+        {
+          "en": "PV2 string Voc too high",
+          "ur": "PV2 series ghalat"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce PV2 series modules",
+          "ur": "PV2 series panel kam karein"
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Flux Series Users Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2023/03/Flux-Series-Users-Manual-Final.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "PV14000 has 2 MPPT trackers. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "PV14000 ke 2 MPPT trackers hain. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    }
+  ]
+}

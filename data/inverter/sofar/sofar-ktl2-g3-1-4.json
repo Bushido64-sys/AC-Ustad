@@ -1,0 +1,421 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sofar",
+  "series": {
+    "id": "sofar-ktl2-g3-1-4",
+    "name": "KTL2-G3 (single-phase 1-4 kW, on-grid, 140% DC overload)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*1.1KTL2-G3*",
+      "*1.6KTL2-G3*",
+      "*2.2KTL2-G3*",
+      "*2.7KTL2-G3*",
+      "*3KTL2-G3*",
+      "*3.3KTL2-G3*",
+      "*4KTL2-G3*",
+      "*1-4KTL2-G3*"
+    ],
+    "notes": "Manual prints plain two-digit IDs (01, 02, 05 ... 98) with no 'ID' prefix in the Code column. Codes unique to THIS table: ID24 is 'HwADErrIdc / Dc input current sampling error' here but 'Iac Rms Unbalance' on 1.1-3.3KTL-G3; ID30 is 'ConsistentVgrid' here but 'Sw OCP Instan' there; ID33 is 'GridPhase / The Grid Phase happen Mutation' here (single-phase name, grid phase mutation) and absent on the G3 table. Do not merge with SERIES 3."
+  },
+  "codes": [
+    {
+      "code": "05",
+      "aliases": [
+        "05",
+        "PVUVP"
+      ],
+      "title": {
+        "en": "PV input voltage too low (05)",
+        "ur": "PV input voltage bohat kam (05)"
+      },
+      "meaning": {
+        "en": "String Vmp is below the inverter's minimum operating voltage. Manual fix: add series modules to raise the string voltage into the input range.",
+        "ur": "String ka Vmp inverter ki minimum operating voltage se neeche hai. Manual ka hal: series mein modules barhayein takay string voltage input range mein aa jaye."
+      },
+      "causes": [
+        {
+          "en": "Too few modules in series to reach the MPPT operating window.",
+          "ur": "MPPT operating window tak pohanch karne ke liye series mein modules kam hain."
+        },
+        {
+          "en": "Cold-start or wake-up on a string whose Voc is marginal at low irradiance.",
+          "ur": "Cold-start ya wake-up aisi string par jiska Voc kam irradiance par marginal hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the string's Vmp with a multimeter and compare it to the datasheet MPPT lower limit.",
+          "ur": "Multimeter se string ka Vmp measure karke datasheet MPPT ki lower limit se compare karein."
+        },
+        {
+          "en": "If Voc is normal, it is just low irradiance - the unit recovers automatically as sun returns.",
+          "ur": "Agar Voc normal hai to sirf kam irradiance hai - dhoop aate hi unit khud recover ho jata hai."
+        },
+        {
+          "en": "If Voc is genuinely low, add series modules to bring the string into the input voltage range.",
+          "ur": "Agar Voc asal mein kam hai to series mein modules barha kar string ko input voltage range mein layein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 1~4KTL2-G3 User Manual, 'Trouble shooting', Table 7-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240314/1710400367619032659.pdf"
+      }
+    },
+    {
+      "code": "09",
+      "aliases": [
+        "09",
+        "PVOVP"
+      ],
+      "title": {
+        "en": "PV input voltage too high (09)",
+        "ur": "PV input voltage bohat zyada (09)"
+      },
+      "meaning": {
+        "en": "String Voc exceeds the inverter's maximum input voltage, so the unit will not start. Manual fix: reduce the number of series modules.",
+        "ur": "String ka Voc inverter ke maximum input voltage se upar hai, is liye unit start nahi hoga. Manual ka hal: series modules ki sankhya kam karein."
+      },
+      "causes": [
+        {
+          "en": "String count chosen on a cold-climate Voc that does not suit this site.",
+          "ur": "String ki sankhya thande climate ke Voc par chuni gayi jo is site ke liye theek nahi."
+        },
+        {
+          "en": "Higher-Voc modules substituted after the original design.",
+          "ur": "Original design ke baad higher-Voc modules lagaye gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure string Voc with a multimeter on the coldest clear morning you can get.",
+          "ur": "Sab se thanda aur saaf subah mein multimeter se string ka Voc measure karein."
+        },
+        {
+          "en": "Recalculate the maximum series count for the site minimum temperature and remove modules until it fits.",
+          "ur": "Site ki minimum temperature par maximum series count dobara calculate karein aur modules nikal dein jab tak fit na ho."
+        },
+        {
+          "en": "Confirm the corrected Voc is under the inverter maximum before re-energising the DC switch.",
+          "ur": "DC switch dobara on karne se pehle confirm karein ke corrected Voc inverter max se neeche hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 1~4KTL2-G3 User Manual, 'Trouble shooting', Table 7-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240314/1710400367619032659.pdf"
+      }
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12",
+        "GFCI Fault"
+      ],
+      "title": {
+        "en": "GFCI leakage fault (12)",
+        "ur": "GFCI leakage fault - residual current trip hua (12)"
+      },
+      "meaning": {
+        "en": "Residual current fault. Manual says occasional events mean the external circuit was momentarily abnormal; frequent events mean low PV array insulation.",
+        "ur": "Residual current fault. Manual ke mutabiq occasional event ka matlab external circuit mein palay waqt ghalti thi; frequent event ka matlab PV array ki insulation kam hai."
+      },
+      "causes": [
+        {
+          "en": "PV array to earth insulation too low because of moisture on modules or cable.",
+          "ur": "Module ya cable par moisture ki wajah se PV array se earth ki insulation kam."
+        },
+        {
+          "en": "A wet connector or junction box allowing leakage to earth.",
+          "ur": "Geela connector ya junction box earth mein leakage de raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off DC switch and AC breaker, wait 5 minutes, then measure PV array insulation to earth.",
+          "ur": "DC switch aur AC breaker off karke 5 minute wait karke PV array ki earth ke saath insulation measure karein."
+        },
+        {
+          "en": "If the fault is frequent and lasts a long time, check PV array to earth insulation and then the PV cable insulation condition.",
+          "ur": "Agar fault baar baar aaye aur deri tak rahe to PV array se earth ki insulation aur phir PV cable ki insulation check karein."
+        },
+        {
+          "en": "Replace or reseal the leaking part, then re-measure before closing the DC switch.",
+          "ur": "Leaking hissa replace ya reseal karein, phir DC switch band karne se pehle dobara measure karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Fault LED red, 1 flash",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 1~4KTL2-G3 User Manual, 'Trouble shooting', Table 7-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240314/1710400367619032659.pdf"
+      }
+    },
+    {
+      "code": "24",
+      "aliases": [
+        "24",
+        "HwADErrIdc"
+      ],
+      "title": {
+        "en": "DC input current sampling error (24)",
+        "ur": "DC input current sampling error - current sensing kharab (24)"
+      },
+      "meaning": {
+        "en": "The DC input current sensor or its sampling circuit is reporting wrongly. Manual classes ID15-ID24 as internal inverter faults handled by a DC switch off / 5 min / on cycle.",
+        "ur": "DC input current sensor ya us ka sampling circuit ghalat reading de raha hai. Manual ID15-ID24 ko internal inverter faults batata hai jinke liye DC switch off, 5 min, on ka cycle hai."
+      },
+      "causes": [
+        {
+          "en": "Current sense resistor or hall sensor failure on the control board.",
+          "ur": "Control board par current sense resistor ya hall sensor fail."
+        },
+        {
+          "en": "Sampling circuit noise or a cold solder joint on the measurement board.",
+          "ur": "Measurement board par sampling circuit ka noise ya cold solder joint."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the DC switch OFF, wait 5 minutes, then turn it back ON and check whether the fault is rectified.",
+          "ur": "DC switch OFF karein, 5 minute wait karein, phir wapas ON karke dekhein ke fault theek hua ya nahi."
+        },
+        {
+          "en": "If it returns, compare the inverter's reported DC current against a clamp meter on the PV cable.",
+          "ur": "Agar wapas aaye to PV cable par clamp meter se liye reading aur inverter ki reported DC current compare karein."
+        },
+        {
+          "en": "A large mismatch confirms a failed sense channel - log events and raise a service/warranty case.",
+          "ur": "Bara farq sense channel fail hone ki tasdeeq karta hai - events note karke service/warranty case karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 1~4KTL2-G3 User Manual, 'Trouble shooting', Table 7-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240314/1710400367619032659.pdf"
+      }
+    },
+    {
+      "code": "33",
+      "aliases": [
+        "33",
+        "GridPhase"
+      ],
+      "title": {
+        "en": "Grid phase mutation detected (33)",
+        "ur": "Grid phase mutation detect hui (33)"
+      },
+      "meaning": {
+        "en": "The phase of the measured grid voltage has changed. This code only appears in this KTL2-G3 table. Manual action: the phase of the grid voltage has changed.",
+        "ur": "Measured grid voltage ka phase badal gaya hai. Yeh code sirf is KTL2-G3 table par hai. Manual ka action: grid voltage ka phase badal gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Two phases or neutral swapped at the AC input, so the inverter sees a different phase angle.",
+          "ur": "AC input par do phases ya neutral swap ho gaya, is liye inverter ko alag phase angle nazar aata hai."
+        },
+        {
+          "en": "Loose neutral connection causing phase reference to float.",
+          "ur": "Loose neutral connection ki wajah se phase reference float kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC breaker and inspect phase and neutral terminations for swapped or loose conductors.",
+          "ur": "AC breaker off karke phase aur neutral connections ke liye swapped ya loose wires dekhein."
+        },
+        {
+          "en": "Confirm the phase rotation matches the grid with a phase rotation meter before re-energising.",
+          "ur": "Dobara current dene se pehle phase rotation meter se confirm karein ke phase rotation grid se match karta hai."
+        },
+        {
+          "en": "Re-torque the neutral particularly - a loose neutral is the usual trigger for this code.",
+          "ur": "Khaas kar neutral dobara tighten karein - loose neutral hi is code ki aam wajah hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 1~4KTL2-G3 User Manual, 'Trouble shooting', Table 7-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240314/1710400367619032659.pdf"
+      }
+    },
+    {
+      "code": "56",
+      "aliases": [
+        "56",
+        "Pv Iso Fault"
+      ],
+      "title": {
+        "en": "PV insulation resistance too low (56)",
+        "ur": "PV insulation resistance bohat kam (56)"
+      },
+      "meaning": {
+        "en": "Insulation between the PV array and earth is too low. Manual fix: check resistance and rectify any short circuit.",
+        "ur": "PV array aur earth ke darmiyan insulation bohat kam hai. Manual ka hal: resistance check karke short circuit theek karein."
+      },
+      "causes": [
+        {
+          "en": "Moisture on module backs or inside the junction box after rain or monsoon.",
+          "ur": "Barish ya monsoon ke baad module ke peeche ya junction box ke andar moisture."
+        },
+        {
+          "en": "Cable insulation abraded against a roof edge, bracket or a metal edge.",
+          "ur": "Chhat ke kinare, bracket ya metal edge par cable ki insulation ghisat hui."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open DC switch and AC breaker, wait 5 minutes, then measure insulation from the PV array to earth.",
+          "ur": "DC switch aur AC breaker open karke 5 minute wait karke PV array se earth tak insulation measure karein."
+        },
+        {
+          "en": "If a short circuit occurs, rectify the fault - find it by testing each string separately.",
+          "ur": "Agar short circuit ho to ghalti theek karein - har string ko alag alag test kar ke dhoondhein."
+        },
+        {
+          "en": "Replace the damaged cable or module and confirm insulation is high again before closing the DC switch.",
+          "ur": "Damaged cable ya module replace karein aur DC switch band karne se pehle confirm karein ke insulation dobara zyada hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Fault LED red, 1 flash",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 1~4KTL2-G3 User Manual, 'Trouble shooting', Table 7-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240314/1710400367619032659.pdf"
+      }
+    },
+    {
+      "code": "64",
+      "aliases": [
+        "64",
+        "MeterCommLose"
+      ],
+      "title": {
+        "en": "Meter communication error (64)",
+        "ur": "Meter communication error - meter se baat nahi ho rahi (64)"
+      },
+      "meaning": {
+        "en": "The smart meter stopped communicating. The manual is specific that this is reported when the ARM receives a meter communication exception bit and the safety country is Australia - check the site meter and country setting.",
+        "ur": "Smart meter ka communication toot gaya. Manual mutauri hai ke ye tab report hota hai jab ARM ko meter communication exception bit milta hai aur safety country Australia ho - site meter aur country setting check karein."
+      },
+      "causes": [
+        {
+          "en": "RS485 line to the meter disconnected, reversed (A/B swapped) or unterminated.",
+          "ur": "Meter ki RS485 line disconnect, reverse (A/B swap) ya open-ended."
+        },
+        {
+          "en": "Meter modbus address or baud rate not matching the inverter setting.",
+          "ur": "Meter ka modbus address ya baud rate inverter setting se match nahi karta."
+        },
+        {
+          "en": "Country code set to a profile that expects a different meter behaviour.",
+          "ur": "Country code aise profile par set jo alag meter behaviour expect karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and check the meter RS485 A and B at both ends for correct pairing and seating.",
+          "ur": "Power off karke meter RS485 A aur B dono taraf se pairing aur seating check karein."
+        },
+        {
+          "en": "Re-enter the meter modbus address on the LCD and confirm the meter is on the same RS485 bus as the inverter.",
+          "ur": "LCD par meter ka modbus address dobara daalein aur confirm karein ke meter inverter ke usi RS485 bus par hai."
+        },
+        {
+          "en": "Verify the country code matches the local DISCO grid profile, since the meter error logic depends on it.",
+          "ur": "Country code local DISCO grid profile se match karwayein, kyunke meter error logic usi par depend karta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 1~4KTL2-G3 User Manual, 'Trouble shooting', Table 7-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240314/1710400367619032659.pdf"
+      }
+    },
+    {
+      "code": "98",
+      "aliases": [
+        "98",
+        "SD fault"
+      ],
+      "title": {
+        "en": "SD card fault (98)",
+        "ur": "SD card fault - SD card nahi chal raha (98)"
+      },
+      "meaning": {
+        "en": "The SD card is not readable. Manual instruction: 'Please replace the SD card.'",
+        "ur": "SD card readable nahi hai. Manual ka instruction: 'Please replace the SD card.'"
+      },
+      "causes": [
+        {
+          "en": "Card loose, bent, or inserted in the wrong orientation.",
+          "ur": "Card loose, tangi ya galat direction mein lagi hui."
+        },
+        {
+          "en": "Card corrupted by a power cut during a data write.",
+          "ur": "Data write ke dauran power cut se card corrupt hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the inverter, reseat the SD card firmly in the correct orientation.",
+          "ur": "Inverter power off karke SD card sahi direction mein mazbooti se dobara baithayein."
+        },
+        {
+          "en": "Fit a new FAT32 card; the manual says replace, not reformat.",
+          "ur": "Naya FAT32 card lagayein; manual kehta hai replace karein, format nahi."
+        },
+        {
+          "en": "If a new card also faults, the card reader on the board has failed and needs service.",
+          "ur": "Agar naya card bhi fault de to board ka card reader fail hai aur service chahiye."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 1~4KTL2-G3 User Manual, 'Trouble shooting', Table 7-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240314/1710400367619032659.pdf"
+      }
+    }
+  ]
+}

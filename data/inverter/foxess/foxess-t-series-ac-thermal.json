@@ -1,0 +1,308 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-t-series-ac-thermal",
+    "name": "T-Series (single-phase grid-tie string) - AC leakage, insulation, ground and thermal faults",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*T*-M*",
+      "*T*Series*"
+    ],
+    "notes": "The T-Series AC-safety and thermal block. 'ISO fault' here is a MEASURED IMPEDANCE test (FoxESS states 'Impedance should be >100kohm' and asks you to seek help if it IS >100kohm) - a completely different job from the hybrids' 'Iso Fault', which is an insulation-damage inspection with no measurement value. Likewise the T 'Ground fault' adds a PV DC switch-off step the hybrids' 'Ground Fault' does not. NEVER merge these with the hybrid insulation block. Note the T manual's separate section-6 note: it complies with IEC 62109-2 clause 13.9 and says an earth-fault alarm shows as 'Isolation fault' on screen with the RED LED lit. Confidence high: identical in both official FoxESS T copies."
+  },
+  "codes": [
+    {
+      "code": "GFCI fault or GFCD fault",
+      "aliases": [
+        "GFCI fault or GFCD fault",
+        "GFCI fault",
+        "GFCD fault"
+      ],
+      "title": {
+        "en": "Ground-fault device trip (GFCI/GFCD)",
+        "ur": "Ground-fault device (GFCI/GFCD) ne trip kiya"
+      },
+      "meaning": {
+        "en": "The inverter's residual-current device has tripped on the AC side. FoxESS points you at the equipment AROUND the inverter, not at the inverter itself.",
+        "ur": "Inverter ka residual-current device AC side par trip hua hai. FoxESS aapko inverter ki jagah uske AROUND ke equipment ki taraf ishara karta hai."
+      },
+      "causes": [
+        {
+          "en": "A wet or damaged insulation device on the AC side - exactly the 'surrounding equipment on the AC side' FoxESS names.",
+          "ur": "AC side par geela ya kharab-insulation wala device - wohi 'surrounding equipment on the AC side' jise FoxESS kehta hai."
+        },
+        {
+          "en": "Dew, monsoon moisture or a water ingress into an outdoor AC isolator, junction box or the inverter's own gland.",
+          "ur": "Oos, mausam ki barish ka paani ya outdoor AC isolator, junction box ya inverter ke apne gland mein dakhil paani."
+        },
+        {
+          "en": "The RCD/Fuse type does not match what FoxESS requires, so it trips on the inverter's normal small leakage current.",
+          "ur": "RCD/Fuse ki type FoxESS ki requirement se nahi milti, is liye inverter ke normal chhote leakage current par trip karti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the DC and AC connectors, then check the surrounding equipment on the AC side - this is FoxESS's own instruction and the right first move.",
+          "ur": "DC aur AC connectors disconnect karein, phir AC side ke surrounding equipment check karein - yehi FoxESS ka apna instruction hai aur pehla sahi qadam hai."
+        },
+        {
+          "en": "With everything isolated, moisture-test the outdoor AC isolator, junction box and cable gland; replace any that are wet or cracked.",
+          "ur": "Sab isolate kar ke, outdoor AC isolator, junction box aur cable gland ka moisture test karein; jo geela ya toota ho usay replace karein."
+        },
+        {
+          "en": "Reconnect the input connector and check the state of the inverter after troubleshooting, as FoxESS directs.",
+          "ur": "Jaise FoxESS kahe, input connector wapas lagayein aur troubleshooting ke baad inverter ki halat check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "'GFCD' is FoxESS's own alternative spelling of the same device in the same row - the two are not different faults. On a Pakistani install the most common real trigger is monsoon moisture in an outdoor isolator, not an inverter defect.",
+        "ur": "'GFCD' FoxESS ka apna alternative spelling hai usi device ka usi row mein - dono alag fault nahi. Pakistan ke install par sab se aam asal trigger mausam ka paani outdoor isolator mein hai, inverter ki kharabi nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    },
+    {
+      "code": "ISO fault",
+      "aliases": [
+        "ISO fault",
+        "ISO Fault",
+        "Isolation fault"
+      ],
+      "title": {
+        "en": "PV-to-ground impedance below 100 kOhm",
+        "ur": "PV se ground ki impedance 100 kOhm se kam"
+      },
+      "meaning": {
+        "en": "The inverter measured the impedance between PV (+), PV (-) and ground and found it below the acceptable level, so it stopped to protect against electric shock.",
+        "ur": "Inverter ne PV (+), PV (-) aur ground ke darmiyan impedance naapa aur woh acceptable level se neeche nikala, is liye shock se bachane ke liye ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Damaged or chafed DC cable insulation, classically where PV cable crosses a metal roof edge, conduit or a hot tray.",
+          "ur": "DC cable insulation ka nuqsaan ya gis chukna - aam tor par jahan PV cable metal roof ke kinare, conduit ya garm tray se guzarta hai."
+        },
+        {
+          "en": "Water ingress into a DC junction box or an MC4 connector after monsoon rain.",
+          "ur": "Mausam ki barish ke baad DC junction box ya MC4 connector mein paani ka dakhil."
+        },
+        {
+          "en": "A module with a cracked backsheet or a failed internal junction box shorting to its frame.",
+          "ur": "Aisa module jiska backsheet toota ho ya internal junction box kharab ho aur frame se short kar raha ho."
+        },
+        {
+          "en": "Normal damp conditions after dew or rain, which usually clear on their own.",
+          "ur": "Oos ya barish ke baad aam nami ki halat, jo aam tor par khud clear ho jati hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the impedance among PV (+), PV (-) and ground - it should be more than 100 kOhm, exactly as FoxESS specifies.",
+          "ur": "Jaise FoxESS batata hai, PV (+), PV (-) aur ground ke darmiyan impedance check karein - woh 100 kOhm se zyada hona chahiye."
+        },
+        {
+          "en": "If the impedance IS above 100 kOhm yet the code is showing, follow FoxESS's own escalation: seek help from FoxESS, because that combination means a sensing problem not a real leak.",
+          "ur": "Agar impedance 100 kOhm se upar hai lekin code phir bhi aa raha hai to FoxESS ki apni hidayat follow karein: FoxESS se madad lein, kyunke yeh combination sensing ka masla batata hai, asal leak nahi."
+        },
+        {
+          "en": "With the DC switch open, split the array string by string and re-measure to find which string is below 100 kOhm; on a dry day a healthy string reads in the megaohm range.",
+          "ur": "DC switch khuli rakh kar, array ko string by string alag kar ke dobara napen taake pata chale kaun si string 100 kOhm se neeche hai; sukhe din mein theek string megaohm range parh ti hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "THREE NAMESPACE WARNING for the word ISO. T-Series 'ISO fault' = a measured impedance test with a >100kohm threshold. Hybrids 'Iso Fault' = an insulation-damage inspection with no value (foxess-h1-ac1-g2-insulation). R-Series 1124 = a two-step check that ALSO involves an APP impedance setting. Never hand one model's ISO procedure to another model's owner.",
+        "ur": "ISO shabd ke liye TEEN namespaces ka warning. T-Series 'ISO fault' = measured impedance test, >100kohm threshold ke saath. Hybrids ka 'Iso Fault' = insulation-damage inspection, koi value ke baghair (foxess-h1-ac1-g2-insulation). R-Series ka 1124 = aik do qadam ka check jisme APP impedance setting bhi shamil hai. Aik model ka ISO tareeqa doosre model ke owner ko kabhi na dein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    },
+    {
+      "code": "Ground fault",
+      "aliases": [
+        "Ground fault",
+        "Ground Fault"
+      ],
+      "title": {
+        "en": "Ground/neutral connection failed (T-Series)",
+        "ur": "Ground/neutral connection kharabi (T-Series)"
+      },
+      "meaning": {
+        "en": "The inverter measured an abnormal voltage between neutral and protective earth, or lost a proper ground reference.",
+        "ur": "Inverter ne neutral aur protective earth ke darmiyan abnormal voltage naapa, ya theek ground reference kho di."
+      },
+      "causes": [
+        {
+          "en": "Neutral and PE not both correctly landed at the AC terminal, or PE open.",
+          "ur": "AC terminal par neutral aur PE dono theek se nahi lage, ya PE khari hui hai."
+        },
+        {
+          "en": "Neutral and PE shorted together somewhere in the board - common in improvised Pakistani wiring.",
+          "ur": "Board mein kahin neutral aur PE aapas mein short ho gaye hain - Pakistan ke improvised wiring mein yeh aam hai."
+        },
+        {
+          "en": "Reversed or mis-landed AC conductors after a rewire by a non-installer.",
+          "ur": "Kisi non-installer ke rewire ke baad AC conductors ulat ya ghalat lagi hui."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the voltage of neutral and PE, and check AC wiring - FoxESS's two instructions for this code, in that order.",
+          "ur": "Neutral aur PE ka voltage check karein, aur AC wiring check karein - is code ke liye FoxESS ke do instructions, isi tarah."
+        },
+        {
+          "en": "Disconnect PV (+) and PV (-) using the DC switch; after the LCD switches off, reconnect and check again - the T table adds this DC step, the hybrid table does not.",
+          "ur": "DC switch se PV (+) aur PV (-) disconnect karein; LCD band hone ke baad wapas lagayein aur dobara check karein - T table yeh DC step add karti hai, hybrid table nahi."
+        },
+        {
+          "en": "With the AC breaker off, measure AC voltage between neutral and PE at the inverter; it should read near zero volts while the grid is live.",
+          "ur": "AC breaker off kar ke, inverter par neutral aur PE ke darmiyan AC voltage napen; grid live hone ke bawajood yeqreeban zero volts hona chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Same string as the hybrids' 'Ground Fault' but kept separate because the T table's remedy includes a PV DC switch-off and an LCD-off wait that the H1/KH-KA rows do not. Neutral-PE shorting is a fire risk, not just a nuisance alarm.",
+        "ur": "Hybrids ke 'Ground Fault' se wohi string, lekin alag is liye ke T table ke hal mein PV DC switch off aur LCD-off ka intezar shamil hai jo H1/KH-KA ki rows mein nahi. Neutral-PE short aag ka khatra hai, sirf nuisance alarm nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    },
+    {
+      "code": "Over temp fault",
+      "aliases": [
+        "Over temp fault",
+        "Over Temperature Fault"
+      ],
+      "title": {
+        "en": "Ambient/inverter temperature over limit",
+        "ur": "Ambient/inverter temperature limit se upar"
+      },
+      "meaning": {
+        "en": "The inverter's internal temperature sensor has exceeded its limit, so it has shut down to protect itself.",
+        "ur": "Inverter ka internal temperature sensor apni limit cross kar chuka hai, is liye khud ko bachane ke liye band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Direct sunlight on the inverter - FoxESS names this first and it is the usual cause on a Pakistani rooftop or wall mount in summer.",
+          "ur": "Inverter par seedhi dhoop - FoxESS isay pehle kehta hai aur Pakistan mein garmi mein rooftop ya wall mount par yehi aam wajah hai."
+        },
+        {
+          "en": "Blocked or clogged air outlet, often from dust, leaves, mud nesting or a wall mounted too close to the surface.",
+          "ur": "Air outlet block ya ghasa hua - aksar dhool, patte, mud ka ghar ya deewar se zyada qareeb lagi wall mount ki wajah se."
+        },
+        {
+          "en": "Ambient temperature genuinely above the model's operating range during a heatwave.",
+          "ur": "Heatwave ke dauraan ambient temperature waqai model ki operating range se upar."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if the environment temperature is over the limit, as FoxESS's own and ONLY instruction for this code - measure with a thermometer at the unit's intake rather than judging from the weather.",
+          "ur": "Jaise FoxESS ka apna aur akela instruction hai, check karein ke environment temperature limit se upar hai - mausam se andaza lagane ke bajaye unit ke intake par thermometer se napen."
+        },
+        {
+          "en": "Reduce the heat load at the source: if the unit is in direct sun, move it out of it or shade it, and keep the clearances the T manual's installation section specifies.",
+          "ur": "Source par garm ka bojh kam karein: agar unit seedhi dhoop mein hai to use hata dein ya chhaon, aur T manual ke installation section ki khidai bar rakhein."
+        },
+        {
+          "en": "Clear the air path - clean dust, leaves and nesting from the intake and outlet - then re-test in the cooler part of the day, and if it still trips, seek help as FoxESS directs.",
+          "ur": "Air ka raasta saaf karein - intake aur outlet se dhool, patte aur ghar saaf karein - phir din ke thande hisse mein dobara test karein, aur phir bhi trip kare to jaise FoxESS kahe madad lein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "IMPORTANT CORRECTION made while verifying this file against the raw PDF: the T-Series 'Over temp fault' row contains ONLY 'Check if the environment temperature is over the limit' and 'Or seek for help from us'. An earlier draft of this block wrongly credited it with 'Check if the inverter is exposed to direct sunlight, please shade the inverter properly' and 'Check and clean the air outlet' - that text is the R-Series code 1099 'Over-temperature Protection', not the T-Series. The shading and air-outlet steps above are therefore field practice, not FoxESS T text, and are labelled as such. Also note FoxESS's T remedy for this code does not mention the fan at all; a T-Series with a Fan fault as well is a separate code.",
+        "ur": "IMPORTANT CORRECTION jo is file ko raw PDF se verify karte waqt kiya gaya: T-Series ki 'Over temp fault' row mein sirf 'Check if the environment temperature is over the limit' aur 'Or seek for help from us' hai. Is block ke pichle draft ne use ghalat tawajjuh se 'Check if the inverter is exposed to direct sunlight, please shade the inverter properly' aur 'Check and clean the air outlet' diya tha - woh text R-Series ke code 1099 'Over-temperature Protection' ka hai, T-Series ka nahi. Is liye upar ke shading aur air-outlet steps field practice hain, FoxESS T text nahi, aur aise hi likhe gaye hain. Yeh bhi note karein ke FoxESS ka T hal is code mein fan ka zikr hi nahi karta; saath Fan fault bhi ho to woh alag code hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    },
+    {
+      "code": "Fan fault",
+      "aliases": [
+        "Fan fault",
+        "Fan Fault"
+      ],
+      "title": {
+        "en": "Cooling fan seized or failed",
+        "ur": "Cooling fan jam gaya ya kharab"
+      },
+      "meaning": {
+        "en": "The inverter's internal cooling fan is not turning, so the unit is about to overheat. This is a mechanical fault with a specific, checkable cause.",
+        "ur": "Inverter ka andar ka cooling fan nahi chal raha, is liye unit garm hone wali hai. Yeh mechanical fault hai jis ki jaanchable wajah hai."
+      },
+      "causes": [
+        {
+          "en": "The fan is seized up by something - FoxESS's own wording, and in practice usually an insect nest, a leaf or dust packed into the hub.",
+          "ur": "Fan kisi cheez se jam gaya hai - FoxESS ka apha wording, aur amli tor par aam tor par keedon ka ghar, patta ya hub mein dhool bhari hua."
+        },
+        {
+          "en": "Fan bearing worn or the motor failed after years of continuous running.",
+          "ur": "Saal bhar chalne ke baad fan bearing ghis gaya ya motor kharab ho gaya."
+        },
+        {
+          "en": "Fan cable or its hall-sensor feedback disconnected, which the inverter reports the same way as a seized fan.",
+          "ur": "Fan cable ya us ka hall-sensor feedback disconnect ho gaya, jis ki wajah se inverter isi tarah report karta hai jaise fan jam ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV+ and PV-, reconnect them, as FoxESS directs for this code - note it says PV only.",
+          "ur": "Jaise FoxESS is code ke liye kahe PV+ aur PV- disconnect kar ke wapas lagayein - note karein ke isay kehta hai sirf PV."
+        },
+        {
+          "en": "Check whether the FAN is seized up by something or not - FoxESS's own check - by spinning the blades gently with power isolated and looking for an obstruction.",
+          "ur": "Power isolate kar ke, FoxESS ka apna check karein - blades ko halka sa ghumayein aur blockage dekhein - ke FAN kisi cheez se jam hai ya nahi."
+        },
+        {
+          "en": "If the blades turn freely but the fault remains, the fan motor or its sensor cable is at fault - log the code and serial and raise a service claim for the fan assembly.",
+          "ur": "Agar blades aazad ghoomte hain lekin fault qataar nahi hota to fan motor ya us ka sensor cable kharab hai - code aur serial note karke fan assembly ke liye service claim raise karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The R-Series expresses the same class of problem numerically as 1191 'External Fan Alarm' (FoxESS: check whether the fan is blocked by foreign objects and remove them) and 1192 'Internal Fan Alarm' (FoxESS: contact customer service) - the string, and the split between external and internal, differ entirely. Do not merge.",
+        "ur": "R-Series isi tarah ke masle ko numeric 1191 'External Fan Alarm' (FoxESS: check karein fan foreign objects se blocked hai ya nahi aur nikaal dein) aur 1192 'Internal Fan Alarm' (FoxESS: customer service se rabta karein) ke tor par kehta hai - string alag, aur external/internal ka farq bhi alag. Merge na karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    }
+  ]
+}

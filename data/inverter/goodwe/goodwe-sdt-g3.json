@@ -1,0 +1,947 @@
+{
+  "schemaVersion": 1,
+  "brandId": "goodwe",
+  "series": {
+    "id": "goodwe-sdt-g3",
+    "name": "SDT-G3 three-phase hybrid (F01-F163 F-code scheme)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*SDT*",
+      "GW*-SDT-*"
+    ],
+    "notes": "Documented model scope is GW4000/GW5000/GW6000/GW8000/GW10K/GW12K/GW15K/GW17K/GW20K/GW25K-SDT-30 and GW10K-SDT-EU30, i.e. three-phase 220/380, 230/400, 240/415 V 3L/N/PE or 3L/PE hybrid units. F-prefixed codes are SDT-G3 specific and MUST NOT be merged with the ES/EH F-scheme or with any bare-integer scheme: e.g. SDT F32 is 'Inverter Internal Failure' while EH F32 is 'Relay Check Abnormal'. Some rows are string-count dependent (F40/F98, F42, F96/F97, F99/F100, F137/F138, F146-F148) and some rows carry '-' meaning the manual gives no handling."
+  },
+  "codes": [
+    {
+      "code": "F01",
+      "aliases": [
+        "F01"
+      ],
+      "title": {
+        "en": "Grid power outage (F01)",
+        "ur": "Grid power chala gaya (F01)"
+      },
+      "meaning": {
+        "en": "No utility grid power, or the AC line / AC switch is disconnected, so the inverter has stopped grid-tied export.",
+        "ur": "Grid power nahi hai ya AC line / AC switch disconnect hai, is liye inverter grid se export nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "Utility grid power failure.",
+          "ur": "Grid power supply chali gayi."
+        },
+        {
+          "en": "AC line or AC switch disconnected.",
+          "ur": "AC line ya AC switch disconnect hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for grid restoration; the alarm clears by itself.",
+          "ur": "Grid aane ka intezaar karein, alarm khud ba khud hat jayega."
+        },
+        {
+          "en": "With a multimeter, confirm AC voltage is present at the inverter AC terminal.",
+          "ur": "Multimeter se inverter ke AC terminal par voltage check karein."
+        },
+        {
+          "en": "Check the AC breaker is ON and all AC terminations are tight.",
+          "ur": "AC breaker ON hai aur AC connections tight hain, ye check karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F02",
+      "aliases": [
+        "F02",
+        "Grid Overvoltage Protection"
+      ],
+      "title": {
+        "en": "Grid overvoltage protection (F02)",
+        "ur": "Grid par voltage zyada, protection chali (F02)"
+      },
+      "meaning": {
+        "en": "Grid voltage is above the allowable range, or has stayed high for longer than the HVRT setting, so the inverter disconnected.",
+        "ur": "Grid voltage allowed range se upar hai ya HVRT setting se zyada der tak high raha, is liye inverter ne disconnect kiya."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage higher than the allowable range.",
+          "ur": "Grid voltage permitted range se zyada hai."
+        },
+        {
+          "en": "High voltage lasted longer than the HVRT value.",
+          "ur": "High voltage HVRT value se zyada der tak raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do nothing if it happens rarely; the inverter restarts when the grid normalises.",
+          "ur": "Agar baar baar nahi ho to kuch na karein, grid normal hote hi inverter khud chalega."
+        },
+        {
+          "en": "Measure grid voltage with a clamp meter; if outside range, report to DISCO.",
+          "ur": "Clamp meter se grid voltage measure karein, range se bahar ho to DISCO ko report karein."
+        },
+        {
+          "en": "Only with DISCO consent, adjust the grid overvoltage protection point or HVRT.",
+          "ur": "Sirf DISCO ki ijazat se grid overvoltage protection point ya HVRT change karein."
+        },
+        {
+          "en": "If it never clears, inspect the AC breaker and output cable terminations.",
+          "ur": "Agar theek na ho to AC breaker aur output cables ke connections check karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F03",
+      "aliases": [
+        "F03",
+        "Grid Undervoltage Protection"
+      ],
+      "title": {
+        "en": "Grid undervoltage protection (F03)",
+        "ur": "Grid voltage kam, protection chali (F03)"
+      },
+      "meaning": {
+        "en": "Grid voltage is below the allowable range, or has stayed low for longer than the LVRT setting, so the inverter disconnected.",
+        "ur": "Grid voltage permitted range se neeche hai ya LVRT se zyada der low raha, is liye inverter ne disconnect kiya."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage lower than the allowable range.",
+          "ur": "Grid voltage permitted range se kam hai."
+        },
+        {
+          "en": "Low voltage duration exceeded the LVRT value.",
+          "ur": "Low voltage ki duration LVRT se zyada rahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Ignore a single occurrence; it is usually a short grid dip and it self-clears.",
+          "ur": "Ek baar aaye to ignore karein, aam tor par grid ki chhoti dip hai aur khud clear ho jata hai."
+        },
+        {
+          "en": "Measure grid voltage under load; long cable runs and heavy AC loads commonly cause it.",
+          "ur": "Load ke saath grid voltage measure karein, lamba AC cable ya zyada load is ki wajah ban sakta hai."
+        },
+        {
+          "en": "Check the AC side breaker and output cables are properly connected.",
+          "ur": "AC side breaker aur output cables ke connections check karein."
+        },
+        {
+          "en": "With DISCO consent only, change the undervoltage protection point / LVRT.",
+          "ur": "Sirf DISCO ki ijazat se undervoltage protection point ya LVRT badlein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F05",
+      "aliases": [
+        "F05",
+        "10min Overvoltage Protection"
+      ],
+      "title": {
+        "en": "10-min overvoltage protection (F05)",
+        "ur": "10 minute overvoltage protection (F05)"
+      },
+      "meaning": {
+        "en": "The 10-minute moving average of grid voltage has exceeded the safety-regulation limit, so the inverter shut down.",
+        "ur": "Grid voltage ka 10 minute ka average safety regulation limit se cross kar gaya, is liye inverter band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Sustained high grid voltage for over 10 minutes.",
+          "ur": "Grid voltage 10 minute se zyada der high raha."
+        },
+        {
+          "en": "Local grid operating above the safety-regulation band.",
+          "ur": "Local grid safety regulation range se upar chala raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Record the grid voltage trend for 15-20 minutes before touching anything.",
+          "ur": "Kuch nahi chhoone se pehle 15-20 minute grid voltage ka trend note karein."
+        },
+        {
+          "en": "Check for a heavy local load causing sustained overvoltage; shift or reduce it.",
+          "ur": "Check karein ke koi bada local load sustained overvoltage to nahi kar raha, use kam ya shift karein."
+        },
+        {
+          "en": "With DISCO consent, modify the 10min overvoltage protection point.",
+          "ur": "DISCO ki ijazat se 10min overvoltage protection point badlein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F06",
+      "aliases": [
+        "F06",
+        "Grid Overfrequency"
+      ],
+      "title": {
+        "en": "Grid overfrequency (F06)",
+        "ur": "Grid frequency zyada (F06)"
+      },
+      "meaning": {
+        "en": "Measured grid frequency is higher than the local grid standard allows, so the inverter disconnected.",
+        "ur": "Grid frequency local standard se zyada hai, is liye inverter disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Actual grid frequency above the local grid standard.",
+          "ur": "Actual grid frequency local grid standard se zyada hai."
+        },
+        {
+          "en": "Generator running in parallel and pushing frequency up.",
+          "ur": "Generator saath chal raha ho aur frequency badha raha ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the frequency on the inverter display or app; it normally self-clears.",
+          "ur": "Inverter display ya app par frequency dekhein, aam tor par khud clear ho jata hai."
+        },
+        {
+          "en": "Measure frequency with a clamp meter; if it stays high, contact the utility.",
+          "ur": "Clamp meter se frequency measure karein, agar high rahe to utility ko contact karein."
+        },
+        {
+          "en": "Check the safety country setting matches the local grid standard.",
+          "ur": "Safety country setting apne local grid standard ke mutabiq hai ya nahi check karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F09",
+      "aliases": [
+        "F09",
+        "Anti-islanding Protection"
+      ],
+      "title": {
+        "en": "Anti-islanding protection (F09)",
+        "ur": "Anti-islanding protection chali (F09)"
+      },
+      "meaning": {
+        "en": "The inverter saw the grid as disconnected but voltage was still held up by local loads, so it stopped exporting per safety rules.",
+        "ur": "Inverter ne grid ko disconnected samjha lekin voltage loads ki wajah se qayem raha, is liye safety ke mutabiq export band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Grid disconnected while local loads held voltage up.",
+          "ur": "Grid disconnect hua lekin local loads voltage qayem rakhte rahe."
+        },
+        {
+          "en": "Grid-tie stopped according to safety requirements.",
+          "ur": "Safety requirements ke mutabiq grid-tie band kar diya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If it happens only during outages, this is normal anti-islanding behaviour.",
+          "ur": "Agar sirf outage ke dauran aaye to ye normal anti-islanding behaviour hai."
+        },
+        {
+          "en": "Check whether there is a generator or other source back-feeding the same bus.",
+          "ur": "Check karein ke usi bus par generator ya koi doosra source to nahi hai."
+        },
+        {
+          "en": "Confirm all AC isolators and breakers are in a consistent position.",
+          "ur": "Sab AC isolators aur breakers ki position theek hai ya nahi confirm karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F18",
+      "aliases": [
+        "F18",
+        "Low Insulation Resistance"
+      ],
+      "title": {
+        "en": "Low insulation resistance (F18)",
+        "ur": "Insulation resistance kam ho gayi (F18)"
+      },
+      "meaning": {
+        "en": "PV string or battery port insulation to earth has dropped below the protection point; the manual gives 80kOhm as the normal reading.",
+        "ur": "PV string ya battery port ka earth ke mutabiq insulation gir gaya hai; manual ke mutabiq 80kOhm se upar normal hai."
+      },
+      "causes": [
+        {
+          "en": "PV string shorted to protective earth.",
+          "ur": "PV string protective earth se short ho gaya hai."
+        },
+        {
+          "en": "Long-term humid site with poor line-to-ground insulation.",
+          "ur": "Nam location par line-to-ground insulation behtar nahi hai."
+        },
+        {
+          "en": "Low insulation resistance on the battery port lines to ground.",
+          "ur": "Battery port lines ka ground se insulation kam hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC isolator first, then measure PV/battery port to PE; above 80kOhm is normal.",
+          "ur": "Pehle DC isolator off karein, phir PV/battery port se PE tak resistance measure karein, 80kOhm se upar normal hai."
+        },
+        {
+          "en": "Isolate strings one by one to find the offending string, then inspect that string's connectors and cable for water ingress.",
+          "ur": "Strings ko ek-ek karke disconnect karke woh wala string dhoondein, phir us ke connectors aur cable mein paani ki dhalai check karein."
+        },
+        {
+          "en": "Verify the inverter protective earth wire is properly connected.",
+          "ur": "Inverter ka protective earth wire theek se laga hua hai ya nahi check karein."
+        },
+        {
+          "en": "Only if wet-weather readings are genuinely marginal, reset the Insulation Resistance Protection Point in the app.",
+          "ur": "Sirf agar wet weather ki reading sach mein marginal ho to app se Insulation Resistance Protection Point reset karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "AU/NZ units also sound an internal buzzer for 1 minute, repeating every 30 minutes, and can email the alarm.",
+        "ur": "AU/NZ units mein buzzer 1 minute bajta hai aur har 30 minute dobara bajta hai, saath hi email bhi aa sakta hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F19",
+      "aliases": [
+        "F19",
+        "Grounding Abnormal"
+      ],
+      "title": {
+        "en": "Grounding abnormal (F19)",
+        "ur": "Grounding mein kharabi (F19)"
+      },
+      "meaning": {
+        "en": "The inverter protective earth wire is not connected, or a grounded PV string output is feeding earth with no isolation transformer.",
+        "ur": "Inverter ka protective earth wire nahi laga, ya grounded PV string ka output isolation transformer ke baghair earth mein leak kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter protective earth wire not connected.",
+          "ur": "Inverter ka protective earth wire nahi laga hua."
+        },
+        {
+          "en": "Grounded PV string output with no isolation transformer on the inverter output side.",
+          "ur": "Grounded PV string output hai lekin inverter output side par isolation transformer nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With all sources isolated, confirm the PE conductor is bonded to the inverter frame and sized to code.",
+          "ur": "Sab sources isolate karke PE wire inverter frame se lagi hui hai aur code ke mutabiq size ki hai ya nahi confirm karein."
+        },
+        {
+          "en": "Measure earth-to-inverter-frame resistance; it should read close to zero.",
+          "ur": "Earth aur inverter frame ke darmiyan resistance measure karein, zero ke qareeb aana chahiye."
+        },
+        {
+          "en": "If the PV array output is intentionally grounded, confirm an isolation transformer is fitted.",
+          "ur": "Agar PV array ka output jaan boojh kar ground kiya gaya hai to isolation transformer laga hua hai ya nahi confirm karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F40",
+      "aliases": [
+        "F40",
+        "F98",
+        "String Reverse Connection"
+      ],
+      "title": {
+        "en": "PV string reverse connection (F40 / F98)",
+        "ur": "PV string ulat lagi hui hai (F40 / F98)"
+      },
+      "meaning": {
+        "en": "One or more PV strings are wired backwards; the reported code depends on how many strings the unit has (F40 vs F98).",
+        "ur": "Ek ya zyada PV strings ulti lagi hain; code unit ki string count ke mutabiq F40 ya F98 aata hai."
+      },
+      "causes": [
+        {
+          "en": "PV string connected with reversed polarity.",
+          "ur": "PV string ki polarity ulti lagi hui hai."
+        },
+        {
+          "en": "Strings with different Voc landed on the same MPPT.",
+          "ur": "Alag Voc wale strings ek hi MPPT par lage hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the DC isolator OFF before touching any string.",
+          "ur": "String chhoone se pehle DC isolator OFF karein."
+        },
+        {
+          "en": "Measure each string Voc with a multimeter; a reversed string reads far lower or shows negative on a meter with polarity display.",
+          "ur": "Har string ka Voc multimeter se measure karein, ulti string bohat kam reading degi ya polarity wale meter par negative dikhega."
+        },
+        {
+          "en": "Reconnect with correct polarity and confirm the string fuse holder is seated.",
+          "ur": "Sahi polarity se dobara connect karein aur string fuse holder sahi se lage hua hai confirm karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The manual lists this row as 'F40, F98' with n determined by the actual number of inverter strings.",
+        "ur": "Manual is row ko 'F40, F98' likhta hai jahan n inverter ki actual string count se tay hota hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F44",
+      "aliases": [
+        "F44",
+        "Grid Phase Loss"
+      ],
+      "title": {
+        "en": "Grid phase loss (F44)",
+        "ur": "Grid ka aik phase gum ho gaya (F44)"
+      },
+      "meaning": {
+        "en": "A single-phase voltage dip in the three-phase grid, so the inverter disconnected to stay within the safety band.",
+        "ur": "Three phase grid mein kisi ek phase ka voltage gir gaya, is liye inverter safety range ke andar rehne ke liye disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Single-phase voltage dip in the grid.",
+          "ur": "Grid mein kisi aik phase ka voltage gira hua hai."
+        },
+        {
+          "en": "Loose or burnt AC phase terminal.",
+          "ur": "AC phase terminal dhila ya jala hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "A one-off dip self-clears; log repeated events before changing settings.",
+          "ur": "Aik baar ki dip khud clear ho jati hai, baar baar aaye tabhi settings badlein."
+        },
+        {
+          "en": "Isolate AC and torque-check all three phase terminals at the inverter and the AC breaker.",
+          "ur": "AC isolate karke inverter aur AC breaker ke teenon phase terminals ki tightening check karein."
+        },
+        {
+          "en": "Measure phase-to-phase voltage on each leg; one leg far below the others means a supply or fuse problem upstream.",
+          "ur": "Har leg par phase-to-phase voltage measure karein, aik leg doosron se kaafi neeche ho to upstream supply ya fuse mein masla hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F52",
+      "aliases": [
+        "F52",
+        "Leakage Current (GFCI) Multiple Fault Shutdown"
+      ],
+      "title": {
+        "en": "GFCI multiple fault shutdown (F52)",
+        "ur": "GFCi baar baar trip hone par band (F52)"
+      },
+      "meaning": {
+        "en": "North American rules forbid auto-recovery after repeated residual current trips, so the unit locks out and needs manual reset or a 24h wait.",
+        "ur": "North American rules ke mutabiq baar baar residual current trip hone par auto recovery nahi hota, is liye unit lock ho jata hai aur manual reset ya 24 ghante ka intezaar chahiye."
+      },
+      "causes": [
+        {
+          "en": "Repeated GFCI/residual current trips on the PV side.",
+          "ur": "PV side par baar baar GFCI trips hue hain."
+        },
+        {
+          "en": "PV string impedance to ground too low.",
+          "ur": "PV string ka ground se impedance bohat kam hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not keep cycling it; isolate DC and find the real leakage path first.",
+          "ur": "Baar baar on/off na karein, pehle DC isolate karke asal leakage source dhoondein."
+        },
+        {
+          "en": "Measure PV string to PE impedance in dry conditions; well above 80kOhm is expected.",
+          "ur": "Sukhon haalat mein PV string se PE impedance measure karein, 80kOhm se kaafi upar hona chahiye."
+        },
+        {
+          "en": "After the fault is fixed, let the unit sit for the stated 24h or clear it per the local utility procedure.",
+          "ur": "Fault theek hone ke baad 24 ghante intezaar karein ya local utility ke tareeqe se clear karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Only relevant on the North American safety-standard build; the manual's handling text for this row is copied from the GFCI impedance instruction.",
+        "ur": "Yeh sirf North American safety standard wale unit par lagta hai, manual ki handling text yahan GFCI impedance instruction se copy ki gayi hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F55",
+      "aliases": [
+        "F55",
+        "Back-up Port Overload Fault"
+      ],
+      "title": {
+        "en": "Back-up port overload (F55)",
+        "ur": "Back-up port par load zyada (F55)"
+      },
+      "meaning": {
+        "en": "The loads on the back-up output exceed what the inverter can sustain, so it dropped the back-up circuit.",
+        "ur": "Back-up output par lagaya hua load inverter ki capacity se zyada hai, is liye back-up circuit gir diya gaya."
+      },
+      "causes": [
+        {
+          "en": "Back-up load switched on while already at peak.",
+          "ur": "Back-up load already peak par tha aur usi waqt naya load chalaya gaya."
+        },
+        {
+          "en": "Motor or pump starting current on back-up.",
+          "ur": "Back-up par motor ya pump ka starting current."
+        },
+        {
+          "en": "Battery discharge limit reached.",
+          "ur": "Battery ka discharge limit poori ho chuka hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the largest back-up loads one at a time and see when the fault clears.",
+          "ur": "Back-up ke sabse bade loads ek-ek karke off karein aur dekhein fault kab clear hota hai."
+        },
+        {
+          "en": "Add up the running watts from each appliance and compare with the back-up rated power in the spec sheet.",
+          "ur": "Har appliance ka chalne wala wattage jama karke back-up ki rated power se compare karein."
+        },
+        {
+          "en": "Move AC motors, pumps and air-conditioners to the grid side; run heavy loads one at a time.",
+          "ur": "AC motors, pumps aur air-conditioners grid side par shift karein, bade loads aik aik chala kar chalayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F59",
+      "aliases": [
+        "F59",
+        "Parallel Unit CAN Communication Abnormal"
+      ],
+      "title": {
+        "en": "Parallel unit CAN comms abnormal (F59)",
+        "ur": "Parallel units ka CAN link kharab (F59)"
+      },
+      "meaning": {
+        "en": "In a multi-inverter parallel stack the CAN communication cable is loose or one slave unit is offline, so the group cannot sync.",
+        "ur": "Parallel system mein CAN communication cable dhila hai ya koi slave unit offline hai, is liye group sync nahi ho sakta."
+      },
+      "causes": [
+        {
+          "en": "Parallel communication cable not securely connected.",
+          "ur": "Parallel communication cable theek se nahi lagi."
+        },
+        {
+          "en": "One unit in the stack is powered off or offline.",
+          "ur": "Stack mein koi aik unit band ya offline hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power down and re-seat both ends of the parallel CAN cable at every unit.",
+          "ur": "Power off karke har unit par parallel CAN cable ke dono ends dobara lagayein."
+        },
+        {
+          "en": "Confirm every unit in the stack is powered on and showing normal on the display.",
+          "ur": "Confirm karein ke stack ka har unit on hai aur display par normal dikha raha hai."
+        },
+        {
+          "en": "Check the CAN addressing on each unit is unique, then power up master first.",
+          "ur": "Har unit ki CAN address unique hai ya nahi check karein, phir master ko pehle on karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F65",
+      "aliases": [
+        "F65",
+        "AC Terminal Overtemperature"
+      ],
+      "title": {
+        "en": "AC terminal overtemperature (F65)",
+        "ur": "AC terminal garm ho gaya (F65)"
+      },
+      "meaning": {
+        "en": "The AC terminal area has exceeded its temperature limit, which the manual links to poor ventilation, high ambient or a failing internal fan.",
+        "ur": "AC terminal ka temperature limit se cross kar gaya, manual isay poor ventilation, high ambient ya kharab internal fan se jodta hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter installed where ventilation is inadequate.",
+          "ur": "Inverter aise jagah lagai hai jahan ventilation kam hai."
+        },
+        {
+          "en": "Ambient temperature above the maximum allowable range.",
+          "ur": "Ambient temperature maximum allowable range se upar hai."
+        },
+        {
+          "en": "Internal fan not running normally.",
+          "ur": "Internal fan theek nahi chal raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC, wait 15 minutes, then check the AC terminal temperature reading before restarting.",
+          "ur": "AC aur DC isolate karein, 15 minute intezaar karein, phir restart se pehle AC terminal temperature check karein."
+        },
+        {
+          "en": "Measure ambient air temperature at the unit; Pakistan summers regularly exceed the rating.",
+          "ur": "Unit ke paas ka ambient temperature measure karein, Pakistan mein garmiyon mein ye rating se upar chala jata hai."
+        },
+        {
+          "en": "Fit a shade hood or move the unit out of direct sun and out of hot exhaust air.",
+          "ur": "Shade hood lagayein ya unit ko direct dhoop aur garam hawa se nikal dein."
+        },
+        {
+          "en": "Listen for the internal fan; if it is silent, check the fan connector and the fan itself.",
+          "ur": "Internal fan ki aaz sun lein, agar khamosh hai to fan connector aur fan khud check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F101",
+      "aliases": [
+        "F101",
+        "Battery 1 Precharge Fault"
+      ],
+      "title": {
+        "en": "Battery 1 precharge fault (F101)",
+        "ur": "Battery 1 precharge circuit kharab (F101)"
+      },
+      "meaning": {
+        "en": "The battery precharge circuit failed, for example the precharge resistor has burnt, so the DC bus is not lifted to battery voltage.",
+        "ur": "Battery precharge circuit kharab hai, maslan precharge resistor jal chuka hai, is liye DC bus battery voltage tak nahi uthta."
+      },
+      "causes": [
+        {
+          "en": "Precharge resistor burnt out or precharge circuit fault.",
+          "ur": "Precharge resistor jal chuka hai ya precharge circuit mein fault hai."
+        },
+        {
+          "en": "Battery voltage not matching the inverter DC bus voltage.",
+          "ur": "Battery voltage inverter ke DC bus voltage se match nahi kar rahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the battery off, wait 5 minutes, then switch the battery on alone with the inverter off.",
+          "ur": "Battery off karein, 5 minute intezaar karein, phir inverter band kar ke sirf battery on karein."
+        },
+        {
+          "en": "With a multimeter on DC, compare battery voltage against the inverter DC bus voltage; they must match.",
+          "ur": "Multimeter DC par laga kar battery voltage aur inverter DC bus voltage compare karein, dono match hone chahiye."
+        },
+        {
+          "en": "Inspect the precharge resistor and the battery contactor for heat damage or pitting.",
+          "ur": "Precharge resistor aur battery contactor mein garmi se nuqsan ya pitting check karein."
+        },
+        {
+          "en": "If they still mismatch, replace the precharge resistor or board per service procedure.",
+          "ur": "Phir bhi mismatch ho to service procedure ke mutabiq precharge resistor ya board replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F122",
+      "aliases": [
+        "F122",
+        "PV Access Mode Setting Error"
+      ],
+      "title": {
+        "en": "PV access mode setting error (F122)",
+        "ur": "PV access mode ki setting ghalat (F122)"
+      },
+      "meaning": {
+        "en": "The PV access mode set in the app or on screen (AAAA, AACC, ABCD) does not match how the MPPT inputs are actually wired.",
+        "ur": "App ya screen par set kiya gaya PV access mode (AAAA, AACC, ABCD) asal MPPT wiring ke mutabiq nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Actual wiring differs from the configured access mode.",
+          "ur": "Asal wiring configured access mode se different hai."
+        },
+        {
+          "en": "Mode left on AAAA or AACC after an MPPT was re-wired.",
+          "ur": "MPPT rewiring ke baad mode AAAA ya AACC par chala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "List which MPPT inputs physically share a string before changing anything.",
+          "ur": "Kuch bhi change karne se pehle likh lein ke kaun se MPPT inputs aik hi string share karte hain."
+        },
+        {
+          "en": "Set the PV access mode in the app or on screen to match that wiring (AAAA, AACC or ABCD).",
+          "ur": "App ya screen par PV access mode usi wiring ke mutabiq set karein (AAAA, AACC ya ABCD)."
+        },
+        {
+          "en": "Isolate PV and AC, then restart so the new mode takes effect.",
+          "ur": "PV aur AC isolate karke restart karein taake naya mode apply ho."
+        },
+        {
+          "en": "If the fault stays with the correct mode set, the mode-setting circuit is faulty - escalate to GoodWe.",
+          "ur": "Agar sahi mode set karne par bhi fault rahe to mode-setting circuit kharab hai, GoodWe ko baat karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F140",
+      "aliases": [
+        "F140",
+        "Meter Comm Loss"
+      ],
+      "title": {
+        "en": "Meter communication loss (F140)",
+        "ur": "Meter ki communication kho gayi (F140)"
+      },
+      "meaning": {
+        "en": "The smart meter is not talking to the inverter, which also blinds the export limit and anti-backfeed functions.",
+        "ur": "Smart meter inverter se baat nahi kar raha, is liye export limit aur anti-backfeed bhi kaam nahi kar rahe."
+      },
+      "causes": [
+        {
+          "en": "Meter not connected at all.",
+          "ur": "Meter bilkul nahi lagi hui."
+        },
+        {
+          "en": "Incorrect wiring of the meter-to-inverter communication cable.",
+          "ur": "Meter se inverter ke communication cable ki wiring ghalat hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the meter has supply on the same phase as the inverter and that its COM LED is blinking.",
+          "ur": "Check karein ke meter ko supply usi phase par hai jis par inverter hai aur us ka COM LED blink kar raha hai."
+        },
+        {
+          "en": "With power off, re-seat the RS485 cable and confirm the pinout matches the meter manual.",
+          "ur": "Power off karke RS485 cable dobara lagayein aur pinout meter ke manual ke mutabiq check karein."
+        },
+        {
+          "en": "Replace the meter cable with a correctly pinned-out cable, then run the meter test in the app.",
+          "ur": "Meter cable sahi pinout wale se replace karein, phir app mein meter test chalayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F163",
+      "aliases": [
+        "F163",
+        "Grid Phase Instability"
+      ],
+      "title": {
+        "en": "Grid phase instability (F163)",
+        "ur": "Grid phase voltage unstable hai (F163)"
+      },
+      "meaning": {
+        "en": "The rate of change of grid voltage phase does not comply with the local grid standard, so the inverter stopped.",
+        "ur": "Grid voltage phase ka badlav local grid standard ke mutabiq nahi hai, is liye inverter band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Grid phase change rate outside local grid standard.",
+          "ur": "Grid phase change rate local grid standard se bahar hai."
+        },
+        {
+          "en": "Heavy motor or welding load cycling on the same phase.",
+          "ur": "Usi phase par bada motor ya welding load on/off ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note the frequency and voltage at the time it happens; a one-off clears itself.",
+          "ur": "Jab aaye tab frequency aur voltage note karein, aik baar aane par khud clear hota hai."
+        },
+        {
+          "en": "If it repeats, log events and report the timestamps to the utility.",
+          "ur": "Baar baar aaye to events log karein aur timestamps ke saath utility ko dein."
+        },
+        {
+          "en": "Move large motor and welding loads to a different phase where the consumer unit allows.",
+          "ur": "Bade motor aur welding loads consumer unit ki ijazat ke mutabiq doosre phase par shift karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW SDT-G3 User Manual V2.4 (2026-03-25), section 7.4 Troubleshooting",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_SDT-G3_User-Manual-EN.pdf"
+      }
+    }
+  ]
+}

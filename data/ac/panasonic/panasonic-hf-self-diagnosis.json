@@ -1,0 +1,2912 @@
+{
+  "schemaVersion": 1,
+  "brandId": "panasonic",
+  "series": {
+    "id": "panasonic-hf-self-diagnosis",
+    "name": "Modern H/F self-diagnosis codes (all current residential splits, PK XKF/YE/PC/C class)",
+    "category": "ac",
+    "unitType": "split",
+    "modelPatterns": [
+      "*H0*",
+      "*H1*",
+      "*H2*",
+      "*H3*",
+      "*H4*",
+      "*H5*",
+      "*H6*",
+      "*H7*",
+      "*H8*",
+      "*H9*",
+      "*F1*",
+      "*F8*",
+      "*F9*"
+    ],
+    "notes": "Modern letter+digit scheme shared by all current Panasonic residential inverter/conventional splits (H00-H99, F11-F99). Primary = official Panasonic self-diagnosis page (name source of truth) + CS-E7JKEW service manual §16.3/§16.4 causes + NA operating manual corroboration. High for dual-official entries; medium for official-name-only (16 entries, flagged in notes). Remote display."
+  },
+  "codes": [
+    {
+      "code": "H00",
+      "aliases": [
+        "H00"
+      ],
+      "title": {
+        "en": "No fault stored (no memory of failure)",
+        "ur": "Koi fault save nahi hai"
+      },
+      "meaning": {
+        "en": "Self-diagnosis reports no abnormality — the unit is working normally.",
+        "ur": "Self-diagnosis mein koi kharabi nahi mili, unit normal chal rahi hai."
+      },
+      "causes": [],
+      "solutions": [],
+      "severity": "info",
+      "display": "remote",
+      "isFault": false,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Baseline code on every inverter model — scroll starts at H00. No TIMER LED blink stored.",
+        "ur": "Har inverter model mein yeh baseline code hai — scroll H00 se shuru hota hai. Is mein koi TIMER LED blink save nahi hota."
+      }
+    },
+    {
+      "code": "H11",
+      "aliases": [
+        "H11"
+      ],
+      "title": {
+        "en": "Indoor/outdoor communication fault",
+        "ur": "Indoor aur outdoor ka communication nahi ho raha"
+      },
+      "meaning": {
+        "en": "The indoor and outdoor units failed to talk to each other shortly after start-up, so the unit stops.",
+        "ur": "Start ke kuch second ke andar indoor aur outdoor mein signal exchange nahi hua, is liye unit band ho gayi."
+      },
+      "causes": [
+        {
+          "en": "Inter-unit wiring loose, wrongly landed on terminals, or wrong wire count",
+          "ur": "Indoor–outdoor wire terminal pe dhili ya galat lagi hui hai"
+        },
+        {
+          "en": "Break/cut in the connection cable between indoor and outdoor",
+          "ur": "Connection wire ke beech se toota hua ya kata hua hai"
+        },
+        {
+          "en": "Faulty indoor PCB, outdoor PCB, or disturbed power supply waveform",
+          "ur": "Indoor PCB, outdoor PCB kharab ho sakta hai ya supply waveform theek nahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the breaker and re-check both terminals and the inter-unit cable",
+          "ur": "Breaker band karke dono terminal aur inter-unit wire dobara check karein"
+        },
+        {
+          "en": "Look for a cut/burn in the cable and replace the wire if damaged",
+          "ur": "Wire mein cut ya jalan hai to nayi wire lagwayein"
+        },
+        {
+          "en": "Wiring OK? Then test indoor and outdoor PCBs with a service technician",
+          "ur": "Wiring theek hai to technician se indoor/outdoor PCB check karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.1",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Most-searched Panasonic code. Trip: detected after ~1 min of operation; indoor fan can still run in force-cooling. Timer LED blinks while stored.",
+        "ur": "Yeh Panasonic ka sabse zyada search hone wala code hai. Trip: taqreeban 1 minute chalne ke baad pakda jata hai; force-cooling mein indoor fan phir bhi chal sakta hai. Code save honay par Timer LED blink karta hai."
+      }
+    },
+    {
+      "code": "H12",
+      "aliases": [
+        "H12"
+      ],
+      "title": {
+        "en": "Indoor/outdoor capacity mismatch",
+        "ur": "Indoor aur outdoor ka capacity match nahi hai"
+      },
+      "meaning": {
+        "en": "The connected indoor and outdoor units are not a valid pair, or the total indoor capacity is outside the allowed range.",
+        "ur": "Lagaaye hue indoor aur outdoor ki jodi sahi nahi hai ya indoor ki total capacity limit se bahar hai."
+      },
+      "causes": [
+        {
+          "en": "Wrong models interconnected (capacity rank does not match)",
+          "ur": "Galat model joda hua hai, capacity rank match nahi karti"
+        },
+        {
+          "en": "Wrong or defective indoor/outdoor PCB fitted",
+          "ur": "Indoor ya outdoor PCB galat ya kharab lagaya hua hai"
+        },
+        {
+          "en": "Wiring break or wrong wiring between the units",
+          "ur": "Indoor–outdoor wire mein cut ya wiring galat hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Match indoor and outdoor model numbers against the catalogue combination table",
+          "ur": "Indoor aur outdoor ke model number catalogue ki combination table se milayein"
+        },
+        {
+          "en": "Check that the number of indoor units and total capacity is within the outdoor unit limit",
+          "ur": "Indoor units ki tadaad aur total capacity outdoor ki limit ke andar hai — check karein"
+        },
+        {
+          "en": "Verify the inter-unit wiring and PCB part numbers",
+          "ur": "Inter-unit wiring aur PCB ke part numbers verify karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.2",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Appears 90 s after power-up. Usually an install/combo mistake, not a part failure.",
+        "ur": "Power-up ke 90 second baad aata hai. Aksar yeh install ya combo ka ghalat hona hota hai, koi part kharab nahi hota."
+      }
+    },
+    {
+      "code": "H14",
+      "aliases": [
+        "H14"
+      ],
+      "title": {
+        "en": "Indoor intake air temperature sensor fault",
+        "ur": "Indoor ki room temperature sensor theek kaam nahi kar rahi"
+      },
+      "meaning": {
+        "en": "The room (intake) thermistor reads open or short for 5 seconds, so the sensor value cannot be trusted.",
+        "ur": "Room ki temperature sensor open/short ho gayi hai, is liye unit us reading par kaam nahi kar sakti."
+      },
+      "causes": [
+        {
+          "en": "Sensor connector loose or not seated on the indoor PCB",
+          "ur": "Sensor ka connector PCB pe theek se laga nahi ya dhila hai"
+        },
+        {
+          "en": "Thermistor itself open/short (damaged or wet)",
+          "ur": "Thermistor khud open/short ho gaya hai — kharab ya geela ho sakta hai"
+        },
+        {
+          "en": "Faulty indoor PCB input",
+          "ur": "Indoor PCB ka sensor input hissa kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, unplug the intake thermistor and reseat the connector",
+          "ur": "Power band karke thermistor ka connector nikal ke dobara lagayein"
+        },
+        {
+          "en": "Measure the sensor with a multimeter and replace if open/short",
+          "ur": "Multimeter se sensor check karein, open/short ho to sensor badlein"
+        },
+        {
+          "en": "If the sensor is fine, have the indoor PCB checked",
+          "ur": "Sensor theek ho to indoor PCB check karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.3",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: value open/short for 5 s. Check location per manual: sensor lead wire and connector.",
+        "ur": "Trip: value 5 second tak open/short rahe. Manual ke mutabiq jagah check karein: sensor ki lead wire aur connector."
+      }
+    },
+    {
+      "code": "H15",
+      "aliases": [
+        "H15"
+      ],
+      "title": {
+        "en": "Compressor temperature sensor fault",
+        "ur": "Compressor ki temperature sensor theek nahi"
+      },
+      "meaning": {
+        "en": "The outdoor compressor (discharge/bottom) thermistor reads open or short for 5 seconds.",
+        "ur": "Outdoor compressor ki temperature sensor open/short par rahi hai, is liye protection lag gayi."
+      },
+      "causes": [
+        {
+          "en": "Compressor sensor connector loose or corroded",
+          "ur": "Compressor sensor ka connector dhila ya zang laga hua hai"
+        },
+        {
+          "en": "Thermistor open/short (heat damage at the compressor)",
+          "ur": "Thermistor kharab — compressor ki garmi se wire/sensor toot gaya"
+        },
+        {
+          "en": "Faulty outdoor PCB sensor circuit",
+          "ur": "Outdoor PCB ka sensor circuit kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Kill power, then inspect and reseat the compressor sensor plug",
+          "ur": "Power band karke compressor sensor ka plug check karke dobara lagayein"
+        },
+        {
+          "en": "Test the thermistor resistance and replace it if out of range",
+          "ur": "Thermistor ki resistance check karein, range se bahar ho to badlein"
+        },
+        {
+          "en": "If sensor and wiring are good, check the outdoor PCB",
+          "ur": "Sensor aur wire theek ho to outdoor PCB check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.4",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: open/short for 5 s. PK units run long hours in high ambient — sensor leads at the compressor often heat-damaged.",
+        "ur": "Trip: 5 second tak open/short. PK units zyada ambient mein lambe ghante chalte hain — compressor ke paas sensor ki leads aksar heat se kharab ho jati hain."
+      }
+    },
+    {
+      "code": "H16",
+      "aliases": [
+        "H16"
+      ],
+      "title": {
+        "en": "Outdoor current transformer (CT) abnormality",
+        "ur": "Outdoor mein compressor ka current detect nahi ho raha"
+      },
+      "meaning": {
+        "en": "The outdoor board cannot see compressor current through the CT, so it assumes the CT/compressor path is faulty.",
+        "ur": "Outdoor board compressor ka current nahi dekh paa raha, is liye CT ya compressor mein fault maan liya."
+      },
+      "causes": [
+        {
+          "en": "CT (current transformer) on the outdoor PCB defective",
+          "ur": "Outdoor PCB laga hua CT kharab hai"
+        },
+        {
+          "en": "Outdoor PCB faulty (CT sensing circuit)",
+          "ur": "Outdoor PCB kharab hai (current sensing part)"
+        },
+        {
+          "en": "Compressor defective with low compression / not drawing current",
+          "ur": "Compressor khud kharab ho, compression low ho ya current na le raha ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check compressor amp draw with a clamp meter during start-up",
+          "ur": "Start ke waqt clamp meter se compressor ke ampere check karein"
+        },
+        {
+          "en": "Inspect the CT solder joints and connector on the outdoor board",
+          "ur": "Outdoor board pe CT ke joint aur connector check karein"
+        },
+        {
+          "en": "If CT and amps are normal, suspect the outdoor PCB or compressor",
+          "ur": "CT aur ampere normal ho to outdoor PCB ya compressor par shak karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.5",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: compressor at rated frequency but CT input < 0.65 A for 20 s. Frequently mis-read online as 'low gas' — it is a current-sense fault.",
+        "ur": "Trip: compressor rated frequency par chal raha hai lekin CT input 20 second tak < 0.65 A. Log ise online aksar 'low gas' samajh lete hain — asal mein yeh current-sense fault hai."
+      }
+    },
+    {
+      "code": "H17",
+      "aliases": [
+        "H17"
+      ],
+      "title": {
+        "en": "Outdoor suction temperature sensor fault",
+        "ur": "Outdoor suction temperature sensor theek nahi"
+      },
+      "meaning": {
+        "en": "The outdoor suction gas temperature sensor is reported abnormal by the official table.",
+        "ur": "Official table ke mutabiq outdoor suction gas temperature sensor abnormal hai."
+      },
+      "causes": [
+        {
+          "en": "Suction thermistor open/short or connector loose",
+          "ur": "Suction thermistor open/short hai ya connector dhila hai"
+        },
+        {
+          "en": "Outdoor PCB sensor input faulty",
+          "ur": "Outdoor PCB ka sensor input kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Locate the suction (gas inlet) sensor at the outdoor service valve and reseat its plug",
+          "ur": "Outdoor service valve ke paas suction sensor ka plug nikal ke dobara lagayein"
+        },
+        {
+          "en": "Measure the thermistor and replace it if open/short",
+          "ur": "Thermistor ki reading lein, open/short ho to badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Official name only — no cause list published. Causes follow the same sensor-check pattern the service manual gives for H27/H28; verify on your model.",
+        "ur": "Sirf official name mili hai — koi cause list shaya nahi hui. Causes wohi sensor-check wala pattern hain jo service manual H27/H28 ke liye deta hai; apne model par verify karein."
+      }
+    },
+    {
+      "code": "H19",
+      "aliases": [
+        "H19"
+      ],
+      "title": {
+        "en": "Indoor fan motor locked",
+        "ur": "Indoor ka fan atka hua hai / chal nahi raha"
+      },
+      "meaning": {
+        "en": "The indoor DC fan's feedback speed is far outside normal range, so the fan is locked or its feedback has failed.",
+        "ur": "Indoor fan ki speed normal range se bahar hai — fan atka hai ya uska feedback signal nahi aa raha."
+      },
+      "causes": [
+        {
+          "en": "Cross-flow fan blocked (dust, foreign object) or motor winding short/open",
+          "ur": "Cross-flow fan mein rukawat/gandagi hai ya motor ki winding short/open hai"
+        },
+        {
+          "en": "Fan lead wire broken or connector not making contact",
+          "ur": "Fan ki lead wire tooti hui hai ya connector contact nahi kar raha"
+        },
+        {
+          "en": "Hall IC failure or faulty indoor PCB",
+          "ur": "Hall IC kharab hai ya indoor PCB fault hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, open the indoor and spin the cross-flow fan by hand for jamming",
+          "ur": "Power band karke indoor khol karke haath se cross-flow fan ghumayein — atak raha ho to safai karein"
+        },
+        {
+          "en": "Check the fan connector and continuity of the motor leads",
+          "ur": "Fan ka connector aur motor leads ki continuity check karein"
+        },
+        {
+          "en": "Replace the indoor fan motor if it is jammed or the winding is open",
+          "ur": "Fan motor atka ho ya winding open ho to motor badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.6",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: Hall-IC feedback > 2550 rpm or < 50 rpm, counted 7 times continuously. Check location: fan lead wire/connector, fan lock/blockage.",
+        "ur": "Trip: Hall-IC feedback 2550 rpm se zyada ya 50 rpm se kam, 7 baar lagatar count hota hai. Jagah check karein: fan ki lead wire/connector, fan ka lock ya rukawat."
+      }
+    },
+    {
+      "code": "H21",
+      "aliases": [
+        "H21"
+      ],
+      "title": {
+        "en": "Indoor float switch operated",
+        "ur": "Indoor ka float switch trip hua hai (pani)"
+      },
+      "meaning": {
+        "en": "The indoor drain pan float switch has opened, which normally means water is not draining away.",
+        "ur": "Indoor ki drain tray ka float switch khul gaya — aam tor par pani drain nahi ho raha."
+      },
+      "causes": [
+        {
+          "en": "Blocked drain pipe or sloped/wrong pipe installation",
+          "ur": "Drain pipe block hai ya pipe ka level/gradient galat hai"
+        },
+        {
+          "en": "Dirty drain tray/pump not lifting water",
+          "ur": "Drain tray gandi hai ya drain pump pani nahi utha rahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, clear the drain hose and blow through it",
+          "ur": "Power band karke drain hose saaf karein aur hawa se clear karein"
+        },
+        {
+          "en": "Level the indoor unit and check the pump/float for sticking",
+          "ur": "Indoor unit ka level sahi karein aur pump/float check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Official name only — no cause list published; causes are the standard float-switch fault set (blocked drain). Water-leak risk: stop and clear the drain.",
+        "ur": "Sirf official name hai — cause list shaya nahi hui; causes standard float-switch wale hain (drain band hona). Paani leak hone ka khatra: unit band karein aur drain saaf karein."
+      }
+    },
+    {
+      "code": "H23",
+      "aliases": [
+        "H23"
+      ],
+      "title": {
+        "en": "Indoor heat exchanger temperature sensor 1 fault",
+        "ur": "Indoor pipe (coil) ka pehla sensor theek nahi"
+      },
+      "meaning": {
+        "en": "The indoor pipe/HX sensor 1 reads open or short for 5 seconds.",
+        "ur": "Indoor pipe ka pehla sensor 5 second tak open/short par raha hai."
+      },
+      "causes": [
+        {
+          "en": "Sensor connector loose or corroded at the indoor PCB",
+          "ur": "Sensor ka connector indoor PCB pe dhila ya zang laga hua hai"
+        },
+        {
+          "en": "Pipe thermistor open/short (bulged clip or wet coil)",
+          "ur": "Pipe thermistor open/short — clip toot gaya ya coil geela hai"
+        },
+        {
+          "en": "Faulty indoor PCB input",
+          "ur": "Indoor PCB ka sensor input kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat the pipe sensor connector and refit the sensor clip on the copper pipe",
+          "ur": "Sensor ka connector dobara lagayein aur clip copper pipe pe theek se lagayein"
+        },
+        {
+          "en": "Measure the thermistor and replace it if open/short",
+          "ur": "Thermistor ki reading lein, open/short ho to badlein"
+        },
+        {
+          "en": "If the sensor reads fine, check the indoor PCB",
+          "ur": "Sensor reading theek ho to indoor PCB check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.7",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Also appears in cooling-only emergency operation. Urdu/Hindi technician videos use exactly this wording (see source 20).",
+        "ur": "Cooling-only emergency operation mein bhi aata hai. Urdu/Hindi technician videos isi lafz ko use karti hain (source 20 dekhein)."
+      }
+    },
+    {
+      "code": "H24",
+      "aliases": [
+        "H24"
+      ],
+      "title": {
+        "en": "Indoor heat exchanger temperature sensor 2 fault",
+        "ur": "Indoor pipe (coil) ka doosra sensor theek nahi"
+      },
+      "meaning": {
+        "en": "The second indoor heat exchanger sensor reads open or short for 5 seconds (models with two pipe sensors).",
+        "ur": "Doosre indoor pipe sensor ki reading 5 second tak open/short hai — do sensor wale models par."
+      },
+      "causes": [
+        {
+          "en": "Second pipe thermistor open/short or connector loose",
+          "ur": "Doosra pipe thermistor open/short hai ya connector dhila hai"
+        },
+        {
+          "en": "Wiring between sensor 2 and indoor PCB damaged",
+          "ur": "Sensor 2 aur indoor PCB ke beech wire kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Identify sensor 2 on the coil (usually the second row/branch) and reseat its plug",
+          "ur": "Coil pe doosra sensor dhoond karke uska plug dobara lagayein"
+        },
+        {
+          "en": "Measure and replace the thermistor if open/short",
+          "ur": "Thermistor measure karein, open/short ho to badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "user_manual",
+        "title": "Panasonic RE9SKUA/RE12SKUA operating manual (diagnostic display list)",
+        "retrieved": "2026-09-24",
+        "url": "https://iaq.na.panasonic.com/hubfs/PCI%20-%20Panasonic%20North%20America%20Canada/IAQ/HVAC%20Resources/Operating-Manual_RE9SKUA_RE12SKUA_English_Nov_2025_Bill29.pdf?hsLang=en"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Name confirmed by official page + official NA manual (2 official sources). Trip condition 'continues for 5 s' from the service-manual table.",
+        "ur": "Naam official page aur official NA manual se confirm hua hai (2 official sources). Trip condition '5 second tak jari rahe' service-manual table se li gayi hai."
+      }
+    },
+    {
+      "code": "H25",
+      "aliases": [
+        "H25"
+      ],
+      "title": {
+        "en": "Indoor ion device (e-ion) abnormality",
+        "ur": "Indoor e-ion/ion device kaam nahi kar raha"
+      },
+      "meaning": {
+        "en": "The indoor e-ion air-purifying unit reported a fault while it was switched off.",
+        "ur": "E-ion (air purifier) unit ne fault report kiya jab woh band thi."
+      },
+      "causes": [
+        {
+          "en": "Faulty indoor main PCB",
+          "ur": "Indoor main PCB kharab hai"
+        },
+        {
+          "en": "Faulty e-ion power module",
+          "ur": "E-ion power module kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the e-ion function off and restart the unit to confirm the code clears",
+          "ur": "E-ion function band karke unit restart karein, code clear ho jaye to theek"
+        },
+        {
+          "en": "Have the e-ion module and indoor PCB checked by a technician",
+          "ur": "Technician se e-ion module aur indoor PCB check karwayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.8",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: e-ion breakdown during standby, unit stops. Models without e-ion never show it. Official page wordings: 'Indoor ion device abnormality'.",
+        "ur": "Trip: standby ke doran e-ion breakdown, unit band ho jata hai. Jis models mein e-ion nahi hota woh kabhi yeh nahi dikhata. Official page ka lafz: 'Indoor ion device abnormality'."
+      }
+    },
+    {
+      "code": "H26",
+      "aliases": [
+        "H26"
+      ],
+      "title": {
+        "en": "Minus ION abnormality",
+        "ur": "Minus ION feature fault hai"
+      },
+      "meaning": {
+        "en": "The minus-ION air-purification function reported a fault.",
+        "ur": "Minus ION (air purification) function ne fault bataya hai."
+      },
+      "causes": [
+        {
+          "en": "Minus-ION generator/module faulty",
+          "ur": "Minus ION module kharab hai"
+        },
+        {
+          "en": "Indoor PCB drive circuit for the function faulty",
+          "ur": "Indoor PCB ka ION drive circuit kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the ION function off, power cycle the unit and see if the code stays away",
+          "ur": "ION function band karke power cycle karein, code wapas na aaye to theek"
+        },
+        {
+          "en": "Get the ION module/indoor PCB checked if the code returns",
+          "ur": "Code wapas aaye to ION module/indoor PCB check karwayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Official name only — no cause list published; closely related to H25 (ion device family).",
+        "ur": "Sirf official naam hai — cause list shaya nahi hui; H25 (ion device family) se qareeb mutaalliq hai."
+      }
+    },
+    {
+      "code": "H27",
+      "aliases": [
+        "H27"
+      ],
+      "title": {
+        "en": "Outdoor air temperature sensor fault",
+        "ur": "Outdoor ambient temperature sensor theek nahi"
+      },
+      "meaning": {
+        "en": "The outdoor ambient thermistor reads open or short for 5 seconds.",
+        "ur": "Outdoor ambient (hawa) sensor 5 second tak open/short par raha hai."
+      },
+      "causes": [
+        {
+          "en": "Ambient sensor connector loose/corroded at the outdoor PCB",
+          "ur": "Outdoor PCB pe sensor connector dhila ya zang laga hua hai"
+        },
+        {
+          "en": "Thermistor open/short (rodent damage or water ingress)",
+          "ur": "Thermistor open/short — choohay ne kaat liya ya paani ghus gaya"
+        },
+        {
+          "en": "Faulty outdoor PCB input",
+          "ur": "Outdoor PCB ka sensor input kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat the outdoor ambient sensor plug and inspect the lead for damage",
+          "ur": "Sensor ka plug dobara lagayein aur wire mein damage check karein"
+        },
+        {
+          "en": "Measure and replace the thermistor if open/short",
+          "ur": "Thermistor measure karein, open/short ho to badlein"
+        },
+        {
+          "en": "Check the outdoor PCB if the sensor is good",
+          "ur": "Sensor theek ho to outdoor PCB check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.9",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Ambient sensor drives defrost and T3 protection — a bad reading also causes weak cooling.",
+        "ur": "Ambient sensor defrost aur T3 protection ko control karta hai — ghalat reading se cooling bhi kamzor ho jati hai."
+      }
+    },
+    {
+      "code": "H28",
+      "aliases": [
+        "H28"
+      ],
+      "title": {
+        "en": "Outdoor heat exchanger temperature sensor 1 fault",
+        "ur": "Outdoor coil (condenser) ka pehla sensor theek nahi"
+      },
+      "meaning": {
+        "en": "The outdoor coil sensor 1 reads open or short for 5 seconds.",
+        "ur": "Outdoor coil ka pehla sensor 5 second tak open/short par raha hai."
+      },
+      "causes": [
+        {
+          "en": "Outdoor pipe thermistor open/short or connector loose",
+          "ur": "Outdoor pipe thermistor open/short hai ya connector dhila hai"
+        },
+        {
+          "en": "Sensor lead damaged at the fan/grille",
+          "ur": "Sensor ki wire fan/grille ke paas toot gayi hai"
+        },
+        {
+          "en": "Faulty outdoor PCB input",
+          "ur": "Outdoor PCB ka sensor input kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat the coil sensor plug and refit the clip on the condenser pipe",
+          "ur": "Sensor ka plug dobara lagayein aur clip condenser pipe pe lagayein"
+        },
+        {
+          "en": "Measure and replace the thermistor if open/short",
+          "ur": "Thermistor measure karein, open/short ho to badlein"
+        },
+        {
+          "en": "Check the outdoor PCB if the sensor is good",
+          "ur": "Sensor theek ho to outdoor PCB check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.10",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: open/short for 5 s. Drives high-pressure and defrost decisions — replace promptly.",
+        "ur": "Trip: 5 second tak open/short. High-pressure aur defrost ke faisle isi se hote hain — foran badal dein."
+      }
+    },
+    {
+      "code": "H30",
+      "aliases": [
+        "H30"
+      ],
+      "title": {
+        "en": "Outdoor discharge pipe temperature sensor fault",
+        "ur": "Compressor discharge pipe ka sensor theek nahi"
+      },
+      "meaning": {
+        "en": "The compressor discharge pipe thermistor reads open or short for 5 seconds.",
+        "ur": "Compressor discharge pipe ka sensor 5 second tak open/short par raha hai."
+      },
+      "causes": [
+        {
+          "en": "Discharge sensor connector loose or lead heat-damaged",
+          "ur": "Sensor connector dhila hai ya wire garmi se kharab ho gayi"
+        },
+        {
+          "en": "Thermistor open/short",
+          "ur": "Thermistor open/short hai"
+        },
+        {
+          "en": "Faulty outdoor PCB input",
+          "ur": "Outdoor PCB ka sensor input kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat the discharge sensor plug and check the lead insulation",
+          "ur": "Sensor plug dobara lagayein aur wire ki insulation check karein"
+        },
+        {
+          "en": "Measure and replace the thermistor if open/short",
+          "ur": "Thermistor measure karein, open/short ho to badlein"
+        },
+        {
+          "en": "Check the outdoor PCB if the sensor is good",
+          "ur": "Sensor theek ho to outdoor PCB check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.11",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "This sensor also backs discharge-temperature protection — a false reading can trip F97-type protection later.",
+        "ur": "Yeh sensor discharge-temperature protection ka bhi support karta hai — ghalat reading baad mein F97 jaisi protection trip kara sakti hai."
+      }
+    },
+    {
+      "code": "H31",
+      "aliases": [
+        "H31"
+      ],
+      "title": {
+        "en": "Swimming pool sensor abnormality",
+        "ur": "Pool (water) sensor mein kharabi"
+      },
+      "meaning": {
+        "en": "A swimming-pool/heat-pump water sensor reported an abnormal value — air-to-water equipment only.",
+        "ur": "Pool/heat-pump wale pani ka sensor ghalat reading de raha hai — sirf air-to-water units par."
+      },
+      "causes": [
+        {
+          "en": "Water sensor open/short or not immersed correctly",
+          "ur": "Pani ka sensor open/short hai ya theek se andar nahi laga"
+        },
+        {
+          "en": "Wiring back to the controller damaged",
+          "ur": "Controller tak ki wire kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the sensor and its immersion point in the water tank/pool",
+          "ur": "Sensor aur uski tank/pool mein placement check karein"
+        },
+        {
+          "en": "Measure and replace the sensor if out of range",
+          "ur": "Sensor ki reading lein, range se bahar ho to badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Specialty air-to-water / pool-heat-pump code — NOT seen on standard PK wall splits. Official name only.",
+        "ur": "Yeh air-to-water / pool heat pump wali specialty code hai — standard PK wall splits mein nahi milti. Sirf official naam hai."
+      }
+    },
+    {
+      "code": "H32",
+      "aliases": [
+        "H32"
+      ],
+      "title": {
+        "en": "Outdoor heat exchanger temperature sensor 2 fault",
+        "ur": "Outdoor coil ka doosra sensor theek nahi"
+      },
+      "meaning": {
+        "en": "The second outdoor coil sensor reads open or short for 5 seconds.",
+        "ur": "Outdoor coil ka doosra sensor 5 second tak open/short par raha hai."
+      },
+      "causes": [
+        {
+          "en": "Outdoor HX sensor 2 open/short or connector loose",
+          "ur": "Doosra outdoor coil sensor open/short hai ya connector dhila hai"
+        },
+        {
+          "en": "Lead wire damaged",
+          "ur": "Sensor ki wire kharab hai"
+        },
+        {
+          "en": "Faulty outdoor PCB input",
+          "ur": "Outdoor PCB ka sensor input kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat the second outdoor coil sensor plug",
+          "ur": "Doosre outdoor coil sensor ka plug dobara lagayein"
+        },
+        {
+          "en": "Measure and replace the thermistor if open/short",
+          "ur": "Thermistor measure karein, open/short ho to badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.12",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: open/short for 5 s. Only on models fitted with two outdoor coil sensors.",
+        "ur": "Trip: 5 second tak open/short. Sirf unhi models mein aati hain jin mein do outdoor coil sensors lage hote hain."
+      }
+    },
+    {
+      "code": "H33",
+      "aliases": [
+        "H33"
+      ],
+      "title": {
+        "en": "Indoor/outdoor misconnection (rated voltage differs)",
+        "ur": "Indoor aur outdoor ki voltage specification match nahi karti"
+      },
+      "meaning": {
+        "en": "The units exchanged their rated-voltage information and it does not match — wrong combination or wrong boards.",
+        "ur": "Indoor aur outdoor ne apni rated voltage batai aur mili nahi — galat jodi ya galat PCB."
+      },
+      "causes": [
+        {
+          "en": "Wrong models interconnected",
+          "ur": "Galat model joda hua hai"
+        },
+        {
+          "en": "Wrong indoor or outdoor PCB fitted",
+          "ur": "Indoor ya outdoor PCB galat lagaya hua hai"
+        },
+        {
+          "en": "Defective indoor or outdoor PCB",
+          "ur": "Indoor ya outdoor PCB kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm indoor and outdoor model/voltage ratings match the combination table",
+          "ur": "Indoor aur outdoor ki voltage/model rating combination table se match karein"
+        },
+        {
+          "en": "Check the PCB part numbers against the model nameplate",
+          "ur": "PCB ke part numbers unit ke nameplate se milayein"
+        },
+        {
+          "en": "Replace the mismatched board with a technician",
+          "ur": "Galat board technician se replace karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.13",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Manual title for it is 'Unspecified Voltage between Indoor and Outdoor'. Typical after a partial replacement (only one side swapped).",
+        "ur": "Manual mein iska title hai 'Unspecified Voltage between Indoor and Outdoor'. Aksar partial replacement (sirf ek side badli) ke baad aata hai."
+      }
+    },
+    {
+      "code": "H34",
+      "aliases": [
+        "H34"
+      ],
+      "title": {
+        "en": "Outdoor heat sink temperature sensor fault",
+        "ur": "Outdoor heat sink (IPM ki thandak) ka sensor theek nahi"
+      },
+      "meaning": {
+        "en": "The outdoor heat-sink thermistor reads open or short for 2 seconds.",
+        "ur": "Outdoor heat sink ka sensor 2 second tak open/short par raha hai."
+      },
+      "causes": [
+        {
+          "en": "Heat sink sensor open/short or connector loose",
+          "ur": "Heat sink sensor open/short hai ya connector dhila hai"
+        },
+        {
+          "en": "Lead wire damaged near the IPM heatsink",
+          "ur": "IPM heatsink ke paas wire kharab ho gayi"
+        },
+        {
+          "en": "Faulty outdoor PCB input",
+          "ur": "Outdoor PCB ka sensor input kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat the heat sink sensor plug and check the lead",
+          "ur": "Sensor ka plug dobara lagayein aur wire check karein"
+        },
+        {
+          "en": "Measure and replace the thermistor if open/short",
+          "ur": "Thermistor measure karein, open/short ho to badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.14",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: open/short for 2 s. Protects the IPM — related family: F96 (IPM overheat).",
+        "ur": "Trip: 2 second tak open/short. Yeh IPM ko bachata hai — milta julta family: F96 (IPM overheat)."
+      }
+    },
+    {
+      "code": "H35",
+      "aliases": [
+        "H35"
+      ],
+      "title": {
+        "en": "Indoor/outdoor water adverse current abnormality",
+        "ur": "Pani ke flow mein rukawat (air-to-water system)"
+      },
+      "meaning": {
+        "en": "Water flow/current in a hydronic (air-to-water) circuit is running the wrong way or too low — specialty equipment.",
+        "ur": "Hydronic (pani wale) circuit mein pani ka flow ulti ya kam hai — khaas equipment par."
+      },
+      "causes": [
+        {
+          "en": "Water pump not running or water flow too low",
+          "ur": "Pani ka pump nahi chal raha ya flow bohat kam hai"
+        },
+        {
+          "en": "Reversed flow / valve or strainer blocked",
+          "ur": "Flow ulti ho gayi ya valve/strainer block hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the pump operation and water flow/strainer",
+          "ur": "Pump ka kaam, flow aur strainer check karein"
+        },
+        {
+          "en": "Verify piping direction and open isolation valves",
+          "ur": "Piping ki direction check karein aur band valves khol dein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Air-to-water / hydronic specialty code — not on standard PK wall splits. Official name only.",
+        "ur": "Air-to-water / hydronic specialty code — standard PK wall splits par nahi aati. Sirf official naam hai."
+      }
+    },
+    {
+      "code": "H36",
+      "aliases": [
+        "H36"
+      ],
+      "title": {
+        "en": "Outdoor gas pipe temperature sensor fault",
+        "ur": "Outdoor gas pipe ka sensor theek nahi (heating)"
+      },
+      "meaning": {
+        "en": "The outdoor gas-pipe thermistor reads open or short for 5 seconds, mainly during heating.",
+        "ur": "Outdoor gas pipe ka sensor 5 second tak open/short hai, zyada tar heating ke dauran."
+      },
+      "causes": [
+        {
+          "en": "Gas pipe thermistor open/short or connector loose",
+          "ur": "Gas pipe thermistor open/short hai ya connector dhila hai"
+        },
+        {
+          "en": "Lead wire damaged at the flare nut/pipe clip",
+          "ur": "Flare nut ya pipe clip ke paas wire kharab ho gayi"
+        },
+        {
+          "en": "Faulty outdoor PCB input",
+          "ur": "Outdoor PCB ka sensor input kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat the gas-pipe sensor plug and check the clip on the suction pipe",
+          "ur": "Sensor ka plug dobara lagayein aur suction pipe pe clip check karein"
+        },
+        {
+          "en": "Measure and replace the thermistor if open/short",
+          "ur": "Thermistor measure karein, open/short ho to badlein"
+        },
+        {
+          "en": "Check the outdoor PCB if the sensor is good",
+          "ur": "Sensor theek ho to outdoor PCB check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.15",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Manual flags it as a heating-protection sensor.",
+        "ur": "Manual ise heating-protection sensor batata hai."
+      }
+    },
+    {
+      "code": "H37",
+      "aliases": [
+        "H37"
+      ],
+      "title": {
+        "en": "Outdoor liquid pipe temperature sensor fault",
+        "ur": "Outdoor liquid pipe ka sensor theek nahi (cooling)"
+      },
+      "meaning": {
+        "en": "The outdoor liquid-pipe thermistor reads open or short for 5 seconds, mainly during cooling.",
+        "ur": "Outdoor liquid pipe ka sensor 5 second tak open/short hai, zyada tar cooling ke dauran."
+      },
+      "causes": [
+        {
+          "en": "Liquid pipe thermistor open/short or connector loose",
+          "ur": "Liquid pipe thermistor open/short hai ya connector dhila hai"
+        },
+        {
+          "en": "Lead wire damaged at the pipe clip",
+          "ur": "Pipe clip ke paas wire kharab ho gayi"
+        },
+        {
+          "en": "Faulty outdoor PCB input",
+          "ur": "Outdoor PCB ka sensor input kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat the liquid-pipe sensor plug and check the clip",
+          "ur": "Sensor ka plug dobara lagayein aur clip check karein"
+        },
+        {
+          "en": "Measure and replace the thermistor if open/short",
+          "ur": "Thermistor measure karein, open/short ho to badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.16",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Manual flags it as a cooling-protection sensor.",
+        "ur": "Manual ise cooling-protection sensor ke tor par batata hai."
+      }
+    },
+    {
+      "code": "H38",
+      "aliases": [
+        "H38"
+      ],
+      "title": {
+        "en": "Indoor/outdoor brand code mismatch",
+        "ur": "Indoor aur outdoor ka brand code match nahi kar raha"
+      },
+      "meaning": {
+        "en": "The indoor and outdoor units did not agree on their brand/capability codes, so they refuse to run together.",
+        "ur": "Indoor aur outdoor ke brand/capability code aapas mein match nahi hue, is liye sath nahi chal rahe."
+      },
+      "causes": [
+        {
+          "en": "Indoor and outdoor are not a matched pair (mixed units)",
+          "ur": "Indoor aur outdoor matched jodi nahi hain — mix karke lagaye gaye hain"
+        },
+        {
+          "en": "Wrong PCB fitted on one side",
+          "ur": "Ek side pe galat PCB laga hua hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify both units are the same capability/series per the catalogue",
+          "ur": "Dono units ki series/capability catalogue se verify karein"
+        },
+        {
+          "en": "Replace the unit or board that carries the wrong brand code",
+          "ur": "Galat brand code wale unit ya PCB ko badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3 (error table)",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Problem stated as 'Brand code not match'; check location = check indoor and outdoor unit. Common after a mismatched replacement outdoor unit.",
+        "ur": "Problem ko 'Brand code not match' likha gaya hai; check location = indoor aur outdoor unit dono check karein. Ghalat replacement outdoor unit lagne ke baad aam hai."
+      }
+    },
+    {
+      "code": "H39",
+      "aliases": [
+        "H39"
+      ],
+      "title": {
+        "en": "Abnormal indoor operating/standby unit (multi-split)",
+        "ur": "Multi mein kisi indoor unit ki kharabi"
+      },
+      "meaning": {
+        "en": "In a multi-split, one indoor unit reported a wiring/expansion-valve/sensor problem while others are waiting.",
+        "ur": "Multi-split mein ek indoor unit ne wiring/expansion valve/sensor ki kharabi batai, baaki units wait par hain."
+      },
+      "causes": [
+        {
+          "en": "Wrong piping/wiring or expansion-valve (EEV) fault",
+          "ur": "Piping/wiring galat hai ya expansion valve (EEV) kharab hai"
+        },
+        {
+          "en": "Indoor heat exchanger sensor open circuit",
+          "ur": "Indoor heat exchanger sensor open circuit hai"
+        },
+        {
+          "en": "Faulty lead wire/connector at the expansion valve",
+          "ur": "Expansion valve ki lead wire/connector kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the indoor/outdoor connection wire and each branch pipe",
+          "ur": "Connection wire aur har branch pipe check karein"
+        },
+        {
+          "en": "Test the indoor heat exchanger sensor and reseat its connector",
+          "ur": "Indoor HX sensor check karein aur connector dobara lagayein"
+        },
+        {
+          "en": "Check the expansion valve and its lead wire",
+          "ur": "Expansion valve aur uski wire check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3 (error table)",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trips 3 times within 40 minutes. Related: when a standby indoor unit freezes, that unit shows F17 and the others show H39 (service manual remark).",
+        "ur": "40 minute mein 3 baar trip karta hai. Related: jab koi standby indoor unit jam jaye to us par F17 aata hai aur baqi units H39 dikhati hain (service manual ka note)."
+      }
+    },
+    {
+      "code": "H41",
+      "aliases": [
+        "H41"
+      ],
+      "title": {
+        "en": "Abnormal wiring or piping connection",
+        "ur": "Wiring ya piping connection theek nahi"
+      },
+      "meaning": {
+        "en": "The indoor/outdoor wiring or piping was flagged as incorrectly connected.",
+        "ur": "Indoor/outdoor ki wiring ya piping galat lagayi gayi hai — aise detect hua."
+      },
+      "causes": [
+        {
+          "en": "Wrong wiring connection between indoor and outdoor",
+          "ur": "Indoor aur outdoor ke beech wiring galat hai"
+        },
+        {
+          "en": "Piping/connection pipe mistake, expansion valve problem",
+          "ur": "Piping/connection pipe mein ghalti hai ya expansion valve theek nahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Re-verify the wiring diagram and terminal mapping",
+          "ur": "Wiring diagram aur terminal mapping dobara check karein"
+        },
+        {
+          "en": "Check pipe connections and the expansion valve",
+          "ur": "Pipe connections aur expansion valve check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3 (error table)",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Also present in the official NA operating manual list (2 official/manual sources agree).",
+        "ur": "Yeh official NA operating manual ki list mein bhi maujood hai (2 official/manual sources agree karte hain)."
+      }
+    },
+    {
+      "code": "H50",
+      "aliases": [
+        "H50"
+      ],
+      "title": {
+        "en": "Ventilation fan motor locked",
+        "ur": "Ventilation (ducted) fan atka hua hai"
+      },
+      "meaning": {
+        "en": "The fresh-air/ventilation fan motor is locked or its feedback is abnormal.",
+        "ur": "Fresh-air/ventilation ka fan atka hua hai ya uska feedback theek nahi aa raha."
+      },
+      "causes": [
+        {
+          "en": "Ventilation fan blocked or motor defective",
+          "ur": "Ventilation fan mein rukawat hai ya motor kharab hai"
+        },
+        {
+          "en": "Indoor PCB (fan drive) faulty",
+          "ur": "Indoor PCB ka fan drive hissa kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and check the ventilation fan for blockage",
+          "ur": "Power band karke ventilation fan mein rukawat check karein"
+        },
+        {
+          "en": "Have the fan motor and indoor PCB tested",
+          "ur": "Fan motor aur indoor PCB test karwayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "other",
+        "title": "Panasonic air conditioner error codes compile (npcdn mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://cdn1.npcdn.net/userfiles/27434/download/1749464348_914fe147ac5405470a59c8b695523c11/Panasonic_Error_Code-01.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Compile gives trip '7 times continuously' and verify = indoor PCB / ventilation motor. Ventilation-fresh-air units only — not standard PK wall splits.",
+        "ur": "Compile mein trip '7 times continuously' likha hai aur verify = indoor PCB / ventilation motor. Sirf ventilation/fresh-air units par hota hai — standard PK wall splits par nahi."
+      }
+    },
+    {
+      "code": "H51",
+      "aliases": [
+        "H51"
+      ],
+      "title": {
+        "en": "Ventilation fan motor locked / nozzle lock",
+        "ur": "Ventilation fan ya nozzle lock"
+      },
+      "meaning": {
+        "en": "Official table repeats 'ventilation fan motor locked'; older Panasonic tables call H51 a nozzle-lock fault.",
+        "ur": "Official table par ventilation fan locked likha hai; purani tables mein H51 nozzle lock ka fault hai."
+      },
+      "causes": [
+        {
+          "en": "Ventilation fan or damper/nozzle mechanism jammed",
+          "ur": "Ventilation fan ya damper/nozzle mechanism atka hua hai"
+        },
+        {
+          "en": "Indoor PCB drive faulty",
+          "ur": "Indoor PCB ka drive kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the fan/damper mechanism for jamming",
+          "ur": "Fan/damper mechanism mein atawal check karein"
+        },
+        {
+          "en": "Have the indoor PCB drive tested",
+          "ur": "Indoor PCB ka drive test karwayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "SOURCE CONFLICT: official page says 'Ventilation fan motor locked' (same as H50); the legacy compile says 'Nozzle lock abnormality, 2 times continuously, verify = nozzle'. Kept with the official name; verify on model.",
+        "ur": "SOURCE CONFLICT: official page par 'Ventilation fan motor locked' likha hai (H50 jaisa); purani compile mein 'Nozzle lock abnormality, 2 times continuously, verify = nozzle' hai. Official naam hi rakha hai; apne model par verify karein."
+      }
+    },
+    {
+      "code": "H52",
+      "aliases": [
+        "H52"
+      ],
+      "title": {
+        "en": "Left-right limit switch fixing abnormality",
+        "ur": "Left/right limit switch theek se set nahi"
+      },
+      "meaning": {
+        "en": "The left/right airflow louver limit-switch position is wrong or its fixing is loose.",
+        "ur": "Left/right airflow louver ka limit switch position galat hai ya uski fixing dhili hai."
+      },
+      "causes": [
+        {
+          "en": "Limit switch loose, misaligned or defective",
+          "ur": "Limit switch dhila, hil gaya ya kharab hai"
+        },
+        {
+          "en": "Louver/motor mechanism jammed so the switch never reaches its position",
+          "ur": "Louver/motor mechanism atka hua hai is liye switch apni position tak nahi jata"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and re-align/fix the limit switch",
+          "ur": "Power band karke limit switch ko theek se align/kas ke lagayein"
+        },
+        {
+          "en": "Check the louver motor and linkage for jamming",
+          "ur": "Louver motor aur linkage mein atawal check karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Older table words it as 'Limit switch abnormality, verify = indoor PCB'. Name confirmed by the official page; cause list inferred.",
+        "ur": "Purani table mein yeh 'Limit switch abnormality, verify = indoor PCB' ke tor par likha hai. Naam official page se confirm hua; cause list andaze se banayi gayi hai."
+      }
+    },
+    {
+      "code": "H58",
+      "aliases": [
+        "H58"
+      ],
+      "title": {
+        "en": "Indoor gas (patrol) sensor fault",
+        "ur": "Indoor gas/patrol sensor theek nahi"
+      },
+      "meaning": {
+        "en": "The indoor gas / patrol (human-detection) sensor feedback is stuck at 0 V or 5 V while the patrol function is ON.",
+        "ur": "Patrol function on hone par indoor gas/patrol sensor ki feedback 0 V ya 5 V par atak gayi hai."
+      },
+      "causes": [
+        {
+          "en": "Patrol/gas sensor connector loose or sensor failed",
+          "ur": "Patrol/gas sensor ka connector dhila hai ya sensor kharab hai"
+        },
+        {
+          "en": "Indoor PCB fault",
+          "ur": "Indoor PCB kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the patrol function off, power cycle and confirm the code clears",
+          "ur": "Patrol function band karke power cycle karein, code clear ho jaye to theek"
+        },
+        {
+          "en": "Reseat/replace the sensor if the code returns",
+          "ur": "Code wapas aaye to sensor dobara lagayein ya badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.17",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: feedback 0 V or 5 V continuous for 6 h, shown only while Patrol is ON. NAME CONFLICT inside the manual: table says 'Indoor gas sensor abnormality', §16.4.17 is titled 'Patrol Sensor Abnormality'.",
+        "ur": "Trip: feedback 6 ghante tak lagatar 0 V ya 5 V rahe, aur sirf Patrol ON hone par dikhai de. Manual ke andar NAME CONFLICT hai: table mein 'Indoor gas sensor abnormality' hai, jabke §16.4.17 ka title 'Patrol Sensor Abnormality' hai."
+      }
+    },
+    {
+      "code": "H59",
+      "aliases": [
+        "H59"
+      ],
+      "title": {
+        "en": "Eco sensor abnormality",
+        "ur": "Eco sensor theek kaam nahi kar raha"
+      },
+      "meaning": {
+        "en": "The eco/occupancy sensor reported an abnormal value.",
+        "ur": "Eco/occupancy sensor ne ghalat reading batai hai."
+      },
+      "causes": [
+        {
+          "en": "Eco sensor faulty or its connector loose",
+          "ur": "Eco sensor kharab hai ya uska connector dhila hai"
+        },
+        {
+          "en": "Indoor PCB input faulty",
+          "ur": "Indoor PCB ka input kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat the eco sensor connector and check for dust blocking the sensor",
+          "ur": "Sensor ka connector dobara lagayein aur sensor pe dhansi gandagi hatayein"
+        },
+        {
+          "en": "Replace the sensor if the reading stays abnormal",
+          "ur": "Reading abnormal rahe to sensor badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "user_manual",
+        "title": "Panasonic RE9SKUA/RE12SKUA operating manual (diagnostic display list)",
+        "retrieved": "2026-09-24",
+        "url": "https://iaq.na.panasonic.com/hubfs/PCI%20-%20Panasonic%20North%20America%20Canada/IAQ/HVAC%20Resources/Operating-Manual_RE9SKUA_RE12SKUA_English_Nov_2025_Bill29.pdf?hsLang=en"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Present in the official page and the official NA operating manual (2 official sources); no published cause list.",
+        "ur": "Yeh official page aur official NA operating manual dono mein maujood hai (2 official sources); koi cause list shaya nahi hui."
+      }
+    },
+    {
+      "code": "H64",
+      "aliases": [
+        "H64"
+      ],
+      "title": {
+        "en": "Outdoor high pressure sensor abnormality",
+        "ur": "Outdoor high pressure sensor theek nahi"
+      },
+      "meaning": {
+        "en": "The outdoor high-pressure sensor line reads open circuit while the compressor is stopped.",
+        "ur": "Compressor band honepara outdoor high pressure sensor open circuit par raha hai."
+      },
+      "causes": [
+        {
+          "en": "High-pressure sensor open/short or connector not seated",
+          "ur": "High pressure sensor open/short hai ya connector nahi laga"
+        },
+        {
+          "en": "Lead wire/connector damaged",
+          "ur": "Wire ya connector kharab hai"
+        },
+        {
+          "en": "Outdoor PCB input faulty",
+          "ur": "Outdoor PCB ka input kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, check the high-pressure sensor plug and wiring",
+          "ur": "Power band karke high pressure sensor ka plug aur wire check karein"
+        },
+        {
+          "en": "Test/replace the sensor and re-check",
+          "ur": "Sensor test karke badlein aur dobara check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3 (error table)",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: open circuit during compressor stop, detected for 1 minute. Related protection: F94/F95 high pressure.",
+        "ur": "Trip: compressor band hone ke doran open circuit, 1 minute tak pakda jata hai. Related protection: F94/F95 high pressure."
+      }
+    },
+    {
+      "code": "H67",
+      "aliases": [
+        "H67"
+      ],
+      "title": {
+        "en": "nanoe abnormality",
+        "ur": "nanoe feature fault hai"
+      },
+      "meaning": {
+        "en": "The nanoe air-purification generator reported a fault.",
+        "ur": "nanoe (air purification) generator ne fault bataya hai."
+      },
+      "causes": [
+        {
+          "en": "nanoe module/generator faulty",
+          "ur": "nanoe module generator kharab hai"
+        },
+        {
+          "en": "Indoor PCB drive circuit for nanoe faulty",
+          "ur": "Indoor PCB ka nanoe drive circuit kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch nanoe off, power cycle the unit and check whether the code clears",
+          "ur": "nanoe band karke power cycle karein, code clear ho jaye to theek"
+        },
+        {
+          "en": "Have the nanoe module and indoor PCB checked if it returns",
+          "ur": "Code wapas aaye to nanoe module aur indoor PCB check karwayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Official name only — no cause list published. nanoe-equipped models only.",
+        "ur": "Sirf official naam hai — koi cause list shaya nahi hui. Sirf nanoe-equipped models par lagu hoti hai."
+      }
+    },
+    {
+      "code": "H70",
+      "aliases": [
+        "H70"
+      ],
+      "title": {
+        "en": "Light sensor abnormality",
+        "ur": "Light sensor theek nahi"
+      },
+      "meaning": {
+        "en": "The ambient light sensor (used for panel/display behaviour) reported an abnormal value.",
+        "ur": "Light sensor ne ghalat reading batai hai."
+      },
+      "causes": [
+        {
+          "en": "Light sensor blocked, dirty or failed",
+          "ur": "Light sensor block/dirty hai ya kharab ho gaya"
+        },
+        {
+          "en": "Indoor PCB input faulty",
+          "ur": "Indoor PCB ka input kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean the sensor window and remove any cover blocking it",
+          "ur": "Sensor ki window saaf karein aur upar pada cover hatayein"
+        },
+        {
+          "en": "Replace the sensor if the code persists",
+          "ur": "Code rahe to sensor badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "user_manual",
+        "title": "Panasonic RE9SKUA/RE12SKUA operating manual (diagnostic display list)",
+        "retrieved": "2026-09-24",
+        "url": "https://iaq.na.panasonic.com/hubfs/PCI%20-%20Panasonic%20North%20America%20Canada/IAQ/HVAC%20Resources/Operating-Manual_RE9SKUA_RE12SKUA_English_Nov_2025_Bill29.pdf?hsLang=en"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Official page + official NA manual agree; no published cause list.",
+        "ur": "Official page aur official NA manual dono agree karte hain; koi cause list shaya nahi hui."
+      }
+    },
+    {
+      "code": "H71",
+      "aliases": [
+        "H71"
+      ],
+      "title": {
+        "en": "DC cooling fan inside control board abnormality",
+        "ur": "Control board ke andar ka DC cooling fan theek nahi"
+      },
+      "meaning": {
+        "en": "The small DC fan that cools the control box is locked or not reporting speed.",
+        "ur": "Control box ko thanda karne wala chhota DC fan atka hua hai ya speed nahi bata raha."
+      },
+      "causes": [
+        {
+          "en": "Control-board cooling fan blocked or failed",
+          "ur": "Control board ka fan block hai ya kharab ho gaya"
+        },
+        {
+          "en": "Fan connector/faulty drive on the board",
+          "ur": "Fan ka connector ya board ka drive kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and clean the control-box fan and its filter",
+          "ur": "Power band karke control box ka fan aur filter saaf karein"
+        },
+        {
+          "en": "Replace the fan or have the board checked if it does not spin",
+          "ur": "Fan na ghume to fan badlein ya board check karwayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Official name only — cause/solution inferred from the name. Higher ambient (PK summers) makes control-box cooling failures more likely.",
+        "ur": "Sirf official naam hai — cause/solution naam se hi andaza lagaya gaya hai. Zyada ambient (PK ki garmi) mein control-box cooling kharab hone ka khatra barh jata hai."
+      }
+    },
+    {
+      "code": "H72",
+      "aliases": [
+        "H72"
+      ],
+      "title": {
+        "en": "Tank temperature sensor abnormality",
+        "ur": "Tank ka temperature sensor theek nahi"
+      },
+      "meaning": {
+        "en": "The water-tank temperature sensor (air-to-water/hydronic equipment) reported an abnormal value.",
+        "ur": "Pani ke tank ka sensor ghalat reading de raha hai — air-to-water equipment par."
+      },
+      "causes": [
+        {
+          "en": "Tank sensor open/short or connector loose",
+          "ur": "Tank sensor open/short hai ya connector dhila hai"
+        },
+        {
+          "en": "Wiring to the controller damaged",
+          "ur": "Controller tak ki wire kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the tank sensor plug and immersion position",
+          "ur": "Tank sensor ka plug aur uski placement check karein"
+        },
+        {
+          "en": "Measure and replace the sensor if out of range",
+          "ur": "Sensor ki reading lein, range se bahar ho to badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Specialty air-to-water / tank equipment — not on standard PK wall splits. Official name only.",
+        "ur": "Yeh air-to-water / tank equipment wali specialty code hai — standard PK wall splits par nahi milti. Sirf official naam hai."
+      }
+    },
+    {
+      "code": "H79",
+      "aliases": [
+        "H79"
+      ],
+      "title": {
+        "en": "Wireless LAN module write error",
+        "ur": "Wi-Fi module mein write error"
+      },
+      "meaning": {
+        "en": "The built-in Wi-Fi module failed a firmware/settings write operation.",
+        "ur": "Wi-Fi module ki firmware/settings write operation fail ho gayi."
+      },
+      "causes": [
+        {
+          "en": "Wi-Fi module memory/write failure",
+          "ur": "Wi-Fi module ka memory/write hissa fail ho gaya"
+        },
+        {
+          "en": "Interrupted firmware update or bad module supply",
+          "ur": "Firmware update beech mein ruk gayi ya module ko supply theek nahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Retry the Wi-Fi module update/registration from the app",
+          "ur": "App se Wi-Fi module ka update/registration dobara karein"
+        },
+        {
+          "en": "Power cycle and re-pair; replace the module if it still fails",
+          "ur": "Power cycle karke dobara pair karein, phir bhi fail ho to module badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Wi-Fi-equipped models only. Official name only — cause/solution inferred from the name.",
+        "ur": "Sirf Wi-Fi-equipped models. Sirf official naam — cause/solution naam se hi andaza lagaya gaya."
+      }
+    },
+    {
+      "code": "H85",
+      "aliases": [
+        "H85"
+      ],
+      "title": {
+        "en": "Communication fault: indoor unit and wireless LAN module",
+        "ur": "Indoor aur Wi-Fi module ka communication nahi"
+      },
+      "meaning": {
+        "en": "The indoor unit cannot talk to its wireless LAN module.",
+        "ur": "Indoor unit apne Wi-Fi module se baat nahi kar pa rahi."
+      },
+      "causes": [
+        {
+          "en": "Module connector loose or not fitted properly",
+          "ur": "Module ka connector dhila hai ya theek se nahi laga"
+        },
+        {
+          "en": "Faulty Wi-Fi module or indoor PCB interface",
+          "ur": "Wi-Fi module kharab hai ya indoor PCB ka interface theek nahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and reseat the Wi-Fi module connector",
+          "ur": "Power band karke Wi-Fi module ka connector dobara lagayein"
+        },
+        {
+          "en": "Re-pair the module in the Comfort Cloud app; replace it if it still fails",
+          "ur": "Comfort Cloud app mein module dobara pair karein, phir fail ho to module badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Wi-Fi-equipped models only. Official name only — cause/solution inferred from the name.",
+        "ur": "Yeh sirf Wi-Fi-equipped models par aata hai. Official naam hi hai — cause/solution naam se hi lagaya gaya hai."
+      }
+    },
+    {
+      "code": "H97",
+      "aliases": [
+        "H97"
+      ],
+      "title": {
+        "en": "Outdoor fan motor locked",
+        "ur": "Outdoor ka fan atka hua hai / chal nahi raha"
+      },
+      "meaning": {
+        "en": "The outdoor fan speed feedback is outside the normal range — fan jammed or feedback wiring broken.",
+        "ur": "Outdoor fan ki speed normal range se bahar hai — fan atka hai ya feedback wire tooti hui hai."
+      },
+      "causes": [
+        {
+          "en": "Outdoor fan blocked (dirt/debris) or motor winding short/open",
+          "ur": "Outdoor fan mein gandagi/rukawat hai ya motor winding short/open hai"
+        },
+        {
+          "en": "Fan lead wire broken or connector not contacting",
+          "ur": "Fan ki wire tooti hui hai ya connector contact nahi kar raha"
+        },
+        {
+          "en": "Hall IC failure or faulty outdoor PCB",
+          "ur": "Hall IC kharab hai ya outdoor PCB fault hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, clear the condenser and spin the outdoor fan by hand",
+          "ur": "Power band karke condenser saaf karein aur haath se outdoor fan ghumayein"
+        },
+        {
+          "en": "Check the fan connector and motor lead continuity",
+          "ur": "Fan ka connector aur motor leads ki continuity check karein"
+        },
+        {
+          "en": "Replace the outdoor fan motor if jammed or the winding is open",
+          "ur": "Fan motor atka ho ya winding open ho to motor badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.18",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: 2 occurrences within 30 minutes (compile wording: '2 times within 30 minutes').",
+        "ur": "Trip: 30 minute ke andar 2 baar (compile ka lafz: '2 times within 30 minutes')."
+      }
+    },
+    {
+      "code": "H98",
+      "aliases": [
+        "H98"
+      ],
+      "title": {
+        "en": "Indoor high pressure protection (heating)",
+        "ur": "Heating mein indoor coil ki high pressure protection"
+      },
+      "meaning": {
+        "en": "During heating the indoor pipe went above 60 °C, so the unit protects itself against high pressure.",
+        "ur": "Heating ke dauran indoor pipe 60 °C se upar chala gaya, is liye unit high pressure se protect karne ke liye ruk gayi."
+      },
+      "causes": [
+        {
+          "en": "Clogged indoor air filter / dirty heat exchanger",
+          "ur": "Indoor ka filter ganda hai ya heat exchanger par jama dhans"
+        },
+        {
+          "en": "Air short circuit (blocked return air, closed vents)",
+          "ur": "Air short circuit — return air block hai ya vents band hain"
+        },
+        {
+          "en": "Faulty indoor pipe sensor or indoor PCB misreading",
+          "ur": "Indoor pipe sensor kharab hai ya indoor PCB ghalat reading le raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean or replace the indoor filter and wash the indoor coil",
+          "ur": "Indoor filter saaf/badlein aur indoor coil wash karein"
+        },
+        {
+          "en": "Remove anything blocking return/supply airflow",
+          "ur": "Return/supply airflow mein rukawat hatayein"
+        },
+        {
+          "en": "Check the indoor pipe sensor if the code returns after cleaning",
+          "ur": "Safai ke baad code aaye to indoor pipe sensor check karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.19",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Service manual: 'Error code will not display (no Timer LED blinking) but store in EEPROM' — you can still read it with the CHECK method.",
+        "ur": "Service manual ke mutabiq: 'Error code display par nahi aata (Timer LED blink nahi karta) lekin EEPROM mein save hota hai' — ise CHECK method se phir bhi parha ja sakta hai."
+      },
+      "blinkPattern": "Timer LED does not blink — fault is stored in EEPROM only"
+    },
+    {
+      "code": "H99",
+      "aliases": [
+        "H99"
+      ],
+      "title": {
+        "en": "Indoor freeze protection (cooling/soft dry)",
+        "ur": "Cooling mein indoor coil jam raha hai (freeze protection)"
+      },
+      "meaning": {
+        "en": "The indoor pipe dropped below 2 °C, so freeze-prevention control kicked in to stop the coil icing up.",
+        "ur": "Indoor pipe 2 °C se neeche chala gaya, is liye coil ko jamne se bachane ke liye freeze protection chalu ho gayi."
+      },
+      "causes": [
+        {
+          "en": "Clogged indoor air filter or dirty heat exchanger",
+          "ur": "Indoor filter ganda hai ya heat exchanger par jama dhans"
+        },
+        {
+          "en": "Air short circuit / very low airflow",
+          "ur": "Air short circuit hai ya hawa ka flow bohat kam hai"
+        },
+        {
+          "en": "Faulty indoor pipe sensor or indoor PCB",
+          "ur": "Indoor pipe sensor kharab hai ya indoor PCB fault hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean or replace the indoor filter and wash the coil",
+          "ur": "Indoor filter saaf/badlein aur coil wash karein"
+        },
+        {
+          "en": "Check fan speed and clear anything blocking airflow",
+          "ur": "Fan ki speed check karein aur airflow mein rukawat hatayein"
+        },
+        {
+          "en": "Verify the indoor pipe sensor after cleaning",
+          "ur": "Safai ke baad indoor pipe sensor verify karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.20",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: freeze-prevention control runs when indoor pipe < 2 °C. Also stated in the official NA operating manual as a 'clean filter' warning code.",
+        "ur": "Trip: indoor pipe 2 °C se neeche ho to freeze-prevention control chalne lagta hai. Official NA operating manual mein ise 'clean filter' warning code bhi kaha gaya hai."
+      },
+      "blinkPattern": "Timer LED does not blink — fault is stored in EEPROM only"
+    },
+    {
+      "code": "F11",
+      "aliases": [
+        "F11"
+      ],
+      "title": {
+        "en": "4-way valve switching abnormality",
+        "ur": "4-way valve (heat/cool changeover) theek se switch nahi kar raha"
+      },
+      "meaning": {
+        "en": "The heat/cool changeover valve did not switch to the expected position.",
+        "ur": "Heat aur cool badalne wala 4-way valve expected position par nahi gaya."
+      },
+      "causes": [
+        {
+          "en": "4-way valve coil/RV solenoid or its connector faulty",
+          "ur": "4-way valve ka coil/RV solenoid ya uska connector kharab hai"
+        },
+        {
+          "en": "Valve stuck (installed on a system that never heats, valves can seize)",
+          "ur": "Valve atak gaya — heating na karne wali unit mein valve jam ho sakta hai"
+        },
+        {
+          "en": "Outdoor PCB drive or lead wire problem",
+          "ur": "Outdoor PCB ka drive ya lead wire mein masla hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the 4-way valve connector and coil resistance",
+          "ur": "4-way valve ka connector aur coil ki resistance check karein"
+        },
+        {
+          "en": "Tap/energise the valve once (or reverse heat/cool) and watch if it shifts",
+          "ur": "Valve ko ek dafa energise/switch karke dekhein ke woh khulta hai ya nahi"
+        },
+        {
+          "en": "Replace the valve/RV coil if it does not shift (technician job)",
+          "ur": "Valve na khule to valve/RV coil badlein (technician ka kaam)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.21",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: 4 occurrences within 30 minutes (manual also cites indoor pipe <10 °C in heating / >45 °C in cooling). South-Indian/SE-Asian content farms wrongly call F11 an indoor-fan fault — that is quarantined.",
+        "ur": "Trip: 30 minute mein 4 baar (manual heating mein indoor pipe <10 °C aur cooling mein >45 °C bhi deta hai). South-Indian/SE-Asian content farms F11 ko ghalat taur par indoor-fan fault kehte hain — usay quarantine kiya gaya hai."
+      }
+    },
+    {
+      "code": "F16",
+      "aliases": [
+        "F16"
+      ],
+      "title": {
+        "en": "Total running current protection",
+        "ur": "Total running current ki protection trip"
+      },
+      "meaning": {
+        "en": "The unit's total running current went over the protection limit.",
+        "ur": "Unit ka total current protection limit se upar chala gaya."
+      },
+      "causes": [
+        {
+          "en": "Compressor drawing high current (winding short or seizure)",
+          "ur": "Compressor zyada current le raha hai — winding short ya jam"
+        },
+        {
+          "en": "Weak supply voltage / overloaded mains (common in PK load-shedding areas)",
+          "ur": "Supply voltage kamzor hai ya load zyada hai (PK mein aam)"
+        },
+        {
+          "en": "Outdoor PCB current-sense or power stage faulty",
+          "ur": "Outdoor PCB ka current-sense ya power stage kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure running amps against the nameplate rating",
+          "ur": "Chalte waqt ke ampere nameplate rating se compare karein"
+        },
+        {
+          "en": "Check supply voltage and the outdoor unit's wiring/terminals",
+          "ur": "Supply voltage aur outdoor ki wiring/terminals check karein"
+        },
+        {
+          "en": "Have the outdoor PCB/compressor tested if amps stay high",
+          "ur": "Ampere zyada rahe to outdoor PCB/compressor test karwayein"
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Official name only — no cause list published. Overlaps in meaning with F98 (total running current) and F99 (DC peak); treat as an electrical stop-pro fault.",
+        "ur": "Sirf official naam hai — cause list shaya nahi hui. Matlab F98 (total running current) aur F99 (DC peak) se milta hai; ise electrical stop-pro fault samajh lein."
+      }
+    },
+    {
+      "code": "F17",
+      "aliases": [
+        "F17"
+      ],
+      "title": {
+        "en": "Indoor standby unit freezing abnormality",
+        "ur": "Multi mein koi standby indoor unit jam raha hai"
+      },
+      "meaning": {
+        "en": "In a multi-split, a non-running (standby) indoor unit is freezing up.",
+        "ur": "Multi-split mein jo indoor unit band chal rahi thi woh jam/ freeze ho rahi hai."
+      },
+      "causes": [
+        {
+          "en": "Wrong wiring connection between branch pipes",
+          "ur": "Branch pipes ki wiring/connection galat hai"
+        },
+        {
+          "en": "Faulty sensor or faulty expansion valve",
+          "ur": "Sensor kharab hai ya expansion valve theek nahi"
+        },
+        {
+          "en": "Refrigerant leakage at the branch",
+          "ur": "Branch par refrigerant leakage hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check indoor/outdoor connection wire and each branch pipe",
+          "ur": "Connection wire aur har branch pipe check karein"
+        },
+        {
+          "en": "Test the indoor heat exchanger sensor and its connector",
+          "ur": "Indoor HX sensor aur connector test karein"
+        },
+        {
+          "en": "Check the expansion valve operation and gas charge",
+          "ur": "Expansion valve ka kaam aur gas charge check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.22",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: intake-to-pipe difference > 10 °C or pipe < -1.0 °C, 3 times within 40 min. Multi only — the freezing unit shows F17 and the other indoor units show H39.",
+        "ur": "Trip: intake aur pipe ka farq 10 °C se zyada ho ya pipe -1.0 °C se kam, 40 minute mein 3 baar. Sirf multi mein — jo unit jam rahi hai us par F17 aur baqi indoor units par H39 aata hai."
+      }
+    },
+    {
+      "code": "F18",
+      "aliases": [
+        "F18"
+      ],
+      "title": {
+        "en": "Dry circuit blocked abnormality",
+        "ur": "Dry (dehumidify) circuit block hai"
+      },
+      "meaning": {
+        "en": "The dry-mode refrigerant circuit reported a blocked condition.",
+        "ur": "Dry mode ka circuit block bata raha hai."
+      },
+      "causes": [
+        {
+          "en": "Blockage/moisture in the refrigerant circuit (capillary/EEV)",
+          "ur": "Refrigerant circuit mein blockage ya moisture (capillary/EEV)"
+        },
+        {
+          "en": "Closed service valve or kinked pipe",
+          "ur": "Service valve band hai ya pipe mura hua hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify all service valves are fully open and pipes are not kinked",
+          "ur": "Saare service valves poore khule hain aur pipe mura nahi hai — check karein"
+        },
+        {
+          "en": "Have the circuit flushed/vacuumed by a technician",
+          "ur": "Technician se circuit flush/vacuum karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Official name only — no cause list published.",
+        "ur": "Sirf official naam hai — koi cause list shaya nahi hui."
+      }
+    },
+    {
+      "code": "F87",
+      "aliases": [
+        "F87"
+      ],
+      "title": {
+        "en": "Control box overheat protection",
+        "ur": "Control box garam ho gaya"
+      },
+      "meaning": {
+        "en": "The temperature inside the control box passed the overheat limit.",
+        "ur": "Control box ka temperature limit se upar chala gaya."
+      },
+      "causes": [
+        {
+          "en": "Poor ventilation around the outdoor control box / blocked louvers",
+          "ur": "Control box ke aas paas hawa ka flow roka hua hai"
+        },
+        {
+          "en": "High ambient and long continuous running",
+          "ur": "Ambient bohat zyada hai aur unit lambi der se chal rahi hai"
+        },
+        {
+          "en": "Failing cooling fan or heat-damaged components",
+          "ur": "Cooling fan kharab hai ya components garmi se kharab ho gaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and let the unit cool, then clear the control-box airflow path",
+          "ur": "Power band karke unit ko thanda hone dein, phir control box ki hawa ka rasta saaf karein"
+        },
+        {
+          "en": "Check for sun-loaded/blocked outdoor installation and improve shading",
+          "ur": "Outdoor unit dhoop mein to nahi — shade karke hawa ka flow behtar karein"
+        },
+        {
+          "en": "Have the board's cooling fan and components checked",
+          "ur": "Board ke cooling fan aur components check karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "official_support",
+        "title": "Panasonic self-diagnosis error code table",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonic.com/ph/air-solutions/learn-more/panasonic-air-conditioner-error-codes-using-the-self-diagnosis-function.html"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Official name only — cause/solution inferred. Relevant to PK rooftop/balcony units in 45 °C+ ambient.",
+        "ur": "Sirf official naam hai — cause/solution andaze se liya gaya. PK ke rooftop/balcony units ke liye yeh code relevant hai jo 45 °C+ ambient mein chalte hain."
+      }
+    },
+    {
+      "code": "F90",
+      "aliases": [
+        "F90"
+      ],
+      "title": {
+        "en": "Power factor correction (PFC) circuit protection",
+        "ur": "Power factor correction (PFC) circuit ki protection"
+      },
+      "meaning": {
+        "en": "The outdoor PFC stage saw an abnormal high DC bus voltage and shut the unit down.",
+        "ur": "Outdoor PFC stage ne DC bus par abnormal high voltage dekhi aur unit band kar di."
+      },
+      "causes": [
+        {
+          "en": "DC voltage peak from a mains supply surge",
+          "ur": "Supply surge se DC voltage peak aa gayi"
+        },
+        {
+          "en": "Non-uniform compressor windings stressing the DC bus",
+          "ur": "Compressor ki winding theek nahi, is se DC bus par load pada"
+        },
+        {
+          "en": "Faulty outdoor PCB",
+          "ur": "Outdoor PCB kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the incoming supply voltage and fit a stabiliser/surge protection",
+          "ur": "Supply voltage check karein aur stabiliser/surge protection lagwayein"
+        },
+        {
+          "en": "Have the outdoor PCB and compressor windings tested",
+          "ur": "Outdoor PCB aur compressor winding test karwayein"
+        },
+        {
+          "en": "After a surge event, power off for 10 minutes and retry",
+          "ur": "Surge ke baad 10 minute power off rakh ke phir start karein"
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.23",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: 4 occurrences within 10 minutes; check location = PFC voltage / outdoor PCB. Official page adds an alternate wording: '/system and compressor microcomputer communication error'.",
+        "ur": "Trip: 10 minute mein 4 baar; check location = PFC voltage / outdoor PCB. Official page par ek alt lafz bhi hai: '/system and compressor microcomputer communication error'."
+      }
+    },
+    {
+      "code": "F91",
+      "aliases": [
+        "F91"
+      ],
+      "title": {
+        "en": "Refrigerant cycle abnormality (gas shortage)",
+        "ur": "Refrigerant cycle theek nahi — gas kam hai"
+      },
+      "meaning": {
+        "en": "The unit cannot move enough heat through the refrigerant circuit — typically low gas or a closed valve.",
+        "ur": "Refrigerant circuit se heat theek tarah nahi ban rahi — aam tor par gas kam hai ya valve band hai."
+      },
+      "causes": [
+        {
+          "en": "Refrigerant shortage from a leak",
+          "ur": "Leakage ki wajah se refrigerant kam hai"
+        },
+        {
+          "en": "3-way/service valve left closed",
+          "ur": "3-way/service valve band reh gaya"
+        },
+        {
+          "en": "Poor compressor compression performance",
+          "ur": "Compressor ki compression kamzor hai"
+        },
+        {
+          "en": "False reading from a faulty indoor intake/pipe sensor",
+          "ur": "Indoor intake/pipe sensor kharab hone se ghalat reading aa rahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check that all service valves are fully opened (back-seat them)",
+          "ur": "Sab service valves poore khule hain — check karein"
+        },
+        {
+          "en": "Leak-test the circuit, repair the leak and recharge to spec",
+          "ur": "Circuit ki leak test karein, leak theek karke specification ke mutabiq gas bharwayein"
+        },
+        {
+          "en": "Verify the indoor intake and pipe sensors",
+          "ur": "Indoor intake aur pipe sensors verify karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.24",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: 2 occurrences within 20 minutes; multi models use current-vs-frequency and pipe-vs-intake delta for gas-shortage detection. Refrigerant work = certified technician only.",
+        "ur": "Trip: 20 minute mein 2 baar; multi models gas kam hone ki nishandahi ke liye current-vs-frequency aur pipe-vs-intake delta use karte hain. Refrigerant ka kaam sirf certified technician kare."
+      }
+    },
+    {
+      "code": "F93",
+      "aliases": [
+        "F93"
+      ],
+      "title": {
+        "en": "Compressor abnormal revolution (rotation failure)",
+        "ur": "Compressor sahi speed par ghoom nahi raha"
+      },
+      "meaning": {
+        "en": "The position-detection circuit says the compressor is not rotating as commanded.",
+        "ur": "Position detection circuit bata raha hai ke compressor hukm ke mutabiq nahi ghoom raha."
+      },
+      "causes": [
+        {
+          "en": "Compressor terminal disconnected or loose",
+          "ur": "Compressor ke terminal khule/dhile hain"
+        },
+        {
+          "en": "Outdoor PCB (position detection/drive) malfunction",
+          "ur": "Outdoor PCB ka position detection/drive kharab hai"
+        },
+        {
+          "en": "Compressor rotor locked",
+          "ur": "Compressor ka rotor atka hua hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off for 10 minutes, then check the compressor terminals",
+          "ur": "10 minute power off rakh ke compressor ke terminals check karein"
+        },
+        {
+          "en": "Check the outdoor PCB drive stage and connector",
+          "ur": "Outdoor PCB ka drive stage aur connector check karein"
+        },
+        {
+          "en": "Have the compressor tested for lock/RCD before replacing parts",
+          "ur": "Part badalne se pehle compressor ka lock/test karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.25",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: 4 occurrences within 20 minutes. Check location: power transistor module or compressor lock.",
+        "ur": "Trip: 20 minute mein 4 baar. Jagah check karein: power transistor module ya compressor ka lock."
+      }
+    },
+    {
+      "code": "F94",
+      "aliases": [
+        "F94"
+      ],
+      "title": {
+        "en": "Compressor discharge pressure overshoot protection",
+        "ur": "Discharge pressure bohat zyada ho gaya"
+      },
+      "meaning": {
+        "en": "Discharge pressure went above the allowed overshoot limit, so the unit stopped the compressor.",
+        "ur": "Discharge pressure allowed limit se upar chala gaya, is liye compressor band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Non-condensables or overcharge in the system",
+          "ur": "System mein air/gas zyada hai (overcharge ya air)"
+        },
+        {
+          "en": "Blocked condenser or failed outdoor fan",
+          "ur": "Condenser block hai ya outdoor fan nahi chal raha"
+        },
+        {
+          "en": "Faulty high-pressure sensor reading",
+          "ur": "High pressure sensor ghalat reading de raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean the condenser and confirm the outdoor fan runs",
+          "ur": "Condenser saaf karein aur outdoor fan chal raha hai — check karein"
+        },
+        {
+          "en": "Check gas charge and purge non-condensables if the system was opened",
+          "ur": "System khula tha to gas charge aur air check karein"
+        },
+        {
+          "en": "Have the high-pressure sensor verified",
+          "ur": "High pressure sensor verify karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3 (error table)",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: 4 occurrences within 30 minutes; check location = refrigeration system. Official page wording: 'Compressor discharge pressure protection'; NA manual: 'discharge pressure overshoot protection'.",
+        "ur": "Trip: 30 minute mein 4 baar; check location = refrigeration system. Official page ka lafz: 'Compressor discharge pressure protection'; NA manual: 'discharge pressure overshoot protection'."
+      }
+    },
+    {
+      "code": "F95",
+      "aliases": [
+        "F95"
+      ],
+      "title": {
+        "en": "Outdoor cooling high pressure protection",
+        "ur": "Cooling mein outdoor side ka pressure bohat zyada"
+      },
+      "meaning": {
+        "en": "The outdoor coil temperature reached 61 °C during cooling — the high-pressure side is overheating.",
+        "ur": "Cooling ke dauran outdoor coil ka temperature 61 °C tak chala gaya — high pressure side garam ho raha hai."
+      },
+      "causes": [
+        {
+          "en": "Hot discharge air short-circuited back into the condenser",
+          "ur": "Outdoor ki nikli hui garam hawa wapas condenser mein ja rahi hai"
+        },
+        {
+          "en": "Outdoor fan motor defective or condenser blocked/dirty",
+          "ur": "Outdoor fan kharab hai ya condenser ganda/block hai"
+        },
+        {
+          "en": "Faulty outdoor pipe sensor or outdoor PCB",
+          "ur": "Outdoor pipe sensor kharab hai ya outdoor PCB fault hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean the condenser and clear the outdoor unit's airflow space",
+          "ur": "Condenser saaf karein aur outdoor ke aas paas ka rasta khali karein"
+        },
+        {
+          "en": "Confirm the outdoor fan runs at full speed",
+          "ur": "Outdoor fan poori speed se chal raha hai — check karein"
+        },
+        {
+          "en": "Check the outdoor pipe sensor reading and the gas charge",
+          "ur": "Outdoor pipe sensor ki reading aur gas charge check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.27",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: 4 occurrences within 20 minutes; detection = outdoor pipe sensor at 61 °C. Very common in PK peak summer when the condenser is clogged or undersized shading is missing.",
+        "ur": "Trip: 20 minute mein 4 baar; detection = outdoor pipe sensor 61 °C par. PK ki peak garmi mein yeh bohat aam hai jab condenser ganda ho ya shading na ho."
+      }
+    },
+    {
+      "code": "F96",
+      "aliases": [
+        "F96"
+      ],
+      "title": {
+        "en": "Power transistor (IPM) overheating protection",
+        "ur": "IPM (power module) overheat ho gaya"
+      },
+      "meaning": {
+        "en": "The IPM temperature reached 100 °C, so the drive shut down.",
+        "ur": "IPM ka temperature 100 °C tak gaya, is liye drive band ho gayi."
+      },
+      "causes": [
+        {
+          "en": "Hot discharge air short-circuiting over the outdoor board",
+          "ur": "Garam hawa board par wapas ja rahi hai (short circuit)"
+        },
+        {
+          "en": "Outdoor fan motor defective",
+          "ur": "Outdoor fan kharab hai"
+        },
+        {
+          "en": "Internal IPM fault or faulty IPM temperature sensor",
+          "ur": "IPM ke andar fault hai ya IPM ka temperature sensor kharab hai"
+        },
+        {
+          "en": "Compressor OL connector poor contact (multi models)",
+          "ur": "Compressor OL ka connector loose hai (multi models)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean the outdoor unit and make sure nothing blocks the board cooling",
+          "ur": "Outdoor saaf karein aur board ki hawa ka rasta block na ho — check karein"
+        },
+        {
+          "en": "Confirm the outdoor fan runs and the capacitor is good",
+          "ur": "Outdoor fan chal raha hai aur capacitor theek hai — confirm karein"
+        },
+        {
+          "en": "Have the IPM, its temperature sensor and the compressor OL checked",
+          "ur": "IPM, uska temperature sensor aur compressor OL check karwayein"
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.27 (F96)",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: 4 occurrences within 30 minutes; IPM sensor at 100 °C (multi also: compressor OL or heat sink 90 °C).",
+        "ur": "Trip: 30 minute mein 4 baar; IPM sensor 100 °C par (multi mein: compressor OL ya heat sink 90 °C)."
+      }
+    },
+    {
+      "code": "F97",
+      "aliases": [
+        "F97"
+      ],
+      "title": {
+        "en": "Compressor overheating protection",
+        "ur": "Compressor overheat ho gaya (112 °C)"
+      },
+      "meaning": {
+        "en": "The compressor body temperature hit 112 °C and the unit shut the compressor down.",
+        "ur": "Compressor ka temperature 112 °C tak gaya, is liye unit ne compressor band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Refrigerant shortage from a leak",
+          "ur": "Leakage ki wajah se refrigerant kam hai"
+        },
+        {
+          "en": "2/3-way service valve left closed",
+          "ur": "2/3-way service valve band reh gaya"
+        },
+        {
+          "en": "Faulty compressor tank (body) temperature sensor",
+          "ur": "Compressor body ka temperature sensor kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open all service valves fully and check for leaks",
+          "ur": "Saare service valves poore kholein aur leak check karein"
+        },
+        {
+          "en": "Leak-test, repair and recharge the system to spec",
+          "ur": "Leak test karke repair aur specification ke mutabiq gas bharwayein"
+        },
+        {
+          "en": "Measure/replace the compressor temperature sensor",
+          "ur": "Compressor ka temperature sensor measure/badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.28",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: 3 occurrences within 30 minutes (compile says 4 within 10 min — thresholds vary by model). Detection: compressor tank sensor at 112 °C.",
+        "ur": "Trip: 30 minute mein 3 baar (compile mein 10 minute mein 4 likha hai — threshold model se badalta hai). Detection: compressor tank sensor 112 °C par."
+      }
+    },
+    {
+      "code": "F98",
+      "aliases": [
+        "F98"
+      ],
+      "title": {
+        "en": "Total running current protection (input over-current)",
+        "ur": "Unit ka total current 16.8 A se upar chala gaya"
+      },
+      "meaning": {
+        "en": "Input current reached 16.8 A while the compressor was running, so the unit cut out.",
+        "ur": "Compressor chalte waqt input current 16.8 A tak barh gayi, is liye unit ne cut kar di."
+      },
+      "causes": [
+        {
+          "en": "Compressor failure drawing high current",
+          "ur": "Compressor kharab ho kar zyada current le raha hai"
+        },
+        {
+          "en": "Defective outdoor unit PCB",
+          "ur": "Outdoor unit PCB kharab hai"
+        },
+        {
+          "en": "Defective inverter main-circuit electrolytic capacitor",
+          "ur": "Inverter ke main circuit ka electrolytic capacitor kharab hai"
+        },
+        {
+          "en": "Excess refrigerant charge",
+          "ur": "Refrigerant zyada bhar diya gaya hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clamp-meter the running amps and compare with the nameplate",
+          "ur": "Clamp meter se chalte hue ampere lein aur nameplate se compare karein"
+        },
+        {
+          "en": "Check the run capacitor/PCB capacitors and outdoor PCB",
+          "ur": "Run capacitor/PCB ke capacitors aur outdoor PCB check karein"
+        },
+        {
+          "en": "Verify the gas charge is not over spec",
+          "ur": "Gas charge specification se zyada na ho — verify karein"
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.29",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: 3 occurrences within 20 minutes; detection = 16.8 A input current via CT. Electrical hazard class — do not keep resetting without finding the cause.",
+        "ur": "Trip: 20 minute mein 3 baar; detection = CT ke zariye 16.8 A input current. Electrical hazard class — cause pata kiye bina baar baar reset na karein."
+      }
+    },
+    {
+      "code": "F99",
+      "aliases": [
+        "F99"
+      ],
+      "title": {
+        "en": "Outdoor DC peak detection",
+        "ur": "Outdoor DC peak current ki nishandahi"
+      },
+      "meaning": {
+        "en": "The DC peak-sensing circuit saw output current above the limit (18.5 A) and cut the drive.",
+        "ur": "DC peak sensing circuit ne output current limit (18.5 A) se upar dekha aur drive band kar di."
+      },
+      "causes": [
+        {
+          "en": "Compressor failure causing a current peak",
+          "ur": "Compressor ki kharabi se current peak aa gaya"
+        },
+        {
+          "en": "Defective power transistor (IPM)",
+          "ur": "Power transistor (IPM) kharab hai"
+        },
+        {
+          "en": "Defective outdoor unit PCB",
+          "ur": "Outdoor unit PCB kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and wait at least 10 minutes before touching anything",
+          "ur": "Power band karke kuch bhi haath lagane se pehle kam az kam 10 minute intezaar karein"
+        },
+        {
+          "en": "Have the power transistor checked (never probe live parts)",
+          "ur": "Power transistor check karwayein (live parts ko kabhi haath na lagayein)"
+        },
+        {
+          "en": "Test the compressor and outdoor PCB",
+          "ur": "Compressor aur outdoor PCB test karein"
+        }
+      ],
+      "severity": "danger",
+      "display": "remote",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Panasonic CS-E7JKEW service manual §16.3/§16.4.30",
+        "retrieved": "2026-09-24",
+        "url": "https://www.panasonicproclub.com/uploads/CZ/catalogues/rac/service-manual/CS-E7JKEW_SM_PHAAM0810051C2.pdf0on.pdf"
+      },
+      "confidence": "high",
+      "notes": {
+        "en": "Trip: 7 occurrences continuously; detection = 18.5 A output current. Manual's checking note: wait 10 min after switching off the breaker before measuring the power transistor.",
+        "ur": "Trip: lagatar 7 baar; detection = 18.5 A output current. Manual ki checking note: breaker band karne ke 10 minute baad hi power transistor napein."
+      }
+    }
+  ]
+}

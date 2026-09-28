@@ -1,0 +1,1179 @@
+{
+  "schemaVersion": 1,
+  "brandId": "solis",
+  "series": {
+    "id": "solis-s5-gr",
+    "name": "S5-GR1P (single-phase string 2.5-12kW)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*S5-GR1P*"
+    ],
+    "notes": "LCD prints the TEXT alarm name (OV-G-V01, OV-TEM, PV ISO-PRO 01/02...). The matching hex number is what SolisCloud / the Solis support KB use for the same alarm. Hex map confirmed on the OFFICIAL Solis global support portal, category 'Alarm/Error Messages': https://solis-service.solisinverters.com/en/support/solutions/articles/44002299792-what-are-the-do-s-don-ts- (lists 1010,1011,1014,1015,1018,1021,1023,1027,1030,1032,1033,1034,1035,1037,1040). Reverse-GRID exists only on the 1-phase manual, not the 3-phase one."
+  },
+  "codes": [
+    {
+      "code": "OV-G-V01/02/03/04",
+      "aliases": [
+        "OV-G-V01/02/03/04",
+        "1010",
+        "OV-G-V",
+        "OV-G-V05"
+      ],
+      "title": {
+        "en": "Over grid voltage (OV-G-V01 to 04)",
+        "ur": "Grid voltage zyada (OV-G-V01 se 04)"
+      },
+      "meaning": {
+        "en": "Measured grid voltage is above the configured protection window, so the inverter stops exporting.",
+        "ur": "Grid ka voltage set kiya hua limit se upar hai, is liye inverter ne export band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Long or undersized AC cable between inverter and main panel",
+          "ur": "Inverter aur main panel ke darmiyan lamba ya chhota AC cable"
+        },
+        {
+          "en": "Grid voltage really high during peak solar export hours",
+          "ur": "Dopahar mein zyada solar export ke waqt grid voltage sach mein high ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "DC switch OFF, then measure AC at the inverter terminals with a multimeter.",
+          "ur": "DC switch OFF karein, phir multimeter se inverter ke AC terminal par voltage measure karein."
+        },
+        {
+          "en": "Compare the multimeter reading with the voltage shown in the LCD Information menu; a mismatch means a bad sensing circuit.",
+          "ur": "Multimeter reading aur LCD Information menu ka voltage compare karein; mismatch aaye to sensing circuit kharab hai."
+        },
+        {
+          "en": "If voltage is genuinely high, get DISCO approval before widening the protection limit in Advanced Settings > Select Standard.",
+          "ur": "Agar voltage sach mein high hai, to Advanced Settings > Select Standard mein limit barhane se pehle DISCO se ijazat lein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "UN-G-V01/02",
+      "aliases": [
+        "UN-G-V01/02",
+        "1011",
+        "UN-G-V"
+      ],
+      "title": {
+        "en": "Under grid voltage (UN-G-V01/02)",
+        "ur": "Grid voltage kam (UN-G-V01/02)"
+      },
+      "meaning": {
+        "en": "Grid voltage has fallen below the lower protection limit, usually during a heavy load or a weak supply.",
+        "ur": "Grid voltage lower limit se neeche gir gaya, aksar heavy load ya weak supply ki wajah se."
+      },
+      "causes": [
+        {
+          "en": "Weak distribution transformer or long feeder from the pole",
+          "ur": "Weak distribution transformer ya pole se lamba feeder"
+        },
+        {
+          "en": "Large motor or compressor starting on the same phase",
+          "ur": "Usi phase par koi bada motor ya compressor start hona"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure L1-N and L1-PE voltage at the inverter while the fault is active.",
+          "ur": "Fault chal raha ho tab inverter par L1-N aur L1-PE voltage measure karein."
+        },
+        {
+          "en": "If the reading is normal but the LCD shows low voltage, the sensing circuit is faulty - RMA.",
+          "ur": "Agar reading normal hai lekin LCD low voltage dikhata hai, to sensing circuit kharab hai - RMA."
+        },
+        {
+          "en": "Tighten the AC lugs and torque-check the terminal; a loose neutral raises resistance and drops measured voltage.",
+          "ur": "AC lugs ko tighten karein aur terminal ka torque check karein; loose neutral resistance barhakar voltage gira deta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "OV-G-F01/02",
+      "aliases": [
+        "OV-G-F01/02",
+        "1012",
+        "OV-G-F"
+      ],
+      "title": {
+        "en": "Over grid frequency (OV-G-F01/02)",
+        "ur": "Grid frequency zyada (OV-G-F01/02)"
+      },
+      "meaning": {
+        "en": "Grid frequency measured above the upper limit so the inverter disconnects from the grid.",
+        "ur": "Grid frequency upper limit se upar, is liye inverter grid se disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Generator running in parallel with the grid and set slightly high",
+          "ur": "Grid ke saath parallel generator jo thoda high chalta hai"
+        },
+        {
+          "en": "Wrong grid standard selected for the local DISCO",
+          "ur": "Local DISCO ke liye galat grid standard selected"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check frequency with a multimeter or clamp meter at the AC terminals.",
+          "ur": "AC terminal par multimeter ya clamp meter se frequency check karein."
+        },
+        {
+          "en": "Compare the LCD frequency reading with the meter; a mismatch points to the sensing circuit.",
+          "ur": "LCD frequency reading aur meter compare karein; mismatch ho to sensing circuit ka masla hai."
+        },
+        {
+          "en": "Verify the grid code in Advanced Settings > Select Standard; do not change it without DISCO approval.",
+          "ur": "Advanced Settings > Select Standard mein grid code verify karein; DISCO ki ijazat ke baghair na badlein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "UN-G-F01/02",
+      "aliases": [
+        "UN-G-F01/02",
+        "1013",
+        "UN-G-F"
+      ],
+      "title": {
+        "en": "Under grid frequency (UN-G-F01/02)",
+        "ur": "Grid frequency kam (UN-G-F01/02)"
+      },
+      "meaning": {
+        "en": "Grid frequency is below the lower limit; the inverter waits and reconnects when frequency recovers.",
+        "ur": "Grid frequency lower limit se neeche hai; frequency theek hone par inverter reconnect kar leta hai."
+      },
+      "causes": [
+        {
+          "en": "Grid overloaded by many air conditioners and water pumps",
+          "ur": "Bahut se air conditioner aur water pump ki wajah se grid overloaded"
+        },
+        {
+          "en": "Weak local supply during peak evening load",
+          "ur": "Shaam ke peak load par weak local supply"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure frequency at the inverter AC terminals with a meter that reads Hz.",
+          "ur": "Hz read karne wale meter se inverter ke AC terminal par frequency measure karein."
+        },
+        {
+          "en": "Switch off heavy loads for 10 minutes and see if the inverter reconnects by itself.",
+          "ur": "Bhaari loads 10 minute ke liye off karein aur dekhein ke inverter khud reconnect hota hai ya nahi."
+        },
+        {
+          "en": "If it never reconnects, check the grid code setting and the AC connection.",
+          "ur": "Agar kabhi reconnect na ho, to grid code setting aur AC connection check karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "NO-GRID",
+      "aliases": [
+        "NO-GRID",
+        "1015",
+        "NO-Grid",
+        "No power on LCD"
+      ],
+      "title": {
+        "en": "No grid voltage / inverter no power on LCD",
+        "ur": "Grid voltage nahi / LCD par power nahi"
+      },
+      "meaning": {
+        "en": "The inverter senses no grid voltage, or has no power at all on the LCD.",
+        "ur": "Inverter ko grid voltage hi nahi mil rahi, ya LCD par bilkul power nahi hai."
+      },
+      "causes": [
+        {
+          "en": "AC MCB tripped or main isolator is off",
+          "ur": "AC MCB trip ho gaya ya main isolator off hai"
+        },
+        {
+          "en": "DC input voltage too low, or PV+/- reversed",
+          "ur": "DC input voltage bahut kam hai, ya PV+/- reverse hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the AC breaker and isolator first, then measure L1-N and L1-PE at the inverter terminals.",
+          "ur": "Pehle AC breaker aur isolator check karein, phir inverter terminal par L1-N aur L1-PE measure karein."
+        },
+        {
+          "en": "With DC switch OFF, measure string voltage - above 120 V on single phase - and confirm polarity is not reversed.",
+          "ur": "DC switch OFF karke string voltage measure karein - single phase par 120 V se upar - aur polarity reverse na ho."
+        },
+        {
+          "en": "Turn the DC switch OFF until the screen blanks, then bring AC on first and DC after 60 seconds.",
+          "ur": "Screen blank hone tak DC switch OFF rakhein, phir AC pehle aur 60 second baad DC on karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "OV-DC01/02/03/04",
+      "aliases": [
+        "OV-DC01/02/03/04",
+        "1020",
+        "OV-DC"
+      ],
+      "title": {
+        "en": "Over DC voltage (OV-DC01/02/03/04)",
+        "ur": "DC voltage zyada (OV-DC01/02/03/04)"
+      },
+      "meaning": {
+        "en": "PV string open-circuit voltage has gone above the inverter DC input limit.",
+        "ur": "PV string ka open-circuit voltage inverter ki DC limit se upar chala gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Too many modules wired in series for cold-morning Voc",
+          "ur": "Series mein modules zyada hain, thande subah ka Voc un ke liye bahut zyada hai"
+        },
+        {
+          "en": "Inverter DC input voltage setting lower than the actual array Voc",
+          "ur": "Inverter ki DC input voltage setting array ke actual Voc se kam hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "DC switch OFF first, then measure Voc per string at the inverter DC terminals.",
+          "ur": "Pehle DC switch OFF karein, phir inverter DC terminal par har string ka Voc measure karein."
+        },
+        {
+          "en": "Recalculate the string Voc at the lowest local temperature and reduce modules in series if needed.",
+          "ur": "Local sab se kam temperature par string Voc dobara calculate karein aur zaroorat ho to series mein modules kam karein."
+        },
+        {
+          "en": "If the meter reads normal but the alarm persists, the DC sensing circuit is faulty - RMA.",
+          "ur": "Agar meter normal reading de lekin alarm rehta rahe, to DC sensing circuit kharab hai - RMA."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "OV-BUS",
+      "aliases": [
+        "OV-BUS",
+        "1021",
+        "OV-BUS (1021 DATA:0000)"
+      ],
+      "title": {
+        "en": "Over DC bus voltage (OV-BUS)",
+        "ur": "DC bus voltage zyada (OV-BUS)"
+      },
+      "meaning": {
+        "en": "The internal DC link voltage has risen above the limit, so the inverter shuts down.",
+        "ur": "Internal DC link voltage limit se upar chala gaya, is liye inverter band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Inductor connection loose or the gate driver board has failed",
+          "ur": "Inductor ka connection loose hai ya gate driver board fail ho gaya"
+        },
+        {
+          "en": "Grid loss while the DC bus is still charged from PV",
+          "ur": "PV se DC bus charged hone ke baad grid chala gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV completely before opening the inverter.",
+          "ur": "Inverter kholne se pehle AC aur PV dono isolate kar lein."
+        },
+        {
+          "en": "Measure DC and AC with a multimeter and compare against the LCD Information readings.",
+          "ur": "Multimeter se DC aur AC measure karein aur LCD Information reading se compare karein."
+        },
+        {
+          "en": "With power off, check the inductor solder joints and the driver board; replace the driver board if the readings are healthy.",
+          "ur": "Power off kar ke inductor ke solder joints aur driver board check karein; readings theek hon to driver board replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "UN-BUS01/02",
+      "aliases": [
+        "UN-BUS01/02",
+        "1023",
+        "UN-BUS",
+        "UNB-BUS"
+      ],
+      "title": {
+        "en": "Under DC bus voltage (UN-BUS01/02)",
+        "ur": "DC bus voltage kam (UN-BUS01/02)"
+      },
+      "meaning": {
+        "en": "The internal DC bus voltage is too low to run the inverter.",
+        "ur": "Internal DC bus voltage itna kam hai ke inverter nahi chal sakta."
+      },
+      "causes": [
+        {
+          "en": "PV voltage too low for the minimum operating window",
+          "ur": "PV voltage minimum operating window se neeche hai"
+        },
+        {
+          "en": "Half-voltage sensing circuit or sample-and-hold board fault",
+          "ur": "Half-voltage sensing circuit ya sample-and-hold board ka fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "DC switch OFF and measure each string Voc; string should be above the minimum DC input voltage.",
+          "ur": "DC switch OFF karke har string ka Voc measure karein; string minimum DC input voltage se upar hona chahiye."
+        },
+        {
+          "en": "Compare the LCD bus reading with a multimeter; a big difference means RMA.",
+          "ur": "LCD bus reading ko multimeter se compare karein; bara farq ho to RMA."
+        },
+        {
+          "en": "Check the half-voltage resistor divider and its connector on the sampling board.",
+          "ur": "Sampling board par half-voltage resistor divider aur uska connector check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "GRID-INTF01/02",
+      "aliases": [
+        "GRID-INTF01/02",
+        "1030",
+        "GRID-INTF",
+        "GRID-INTF."
+      ],
+      "title": {
+        "en": "Grid interference (GRID-INTF01/02)",
+        "ur": "Grid interference / waveform kharab (GRID-INTF01/02)"
+      },
+      "meaning": {
+        "en": "The AC waveform is too distorted, so the inverter shuts down to protect itself.",
+        "ur": "AC waveform bahut kharab hai, is liye inverter apni protection ke liye band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Non-linear loads on the same feeder producing high THD",
+          "ur": "Usi feeder par non-linear loads jo THD barha rahe hain"
+        },
+        {
+          "en": "Weak AC wiring or a loose earth connection",
+          "ur": "Kamzor AC wiring ya loose earth connection"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Keep the DC switch OFF and measure AC voltage, then test the AC line for THD.",
+          "ur": "DC switch OFF rakhein aur AC voltage measure karein, phir AC line ka THD test karein."
+        },
+        {
+          "en": "Switch off other inverters on the same phase one by one to find the noisy device.",
+          "ur": "Usi phase ke doosre inverters ek-ek karke band karein taake noisy device mil jaye."
+        },
+        {
+          "en": "Recheck the earth conductor and tighten the AC earth lug; if THD is normal, the power board is likely at fault.",
+          "ur": "Earth conductor dobara check karein aur AC earth lug tighten karein; THD normal ho to power board kharab hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "OV-TEM",
+      "aliases": [
+        "OV-TEM",
+        "1032",
+        "OV-TEM (1032 DATA:0000)",
+        "Over Temperature"
+      ],
+      "title": {
+        "en": "Over temperature (OV-TEM)",
+        "ur": "Temperature zyada (OV-TEM)"
+      },
+      "meaning": {
+        "en": "Heatsink or internal temperature has crossed the limit, so the inverter derates and then stops.",
+        "ur": "Heatsink ya internal temperature limit cross kar gaya, is liye inverter pehle power kam karta hai phir ruk jata hai."
+      },
+      "causes": [
+        {
+          "en": "Direct afternoon sun falling on the inverter cabinet",
+          "ur": "Dopahar ki dhoop seedhi inverter cabinet par gir rahi hai"
+        },
+        {
+          "en": "Blocked heatsink fins from dust, mud or a soffit above",
+          "ur": "Heatsink ki fins dhool, gadda ya upar ke chhat se band ho gayi hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure ambient temperature at the inverter with a thermometer; compare with the LCD internal temperature.",
+          "ur": "Thermometer se inverter ke paas ka ambient temperature measure karein aur LCD ke internal temperature se compare karein."
+        },
+        {
+          "en": "Check heatsink airflow and clear any dust buildup; do not blow compressed air into the electronics.",
+          "ur": "Heatsink ka airflow check karein aur dhool saaf karein; electronics mein compressed air na maarein."
+        },
+        {
+          "en": "If ambient is within range and the alarm still trips, the internal NTC sensor or fan is faulty - RMA.",
+          "ur": "Agar ambient range mein hai phir bhi alarm aata hai, to internal NTC sensor ya fan kharab hai - RMA."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "PV ISO-PRO 01/02",
+      "aliases": [
+        "PV ISO-PRO 01/02",
+        "1033",
+        "PVISO-PRO"
+      ],
+      "title": {
+        "en": "PV insulation / earth fault (PV ISO-PRO 01/02)",
+        "ur": "PV side ki insulation kharab, earth fault (PV ISO-PRO 01/02)"
+      },
+      "meaning": {
+        "en": "Insulation resistance on the PV side has fallen, so a DC earth fault is present and the inverter cannot generate.",
+        "ur": "PV side ki insulation resistance gir gayi hai, matlab DC earth fault mojood hai aur inverter generate nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Panel frame or module laminate shorted to earth",
+          "ur": "Panel frame ya module laminate earth se short ho gaya"
+        },
+        {
+          "en": "Damaged cable insulation, a crushed conduit or a wet MC4 connector",
+          "ur": "Cable ki insulation kharab, daba hua conduit ya geela MC4 connector"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "DC switch OFF, then measure each string's positive and negative to earth with a megohmmeter at 1000 V.",
+          "ur": "DC switch OFF karke megohmmeter 1000 V par har string ki positive aur negative line ko earth ke against measure karein."
+        },
+        {
+          "en": "Disconnect all DC inputs and reconnect them one string at a time to find the faulty string.",
+          "ur": "Sab DC input disconnect karke ek-ek string karke dobara lagayein taake kharab string maloom ho."
+        },
+        {
+          "en": "Note the weather when the alarm appears; insulation drops in rain or fog, so test in the same conditions.",
+          "ur": "Alarm aane waqt mausam note karein; baarish ya dhund mein insulation gir ti hai, isi waqt test karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Yellow alarm LED flashing + code on LCD",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "ILeak-PRO 01/02/03/04",
+      "aliases": [
+        "ILeak-PRO 01/02/03/04",
+        "1034",
+        "ILeak-PRO",
+        "I-Leak-Pro"
+      ],
+      "title": {
+        "en": "Residual / leakage current protection (ILeak-PRO)",
+        "ur": "Leakage current protection (ILeak-PRO)"
+      },
+      "meaning": {
+        "en": "Residual current on the AC or DC side exceeded the limit, so the inverter locked out.",
+        "ur": "AC ya DC side par residual current limit cross kar gaya, is liye inverter lock ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Moisture ingress into the AC junction box or the DC combiner",
+          "ur": "AC junction box ya DC combiner mein paani ka ghusa hona"
+        },
+        {
+          "en": "Leaking RCD or a type-B filter capacitor failing",
+          "ur": "Leaking RCD ya type-B filter capacitor ka fail hona"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC and DC, then check the insulation of the AC cables and the inverter internal cabling.",
+          "ur": "AC aur DC band karke AC cables aur inverter ki internal wiring ki insulation check karein."
+        },
+        {
+          "en": "Press the RCD TEST button on the board; if it does not trip, replace the RCD.",
+          "ur": "Board ka RCD TEST button dabayein; agar trip na kare to RCD replace karein."
+        },
+        {
+          "en": "Measure leakage current with a clamp meter on the earth conductor while the system runs.",
+          "ur": "System chalte hue earth conductor par clamp meter se leakage current measure karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "RelayChk-FAIL",
+      "aliases": [
+        "RelayChk-FAIL",
+        "1035",
+        "Relay Chk-FAIL",
+        "Relay-Fault"
+      ],
+      "title": {
+        "en": "Relay self-check failure (RelayChk-FAIL)",
+        "ur": "Relay self-check fail (RelayChk-FAIL)"
+      },
+      "meaning": {
+        "en": "The grid relay failed the inverter's own power-on self test, so the inverter will not connect.",
+        "ur": "Grid relay ne inverter ka apna power-on self test fail kiya, is liye inverter connect nahi hoga."
+      },
+      "causes": [
+        {
+          "en": "Grid relay or contactor welded / failed mechanically",
+          "ur": "Grid relay ya contactor weld ho gaya ya mechanically fail"
+        },
+        {
+          "en": "Relay driver circuit or 12 V supply rail faulty",
+          "ur": "Relay driver circuit ya 12 V supply rail kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then listen for a relay click when power is applied.",
+          "ur": "AC aur PV isolate karein, phir power dete waqt relay ki click sunhein."
+        },
+        {
+          "en": "Measure the 12 V rail at the relay board; below 11 V the relay cannot pull in reliably.",
+          "ur": "Relay board par 12 V rail measure karein; 11 V se kam ho to relay reliably pull in nahi hoga."
+        },
+        {
+          "en": "If the relay is healthy, replace the relay driver board - RMA.",
+          "ur": "Relay theek ho to relay driver board replace karein - RMA."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "DCInj-FAULT",
+      "aliases": [
+        "DCInj-FAULT",
+        "1037",
+        "DCinj-FAULT",
+        "DCInj-FAULT (1037 DATA:0000)"
+      ],
+      "title": {
+        "en": "High DC injection current (DCInj-FAULT)",
+        "ur": "DC injection current zyada (DCInj-FAULT)"
+      },
+      "meaning": {
+        "en": "The DC component of the grid output current is too high, so the inverter disconnects.",
+        "ur": "Grid output current ka DC component zyada hai, is liye inverter disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Distorted or unstable grid supply",
+          "ur": "Grid supply distorted ya unstable"
+        },
+        {
+          "en": "AC cable or earth connection loose, creating a leakage path",
+          "ur": "AC cable ya earth connection loose, jis se leakage path ban raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the grid is normal, then confirm the AC cable is properly connected and torqued.",
+          "ur": "Grid normal hai ya nahi check karein, phir AC cable ka connection aur torque confirm karein."
+        },
+        {
+          "en": "Restart the system and see whether the fault returns; record the time of each event.",
+          "ur": "System restart karein aur dekhein ke fault wapas aata hai ya nahi; har event ka time note karein."
+        },
+        {
+          "en": "If it returns with a healthy grid, the current sampling circuit or power board is at fault - RMA.",
+          "ur": "Agar healthy grid par wapas aaye, to current sampling circuit ya power board kharab hai - RMA."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "12Power-FAULT",
+      "aliases": [
+        "12Power-FAULT",
+        "1038",
+        "12Power-FAULT (1038 DATA:0000)"
+      ],
+      "title": {
+        "en": "12 V power supply fault (12Power-FAULT)",
+        "ur": "12 V power supply ka fault (12Power-FAULT)"
+      },
+      "meaning": {
+        "en": "The inverter's internal 12 V auxiliary rail has collapsed, usually after a current leak to earth.",
+        "ur": "Inverter ka internal 12 V auxiliary rail gir gaya, aksar earth par current leak ke baad."
+      },
+      "causes": [
+        {
+          "en": "Current leaking to earth from a damaged cable or a wet connector",
+          "ur": "Kharab cable ya geele connector se earth par current leak"
+        },
+        {
+          "en": "12 V SMPS transformer or its rectifier has failed",
+          "ur": "12 V SMPS transformer ya uska rectifier fail ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then check the earth continuity of every external wire.",
+          "ur": "AC, PV aur battery isolate karke har external wire ki earth continuity check karein."
+        },
+        {
+          "en": "Verify the grounding conductor is solid and the inverter earth lug is tight.",
+          "ur": "Grounding conductor solid hai aur inverter earth lug tight hai, yeh verify karein."
+        },
+        {
+          "en": "With power off, measure the 12 V rail at the control board; replace the SMPS module if it reads below 10 V.",
+          "ur": "Power off kar ke control board par 12 V rail measure karein; 10 V se kam ho to SMPS module replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "INI-FAULT",
+      "aliases": [
+        "INI-FAULT",
+        "1031",
+        "INI-FAULT (1031 DATA:0000)"
+      ],
+      "title": {
+        "en": "Initialisation system fault (INI-FAULT)",
+        "ur": "Initialization system fault (INI-FAULT)"
+      },
+      "meaning": {
+        "en": "The DSP failed initialisation, so the inverter never reaches the normal state.",
+        "ur": "DSP initialize nahi hua, is liye inverter normal state par nahi pohanchta."
+      },
+      "causes": [
+        {
+          "en": "Master and slave DSP holding different calibration values",
+          "ur": "Master aur slave DSP ke calibration values alag hain"
+        },
+        {
+          "en": "DSP connector on the power board loose or the DSP itself failed",
+          "ur": "Power board par DSP connector loose hai ya DSP khud fail ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "DC switch OFF, wait until all LEDs and the LCD go dark, then DC switch ON.",
+          "ur": "DC switch OFF karein, sab LEDs aur LCD band hone tak wait karein, phir DC switch ON karein."
+        },
+        {
+          "en": "With power off, reseat the main board, power board and DSP-to-power-board connectors.",
+          "ur": "Power off kar ke main board, power board aur DSP-to-power-board connectors dobara fit karein."
+        },
+        {
+          "en": "If it repeats after a proper reset, the DSP or power board is defective - RMA.",
+          "ur": "Theek reset ke baad bhi repeat ho to DSP ya power board kharab hai - RMA."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "DC-INTF",
+      "aliases": [
+        "DC-INTF",
+        "1027",
+        "OV-DCA-I"
+      ],
+      "title": {
+        "en": "DC input overcurrent / interference (DC-INTF)",
+        "ur": "DC input current zyada ya interference (DC-INTF)"
+      },
+      "meaning": {
+        "en": "DC input current is abnormal or interfered, so the inverter shuts down.",
+        "ur": "DC input current abnormal ya interfered hai, is liye inverter band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "A failing PV module or bypass diode causing a partial short",
+          "ur": "Koi PV module ya bypass diode kharab jis se partial short ho gaya"
+        },
+        {
+          "en": "Insulation fault on the DC side combined with a surge event",
+          "ur": "DC side par insulation fault ke saath surge event"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "DC switch OFF, then measure each string's positive and negative to earth to locate a ground fault.",
+          "ur": "DC switch OFF karke har string ki positive aur negative ko earth ke against measure kar ke ground fault dhoondein."
+        },
+        {
+          "en": "Run the system with one string at a time to identify the string causing the fault.",
+          "ur": "System ko ek-ek string karke chalayein taake fault karne wali string mil jaye."
+        },
+        {
+          "en": "Measure string current in series with a clamp meter; a string far above its rating must be isolated.",
+          "ur": "Clamp meter series mein lagakar string current measure karein; rating se bahut zyada wali string ko alag karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "OV-G-I",
+      "aliases": [
+        "OV-G-I",
+        "1018",
+        "OV-G-1"
+      ],
+      "title": {
+        "en": "Over grid current (OV-G-I)",
+        "ur": "Grid current zyada (OV-G-I)"
+      },
+      "meaning": {
+        "en": "Grid output current exceeded the limit, so the inverter stopped to protect the IGBT.",
+        "ur": "Grid output current limit cross kar gaya, is liye inverter ne IGBT bachane ke liye ruk kar band kiya."
+      },
+      "causes": [
+        {
+          "en": "AC breaker or cable undersized, or a loose AC connection",
+          "ur": "AC breaker ya cable chhota, ya AC connection loose"
+        },
+        {
+          "en": "Grid short circuit or a large motor start on the same phase",
+          "ur": "Grid par short circuit ya usi phase par bada motor start"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then measure the insulation of the AC cable to earth.",
+          "ur": "AC aur PV isolate karke AC cable ki earth ke against insulation measure karein."
+        },
+        {
+          "en": "Check the AC breaker rating and the cable size against the inverter nameplate current.",
+          "ur": "AC breaker rating aur cable size ko inverter nameplate current se compare karein."
+        },
+        {
+          "en": "If the cable and breaker are correct, the current sampling or power board is at fault - RMA.",
+          "ur": "Cable aur breaker theek hon to current sampling ya power board kharab hai - RMA."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "IGBT-OV-I",
+      "aliases": [
+        "IGBT-OV-I",
+        "1048",
+        "IGBT-OV-I (1048 DATA:0000)",
+        "IGBT-OV-1"
+      ],
+      "title": {
+        "en": "Over IGBT current (IGBT-OV-I)",
+        "ur": "IGBT current zyada (IGBT-OV-I)"
+      },
+      "meaning": {
+        "en": "The internal IGBT bridge drew more current than allowed; the inverter shut down.",
+        "ur": "Internal IGBT bridge ne allowed se zyada current kheencha; inverter band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Grid transient or a load step on the AC side",
+          "ur": "AC side par grid transient ya load step"
+        },
+        {
+          "en": "IGBT or gate driver degrading with age",
+          "ur": "Umar ke saath IGBT ya gate driver degrade hona"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC and DC, then verify the DC string Voc and the AC cable before restarting.",
+          "ur": "AC aur DC band karke restart se pehle DC string Voc aur AC cable verify karein."
+        },
+        {
+          "en": "Restart the inverter and confirm whether the fault returns immediately.",
+          "ur": "Inverter restart karke dekhein ke fault foran wapas aata hai ya nahi."
+        },
+        {
+          "en": "If it returns on every start, do not keep restarting - send for factory repair.",
+          "ur": "Agar har start par wapas aaye, to baar baar restart na karein - factory repair ke liye bhejein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "IGFOL-F",
+      "aliases": [
+        "IGFOL-F",
+        "1019"
+      ],
+      "title": {
+        "en": "Grid current tracking failure (IGFOL-F)",
+        "ur": "Grid current tracking fail (IGFOL-F)"
+      },
+      "meaning": {
+        "en": "The grid current control loop lost synchronism with the grid, so the inverter stopped.",
+        "ur": "Grid current control loop grid se sync kho gaya, is liye inverter ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Unstable or distorted grid voltage",
+          "ur": "Unstable ya distorted grid voltage"
+        },
+        {
+          "en": "Loose AC connection or wrong grid standard selected",
+          "ur": "Loose AC connection ya galat grid standard selected"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage and frequency at the inverter AC terminals.",
+          "ur": "Inverter ke AC terminal par grid voltage aur frequency measure karein."
+        },
+        {
+          "en": "Confirm the AC cable terminals are tight and the earth is sound.",
+          "ur": "AC cable terminals tight hain aur earth theek hai, yeh confirm karein."
+        },
+        {
+          "en": "Restart the inverter; if the alarm repeats, contact the installer for an RMA.",
+          "ur": "Inverter restart karein; alarm repeat ho to installer se RMA ke liye rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "IG-AD",
+      "aliases": [
+        "IG-AD"
+      ],
+      "title": {
+        "en": "Grid current sampling failure (IG-AD)",
+        "ur": "Grid current sampling fail (IG-AD)"
+      },
+      "meaning": {
+        "en": "The grid current sampling circuit failed; this is an internal component fault.",
+        "ur": "Grid current sampling circuit fail ho gaya; yeh internal component fault hai."
+      },
+      "causes": [
+        {
+          "en": "Current sensor or the sampling amplifier on the power board has failed",
+          "ur": "Power board par current sensor ya sampling amplifier fail ho gaya"
+        },
+        {
+          "en": "Harsh grid transients or a surge event damaging the sensing path",
+          "ur": "Teek grid transient ya surge event se sensing path kharab hua"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then check all cable connectors on the power board are seated.",
+          "ur": "AC aur PV isolate karke power board ke sab cable connectors fit hain ya nahi check karein."
+        },
+        {
+          "en": "Measure the current sensor output voltage against the service manual before condemning the board.",
+          "ur": "Board kharab karne se pehle service manual ke mutabiq current sensor ki output voltage measure karein."
+        },
+        {
+          "en": "This is normally an RMA item - internal component failure.",
+          "ur": "Ye aam tor par RMA item hai - internal component failure."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "notes": {
+        "en": "Hex number for IG-AD is not published on the Solis support KB list, so no alias is given.",
+        "ur": "Solis support KB list mein IG-AD ka hex number nahi diya gaya, is liye alias nahi diya."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "Reverse-GRID",
+      "aliases": [
+        "Reverse-GRID",
+        "Wrong AC polarity"
+      ],
+      "title": {
+        "en": "Wrong AC polarity (Reverse-GRID)",
+        "ur": "AC polarity ghalat (Reverse-GRID)"
+      },
+      "meaning": {
+        "en": "Line and neutral are swapped at the AC input, so the inverter sees reversed polarity.",
+        "ur": "AC input par line aur neutral swap hain, is liye inverter ko polarity ulti dikhai deti hai."
+      },
+      "causes": [
+        {
+          "en": "Line and neutral connected in reverse at the AC terminal",
+          "ur": "AC terminal par line aur neutral ulte connect kiye gaye"
+        },
+        {
+          "en": "AC connector pushed in the wrong way during installation",
+          "ur": "Installation ke waqt AC connector ghalat taraf push ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "AC switch OFF, then confirm which AC terminal feeds the neutral bar of the main panel.",
+          "ur": "AC switch OFF karke dekhein ke AC terminal main panel ke neutral bar ko kaun sa wire deta hai."
+        },
+        {
+          "en": "Swap the two AC conductors at the inverter and re-tighten the lugs.",
+          "ur": "Inverter par do AC conductors aapas mein badal dein aur lugs dobara tighten karein."
+        },
+        {
+          "en": "Restart and confirm the Reverse-GRID message clears.",
+          "ur": "Restart karke confirm karein ke Reverse-GRID message hat gaya."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This row appears only in the single-phase S5-GR1P manual Table 8.1, not in the three-phase table.",
+        "ur": "Ye row sirf single-phase S5-GR1P manual Table 8.1 mein hai, three-phase table mein nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    },
+    {
+      "code": "FAN alarm",
+      "aliases": [
+        "FAN alarm",
+        "Fan-Fail"
+      ],
+      "title": {
+        "en": "Cooling fan fault (FAN alarm)",
+        "ur": "Cooling fan ka fault (FAN alarm)"
+      },
+      "meaning": {
+        "en": "One or more cooling fans are not spinning, so the inverter will overheat and shut down.",
+        "ur": "Ek ya zyada cooling fan nahi chal rahe, is liye inverter garmi hoke band ho jayega."
+      },
+      "causes": [
+        {
+          "en": "Fan bearing worn or the fan blades packed with dust",
+          "ur": "Fan ki bearing ghis chuki hai ya blades par dhool ki parat hai"
+        },
+        {
+          "en": "Fan supply cable disconnected from the fan board",
+          "ur": "Fan board se fan supply cable disconnect ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Go to Advanced Settings > Fan Test and run the test while watching every fan.",
+          "ur": "Advanced Settings > Fan Test mein jayein aur har fan ko dekhte hue test chalayein."
+        },
+        {
+          "en": "Power off, then spin each fan by hand; a fan that spins by hand but not electrically has a failed bearing or driver.",
+          "ur": "Power off kar ke har fan ko haath se ghumayein; haath se ghoome lekin bijli se na chale to bearing ya driver fail hai."
+        },
+        {
+          "en": "Swap the dead fan with a known-good fan, retest, then fit the replacement.",
+          "ur": "Kharab fan ko chalte hue fan se swap karke dobara test karein, phir naya fan lagayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5 Single Phase Inverter (2.5-6)K / S5-GR1P(7-10)K Installation and Operation Manual, Table 8.1",
+        "retrieved": "2026-09-26",
+        "url": "https://jmhpower.com/wp-content/uploads/2024/04/Manual-Solis_S5-GR1P-7kw-8kw-9kw-10kw-grid-tie-single-phase-solar-inverter.pdf"
+      }
+    }
+  ]
+}

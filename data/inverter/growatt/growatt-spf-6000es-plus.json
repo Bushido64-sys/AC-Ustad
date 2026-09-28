@@ -1,0 +1,1340 @@
+{
+  "schemaVersion": 1,
+  "brandId": "growatt",
+  "series": {
+    "id": "growatt-spf-6000es-plus",
+    "name": "SPF 6000 ES PLUS (off-grid / hybrid 6kW, LCD)",
+    "category": "inverter",
+    "unitType": "off_grid_inverter",
+    "modelPatterns": [
+      "*SPF*6000*ES*",
+      "*SPF*ES*PLUS*"
+    ],
+    "notes": "6 kW off-grid hybrid with MPPT charge controller, UPS function and CAN/RS485 BMS port. Uses TWO separate tables: 'Fault Reference Code' (2-digit) and 'Warning Indicator' (2-digit) - the two tables share digits with DIFFERENT meanings (e.g. fault 02 = over temperature, warning 02 = over temperature; but fault 55 = over DC voltage in AC output while the trouble-shooting section calls 55 'output voltage unbalanced'). Buzzer pattern separates them: continuous beep + red LED solid = fault, 1 beep/second + red LED flashing = warning. Manual revision 202212."
+  },
+  "codes": [
+    {
+      "code": "Fault 01",
+      "aliases": [
+        "Fault 01",
+        "01",
+        "Fan is locked",
+        "Fan fault"
+      ],
+      "title": {
+        "en": "Fan locked (fault 01)",
+        "ur": "Fan band hua hai (fault 01)"
+      },
+      "meaning": {
+        "en": "The cooling fan has stopped or is blocked, so the inverter has shut down on overtemperature risk.",
+        "ur": "Cooling fan band ho gaya ya block hai, is liye inverter over-temperature risk par band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Fan motor failed, or a leaf/dust plug blocking the blades",
+          "ur": "Fan motor fail, ya pankh/dhool blade mein block kar rahi hai"
+        },
+        {
+          "en": "Fan connector loose or the fan cable pinched",
+          "ur": "Fan connector loose, ya fan cable daba hua hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then open the unit and spin the fan by hand.",
+          "ur": "AC, PV aur battery isolate karke unit kholein aur fan ko haath se ghumayein."
+        },
+        {
+          "en": "Check whether all fans are working properly, and reseat the fan connector.",
+          "ur": "Check karein ke tamam fans theek chal rahe hain, aur fan connector dobara baithayein."
+        },
+        {
+          "en": "Replace the fan if it does not spin freely or its bearing is noisy.",
+          "ur": "Agar fan azaad nahi ghoomta ya uska bearing shor karta hai to fan badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 02",
+      "aliases": [
+        "Fault 02",
+        "02",
+        "Over temperature"
+      ],
+      "title": {
+        "en": "Over temperature (fault 02)",
+        "ur": "Sardiyat bohat zyada ho gayi (fault 02)"
+      },
+      "meaning": {
+        "en": "An internal component exceeded 100 C and the inverter stopped.",
+        "ur": "Koi internal component 100 C cross kar gaya aur inverter ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Airflow of the unit is blocked, or ambient temperature is too high",
+          "ur": "Unit ka airflow block hai, ya ambient temperature bohat zyada hai"
+        },
+        {
+          "en": "Thermistor plug loose giving a false temperature",
+          "ur": "Thermistor plug loose hone se temperature ghalat aa rahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then check whether the air flow of the unit is blocked.",
+          "ur": "AC aur PV isolate karke check karein ke unit ka airflow block to nahi hai."
+        },
+        {
+          "en": "Check whether the thermistor plug is loose and reseat it firmly.",
+          "ur": "Check karein ke thermistor plug loose to nahi, aur use mazboot se baithayein."
+        },
+        {
+          "en": "Move the unit to a shaded, ventilated position if ambient temperature is high.",
+          "ur": "Agar ambient temperature zyada hai to unit ko shadowed, ventilated jagah le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 03",
+      "aliases": [
+        "Fault 03",
+        "03",
+        "Battery voltage is too high",
+        "Battery is over-charged"
+      ],
+      "title": {
+        "en": "Battery overcharged / battery voltage too high",
+        "ur": "Battery overcharge ho gayi / battery voltage zyada hai"
+      },
+      "meaning": {
+        "en": "Battery voltage has risen above the safe charging limit.",
+        "ur": "Battery voltage safe charging limit se upar chala gaya."
+      },
+      "causes": [
+        {
+          "en": "Wrong battery type selected, or battery quantity/spec not matching requirement",
+          "ur": "Ghalat battery type select hui, ya battery ki spec/misal requirement se match nahi karti"
+        },
+        {
+          "en": "Battery voltage sample circuit fault giving a high reading",
+          "ur": "Battery voltage sample circuit fault se high reading aa rahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual battery voltage with a multimeter on the DC input terminals.",
+          "ur": "Multimeter se DC input terminals par asal battery voltage measure karein."
+        },
+        {
+          "en": "Check if the spec and quantity of batteries meet requirements, and fix program 05 battery type.",
+          "ur": "Check karein ke batteries ki spec aur sankhya requirements poori karti hain, aur program 05 battery type theek karein."
+        },
+        {
+          "en": "Restart the unit; if the error happens again, return it to the repair centre.",
+          "ur": "Unit restart karein; dobara error aaye to use repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 04",
+      "aliases": [
+        "Fault 04",
+        "04",
+        "Battery voltage is too low",
+        "Low battery"
+      ],
+      "title": {
+        "en": "Battery voltage / SOC too low",
+        "ur": "Battery voltage / SOC bohat kam hai"
+      },
+      "meaning": {
+        "en": "Battery voltage or state of charge has dropped into the low warning/fault band.",
+        "ur": "Battery voltage ya state of charge low warning/fault range mein gir gaya."
+      },
+      "causes": [
+        {
+          "en": "Battery bank deeply discharged after long grid outage",
+          "ur": "Grid lamba outage hone ke baad battery bank gehri tarah discharge"
+        },
+        {
+          "en": "Battery undersized for the load, so it drains faster than it charges",
+          "ur": "Load ke liye battery choti hai, is liye charge se tez discharge hoti hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure battery voltage in the DC input to confirm how deep the discharge is.",
+          "ur": "Discharge kitna hua hai ye confirm karne ke liye DC input par battery voltage measure karein."
+        },
+        {
+          "en": "Check battery SOC in the LCD when a lithium battery is used.",
+          "ur": "Lithium battery use ho rahi ho to LCD par battery SOC check karein."
+        },
+        {
+          "en": "Recharge the battery from AC or PV and keep the load below battery capability until SOC recovers.",
+          "ur": "AC ya PV se battery dobara charge karein aur SOC theek hone tak load battery ki capacity se kam rakhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 05",
+      "aliases": [
+        "Fault 05",
+        "05",
+        "Output short circuited"
+      ],
+      "title": {
+        "en": "Output short circuited",
+        "ur": "Output short circuit ho gaya hai"
+      },
+      "meaning": {
+        "en": "The inverter AC output has detected a short circuit.",
+        "ur": "Inverter ke AC output par short circuit detect hua."
+      },
+      "causes": [
+        {
+          "en": "Loose AC output wiring where two conductors touch",
+          "ur": "AC output wiring loose jahan do conductors mil rahe hain"
+        },
+        {
+          "en": "A failed appliance or motor winding inside the load",
+          "ur": "Load mein koi appliance ya motor winding fail"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the battery and AC output, then disconnect all loads from the inverter.",
+          "ur": "Battery aur AC output isolate karke saari loads inverter se disconnect kar dein."
+        },
+        {
+          "en": "Check if the wiring is connected well and remove any abnormal load.",
+          "ur": "Check karein ke wiring theek se lagi hai, aur koi abnormal load hata dein."
+        },
+        {
+          "en": "Growatt's official test: with the load off, set the multimeter to diode mode and test AC output - a beep means a short inside the inverter.",
+          "ur": "Growatt ka official test: load off kar ke multimeter diode mode mein AC output test karein - beep aaye matlab inverter ke andar short hai."
+        },
+        {
+          "en": "Reconnect loads one by one; the load that trips the fault is the shorted one - repair it.",
+          "ur": "Loads ek-ek karke dobara lagayein; jis load par fault aaye wahi shorted hai - use repair karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 06",
+      "aliases": [
+        "Fault 06",
+        "06",
+        "Output voltage is too high",
+        "Fault 06/58"
+      ],
+      "title": {
+        "en": "Output voltage too high (fault 06/58)",
+        "ur": "Output voltage bohat zyada hai (fault 06/58)"
+      },
+      "meaning": {
+        "en": "Inverter output is abnormal - above 280 Vac or below 80 Vac. Fault 06 and 58 are the same event in the trouble-shooting table.",
+        "ur": "Inverter output abnormal hai - 280 Vac se upar ya 80 Vac se neeche. Trouble-shooting table mein fault 06 aur 58 ek hi event hain."
+      },
+      "causes": [
+        {
+          "en": "Overload dragging the output voltage down",
+          "ur": "Overload output voltage neeche kheench raha hai"
+        },
+        {
+          "en": "DC-AC circuit at fault - Growatt's official test: battery only, no utility and no PV, and 06 still appears",
+          "ur": "DC-AC circuit mein fault - Growatt ka official test: sirf battery, na utility na PV, aur 06 phir bhi aaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load, then restart the unit.",
+          "ur": "Connected load kam karein, phir unit restart karein."
+        },
+        {
+          "en": "Measure output voltage with a multimeter; the manual flags anything above 280 Vac.",
+          "ur": "Multimeter se output voltage measure karein; manual 280 Vac se upar ko alert karta hai."
+        },
+        {
+          "en": "If the error happens again after restart, return it to the repair centre.",
+          "ur": "Restart ke baad dobara error aaye to use repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 07",
+      "aliases": [
+        "Fault 07",
+        "07",
+        "Overload time out",
+        "Overload"
+      ],
+      "title": {
+        "en": "Overload time out",
+        "ur": "Overload ka time khatam ho gaya"
+      },
+      "meaning": {
+        "en": "The inverter ran at 110 percent of rated load for too long and shut down.",
+        "ur": "Inverter rated load ke 110 percent par bohat der tak chala aur band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Load power above 112 percent and below 150 percent, held for 10 s",
+          "ur": "Load power 112 percent se upar aur 150 percent se neeche, 10 second tak"
+        },
+        {
+          "en": "Load power above 150 percent held for 2 s (Growatt's official trigger conditions)",
+          "ur": "Load power 150 percent se upar, 2 second tak (Growatt ke official trigger conditions)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "List the running wattage of all connected loads and compare with the 6 kW rating.",
+          "ur": "Tamam connected loads ki running wattage likh kar 6 kW rating se compare karein."
+        },
+        {
+          "en": "Reduce the connected load by switching off some equipment.",
+          "ur": "Kuch equipment band karke connected load kam karein."
+        },
+        {
+          "en": "Stagger motor starts so two large loads do not start together.",
+          "ur": "Motor starts stagger karein taake do bade loads saath na shuru hon."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 08",
+      "aliases": [
+        "Fault 08",
+        "08",
+        "Bus voltage is too high"
+      ],
+      "title": {
+        "en": "Bus voltage too high (fault 08)",
+        "ur": "Bus voltage bohat zyada hai (fault 08)"
+      },
+      "meaning": {
+        "en": "The internal DC bus has risen above its limit. Growatt's own FAQ links this to battery settings and offers a special firmware for repeated trips.",
+        "ur": "Internal DC bus apni limit se upar chala gaya hai. Growatt ka apna FAQ ise battery settings se jorte hai aur baar baar aane par special firmware deta hai."
+      },
+      "causes": [
+        {
+          "en": "Lithium battery connected without BMS communication, with program 19/21 voltage points set too high",
+          "ur": "Lithium battery BMS communication ke baghair lagi, aur program 19/21 ke voltage points bohat high hain"
+        },
+        {
+          "en": "Battery type or BMS protocol set incorrectly, or comms line not connected between inverter and battery",
+          "ur": "Battery type ya BMS protocol ghalat set hai, ya inverter aur battery ke darmiyan comms line nahi lagi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the communication line is correctly connected between inverter and battery.",
+          "ur": "Check karein ke inverter aur battery ke darmiyan communication line theek se lagi hai."
+        },
+        {
+          "en": "Check that the BMS protocol type is set correctly, and review program 19 and 21 voltage points.",
+          "ur": "Check karein ke BMS protocol type theek set hai, aur program 19 aur 21 ke voltage points dekhein."
+        },
+        {
+          "en": "Restart the unit; Growatt offers a dedicated 08 firmware - request it if the fault repeats every few hours.",
+          "ur": "Unit restart karein; Growatt ka khaas 08 firmware hai - agar fault kai ghanton baad dobara aaye to use maangein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 09",
+      "aliases": [
+        "Fault 09",
+        "09",
+        "Bus soft start failed",
+        "Fault 09/53/57"
+      ],
+      "title": {
+        "en": "Bus soft start failed (fault 09/53/57)",
+        "ur": "Bus soft start fail (fault 09/53/57)"
+      },
+      "meaning": {
+        "en": "Internal soft-start routine failed. The manual groups 09, 53 and 57 as one 'internal components failed' event.",
+        "ur": "Internal soft-start routine fail hua. Manual 09, 53 aur 57 ko ek hi 'internal components failed' event ke tor par group karta hai."
+      },
+      "causes": [
+        {
+          "en": "Bus voltage above 400 V held for 30 s - Growatt's official trigger (FAQ calls the code 'Bus Voltage Is Too High')",
+          "ur": "Bus voltage 400 V se upar, 30 second tak - Growatt ka official trigger (FAQ is code ko 'Bus Voltage Is Too High' kehta hai)"
+        },
+        {
+          "en": "Burnt MOSFETs or MOSFET-related circuit on the mainboard",
+          "ur": "Mainboard par burnt MOSFETs ya MOSFET related circuit"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure battery voltage and confirm it is inside the model window before starting.",
+          "ur": "Start karne se pehle battery voltage measure karke confirm karein ke woh model window ke andar hai."
+        },
+        {
+          "en": "Check the battery type and battery settings on the inverter, then restart.",
+          "ur": "Inverter par battery type aur battery settings check karke restart karein."
+        },
+        {
+          "en": "Restart the unit; if the error happens again, return it to the repair centre.",
+          "ur": "Unit restart karein; dobara error aaye to use repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 51",
+      "aliases": [
+        "Fault 51",
+        "51",
+        "Over current or surge"
+      ],
+      "title": {
+        "en": "Over current or surge (fault 51)",
+        "ur": "Over current ya surge (fault 51)"
+      },
+      "meaning": {
+        "en": "Output current spike or a surge condition tripped the protection.",
+        "ur": "Output current spike ya surge condition ne protection trigger kar di."
+      },
+      "causes": [
+        {
+          "en": "Lightning strike or utility input surge that damaged the MOV board",
+          "ur": "Lightning strike ya utility input surge jisne MOV board kharab kiya"
+        },
+        {
+          "en": "Heavy inrush from motors, compressors or transformers on the AC output",
+          "ur": "AC output par motor, compressor ya transformer ka heavy inrush"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then check the AC output for a short with a multimeter.",
+          "ur": "AC, PV aur battery isolate karke multimeter se AC output ka short check karein."
+        },
+        {
+          "en": "Open the unit and inspect the MOV board, which sits in parallel with the utility input wires.",
+          "ur": "Unit kholein aur MOV board dekhein, jo utility input wires ke saath parallel mein hota hai."
+        },
+        {
+          "en": "Replace the MOV board if it shows scorch marks - Growatt's official fix for fault 51.",
+          "ur": "Agar MOV board par burnt nishaan hon to use badal dein - fault 51 ke liye ye Growatt ka official fix hai."
+        },
+        {
+          "en": "Restart the unit; if the error happens again, return it to the repair centre.",
+          "ur": "Unit restart karein; dobara error aaye to use repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 52",
+      "aliases": [
+        "Fault 52",
+        "52",
+        "Bus voltage is too low"
+      ],
+      "title": {
+        "en": "Bus voltage too low (fault 52)",
+        "ur": "Bus voltage bohat kam hai (fault 52)"
+      },
+      "meaning": {
+        "en": "The internal DC bus could not build up to a working level.",
+        "ur": "Internal DC bus working level tak nahi ban paya."
+      },
+      "causes": [
+        {
+          "en": "Battery deeply discharged or the battery fuse has blown",
+          "ur": "Battery gehri tarah discharge ya battery fuse uth gaya"
+        },
+        {
+          "en": "Battery current limiting has tripped on a weak battery bank",
+          "ur": "Kamzor battery bank par battery current limiting trigger hua"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure battery voltage and battery current at the DC input.",
+          "ur": "DC input par battery voltage aur battery current measure karein."
+        },
+        {
+          "en": "Check the battery fuse and the battery terminal tightness.",
+          "ur": "Battery fuse aur battery terminal ki tightness check karein."
+        },
+        {
+          "en": "Restart the unit; if the error happens again, return it to the repair centre.",
+          "ur": "Unit restart karein; dobara error aaye to use repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 53",
+      "aliases": [
+        "Fault 53",
+        "53",
+        "Inverter soft start failed"
+      ],
+      "title": {
+        "en": "Inverter soft start failed (fault 09/53/57)",
+        "ur": "Inverter soft start fail (fault 09/53/57)"
+      },
+      "meaning": {
+        "en": "The inverter stage soft-start failed; the manual groups it with 09 and 57 as internal component failure.",
+        "ur": "Inverter stage ka soft-start fail hua; manual ise 09 aur 57 ke saath internal component failure ke tor par group karta hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter stage component failure",
+          "ur": "Inverter stage ka component fail"
+        },
+        {
+          "en": "Load surge during the start ramp",
+          "ur": "Start ramp ke dauran load ka surge"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the load completely and restart to see if the fault is load related.",
+          "ur": "Load poori tarah isolate karke restart karein taake pata chale fault load se hai ya nahi."
+        },
+        {
+          "en": "Check the battery voltage is in range, since bus support comes from the battery.",
+          "ur": "Check karein ke battery voltage range mein hai, kyunke bus ko battery se support milta hai."
+        },
+        {
+          "en": "Restart the unit; if the error happens again, return it to the repair centre.",
+          "ur": "Unit restart karein; dobara error aaye to use repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 55",
+      "aliases": [
+        "Fault 55",
+        "55",
+        "Over DC voltage in AC output",
+        "Output voltage is unbalanced"
+      ],
+      "title": {
+        "en": "Over DC in AC output / output voltage unbalanced",
+        "ur": "AC output mein DC zyada / output voltage unbalanced"
+      },
+      "meaning": {
+        "en": "The manual's code table calls 55 'Over DC voltage in AC output', while its troubleshooting table calls 55 'Output voltage is unbalanced' - see CONFLICTS.",
+        "ur": "Manual ka code table 55 ko 'Over DC voltage in AC output' kehta hai, jabke uska troubleshooting table 55 ko 'Output voltage is unbalanced' kehta hai - CONFLICTS dekhein."
+      },
+      "causes": [
+        {
+          "en": "DC component leaking into the AC output through a failed filter stage",
+          "ur": "Filter stage kharab hone se AC output mein DC component leak hona"
+        },
+        {
+          "en": "Output voltage sensing across phases unbalanced",
+          "ur": "Phases ke darmiyan output voltage sensing unbalanced"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the load and measure the AC output waveform for a DC offset with a multimeter in DC mode.",
+          "ur": "Load isolate karke AC output waveform par multimeter DC mode se DC offset measure karein."
+        },
+        {
+          "en": "Check the output filter capacitors on the inverter board for bulging or leakage.",
+          "ur": "Inverter board par output filter capacitors bulging ya leakage ke liye dekhein."
+        },
+        {
+          "en": "Send the fault log to Growatt - a DC-in-AC fault needs board-level service.",
+          "ur": "Fault log Growatt ko bhejein - AC mein DC fault ko board level service chahiye hoti hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 56",
+      "aliases": [
+        "Fault 56",
+        "56",
+        "Battery connection is open",
+        "Battery is not connected well or fuse is burnt"
+      ],
+      "title": {
+        "en": "Battery connection open / fuse burnt",
+        "ur": "Battery connection open hai / fuse burnt hai"
+      },
+      "meaning": {
+        "en": "The battery bank is not connected well to the inverter, or its fuse has blown.",
+        "ur": "Battery bank inverter se theek se nahi lagi, ya uska fuse uth gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Charging current on the 2nd or 5th battery-type option set too high, so the BMS has shut its internal MOSFET",
+          "ur": "2nd ya 5th battery-type option par charging current bohat zyada, is liye BMS ne apna internal MOSFET band kar diya"
+        },
+        {
+          "en": "Fuse on the mainboard burnt, or the battery cable terminal loose",
+          "ur": "Mainboard ka fuse burnt, ya battery cable terminal loose"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the battery, then check the fuse continuity with a multimeter.",
+          "ur": "Battery isolate karke multimeter se fuse ki continuity check karein."
+        },
+        {
+          "en": "Re-torque the battery terminals and look for heat discolouration on the lugs.",
+          "ur": "Battery terminals dobara torque karein aur lugs par garmi ke rang dekhein."
+        },
+        {
+          "en": "For a lithium battery only US2 or Li may be used; for lead-acid set charging current to 0.2-0.3 C.",
+          "ur": "Lithium battery ke liye sirf US2 ya Li use ho sakta hai; lead-acid par charging current 0.2-0.3 C rakhein."
+        },
+        {
+          "en": "If the battery is connected well and settings are right, contact Growatt Service Team.",
+          "ur": "Agar battery theek lagi hai aur settings bhi theek hain to Growatt Service Team se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 57",
+      "aliases": [
+        "Fault 57",
+        "57",
+        "Current sensor failed"
+      ],
+      "title": {
+        "en": "Current sensor failed (fault 09/53/57)",
+        "ur": "Current sensor fail (fault 09/53/57)"
+      },
+      "meaning": {
+        "en": "The inverter's current sensing has failed; the manual groups 57 with 09 and 53 as internal component failure.",
+        "ur": "Inverter ka current sensing fail hai; manual 57 ko 09 aur 53 ke saath internal component failure ke tor par group karta hai."
+      },
+      "causes": [
+        {
+          "en": "Current sensor or its hall device failed",
+          "ur": "Current sensor ya uska hall device fail"
+        },
+        {
+          "en": "Sensor wiring harness open or connector not seated",
+          "ur": "Sensor wiring harness open ya connector baitha nahi hua"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reseat the current sensor connector.",
+          "ur": "AC, PV aur battery isolate karke current sensor connector dobara baithayein."
+        },
+        {
+          "en": "Inspect the sensor harness for chafing near the moving fan or heatsink.",
+          "ur": "Sensor harness mein chafing ke nishaan dekhein, khaas kar fan ya heatsink ke paas."
+        },
+        {
+          "en": "Restart the unit; if the error happens again, return it to the repair centre.",
+          "ur": "Unit restart karein; dobara error aaye to use repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 58",
+      "aliases": [
+        "Fault 58",
+        "58",
+        "Output voltage is too low"
+      ],
+      "title": {
+        "en": "Output voltage too low (fault 06/58)",
+        "ur": "Output voltage bohat kam hai (fault 06/58)"
+      },
+      "meaning": {
+        "en": "Inverter output abnormal - manual flags below 80 Vac. Treated as the same event as fault 06.",
+        "ur": "Inverter output abnormal - manual 80 Vac se neeche ko flag karta hai. Isay fault 06 ke hi event ki tarah treat kiya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Load drawing more current than the inverter can supply",
+          "ur": "Load itna current kheech raha hai jitna inverter de nahi sakta"
+        },
+        {
+          "en": "Battery voltage too low to hold the output up",
+          "ur": "Battery voltage itna kam ke output upar nahi rakh sakta"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the output voltage and battery voltage together during the trip.",
+          "ur": "Trip ke dauran output voltage aur battery voltage saath measure karein."
+        },
+        {
+          "en": "Reduce the connected load, then restart the unit.",
+          "ur": "Connected load kam karke unit restart karein."
+        },
+        {
+          "en": "Check battery state of charge; recharge before the load is restored.",
+          "ur": "Battery ka state of charge check karein; load wapas lagane se pehle recharge karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 60",
+      "aliases": [
+        "Fault 60",
+        "60",
+        "Negative power fault"
+      ],
+      "title": {
+        "en": "Negative power fault (parallel units)",
+        "ur": "Negative power fault - power ulta beh raha hai"
+      },
+      "meaning": {
+        "en": "A parallel unit is pushing power backwards, or grid and AC output are cross-connected.",
+        "ur": "Koi parallel unit power ulta bhej raha hai, ya grid aur AC output aapas mein cross-jorre hue hain."
+      },
+      "causes": [
+        {
+          "en": "AC output connected to the grid input, creating a backfeed path",
+          "ur": "AC output grid input se jora gaya, is liye backfeed path ban gaya"
+        },
+        {
+          "en": "Program 8 not identical on all parallel inverters, so phases disagree",
+          "ur": "Program 8 sab parallel inverters par same nahi, is liye phases mismatch karti hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the AC output is connected to the grid input, and remove any such link.",
+          "ur": "Check karein ke AC output grid input se to nahi jora, aur aisa koi link hata dein."
+        },
+        {
+          "en": "Check that Program 8 settings are the same for all parallel inverters.",
+          "ur": "Check karein ke Program 8 settings sab parallel inverters par same hain."
+        },
+        {
+          "en": "Check the current sharing cables are connected in the same parallel phases, and that all neutral wires are joined.",
+          "ur": "Check karein ke current sharing cables same parallel phases mein lagi hain, aur tamam neutral wires aapas mein jorre hue hain."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 61",
+      "aliases": [
+        "Fault 61",
+        "61",
+        "PV voltage is too high"
+      ],
+      "title": {
+        "en": "PV voltage too high (fault 61)",
+        "ur": "PV voltage bohat zyada hai (fault 61)"
+      },
+      "meaning": {
+        "en": "PV input voltage has exceeded the accepted maximum for the MPPT range.",
+        "ur": "PV input voltage MPPT range ke liye maane gaye maximum se upar chala gaya."
+      },
+      "causes": [
+        {
+          "en": "String voltage above the 500 Voc ceiling for this model",
+          "ur": "String voltage is model ke 500 Voc ceiling se upar hai"
+        },
+        {
+          "en": "Very cold ambient with a long string",
+          "ur": "Bohat thanda mausam aur lambi string"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the DC switch, then measure PV1 and PV2 open-circuit voltage separately.",
+          "ur": "DC switch isolate karke PV1 aur PV2 ka open-circuit voltage alag alag measure karein."
+        },
+        {
+          "en": "Compare the reading with the 500 Voc limit printed in the manual specifications.",
+          "ur": "Reading ko manual specifications mein diye 500 Voc limit se compare karein."
+        },
+        {
+          "en": "Reduce the modules per string, or fit a higher-Voc inverter.",
+          "ur": "String mein modules kam karein, ya zyada Voc wala inverter lagayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 62",
+      "aliases": [
+        "Fault 62",
+        "62",
+        "Internal communication error"
+      ],
+      "title": {
+        "en": "Internal communication error (fault 62)",
+        "ur": "Internal boards ka aapas mein rasta toota (fault 62)"
+      },
+      "meaning": {
+        "en": "Communication between the inverter's internal boards has failed.",
+        "ur": "Inverter ke internal boards ke darmiyan communication fail ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Loose ribbon cable or harness between the control and power boards",
+          "ur": "Control aur power board ke darmiyan ribbon cable ya harness loose"
+        },
+        {
+          "en": "Communication chip failure on one of the boards",
+          "ur": "Kisi board par communication chip fail"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reseat all internal ribbon connectors.",
+          "ur": "AC, PV aur battery isolate karke tamam internal ribbon connectors dobara baithayein."
+        },
+        {
+          "en": "Inspect the harness for rodent damage or a crushed run near the fan.",
+          "ur": "Harness mein chuha damage ya fan ke paas daba hua hissa dekhein."
+        },
+        {
+          "en": "Restart the unit; if the error happens again, return it to the repair centre.",
+          "ur": "Unit restart karein; dobara error aaye to use repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 80",
+      "aliases": [
+        "Fault 80",
+        "80",
+        "CAN fault"
+      ],
+      "title": {
+        "en": "CAN fault (parallel communication)",
+        "ur": "CAN fault - parallel ka rasta toota hai"
+      },
+      "meaning": {
+        "en": "The CAN bus used for parallel operation or BMS link has failed.",
+        "ur": "Parallel operation ya BMS link ke liye CAN bus fail ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Parallel communication cables not connected well",
+          "ur": "Parallel communication cables theek se nahi lagi"
+        },
+        {
+          "en": "Program 23 parallel settings wrong for the installed system",
+          "ur": "Program 23 ki parallel settings installed system ke liye ghalat hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the parallel communication cables are connected well, at both PAR-IN and PAR-OUT.",
+          "ur": "Check karein ke parallel communication cables PAR-IN aur PAR-OUT dono par theek se lagi hain."
+        },
+        {
+          "en": "Check that Program 23 settings are right for the parallel system.",
+          "ur": "Check karein ke Program 23 ki settings parallel system ke liye sahi hain."
+        },
+        {
+          "en": "If the problem still exists, contact the repair centre.",
+          "ur": "Agar masla phir bhi hai to repair centre se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Fault 81",
+      "aliases": [
+        "Fault 81",
+        "81",
+        "Host loss"
+      ],
+      "title": {
+        "en": "Host loss (in parallel mode)",
+        "ur": "Host loss (parallel mode mein)"
+      },
+      "meaning": {
+        "en": "In parallel mode the follower units cannot detect the host for more than 8 seconds.",
+        "ur": "Parallel mode mein follower units host ko 8 second se zyada detect nahi kar pa rahe."
+      },
+      "causes": [
+        {
+          "en": "Parallel CAN communication interrupted or the host is unpowered",
+          "ur": "Parallel CAN communication ruk gaya ya host unpowered hai"
+        },
+        {
+          "en": "Host mainboard or its CAN transceiver failed",
+          "ur": "Host mainboard ya uska CAN transceiver fail"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the parallel communication cables and the PAR-IN/PAR-OUT links between units.",
+          "ur": "Parallel communication cables aur units ke darmiyan PAR-IN/PAR-OUT links check karein."
+        },
+        {
+          "en": "Confirm the host unit is powered and not itself in fault before touching cables.",
+          "ur": "Cables chhoone se pehle confirm karein ke host unit powered hai aur khud fault mein nahi."
+        },
+        {
+          "en": "Growatt's official test method for this code is to replace the mainboard - request it under warranty.",
+          "ur": "Is code ke liye Growatt ka official test method mainboard replace karna hai - warranty ke teht maangein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Warning 02",
+      "aliases": [
+        "Warning 02",
+        "W02",
+        "Over temperature (warning)"
+      ],
+      "title": {
+        "en": "Over temperature (warning 02)",
+        "ur": "Sardiyat bohat zyada, warning (warning 02)"
+      },
+      "meaning": {
+        "en": "Temperature sensor or sampling circuit problem - the inverter derates instead of stopping.",
+        "ur": "Temperature sensor ya sampling circuit mein masla - inverter band hone ke bajaye power kam kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Temperature sensors on the MPPT board and mainboard drifted",
+          "ur": "MPPT board aur mainboard ke temperature sensors bekar chale hain"
+        },
+        {
+          "en": "Real over-temperature from blocked airflow in a hot room",
+          "ur": "Garam kamre mein blocked airflow ki wajah se asal over-temperature"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then check the airflow path and clear any dust blockage.",
+          "ur": "AC aur PV isolate karke airflow path check karein aur dhool saaf karein."
+        },
+        {
+          "en": "Swap a known-good temperature sensor from a working inverter onto this one to identify which reads wrong.",
+          "ur": "Pehchanne ke liye theek chalta inverter ka known-good temperature sensor is par laga kar dekhein kaun ghalat reading de raha hai."
+        },
+        {
+          "en": "Replace the 2 temperature sensors on the MPPT board and mainboard if they read wrong.",
+          "ur": "Agar ghalat reading de rahe hon to MPPT board aur mainboard ke dono temperature sensors badal dein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Warning 03",
+      "aliases": [
+        "Warning 03",
+        "W03"
+      ],
+      "title": {
+        "en": "Battery over-charged (warning 03)",
+        "ur": "Battery overcharge ho gayi (warning 03)"
+      },
+      "meaning": {
+        "en": "Battery voltage is above the set charge limit. Growatt's FAQ points at battery type settings or the voltage sample circuit.",
+        "ur": "Battery voltage set charge limit se upar hai. Growatt ka FAQ battery type settings ya voltage sample circuit ki taraf ishara karta hai."
+      },
+      "causes": [
+        {
+          "en": "Incorrect settings for lead-acid or lithium-ion battery type",
+          "ur": "Lead-acid ya lithium-ion battery type ki ghalat settings"
+        },
+        {
+          "en": "Battery voltage sample circuit fault",
+          "ur": "Battery voltage sample ka circuit kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Compare program 05 battery type against the actual battery chemistry and set it correctly.",
+          "ur": "Program 05 battery type ko asal battery chemistry se compare karke theek set karein."
+        },
+        {
+          "en": "Measure real battery voltage; if the app and multimeter disagree, the sample circuit is at fault.",
+          "ur": "Asal battery voltage measure karein; agar app aur multimeter alag hon to sample circuit fault hai."
+        },
+        {
+          "en": "If the battery brand is not on Growatt's compatibility list, request the US2 firmware from Growatt.",
+          "ur": "Agar battery brand Growatt ki compatibility list mein nahi hai to Growatt se US2 firmware maangein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Warning 20",
+      "aliases": [
+        "Warning 20",
+        "20",
+        "W20",
+        "BMS communication error",
+        "Li battery can't communicate to the inverter"
+      ],
+      "title": {
+        "en": "BMS communication error (warning 20)",
+        "ur": "BMS se rasta toota hai (warning 20)"
+      },
+      "meaning": {
+        "en": "The lithium battery's BMS cannot talk to the inverter over CAN/RS485.",
+        "ur": "Lithium battery ka BMS inverter se CAN/RS485 par baat nahi kar pa raha."
+      },
+      "causes": [
+        {
+          "en": "BMS cable replaced, damaged, or not seated in the BMS port",
+          "ur": "BMS cable badla hua, damaged, ya BMS port mein baitha nahi hua"
+        },
+        {
+          "en": "Battery brand not on Growatt's approved compatibility list",
+          "ur": "Battery brand Growatt ki approved compatibility list mein nahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the communication line is correctly connected between inverter and battery, at both ends.",
+          "ur": "Check karein ke inverter aur battery ke darmiyan communication line dono taraf theek lagi hai."
+        },
+        {
+          "en": "Check that the BMS protocol type is set correctly in program 05.",
+          "ur": "Check karein ke program 05 mein BMS protocol type theek set hai."
+        },
+        {
+          "en": "If the battery is not on the compatibility list, set battery type US2 in option 05 and run without BMS comms.",
+          "ur": "Agar battery compatibility list mein nahi hai to option 05 mein battery type US2 set karke BMS comms ke baghair chalayein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Warning 33",
+      "aliases": [
+        "Warning 33",
+        "33",
+        "W33",
+        "BMS communication loss"
+      ],
+      "title": {
+        "en": "BMS communication lost (warning 33)",
+        "ur": "BMS ka link lost ho gaya (warning 33)"
+      },
+      "meaning": {
+        "en": "The inverter has lost the link to the battery management system.",
+        "ur": "Inverter ka battery management system se link lost ho gaya."
+      },
+      "causes": [
+        {
+          "en": "BMS dropped off the bus or battery entered sleep mode",
+          "ur": "BMS bus se gir gaya ya battery sleep mode mein chali gayi"
+        },
+        {
+          "en": "CAN/RS485 cable disconnected or terminator missing on a long run",
+          "ur": "CAN/RS485 cable disconnect ho gayi ya lambi run par terminator nahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the battery, then reseat the BMS communication cable at both the inverter and the battery.",
+          "ur": "Battery isolate karke BMS communication cable inverter aur battery dono taraf dobara baithayein."
+        },
+        {
+          "en": "Wake the battery out of sleep mode and confirm it responds before restarting the inverter.",
+          "ur": "Battery ko sleep mode se jaagayein aur confirm karein ke woh respond kar rahi hai, phir inverter restart karein."
+        },
+        {
+          "en": "Check the CAN/RS485 shield and ground continuity with a multimeter.",
+          "ur": "Multimeter se CAN/RS485 shield aur ground continuity check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    },
+    {
+      "code": "Warning 45",
+      "aliases": [
+        "Warning 45",
+        "45",
+        "W45",
+        "System shut down"
+      ],
+      "title": {
+        "en": "System shut down (warning 45)",
+        "ur": "BMS ne poori system band kar di (warning 45)"
+      },
+      "meaning": {
+        "en": "A BMS-reported protection has shut the system down rather than let the battery go further.",
+        "ur": "BMS ka koi protection system ko band kar raha hai, battery ko aage barhane se rokne ke liye."
+      },
+      "causes": [
+        {
+          "en": "BMS cell over/under voltage or over-temperature protection",
+          "ur": "BMS ka cell over/under voltage ya over-temperature protection"
+        },
+        {
+          "en": "MOSFET or battery temperature protection in the BMS",
+          "ur": "BMS mein MOSFET ya battery temperature protection"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the BMS's own reported code on the battery or the app before touching the inverter.",
+          "ur": "Inverter chhoone se pehle battery ya app par BMS ka apna code padhein."
+        },
+        {
+          "en": "Measure battery cell voltages and temperature against the BMS thresholds.",
+          "ur": "BMS thresholds ke against battery cell voltages aur temperature measure karein."
+        },
+        {
+          "en": "Correct the underlying BMS condition first; the inverter warning will clear on its own.",
+          "ur": "Pehle BMS ki asal masla theek karein; inverter ka warning apne aap clear ho jayega."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SPF 6000 ES PLUS User Manual EN",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2024/06/SPF_6000_ES_Plus_User_Manual_EN_202212.pdf"
+      }
+    }
+  ]
+}

@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-h3-ac3-grid",
+    "name": "H3/AC3 (three-phase hybrid) - grid and phase-synchronising faults",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*H3*",
+      "*AC3*"
+    ],
+    "notes": "H3/AC3 models verified in the manual's own model list: H3-5.0-E, H3-6.0-E, H3-8.0-E, H3-9.9-E, H3-10.0-E, H3-12.0-E. Four of these five grid rows are byte-identical to H1 G2 and KH/KA - they are still kept in a SEPARATE series because PLL_ OverTime exists only on the three-phase line and because a three-phase Pakistani install must be told to check all three phases, not one. Never merge into foxess-h1-ac1-g2-grid even though 'Grid Volt Fault' is the same string."
+  },
+  "codes": [
+    {
+      "code": "Grid Lost Fault",
+      "aliases": [
+        "Grid Lost Fault",
+        "No Utility"
+      ],
+      "title": {
+        "en": "Grid supply lost (three-phase)",
+        "ur": "Grid supply chala gaya (three-phase)"
+      },
+      "meaning": {
+        "en": "The H3 has lost the grid reference on all three phases and isolated itself. On a three-phase unit this can be a single-phase dropout, not a total outage.",
+        "ur": "H3 ne teenon phases par se grid reference kho diya aur khud ko alag kar liya. Three-phase unit par yeh ek phase ka dropout bhi ho sakta hai, poora outage nahi."
+      },
+      "causes": [
+        {
+          "en": "Only one phase lost - a tripped 3-pole/4-pole MCB with one pole failed, or one phase conductor open in the board or at the inverter.",
+          "ur": "Sirf ek phase gaya - 3-pole/4-pole MCB ka aik pole kharab, ya board ya inverter par aik phase conductor khari hui."
+        },
+        {
+          "en": "Total utility outage, or a loose/burnt AC terminal at the inverter or consumer unit.",
+          "ur": "Poora utility outage, ya inverter ya consumer unit par AC terminal loose ya burnt."
+        },
+        {
+          "en": "Neutral missing or loose on a three-phase 4-wire supply, which can make the inverter lose its reference.",
+          "ur": "Teenon phase wale 4-wire supply par neutral missing ya loose, jis se inverter ka reference chala jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check all three poles of the PV/solar board MCB individually, not just the main lever, and reset any that have tripped.",
+          "ur": "PV/solar board ke MCB ke teenon poles ko alag alag check karein, sirf main lever nahi, aur jo trip hua ho reset karein."
+        },
+        {
+          "en": "With power isolated, continuity-test each phase and the neutral from the consumer unit to the inverter's GRID port; find and re-land the open one.",
+          "ur": "Power isolate kar ke, consumer unit se inverter ke GRID port tak har phase aur neutral ki continuity test karein; khari hui wali dhundh kar dobara lagayein."
+        },
+        {
+          "en": "Watch FoxCloud for how long the fault lasts; a sub-second dropout that repeats is a loose connection, not an outage.",
+          "ur": "FoxCloud mein dekhein ke fault kitni der raha; aik second se bhi kam ka dobara dohra hona loose connection hai, outage nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "FoxESS requires a bi-directional RCD on grid-tied ports; for a three-phase H1/H3 install that is typically a 4-pole device. Confirm the device rating against the H3 manual before swapping anything.",
+        "ur": "FoxESS grid-tied ports par bi-directional RCD maangta hai; teenon phase wale H1/H3 install par yeh aam tor par 4-pole hota hai. Kuch bhi badalne se pehle H3 manual ke mutabiq device ki rating confirm karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H3/AC3 Series User Manual V1.0.4 (2025-01-07), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-H3AC3-User-Manual-V1.0.4-20250107.pdf"
+      }
+    },
+    {
+      "code": "Grid Volt Fault",
+      "aliases": [
+        "Grid Volt Fault",
+        "Grid Voltage Fault"
+      ],
+      "title": {
+        "en": "Grid voltage out of range (three-phase)",
+        "ur": "Grid voltage range se bahar (three-phase)"
+      },
+      "meaning": {
+        "en": "Measured grid voltage is outside the inverter's permitted window, so the H3 refuses to connect. On a three-phase unit this is checked and reported per phase.",
+        "ur": "Grid voltage inverter ki ijazat window se bahar hai, is liye H3 connect nahi ho raha. Three-phase unit par yeh har phase ke liye alag check aur report hota hai."
+      },
+      "causes": [
+        {
+          "en": "High export-time grid voltage, typical of a long line or a substation transformer tap set too high.",
+          "ur": "Export ke waqt grid voltage high - lambi line ya substation transformer ka tap zyada par hona aam wajah hai."
+        },
+        {
+          "en": "One phase sagging under an unbalanced load while the other two sit normal - very common on Pakistani three-phase feeders with uneven phase loading.",
+          "ur": "Unbalanced load ke under aik phase gir raha hai jabke baaki do normal hain - Pakistan ke three-phase feeders par uneven phase loading ke saath yeh bohat aam hai."
+        },
+        {
+          "en": "Severe dip from a large motor or generator starting on the same feeder.",
+          "ur": "Wahi feeder par kisi bade motor ya generator ke chalne se grid voltage gir gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the grid to settle; the unit reconnects on its own once voltage is back in range, as FoxESS states.",
+          "ur": "Grid settle hone dein; jaise FoxESS kahe voltage range mein aate hi unit khud reconnect ho jayega."
+        },
+        {
+          "en": "Clamp a multimeter on EACH phase in turn at the inverter's AC terminal and record all three readings - do not judge on one phase.",
+          "ur": "Inverter ke AC terminal par ek-ek phase par clamp multimeter lagayein aur teenon readings note karein - aik phase par faisla na karein."
+        },
+        {
+          "en": "If one phase is persistently lower, redistribute the load across phases at the board, starting with the heaviest single-phase loads.",
+          "ur": "Agar aik phase baar baar kam rehti hai to board par load ko phases mein baant lein, sab se bhaari single-phase loads se shuru karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Pakistan's nominal three-phase supply is 415/230 V at 50 Hz. A persistent single-phase sag is usually a distribution problem, not an inverter problem - escalate to the DISCO feeder office with the three recorded readings.",
+        "ur": "Pakistan ki nominal three-phase supply 415/230 V 50 Hz hai. Aik phase ka mustaqal girna aam tor par distribution ka masla hai, inverter ka nahi - teenon recorded readings ke saath DISCO feeder office ko batayein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H3/AC3 Series User Manual V1.0.4 (2025-01-07), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-H3AC3-User-Manual-V1.0.4-20250107.pdf"
+      }
+    },
+    {
+      "code": "Grid Freq Fault",
+      "aliases": [
+        "Grid Freq Fault",
+        "Grid Frequency Fault"
+      ],
+      "title": {
+        "en": "Grid frequency out of range (three-phase)",
+        "ur": "Grid frequency range se bahar (three-phase)"
+      },
+      "meaning": {
+        "en": "Grid frequency is outside the permitted band, so the H3 has disconnected from the grid.",
+        "ur": "Grid frequency ijazat range se bahar hai, is liye H3 grid se disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Utility frequency excursion, common during feeder load shedding or generator handover.",
+          "ur": "Utility frequency excursion - feeder load shedding ya generator handover ke waqt aam hai."
+        },
+        {
+          "en": "Inverter running in parallel with a generator that is governing frequency poorly.",
+          "ur": "Inverter aise generator ke saath parallel chal raha hai jo frequency theek se control nahi kar raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the grid to return to nominal; the unit will reconnect automatically.",
+          "ur": "Grid nominal par aane ka intezar karein; unit khud reconnect ho jayega."
+        },
+        {
+          "en": "Read live frequency in FoxCloud and note whether the excursions coincide with generator running hours.",
+          "ur": "FoxCloud mein live frequency padhein aur note karein ke excursion generator chalne ke waqt hote hain ya nahi."
+        },
+        {
+          "en": "If a generator is involved, adjust its governor and set the inverter's grid-tie limits per the generator's own voltage/frequency window.",
+          "ur": "Agar generator involved hai to uska governor adjust karein aur inverter ke grid-tie limits generator ke voltage/frequency window ke mutabiq set karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Same remedy text as H1 and KH/KA, but keep it on the H3 series: a three-phase technician must also confirm all three phase conductors are present before blaming frequency.",
+        "ur": "H1 aur KH/KA jaisa hi remedy text, lekin H3 series par hi rakhein: three-phase wale technician ko frequency par blame karne se pehle teenon phase conductors ki maujoodgi bhi confirm karni hogi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H3/AC3 Series User Manual V1.0.4 (2025-01-07), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-H3AC3-User-Manual-V1.0.4-20250107.pdf"
+      }
+    },
+    {
+      "code": "PLL_ OverTime",
+      "aliases": [
+        "PLL_ OverTime",
+        "PLL_OverTime",
+        "PLL OverTime"
+      ],
+      "title": {
+        "en": "Three-phase unit fed from a single-phase AC",
+        "ur": "Teenon phase wala unit aik phase AC se chal raha hai"
+      },
+      "meaning": {
+        "en": "The phase-locked loop could not lock onto a balanced three-phase reference within its time limit, which in practice means the inverter is being fed or is seeing only a single phase.",
+        "ur": "Phase-locked loop apni time limit mein balanced teenon-phase reference par lock nahi kar paya, jis ka amli matlab hai ke inverter ko sirf aik phase di ja rahi hai ya woh sirf aik phase dekh raha hai."
+      },
+      "causes": [
+        {
+          "en": "Installer error: a three-phase H3 wired to a single-phase supply, or only one of three phases landed at the GRID port.",
+          "ur": "Installer ki galti: teenon-phase H3 ko single-phase supply se jora gaya, ya GRID port par teenon mein se sirf aik phase laga."
+        },
+        {
+          "en": "Two of the three phase conductors open between the consumer unit and the inverter, leaving one phase alive.",
+          "ur": "Consumer unit aur inverter ke darmiyan teenon phase conductors mein se do khari hui, sirf aik phase zinda."
+        },
+        {
+          "en": "Severe phase unbalance or a missing neutral on a 4-wire supply so the PLL reference is not a clean sinusoid.",
+          "ur": "4-wire supply par bhaari phase unbalance ya missing neutral, jis se PLL reference saaf sinusoidal nahi banta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then confirm with a meter that all three phases AND the neutral are present at the inverter's GRID port.",
+          "ur": "AC, PV aur battery disconnect karein, phir multimeter se confirm karein ke inverter ke GRID port par teenon phases aur neutral mojood hain."
+        },
+        {
+          "en": "If the site genuinely has single-phase supply, this model is the wrong unit - do not attempt to make it run; the correct part is a single-phase hybrid.",
+          "ur": "Agar site par waqai single-phase supply hai to yeh model ghalat unit hai - isay chalane ki koshish na karein; theek part single-phase hybrid hai."
+        },
+        {
+          "en": "Once all phases are restored, let the unit reconnect on its own as FoxESS directs before touching any settings.",
+          "ur": "Jab teenon phases wapas aa jayen, jaise FoxESS kahe settings chhune se pehle unit ko khud reconnect hone dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "H3-ONLY code - the string PLL_ OverTime does not appear in the H1, KH/KA or T tables. The trailing underscore in 'PLL_ OverTime' is as printed; make the lookup tolerant of PLL OverTime and PLL_OverTime.",
+        "ur": "Yeh sirf H3 ka code hai - 'PLL_ OverTime' string H1, KH/KA ya T ki table mein nahi hai. 'PLL_ OverTime' mein aakhir ki underscore jaisa chhapa gaya hai; lookup ko PLL OverTime aur PLL_OverTime dono ke liye tolerant rakhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H3/AC3 Series User Manual V1.0.4 (2025-01-07), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-H3AC3-User-Manual-V1.0.4-20250107.pdf"
+      }
+    },
+    {
+      "code": "10min Volt Fault",
+      "aliases": [
+        "10min Volt Fault",
+        "Vac 10min Avg"
+      ],
+      "title": {
+        "en": "10-minute average grid voltage out of range",
+        "ur": "10 minute ka average grid voltage range se bahar"
+      },
+      "meaning": {
+        "en": "The rolling 10-minute average of grid voltage has been out of range. A sustained-condition protection, not a spike detector.",
+        "ur": "Grid voltage ka chalta hua 10 minute ka average range se bahar chala gaya hai. Yeh mustaqil-condition protection hai, spike detector nahi."
+      },
+      "causes": [
+        {
+          "en": "Sustained grid over-voltage, often with high PV export into an already-high feeder.",
+          "ur": "Grid ka mustaqil over-voltage - aksar already high feeder mein zyada PV export ke saath."
+        },
+        {
+          "en": "Substation transformer tap set high and left uncorrected.",
+          "ur": "Substation transformer ka tap high set hai aur theek nahi kiya gaya."
+        },
+        {
+          "en": "One phase dragging the average while the other two are high during unbalanced export.",
+          "ur": "Unbalanced export ke dauraan aik phase average ko neeche kheench rahi hai jabke baaki do high hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the 10-minute average voltage in FoxCloud and record the peak before touching anything.",
+          "ur": "FoxCloud mein 10 minute ka average voltage dekhein aur kuch bhi chhune se pehle peak note karein."
+        },
+        {
+          "en": "Measure each phase's 10-minute average separately, because one bad phase can trip a protection that looks like a whole-inverter problem.",
+          "ur": "Har phase ka 10 minute ka average alag alag napen, kyunke aik kharab phase wohi protection chala sakta hai jo poore inverter ka masla lagta hai."
+        },
+        {
+          "en": "Ask the DISCO feeder office to log grid voltage and correct the substation transformer tap - the durable fix.",
+          "ur": "DISCO feeder office se grid voltage log karwa kar substation transformer tap theek karwayein - yehi permanent hal hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The H3 manual's row for this code gives the same bare 'system will reconnect' remedy as H1 - it does NOT document any front-panel menu path for the limit. Do not quote an unverified settings path for this model.",
+        "ur": "H3 manual mein is code ki row H1 jaisa hi khulasa 'system will reconnect' hal deti hai - is limit ka koi front-panel menu path ismein likha nahi hai. Is model ke liye unverified settings path na batayein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H3/AC3 Series User Manual V1.0.4 (2025-01-07), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-H3AC3-User-Manual-V1.0.4-20250107.pdf"
+      }
+    }
+  ]
+}

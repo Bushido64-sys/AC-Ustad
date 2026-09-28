@@ -1,0 +1,941 @@
+{
+  "schemaVersion": 1,
+  "brandId": "solis",
+  "series": {
+    "id": "solis-s5-eh1p",
+    "name": "S5-EH1P(3-6)K-L (single-phase hybrid + 48V battery)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*S5-EH1P*",
+      "*S5-EH1P-L*"
+    ],
+    "notes": "SCOPE WARNING - read before merging anything into SERIES 1/2. On this platform the LCD prints NAME + hex + data field, e.g. 'OV-TEM (1032 DATA:0000)', and the SAME hex means a different thing: 1030 is GRID-INTF. = AC hardware overcurrent here (not grid interference); 1038 is 12Power-FAULT = 12V UNDERvoltage (not '12V supply fault'); 1052 is OV-ILLC = LLC hardware overcurrent (a BACKUP-side fault unique to hybrid). The official Solis alarm library files these rows under 'Only Energy Storage' with their own status-code column, which is why they are kept apart from the on-grid blocks."
+  },
+  "codes": [
+    {
+      "code": "NO-Battery",
+      "aliases": [
+        "NO-Battery",
+        "1055",
+        "NO-Battery (1055 DATA:0000)",
+        "Batt_Comm_FAIL follow-up",
+        "No battery"
+      ],
+      "title": {
+        "en": "Battery not connected (NO-Battery)",
+        "ur": "Battery connected nahi (NO-Battery)"
+      },
+      "meaning": {
+        "en": "The inverter is running on PV only and has not detected a battery on the CAN port.",
+        "ur": "Inverter sirf PV par chal raha hai aur CAN port par koi battery detect nahi kar paya."
+      },
+      "causes": [
+        {
+          "en": "Battery power cable or CAN comms cable not plugged in, or the battery breaker is open",
+          "ur": "Battery power cable ya CAN comms cable plug nahi, ya battery breaker khula hai"
+        },
+        {
+          "en": "Battery SoC so low that the BMS has shut the pack down",
+          "ur": "Battery ka SOC itna kam ke BMS ne pack band kar diya"
+        },
+        {
+          "en": "Battery model not selected in Battery Setting, so the inverter expects a pack that is not there",
+          "ur": "Battery Setting mein battery model select nahi kiya, is liye inverter aisi pack ki shudaad karta hai jo maujood nahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "On Information page 1 read the battery voltage; if it shows 0 V the inverter sees nothing on the battery port.",
+          "ur": "Information page 1 par battery voltage padhein; 0 V aaye to inverter battery port par kuch nahi dekh raha."
+        },
+        {
+          "en": "With the inverter off, measure the battery voltage at the plug with a multimeter and confirm the battery breaker on the battery or the DC side is closed.",
+          "ur": "Inverter off karke multimeter se plug par battery voltage measure karein aur battery ya DC side ka breaker band hua hai confirm karein."
+        },
+        {
+          "en": "If the battery is intentionally absent, set Battery Setting > Battery Model to 'No Battery' so the alarm stops; if a pack is fitted, reseat the CAN plug and re-power the pack.",
+          "ur": "Agar battery jaan boojh kar nahi hai to Battery Setting > Battery Model mein 'No Battery' kar dein taake alarm band ho; agar pack lage hai to CAN plug dobara fit karke pack dobara power karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "On S5/S6 the app/LCD string Batt_Comm_FAIL (2012) very often follows a CAN fault and ends up showing as No-Battery. Solis documents Batt_Comm_FAIL as 'previously CAN_Comm_FAIL' for Pylon US2000C/US3000C/US5000 packs.",
+        "ur": "S5/S6 par app/LCD string Batt_Comm_FAIL (2012) aksar CAN fault ke baad aata hai aur No-Battery ke tor par dikhta hai. Solis Pylon US2000C/US3000C/US5000 ke liye Batt_Comm_FAIL ko 'pehle CAN_Comm_FAIL tha' likhta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "OV-Vbatt",
+      "aliases": [
+        "OV-Vbatt",
+        "1053",
+        "105C",
+        "OV-Vbatt1"
+      ],
+      "title": {
+        "en": "Battery undervoltage detected (OV-Vbatt)",
+        "ur": "Battery undervoltage detect hua (OV-Vbatt)"
+      },
+      "meaning": {
+        "en": "Pack voltage at the inverter terminals is below the undervoltage limit, so charging/discharging is blocked.",
+        "ur": "Inverter terminal par pack voltage undervoltage limit se neeche hai, is liye charge/discharge block hai."
+      },
+      "causes": [
+        {
+          "en": "Battery deeply discharged after a long grid outage or a load left on during backup",
+          "ur": "Lambi grid outage ya backup ke dauran load chhodne ke baad battery gehri tarah discharge ho gayi"
+        },
+        {
+          "en": "Battery pack aged, or the pack's own BMS cutting out early",
+          "ur": "Battery pack purani ho gayi, ya pack ka apna BMS jaldi cut out kar raha hai"
+        },
+        {
+          "en": "Undervoltage protection point set too high in the user settings",
+          "ur": "User settings mein undervoltage protection point bahut high set hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify battery voltage is within range on Information page 1, then measure the same voltage at the inverter connection point with a multimeter.",
+          "ur": "Information page 1 par battery voltage range ke andar hai verify karein, phir multimeter se inverter connection point par wahi voltage measure karein."
+        },
+        {
+          "en": "Confirm the battery breaker is closed and the BMS wake-up / power-on switch on the pack is on; deep-sleep packs need a wake signal.",
+          "ur": "Battery breaker band hua hai aur pack ka BMS wake-up ya power-on switch on hai confirm karein; gehri neend wale pack ko wake signal chahiye."
+        },
+        {
+          "en": "If the readings are healthy, contact the battery manufacturer for service - the pack, not the inverter, is refusing the charge.",
+          "ur": "Readings theek hon to battery manufacturer se service ke liye rabta karein - charge inverter nahi, pack mana kar raha hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The official Solis library files OV-Vbatt under the energy-storage scope as 1053 and again as 105C with the same name and the same fix text.",
+        "ur": "Official Solis library OV-Vbatt ko energy-storage scope mein 1053 aur phir 105C ke tor par usi naam aur usi fix text ke saath rakhta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "UN-Vbatt",
+      "aliases": [
+        "UN-Vbatt",
+        "1054",
+        "UN-Vbatt1"
+      ],
+      "title": {
+        "en": "Battery overvoltage detected (UN-Vbatt)",
+        "ur": "Battery overvoltage detect hua (UN-Vbatt)"
+      },
+      "meaning": {
+        "en": "Pack voltage at the inverter terminals has risen above the overvoltage limit, so the BMS has stopped charge/discharge.",
+        "ur": "Inverter terminal par pack voltage overvoltage limit se upar chala gaya, is liye BMS ne charge/discharge rok diya."
+      },
+      "causes": [
+        {
+          "en": "Pack fully charged and sitting at maximum SOC while the BMS charge limit is already reached",
+          "ur": "Pack poori tarah charge ho kar maximum SOC par hai aur BMS ka charge limit pehle hi poori ho chuka hai"
+        },
+        {
+          "en": "Battery overvoltage protection point set too low in the user settings",
+          "ur": "User settings mein battery overvoltage protection point bahut low set hai"
+        },
+        {
+          "en": "Battery aged or cell imbalance pushing the pack voltage up",
+          "ur": "Battery purani ho gayi ya cell imbalance pack voltage upar le gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the battery voltage on Information page 1 and compare it with the pack's own BMS reading in SolisCloud.",
+          "ur": "Information page 1 par battery voltage padhein aur usko SolisCloud mein pack ke BMS reading se compare karein."
+        },
+        {
+          "en": "Restart the system once and confirm whether the fault persists; a one-off after full charge is normal BMS behaviour.",
+          "ur": "System ek baar restart karke dekhein ke fault rehta hai ya nahi; full charge ke baad ek baar aana normal BMS behaviour hai."
+        },
+        {
+          "en": "If it keeps coming back, raise the battery overvoltage protection point within the battery maker's stated window, then contact the battery vendor if it still trips.",
+          "ur": "Agar baar baar aata rahe to battery maker ke bataye range mein battery overvoltage protection point barhayein, phir bhi trip kare to battery vendor se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "OV-Vbatt-H / OV-BUS-H (1051 DATA:0000)",
+      "aliases": [
+        "OV-Vbatt-H / OV-BUS-H (1051 DATA:0000)",
+        "OV-Vbatt-H",
+        "OV-BUS-H",
+        "1051",
+        "1051 DATA:0000",
+        "OV-BATT-H"
+      ],
+      "title": {
+        "en": "Battery overvoltage hardware fault (1051)",
+        "ur": "Battery ka hardware overvoltage fault (1051)"
+      },
+      "meaning": {
+        "en": "The battery-side hardware overvoltage protection has tripped on the internal VBUS rail.",
+        "ur": "Battery side ka hardware overvoltage protection internal VBUS rail par trigger ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Battery voltage at full SOC when the pack suddenly drops out, so the inverter sees a step up",
+          "ur": "Pack full SOC par tha aur achanak gir gaya, is liye inverter par voltage step up dikha"
+        },
+        {
+          "en": "Battery circuit breaker tripping, or the battery pack itself faulty",
+          "ur": "Battery circuit breaker trip ho raha hai, ya battery pack khud kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the battery circuit breaker is tripping; watch it while the inverter is on the battery.",
+          "ur": "Dekhein ke battery circuit breaker trip to nahi ho raha; inverter battery par ho tab us par nazar rakhein."
+        },
+        {
+          "en": "Measure pack voltage directly with a multimeter and compare with SolisCloud BMS voltage; a large gap points to a wiring or BMS problem.",
+          "ur": "Multimeter se pack voltage seedha measure karein aur SolisCloud ke BMS voltage se compare karein; bara farq wiring ya BMS ke masle ki nishani hai."
+        },
+        {
+          "en": "If the breaker is healthy and the pack still trips, the pack is faulty - have the battery vendor test it before condemning the inverter.",
+          "ur": "Breaker theek hai phir bhi pack trip kare to pack kharab hai - inverter kharab karne se pehle battery vendor se test karwa lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Solis's own FAQ says OV-BATT-H is a hardware over-voltage on the battery circuit that can be caused by high battery voltage at full SOC or by the battery switching off, and advises contacting service if it is frequent.",
+        "ur": "Solis ka apna FAQ kehta hai ke OV-BATT-H battery circuit ka hardware over-voltage hai jo full SOC par high battery voltage ya battery ke band hone se ho sakta hai, aur agar baar baar ho to service se rabta karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "Over-Load",
+      "aliases": [
+        "Over-Load",
+        "1057",
+        "Overload",
+        "BAT-DOC / Batt-Overload (105B)"
+      ],
+      "title": {
+        "en": "Backup overload (Over-Load)",
+        "ur": "Backup par load zyada (Over-Load)"
+      },
+      "meaning": {
+        "en": "The load on the backup port exceeded what the inverter can supply, so the unit shut that port down.",
+        "ur": "Backup port par ka load inverter ki capacity se zyada ho gaya, is liye unit ne wo port band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Backup load power too large, or a large motor / compressor with a high inrush on start",
+          "ur": "Backup load power zyada, ya koi bada motor ya compressor jo start par high inrush leta hai"
+        },
+        {
+          "en": "Battery cannot deliver the required current because the BMS current limit is active or SOC is low",
+          "ur": "Battery required current de nahi sakta kyunke BMS current limit active hai ya SOC kam hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "List every appliance on the backup outlet with its running wattage, then compare the total with the inverter's backup rating on the nameplate.",
+          "ur": "Backup outlet par lagi har appliance ki running wattage likhein aur uska jama kar nameplate par di hui backup rating se compare karein."
+        },
+        {
+          "en": "Switch off the biggest loads one at a time and see which one tips the inverter into Over-Load; that is the culprit.",
+          "ur": "Sab se bhaari load ek-ek karke band karein aur dekhein kaun sa inverter ko Over-Load par le jata hai; wohi masla hai."
+        },
+        {
+          "en": "Move inductive loads (pumps, ACs, motors) off the backup port, then reduce the backup load and restart the inverter.",
+          "ur": "Inductive loads (pump, AC, motor) backup port se hatayein, phir backup load kam karke inverter restart karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The official Solis library has two related codes: 1057 Overload and 105B Batt-Overload, and the 105B note says it was previously known as BAT-DOC. Both point at the backup/battery current path, not the PV side.",
+        "ur": "Official Solis library mein do related codes hain: 1057 Overload aur 105B Batt-Overload, aur 105B ki note kehti hai ke ise pehle BAT-Comm kehlaya jata tha. Dono backup/battery current path ko point karte hain, PV side ko nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "OV-Vbackup (1056 DATA:0000)",
+      "aliases": [
+        "OV-Vbackup (1056 DATA:0000)",
+        "OV-Vbackup",
+        "OV-VBackup",
+        "1056",
+        "1056 DATA:0000"
+      ],
+      "title": {
+        "en": "Inverting overvoltage on backup (OV-Vbackup)",
+        "ur": "Backup par inverting overvoltage (OV-Vbackup)"
+      },
+      "meaning": {
+        "en": "While running as an off-grid backup supply the output voltage rose too high and the inverter stopped.",
+        "ur": "Off-grid backup supply chalate waqt output voltage zyada ho gaya aur inverter ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Off-grid switching event combined with a sudden load change on the backup port",
+          "ur": "Backup port par load ka achanak badalna aur off-grid switching ek saath ho gaye"
+        },
+        {
+          "en": "Backup voltage setting wrong, or a generator feeding the same backup port",
+          "ur": "Backup voltage setting ghalat, ya generator bhi isi backup port par power de raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch AC and DC off, then check the backup port wiring: generator, loads and earth all correctly terminated and tight.",
+          "ur": "AC aur DC off karke backup port wiring check karein: generator, loads aur earth sab sahi jagah aur tight lage hon."
+        },
+        {
+          "en": "Measure the backup port voltage with a multimeter while the inverter is on battery; compare it with the configured backup voltage.",
+          "ur": "Inverter battery par ho tab multimeter se backup port voltage measure karein aur set ki hui backup voltage se compare karein."
+        },
+        {
+          "en": "Restart the system and confirm the fault clears; if a generator is connected, make sure it never runs in parallel with the inverter output.",
+          "ur": "System restart karke confirm karein ke fault hat gaya; agar generator lagi hai to yeh confirm karein ke wo inverter output ke saath kabhi parallel na chale."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "OV-ILLC (1052 DATA:0000)",
+      "aliases": [
+        "OV-ILLC (1052 DATA:0000)",
+        "OV-ILLC",
+        "1052",
+        "1052 DATA:0000",
+        "OV-ILLC / OV-LLC-I"
+      ],
+      "title": {
+        "en": "LLC hardware overcurrent (OV-ILLC)",
+        "ur": "LLC circuit par hardware overcurrent (OV-ILLC)"
+      },
+      "meaning": {
+        "en": "The internal LLC converter on the backup path drew more current than allowed; on hybrid units this is a BACKUP-side fault, not a PV or grid fault.",
+        "ur": "Backup path ka internal LLC converter allowed se zyada current kheencha; hybrid unit par ye BACKUP side ka fault hai, PV ya grid ka nahi."
+      },
+      "causes": [
+        {
+          "en": "Backup load overloaded, or a large inrush from a motor starting on backup",
+          "ur": "Backup load overloaded, ya backup par chalte motor ka bada inrush"
+        },
+        {
+          "en": "LLC hardware itself degrading with age or after a surge",
+          "ur": "Umar ke saath ya surge ke baad LLC hardware degrade hona"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC, PV and the battery, then measure the DC bus with a multimeter before doing anything else.",
+          "ur": "AC, PV aur battery band karke kuch bhi karne se pehle multimeter se DC bus measure karein."
+        },
+        {
+          "en": "Reduce the backup load, restart once, and note whether the code returns immediately.",
+          "ur": "Backup load kam karke ek baar restart karein aur note karein ke code foran wapas aata hai ya nahi."
+        },
+        {
+          "en": "If the code returns on every start with a light load, stop restarting and send the unit for factory repair - this is an internal hardware failure.",
+          "ur": "Agar halki load par bhi har start par wapas aaye to baar baar restart band karein aur unit factory repair ke liye bhejein - ye internal hardware failure hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Solis's FAQ says OV-ILLC is an overcurrent on the internal LLC circuit, often a transient during extreme overload, and to contact service if it is constant after the extreme condition is excluded. The official library records it as 1052 OV-LLC-I and notes it was previously called OV-ILLC.",
+        "ur": "Solis ke FAQ ke mutabiq OV-ILLC internal LLC circuit par overcurrent hai, aksar extreme overload ke waqt transient hota hai, aur extreme condition nikalne par bhi baar baar ho to service se rabta karein. Official library ise 1052 OV-LLC-I ke tor par rakhta hai aur kehti hai ke pehle isay OV-ILLC kehte the."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "CAN Fail",
+      "aliases": [
+        "CAN Fail",
+        "2012",
+        "Batt_Comm_FAIL",
+        "CAN_Comm_FAIL",
+        "Batt1-Wire-Err (2804)"
+      ],
+      "title": {
+        "en": "CAN communication fail with battery (CAN Fail)",
+        "ur": "Battery se CAN communication fail (CAN Fail)"
+      },
+      "meaning": {
+        "en": "The inverter cannot talk to the battery BMS over CAN, so it stops and reports no battery.",
+        "ur": "Inverter battery BMS se CAN par baat nahi kar sakta, is liye ruk kar no battery report karta hai."
+      },
+      "causes": [
+        {
+          "en": "CAN cable not seated in the inverter CAN port or the battery CAN port",
+          "ur": "CAN cable inverter CAN port ya battery CAN port mein fit nahi hai"
+        },
+        {
+          "en": "Wrong cable type: some batteries ship a special cable, and Pylon RJ45 pinout changed between WIOSCAN30RJ1 (new) and WIOSCAN35RJ3 (old)",
+          "ur": "Galat cable: kuch batteries ke saath khaas cable aata hai, aur Pylon ke RJ45 pinout WIOSCAN30RJ1 (naya) aur WIOSCAN35RJ3 (purana) mein badal chuka hai"
+        },
+        {
+          "en": "Battery off, or BMS asleep because the pack is too flat",
+          "ur": "Battery off hai, ya BMS so gaya kyunke pack bahut flat hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the battery's own LED first: a RED LED shining or flashing means the pack is too flat, so charge the pack with an external charger until the LED is green again.",
+          "ur": "Pehle battery ka apna LED dekhein: laal LED jal raha ya flash kar raha hai to pack bahut flat hai, is liye external charger se charge karein jab tak LED phir se sabz na ho."
+        },
+        {
+          "en": "Unplug and re-plug the CAN cable at both the inverter and the battery, then confirm you are using the cable the battery manufacturer specifies.",
+          "ur": "Inverter aur battery dono taraf se CAN cable nikal kar dobara lagayein, phir confirm karein ke battery manufacturer wali cable use ho rahi hai."
+        },
+        {
+          "en": "Open SolisCloud battery monitoring and compare BMS Voltage with Battery Voltage, then measure the pack with a multimeter at the plug; a mismatch means a comms or pack fault, not an inverter fault.",
+          "ur": "SolisCloud ke battery monitoring mein BMS Voltage aur Battery Voltage compare karein, phir plug par multimeter se pack measure karein; mismatch aaye to comms ya pack ka masla hai, inverter ka nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Solis's official CAN troubleshooting method is to build a test cable and measure the voltage directly at the inverter's CAN ports. Batt_Comm_FAIL is documented as 'previously CAN_Comm_FAIL'.",
+        "ur": "Solis ka official CAN troubleshooting tareeqa hai ke test cable banayein aur inverter ke CAN port par seedha voltage measure karein. Batt_Comm_FAIL ko 'pehle CAN_Comm_FAIL tha' likha gaya hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "BatName-FAIL",
+      "aliases": [
+        "BatName-FAIL",
+        "2016",
+        "BatName-FAIL (2016 DATA:0304)"
+      ],
+      "title": {
+        "en": "Wrong battery brand/model selected",
+        "ur": "Galat battery brand/model selected hai"
+      },
+      "meaning": {
+        "en": "The battery model configured in the inverter does not match the nameplate of the fitted pack, so the BMS protocol will not be used correctly.",
+        "ur": "Inverter mein set kiya gaya battery model lagay huay pack ke nameplate se match nahi karta, is liye BMS protocol theek se use nahi hoga."
+      },
+      "causes": [
+        {
+          "en": "Battery Setting > Battery Model still on 'No Battery' or on a different chemistry",
+          "ur": "Battery Setting > Battery Model abhi 'No Battery' par hai ya kisi aur chemistry par"
+        },
+        {
+          "en": "Pack replaced with a different brand without updating the setting",
+          "ur": "Pack ka brand badal kar lagaya gaya lekin setting update nahi ki gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the brand and model printed on the battery nameplate and write it down before touching the menu.",
+          "ur": "Menu mein jane se pehle battery ke nameplate par likha brand aur model padh kar likh lein."
+        },
+        {
+          "en": "Go to Battery Setting > Battery Model and select the option that matches the nameplate exactly, then save and exit.",
+          "ur": "Battery Setting > Battery Model mein jayein aur nameplate se bilkul match karne wala option select karein, phir save aur exit karein."
+        },
+        {
+          "en": "Power cycle the inverter and the pack; if the code persists the pack firmware may be outside the supported list - ask the battery vendor.",
+          "ur": "Inverter aur pack ko power cycle karein; code phir bhi rahe to pack firmware supported list se bahar ho sakta hai - battery vendor se poochein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "GRID-INTF. (1030 DATA:0000)",
+      "aliases": [
+        "GRID-INTF. (1030 DATA:0000)",
+        "GRID-INTF.",
+        "1030 DATA:0000",
+        "1030"
+      ],
+      "title": {
+        "en": "AC hardware overcurrent (GRID-INTF. 1030)",
+        "ur": "AC side par hardware overcurrent (GRID-INTF. 1030)"
+      },
+      "meaning": {
+        "en": "On the hybrid platform 1030 is an AC hardware overcurrent on phase a, b or c - it is NOT the grid-interference alarm of the on-grid inverters.",
+        "ur": "Hybrid platform par 1030 AC hardware overcurrent hai (phase a, b ya c) - ye on-grid inverters wala grid-interference alarm nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Grid abnormal - voltage sag or distortion causing an AC current spike",
+          "ur": "Grid abnormal - voltage sag ya distortion se AC current spike hua"
+        },
+        {
+          "en": "AC cable connection loose or of the wrong size",
+          "ur": "AC cable connection loose ya galat size ka"
+        },
+        {
+          "en": "Backup load step causing a transient on the AC side",
+          "ur": "Backup load ka step AC side par transient ban gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the grid is abnormal by measuring L-N voltage and frequency at the inverter AC terminal while the fault shows.",
+          "ur": "Fault dikhne ke waqt inverter AC terminal par L-N voltage aur frequency measure karke grid abnormal hai confirm karein."
+        },
+        {
+          "en": "Power off and check the AC cable connections and lug torque; a loose phase conductor raises contact resistance and spikes the current.",
+          "ur": "Power off karke AC cable connections aur lug torque check karein; loose phase conductor contact resistance barhakar current spike karta hai."
+        },
+        {
+          "en": "Restart the system and confirm whether the code returns; if the grid and cabling are healthy the sampling circuit is at fault - RMA.",
+          "ur": "System restart karke dekhein ke code wapas aata hai ya nahi; grid aur wiring theek hon to sampling circuit kharab hai - RMA."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "CONFLICT FLAG: the same hex 1030 on the on-grid S5-GR / S5-GR3P / S5-GC platform is GRID-INTF = grid interference (waveform distortion). Never reuse this meaning for an on-grid string inverter.",
+        "ur": "CONFLICT FLAG: wahi hex 1030 on-grid S5-GR / S5-GR3P / S5-GC platform par GRID-INTF = grid interference (waveform distortion) hai. Is matlab ko kabhi on-grid string inverter par dobara mat use karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "GRID-INTF02 (1046 DATA:0000)",
+      "aliases": [
+        "GRID-INTF02 (1046 DATA:0000)",
+        "GRID-INTF02",
+        "1046 DATA:0000",
+        "1046"
+      ],
+      "title": {
+        "en": "Grid disturbance 02 (GRID-INTF02)",
+        "ur": "Grid ka doosra disturbance check (GRID-INTF02)"
+      },
+      "meaning": {
+        "en": "A second, stricter grid-disturbance check has tripped because the incoming waveform is badly distorted.",
+        "ur": "Ek doosra, zyada sakht grid-disturbance check trigger hua kyunke aane wala waveform bahut distorted hai."
+      },
+      "causes": [
+        {
+          "en": "Large non-linear or inductive loads switching on the same feeder",
+          "ur": "Usi feeder par bade non-linear ya inductive loads chal rahe hain"
+        },
+        {
+          "en": "Weak local transformer, or an AC cable with high impedance",
+          "ur": "Kamzor local transformer, ya high impedance wala AC cable"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm whether the grid is seriously distorted by measuring voltage and watching the LCD value flicker against a stable meter reading.",
+          "ur": "Grid seriously distorted hai ya nahi confirm karein: voltage measure karein aur LCD value ki flickering ko meter ki stable reading se compare karein."
+        },
+        {
+          "en": "Switch other inverters and heavy loads off one at a time to identify the noisy device on the same phase.",
+          "ur": "Doosre inverters aur bhaari loads ek-ek karke band karke usi phase par noisy device pehchan karein."
+        },
+        {
+          "en": "Check that the AC cable is reliably connected and correctly torqued at both ends before any further setting change.",
+          "ur": "Koi bhi setting change karne se pehle confirm karein ke AC cable dono taraf se reliably connected aur sahi torque par hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "ILeak_Check (1039 DATA:0000)",
+      "aliases": [
+        "ILeak_Check (1039 DATA:0000)",
+        "ILeak_Check",
+        "1039 DATA:0000",
+        "1039",
+        "ILeak_Check (leakage sensor self-check)"
+      ],
+      "title": {
+        "en": "Leakage current sensor self-check failure (1039)",
+        "ur": "Leakage current sensor ka self-check fail (1039)"
+      },
+      "meaning": {
+        "en": "The residual-current sensing circuit failed its own check, so the inverter cannot trust its leakage protection.",
+        "ur": "Residual-current sensing circuit ka apna check fail ho gaya, is liye inverter apni leakage protection par bharosa nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Moisture in the AC junction box, the DC combiner or the backup panel",
+          "ur": "AC junction box, DC combiner ya backup panel mein paani"
+        },
+        {
+          "en": "A load on the site leaking to earth, so the sensor sees a real leak",
+          "ur": "Site par koi load earth par leak kar raha hai, is liye sensor ko asli leak nazar aa raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and the battery, then check every external wire for current leaking to earth with a clamp meter on the earth conductor.",
+          "ur": "AC, PV aur battery isolate karke earth conductor par clamp meter lagakar har external wire ka earth leak check karein."
+        },
+        {
+          "en": "Verify the grounding conductor is solid and the inverter earth lug is tight, then re-check the earth reference.",
+          "ur": "Grounding conductor solid hai aur inverter earth lug tight hai yeh verify karein, phir earth reference dobara check karein."
+        },
+        {
+          "en": "Confirm every wire is in good condition and not leaking to earth, and replace any cable or connector that fails a megohmmeter test at 1000 V.",
+          "ur": "Confirm karein ke har wire theek halat mein hai aur earth par leak nahi kar rahi, aur jo cable ya connector 1000 V megohmmeter test mein fail ho use replace karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The official Solis article 1039 advice differs by platform: the grid row says upgrade the software to the latest version, the energy-storage row says power off completely then restart, and both end in contacting the factory service.",
+        "ur": "Official Solis article 1039 ki advice platform ke mutabiq mukhtalif hai: grid row kehta hai software latest version par upgrade karein, energy-storage row kehta hai poori tarah power off karke restart karein, aur dono factory service par khatam hote hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "12Power-FAULT (1038 DATA:0000)",
+      "aliases": [
+        "12Power-FAULT (1038 DATA:0000)",
+        "12Power-FAULT",
+        "1038 DATA:0000",
+        "1038",
+        "12V undervoltage failure"
+      ],
+      "title": {
+        "en": "12 V undervoltage failure (12Power-FAULT 1038)",
+        "ur": "12 V ki voltage gir gayi (12Power-FAULT 1038)"
+      },
+      "meaning": {
+        "en": "On the hybrid platform 1038 is a 12 V UNDERVOLTAGE trip on the control rail - not the '12V power supply fault' wording used by the on-grid manuals.",
+        "ur": "Hybrid platform par 1038 control rail ka 12 V UNDERVOLTAGE trip hai - on-grid manual wala '12V power supply fault' wording yahan nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Current leaking to earth from a damaged cable, a wet connector or a poor earth",
+          "ur": "Kharab cable, geele connector ya kamzor earth se earth par current leak"
+        },
+        {
+          "en": "The 12 V auxiliary SMPS or its rectifier has failed after the leak pulled the rail down",
+          "ur": "Leak ne rail gira diya aur 12 V auxiliary SMPS ya uska rectifier fail ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and the battery, then check the earth continuity of every external wire with a multimeter.",
+          "ur": "AC, PV aur battery isolate karke multimeter se har external wire ki earth continuity check karein."
+        },
+        {
+          "en": "Verify your grounding: the earth conductor must be solid and the inverter earth lug tight, with no paint or rust under the lug.",
+          "ur": "Apna grounding verify karein: earth conductor solid honi chahiye aur inverter earth lug tight ho, lug ke neeche paint ya rust na ho."
+        },
+        {
+          "en": "Verify all wires are in good condition and not leaking current to ground, then replace the damaged cable or connector and retest before powering up.",
+          "ur": "Confirm karein ke sab wires theek hain aur ground par leak nahi kar rahi, phir kharab cable ya connector replace karke power karne se pehle retest karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "CONFLICT FLAG: on the on-grid S5-GR / S5-GR3P / S5-GC manuals the identical hex 1038 is written '12Power-FAULT / 12V power supply fault'. Same number, different description, different platform.",
+        "ur": "CONFLICT FLAG: on-grid S5-GR / S5-GR3P / S5-GC manual mein wahi hex 1038 '12Power-FAULT / 12V power supply fault' likha hai. Number same, description alag, platform alag."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "ARC- FAULT (1041 DATA:0000)",
+      "aliases": [
+        "ARC- FAULT (1041 DATA:0000)",
+        "ARC- FAULT",
+        "ARC-FAULT",
+        "1041 DATA:0000",
+        "1041"
+      ],
+      "title": {
+        "en": "AFCI arc fault (ARC- FAULT 1041)",
+        "ur": "AFCI ne DC wiring mein arc detect kiya (ARC- FAULT 1041)"
+      },
+      "meaning": {
+        "en": "The arc-fault detection circuit has tripped, meaning it detected arcing in the PV DC wiring.",
+        "ur": "Arc-fault detection circuit trigger ho gaya, matlab usne PV DC wiring mein arc detect kiya."
+      },
+      "causes": [
+        {
+          "en": "Loose DC connection, so the inverter detects an arc in the DC circuit",
+          "ur": "DC connection loose, is liye inverter DC circuit mein arc detect kar leta hai"
+        },
+        {
+          "en": "PV panels cracked or damaged",
+          "ur": "PV panels cracked ya damaged hain"
+        },
+        {
+          "en": "Improper wire stripping, so insulation is captured inside the terminal",
+          "ur": "Wire stripping ghalat, is liye terminal ke andar insulation phas jata hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify connections are tight within your PV system: torque every MC4 and check the crimp tool was used properly.",
+          "ur": "Apne PV system ki connections tight hain verify karein: har MC4 ka torque check karein aur dekhein ke crimp tool sahi use hua."
+        },
+        {
+          "en": "Switch AC and DC off, then inspect every connector and cable for a blackened, melted or displaced contact.",
+          "ur": "AC aur DC off karke har connector aur cable ko kala, pighla hua ya hat chuka contact ke liye dekhein."
+        },
+        {
+          "en": "Arc fault settings can be changed in Advanced Settings if further adjustment is needed, but only after the wiring fault is physically fixed.",
+          "ur": "Agar aur adjustment chahiye to Arc fault settings Advanced Settings mein badle ja sakte hain, lekin pehle wiring ka fault physically theek karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "AFCI-Check (1040 DATA:0000)",
+      "aliases": [
+        "AFCI-Check (1040 DATA:0000)",
+        "AFCI-Check",
+        "1040 DATA:0000",
+        "1040",
+        "AFCI Protection"
+      ],
+      "title": {
+        "en": "AFCI self-test failure (AFCI-Check 1040)",
+        "ur": "AFCI self-test fail (AFCI-Check 1040)"
+      },
+      "meaning": {
+        "en": "The AFCI module's self test did not pass, so arc protection cannot be trusted and the inverter stops.",
+        "ur": "AFCI module ka self test pass nahi hua, is liye arc protection par bharosa nahi aur inverter ruk jata hai."
+      },
+      "causes": [
+        {
+          "en": "AFCI board or its ribbon connector not seated after a service",
+          "ur": "Service ke baad AFCI board ya uska ribbon connector fit nahi hua"
+        },
+        {
+          "en": "AFCI comms to the main board intermittent",
+          "ur": "Main board se AFCI comms intermittent hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch AC and DC off, wait 5 minutes, then power up once and see whether the self test passes.",
+          "ur": "AC aur DC off karke 5 minute wait karein, phir ek baar power karke dekhein ke self test pass hota hai ya nahi."
+        },
+        {
+          "en": "With the power off, reseat the AFCI board and its communication ribbon to the main board.",
+          "ur": "Power off kar ke AFCI board aur uska main board se communication ribbon dobara fit karein."
+        },
+        {
+          "en": "If the self test still fails on a healthy AFCI board, request an AFCI module replacement from Solis service.",
+          "ur": "Theek AFCI board par bhi self test fail ho to Solis service se AFCI module replacement maangein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "LmtByEPM",
+      "aliases": [
+        "LmtByEPM",
+        "LimByEPM",
+        "LimByEMP"
+      ],
+      "title": {
+        "en": "Output limited by EPM (LmtByEPM)",
+        "ur": "EPM ki wajah se output limited (LmtByEPM)"
+      },
+      "meaning": {
+        "en": "The inverter output is being held down by an external power manager or meter so that no power is exported.",
+        "ur": "Inverter ka output external power manager ya meter rok rakhta hai taake grid par power export na ho."
+      },
+      "causes": [
+        {
+          "en": "External EPM is fitted and actively limiting backflow",
+          "ur": "External EPM lagi hai aur wo backflow ko actively limit kar rahi hai"
+        },
+        {
+          "en": "Inverter power control is capped, or a third-party device is commanding the inverter",
+          "ur": "Inverter power control capped hai, ya koi teesra device inverter ko command kar raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm whether the inverter is connected to an external EPM/meter to prevent reverse current.",
+          "ur": "Confirm karein ke inverter external EPM/meter se connected hai ya nahi, taake reverse current na ho."
+        },
+        {
+          "en": "Confirm whether the inverter is being controlled by an external third-party device and check the power-control percentage.",
+          "ur": "Confirm karein ke inverter kisi external third-party device se control ho raha hai ya nahi aur power-control percentage dekhein."
+        },
+        {
+          "en": "Verify the EPM settings and compare the meter reading; if no EPM is fitted, set Advanced Settings > External EPM Set > Fail Safe Set to OFF and Internal EPM Set to OFF.",
+          "ur": "EPM settings verify karein aur meter reading se compare karein; agar koi EPM nahi lagi to Advanced Settings > External EPM Set > Fail Safe Set ko OFF aur Internal EPM Set ko OFF kar dein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    },
+    {
+      "code": "LmtByTemp",
+      "aliases": [
+        "LmtByTemp",
+        "Over temperature power limited"
+      ],
+      "title": {
+        "en": "Over-temperature power limited (LmtByTemp)",
+        "ur": "Garmi ki wajah se power khud kam (LmtByTemp)"
+      },
+      "meaning": {
+        "en": "The inverter has deliberately derated itself because the temperature is high. This is normal operation, not a fault.",
+        "ur": "Inverter ne temperature zyada hone ki wajah se apni khud ki power kam ki hai. Ye normal chalna hai, fault nahi."
+      },
+      "causes": [
+        {
+          "en": "High internal or ambient temperature, so the unit derates instead of tripping",
+          "ur": "Internal ya ambient temperature zyada hai, is liye unit trip karne ke bajaye power kam kar deta hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed - the device is in normal operation.",
+          "ur": "Koi action nahi chahiye - device normal chal raha hai."
+        },
+        {
+          "en": "If output stays low, check the installation clearance and the ventilation around the cabinet, and keep direct sun off it.",
+          "ur": "Agar output kam hi rehta hai to installation clearance aur cabinet ke aas-paas ventilation check karein, aur us par seedhi dhoop na aane dein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S5-EH1P(3-6)K-L(-BE) Hybrid Inverter User Manual EUR V1,3, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.com/uploads/file/Solis_Manual_S5-EH1P%283-6%29K-L%28-BE%29_EUR_V1%2C3%2820240705%29.pdf"
+      }
+    }
+  ]
+}

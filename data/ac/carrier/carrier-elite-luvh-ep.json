@@ -1,0 +1,625 @@
+{
+  "schemaVersion": 1,
+  "brandId": "carrier",
+  "series": {
+    "id": "carrier-elite-luvh-ep",
+    "name": "Carrier Elite hi-wall (42LUVH / Elite N and N-1)",
+    "category": "ac",
+    "unitType": "split",
+    "modelPatterns": [
+      "42LUVH*",
+      "38LUVH*",
+      "0??N-1*"
+    ],
+    "notes": "One E/P code set for two generations: the N chart (42LUVH055N/065N/075N service manual) and the N-1 chart (025N-1 to 075N-1 trouble-shooting part). Both are official Carrier AU documents and Ample Air reproduces both. Where the two charts word a fault differently the entry repeats the N-1 wording in its notes. E4 and P3 are reserved and never display on either chart. AHI-Carrier's warranty document classifies LUVH as a HI-WALL product, so these are wall-mounted splits, not ducted."
+  },
+  "codes": [
+    {
+      "code": "E0",
+      "aliases": [
+        "E0"
+      ],
+      "title": {
+        "en": "EEPROM parameter error",
+        "ur": "EEPROM parameter kharabi"
+      },
+      "meaning": {
+        "en": "The indoor board cannot read its stored parameters, so it will not start normally.",
+        "ur": "Indoor board apne saved parameters parh nahi pata, is liye normal start nahi karti."
+      },
+      "causes": [
+        {
+          "en": "Board memory data was corrupted after a power dip or surge.",
+          "ur": "Power fluctuation se board ki memory (EEPROM) data kharab ho gayi."
+        },
+        {
+          "en": "A connector on the board has worked loose or gone green with moisture.",
+          "ur": "Board ka connector dheeli ho gaya hai ya nami se green ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off at the breaker for 10 minutes, switch back on and run the unit once.",
+          "ur": "Breaker se 10 minute power off karein, phir on karke unit ek baar chalayein."
+        },
+        {
+          "en": "After the reset, ask the technician to check the EEPROM chip seating on the board.",
+          "ur": "Reset ke baad technician se EEPROM chip ki seating check karwayein."
+        },
+        {
+          "en": "If the wiring and sensors test fine, the main board needs replacing.",
+          "ur": "Wiring aur sensor theek nikle to main board badalna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Carrier Elite 42LUVH055N / 065N / 075N - Indoor Unit Error Display (Carrier AU fault-code library)",
+        "url": "https://toshiba-aircon.com.au/techdocs/api/files/246",
+        "retrieved": "2026-09-25"
+      }
+    },
+    {
+      "code": "E1",
+      "aliases": [
+        "E1"
+      ],
+      "title": {
+        "en": "Indoor / outdoor communication protection",
+        "ur": "Indoor outdoor communication band"
+      },
+      "meaning": {
+        "en": "The indoor and outdoor boards have lost contact, so the unit locks out until the link is back.",
+        "ur": "Indoor aur outdoor boards ka contact chala gaya hai, is liye link wapas aane tak unit lock ho jati hai."
+      },
+      "causes": [
+        {
+          "en": "Indoor to outdoor wiring (L, N, S) is loose, rat-bitten or landed wrongly.",
+          "ur": "Indoor se outdoor ki wiring (L, N, S) dheeli, chuha kata hui ya ghalat lagi hai."
+        },
+        {
+          "en": "Communication circuit on the indoor or outdoor board has failed.",
+          "ur": "Indoor ya outdoor board ka communication circuit kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle both units together; communication faults often clear after one clean restart.",
+          "ur": "Dono units ka ek sath power cycle karein; communication fault aksar ek saaf restart se theek ho jata hai."
+        },
+        {
+          "en": "Power off, then re-check and retighten the indoor-outdoor terminals (L, N, S, earth).",
+          "ur": "Power band karke indoor-outdoor terminals (L, N, S, earth) dobara check aur tight karein."
+        },
+        {
+          "en": "If the wiring and sensors test fine, the main board needs replacing.",
+          "ur": "Wiring aur sensor theek nikle to main board badalna hoga."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "indoor",
+      "isFault": true,
+      "relatedCodes": [
+        "E2"
+      ],
+      "confidence": "high",
+      "notes": {
+        "en": "The N-1 chart's own first step is a one-minute power off before any wiring check, and the code returns if the link stays broken.",
+        "ur": "N-1 chart ka pehla qadam wiring check se pehle ek minute power off hai, aur link toota rehne par code wapas aata hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Carrier Elite 42LUVH055N / 065N / 075N - Indoor Unit Error Display (Carrier AU fault-code library)",
+        "url": "https://toshiba-aircon.com.au/techdocs/api/files/246",
+        "retrieved": "2026-09-25"
+      }
+    },
+    {
+      "code": "E2",
+      "aliases": [
+        "E2"
+      ],
+      "title": {
+        "en": "Zero-crossing signal error",
+        "ur": "Zero-crossing signal kharabi"
+      },
+      "meaning": {
+        "en": "The board cannot see the mains zero-crossing signal, which it needs to time the compressor drive.",
+        "ur": "Board ko mains ka zero-crossing signal nahi milta, jo compressor drive ke waqt ke liye zaroori hai."
+      },
+      "causes": [
+        {
+          "en": "The control board itself is faulty.",
+          "ur": "Control board hi kharab hai."
+        },
+        {
+          "en": "Mains voltage is too high, too low or unstable for the electronics.",
+          "ur": "Mains voltage electronics ke liye zyada/kam ya unstable hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off at the breaker for 10 minutes, switch back on and run the unit once.",
+          "ur": "Breaker se 10 minute power off karein, phir on karke unit ek baar chalayein."
+        },
+        {
+          "en": "Check mains voltage at the terminals; run again only when the supply is normal.",
+          "ur": "Terminal par mains voltage check karein; supply normal hone par hi dobara chalayein."
+        },
+        {
+          "en": "If the wiring and sensors test fine, the main board needs replacing.",
+          "ur": "Wiring aur sensor theek nikle to main board badalna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "relatedCodes": [
+        "E0"
+      ],
+      "confidence": "high",
+      "notes": {
+        "en": "Both charts treat this as a main control board fault, so a clean power cycle that does not clear it means a board swap.",
+        "ur": "Dono chart ise main control board ka fault mante hain, is liye saaf power cycle ke baad na hate to board badalna hoga."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Carrier Elite 42LUVH055N / 065N / 075N - Indoor Unit Error Display (Carrier AU fault-code library)",
+        "url": "https://toshiba-aircon.com.au/techdocs/api/files/246",
+        "retrieved": "2026-09-25"
+      }
+    },
+    {
+      "code": "E3",
+      "aliases": [
+        "E3"
+      ],
+      "title": {
+        "en": "Indoor fan speed out of control",
+        "ur": "Indoor fan ki speed control se bahar"
+      },
+      "meaning": {
+        "en": "The indoor fan is not running at the speed the board commands.",
+        "ur": "Indoor fan jo speed board ne kahi wo nahi chal raha."
+      },
+      "causes": [
+        {
+          "en": "Indoor fan motor is weak, jammed or the blade is rubbing the scroll.",
+          "ur": "Indoor fan motor kamzor hai, atka hua hai ya blade ragad raha hai."
+        },
+        {
+          "en": "Dirty filter or choked coil is starving the fan of airflow.",
+          "ur": "Ganda filter ya ganda coil ki wajah se hawa nahi ban rahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean the filters and both heat exchangers, then retry the unit.",
+          "ur": "Filter aur dono heat exchanger saaf karke dobara chalayein."
+        },
+        {
+          "en": "Switch off power and free the fan blade by hand; replace the motor if it is tight or noisy.",
+          "ur": "Power band karke haath se fan blade azadayin; motor tight/shor ho to badlein."
+        },
+        {
+          "en": "Do not keep restarting - if the code returns, stop and book a technician.",
+          "ur": "Bar bar restart na karein - code wapas aaye to rokein aur technician bulayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "relatedCodes": [
+        "E7"
+      ],
+      "confidence": "high",
+      "notes": {
+        "en": "The N chart writes this simply as 'fan speed out of control'; the N-1 chart adds that it is the indoor fan.",
+        "ur": "N chart ise sirf 'fan speed out of control' likh kar kehta hai; N-1 chart batata hai ke ye indoor fan hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Carrier Elite 42LUVH055N / 065N / 075N - Indoor Unit Error Display (Carrier AU fault-code library)",
+        "url": "https://toshiba-aircon.com.au/techdocs/api/files/246",
+        "retrieved": "2026-09-25"
+      }
+    },
+    {
+      "code": "E5",
+      "aliases": [
+        "E5"
+      ],
+      "title": {
+        "en": "Outdoor temperature sensor open or short",
+        "ur": "Outdoor temperature sensor open ya short"
+      },
+      "meaning": {
+        "en": "The outdoor temperature sensor line is open or shorted; on the N-1 generation the same code also covers an outdoor board EEPROM parameter error.",
+        "ur": "Outdoor temperature sensor ki line open ya short hai; N-1 generation mein yehi code outdoor board ki EEPROM parameter kharabi bhi batata hai."
+      },
+      "causes": [
+        {
+          "en": "Sensor lead wire is loose, rat-bitten or shorted where it clips onto the pipe.",
+          "ur": "Sensor ki wire dheeli hai, chuha ne kaat di hai ya pipe par short ho rahi hai."
+        },
+        {
+          "en": "The thermistor has drifted out of range or failed outright.",
+          "ur": "Thermistor kharab ho gaya hai ya uski reading ghalat aa rahi hai."
+        },
+        {
+          "en": "Board memory data was corrupted after a power dip or surge.",
+          "ur": "Power fluctuation se board ki memory (EEPROM) data kharab ho gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the sensor plug and lead, then measure the thermistor and replace it if out of range.",
+          "ur": "Sensor ka plug aur wire check karein, thermistor napein, ghalat ho to badlein."
+        },
+        {
+          "en": "Power off at the breaker for 10 minutes, switch back on and run the unit once.",
+          "ur": "Breaker se 10 minute power off karein, phir on karke unit ek baar chalayein."
+        },
+        {
+          "en": "If the wiring and sensors test fine, the main board needs replacing.",
+          "ur": "Wiring aur sensor theek nikle to main board badalna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "relatedCodes": [
+        "E6"
+      ],
+      "confidence": "high",
+      "notes": {
+        "en": "N chart limits E5 to the sensor, N-1 chart adds 'or outdoor unit EEPROM parameter error' - a clean sensor with E5 up still points at the outdoor board.",
+        "ur": "N chart mein E5 sirf sensor tak mehdood hai, N-1 chart mein 'ya outdoor unit EEPROM parameter error' bhi shamil hai - sensor theek ho aur E5 aaye to outdoor board ki taraf ishara hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Carrier Elite 025N-1 to 075N-1 - PART7 Trouble Shooting (Carrier AU fault-code library)",
+        "url": "https://toshiba-aircon.com.au/techdocs/api/files/247",
+        "retrieved": "2026-09-25"
+      }
+    },
+    {
+      "code": "E6",
+      "aliases": [
+        "E6"
+      ],
+      "title": {
+        "en": "Room or evaporator sensor open or short",
+        "ur": "Room ya evaporator sensor open ya short"
+      },
+      "meaning": {
+        "en": "Either the room sensor or the evaporator coil sensor is open or shorted.",
+        "ur": "Ya to room sensor open/short hai ya evaporator coil sensor."
+      },
+      "causes": [
+        {
+          "en": "Sensor lead wire is loose, rat-bitten or shorted where it clips onto the pipe.",
+          "ur": "Sensor ki wire dheeli hai, chuha ne kaat di hai ya pipe par short ho rahi hai."
+        },
+        {
+          "en": "The thermistor has drifted out of range or failed outright.",
+          "ur": "Thermistor kharab ho gaya hai ya uski reading ghalat aa rahi hai."
+        },
+        {
+          "en": "Sensor has come off its sensing point on the coil or suction line.",
+          "ur": "Sensor coil ya suction line par apni jagah se hat gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the sensor plug and lead, then measure the thermistor and replace it if out of range.",
+          "ur": "Sensor ka plug aur wire check karein, thermistor napein, ghalat ho to badlein."
+        },
+        {
+          "en": "Power off at the breaker for 10 minutes, switch back on and run the unit once.",
+          "ur": "Breaker se 10 minute power off karein, phir on karke unit ek baar chalayein."
+        },
+        {
+          "en": "If the wiring and sensors test fine, the main board needs replacing.",
+          "ur": "Wiring aur sensor theek nikle to main board badalna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "relatedCodes": [
+        "E5"
+      ],
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Carrier Elite 42LUVH055N / 065N / 075N - Indoor Unit Error Display (Carrier AU fault-code library)",
+        "url": "https://toshiba-aircon.com.au/techdocs/api/files/246",
+        "retrieved": "2026-09-25"
+      }
+    },
+    {
+      "code": "E7",
+      "aliases": [
+        "E7"
+      ],
+      "title": {
+        "en": "Outdoor fan protection",
+        "ur": "Outdoor fan ki protection"
+      },
+      "meaning": {
+        "en": "The outdoor fan is not doing what the board asks - the N-1 chart words the same fault as outdoor fan speed out of control.",
+        "ur": "Outdoor fan board ke mutabiq nahi kar raha - N-1 chart isi fault ko 'outdoor fan speed control se bahar' kehta hai."
+      },
+      "causes": [
+        {
+          "en": "Outdoor fan motor is stuck, weak or one blade is broken.",
+          "ur": "Outdoor fan motor atka hua, kamzor hai ya blade toota hua hai."
+        },
+        {
+          "en": "Outdoor fan cannot move air because the coil or grille is choked.",
+          "ur": "Coil ya grille band hone ki wajah se outdoor fan hawa nahi hata pa raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "From outside only, clear anything blocking the outdoor unit and give it room to breathe.",
+          "ur": "Sirf bahar se outdoor unit ke rukhawat hata dein aur khula space dein."
+        },
+        {
+          "en": "Technician to check the outdoor fan motor and blade, and replace what is faulty.",
+          "ur": "Technician outdoor fan motor aur blade check kare aur kharab cheez badle."
+        },
+        {
+          "en": "Do not keep restarting - if the code returns, stop and book a technician.",
+          "ur": "Bar bar restart na karein - code wapas aaye to rokein aur technician bulayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "relatedCodes": [
+        "E3"
+      ],
+      "confidence": "high",
+      "notes": {
+        "en": "N chart calls it 'outdoor unit fan protection', N-1 chart calls it 'outdoor fan speed has been out of control' - same fan, two wordings.",
+        "ur": "N chart ise 'outdoor unit fan protection' aur N-1 chart 'outdoor fan speed control se bahar' kehta hai - ek hi fan, do lafz."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Carrier Elite 025N-1 to 075N-1 - PART7 Trouble Shooting (Carrier AU fault-code library)",
+        "url": "https://toshiba-aircon.com.au/techdocs/api/files/247",
+        "retrieved": "2026-09-25"
+      }
+    },
+    {
+      "code": "P0",
+      "aliases": [
+        "P0"
+      ],
+      "title": {
+        "en": "Inverter module protection",
+        "ur": "Inverter module ka protection"
+      },
+      "meaning": {
+        "en": "The inverter power module has shut down on an electrical or over-current fault.",
+        "ur": "Inverter power module electrical ya over-current fault par band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter/IPM has tripped on over-current, usually from a short in the compressor or drive.",
+          "ur": "Inverter/IPM over-current par trip hua, aksar compressor ya drive mein short se."
+        },
+        {
+          "en": "Compressor is not picking up speed - weak starting gear or a seized rotor.",
+          "ur": "Compressor speed nahi pakad raha - starting gear kamzor ya rotor jam hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and leave it off; repeated resets on an IPM trip can kill the compressor.",
+          "ur": "Band karke waise hi chhor dein; IPM trip par bar bar reset se compressor kharab ho sakta hai."
+        },
+        {
+          "en": "Technician to check compressor winding, amp draw and starting gear before any restart.",
+          "ur": "Technician compressor ki winding, ampere aur starting gear check kare, phir hi restart karein."
+        },
+        {
+          "en": "Leave the outdoor cabinet closed; anything behind the panel is technician work.",
+          "ur": "Outdoor cabinet na kholein; panel ke piche ka kaam technician ka hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "relatedCodes": [
+        "P4"
+      ],
+      "confidence": "high",
+      "notes": {
+        "en": "The N-1 chart misprints IPM as 'IBM' and calls it IGBT over-strong current protection; Ample Air flags the same misprint.",
+        "ur": "N-1 chart IPM ki jagah 'IBM' likha karata hai aur IGBT over-strong current protection kehta hai; Ample Air bhi isi misprint ko batata hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Carrier Elite 42LUVH055N / 065N / 075N - Indoor Unit Error Display (Carrier AU fault-code library)",
+        "url": "https://toshiba-aircon.com.au/techdocs/api/files/246",
+        "retrieved": "2026-09-25"
+      }
+    },
+    {
+      "code": "P1",
+      "aliases": [
+        "P1"
+      ],
+      "title": {
+        "en": "Over voltage or low voltage protection",
+        "ur": "Over voltage ya low voltage protection"
+      },
+      "meaning": {
+        "en": "The supply voltage went outside the safe window, high or low, and the unit shut down.",
+        "ur": "Supply voltage safe range se bahar chali gayi, zyada ya kam, aur unit band ho gayi."
+      },
+      "causes": [
+        {
+          "en": "Mains voltage is too high, too low or unstable for the electronics.",
+          "ur": "Mains voltage electronics ke liye zyada/kam ya unstable hai."
+        },
+        {
+          "en": "Three-phase supply is missing a phase or the phase order is reversed.",
+          "ur": "Teen-phase supply mein phase missing hai ya phase order ulti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check mains voltage at the terminals; run again only when the supply is normal.",
+          "ur": "Terminal par mains voltage check karein; supply normal hone par hi dobara chalayein."
+        },
+        {
+          "en": "Put the unit behind a proper voltage stabilizer/protector and retest.",
+          "ur": "Unit ke aage sahi stabilizer/protector lagayein aur dobara test karein."
+        },
+        {
+          "en": "Power off at the breaker for 10 minutes, switch back on and run the unit once.",
+          "ur": "Breaker se 10 minute power off karein, phir on karke unit ek baar chalayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "relatedCodes": [
+        "P0"
+      ],
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Carrier Elite 42LUVH055N / 065N / 075N - Indoor Unit Error Display (Carrier AU fault-code library)",
+        "url": "https://toshiba-aircon.com.au/techdocs/api/files/246",
+        "retrieved": "2026-09-25"
+      }
+    },
+    {
+      "code": "P2",
+      "aliases": [
+        "P2"
+      ],
+      "title": {
+        "en": "Compressor top temperature protection",
+        "ur": "Compressor top ka temperature protection"
+      },
+      "meaning": {
+        "en": "The top of the compressor has overheated, so the unit has stopped it before damage.",
+        "ur": "Compressor ka top overheat ho gaya hai, is liye unit ne nuqsan se pehle band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Compressor is running hot from low gas, a dirty coil or a heavy load.",
+          "ur": "Gas kam, coil ganda ya load zyada hone se compressor garam ho raha hai."
+        },
+        {
+          "en": "Refrigerant charge is low because the circuit has leaked.",
+          "ur": "Circuit mein gas leak hone ki wajah se charge kam hai."
+        },
+        {
+          "en": "Indoor or outdoor heat exchanger is choked with dust and cannot breathe.",
+          "ur": "Indoor ya outdoor heat exchanger dust se band hai, unit saans nahi le pa rahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Service the unit: clean filters and coils, then check running pressures and amps.",
+          "ur": "Unit ka service karein: filter/coil saaf karein, phir pressure aur ampere check karein."
+        },
+        {
+          "en": "Have the circuit pressure-tested for leaks, then vacuum and re-gas to spec.",
+          "ur": "Circuit ka leak test karwayein, phir vacuum karke specification ke mutabiq gas bharwayein."
+        },
+        {
+          "en": "Technician to check compressor winding, amp draw and starting gear before any restart.",
+          "ur": "Technician compressor ki winding, ampere aur starting gear check kare, phir hi restart karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "relatedCodes": [
+        "P4"
+      ],
+      "confidence": "high",
+      "notes": {
+        "en": "The N-1 diagnosis flowchart for this code walks charge, circuit blockage and compressor checks, so gas work is on the table.",
+        "ur": "Is code ke N-1 flowchart mein charge, circuit blockage aur compressor checks hain, is liye gas ka kaam mumkin hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Carrier Elite 42LUVH055N / 065N / 075N - Indoor Unit Error Display (Carrier AU fault-code library)",
+        "url": "https://toshiba-aircon.com.au/techdocs/api/files/246",
+        "retrieved": "2026-09-25"
+      }
+    },
+    {
+      "code": "P4",
+      "aliases": [
+        "P4"
+      ],
+      "title": {
+        "en": "Inverter compressor drive error",
+        "ur": "Inverter compressor drive kharabi"
+      },
+      "meaning": {
+        "en": "The electronics driving the inverter compressor have reported a fault.",
+        "ur": "Inverter compressor chalane wale electronics ne fault bataya hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter/IPM has tripped on over-current, usually from a short in the compressor or drive.",
+          "ur": "Inverter/IPM over-current par trip hua, aksar compressor ya drive mein short se."
+        },
+        {
+          "en": "Compressor is not picking up speed - weak starting gear or a seized rotor.",
+          "ur": "Compressor speed nahi pakad raha - starting gear kamzor ya rotor jam hai."
+        },
+        {
+          "en": "Compressor lead wiring or drive output is out of sequence.",
+          "ur": "Compressor ki wiring ya drive output ki sequence ghalat hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and leave it off; repeated resets on an IPM trip can kill the compressor.",
+          "ur": "Band karke waise hi chhor dein; IPM trip par bar bar reset se compressor kharab ho sakta hai."
+        },
+        {
+          "en": "Technician to check compressor winding, amp draw and starting gear before any restart.",
+          "ur": "Technician compressor ki winding, ampere aur starting gear check kare, phir hi restart karein."
+        },
+        {
+          "en": "If the wiring and sensors test fine, the main board needs replacing.",
+          "ur": "Wiring aur sensor theek nikle to main board badalna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "relatedCodes": [
+        "P0",
+        "P2"
+      ],
+      "confidence": "high",
+      "notes": {
+        "en": "E4 and P3 are reserved on this series, so P4 is the last protection code in the set.",
+        "ur": "Is series mein E4 aur P3 reserved hain, is liye P4 is set ka last protection code hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Carrier Elite 42LUVH055N / 065N / 075N - Indoor Unit Error Display (Carrier AU fault-code library)",
+        "url": "https://toshiba-aircon.com.au/techdocs/api/files/246",
+        "retrieved": "2026-09-25"
+      }
+    }
+  ]
+}

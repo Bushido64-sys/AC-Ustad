@@ -1,0 +1,2035 @@
+{
+  "schemaVersion": 1,
+  "brandId": "voltronic-platform",
+  "series": {
+    "id": "table-b-infini",
+    "name": "Table B — InfiniSolar hybrid + parallel",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*INFINI*",
+      "*HYBRID*2*",
+      "*HYBRID*3*",
+      "*HYBRID*5*",
+      "*HYBRID*6*"
+    ],
+    "notes": "Official InfiniSolar VII: faults 01-12/51-53/55-58 + W-warnings + parallel 60/71/72/73/80-86. No published beep column on B warnings. Parallel 73/86 revision-scoped."
+  },
+  "codes": [
+    {
+      "code": "01",
+      "aliases": [
+        "01",
+        "1"
+      ],
+      "title": {
+        "en": "Fan locked",
+        "ur": "Pankha band"
+      },
+      "meaning": {
+        "en": "Fan stalled; fan fault.",
+        "ur": "Pankha ruka hawa fan kharabi."
+      },
+      "causes": [
+        {
+          "en": "Fan fault.",
+          "ur": "Pankha kharab"
+        },
+        {
+          "en": "Fan connector loose or fan supply wire broken.",
+          "ur": "Fan ka connection dheela hai ya supply wire tooti hui hai."
+        },
+        {
+          "en": "Main board fan driver circuit failed.",
+          "ur": "Main board ka fan driver circuit kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC input and PV, open the DC breaker and wait 5 minutes; then open the cover and look for dust, wires or a foreign object blocking the fan blades.",
+          "ur": "Pehle AC input aur PV band karein, DC breaker kholein aur 5 minute intezar karein; phir cover khol kar dekhein ke pankha ki blades par dhool, taar ya koi cheez atki hui hai."
+        },
+        {
+          "en": "With power isolated, spin the fan by hand — it must turn freely; check the fan plug is seated on the board and has no burn marks.",
+          "ur": "Power band hone ke baad pankha haath se ghuma kar dekhein — ise azaadi se ghumna chahiye; fan ka plug board par theek laga hai aur us par jale hue nishan to nahin, yeh check karein."
+        },
+        {
+          "en": "If the fan is stuck or does not run after restart, replace it with the same size fan and retest the unit.",
+          "ur": "Agar pankha atka hua hai ya restart ke baad bhi nahin chalta, to usi size ka naya fan lagayein aur unit ko dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Fault table wording 'Fan locked'; troubleshooting row 'Fault code 01 Fan fault'. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Fault table ki wording 'Fan locked' hai; troubleshooting row mein 'Fault code 01 Fan fault' likha hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "02",
+      "aliases": [
+        "02",
+        "2"
+      ],
+      "title": {
+        "en": "Over temperature",
+        "ur": "zyada darja hararat"
+      },
+      "meaning": {
+        "en": "Internal over-temperature trip.",
+        "ur": "Andaruni over-temperature trip."
+      },
+      "causes": [
+        {
+          "en": "Internal temperature of inverter component is over 100°C.",
+          "ur": "Inverter ka temperature 100°C se zyada"
+        },
+        {
+          "en": "Temperature of internal converter component is over 120°C.",
+          "ur": "Converter ka temperature 120°C se zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off AC input and PV, let the unit cool for 10–15 minutes, and clear anything blocking the vents; clean dust from the filters and heat sinks.",
+          "ur": "AC input aur PV band kar ke unit ko 10-15 minute thanda hone dein, vent ke saamne jo rukawat hai hata dein; filters aur heat sinks se dhool saaf karein."
+        },
+        {
+          "en": "After cooling, restart the unit with a lighter load and listen that the cooling fan runs; also check the room ambient is not too hot.",
+          "ur": "Thanda hone par kam load ke sath unit restart karein aur sun kar maaloom karein ke pankha chal raha hai; kamre ka temperature bhi check karein ke woh bohat zyada to nahin."
+        },
+        {
+          "en": "If the trip comes back with clear airflow, the temperature sensor or fan is faulty — have the board checked at the service centre.",
+          "ur": "Agar hawa ka rasta saaf hone ke baad bhi trip wapas aa jaye, to temperature sensor ya pankha kharab hai — board ko service centre se check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-B).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-B)."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "03",
+      "aliases": [
+        "03",
+        "3"
+      ],
+      "title": {
+        "en": "Battery voltage is too high",
+        "ur": "battery voltage zyada"
+      },
+      "meaning": {
+        "en": "Battery voltage above limit / over-charged.",
+        "ur": "Battery voltage had se zyada / over charge"
+      },
+      "causes": [
+        {
+          "en": "Battery is over-charged.",
+          "ur": "Battery over charge"
+        },
+        {
+          "en": "The battery voltage is too high.",
+          "ur": "battery voltage bohat zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Battery over-charged: return to repair center.",
+          "ur": "Over charge: marammat ka markaz"
+        },
+        {
+          "en": "Check if spec and quantity of batteries meet requirements.",
+          "ur": "Battery ki specification aur quantity check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-B).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-B)."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "04",
+      "aliases": [
+        "04",
+        "4"
+      ],
+      "title": {
+        "en": "Battery voltage is too low",
+        "ur": "battery voltage kam"
+      },
+      "meaning": {
+        "en": "Battery voltage below operating threshold; unit trips.",
+        "ur": "Battery voltage operating had se neeche; unit trip ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "The battery voltage is too low (<1.91V/Cell).",
+          "ur": "voltage bohat kam (<1.91V/cell)"
+        },
+        {
+          "en": "Battery voltage far too low (<1.4V/Cell) or polarity reversed / fuse tripped.",
+          "ur": "Voltage bahat kam (<1.4V/Cell), polarity ulti ho gayi ya fuse trip ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV first, then measure the battery pack voltage with a multimeter; charge the battery before any further testing.",
+          "ur": "Pehle AC input aur PV alag karein, phir multimeter se battery pack ka voltage naapein; aur testing se pehle battery ko charge kar lein."
+        },
+        {
+          "en": "Check battery polarity, terminals and the main fuse with power isolated; a reversed connection or blown fuse must be fixed first.",
+          "ur": "Power band kar ke battery ki polarity, terminals aur main fuse check karein; ulti connection ya uda hua fuse pehle theek karna zaroori hai."
+        },
+        {
+          "en": "Load-test the battery — if voltage collapses under load or a cell is dead, recharge or replace the battery and restart the unit.",
+          "ur": "Battery ka load-test karein — load par voltage gir jaye ya koi cell khaali ho to battery charge ya replace kar ke unit dobara start karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "No dedicated troubleshooting row for code 04; actions from startup-shutdown rows describing same condition. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Code 04 ke liye koi alag troubleshooting row nahin hai; actions usi haalat wali startup-shutdown rows se aate hain. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "05",
+      "aliases": [
+        "05",
+        "5"
+      ],
+      "title": {
+        "en": "Output short circuited",
+        "ur": "output short circuit"
+      },
+      "meaning": {
+        "en": "Output short circuit detected.",
+        "ur": "Output short circuit ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Output short circuited.",
+          "ur": "output short circuit"
+        },
+        {
+          "en": "Damaged appliance or tool causing the short on the output.",
+          "ur": "Koi kharab appliance ya tool output par short bana raha hai."
+        },
+        {
+          "en": "Moisture or loose joint in the output wiring.",
+          "ur": "Output wiring mein pani (moisture) ya dheela joint hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Stop the unit and isolate AC input and PV immediately — never probe a suspected short while the output is live.",
+          "ur": "Unit rok dein aur foran AC input aur PV alag karein — output chalte hue suspected short par kabhi probe na karein."
+        },
+        {
+          "en": "With supply isolated, check the output wiring and each appliance for short marks, burning or wet joints; unplug the suspect load.",
+          "ur": "Supply band kar ke output wiring aur har appliance check karein ke short ke nishan, jalan ya geele joints to nahin; shak wala load plug se nikaal dein."
+        },
+        {
+          "en": "Remove the shorted load or repair the wiring, then restart; if the code returns, the output stage needs service.",
+          "ur": "Short load hatayein ya wiring theek karein, phir restart karein; code wapas aaye to output stage ki service zaroori hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Electrically hazardous until wiring fault removed. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Wiring fault hataye nahin jane tak electrical khatra hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "06",
+      "aliases": [
+        "06",
+        "6"
+      ],
+      "title": {
+        "en": "Output voltage abnormal",
+        "ur": "output voltage ghair mamooli"
+      },
+      "meaning": {
+        "en": "AC output voltage outside acceptable band.",
+        "ur": "AC output voltage qubool had ke bahar."
+      },
+      "causes": [
+        {
+          "en": "Output abnormal (inverter voltage below 190Vac or higher than 260Vac).",
+          "ur": "output ghair mamooli (190Vac se kam ya 260Vac se zyada)"
+        },
+        {
+          "en": "Heavy load drags the output voltage outside the band.",
+          "ur": "Bhari load ki wajah se output voltage band se bahar chala jata hai."
+        },
+        {
+          "en": "Output stage / AVR component on the main board failed.",
+          "ur": "Main board ka output stage ya AVR component kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "First switch off heavy loads and non-essential equipment so the inverter runs light, then measure the AC output with a multimeter.",
+          "ur": "Sab se pehle bhari load aur zaroori na honay wale appliances band kar dein taake inverter halke load par chale, phir multimeter se AC output naapein."
+        },
+        {
+          "en": "With the unit isolated from mains, check the output wiring and terminal connections for looseness or burn marks.",
+          "ur": "Unit ko mains se alag kar ke output wiring aur terminal connections check karein ke kahin dheela ya jale hue nishan to nahin."
+        },
+        {
+          "en": "If the output is still outside the limit with a light load, stop and return the unit to the repair centre — the output stage needs service.",
+          "ur": "Agar halke load par bhi output phir bhi limit se bahar rahe, to unit ko repair centre le jayein — output stage ki service zaroori hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Shared troubleshooting row with fault 58. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Is ka shared troubleshooting row fault 58 ke sath hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "07",
+      "aliases": [
+        "07",
+        "7"
+      ],
+      "title": {
+        "en": "Over load time out",
+        "ur": "Over load timeout"
+      },
+      "meaning": {
+        "en": "More than 110% load until time is up; output cut.",
+        "ur": "110% se zyada load par waqt khatam; output band."
+      },
+      "causes": [
+        {
+          "en": "The inverter is overloaded 110% and time is up.",
+          "ur": "Inverter 110% se zyada load par tha aur waqt khatam ho gaya."
+        },
+        {
+          "en": "Too many appliances started together at the same time.",
+          "ur": "Ek sath bohat sare appliances start ho gaye."
+        },
+        {
+          "en": "Motor or pump drawing more than its rated current.",
+          "ur": "Motor ya pump apne rated current se zyada kha raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off non-essential equipment so the load drops below the inverter rating, then restart the unit.",
+          "ur": "Zaroori na honay wale appliances band kar dein taake load inverter rating se neeche aa jaye, phir unit restart karein."
+        },
+        {
+          "en": "Check the load with a clamp meter if available — motors and pumps can draw more than their nameplate current.",
+          "ur": "Agar clamp meter ho to load check karein — motors aur pumps nameplate current se zyada kha sakte hain."
+        },
+        {
+          "en": "Restart only after the load is reduced; if it trips again, split the load across the day or have the unit checked.",
+          "ur": "Load kam hone ke baad hi restart karein; phir trip ho to load aadhe aadhe kar ke baant dein ya unit check karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Early counterpart W07. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Is ka early counterpart W07 hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "08",
+      "aliases": [
+        "08",
+        "8"
+      ],
+      "title": {
+        "en": "Bus voltage is too high",
+        "ur": "Bus voltage zyada"
+      },
+      "meaning": {
+        "en": "Internal DC bus over-voltage trip.",
+        "ur": "Andaruni DC bus par over-voltage trip."
+      },
+      "causes": [
+        {
+          "en": "Internal components failed.",
+          "ur": "Andaruni components kharab"
+        },
+        {
+          "en": "Load dump or regenerative energy pushed the DC bus above the limit.",
+          "ur": "Load dump ya regenerative energy ne DC bus ko limit se upar kar diya."
+        },
+        {
+          "en": "DC bus capacitor or bleed resistor failed.",
+          "ur": "DC bus capacitor ya bleed resistor kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, switch off AC input and PV and wait 5 minutes; do not probe the DC bus — dangerous voltage stays stored in the capacitors.",
+          "ur": "Unit band karein, AC input aur PV off kar ke 5 minute intezar karein; DC bus par probe na rakhein — capacitors mein khatarnak voltage reh jata hai."
+        },
+        {
+          "en": "Open the cover only with supply isolated and look for burnt parts, bulged capacitors or loose connections; do not power it up again.",
+          "ur": "Sirf supply band hone par cover kholein aur jalay hue parts, phoolay hue capacitors ya dheele connections dekhein; dobara power na dein."
+        },
+        {
+          "en": "If the fault repeats after a restart, the bus or soft-start components have failed — send the unit to the repair centre.",
+          "ur": "Agar restart ke baad bhi fault aa jaye, to bus ya soft-start components kharab ho chuke hain — unit ko repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Grouped 08/09/53/57 in troubleshooting. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Troubleshooting ne 08/09/53/57 ko ek hi group mein rakha hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "09",
+      "aliases": [
+        "09",
+        "9"
+      ],
+      "title": {
+        "en": "Bus soft start failed",
+        "ur": "Bus soft start nakaam"
+      },
+      "meaning": {
+        "en": "Bus soft-start failure.",
+        "ur": "Bus soft start nakaam."
+      },
+      "causes": [
+        {
+          "en": "Internal components failed.",
+          "ur": "Andaruni components kharab"
+        },
+        {
+          "en": "DC bus capacitors did not charge evenly during soft-start.",
+          "ur": "Soft-start ke dauran DC bus capacitors barabar charge nahin hue."
+        },
+        {
+          "en": "Soft-start relay or resistor circuit fault.",
+          "ur": "Soft-start relay ya resistor circuit kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV, wait 5 minutes, then restart once and watch whether the bus comes up or the code returns immediately.",
+          "ur": "AC input aur PV alag kar ke 5 minute ruk kar ek baar restart karein aur dekhein ke bus upar aata hai ya code foran wapas aa jata hai."
+        },
+        {
+          "en": "Check the DC input wiring and main fuse for looseness or damage; do not probe the high-voltage bus yourself.",
+          "ur": "DC input wiring aur main fuse check karein ke dheela ya kharab to nahin; high-voltage bus par khud probe na karein."
+        },
+        {
+          "en": "Since the bus soft-start stage has failed, send the unit to the repair centre for board-level repair.",
+          "ur": "Kyunki bus soft-start stage kharab hai, unit ko board-level repair ke liye repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Grouped 08/09/53/57. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Troubleshooting ne 08/09/53/57 ko ek hi group mein rakha hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "10",
+      "aliases": [
+        "10"
+      ],
+      "title": {
+        "en": "PV current over",
+        "ur": "PV current zyada"
+      },
+      "meaning": {
+        "en": "PV input current above limit (surge path).",
+        "ur": "PV input current had se zyada (surge ka rasta)."
+      },
+      "causes": [
+        {
+          "en": "Surge.",
+          "ur": "Surge aaya hai."
+        },
+        {
+          "en": "PV array larger than the unit input rating.",
+          "ur": "PV array unit ki input rating se bara hai."
+        },
+        {
+          "en": "Lightning or switching surge on the DC side.",
+          "ur": "DC side par lightning ya switching surge aaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter.",
+          "ur": "inverter re-start karein."
+        },
+        {
+          "en": "If the error message still remains, please contact your installer.",
+          "ur": "Agar error message phir bhi rahe to apne installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Troubleshooting cause cell reads only 'Surge'; restart-then-installer remedy row shared with 12/51/52/55. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Troubleshooting ki cause cell mein sirf 'Surge' likha hai; restart-then-installer remedy row 12/51/52/55 ke sath shared hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "11",
+      "aliases": [
+        "11"
+      ],
+      "title": {
+        "en": "PV voltage over",
+        "ur": "PV voltage zyada"
+      },
+      "meaning": {
+        "en": "PV input voltage above limit (>450V per troubleshooting).",
+        "ur": "PV input voltage had se zyada (troubleshooting ke mutabiq >450V)."
+      },
+      "causes": [
+        {
+          "en": "Solar input voltage is more than 450V.",
+          "ur": "solar input voltage 450V se zyada"
+        },
+        {
+          "en": "Too many modules in series for the array design.",
+          "ur": "Array design ke liye series mein modules zyada hain."
+        },
+        {
+          "en": "Cold weather raised Voc above the limit.",
+          "ur": "Sardi mein Voc limit se upar chala jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the PV DC isolator, then measure the array open-circuit voltage with a meter and confirm it is not above the 450V stated in troubleshooting.",
+          "ur": "PV DC isolator band karein, phir meter se array ka open-circuit voltage naapein aur confirm karein ke woh troubleshooting mein diye 450V se upar to nahin."
+        },
+        {
+          "en": "Reduce the number of PV modules in series so the voltage stays within the limit, then reconnect and restart.",
+          "ur": "Voltage limit ke andar rahe ke liye series mein PV modules ki tadad kam kar ke dobara connect kar ke restart karein."
+        },
+        {
+          "en": "Check panels for damage and DC connectors for burning or water; replace what is faulty before re-energising.",
+          "ur": "Panels mein kharabi aur DC connectors mein jalan ya paani check karein; dobara power se pehle jo kharab ho use badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "450V threshold stated in troubleshooting; array Voc spec varies by model (450/500VDC). Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Troubleshooting mein 450V threshold diya hai; array Voc spec model ke mutabiq badalti hai (450/500VDC). Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12"
+      ],
+      "title": {
+        "en": "Charge current over",
+        "ur": "charge current zyada"
+      },
+      "meaning": {
+        "en": "Charge / DC-DC over-current or surge.",
+        "ur": "Charge / DC-DC over-current ya surge."
+      },
+      "causes": [
+        {
+          "en": "DC/DC over current or surge (troubleshooting wording).",
+          "ur": "DC/DC over current ya surge (troubleshooting ka alfaz)."
+        },
+        {
+          "en": "Battery bank too small for the charge current.",
+          "ur": "Charge current ke muqable battery bank chhota hai."
+        },
+        {
+          "en": "Loose DC connection causing repeated current spikes.",
+          "ur": "Dheela DC connection bar bar current spikes de raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter.",
+          "ur": "re-start karein."
+        },
+        {
+          "en": "If the error message still remains, please contact your installer.",
+          "ur": "Agar error message phir bhi rahe to apne installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Wording mismatch inside one manual: fault table 'Charge current over' vs troubleshooting 'DC/DC over current or surge'. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Ek hi manual ke andar wording match nahin karti: fault table mein 'Charge current over' vs troubleshooting mein 'DC/DC over current or surge'. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "51",
+      "aliases": [
+        "51"
+      ],
+      "title": {
+        "en": "Over current or surge",
+        "ur": "Over current ya surge"
+      },
+      "meaning": {
+        "en": "Inverter over-current / surge trip.",
+        "ur": "Inverter over-current / surge trip kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Over current or surge.",
+          "ur": "Over current ya surge."
+        },
+        {
+          "en": "Motor or inductive load inrush current at start-up.",
+          "ur": "Motor ya inductive load ka start par inrush current."
+        },
+        {
+          "en": "Short or insulation fault on the output wiring.",
+          "ur": "Output wiring par short ya insulation fault."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter.",
+          "ur": "re-start karein."
+        },
+        {
+          "en": "If the error message still remains, please contact your installer.",
+          "ur": "Agar error message phir bhi rahe to apne installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-B).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-B)."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "52",
+      "aliases": [
+        "52"
+      ],
+      "title": {
+        "en": "Bus voltage is too low",
+        "ur": "Bus voltage kam"
+      },
+      "meaning": {
+        "en": "Internal DC bus under-voltage trip.",
+        "ur": "Andaruni DC bus under-voltage trip."
+      },
+      "causes": [
+        {
+          "en": "Bus voltage is too low.",
+          "ur": "Bus voltage kam."
+        },
+        {
+          "en": "Weak or discharged battery feeding the DC bus.",
+          "ur": "Battery kamzor ya discharge hai jo DC bus ko feed kar rahi hai."
+        },
+        {
+          "en": "Loose DC input connection or blown main fuse.",
+          "ur": "DC input ka connection dheela hai ya main fuse uda hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter.",
+          "ur": "re-start karein."
+        },
+        {
+          "en": "If the error message still remains, please contact your installer.",
+          "ur": "Agar error message phir bhi rahe to apne installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-B).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-B)."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "53",
+      "aliases": [
+        "53"
+      ],
+      "title": {
+        "en": "Inverter soft start failed",
+        "ur": "Inverter soft start nakaam"
+      },
+      "meaning": {
+        "en": "Inverter soft-start failure.",
+        "ur": "Inverter soft start nakaam."
+      },
+      "causes": [
+        {
+          "en": "Internal components failed.",
+          "ur": "Andaruni components kharab"
+        },
+        {
+          "en": "DC bus did not reach the level needed for inverter soft-start.",
+          "ur": "DC bus inverter soft-start ke liye zaroori level tak nahin pahuncha."
+        },
+        {
+          "en": "Gate drive or IGBT stage fault in the inverter bridge.",
+          "ur": "Inverter bridge ka gate drive ya IGBT stage kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC input and PV and wait 5 minutes before opening the unit for a visual check.",
+          "ur": "Unit band karein, AC input aur PV alag kar ke 5 minute intezar karein, phir cover khol kar nazar se check karein."
+        },
+        {
+          "en": "Restart once after cooling; if the same code appears again the inverter soft-start stage has failed.",
+          "ur": "Thanda hone ke baad ek baar restart karein; agar phir se wohi code aaye to inverter soft-start stage kharab ho gaya hai."
+        },
+        {
+          "en": "Do not keep cycling power — return the unit to the repair centre for board repair.",
+          "ur": "Bar bar power on-off na karein — unit ko board repair ke liye repair centre le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Grouped 08/09/53/57. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Troubleshooting ne 08/09/53/57 ko ek hi group mein rakha hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "55",
+      "aliases": [
+        "55"
+      ],
+      "title": {
+        "en": "Over DC offset in AC output",
+        "ur": "AC output mein DC offset zyada"
+      },
+      "meaning": {
+        "en": "DC offset / unbalanced AC output condition.",
+        "ur": "AC output mein DC offset ya unbalanced haalat hoti hai."
+      },
+      "causes": [
+        {
+          "en": "Output voltage is unbalanced (troubleshooting wording).",
+          "ur": "Output voltage unbalanced hai (troubleshooting wali wording)."
+        },
+        {
+          "en": "One output leg or relay contact has high resistance.",
+          "ur": "Kisi ek output leg ya relay contact par zyada resistance aa rahi hai."
+        },
+        {
+          "en": "Output filter capacitor degraded.",
+          "ur": "Output filter capacitor kamzor ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter.",
+          "ur": "re-start karein."
+        },
+        {
+          "en": "If the error message still remains, please contact your installer.",
+          "ur": "Agar error message phir bhi rahe to apne installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Table title vs troubleshooting title differ (DC offset vs unbalanced). Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Table title aur troubleshooting title alag hain (DC offset vs unbalanced). Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "56",
+      "aliases": [
+        "56"
+      ],
+      "title": {
+        "en": "Battery disconnected",
+        "ur": "battery munsalik nahin"
+      },
+      "meaning": {
+        "en": "Battery not connected / open connection or burnt fuse.",
+        "ur": "Battery munsalik nahin / connection khula hai ya fuse jal gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Battery is not connected well or fuse is burnt.",
+          "ur": "Battery theek se munsalik nahin ya fuse jal gaya hai."
+        },
+        {
+          "en": "Battery terminal corroded or clamp loose.",
+          "ur": "Battery terminal par zang lag gaya ya clamp dheela hai."
+        },
+        {
+          "en": "Battery empty after long standby.",
+          "ur": "Lambi standby ke baad battery bilkul khaali ho gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if battery is connected well (wiring, polarity, fuse).",
+          "ur": "battery connection polarity aur fuse check karein"
+        },
+        {
+          "en": "If the battery is connected well, please return to repair center.",
+          "ur": "Agar battery theek se munsalik ho to marammat ke markaz wapis jayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Fault-table counterpart of warning W19 (and older 'BP'). Absent from Axpert VM III table; present on V PF1/MKS as 'Battery connection is open'. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Yeh fault-table counterpart warning W19 (aur purana 'BP') hai. Axpert VM III table mein nahin milta; V PF1/MKS par 'Battery connection is open' ke tor par maujood hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "57",
+      "aliases": [
+        "57"
+      ],
+      "title": {
+        "en": "Current sensor failed",
+        "ur": "current sensor kharab"
+      },
+      "meaning": {
+        "en": "Current sensor failure.",
+        "ur": "Current sensor nakaam"
+      },
+      "causes": [
+        {
+          "en": "Internal components failed.",
+          "ur": "Andaruni components kharab"
+        },
+        {
+          "en": "Current sensor (CT/shunt) disconnected or damaged.",
+          "ur": "Current sensor (CT/shunt) disconnect ho gaya ya kharab hai."
+        },
+        {
+          "en": "Main board sensing circuit fault.",
+          "ur": "Main board ki sensing circuit kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV, wait 5 minutes, then restart once to see whether the code clears.",
+          "ur": "AC input aur PV alag kar ke 5 minute ruk kar ek baar restart karein aur dekhein ke code hat jata hai ya nahin."
+        },
+        {
+          "en": "Open the unit with power isolated and check that the current sensor (CT/shunt) connector is seated and undamaged.",
+          "ur": "Power band kar ke unit kholein aur check karein ke current sensor (CT/shunt) ka connector theek laga hai ya kharab to nahin."
+        },
+        {
+          "en": "The sensor or its board circuit has failed — send the unit to the repair centre for replacement.",
+          "ur": "Sensor ya us ka board circuit kharab ho gaya hai — unit ko replacement ke liye repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Grouped 08/09/53/57. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Troubleshooting ne 08/09/53/57 ko ek hi group mein rakha hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "58",
+      "aliases": [
+        "58"
+      ],
+      "title": {
+        "en": "Output voltage is too low",
+        "ur": "output voltage kam"
+      },
+      "meaning": {
+        "en": "AC output voltage low/abnormal.",
+        "ur": "AC output voltage kam/ghair mamooli"
+      },
+      "causes": [
+        {
+          "en": "Output abnormal (below 190Vac or above 260Vac).",
+          "ur": "output ghair mamooli (190Vac se kam ya 260Vac se zyada)"
+        },
+        {
+          "en": "Heavy load or long output cable causing voltage drop.",
+          "ur": "Bhari load ya lambi output cable ki wajah se voltage drop ho raha hai."
+        },
+        {
+          "en": "Weak battery or failing output stage.",
+          "ur": "Battery kamzor hai ya output stage kharab ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load and restart; measure the AC output with a multimeter to see whether it stays below the limit.",
+          "ur": "Load kam kar ke restart karein; multimeter se AC output naapein ke woh limit se neeche rahta hai ya nahin."
+        },
+        {
+          "en": "Check the battery voltage under load and the output wiring for loose joints — both drag the output down.",
+          "ur": "Load par battery voltage aur output wiring ke dheele joints check karein — dono output ko neeche kheenchte hain."
+        },
+        {
+          "en": "If the voltage is still low after these steps, return the unit to the repair centre.",
+          "ur": "In steps ke baad bhi voltage kam rahe, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Shared troubleshooting row with fault 06. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Is ka shared troubleshooting row fault 06 ke sath hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon on; red LED solid; buzzer beeps continuously."
+    },
+    {
+      "code": "W01",
+      "aliases": [
+        "W01"
+      ],
+      "title": {
+        "en": "Fan locked",
+        "ur": "Pankha band"
+      },
+      "meaning": {
+        "en": "Fan stalled while inverter runs (warning stage).",
+        "ur": "Inverter chalte huey pankha ruk gaya hai (warning stage)."
+      },
+      "causes": [
+        {
+          "en": "Fan obstructed or failing.",
+          "ur": "Pankha mein rukawat ya kharabi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Escalates to fault 01. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Yeh fault 01 par escalate hota hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; red LED flashing; no audible-alarm column published for Table B."
+    },
+    {
+      "code": "W02",
+      "aliases": [
+        "W02"
+      ],
+      "title": {
+        "en": "Over temperature",
+        "ur": "zyada darja hararat"
+      },
+      "meaning": {
+        "en": "Over-temperature warning while running.",
+        "ur": "Chalte hue over-temperature warning."
+      },
+      "causes": [
+        {
+          "en": "Internal temperature rising (same physical condition as fault 02, earlier stage).",
+          "ur": "Andaruni temperature barh rahi hai (fault 02 wala hi haalat, pehli stage)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Cause link to fault 02 is KB interpretation. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Fault 02 se cause link KB ka interpretation hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; red LED flashing; no beep documented."
+    },
+    {
+      "code": "W03",
+      "aliases": [
+        "W03"
+      ],
+      "title": {
+        "en": "Battery over charged",
+        "ur": "Battery over charge"
+      },
+      "meaning": {
+        "en": "Over-charge warning while running.",
+        "ur": "Chalte hue over-charge warning."
+      },
+      "causes": [
+        {
+          "en": "Charging above over-charge threshold.",
+          "ur": "Charging had se zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Escalates to fault 03. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Yeh fault 03 par escalate hota hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; red LED flashing; no beep documented."
+    },
+    {
+      "code": "W04",
+      "aliases": [
+        "W04"
+      ],
+      "title": {
+        "en": "Low battery",
+        "ur": "kam battery"
+      },
+      "meaning": {
+        "en": "Low battery warning; unit still operating.",
+        "ur": "Low battery warning; unit chal raha hai."
+      },
+      "causes": [
+        {
+          "en": "Discharge approaching low-level point.",
+          "ur": "Discharge low-level point ke qareeb par hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Escalates to fault 04. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Yeh fault 04 par escalate hota hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; red LED flashing; no beep documented."
+    },
+    {
+      "code": "W07",
+      "aliases": [
+        "W07"
+      ],
+      "title": {
+        "en": "Overload",
+        "ur": "Over load"
+      },
+      "meaning": {
+        "en": "Overload warning before timeout trip.",
+        "ur": "Timeout trip se pehle overload warning."
+      },
+      "causes": [
+        {
+          "en": "Load exceeds rating.",
+          "ur": "load had se zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Early version of fault 07; shed load. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Fault 07 ka early version hai; load kam kar dein. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; red LED flashing; no beep documented."
+    },
+    {
+      "code": "W10",
+      "aliases": [
+        "W10"
+      ],
+      "title": {
+        "en": "Inverter power derating",
+        "ur": "inverter power derating"
+      },
+      "meaning": {
+        "en": "Output power being derated (e.g. PV over-spec).",
+        "ur": "Output power derate ho rahi hai (jaise PV over-spec)."
+      },
+      "causes": [
+        {
+          "en": "Conditions forcing derating (PV current over path).",
+          "ur": "Aise haalat jin ki wajah se derating lagti hai (PV current over wala rasta)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Spec section: 5000/6000 output power derates when PV current 7.2A–8.4A or AC input voltage 110–140VAC. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Spec section: 5000/6000 output power tab derate hota hai jab PV current 7.2A–8.4A ho ya AC input voltage 110–140VAC ho. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; red LED flashing; no beep documented."
+    },
+    {
+      "code": "W15",
+      "aliases": [
+        "W15"
+      ],
+      "title": {
+        "en": "PV is weak",
+        "ur": "PV kamzor"
+      },
+      "meaning": {
+        "en": "PV harvest too low for current demand.",
+        "ur": "PV power kam"
+      },
+      "causes": [
+        {
+          "en": "Low irradiance / shading / array issue.",
+          "ur": "Kam shade, dhund ya array ke aal par ghaan."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "See manual / service centre",
+          "ur": "Manual / service centre dekhein"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Named 'PV energy is low' on Axpert VM III (W15). Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Axpert VM III par isi event ko 'PV energy is low' (W15) naam diya gaya hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; red LED flashing; no beep documented."
+    },
+    {
+      "code": "W19",
+      "aliases": [
+        "W19"
+      ],
+      "title": {
+        "en": "Battery is not connected",
+        "ur": "battery munsalik nahin"
+      },
+      "meaning": {
+        "en": "Battery not detected/connected at operation.",
+        "ur": "battery nahin mili/munsalik nahin."
+      },
+      "causes": [
+        {
+          "en": "Wire connection or fuse was burnt (troubleshooting wiring rows).",
+          "ur": "Wire connection ya fuse jal gaya (troubleshooting)."
+        },
+        {
+          "en": "Battery disconnected; relay switching on/off repeatedly at startup.",
+          "ur": "battery nikli start par relay bar bar on/off"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the wire connection and the polarity of the battery cables.",
+          "ur": "Wire connection aur battery cables ki polarity check karein."
+        },
+        {
+          "en": "Repair or replace main board if wiring is OK (start-up shutdown rows).",
+          "ur": "Agar wiring theek ho to main board ki marammat karein ya badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Event row official with code W19; causes/solutions from shared troubleshooting rows (medium). Counterparts: Axpert VM III blank-code row; VII WP 'BP'; InfiniSolar fault 56. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Event row official hai code W19 ke sath; causes/solutions shared troubleshooting rows se liye gaye hain (medium). Counterparts: Axpert VM III blank-code row; VII WP 'BP'; InfiniSolar fault 56. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; relay cycling on/off at startup; no beep documented."
+    },
+    {
+      "code": "60",
+      "aliases": [
+        "60"
+      ],
+      "title": {
+        "en": "Power feedback protection",
+        "ur": "Power feedback ki hifazat"
+      },
+      "meaning": {
+        "en": "Parallel power feedback detected; inverter shuts down and shows code 60.",
+        "ur": "Parallel power feedback detect hua; inverter band ho kar code 60 dikhata hai."
+      },
+      "causes": [
+        {
+          "en": "Parallel operation — power feedback into the inverter (wiring/phasing or grid-tie backfeed condition).",
+          "ur": "Parallel operation — inverter mein wapas aata power (wiring/phasing ya grid-tie backfeed ki haalat)."
+        },
+        {
+          "en": "L/N reversed between the paralleled units.",
+          "ur": "Parallel units ke darmiyan L/N ulta laga hua hai."
+        },
+        {
+          "en": "Current-sharing cable missing or wrong type.",
+          "ur": "Current-sharing cable missing hai ya ghalat type ki hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down all paralleled units and isolate AC input and PV — power feedback between units is dangerous until the wiring is corrected.",
+          "ur": "Tamam parallel units band kar ke AC input aur PV alag karein — wiring theek hone tak units ke darmiyan power feedback khatarnak hai."
+        },
+        {
+          "en": "Check the parallel wiring and L/N phasing between units with a meter, and confirm the current-sharing cables are fitted correctly.",
+          "ur": "Meter se units ke darmiyan parallel wiring aur L/N phasing check karein, aur confirm karein ke current-sharing cables theek lagi hain."
+        },
+        {
+          "en": "Do not re-energise until the installer has verified the wiring; contact your installer if the code remains.",
+          "ur": "Installer ke wiring verify karne tak dobara power na dein; code bana rahe to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "COLLISION: BMS Code Reference info 60 = stop charge/discharge. Solutions for parallel 60 exist in §9 of SRC-B (check wiring / contact installer). Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "COLLISION: BMS Code Reference info 60 = charge/discharge rok dena. Parallel 60 ke solutions SRC-B ki §9 mein mojood hain (wiring check karein / installer se rabta karein). Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon on; red LED solid; buzzer beeps continuously (fault)."
+    },
+    {
+      "code": "71",
+      "aliases": [
+        "71"
+      ],
+      "title": {
+        "en": "Firmware version inconsistent",
+        "ur": "Firmware version ghair mutabiq"
+      },
+      "meaning": {
+        "en": "Firmware versions across parallel units differ → shutdown + code 71.",
+        "ur": "Parallel units ke firmware versions alag alag hain → unit off + code 71."
+      },
+      "causes": [
+        {
+          "en": "Different firmware versions installed in the parallel system.",
+          "ur": "Parallel system mein alag-alag firmware versions lage hue hain."
+        },
+        {
+          "en": "One unit was upgraded while the others stayed on the old package.",
+          "ur": "Ek unit upgrade ho gayi, baqi purane package par reh gayin."
+        },
+        {
+          "en": "Replacement board fitted with newer firmware.",
+          "ur": "Nayi board lagayi gayi jisme firmware zyada naya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note the firmware/CPU version shown on each unit and compare them — all paralleled units must run the same version.",
+          "ur": "Har unit par dikhai firmware/CPU version note kar ke compare karein — sab parallel units par wohi version hona chahiye."
+        },
+        {
+          "en": "Do not keep running the system with mixed versions; contact your installer for the correct firmware package.",
+          "ur": "Alag alag versions ke sath system chalate na rahein; sahi firmware package ke liye installer se rabta karein."
+        },
+        {
+          "en": "Upgrade all units to the same version and restart the parallel system to confirm the code clears.",
+          "ur": "Tamam units ko ek hi version par upgrade kar ke parallel system restart karein aur confirm karein ke code hat gaya."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "COLLISION: BMS Code Reference info 71 = stop discharging. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "COLLISION: BMS Code Reference info 71 = discharging rok dena. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon on; red LED solid; buzzer beeps continuously (fault)."
+    },
+    {
+      "code": "72",
+      "aliases": [
+        "72"
+      ],
+      "title": {
+        "en": "Current sharing fault",
+        "ur": "current sharing kharabi"
+      },
+      "meaning": {
+        "en": "Unequal current sharing between parallel units → shutdown + code 72.",
+        "ur": "Parallel units mein current barabar nahi banta → off + code 72"
+      },
+      "causes": [
+        {
+          "en": "Current sharing out of balance in parallel operation.",
+          "ur": "Parallel operation mein current sharing balance ke bahar hai."
+        },
+        {
+          "en": "Output N wires not commoned between units.",
+          "ur": "Units ke darmiyan output N wires common nahin hain."
+        },
+        {
+          "en": "Unequal cable length or loose sharing connection.",
+          "ur": "Cable ki lambai alag alag hai ya sharing connection dheela hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the paralleled units and isolate supplies before checking any parallel wiring.",
+          "ur": "Parallel wiring check se pehle tamam units band kar ke supplies alag karein."
+        },
+        {
+          "en": "Check that the output N wires are commoned and the current-sharing cables are tight, equal in length and the right type.",
+          "ur": "Check karein ke output N wires common hain aur current-sharing cables tight, lambai mein barabar aur sahi type ki hain."
+        },
+        {
+          "en": "Balance the load across the units, restart, and if the code remains contact your installer.",
+          "ur": "Units mein load barabar baant kar restart karein, aur code bana rahe to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-B).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-B)."
+      },
+      "blinkPattern": "Icon on; red LED solid; buzzer beeps continuously (fault)."
+    },
+    {
+      "code": "73",
+      "aliases": [
+        "73"
+      ],
+      "title": {
+        "en": "AC output setting is different.",
+        "ur": "AC output setting alag hai."
+      },
+      "meaning": {
+        "en": "AC output configuration differs across parallel units → shutdown + code 73.",
+        "ur": "parallel units ki AC output setting alag → off + code 73"
+      },
+      "causes": [
+        {
+          "en": "Different AC output settings between units.",
+          "ur": "Units ke darmiyan AC output settings alag hain."
+        },
+        {
+          "en": "Voltage/frequency set points changed on one unit only.",
+          "ur": "Sirf ek unit par voltage/frequency set points badal diye gaye."
+        },
+        {
+          "en": "Output mode or ECO setting mismatch between units.",
+          "ur": "Units ke darmiyan output mode ya ECO setting mein farq hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power down the paralleled units and note the AC output settings (voltage, frequency, mode) shown in each unit's menu.",
+          "ur": "Parallel units band kar ke har unit ke menu mein AC output settings (voltage, frequency, mode) note karein."
+        },
+        {
+          "en": "Compare the settings and set every unit to the same values; a mismatch here causes the shutdown with code 73.",
+          "ur": "Settings compare kar ke har unit par wohi values set karein; yahan farq hone par code 73 ke sath shutdown ho jata hai."
+        },
+        {
+          "en": "If the settings already match or the code returns after aligning them, contact your installer or the service centre.",
+          "ur": "Agar settings pehle se barabar hain ya align karne ke baad code wapas aaye, to installer ya service centre se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Present in fault-display table of SRC-B (20210726) and SRC-B18 (20180124) but **no solution row** in official troubleshooting; SRC-B2P (20201207) parallel table has no 73 at all (revision-scoped). Remedy inferred: align AC output settings — keep solutions empty per no-invention rule; notes capture inference. Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "SRC-B (20210726) aur SRC-B18 (20180124) ki fault-display table mein maujood hai lekin official troubleshooting mein **koi solution row nahin**; SRC-B2P (20201207) parallel table mein 73 bilkul nahin (revision-scoped). Remedy infer kiya gaya: AC output settings align karein — no-invention rule ke tehat solutions khali rakhe hain; inference notes mein rakha hai. Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon on; red LED solid; buzzer beeps continuously (fault)."
+    },
+    {
+      "code": "80",
+      "aliases": [
+        "80"
+      ],
+      "title": {
+        "en": "CAN fault",
+        "ur": "CAN kharabi"
+      },
+      "meaning": {
+        "en": "CAN bus communication fault between parallel units.",
+        "ur": "Parallel units ke CAN bus ka rabta kharab hai."
+      },
+      "causes": [
+        {
+          "en": "CAN wiring/connection fault.",
+          "ur": "CAN wiring/connection kharab"
+        },
+        {
+          "en": "CAN cable disconnected or connector pin damaged.",
+          "ur": "CAN cable nikli hui hai ya connector pin tooti hui hai."
+        },
+        {
+          "en": "Communication port on one unit is faulty.",
+          "ur": "Ek unit ka communication port kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power down the units and isolate AC input before touching the communication wiring.",
+          "ur": "Communication wiring chhoone se pehle units band kar ke AC input alag karein."
+        },
+        {
+          "en": "Check the CAN cable at both ends — it must be fully plugged in with no broken pins or cuts in the cable.",
+          "ur": "CAN cable dono ends par check karein — pura plug lagna chahiye, pin tooti ya cable katna nahi chahiye."
+        },
+        {
+          "en": "Swap the cable with a known-good one and restart; if the code remains, contact your installer.",
+          "ur": "Cable ko kisi known-good cable se badal kar restart karein; phir bhi code bana rahe to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-B).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-B)."
+      },
+      "blinkPattern": "Icon on; red LED solid; buzzer beeps continuously (fault)."
+    },
+    {
+      "code": "81",
+      "aliases": [
+        "81"
+      ],
+      "title": {
+        "en": "Host loss",
+        "ur": "Host ki communication loss"
+      },
+      "meaning": {
+        "en": "Master/host unit lost in parallel system.",
+        "ur": "parallel system ka master/host gm"
+      },
+      "causes": [
+        {
+          "en": "Host unit offline or communication to host lost.",
+          "ur": "Host off line ya rabta toota hai."
+        },
+        {
+          "en": "Host unit powered off or tripped.",
+          "ur": "Host unit band ho gaya ya trip ho gaya."
+        },
+        {
+          "en": "Communication cable between host and slave units faulty.",
+          "ur": "Host aur slave units ke darmiyan communication cable kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check that the host (master) unit is powered on and has not tripped, then isolate supplies before checking wiring.",
+          "ur": "Pehle check karein ke host (master) unit on hai ya trip to nahin, phir supplies alag kar ke wiring check karein."
+        },
+        {
+          "en": "Check the communication cable between the host and the other units for looseness or damage and re-seat it.",
+          "ur": "Host aur units ke darmiyan communication cable dheela ya kharab to nahin, check kar ke dobara theek se lagayein."
+        },
+        {
+          "en": "Restart the system; if the host is still not detected, contact your installer.",
+          "ur": "System restart karein; agar host phir bhi detect nahin hota, to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-B).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-B)."
+      },
+      "blinkPattern": "Icon on; red LED solid; buzzer beeps continuously (fault)."
+    },
+    {
+      "code": "82",
+      "aliases": [
+        "82"
+      ],
+      "title": {
+        "en": "Synchronization loss",
+        "ur": "Synchronization kho gaya"
+      },
+      "meaning": {
+        "en": "AC phase synchronization lost between units.",
+        "ur": "Units ke darmiyan AC phase synchronization toot gayi."
+      },
+      "causes": [
+        {
+          "en": "Synchronization between inverters lost (wiring, grid, or unit fault).",
+          "ur": "Inverters ke darmiyan synchronization toot gayi (wiring, grid ya unit fault)."
+        },
+        {
+          "en": "AC input breakers switched on at different times.",
+          "ur": "AC input breakers alag alag waqt par on kiye gaye."
+        },
+        {
+          "en": "Grid phase or frequency shifted while running.",
+          "ur": "Chalte waqt grid phase ya frequency badal gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the units and isolate AC input before checking the parallel setup.",
+          "ur": "Parallel setup check se pehle units band kar ke AC input alag karein."
+        },
+        {
+          "en": "Turn on the AC input breakers of all units at the same time and check the mains wiring and phasing between them.",
+          "ur": "Tamam units ke AC input breakers ek sath on karein aur un ke darmiyan mains wiring aur phasing check karein."
+        },
+        {
+          "en": "If the units still lose sync after a simultaneous start, contact your installer — the grid or one unit may be faulty.",
+          "ur": "Ek sath start karne ke baad bhi units ka sync toota rahe, to installer se rabta karein — grid ya koi unit kharab ho sakti hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-B).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-B)."
+      },
+      "blinkPattern": "Icon on; red LED solid; buzzer beeps continuously (fault)."
+    },
+    {
+      "code": "83",
+      "aliases": [
+        "83"
+      ],
+      "title": {
+        "en": "Battery voltage detected different",
+        "ur": "Battery voltage alag detect hui"
+      },
+      "meaning": {
+        "en": "Battery bus voltages differ beyond limit across parallel units.",
+        "ur": "parallel units ki battery voltages had se alag hain"
+      },
+      "causes": [
+        {
+          "en": "Battery wiring/SoC mismatch between units.",
+          "ur": "Units ke darmiyan battery wiring/SoC mein farq hai."
+        },
+        {
+          "en": "Different battery strings or uneven charge level.",
+          "ur": "Alag alag battery strings hain ya charge level barabar nahin."
+        },
+        {
+          "en": "Long or thin battery cables causing voltage drop.",
+          "ur": "Lambi ya patli battery cables ki wajah se voltage drop ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate supplies, then measure the battery voltage at each unit's DC input with the same meter.",
+          "ur": "Supplies alag kar ke ek hi meter se har unit ke DC input par battery voltage naapein."
+        },
+        {
+          "en": "Check that all units share one battery bank and that cable length and size are equal; fix loose or thin cables.",
+          "ur": "Check karein ke sab units ek hi battery bank use karte hain aur cable ki lambai aur size barabar hai; dheeli ya patli cables theek karein."
+        },
+        {
+          "en": "Restart and confirm the readings match; if they still differ, contact your installer.",
+          "ur": "Restart kar ke confirm karein ke readings barabar hain; phir bhi farq rahe to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-B).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-B)."
+      },
+      "blinkPattern": "Icon on; red LED solid; buzzer beeps continuously (fault)."
+    },
+    {
+      "code": "84",
+      "aliases": [
+        "84"
+      ],
+      "title": {
+        "en": "AC input voltage and frequency detected different",
+        "ur": "AC input voltage aur frequency alag detect hui"
+      },
+      "meaning": {
+        "en": "AC input voltage/frequency readings differ across parallel units.",
+        "ur": "Parallel units par AC input voltage/frequency ki readings alag mili hain."
+      },
+      "causes": [
+        {
+          "en": "Different AC input sensing / mains condition between units.",
+          "ur": "Units ke darmiyan AC input sensing / mains ki haalat alag hai."
+        },
+        {
+          "en": "Loose AC input connection on one unit.",
+          "ur": "Ek unit par AC input connection dheela hai."
+        },
+        {
+          "en": "One unit connected on a different mains phase.",
+          "ur": "Ek unit dusre mains phase par lagi hui hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input, then check the mains wiring to each unit for loose terminals or a different phase.",
+          "ur": "AC input alag kar ke har unit ki mains wiring check karein ke terminals dheele ya phase alag to nahin."
+        },
+        {
+          "en": "Measure the mains voltage at each unit's input with a meter and compare the readings.",
+          "ur": "Meter se har unit ke input par mains voltage naapein aur readings compare karein."
+        },
+        {
+          "en": "Fix the wiring so all units see the same mains, restart, and contact your installer if the code remains.",
+          "ur": "Wiring theek kar ke sab units ko same mains dikhayein, restart karein aur code bana rahe to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-B).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-B)."
+      },
+      "blinkPattern": "Icon on; red LED solid; buzzer beeps continuously (fault)."
+    },
+    {
+      "code": "85",
+      "aliases": [
+        "85"
+      ],
+      "title": {
+        "en": "AC output current unbalance",
+        "ur": "AC output current unbalanced"
+      },
+      "meaning": {
+        "en": "AC output currents unbalanced across parallel units.",
+        "ur": "Parallel units ke AC output currents unbalanced hain."
+      },
+      "causes": [
+        {
+          "en": "Unequal load distribution across phases/units.",
+          "ur": "Phases/units par load barabar baant nahi hua."
+        },
+        {
+          "en": "Single-phase loads concentrated on one unit.",
+          "ur": "Sare single-phase load ek par lage hue hain."
+        },
+        {
+          "en": "Unequal AC output cable length between units.",
+          "ur": "Units ke darmiyan AC output cable ki lambai alag alag hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate supplies and check how the load is distributed across units and phases.",
+          "ur": "Supplies alag kar ke dekhein ke load units aur phases mein kaise banta hua hai."
+        },
+        {
+          "en": "Move some loads so each unit carries a similar share, and check the AC output cables are equal in length and type.",
+          "ur": "Kuch load hata kar har unit par thoda thoda load dein, aur AC output cables ki lambai aur type barabar check karein."
+        },
+        {
+          "en": "Restart and watch the output currents; if they stay unbalanced, contact your installer.",
+          "ur": "Restart kar ke output currents dekhein; agar unbalanced bane rahein, to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Platform reference entry (source SRC-B).",
+        "ur": "Yeh platform ka reference entry hai (source SRC-B)."
+      },
+      "blinkPattern": "Icon on; red LED solid; buzzer beeps continuously (fault)."
+    },
+    {
+      "code": "86",
+      "aliases": [
+        "86"
+      ],
+      "title": {
+        "en": "AC output mode setting is different",
+        "ur": "AC output mode setting alag hai."
+      },
+      "meaning": {
+        "en": "AC output mode (e.g. normal/ECO or parallel mode) differs across units → shutdown + code 86.",
+        "ur": "units ki AC output mode alag → off + code 86"
+      },
+      "causes": [
+        {
+          "en": "Different AC output mode settings between units.",
+          "ur": "units par alag output mode setting"
+        },
+        {
+          "en": "One unit left in a different ECO/normal output mode.",
+          "ur": "Ek unit alag ECO/normal output mode mein chhodi gayi hai."
+        },
+        {
+          "en": "Parallel mode program set differently after service.",
+          "ur": "Service ke baad parallel mode program alag alag set ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the units and open the AC output mode menu on each unit.",
+          "ur": "Units band kar ke har unit ka AC output mode menu kholein."
+        },
+        {
+          "en": "Compare the program/mode settings and set every unit to the same output mode (normal/ECO or parallel mode).",
+          "ur": "Program/mode settings compare kar ke har unit ko ek hi output mode (normal/ECO ya parallel mode) par set karein."
+        },
+        {
+          "en": "Power up together and confirm the code clears; if it returns, contact your installer.",
+          "ur": "Ek sath power on kar ke confirm karein ke code hat gaya; wapas aaye to installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Hybrid 2/3/5/6KW InfiniSolar VII manual-20210726 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/InfiniSolar%20VII%202KW-3KW-5KW-6KW%20manual-20210726.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Model-revision scoped: in parallel table of SRC-B and SRC-B2P; absent from older parallel subset 73-only lists. Paired with 73 conceptually (both are setting mismatches). Platform reference entry (table source SRC-B). Local brand rows may match but keep brand code space separate.",
+        "ur": "Model-revision scoped: SRC-B aur SRC-B2P ke parallel table mein hai; purani parallel subset 73-only lists mein nahin. Yeh 73 ke sath conceptually joda gaya hai (dono setting mismatches hain). Yeh platform ka reference entry hai (table source SRC-B). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon on; red LED solid; buzzer beeps continuously (fault)."
+    }
+  ]
+}

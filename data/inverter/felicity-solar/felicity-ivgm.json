@@ -1,0 +1,2249 @@
+{
+  "schemaVersion": 1,
+  "brandId": "felicity-solar",
+  "series": {
+    "id": "felicity-ivgm",
+    "name": "IVGM4K6/5K/6K LP1G1 hybrid inverter",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "IVGM4K6LP1G1",
+      "IVGM5KLP1G1",
+      "IVGM6KLP1G1",
+      "*IVGM*LP1G1*"
+    ],
+    "notes": "Pakistan launch SKU. Warning table (ch.8) and fault table (ch.9) reuse identical numeric strings with DIFFERENT meanings - always read whether the manual called it a warning or a fault. Cross-checked against the Apollo-4K6/5K6LP1G01-MX guide (doc 358-S010018-00) which prints a byte-identical code table; not duplicated here. Codes 03, 05, 08, 09, 12, 13, 18, 27, 32, 37, 41, 55-82, 84-86, 88+ are absent from the printed table."
+  },
+  "codes": [
+    {
+      "code": "Warning 25",
+      "aliases": [
+        "Warning 25",
+        "25",
+        "W25",
+        "Phase Sequence Errors"
+      ],
+      "title": {
+        "en": "Warning 25 Phase sequence error",
+        "ur": "Warning 25 Grid phase ka sequence ghalat"
+      },
+      "meaning": {
+        "en": "The input and output power lines do not correspond; the unit is in a setup state.",
+        "ur": "Input aur output power lines aik doosre se match nahi kar rahi; unit setup state mein hai."
+      },
+      "causes": [
+        {
+          "en": "Manual says this warning normally appears right after a three-phase parallel setup is finished, and is expected.",
+          "ur": "Manual ke mutabiq yeh warning three-phase parallel setup khatam hone ke foran baad aati hai aur normal hai."
+        },
+        {
+          "en": "Grid and load phases genuinely cross-connected on a three-phase parallel bank",
+          "ur": "Three-phase parallel bank par grid aur load ke phases haqeeqan aik doosre se Jude hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If parallel setup was just completed, switch the inverter off and on once; the warning clears by itself.",
+          "ur": "Agar parallel setup abhi mukammal hua hai to inverter ko aik baar off/on karein; warning khud hat jayegi."
+        },
+        {
+          "en": "Confirm every unit in the bank has the same phase assigned (3P1/3P2/3P3) in LCD program 28.",
+          "ur": "Confirm karein ke bank ke har unit ka LCD program 28 mein wohi phase set hai (3P1/3P2/3P3)."
+        },
+        {
+          "en": "Check that the grid input and the load output phases correspond one-to-one at the terminal block.",
+          "ur": "Check karein ke terminal block par grid input aur load output ke phases aik doosre se match karte hain."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "The manual explicitly states this warning is normal after a parallel installation, so do not send the customer away before completing the parallel setup.",
+        "ur": "Manual saaf likhta hai ke parallel installation ke baad yeh warning normal hai, is liye parallel setup mukammal karne se pehle customer ko bhejein mat."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Warning 51",
+      "aliases": [
+        "Warning 51",
+        "51",
+        "W51",
+        "BMS doesn't allow inverter to discharge battery"
+      ],
+      "title": {
+        "en": "Warning 51 BMS blocks discharging",
+        "ur": "Warning 51 BMS discharge rok raha hai"
+      },
+      "meaning": {
+        "en": "The BMS has told the inverter not to discharge; the inverter stops discharging automatically.",
+        "ur": "BMS ne inverter ko discharge na karne ko kaha hai; inverter khud-ba-khud discharging band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Battery cell voltage hit the BMS discharge cut-off",
+          "ur": "Battery cell ka voltage BMS discharge cut-off par pohanch gaya"
+        },
+        {
+          "en": "Battery temperature outside the BMS permitted range",
+          "ur": "Battery temperature BMS ke allowed range se bahar hai"
+        },
+        {
+          "en": "Pack over-current or over-temperature event latched by the BMS",
+          "ur": "BMS ne pack ka over-current ya over-temperature event latch kar liya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the BMS status on the LCD BMS page and note the reported battery voltage and temperature.",
+          "ur": "LCD BMS page par BMS status padhein aur battery voltage aur temperature note karein."
+        },
+        {
+          "en": "Charge the battery from PV or grid until the BMS releases the inhibit, then confirm discharging resumes.",
+          "ur": "Battery ko PV ya grid se charge karein jab tak BMS inhibit na chhode, phir discharging resume hone ka confirm karein."
+        },
+        {
+          "en": "Check the pack temperature sensor and the ambient temperature at the battery location.",
+          "ur": "Pack ka temperature sensor aur battery ki jagah ka ambient temperature check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Warning 52",
+      "aliases": [
+        "Warning 52",
+        "52",
+        "W52",
+        "BMS require inverter to charge battery"
+      ],
+      "title": {
+        "en": "Warning 52 BMS requests charging",
+        "ur": "Warning 52 BMS charging maang raha hai"
+      },
+      "meaning": {
+        "en": "The BMS has asked the inverter to charge the battery; the inverter charges automatically.",
+        "ur": "BMS ne inverter se battery charge karne ko kaha hai; inverter khud-ba-khud charge karta hai."
+      },
+      "causes": [
+        {
+          "en": "Battery SOC below the BMS balancing or recovery threshold",
+          "ur": "Battery SOC BMS balancing ya recovery threshold se neeche hai"
+        },
+        {
+          "en": "Cell imbalance detected, so the BMS wants a top-up charge",
+          "ur": "Cell imbalance detect hua hai, is liye BMS top-up charge chahta hai"
+        },
+        {
+          "en": "Battery was stored long enough for the BMS to request recovery charge",
+          "ur": "Battery itni der rahi ke BMS ne recovery charge maang liya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Allow the automatic charge to complete; interrupting it repeatedly keeps the BMS request active.",
+          "ur": "Automatic charge poora hone dein; baar baar rokne se BMS ki request qayamat rehti hai."
+        },
+        {
+          "en": "Confirm charge current is not set to 0 A for this pack in the LCD setup.",
+          "ur": "Confirm karein ke LCD setup mein is pack ka charge current 0 A par set to nahi hai."
+        },
+        {
+          "en": "If the request never clears, read the BMS fault code on the LCD and treat it as a BMS-side fault.",
+          "ur": "Agar request kabhi clear na ho to LCD par BMS fault code padhein aur use BMS side ka fault samajhein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Warning 60",
+      "aliases": [
+        "Warning 60",
+        "60",
+        "W60",
+        "Upgrade the firmware of BMS"
+      ],
+      "title": {
+        "en": "Warning 60 Update BMS firmware",
+        "ur": "Warning 60 BMS firmware update karein"
+      },
+      "meaning": {
+        "en": "The BMS firmware needs to be upgraded.",
+        "ur": "BMS ka firmware update karna zaroori hai."
+      },
+      "causes": [
+        {
+          "en": "New battery pack fitted with older BMS firmware than the inverter expects",
+          "ur": "Naya battery pack lagai gaya hai jiska BMS firmware inverter se purana hai"
+        },
+        {
+          "en": "BMS firmware version not matched to the inverter firmware after an update",
+          "ur": "Inverter firmware update ke baad BMS firmware version match nahi hua"
+        },
+        {
+          "en": "Pack supplied with a firmware revision that predates the current protocol",
+          "ur": "Pack aisa firmware revision ke sath aaya hai jo current protocol se purana hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note the BMS version and SOC shown on the LCD BMS information page.",
+          "ur": "LCD BMS information page par dikhne wala BMS version aur SOC note karein."
+        },
+        {
+          "en": "Update the BMS firmware through the Felicity app while the pack is connected and awake.",
+          "ur": "Pack connected aur awake hone par Felicity app se BMS firmware update karein."
+        },
+        {
+          "en": "Do not parallel a pack with mismatched BMS firmware; update every pack in the bank.",
+          "ur": "Alag BMS firmware wale pack ko parallel na karein; bank ke har pack ko update karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 01",
+      "aliases": [
+        "Fault 01",
+        "01",
+        "F01",
+        "PV voltage is too high"
+      ],
+      "title": {
+        "en": "Fault 01 PV voltage too high",
+        "ur": "Fault 01 PV voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "PV string voltage is above the MPPT window; the number of modules in series must be reduced.",
+        "ur": "PV string ka voltage MPPT window se upar hai; series ke modules ki kami karni hogi."
+      },
+      "causes": [
+        {
+          "en": "Too many modules in series for cold-morning open-circuit voltage",
+          "ur": "Series mein modules subah ke thande waqt ke open-circuit voltage ke liye zyada hain"
+        },
+        {
+          "en": "Array designed for a higher max PV voltage than this inverter",
+          "ur": "Array is inverter se zyada max PV voltage ke liye design kiya gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure PV open-circuit voltage with a meter and compare it with the inverter's MPPT upper limit.",
+          "ur": "Meter se PV ka open-circuit voltage measure karke inverter ke MPPT upper limit se compare karein."
+        },
+        {
+          "en": "Reduce the number of modules in series, or switch the PV type setting in the app to match.",
+          "ur": "Series mein modules ki kami karein, ya app mein PV type setting usi ke mutabiq karein."
+        },
+        {
+          "en": "Confirm no MPPT is assigned to an unconnected string, which inflates the reading.",
+          "ur": "Confirm karein ke koi MPPT aise string par set na ho jo connected nahi, warna reading barh jati hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 02",
+      "aliases": [
+        "Fault 02",
+        "02",
+        "F02",
+        "Over current happen at PV port"
+      ],
+      "title": {
+        "en": "Fault 02 PV port overcurrent",
+        "ur": "Fault 02 PV port over current"
+      },
+      "meaning": {
+        "en": "Overcurrent at the PV port; the unit has cut output.",
+        "ur": "PV port par over current hai; unit ne output band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "Parallel strings with mismatched module ratings on one MPPT",
+          "ur": "Aik MPPT par alag ratings ke modules ke strings parallel lage hain"
+        },
+        {
+          "en": "Insulation fault on the string creating a leakage path",
+          "ur": "String par insulation fault jo leakage path bana raha hai"
+        },
+        {
+          "en": "PV input surge from a nearby lightning event",
+          "ur": "Paas ke lightning event se PV input par surge"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate PV at the DC isolator, then clamp-meter each string separately to find the high one.",
+          "ur": "DC isolator se PV isolate karke har string ko alag alag clamp meter se measure karke zyada wala dhoondein."
+        },
+        {
+          "en": "Megohmmeter-test the string insulation to earth before reconnecting anything.",
+          "ur": "Kuch bhi wapas lagane se pehle string ki earth insulation megohmmeter se test karein."
+        },
+        {
+          "en": "Check the DC SPD condition; a spent SPD lets surge straight into the MPPT stage.",
+          "ur": "DC SPD ki halat check karein; kharab SPD surge ko seedha MPPT stage mein chhor deta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 04",
+      "aliases": [
+        "Fault 04",
+        "04",
+        "F04",
+        "Short circuit happen at PV port"
+      ],
+      "title": {
+        "en": "Fault 04 PV port short circuit",
+        "ur": "Fault 04 PV port par short circuit"
+      },
+      "meaning": {
+        "en": "Short circuit at the PV port; check that the wiring is connected well.",
+        "ur": "PV port par short circuit hai; check karein ke wiring theek lagi hai."
+      },
+      "causes": [
+        {
+          "en": "MC4 connector not fully clicked, leaving partial contact that arcs",
+          "ur": "MC4 connector poori tarah click nahi hua, partial contact se arc ban raha hai"
+        },
+        {
+          "en": "Cable insulation chafed against the array frame",
+          "ur": "Cable ki insulation array frame se ragad gayi"
+        },
+        {
+          "en": "Panel laminate broken allowing current to earth",
+          "ur": "Panel ka laminate toota hai jis se earth mein current ja raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate PV at the DC isolator and switch off the AC side before touching any connector.",
+          "ur": "Koi bhi connector chhoone se pehle DC isolator se PV aur AC side band karein."
+        },
+        {
+          "en": "Disconnect and re-make every MC4 pair by hand until each clicks; do not force with pliers.",
+          "ur": "Har MC4 pair ko haath se nikal kar dobara laga dein jab tak click na ho; pliers se zor na dein."
+        },
+        {
+          "en": "Megohmmeter-test each string to earth and replace any cable or panel that fails.",
+          "ur": "Har string ki earth insulation megohmmeter se test karke fail hone wala cable ya panel replace karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 06",
+      "aliases": [
+        "Fault 06",
+        "06",
+        "F06",
+        "Pv current sensor failed"
+      ],
+      "title": {
+        "en": "Fault 06 PV current sensor failed",
+        "ur": "Fault 06 PV current sensor kharab"
+      },
+      "meaning": {
+        "en": "The PV current sensor has failed.",
+        "ur": "PV current sensor kharab ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Hall sensor on the MPPT board dead",
+          "ur": "MPPT board par Hall sensor kharab ho gaya"
+        },
+        {
+          "en": "Sensor harness disconnected during a board replacement",
+          "ur": "Board badalne ke dauran sensor harness nikal gaya"
+        },
+        {
+          "en": "Sensor drift after a surge event",
+          "ur": "Surge event ke baad sensor drift ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Compare the PV power shown on the LCD with a clamp meter on the string; zero or frozen means sensor failure.",
+          "ur": "LCD par dikhne wali PV power ko string par clamp meter se compare karein; zero ya jam hui power sensor failure hai."
+        },
+        {
+          "en": "Isolate AC, PV and battery, then reseat the MPPT current sensor connector on the board.",
+          "ur": "AC, PV aur battery isolate karke board par MPPT current sensor ka connector dobara laga dein."
+        },
+        {
+          "en": "Have the MPPT current sensor replaced and calibrated at the service centre.",
+          "ur": "Service centre par MPPT current sensor replace aur calibrate karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 07",
+      "aliases": [
+        "Fault 07",
+        "07",
+        "F07",
+        "Battery voltage is too high"
+      ],
+      "title": {
+        "en": "Fault 07 Battery voltage too high",
+        "ur": "Fault 07 Battery voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "Battery voltage is too high; check that battery spec and quantity meet requirements.",
+        "ur": "Battery ka voltage bohat zyada hai; check karein ke battery ki spec aur quantity requirements poori karti hai."
+      },
+      "causes": [
+        {
+          "en": "Too many 12 V batteries in series for a 48 V system",
+          "ur": "48 V system ke liye series mein 12 V batteries zyada hain"
+        },
+        {
+          "en": "Mixed battery models or mixed capacities in the string",
+          "ur": "String mein alag alag battery model ya capacity mili hui hai"
+        },
+        {
+          "en": "Grid charge voltage set too high for the pack",
+          "ur": "Grid charge voltage pack ke liye zyada set ki gayi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Count the batteries in series and confirm the total matches this model's battery voltage range.",
+          "ur": "Series mein batteries gin kar confirm karein ke total is model ki battery voltage range se match karta hai."
+        },
+        {
+          "en": "Measure each battery's voltage with a meter; any cell group far from the others should be replaced.",
+          "ur": "Meter se har battery ka voltage measure karein; doosron se barhi door wala group replace karna hoga."
+        },
+        {
+          "en": "Reset the grid charge voltage to the pack's specified value in the LCD setup.",
+          "ur": "LCD setup mein grid charge voltage pack ki specified value par reset karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 10",
+      "aliases": [
+        "Fault 10",
+        "10",
+        "F10",
+        "Abnormal LLC"
+      ],
+      "title": {
+        "en": "Fault 10 LLC circuit abnormal",
+        "ur": "Fault 10 LLC circuit abnormal chal raha hai"
+      },
+      "meaning": {
+        "en": "The LLC resonant converter in the unit is not working normally.",
+        "ur": "Unit ka LLC resonant converter theek se kaam nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "LLC switching device failed",
+          "ur": "LLC switching device kharab ho gaya"
+        },
+        {
+          "en": "Output load beyond what the LLC stage can supply",
+          "ur": "Output load LLC stage ke liye zyada hai"
+        },
+        {
+          "en": "Bus voltage not within the LLC operating window at startup",
+          "ur": "Startup par bus voltage LLC operating window ke andar nahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reduce the connected load to the minimum before restarting.",
+          "ur": "AC, PV aur battery isolate karke restart se pehle connected load kam se kam karein."
+        },
+        {
+          "en": "Check for a burnt smell or visible damage on the LLC stage and the heatsink above it.",
+          "ur": "LLC stage aur uske upar wale heatsink par jhazon ki smell ya nazaray dekhne wala damage dekhein."
+        },
+        {
+          "en": "Have the LLC stage and its gate driver tested at the service centre before returning the unit.",
+          "ur": "Unit wapas dene se pehle service centre par LLC stage aur uska gate driver test karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 11",
+      "aliases": [
+        "Fault 11",
+        "11",
+        "F11",
+        "Over current happen at Buckboost"
+      ],
+      "title": {
+        "en": "Fault 11 Buck-boost overcurrent",
+        "ur": "Fault 11 Buck-boost over current"
+      },
+      "meaning": {
+        "en": "Overcurrent in the Buck-boost converter; the unit has cut output.",
+        "ur": "Buck-boost converter mein over current hai; unit ne output band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "Output load exceeds the inverter rating",
+          "ur": "Output load inverter rating se zyada hai"
+        },
+        {
+          "en": "Buck-boost inductor or switching device damaged",
+          "ur": "Buck-boost ka inductor ya switching device kharab hai"
+        },
+        {
+          "en": "Battery current limit set above the pack rating",
+          "ur": "Battery current limit pack rating se upar set hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off most loads and restart; confirm the fault clears to prove it is a load-side trip.",
+          "ur": "Boht se loads band karke restart karein; fault hat jaye to confirm ho gaya ke load side ka trip hai."
+        },
+        {
+          "en": "Set the battery charge/discharge current in the setup within the pack rating.",
+          "ur": "Setup mein battery charge/discharge current pack rating ke andar set karein."
+        },
+        {
+          "en": "Isolate AC, PV and battery and have the Buck-boost stage inspected if it trips with no load.",
+          "ur": "Bina load ke bhi trip ho to AC, PV aur battery isolate karke Buck-boost stage ka muaina karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 14",
+      "aliases": [
+        "Fault 14",
+        "14",
+        "F14",
+        "BuckBoost is out of balance"
+      ],
+      "title": {
+        "en": "Fault 14 Buck-boost out of balance",
+        "ur": "Fault 14 Buck-boost out of balance hai"
+      },
+      "meaning": {
+        "en": "The two Buck-boost channels are not sharing current evenly.",
+        "ur": "Dono Buck-boost channels current aik saath baant nahi rahe."
+      },
+      "causes": [
+        {
+          "en": "One Buck-boost current sensor reading low",
+          "ur": "Aik Buck-boost current sensor kam reading kar raha hai"
+        },
+        {
+          "en": "One Buck-boost channel's output current limiting hard",
+          "ur": "Aik Buck-boost channel ka output current bohat zyada limit ho raha hai"
+        },
+        {
+          "en": "Internal component failure in one channel",
+          "ur": "Aik channel mein internal component ki failure"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then read both Buck-boost channel currents if the LCD exposes them.",
+          "ur": "AC, PV aur battery isolate karke LCD par dono Buck-boost channel ke current padhein (agar LCD dikhaye)."
+        },
+        {
+          "en": "Have each channel's current sensor calibrated separately at the service centre.",
+          "ur": "Service centre par har channel ka current sensor alag alag calibrate karwayein."
+        },
+        {
+          "en": "Do not run a long parallel bank on a unit that trips code 14; the unbalanced channel stresses both.",
+          "ur": "Code 14 de raha unit par lamba parallel bank na chalayein; unbalanced channel dono ko stress deta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 15",
+      "aliases": [
+        "Fault 15",
+        "15",
+        "F15",
+        "Buckboost current sensor failed"
+      ],
+      "title": {
+        "en": "Fault 15 Buck-boost current sensor 1 failed",
+        "ur": "Fault 15 Buck-boost current sensor 1 kharab"
+      },
+      "meaning": {
+        "en": "Buck-boost current sensor No.1 has failed.",
+        "ur": "Buck-boost current sensor No.1 kharab ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "No.1 current sensing element failed",
+          "ur": "No.1 current sensing element kharab ho gaya"
+        },
+        {
+          "en": "Sensor wiring harness chafed or unplugged",
+          "ur": "Sensor wiring harness ragad ya nikal gaya"
+        },
+        {
+          "en": "Sense amplifier on the board failed",
+          "ur": "Board par sense amplifier kharab ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reseat the Buck-boost current sensor connector.",
+          "ur": "AC, PV aur battery isolate karke Buck-boost current sensor ka connector dobara lagayein."
+        },
+        {
+          "en": "Compare each channel's reported current with a clamp meter to confirm which sensor is dead.",
+          "ur": "Har channel ki reported current ko clamp meter se compare karke confirm karein ke kaunsa sensor kharab hai."
+        },
+        {
+          "en": "Replace the sensor with the exact Felicity part number and recalibrate both channels.",
+          "ur": "Sensor ko exact Felicity part number se replace karke dono channels recalibrate karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 16",
+      "aliases": [
+        "Fault 16",
+        "16",
+        "F16",
+        "No.2 Buckboost current sensor failed"
+      ],
+      "title": {
+        "en": "Fault 16 Buck-boost current sensor 2 failed",
+        "ur": "Fault 16 Buck-boost current sensor 2 kharab"
+      },
+      "meaning": {
+        "en": "Buck-boost current sensor No.2 has failed.",
+        "ur": "Buck-boost current sensor No.2 kharab ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "No.2 current sensing element failed",
+          "ur": "No.2 current sensing element kharab ho gaya"
+        },
+        {
+          "en": "Sensor harness routing pinched during fan replacement",
+          "ur": "Fan badalne ke dauran sensor harness ka routing nichal gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery before opening the unit.",
+          "ur": "Unit kholne se pehle AC, PV aur battery isolate karein."
+        },
+        {
+          "en": "Check the No.2 sensor harness for pinching and reseat its connector.",
+          "ur": "No.2 sensor harness mein pinching dekhein aur uska connector dobara lagayein."
+        },
+        {
+          "en": "Replace the No.2 sensor with the exact part number and recalibrate.",
+          "ur": "No.2 sensor ko exact part number se replace karke recalibrate karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 17",
+      "aliases": [
+        "Fault 17",
+        "17",
+        "F17",
+        "Overload time out"
+      ],
+      "title": {
+        "en": "Fault 17 Overload timeout",
+        "ur": "Fault 17 Overload ka timeout"
+      },
+      "meaning": {
+        "en": "The load stayed overloaded too long; reduce the connected load by switching off equipment.",
+        "ur": "Load bohat der se overloaded raha; kuch equipment band karke connected load kam karein."
+      },
+      "causes": [
+        {
+          "en": "Air conditioner compressor plus pump running together",
+          "ur": "Air conditioner ka compressor aur pump aik saath chal rahe hain"
+        },
+        {
+          "en": "Load shed set too slow for the actual demand",
+          "ur": "Load shed actual demand ke liye bohat dheere set hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off equipment one by one until the overload clears, then note the total running load.",
+          "ur": "Equipment ko aik aik karke band karein jab tak overload na hat jaye, phir kul chal raha load note karein."
+        },
+        {
+          "en": "Set faster load-shed steps in the app so peaks are cut before the timeout trips.",
+          "ur": "App mein tez load-shed steps set karein taake timeout se pehle peak kat jaye."
+        },
+        {
+          "en": "Upgrade the inverter if the measured demand is genuinely above this model's rating.",
+          "ur": "Agar measured demand waqai is model ki rating se upar hai to bara inverter lagayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 19",
+      "aliases": [
+        "Fault 19",
+        "19",
+        "F19",
+        "Output short circuited"
+      ],
+      "title": {
+        "en": "Fault 19 Output short circuit",
+        "ur": "Fault 19 Output par short circuit"
+      },
+      "meaning": {
+        "en": "Output is short circuited; check the wiring and remove the faulty load.",
+        "ur": "Output short circuited hai; wiring check karke kharab load nikaal dein."
+      },
+      "causes": [
+        {
+          "en": "Damaged appliance on the backup circuit",
+          "ur": "Backup circuit par koi kharab appliance"
+        },
+        {
+          "en": "Cable pinched or crushed during installation",
+          "ur": "Installation ke dauran cable nichal ya crush hua"
+        },
+        {
+          "en": "Water in an outdoor socket on the backup board",
+          "ur": "Backup board ke outdoor socket mein paani"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then unplug loads one by one to find the shorted circuit.",
+          "ur": "AC, PV aur battery isolate karke loads aik aik nikaalte jayein taake short wala circuit mil jaye."
+        },
+        {
+          "en": "With the inverter isolated, test each circuit to earth to locate the shorted cable.",
+          "ur": "Inverter isolate karke har circuit ki earth ke saath continuity test karke short wala cable dhoondein."
+        },
+        {
+          "en": "Inspect the backup distribution board for water, burnt contacts or loose terminals.",
+          "ur": "Backup distribution board mein paani, jale contacts ya dhile terminals dekhein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 20",
+      "aliases": [
+        "Fault 20",
+        "20",
+        "F20",
+        "Input output reverse"
+      ],
+      "title": {
+        "en": "Fault 20 Input/output reversed",
+        "ur": "Fault 20 Input/output ulat"
+      },
+      "meaning": {
+        "en": "Input and output wiring are not correct; confirm they correspond.",
+        "ur": "Input aur output wiring theek nahi; confirm karein ke aik doosre se match karte hain."
+      },
+      "causes": [
+        {
+          "en": "Grid and load cables swapped at the AC terminal block",
+          "ur": "AC terminal block par grid aur load ke cables aik doosre ki jagah lage hue hain"
+        },
+        {
+          "en": "Parallel installation not completed, so cables were landed by guesswork",
+          "ur": "Parallel installation mukammal nahi hua, is liye cables andaza se lagaye gaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery and confirm which AC terminals are grid and which are load.",
+          "ur": "AC, PV aur battery isolate karke confirm karein ke kaun se AC terminals grid hain aur kaun se load."
+        },
+        {
+          "en": "Re-land the grid and load cables on the correct terminals and tighten to the specified torque.",
+          "ur": "Grid aur load cables sahi terminals par dobara lagayein aur specified torque par tighten karein."
+        },
+        {
+          "en": "For a parallel bank, finish the parallel installation fully before restarting, as the manual instructs.",
+          "ur": "Parallel bank mein, manual ke mutabiq parallel installation poora karke hi restart karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 21",
+      "aliases": [
+        "Fault 21",
+        "21",
+        "F21",
+        "Output current sensor failed / OP current sensor failed"
+      ],
+      "title": {
+        "en": "Fault 21 Output current sensor failed",
+        "ur": "Fault 21 Output current sensor kharab"
+      },
+      "meaning": {
+        "en": "The output (OP) current sensor has failed; the unit has cut output.",
+        "ur": "Output (OP) current sensor kharab ho gaya hai; unit ne output band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "OP current sensing element failed",
+          "ur": "OP current sensing element kharab ho gaya"
+        },
+        {
+          "en": "Sensor connector loose on the board",
+          "ur": "Board par sensor connector dhila hai"
+        },
+        {
+          "en": "Sensor reading drift after a surge",
+          "ur": "Surge ke baad sensor ki reading drift ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery and reseat the OP current sensor connector.",
+          "ur": "AC, PV aur battery isolate karke OP current sensor ka connector dobara lagayein."
+        },
+        {
+          "en": "Compare the reported output current with a clamp meter on the output conductor.",
+          "ur": "Output conductor par clamp meter se reported output current compare karein."
+        },
+        {
+          "en": "Have the sensor replaced and the output current channel calibrated at the service centre.",
+          "ur": "Service centre par sensor replace aur output current channel calibrate karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 22",
+      "aliases": [
+        "Fault 22",
+        "22",
+        "F22",
+        "Output voltage is too low"
+      ],
+      "title": {
+        "en": "Fault 22 Output voltage too low",
+        "ur": "Fault 22 Output voltage bohat kam"
+      },
+      "meaning": {
+        "en": "The inverter output voltage is too low; reduce the connected load.",
+        "ur": "Inverter ka output voltage bohat kam hai; connected load kam karein."
+      },
+      "causes": [
+        {
+          "en": "Load too heavy for the inverter rating",
+          "ur": "Load inverter rating ke liye bohat bhaari hai"
+        },
+        {
+          "en": "Grid voltage sagging at the input",
+          "ur": "Input par grid voltage gir raha hai"
+        },
+        {
+          "en": "Inverter bridge or output filter capacitor degraded",
+          "ur": "Inverter bridge ya output filter capacitor degrade ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load step by step until the output voltage recovers.",
+          "ur": "Connected load qadam ba qadam kam karein jab tak output voltage recover na ho."
+        },
+        {
+          "en": "Measure the output voltage at the load board, not only at the inverter, to spot a long cable drop.",
+          "ur": "Output voltage sirf inverter par nahi, load board par bhi measure karein taake lamba cable ka drop pata chale."
+        },
+        {
+          "en": "If voltage stays low with a light load, have the output stage and capacitors tested.",
+          "ur": "Halki load par bhi voltage kam rahe to output stage aur capacitors test karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 23",
+      "aliases": [
+        "Fault 23",
+        "23",
+        "F23",
+        "Output voltage is too high"
+      ],
+      "title": {
+        "en": "Fault 23 Output voltage too high",
+        "ur": "Fault 23 Output voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "The inverter output voltage is above the permitted window; output has been cut.",
+        "ur": "Inverter ka output voltage allowed range se upar hai; output band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Backfeed from another inverter or a grid-tie unit on the same board",
+          "ur": "Aik hi board par doosre inverter ya grid-tie unit se backfeed"
+        },
+        {
+          "en": "Output voltage sensing circuit fault",
+          "ur": "Output voltage sensing circuit ki kharabi"
+        },
+        {
+          "en": "Load absorbing too little power for the generated voltage",
+          "ur": "Load itni kam power absorb kar raha hai ke generated voltage barh jata hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery and check for any other power source feeding the output board.",
+          "ur": "AC, PV aur battery isolate karke dekhein ke output board ko koi aur power source to nahi feed kar raha."
+        },
+        {
+          "en": "Measure output voltage at the inverter and at the load board to see if the fault is real or a sensing error.",
+          "ur": "Inverter aur load board dono par output voltage measure karke dekhein ke fault haqiqi hai ya sensing ka ghaltat hai."
+        },
+        {
+          "en": "Check the output voltage sensing divider and connector on the board.",
+          "ur": "Board par output voltage sensing divider aur connector dekhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 24",
+      "aliases": [
+        "Fault 24",
+        "24",
+        "F24",
+        "Over current or surge detected by Software"
+      ],
+      "title": {
+        "en": "Fault 24 Software overcurrent/surge",
+        "ur": "Fault 24 Software ne over current/surge pakra"
+      },
+      "meaning": {
+        "en": "The inverter's software detected an overcurrent or surge; the unit has cut output.",
+        "ur": "Inverter ke software ne over current ya surge detect kiya; unit ne output band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "Large motor starting surge on the output",
+          "ur": "Output par bare motor ka starting surge"
+        },
+        {
+          "en": "Output transient from switching a large capacitor-input load",
+          "ur": "Bara capacitor-input load switch karne par output par transient"
+        },
+        {
+          "en": "Grid surge arriving through the AC input",
+          "ur": "AC input ke zariye grid surge andar aaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect all loads and restart to confirm whether it is a load-side transient.",
+          "ur": "Saare loads disconnect karke restart karein taake confirm ho ke load side ka transient hai."
+        },
+        {
+          "en": "Start large motors one at a time and note which one triggers the fault.",
+          "ur": "Bare motors ko aik aik start karke note karein ke kaunsa fault trigger karta hai."
+        },
+        {
+          "en": "Add a surge protective device on the AC input and contactivity-bond the inverter earth.",
+          "ur": "AC input par surge protective device lagayein aur inverter earth ko contactivity-bond karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 25",
+      "aliases": [
+        "Fault 25",
+        "F25",
+        "Hardware detect over current at inverter port"
+      ],
+      "title": {
+        "en": "Fault 25 Hardware overcurrent at inverter port",
+        "ur": "Fault 25 Hardware ne inverter port par over current pakra"
+      },
+      "meaning": {
+        "en": "The hardware overcurrent comparator tripped at the inverter port; output cut.",
+        "ur": "Hardware over current comparator ne inverter port par trip kiya; output band."
+      },
+      "causes": [
+        {
+          "en": "Real hardware overcurrent from an overloaded or shorted output",
+          "ur": "Overloaded ya shorted output se haqiqi hardware over current"
+        },
+        {
+          "en": "Overcurrent comparator board fault giving a false trip",
+          "ur": "Over current comparator board ki kharabi se jhooti trip"
+        },
+        {
+          "en": "Inverter bridge device with increased leakage",
+          "ur": "Inverter bridge device ka leakage barh gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then disconnect all output loads and re-test.",
+          "ur": "AC, PV aur battery isolate karke saare output loads disconnect karke dobara test karein."
+        },
+        {
+          "en": "With loads off, measure the output for continuity to earth to rule out a shorted board.",
+          "ur": "Load hatane ke baad output ki earth ke saath continuity measure karke shorted board rule out karein."
+        },
+        {
+          "en": "If it trips with no load, the comparator or bridge must be tested and replaced at the service centre.",
+          "ur": "Bina load ke trip ho to comparator ya bridge service centre par test aur replace karna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Red fault LED on (fault, not warning)",
+      "confidence": "high",
+      "notes": {
+        "en": "On this product, code 25 in the WARNING table is a completely different fault (phase sequence error). Always confirm which table the on-screen code came from.",
+        "ur": "Is product par WARNING table ka code 25 bilkul alag masla hai (phase sequence error). Hamesha confirm karein ke on-screen code kis table se aaya."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 26",
+      "aliases": [
+        "Fault 26",
+        "26",
+        "F26",
+        "Invert soft start failed"
+      ],
+      "title": {
+        "en": "Fault 26 Inverter soft start failed",
+        "ur": "Fault 26 Inverter soft start fail"
+      },
+      "meaning": {
+        "en": "The inverter soft start did not complete normally; the unit has cut output.",
+        "ur": "Inverter ka soft start theek se mukammal nahi hua; unit ne output band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "Output heavily loaded or shorted at switch-on",
+          "ur": "Switch on par output bhaari load ya short"
+        },
+        {
+          "en": "Grid relay not switching cleanly",
+          "ur": "Grid relay saaf switch nahi ho raha"
+        },
+        {
+          "en": "Bus voltage not at the expected level before soft start",
+          "ur": "Soft start se pehle bus voltage expected level par nahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect all output loads, then restart the unit empty.",
+          "ur": "Saare output loads disconnect karke unit khaali restart karein."
+        },
+        {
+          "en": "Measure AC output voltage with a meter; an unstable reading points to the inverter stage.",
+          "ur": "Meter se AC output voltage measure karein; unstable reading inverter stage ki kharabi batata hai."
+        },
+        {
+          "en": "Have the inverter stage and grid relay checked at the service centre if it fails empty.",
+          "ur": "Khaali hokar bhi fail ho to inverter stage aur grid relay service centre par check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 29",
+      "aliases": [
+        "Fault 29",
+        "29",
+        "F29",
+        "Inverter current sensor failed"
+      ],
+      "title": {
+        "en": "Fault 29 Inverter current sensor failed",
+        "ur": "Fault 29 Inverter current sensor kharab"
+      },
+      "meaning": {
+        "en": "The inverter current sensor has failed; the unit has cut output.",
+        "ur": "Inverter current sensor kharab ho gaya; unit ne output band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter current sensing element failed",
+          "ur": "Inverter current sensing element kharab ho gaya"
+        },
+        {
+          "en": "Sense wiring disconnected or chafed",
+          "ur": "Sense wiring nikal gayi ya ragad gayi"
+        },
+        {
+          "en": "Current sensor reading drifted after a surge",
+          "ur": "Surge ke baad current sensor ki reading drift ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery and reseat the inverter current sensor connector.",
+          "ur": "AC, PV aur battery isolate karke inverter current sensor ka connector dobara lagayein."
+        },
+        {
+          "en": "Compare the reported inverter current with a clamp meter on the output conductor.",
+          "ur": "Output conductor par clamp meter se reported inverter current compare karein."
+        },
+        {
+          "en": "Have the sensor replaced and the measurement chain calibrated at the service centre.",
+          "ur": "Service centre par sensor replace aur measurement chain calibrate karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 30",
+      "aliases": [
+        "Fault 30",
+        "30",
+        "F30",
+        "Bus voltage is too low"
+      ],
+      "title": {
+        "en": "Fault 30 Bus voltage too low",
+        "ur": "Fault 30 Bus voltage bohat kam"
+      },
+      "meaning": {
+        "en": "The DC bus voltage is too low; the unit has cut output.",
+        "ur": "DC bus ka voltage bohat kam hai; unit ne output band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "Battery disconnected or its voltage too low to support the bus",
+          "ur": "Battery nahi hai ya uska voltage bus ko support karne ke liye bohat kam hai"
+        },
+        {
+          "en": "PV input too weak to charge the bus",
+          "ur": "PV input bus ko charge karne ke liye bohat kamzor hai"
+        },
+        {
+          "en": "Bus voltage sensing circuit fault",
+          "ur": "Bus voltage sensing circuit ki kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the battery is connected, charged and within its voltage window on the LCD.",
+          "ur": "Check karein ke battery lagi hai, charged hai aur uska voltage LCD par window ke andar hai."
+        },
+        {
+          "en": "Measure PV open-circuit voltage; a weak or wrongly configured string cannot raise the bus.",
+          "ur": "PV ka open-circuit voltage measure karein; kamzor ya ghalat configured string bus nahi barha sakta."
+        },
+        {
+          "en": "Verify battery type is set correctly (lithium vs lead-acid) in the setup; a wrong setting misreads voltage.",
+          "ur": "Setup mein battery type (lithium ya lead-acid) theek set hai ya nahi check karein; ghalat setting voltage ghalat parhti hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 31",
+      "aliases": [
+        "Fault 31",
+        "31",
+        "F31",
+        "Bus voltage is too high"
+      ],
+      "title": {
+        "en": "Fault 31 Bus voltage too high",
+        "ur": "Fault 31 Bus voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "The DC bus voltage is too high, or an AC surge/internal component failed.",
+        "ur": "DC bus ka voltage bohat zyada hai, ya AC surge/internal component fail hua hai."
+      },
+      "causes": [
+        {
+          "en": "AC surge coming in from the grid",
+          "ur": "Grid se AC surge andar aaya"
+        },
+        {
+          "en": "PV string overvoltage driving the bus high",
+          "ur": "PV string ki over voltage bus ko high le gayi"
+        },
+        {
+          "en": "Internal component failure in the bus charge path",
+          "ur": "Bus charge path mein internal component ki failure"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure PV open-circuit voltage at the DC isolator and reduce the string if it exceeds the limit.",
+          "ur": "DC isolator par PV ka open-circuit voltage measure karke string chhota karein agar woh limit se zyada ho."
+        },
+        {
+          "en": "Check the AC SPD status; a spent AC SPD lets grid surges hit the bus directly.",
+          "ur": "AC SPD status dekhein; kharab AC SPD grid surges ko seedha bus par maar deta hai."
+        },
+        {
+          "en": "Isolate AC, PV and battery before opening the unit, and have the bus circuit inspected.",
+          "ur": "Unit kholne se pehle AC, PV aur battery isolate karein aur bus circuit ka muaina karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 33",
+      "aliases": [
+        "Fault 33",
+        "33",
+        "F33",
+        "Bus soft start failed"
+      ],
+      "title": {
+        "en": "Fault 33 Bus soft start failed",
+        "ur": "Fault 33 Bus soft start fail"
+      },
+      "meaning": {
+        "en": "Bus soft start did not complete; the unit has cut output.",
+        "ur": "Bus ka soft start mukammal nahi hua; unit ne output band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "Bus pre-charge circuit not charging the capacitors",
+          "ur": "Bus ka pre-charge circuit capacitors charge nahi kar raha"
+        },
+        {
+          "en": "Input voltage below the minimum to start the boost stage",
+          "ur": "Input voltage boost stage shuru karne ke liye minimum se neeche hai"
+        },
+        {
+          "en": "Load connected at switch-on prevented the ramp",
+          "ur": "Switch on par load lagi hui thi jis se ramp nahi hua"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect all output loads and restart once, as the manual instructs.",
+          "ur": "Saare output loads disconnect karke manual ke mutabiq aik baar restart karein."
+        },
+        {
+          "en": "Measure PV and battery voltage and confirm both are above the inverter's start thresholds.",
+          "ur": "PV aur battery voltage measure karke confirm karein ke dono inverter ke start thresholds se upar hain."
+        },
+        {
+          "en": "If it persists with no load, have the pre-charge resistor and boost stage tested.",
+          "ur": "Bina load ke bhi jaari rahe to pre-charge resistor aur boost stage test karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 34",
+      "aliases": [
+        "Fault 34",
+        "34",
+        "F34",
+        "Over temperature happen at heat sink"
+      ],
+      "title": {
+        "en": "Fault 34 Heat sink over-temperature",
+        "ur": "Fault 34 Heat sink bohat garm"
+      },
+      "meaning": {
+        "en": "Over-temperature at the heat sink; check whether ambient temperature is too high.",
+        "ur": "Heat sink par temperature zyada hai; check karein ke ambient temperature bohat zyada to nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Heat sink fins blocked with dust",
+          "ur": "Heat sink ki fins dhool se block hui hain"
+        },
+        {
+          "en": "Ambient temperature above the unit's rating",
+          "ur": "Ambient temperature unit ki rating se zyada hai"
+        },
+        {
+          "en": "Fan or internal fan not running",
+          "ur": "Fan ya internal fan nahi chal raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then clean the heat sink with a soft dry brush.",
+          "ur": "AC, PV aur battery isolate karke heat sink ko soft dry brush se saaf karein."
+        },
+        {
+          "en": "Measure ambient temperature at the vents; improve ventilation or add shade if it is high.",
+          "ur": "Vents par ambient temperature measure karein; zyada ho to ventilation behtar karein ya chhaan lagayein."
+        },
+        {
+          "en": "Check that both fans spin freely and their connectors are seated.",
+          "ur": "Confirm karein ke dono fans azaad ghoomte hain aur unke connectors baithay hue hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 35",
+      "aliases": [
+        "Fault 35",
+        "35",
+        "F35",
+        "The inner temperature over"
+      ],
+      "title": {
+        "en": "Fault 35 Internal temperature over limit",
+        "ur": "Fault 35 Internal temperature limit se upar"
+      },
+      "meaning": {
+        "en": "The internal temperature is over the limit; check whether ambient temperature is too high.",
+        "ur": "Internal temperature limit se upar hai; check karein ke ambient temperature zyada to nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Unit installed in a closed, unventilated room",
+          "ur": "Unit band aur bina ventilation wale kamre mein lagi hai"
+        },
+        {
+          "en": "Direct sun on the cabinet",
+          "ur": "Cabinet par seedhi dhoop lag rahi hai"
+        },
+        {
+          "en": "Internal temperature sensor drifted",
+          "ur": "Internal temperature sensor drift ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then clean the internal air path and heat sink.",
+          "ur": "AC, PV aur battery isolate karke internal air path aur heat sink saaf karein."
+        },
+        {
+          "en": "Add cross ventilation or relocate the unit out of the closed space.",
+          "ur": "Cross ventilation lagayein ya unit ko band jagah se bahar shift karein."
+        },
+        {
+          "en": "Check the internal NTC sensor resistance against a meter; a drifted sensor needs replacing.",
+          "ur": "Meter se internal NTC sensor ki resistance check karein; drift ho gayi sensor ko replace karna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 36",
+      "aliases": [
+        "Fault 36",
+        "36",
+        "F36",
+        "Internal fan locking fault"
+      ],
+      "title": {
+        "en": "Fault 36 Internal fan locked",
+        "ur": "Fault 36 Internal fan lock ho gaya"
+      },
+      "meaning": {
+        "en": "The internal fan is locked and not turning.",
+        "ur": "Internal fan lock ho gaya hai aur nahi ghoom raha."
+      },
+      "causes": [
+        {
+          "en": "Foreign object or packing material jammed in the fan",
+          "ur": "Fan mein koi cheez ya packing material phans gaya"
+        },
+        {
+          "en": "Fan bearing seized with age and dust",
+          "ur": "Umra aur dhool se fan ka bearing jam ho gaya"
+        },
+        {
+          "en": "Fan motor open circuit",
+          "ur": "Fan ka motor open circuit ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery before opening the unit.",
+          "ur": "Unit kholne se pehle AC, PV aur battery isolate karein."
+        },
+        {
+          "en": "Free the fan impeller by hand and remove any packing material or cable tie touching the blade.",
+          "ur": "Fan ki impeller haath se azaad karein aur blade ko chhu raha koi packing material ya cable tie nikaalein."
+        },
+        {
+          "en": "Replace the internal fan with the same part number if it is seized or open circuit.",
+          "ur": "Internal fan jam ho ya open circuit ho to wahi part number ka fan lagayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 40",
+      "aliases": [
+        "Fault 40",
+        "40",
+        "F40",
+        "Isolation resistance to ground of the PV string is too low"
+      ],
+      "title": {
+        "en": "Fault 40 PV string insulation to earth too low",
+        "ur": "Fault 40 PV string ki earth insulation bohat kam"
+      },
+      "meaning": {
+        "en": "Isolation resistance of the PV string to ground is too low; there is a leakage path.",
+        "ur": "PV string ki earth se isolation resistance bohat kam hai; leakage path hai."
+      },
+      "causes": [
+        {
+          "en": "PV string shorted to the array frame",
+          "ur": "PV string array frame se short ho gaya"
+        },
+        {
+          "en": "Water inside a PV junction box",
+          "ur": "PV junction box ke andar paani"
+        },
+        {
+          "en": "Cable insulation damaged by UV or rodents",
+          "ur": "UV ya chuho se cable ki insulation kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate PV at the DC isolator; never megger a live array.",
+          "ur": "DC isolator se PV isolate karein; live array par megger na lagayein."
+        },
+        {
+          "en": "Megohmmeter-test each string to earth separately to find the leaking string.",
+          "ur": "Har string ko alag alag earth ke khilaf megohmmeter se test karke leak wala dhoondein."
+        },
+        {
+          "en": "Open, dry and re-seal junction boxes, then replace any panel or cable that still fails the test.",
+          "ur": "Junction boxes khol ke sukha dein aur dobara seal karein, phir fail hone wala panel ya cable replace karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 42",
+      "aliases": [
+        "Fault 42",
+        "42",
+        "F42",
+        "Relay check failure"
+      ],
+      "title": {
+        "en": "Fault 42 Relay check failure",
+        "ur": "Fault 42 Relay check fail"
+      },
+      "meaning": {
+        "en": "The unit's self-test of the relay found a problem; output has been cut.",
+        "ur": "Unit ne relay ka self test kiya aur masla mila; output band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Grid relay contacts welded or not closing within the test window",
+          "ur": "Grid relay ke contacts weld ho gaye ya test time mein band nahi hue"
+        },
+        {
+          "en": "Relay coil open circuit",
+          "ur": "Relay coil open circuit ho gayi"
+        },
+        {
+          "en": "Relay wiring or connector loose",
+          "ur": "Relay wiring ya connector dhila hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then test the relay coil for continuity.",
+          "ur": "AC, PV aur battery isolate karke relay coil ki continuity test karein."
+        },
+        {
+          "en": "Test the relay contacts for continuity when energised; an open reading means replace the relay.",
+          "ur": "Relay energise kar ke contacts ki continuity test karein; open reading aaye to relay replace karein."
+        },
+        {
+          "en": "Reseat the relay connector and re-tighten the relay wiring before replacing parts.",
+          "ur": "Relay connector dobara lagayein aur relay wiring dobara tighten karein, phir parts replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 43",
+      "aliases": [
+        "Fault 43",
+        "43",
+        "F43",
+        "Parallel CAN COMM abnormality"
+      ],
+      "title": {
+        "en": "Fault 43 Parallel CAN communication abnormal",
+        "ur": "Fault 43 Parallel CAN communication abnormal hai"
+      },
+      "meaning": {
+        "en": "Parallel CAN communication between units is abnormal.",
+        "ur": "Units ke darmiyan parallel CAN communication abnormal hai."
+      },
+      "causes": [
+        {
+          "en": "Parallel CAN cable loose or missing termination resistors",
+          "ur": "Parallel CAN cable dhili hai ya termination resistors mojood nahi"
+        },
+        {
+          "en": "CAN cable run alongside AC power cables",
+          "ur": "CAN cable AC power cables ke saath chal raha hai"
+        },
+        {
+          "en": "Different firmware versions across the parallel bank",
+          "ur": "Parallel bank mein firmware versions alag hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, test the parallel CAN cable end to end with a meter and reseat every connector.",
+          "ur": "Power off karke parallel CAN cable ki end-to-end continuity meter se test karein aur har connector dobara lagayein."
+        },
+        {
+          "en": "Fit the termination resistors as the manual specifies, at both ends of the CAN run.",
+          "ur": "Manual ke mutabiq CAN run ke dono sifar par termination resistors lagayein."
+        },
+        {
+          "en": "Update all units to the same firmware version, then restart the bank.",
+          "ur": "Saare units ko aik hi firmware version par update karke bank restart karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 44",
+      "aliases": [
+        "Fault 44",
+        "44",
+        "F44",
+        "Loss of parallel hosts"
+      ],
+      "title": {
+        "en": "Fault 44 Parallel host lost",
+        "ur": "Fault 44 Parallel host kho gaya"
+      },
+      "meaning": {
+        "en": "The parallel system has lost the host unit; contact after-sales if it persists.",
+        "ur": "Parallel system ne host unit kho diya hai; agar jaari rahe to after-sales se rabta karein."
+      },
+      "causes": [
+        {
+          "en": "Host unit switched off or lost AC supply",
+          "ur": "Host unit band ho gaya ya uski AC supply chala gaya"
+        },
+        {
+          "en": "Host unit reporting its own fault so it drops out of the bank",
+          "ur": "Host unit apna koi fault de raha hai jis se woh bank se nikal jata hai"
+        },
+        {
+          "en": "CAN link intermittent between host and this unit",
+          "ur": "Host aur is unit ke darmiyan CAN link intermittent hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Walk the bank and read every unit's own fault code; fix the host's error first.",
+          "ur": "Bank mein jaan kar har unit ka apna fault code padhein; pehle host ka error theek karein."
+        },
+        {
+          "en": "Test the parallel communication line with a meter, then restart; if it persists contact after-sales.",
+          "ur": "Parallel communication line ko meter se test karke restart karein; phir bhi rahe to after-sales se rabta karein."
+        },
+        {
+          "en": "Confirm the host unit's AC supply and its ON/OFF switch are healthy.",
+          "ur": "Host unit ki AC supply aur uska ON/OFF switch theek hai ya nahi confirm karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 46",
+      "aliases": [
+        "Fault 46",
+        "46",
+        "F46",
+        "Inconsistency in parallel versions"
+      ],
+      "title": {
+        "en": "Fault 46 Parallel firmware version mismatch",
+        "ur": "Fault 46 Parallel units ka firmware version mismatch"
+      },
+      "meaning": {
+        "en": "The units in the parallel bank do not run the same firmware version.",
+        "ur": "Parallel bank ke units aik hi firmware version par nahi chal rahe."
+      },
+      "causes": [
+        {
+          "en": "One unit was updated and the others were not",
+          "ur": "Aik unit update hua lekin baqi nahi"
+        },
+        {
+          "en": "CPU versions differ between the main and auxiliary processor firmware",
+          "ur": "Main aur auxiliary processor ke firmware ke CPU versions alag hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Update all inverter firmware in the bank to the same version, as the manual instructs.",
+          "ur": "Manual ke mutabiq bank ke sabhi inverter ka firmware aik hi version par update karein."
+        },
+        {
+          "en": "Check each unit's version through the LCD settings and confirm the CPU versions match.",
+          "ur": "LCD settings se har unit ka version dekhein aur confirm karein ke CPU versions aik jaise hain."
+        },
+        {
+          "en": "If the fault remains after updating, contact after-sales for the correct firmware file.",
+          "ur": "Update ke baad bhi fault bache to sahi firmware file ke liye after-sales se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 47",
+      "aliases": [
+        "Fault 47",
+        "47",
+        "F47",
+        "Inconsistent parallel settings"
+      ],
+      "title": {
+        "en": "Fault 47 Parallel settings inconsistent",
+        "ur": "Fault 47 Parallel settings consistent nahi hain"
+      },
+      "meaning": {
+        "en": "Parallel system setup error: single-phase and grouped three-phase modes are mixed, or the group is incomplete.",
+        "ur": "Parallel system setup error: single-phase aur group three-phase modes mila diye gaye hain ya group adhoora hai."
+      },
+      "causes": [
+        {
+          "en": "Some units set to single-phase parallel and others to three-phase group",
+          "ur": "Kuch units single-phase parallel par aur baqi three-phase group par set hain"
+        },
+        {
+          "en": "Parallel mode not completed before the units were switched on",
+          "ur": "Parallel mode mukammal kiye bina hi units on kar diye gaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check LCD program 28 on every unit; all units in one bank must have the same setting.",
+          "ur": "Har unit ka LCD program 28 dekhein; aik bank ke sabhi units ka setting aik jaisa hona chahiye."
+        },
+        {
+          "en": "For a three-phase group, assign 3P1/3P2/3P3 to match the actual phase of each unit.",
+          "ur": "Three-phase group ke liye 3P1/3P2/3P3 har unit ke asal phase ke mutabiq set karein."
+        },
+        {
+          "en": "Finish the parallel setup completely, then power-cycle the whole bank once.",
+          "ur": "Parallel setup poora karke poore bank ko aik baar power-cycle karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 50",
+      "aliases": [
+        "Fault 50",
+        "50",
+        "F50",
+        "EEPROM failure"
+      ],
+      "title": {
+        "en": "Fault 50 EEPROM failure",
+        "ur": "Fault 50 EEPROM ki failure"
+      },
+      "meaning": {
+        "en": "EEPROM has failed; stored settings may be lost.",
+        "ur": "EEPROM kharab ho gaya hai; stored settings kho sakti hain."
+      },
+      "causes": [
+        {
+          "en": "Power cut while settings were being written",
+          "ur": "Settings likhte waqt power cut ho gaya"
+        },
+        {
+          "en": "EEPROM chip damaged by surge or heat",
+          "ur": "Surge ya garmi se EEPROM chip kharab ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Back up the current settings from the app before touching the unit.",
+          "ur": "Unit chhoone se pehle app se current settings ka backup bana lein."
+        },
+        {
+          "en": "Isolate AC, PV and battery, then power-cycle once and check whether code 50 clears.",
+          "ur": "AC, PV aur battery isolate karke aik baar power-cycle karein aur dekhein ke code 50 hatta ya nahi."
+        },
+        {
+          "en": "If code 50 stays, the EEPROM or control board must be replaced at the service centre.",
+          "ur": "Code 50 bache to EEPROM ya control board service centre par replace karna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 52",
+      "aliases": [
+        "Fault 52",
+        "F52",
+        "DSP2 communication failure"
+      ],
+      "title": {
+        "en": "Fault 52 DSP2 communication failure",
+        "ur": "Fault 52 DSP2 communication fail"
+      },
+      "meaning": {
+        "en": "The second DSP is not communicating normally.",
+        "ur": "Doosra DSP normally communicate nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "DSP2 ribbon cable or connector loose",
+          "ur": "DSP2 ribbon cable ya connector dhila hai"
+        },
+        {
+          "en": "Firmware versions mismatched between the two processors",
+          "ur": "Dono processors ke firmware versions mismatch hain"
+        },
+        {
+          "en": "DSP2 processor failed",
+          "ur": "DSP2 processor kharab ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reseat the DSP2 ribbon cable on the control board.",
+          "ur": "AC, PV aur battery isolate karke control board par DSP2 ribbon cable dobara lagayein."
+        },
+        {
+          "en": "Update the inverter firmware so both processor versions match.",
+          "ur": "Inverter firmware update karein taake dono processor versions match ho jayein."
+        },
+        {
+          "en": "If the fault remains, have the DSP2 processor and its solder joints inspected at the service centre.",
+          "ur": "Fault bache to service centre par DSP2 processor aur uske solder joints ka muaina karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 54",
+      "aliases": [
+        "Fault 54",
+        "54",
+        "F54",
+        "Temperature sensor disconnected"
+      ],
+      "title": {
+        "en": "Fault 54 Temperature sensor disconnected",
+        "ur": "Fault 54 Temperature sensor nikal gaya"
+      },
+      "meaning": {
+        "en": "A temperature sensor is disconnected, so the unit cannot protect itself thermally.",
+        "ur": "Aik temperature sensor nikal gaya hai, is liye unit khud ko thermal protection nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "NTC sensor connector unplugged during a service visit",
+          "ur": "Service ke dauran NTC sensor ka connector nikal gaya"
+        },
+        {
+          "en": "Sensor cable chafed against a heatsink or bracket",
+          "ur": "Sensor cable heatsink ya bracket se ragad gaya"
+        },
+        {
+          "en": "NTC sensor open circuit",
+          "ur": "NTC sensor open circuit ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reseat every NTC sensor connector on the board.",
+          "ur": "AC, PV aur battery isolate karke board par har NTC sensor connector dobara lagayein."
+        },
+        {
+          "en": "Measure each NTC resistance at room temperature and compare with the sensor's specification.",
+          "ur": "Har NTC ki room temperature par resistance measure karke sensor ki specification se compare karein."
+        },
+        {
+          "en": "Replace an open or drifted NTC with the same part number; do not bypass thermal protection.",
+          "ur": "Open ya drift ho chuki NTC ko wahi part number se replace karein; thermal protection bypass na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 83",
+      "aliases": [
+        "Fault 83",
+        "83",
+        "F83",
+        "Photovoltaic system arcing fault"
+      ],
+      "title": {
+        "en": "Fault 83 PV system arcing",
+        "ur": "Fault 83 PV system mein arc"
+      },
+      "meaning": {
+        "en": "Arcing has been detected in the photovoltaic system; check the wiring.",
+        "ur": "Photovoltaic system mein arc detect hua hai; wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "MC4 connector not fully mated, so contacts arc under load",
+          "ur": "MC4 connector poori tarah fit nahi, load ke sath contacts arc karte hain"
+        },
+        {
+          "en": "Cable insulation chafed against metal",
+          "ur": "Cable ki insulation metal se ragad gayi"
+        },
+        {
+          "en": "Connector terminals burnt or loose",
+          "ur": "Connector terminals jale ya dhile hue hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate PV at the DC isolator and the AC side before inspecting any DC connector.",
+          "ur": "Koi bhi DC connector dekhoon se pehle DC isolator se PV aur AC side band karein."
+        },
+        {
+          "en": "De-mate and re-mate every MC4 pair until each clicks firmly; discard any connector that is scorched.",
+          "ur": "Har MC4 pair ko nikal kar dobara laga dein jab tak mazbooti se click na ho; jale hue connector phenk dein."
+        },
+        {
+          "en": "Replace scorched connectors and cables with new certified parts; never tape an arc-damaged connector.",
+          "ur": "Jale hue connectors aur cables naye certified parts se replace karein; arc se kharab connector par tape na lagayein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    },
+    {
+      "code": "Fault 87",
+      "aliases": [
+        "Fault 87",
+        "87",
+        "F87",
+        "Parallel CAN COMM"
+      ],
+      "title": {
+        "en": "Fault 87 Parallel CAN communication",
+        "ur": "Fault 87 Parallel CAN communication mein masla"
+      },
+      "meaning": {
+        "en": "The inverter reports abnormal parallel CAN communication inside the system.",
+        "ur": "Inverter system ke andar parallel CAN communication abnormal report karta hai."
+      },
+      "causes": [
+        {
+          "en": "CAN cable loose or a connector not seated",
+          "ur": "CAN cable dhili hai ya connector baitha nahi hua"
+        },
+        {
+          "en": "Different firmware versions in the bank",
+          "ur": "Bank mein firmware versions alag hain"
+        },
+        {
+          "en": "Phase assignment (3P1/3P2/3P3) not matching the actual wiring",
+          "ur": "Phase assignment (3P1/3P2/3P3) asal wiring se match nahi karti"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With power off, test the CAN wiring continuity and reseat all CAN connectors.",
+          "ur": "Power off karke CAN wiring ki continuity test karein aur sab CAN connectors dobara lagayein."
+        },
+        {
+          "en": "Confirm each unit's phase assignment in LCD program 28 matches the phase it is actually wired to.",
+          "ur": "LCD program 28 mein har unit ka phase assignment us ki asal wiring se match karwata hai ya nahi confirm karein."
+        },
+        {
+          "en": "Update every unit to the same firmware and restart the bank once.",
+          "ur": "Har unit ko aik hi firmware par update karke bank ko aik baar restart karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVGM4K6/5K/6K LP1G1 Hybrid Inverter User Guide (358-S010002-05A)",
+        "retrieved": "2026-09-26",
+        "url": "https://na.felicitysolar.com/wp-content/uploads/2025/05/358-S010002-05A.pdf"
+      }
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "brandId": "voltronic-platform",
+  "series": {
+    "id": "table-c-v-pf1",
+    "name": "Table C — Axpert V PF1",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*V PF1*",
+      "*V_PF1*",
+      "*V-PF1*"
+    ],
+    "notes": "Adds fault 56 + warnings W11-W14; drops W16/W32 vs VM III. Battery-not-connected numbering delta."
+  },
+  "codes": [
+    {
+      "code": "56",
+      "aliases": [
+        "56"
+      ],
+      "title": {
+        "en": "Battery connection is open",
+        "ur": "Battery connection khula hai"
+      },
+      "meaning": {
+        "en": "Battery wiring open / not detected at startup.",
+        "ur": "Battery wiring khuli / start par detect nahin hui."
+      },
+      "causes": [
+        {
+          "en": "Wire connection or fuse burnt.",
+          "ur": "Wire connection/fuse jal gaya."
+        },
+        {
+          "en": "Battery disconnected; relay switching on/off.",
+          "ur": "battery nikli relay on/off"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check wire connection and battery polarity.",
+          "ur": "Wire connection aur polarity check karein."
+        },
+        {
+          "en": "Repair or replace main board if wiring OK.",
+          "ur": "Agar wiring theek ho to main board ki marammat karein ya badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert V PF1 manual (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20V_PF1_manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Not present on VM III table. InfiniSolar counterpart: fault 56 'Battery disconnected' / warning W19. Platform reference entry (table source SRC-VPF1). Local brand rows may match but keep brand code space separate.",
+        "ur": "VM III table mein maujood nahin. InfiniSolar counterpart: fault 56 'Battery disconnected' / warning W19. Yeh platform ka reference entry hai (table source SRC-VPF1). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; continuous buzzer."
+    },
+    {
+      "code": "W11",
+      "aliases": [
+        "W11"
+      ],
+      "title": {
+        "en": "Battery is undetected",
+        "ur": "battery nahin mili"
+      },
+      "meaning": {
+        "en": "Battery not detected (warning stage; V PF1 numbers the 'battery not connected' icon W11).",
+        "ur": "Battery detect nahin hui (warning stage; V PF1 ne 'battery not connected' icon ko W11 number diya hai)."
+      },
+      "causes": [
+        {
+          "en": "Wire connection or fuse burnt.",
+          "ur": "Wire connection/fuse jal gaya."
+        },
+        {
+          "en": "Battery disconnected at startup.",
+          "ur": "start par battery nikli"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check wire connection and polarity.",
+          "ur": "Wire connection/polarity check karein."
+        },
+        {
+          "en": "Repair/replace main board if wiring OK.",
+          "ur": "Agar wiring theek ho to main board ki marammat karein ya badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert V PF1 manual (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20V_PF1_manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "NUMBERING DELTA: same event = blank code on VM III, W19 on InfiniSolar VII, 'BP' on VII WP, W11 on V PF1, fault 56 on V PF1/MKS/Infini. Platform reference entry (table source SRC-VPF1). Local brand rows may match but keep brand code space separate.",
+        "ur": "NUMBERING DELTA: same event = VM III par blank code, InfiniSolar VII par W19, VII WP par 'BP', V PF1 par W11, aur V PF1/MKS/Infini par fault 56. Yeh platform ka reference entry hai (table source SRC-VPF1). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; red LED flashing; beep per Table A rules for unnumbered battery icon (None)."
+    },
+    {
+      "code": "W12",
+      "aliases": [
+        "W12"
+      ],
+      "title": {
+        "en": "EEPROM read/write failure",
+        "ur": "EEPROM read/write mein nakaam"
+      },
+      "meaning": {
+        "en": "EEPROM access failure warning.",
+        "ur": "EEPROM ki read/write kharab."
+      },
+      "causes": [
+        {
+          "en": "EEPROM read/write failure.",
+          "ur": "EEPROM read/write kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart; if persists, return to repair center (KB mapping to generic restart-then-service rows).",
+          "ur": "Restart karein; phir bhi rahe to marammat ke markaz wapas jayein (KB mapping)."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert V PF1 manual (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20V_PF1_manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "V PF1-only warning (absent VM III / MKS II). Platform reference entry (table source SRC-VPF1). Local brand rows may match but keep brand code space separate.",
+        "ur": "Sirf V PF1 ka warning hai (VM III / MKS II mein nahin). Yeh platform ka reference entry hai (table source SRC-VPF1). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; red LED flashing; beep once every second (Table A-style)."
+    },
+    {
+      "code": "W13",
+      "aliases": [
+        "W13"
+      ],
+      "title": {
+        "en": "Over temperature in MPPT charger",
+        "ur": "MPPT charger main zyada hararat"
+      },
+      "meaning": {
+        "en": "MPPT charger over-temperature warning.",
+        "ur": "MPPT charger mein over-temperature ki warning."
+      },
+      "causes": [
+        {
+          "en": "MPPT section hot (blocked airflow / high ambient).",
+          "ur": "MPPT section garm ho gaya (hawa ka rasta band / ambient temperature zyada)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check airflow and ambient temperature.",
+          "ur": "hawa aur mahol ka darja hararat check karein"
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert V PF1 manual (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20V_PF1_manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "V PF1-only warning. Platform reference entry (table source SRC-VPF1). Local brand rows may match but keep brand code space separate.",
+        "ur": "Sirf V PF1 ka yeh warning hai. Yeh platform ka reference entry hai (table source SRC-VPF1). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; red LED flashing; beep once every second."
+    },
+    {
+      "code": "W14",
+      "aliases": [
+        "W14"
+      ],
+      "title": {
+        "en": "Low PV input voltage",
+        "ur": "PV input voltage kam"
+      },
+      "meaning": {
+        "en": "PV input voltage low warning (distinct from W15 weak PV).",
+        "ur": "PV input voltage kam warning (W15 ke weak PV se alag)."
+      },
+      "causes": [
+        {
+          "en": "PV below MPPT window.",
+          "ur": "PV MPPT window se neeche."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check array / string configuration.",
+          "ur": "Array / string configuration check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert V PF1 manual (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20V_PF1_manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "V PF1-only warning. Platform reference entry (table source SRC-VPF1). Local brand rows may match but keep brand code space separate.",
+        "ur": "Sirf V PF1 ka yeh warning hai. Yeh platform ka reference entry hai (table source SRC-VPF1). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Icon flashing; red LED flashing; beep twice every 3 seconds."
+    }
+  ]
+}

@@ -1,0 +1,480 @@
+{
+  "schemaVersion": 1,
+  "brandId": "cyberpower",
+  "series": {
+    "id": "cyberpower-cp-avr-lcd",
+    "name": "CP850/1000/1350/1500AVRLCD (Intelligent UPS, AVR, line-interactive 850-1500VA)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*CP850AVRLCD*",
+      "*CP1000AVRLCD*",
+      "*CP1350AVRLCD*",
+      "*CP1500AVRLCD*",
+      "*CP*AVRLCDa*"
+    ],
+    "notes": "Same E-prefix fault namespace and identical E01/E02/E11/E21/E22 wording as SERIES 1, kept as a separate block because CyberPower publishes a separate manual per family and the icon set differs (NORMAL/AVR/SILENT MODE instead of ONLINE/ENERGY-SAVING/MUTE). Also covers the red 'Wiring Fault Indicator' on the rear, which is a separate hardware alarm, not an E-code."
+  },
+  "codes": [
+    {
+      "code": "E01",
+      "aliases": [
+        "E01"
+      ],
+      "title": {
+        "en": "E01 Charger Fault - Overcharge",
+        "ur": "E01 Charger Fault - Overcharge (charger battery ko zyada charge kar raha)"
+      },
+      "meaning": {
+        "en": "The charger is overcharging the internal battery bank, so the UPS latches a fault on the LCD FAULT icon.",
+        "ur": "Charger internal battery bank ko zyada charge kar raha hai, is liye UPS LCD FAULT icon par fault lock kar leta hai."
+      },
+      "causes": [
+        {
+          "en": "Charger over-voltage sensing circuit or the charge IC has failed.",
+          "ur": "Charger over-voltage sensing circuit ya charge IC kharab ho gaya hai."
+        },
+        {
+          "en": "Aged, overheated or swollen battery bank drags the charger into overcharge.",
+          "ur": "Purani, garmi se kharab ya phooli hui battery bank charger ko overcharge mein kheench leti hai."
+        },
+        {
+          "en": "Incorrect high-voltage replacement battery installed in a lower-rated string.",
+          "ur": "Kam rating wali string mein galat high-voltage replacement battery lagayi gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, unplug the mains cord and pull the internal battery quick-connect before opening the case.",
+          "ur": "UPS off karein, mains cord nikaal dein aur case kholne se pehle internal battery quick-connect nikaal lein."
+        },
+        {
+          "en": "Measure each battery on DC volts with a multimeter; a healthy 12V cell reads 12.6-13.0V and should stay under about 13.8V.",
+          "ur": "Multimeter DC volt par har battery measure karein; healthy 12V cell 12.6-13.0V par hota hai aur 13.8V se kam rehna chahiye."
+        },
+        {
+          "en": "Swap the whole battery bank for the CyberPower-specified replacement, keeping matched cells in series.",
+          "ur": "Poori battery bank ko CyberPower ki spec wali replacement se badal dein, series mein cells jor ke rakhein."
+        },
+        {
+          "en": "If readings are normal, treat the charger board as failed and raise it with CyberPower Systems support.",
+          "ur": "Agar readings normal hain to charger board ko kharab samajhein aur CyberPower Systems support se baat karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Intelligent UPS Series CP850/1000/1350/1500AVRLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500AVRLCD.pdf"
+      }
+    },
+    {
+      "code": "E02",
+      "aliases": [
+        "E02"
+      ],
+      "title": {
+        "en": "E02 Charger Fault - No Charge",
+        "ur": "E02 Charger Fault - No Charge (charger battery charge hi nahi kar raha)"
+      },
+      "meaning": {
+        "en": "The charger is not putting charge into the battery bank, so the UPS reports a fault and has no battery reserve.",
+        "ur": "Charger battery bank mein charge nahi daal raha, is liye UPS fault report karta hai aur us ke paas battery reserve nahi hota."
+      },
+      "causes": [
+        {
+          "en": "Internal battery connector is unplugged or the terminal clamp is loose/corroded.",
+          "ur": "Internal battery connector nikaala hua hai ya terminal clamp dheela/zanga hai."
+        },
+        {
+          "en": "Battery bank is dead (0V on DC) or has one failed cell in series.",
+          "ur": "Battery bank poori tarah dead (DC par 0V) hai ya series mein ek cell kharab hai."
+        },
+        {
+          "en": "Fuse in the battery branch, or the charger MOSFET/PWM section, has failed open.",
+          "ur": "Battery branch ka fuse, ya charger MOSFET/PWM section, open ho kar kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the unit first: off, unplug mains, disconnect the internal battery quick-connect.",
+          "ur": "Pehle unit isolate karein: off karein, mains nikaal dein, internal battery quick-connect disconnect kar dein."
+        },
+        {
+          "en": "Check battery DC voltage; a rested healthy 12V battery reads 12.4-12.7V, near 0V means it must be replaced.",
+          "ur": "Battery ka DC voltage check karein; aaram wali healthy 12V battery 12.4-12.7V par hoti hai, 0V ke qareeb ho to badalni hai."
+        },
+        {
+          "en": "With mains reconnected, measure the charge voltage at the battery terminals; about 13.5-14V is healthy, near 0V points to a blown fuse or failed charger.",
+          "ur": "Mains wapas lagane ke baad battery terminals par charge voltage measure karein; 13.5-14V healthy hai, 0V ke qareeb ho to fuse ya charger kharab hai."
+        },
+        {
+          "en": "Replace a dead pack with the specified battery; if E02 stays with a new pack, escalate the charger board.",
+          "ur": "Dead pack ko spec wali battery se badal dein; nayi pack par bhi E02 rahe to charger board support ko bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Intelligent UPS Series CP850/1000/1350/1500AVRLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500AVRLCD.pdf"
+      }
+    },
+    {
+      "code": "E11",
+      "aliases": [
+        "E11"
+      ],
+      "title": {
+        "en": "E11 Battery Overvoltage",
+        "ur": "E11 Battery Overvoltage (battery ka voltage safe limit se upar)"
+      },
+      "meaning": {
+        "en": "Battery voltage has risen above the safe threshold and the UPS has cut inverter drive to protect the cells.",
+        "ur": "Battery voltage safe threshold se upar chali gayi hai aur UPS ne cells bachane ke liye inverter drive band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "Over-voltage protection relay or sensing line has failed so charging is never cut.",
+          "ur": "Over-voltage protection relay ya sensing line kharab ho gayi hai is liye charging kabhi band nahi hoti."
+        },
+        {
+          "en": "An extra cell in series has pushed the string above the charger set-point.",
+          "ur": "Series mein ek extra cell lag gaya hai jis se string charger set-point se upar chali gayi."
+        },
+        {
+          "en": "Swollen, internally shorted battery absorbing charge without taking it.",
+          "ur": "Phooli hui aur andar se short battery charge le rahi hai lekin use nahi kar rahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off, unplug mains and disconnect the battery before any measurement.",
+          "ur": "Koi bhi measurement se pehle off karein, mains nikaal dein aur battery disconnect kar dein."
+        },
+        {
+          "en": "Count the cells in series and confirm they match the model's specified battery configuration.",
+          "ur": "Series mein cells gin lein aur confirm karein ke woh model ki battery configuration se match karte hain."
+        },
+        {
+          "en": "Measure each cell on DC range; above about 13.8V at rest means replace that battery and its pair together.",
+          "ur": "Har cell ko DC range par measure karein; aaram karte waqt 13.8V se upar ho to us battery ko aur us ki jodi ko saath badal dein."
+        },
+        {
+          "en": "If voltage is in range but E11 still shows, it is a sensing/relay failure - route the unit to CyberPower Systems support.",
+          "ur": "Agar voltage range mein ho phir bhi E11 aaye to sensing/relay failure hai - unit CyberPower Systems support ko bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Intelligent UPS Series CP850/1000/1350/1500AVRLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500AVRLCD.pdf"
+      }
+    },
+    {
+      "code": "E21",
+      "aliases": [
+        "E21"
+      ],
+      "title": {
+        "en": "E21 Battery Output Short Fault",
+        "ur": "E21 Battery Output Short Fault (battery mode mein output short)"
+      },
+      "meaning": {
+        "en": "The UPS output is shorted while running on battery. The FAULT icon latches and stays on until the short is cleared and the unit is switched back on.",
+        "ur": "Battery par chalte waqt UPS output short ho gaya hai. FAULT icon lock ho jata hai aur short hataye baghair on karne tak nahi jaata."
+      },
+      "causes": [
+        {
+          "en": "A connected device has failed with a short circuit (PSU, monitor, motor, compressor).",
+          "ur": "Koi connected device short circuit ke saath kharab ho gaya hai (PSU, monitor, motor, compressor)."
+        },
+        {
+          "en": "A power strip or extension lead has a cut or crushed live core.",
+          "ur": "Power strip ya extension wire ka koi live core kata ya daba hua hai."
+        },
+        {
+          "en": "Outlet terminals on the UPS board are loose/bridged, or the battery cable is chafed to the chassis.",
+          "ur": "UPS board par outlet terminals dheele hain ya bridge hue hain, ya battery cable chassis se ghis gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off, unplug mains and disconnect the battery, then unplug every load from all UPS outlets.",
+          "ur": "Off karein, mains aur battery disconnect karein, phir tamam UPS outlets se saara load nikaal dein."
+        },
+        {
+          "en": "Reconnect one device at a time; the unit that trips E21 again is the short, so isolate and repair it.",
+          "ur": "Ek-ek device wapas lagayein; jis par dobara E21 aaye wohi short hai, use alag karke repair karwayein."
+        },
+        {
+          "en": "With the unit isolated, use a multimeter on continuity/ohms from each outlet to neutral; near-zero ohms confirms the short path.",
+          "ur": "Unit isolate karne ke baad multimeter continuity/ohms par har outlet ko neutral se check karein; zero ke qareeb ohms short path confirm karte hain."
+        },
+        {
+          "en": "If every outlet measures clean and E21 still returns, the inverter output stage is faulty - send to CyberPower Systems support.",
+          "ur": "Agar har outlet clean nikle phir bhi E21 aaye to inverter output stage kharab hai - CyberPower Systems support ko bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Intelligent UPS Series CP850/1000/1350/1500AVRLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500AVRLCD.pdf"
+      }
+    },
+    {
+      "code": "E22",
+      "aliases": [
+        "E22"
+      ],
+      "title": {
+        "en": "E22 Battery or AC Mode Overload Fault",
+        "ur": "E22 Battery ya AC Mode Overload Fault"
+      },
+      "meaning": {
+        "en": "Output load exceeds the UPS rating in battery mode or on AC/utility power, and the UPS cuts out to protect itself.",
+        "ur": "Battery mode ya AC/utility power par output load UPS ki rating se zyada hai aur UPS apni protection ke liye output band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Total connected wattage exceeds the unit rating (e.g. over 1000W on CP1500AVRLCD).",
+          "ur": "Total connected wattage unit ki rating se zyada hai (jaise CP1500AVRLCD par 1000W se upar)."
+        },
+        {
+          "en": "High inrush from a compressor, laser printer or motor when mains returns.",
+          "ur": "Mains wapas aate hi compressor, laser printer ya motor ka high inrush ho raha hai."
+        },
+        {
+          "en": "An undersized power strip feeding the load from the UPS outlets.",
+          "ur": "UPS outlets se load le kar chal raha kam rating wala power strip."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and unplug, then unplug at least one piece of equipment from the battery outlets and turn the UPS on again.",
+          "ur": "Off karke plug nikaal dein, phir battery outlets se kam az kam ek equipment nikaal dein aur UPS dobara on karein."
+        },
+        {
+          "en": "Add devices back one by one and total their watts; keep the sum inside the unit's rated watts for the battery outlets.",
+          "ur": "Devices ek-ek karke wapas lagayein aur watt total karein; battery outlets ke liye total unit ki rated watts se andar rakhein."
+        },
+        {
+          "en": "Confirm the rear circuit breaker is fully pushed in and that no outlet is being fed past its own surge rating.",
+          "ur": "Confirm karein ke rear circuit breaker poori tarah andar hai aur koi outlet apni surge rating se upar feed nahi ho raha."
+        },
+        {
+          "en": "If a large inrush appliance must stay connected, reconnect it after everything else so the UPS is not switching it on by itself.",
+          "ur": "Agar bade inrush wala appliance lagna hi hai, use sab kuch connect hone ke baad wapas lagayein taake UPS use khud on na kare."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Intelligent UPS Series CP850/1000/1350/1500AVRLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500AVRLCD.pdf"
+      }
+    },
+    {
+      "code": "NORMAL (icon)",
+      "aliases": [
+        "NORMAL (icon)"
+      ],
+      "title": {
+        "en": "NORMAL icon (normal operation status)",
+        "ur": "NORMAL icon (sab kuch theek, mains par kaam kar raha hai)"
+      },
+      "meaning": {
+        "en": "Status icon confirming the UPS is working under normal conditions on utility power. No action needed.",
+        "ur": "Status icon jo confirm karta hai ke UPS normal conditions mein utility power par kaam kar raha hai. Koi action zaruri nahi."
+      },
+      "causes": [
+        {
+          "en": "Utility power is present and within range; the inverter is in bypass/online pass-through.",
+          "ur": "Mains maujood aur range mein hai; inverter bypass/online pass-through mein hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action required - this is the healthy state; leave the unit on so the battery stays charged.",
+          "ur": "Koi action zaruri nahi - yeh healthy state hai; unit on chhor dein taake battery charged rahe."
+        },
+        {
+          "en": "Use the LCD INPUT voltage meter occasionally to check supply quality, especially if the area has frequent voltage swings.",
+          "ur": "Agar ilaqa mein voltage baar baar udalta hai to kabhi kabhi LCD INPUT voltage meter se supply quality check kar lein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Intelligent UPS Series CP850/1000/1350/1500AVRLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500AVRLCD.pdf"
+      }
+    },
+    {
+      "code": "BATTERY (icon)",
+      "aliases": [
+        "BATTERY (icon)",
+        "ON BATTERY"
+      ],
+      "title": {
+        "en": "BATTERY icon (on-battery status)",
+        "ur": "BATTERY icon (abhi internal battery se chal raha hai)"
+      },
+      "meaning": {
+        "en": "Status icon shown during sustained under-voltage or power loss: the UPS is feeding the load from its internal batteries. A steady continuous alarm warns the battery is nearly out.",
+        "ur": "Status icon jo sustained under-voltage ya power loss dikhata hai: UPS load ko internal battery se feed kar raha hai. Mukhtalif alarm ka matlab hai ke battery khatam hone wali hai."
+      },
+      "causes": [
+        {
+          "en": "Mains power failed or the input voltage fell below the transfer threshold.",
+          "ur": "Mains chali gayi ya input voltage transfer threshold se neeche gir gaya."
+        },
+        {
+          "en": "The on/off switch was switched too quickly and the unit is protecting its own control circuit.",
+          "ur": "On/off switch bahut jaldi daba diya gaya aur unit apna control circuit protect kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Save files and turn off your equipment, or let the software perform a controlled shutdown.",
+          "ur": "Files save karein aur apna equipment band karein, ya software se controlled shutdown karwayein."
+        },
+        {
+          "en": "After mains returns, leave the UPS plugged in for a full recharge (typically 8 hours from total discharge under 100% load).",
+          "ur": "Mains wapas aane ke baad UPS ko plug mein chhor dein poori recharge ke liye (100% load par total discharge se aam tor par 8 ghante)."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Intelligent UPS Series CP850/1000/1350/1500AVRLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500AVRLCD.pdf"
+      }
+    },
+    {
+      "code": "OVER LOAD (icon)",
+      "aliases": [
+        "OVER LOAD (icon)",
+        "OVERLOAD"
+      ],
+      "title": {
+        "en": "OVER LOAD icon (overload status)",
+        "ur": "OVER LOAD icon (outlets par load zyada hai)"
+      },
+      "meaning": {
+        "en": "Status icon with an alarm indicating the battery-supplied outlets are overloaded; it clears as you unplug equipment.",
+        "ur": "Status icon jo alarm ke saath batata hai ke battery-supplied outlets overloaded hain; equipment nikalte hi yeh clear ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Plugged devices together draw more than the UPS battery-outlet rating.",
+          "ur": "Lagaye gaye devices mil kar UPS battery outlet rating se zyada lete hain."
+        },
+        {
+          "en": "A surge or motor inrush from a newly connected device.",
+          "ur": "Naye device se power surge ya motor inrush aaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Unplug equipment one piece at a time from the battery-supplied outlets until the icon turns off and the alarm stops.",
+          "ur": "Battery-supplied outlets se ek-ek karke equipment nikaalte jayein jab tak icon band na ho aur alarm na ruke."
+        },
+        {
+          "en": "Confirm remaining draw on a power meter and push the rear circuit-breaker knob fully in.",
+          "ur": "Power meter se bacha hua draw confirm karein aur rear circuit-breaker knob poori tarah andar push karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Intelligent UPS Series CP850/1000/1350/1500AVRLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500AVRLCD.pdf"
+      }
+    },
+    {
+      "code": "Wiring Fault Indicator (red LED)",
+      "aliases": [
+        "Wiring Fault Indicator (red LED)",
+        "Wiring Fault",
+        "Wiring Fault Indicator (red)"
+      ],
+      "title": {
+        "en": "Rear Wiring Fault Indicator (red) lit",
+        "ur": "Peeche Wiring Fault Indicator (red) jal raha hai"
+      },
+      "meaning": {
+        "en": "A separate red LED on the rear warns that the wall outlet wiring is bad - bad ground, missing ground or reversed wiring - so surge protection is unavailable.",
+        "ur": "Peeche ka alag red LED warn karta hai ke wall outlet wiring kharab hai - beech ground, missing ground ya reversed wiring - is liye surge protection kaam nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "Wall outlet has no earth/ground connection or the earth wire is loose.",
+          "ur": "Wall outlet mein earth/ground connection nahi hai ya earth wire dheeli hai."
+        },
+        {
+          "en": "Live and neutral are reversed in the socket or in the supply wiring.",
+          "ur": "Socket ya supply wiring mein live aur neutral aapas mein ulat gaye hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Unplug the UPS from the outlet first and do not touch the socket with the UPS connected.",
+          "ur": "Pehle UPS ko outlet se nikaal dein aur UPS lagi hui halat mein socket ko haath na lagayein."
+        },
+        {
+          "en": "Test the outlet with an outlet tester pen or a multimeter for live-neutral-earth continuity; earth should show continuity to the building ground.",
+          "ur": "Outlet ko tester pen ya multimeter se check karein live-neutral-earth continuity ke liye; earth ki building ground se continuity honi chahiye."
+        },
+        {
+          "en": "Have a qualified electrician re-terminate the socket and restore proper grounding - do not DIY the mains wiring.",
+          "ur": "Kaamayeda electrician se socket dobara terminate karwayein aur proper earth dein - mains wiring khud mat karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Intelligent UPS Series CP850/1000/1350/1500AVRLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500AVRLCD.pdf"
+      }
+    }
+  ]
+}

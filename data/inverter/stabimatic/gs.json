@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "brandId": "stabimatic",
+  "series": {
+    "id": "gs",
+    "name": "GS Series UPS",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*GS*"
+    ],
+    "notes": "Wayback gsseries.html: label-level LED/LCD + named alarms; no blink periods published (medium)."
+  },
+  "codes": [
+    {
+      "code": "GS_LED_FAULT_CONDITION",
+      "aliases": [
+        "GS_LED_FAULT_CONDITION"
+      ],
+      "title": {
+        "en": "GS Fault conditions LED",
+        "ur": "jy ays fault asharh"
+      },
+      "meaning": {
+        "en": "LED panel includes \"Fault conditions\" (alongside Utility, Battery, Inverter, Over Load, Load/battery level) — no sub-patterns published",
+        "ur": "LED panel mein \"Fault conditions\" bhi shamil hai (Utility, Battery, Inverter, Over Load, Load/battery level ke saath) - koi sub-pattern publish nahi kiya gaya."
+      },
+      "causes": [
+        {
+          "en": "generic fault",
+          "ur": "Koi aam kharabi hai"
+        },
+        {
+          "en": "Overload, battery or mains problem reported together",
+          "ur": "Load, battery ya mains ka masla saath saath aa raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC before checking any wiring on the UPS.",
+          "ur": "UPS ki koi bhi wiring check karne se pehle power off karke AC isolate karein."
+        },
+        {
+          "en": "Note which other LEDs — Utility, Battery, Inverter, Over Load — stay lit with Fault; that points to the real problem.",
+          "ur": "Fault ke saath kaun se doosre LEDs — Utility, Battery, Inverter, Over Load — jal rahe hain note karein; isi se asal masla pata chalta hai."
+        },
+        {
+          "en": "Check load, battery and input supply; if nothing obvious is found the UPS goes to a service centre because no sub-codes are published.",
+          "ur": "Load, battery aur input supply check karein; kuch samajh na aaye to UPS service centre le jayein kyunke koi sub-code publish nahi hua."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "official_support",
+        "title": "Stabimatic official site via Wayback",
+        "url": "https://web.archive.org/web/*/stabimatic.com",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "only label-level",
+        "ur": "Sirf label par likha hai"
+      }
+    },
+    {
+      "code": "GS_LCD_FAULT",
+      "aliases": [
+        "GS_LCD_FAULT"
+      ],
+      "title": {
+        "en": "GS LCD Fault field",
+        "ur": "jy ays LCD fault"
+      },
+      "meaning": {
+        "en": "LCD includes a Fault item (with Input/Output V, frequency, load %, temp, battery V) — no numeric codes",
+        "ur": "LCD main fault aaitm — number code nahin"
+      },
+      "causes": [
+        {
+          "en": "generic",
+          "ur": "Koi aam kharabi"
+        },
+        {
+          "en": "Input or output outside limits, or internal board fault",
+          "ur": "Input ya output limits se bahar hai, ya andar board ka fault hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC before touching the UPS.",
+          "ur": "UPS chunein se pehle power off karke AC isolate karein."
+        },
+        {
+          "en": "Read the LCD values shown with Fault — input/output volts, frequency, load %, temp, battery volts — and note the abnormal one.",
+          "ur": "Fault ke saath LCD ki values padhein — input/output volts, frequency, load %, temp, battery volts — aur jo ghalat ho use note karein."
+        },
+        {
+          "en": "Correct what is out of range (mains, battery, load); if the Fault item stays, a service centre is required.",
+          "ur": "Jo limit se bahar hai (mains, battery, load) theek karein; Fault item bani rahe to service centre zaroori."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "official_support",
+        "title": "Stabimatic official site via Wayback",
+        "url": "https://web.archive.org/web/*/stabimatic.com",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "label-level only",
+        "ur": "Sirf label par diya gaya hai"
+      }
+    },
+    {
+      "code": "ALARM_LINE_FAILURE",
+      "aliases": [
+        "ALARM_LINE_FAILURE"
+      ],
+      "title": {
+        "en": "Line failure alarm",
+        "ur": "line fyl aur aylarm"
+      },
+      "meaning": {
+        "en": "Named audible/visual alarm: Line Failure",
+        "ur": "line fyl aur aylarm bajta hai"
+      },
+      "causes": [
+        {
+          "en": "mains loss",
+          "ur": "Mains band ho gaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "check input supply / generator",
+          "ur": "Input supply ya generator check karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "official_support",
+        "title": "Stabimatic official site via Wayback",
+        "url": "https://web.archive.org/web/*/stabimatic.com",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "named conditions, no patterns",
+        "ur": "Sirf naam wale conditions hain, blink pattern nahi"
+      }
+    },
+    {
+      "code": "ALARM_BATTERY_LOW",
+      "aliases": [
+        "ALARM_BATTERY_LOW"
+      ],
+      "title": {
+        "en": "Battery low alarm",
+        "ur": "battery lo aylarm"
+      },
+      "meaning": {
+        "en": "Named alarm: Battery Low",
+        "ur": "battery lo aylarm"
+      },
+      "causes": [
+        {
+          "en": "weak/discharged battery",
+          "ur": "Battery kamzor ya discharge ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "charge/test battery",
+          "ur": "Battery charge karein aur test karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "same",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "ALARM_TRANSFER_BYPASS",
+      "aliases": [
+        "ALARM_TRANSFER_BYPASS"
+      ],
+      "title": {
+        "en": "Transfer to bypass alarm",
+        "ur": "Bypass par transfer ka alarm"
+      },
+      "meaning": {
+        "en": "Named alarm: Transfer to Bypass",
+        "ur": "Yeh naam diya gaya alarm: \"Transfer to Bypass\""
+      },
+      "causes": [
+        {
+          "en": "overload (GS thresholds: 105–120% → bypass after 15 min; 120–150% → 30 s; >150% immediate) or other protection",
+          "ur": "Load zyada (GS thresholds: 105–120% → 15 min baad bypass; 120–150% → 30 s; >150% foran) ya koi doosri protection"
+        },
+        {
+          "en": "Load kept above the UPS rating for this model",
+          "ur": "Is model ki rating se zyada load laga hua hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC before checking the connected load.",
+          "ur": "Laga hua load check karne se pehle power off karke AC isolate karein."
+        },
+        {
+          "en": "Reduce load below the UPS rating — GS shifts to bypass at 105–120% after 15 min, at 120–150% after 30 s and immediately above 150%.",
+          "ur": "Load UPS rating se kam karein — GS 105–120% par 15 minute baad, 120–150% par 30 second baad aur 150% se upar foran bypass par chala jata hai."
+        },
+        {
+          "en": "After removing the extra load, power cycle once and confirm the UPS leaves bypass; if it returns, a technician checks the bypass relay.",
+          "ur": "Extra load hata kar ek baar power cycle karein aur confirm karein ke UPS bypass se nikal gaya; wapas aaye to technician bypass relay check kare."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "official_support",
+        "title": "Stabimatic official site via Wayback",
+        "url": "https://web.archive.org/web/*/stabimatic.com",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "thresholds from same page's overload table",
+        "ur": "Yehi page ke overload table se thresholds liye gaye hain"
+      }
+    },
+    {
+      "code": "ALARM_SYSTEM_FAULT",
+      "aliases": [
+        "ALARM_SYSTEM_FAULT"
+      ],
+      "title": {
+        "en": "System fault alarm",
+        "ur": "system fault aylarm"
+      },
+      "meaning": {
+        "en": "Named alarm: System Fault Conditions",
+        "ur": "system fault aylarm"
+      },
+      "causes": [
+        {
+          "en": "internal fault",
+          "ur": "UPS ke andar koi fault"
+        },
+        {
+          "en": "Internal board or protection component failed",
+          "ur": "Andar ka board ya protection component fail ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC and remove the load and battery before any inspection.",
+          "ur": "Kisi bhi check se pehle power off karein, AC ko isolate karein aur load aur battery hata dein."
+        },
+        {
+          "en": "With the supply isolated, look and smell for burn marks, loose connectors or a blown fuse.",
+          "ur": "Supply isolate karke dekhein aur smell karein — jale hue nishan, dhile connectors ya phata hua fuse to nahi hai."
+        },
+        {
+          "en": "If the alarm sounds again after a single power cycle, send the UPS to a service centre — no sub-codes are published.",
+          "ur": "Ek baar power cycle ke baad alarm phir baje to UPS ko service centre bhejein — koi sub-code publish nahi hua."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "official_support",
+        "title": "Stabimatic official site via Wayback",
+        "url": "https://web.archive.org/web/*/stabimatic.com",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "no sub-codes",
+        "ur": "Koi sub-code nahi"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1335 @@
+{
+  "schemaVersion": 1,
+  "brandId": "simtek",
+  "series": {
+    "id": "simron",
+    "name": "SIMRON PV5000-VM-IV / 4KW-24V Twin",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*SIMRON*",
+      "*PV5000*",
+      "*4KW*24*"
+    ],
+    "notes": "Official SIMRON manual: fault + warning tables (includes fault 04/59 and warnings 15/16/EQ not on SIMREX)."
+  },
+  "codes": [
+    {
+      "code": "01",
+      "aliases": [
+        "01"
+      ],
+      "title": {
+        "en": "Fan is locked when inverter is off",
+        "ur": "inverter band hone par Pankha band"
+      },
+      "meaning": {
+        "en": "Fan locked while inverter is OFF (fault table context).",
+        "ur": "inverter off hone par Pankha band."
+      },
+      "causes": [
+        {
+          "en": "Fan seized or obstructed",
+          "ur": "Pankha atka"
+        },
+        {
+          "en": "Fan connector loose or supply wire broken.",
+          "ur": "Fan ka connection dheela ya supply wire tooti hui hai."
+        },
+        {
+          "en": "Dust or a foreign object blocking the fan blades.",
+          "ur": "Dhool ya koi cheez pankha ki blades rok rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC input and PV, open the DC breaker and wait 5 minutes; open the cover and look for dust or an object blocking the fan.",
+          "ur": "AC input aur PV band karein, DC breaker kholein aur 5 minute intezar karein; cover khol kar dekhein ke dhool ya koi cheez pankha rok rahi hai."
+        },
+        {
+          "en": "With power isolated, spin the fan by hand — it must turn freely; check the fan plug on the board for a loose fit or burn marks.",
+          "ur": "Power band hone ke baad pankha haath se ghuma kar dekhein — azaadi se ghumna chahiye; board par fan ka plug dheela ya jale hue nishan to nahin, yeh check karein."
+        },
+        {
+          "en": "If the fan is stuck or does not run, replace it with the same size fan and restart the unit to retest.",
+          "ur": "Agar pankha phans gaya hai ya chal nahin raha, to usi size ka naya fan lagayein aur unit restart kar ke dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Warning 01 is fan locked when inverter is ON.",
+        "ur": "Warning 01 tab fan locked hai jab inverter ON ho."
+      }
+    },
+    {
+      "code": "02",
+      "aliases": [
+        "02"
+      ],
+      "title": {
+        "en": "Over temperature",
+        "ur": "zyada darja hararat"
+      },
+      "meaning": {
+        "en": "Component temp over 100C.",
+        "ur": "component darja hararat 100C se zyada"
+      },
+      "causes": [
+        {
+          "en": "Poor airflow / high ambient",
+          "ur": "hawa kam darja hararat zyada"
+        },
+        {
+          "en": "Cooling fan not running or running too slow.",
+          "ur": "Cooling fan chal nahin raha ya bohat dheere chal raha hai."
+        },
+        {
+          "en": "Filters and heat sink clogged with dust.",
+          "ur": "Filters aur heat sink dhool se band hue hue hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC input and PV and let the unit cool for 10–15 minutes; clear blocked vents and clean dust from filters and heat sinks.",
+          "ur": "AC input aur PV band kar ke unit ko 10-15 minute thanda hone dein; band vents kholein aur filters aur heat sinks se dhool saaf karein."
+        },
+        {
+          "en": "Restart with a lighter load and listen that the cooling fan runs; also check the room ambient is not too hot.",
+          "ur": "Halka load kar ke restart karein aur sun kar dekhein ke cooling fan chal raha hai; kamre ka temperature bhi zyada to nahin, yeh check karein."
+        },
+        {
+          "en": "If the trip returns with clear airflow, the fan or temperature sensor is faulty — have the board checked at the repair centre.",
+          "ur": "Hawa saaf hone ke baad bhi trip wapas aaye, to pankha ya temperature sensor kharab hai — board ko repair centre se check karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "03",
+      "aliases": [
+        "03"
+      ],
+      "title": {
+        "en": "Battery voltage is too high",
+        "ur": "battery voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "Battery over-charged / too high.",
+        "ur": "battery voltage bohat zyada"
+      },
+      "causes": [
+        {
+          "en": "Wrong battery spec/quantity",
+          "ur": "ghalat battery"
+        },
+        {
+          "en": "Charger full-charge voltage set too high.",
+          "ur": "Charger ka full-charge voltage bohat zyada set hai."
+        },
+        {
+          "en": "Weak battery cell holding the voltage high.",
+          "ur": "Kamzor battery cell voltage ko zyada rakhta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC input and PV, then measure the battery voltage with a meter and compare it with the battery specification.",
+          "ur": "AC input aur PV band kar ke meter se battery voltage naapein aur battery specification se compare karein."
+        },
+        {
+          "en": "Check the number of battery units and the charger full-charge setting; correct the setting or quantity if they are wrong.",
+          "ur": "Battery units ki tadad aur charger ka full-charge setting check karein; setting ya tadad ghalat ho to theek karein."
+        },
+        {
+          "en": "If the voltage is still too high with correct settings, return the unit to the repair centre.",
+          "ur": "Sahi settings ke baad bhi voltage zyada rahe, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "04",
+      "aliases": [
+        "04"
+      ],
+      "title": {
+        "en": "Battery voltage is too low",
+        "ur": "battery voltage bohat kam"
+      },
+      "meaning": {
+        "en": "Battery voltage too low (fault). SIMREX has no fault 04.",
+        "ur": "battery voltage bohat kam"
+      },
+      "causes": [
+        {
+          "en": "Deep discharge, weak battery",
+          "ur": "battery khaali/kamzor"
+        },
+        {
+          "en": "Battery left discharged for a long time.",
+          "ur": "Battery lambi arse se khali discharge ho gayi thi."
+        },
+        {
+          "en": "Loose battery cable or corroded terminal.",
+          "ur": "Battery cable dheeli hai ya terminal par zang hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV, then measure the battery voltage with a multimeter and recharge it before further testing.",
+          "ur": "AC input aur PV alag kar ke multimeter se battery voltage naapein aur mazeed testing se pehle battery charge karein."
+        },
+        {
+          "en": "Check battery cables, terminals and fuse for looseness, corrosion or a blown fuse; tighten or replace as needed.",
+          "ur": "Battery cables, terminals aur fuse check karein ke dheela, zang ya uda hua fuse to nahin; zaroorat ho to tight ya badal dein."
+        },
+        {
+          "en": "Load-test the battery — if the voltage collapses under load, replace the battery and restart the unit.",
+          "ur": "Battery ka load test karein — load par voltage gir jaye to battery badal kar unit restart karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Unique to SIMRON fault table vs SIMREX.",
+        "ur": "SIMREX ke muqable yeh sirf SIMRON fault table mein hai."
+      }
+    },
+    {
+      "code": "05",
+      "aliases": [
+        "05"
+      ],
+      "title": {
+        "en": "Output short circuited",
+        "ur": "output short circuit"
+      },
+      "meaning": {
+        "en": "Output short circuit.",
+        "ur": "output short circuit"
+      },
+      "causes": [
+        {
+          "en": "Wiring fault / appliance short",
+          "ur": "Wiring ya AC lines mein short"
+        },
+        {
+          "en": "Damaged appliance creating the short on the output.",
+          "ur": "Kharab appliance output par short bana raha hai."
+        },
+        {
+          "en": "Moisture or a loose joint in the output wiring.",
+          "ur": "Output wiring mein pani (moisture) ya dheela joint hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Stop the unit and isolate AC input and PV at once — never probe a short while the output is live.",
+          "ur": "Unit rok dein aur foran AC input aur PV alag karein — output chalte hue short par kabhi probe na karein."
+        },
+        {
+          "en": "With supply isolated, check the output wiring and each appliance for burn marks or wet joints; unplug the suspect load.",
+          "ur": "Supply band kar ke output wiring aur har appliance check karein ke jale hue nishan ya geele joints to nahin; shak wala load plug se nikaal dein."
+        },
+        {
+          "en": "Repair the wiring or remove the faulty appliance, then restart; if the code returns, the output stage needs service.",
+          "ur": "Wiring theek karein ya kharab appliance hatayein, phir restart karein; code wapas aaye to output stage ki service zaroori hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "06",
+      "aliases": [
+        "06"
+      ],
+      "title": {
+        "en": "Output voltage is too high",
+        "ur": "output voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "Output voltage too high (SIMRON table). Troubleshooting groups 06/58 as <190 or >260Vac.",
+        "ur": "output voltage bohat zyada (had se bahar)"
+      },
+      "causes": [
+        {
+          "en": "Overload/AVR or stage fault",
+          "ur": "load ya output stage kharabi"
+        },
+        {
+          "en": "Heavy load pushing the output stage beyond its range.",
+          "ur": "Bhari load output stage ko uski range se bahar push kar raha hai."
+        },
+        {
+          "en": "Loose output connection or a bad relay contact.",
+          "ur": "Output connection dheela hai ya relay contact kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load and restart, then measure the AC output with a multimeter.",
+          "ur": "Load kam kar ke restart karein, phir multimeter se AC output naapein."
+        },
+        {
+          "en": "With supply isolated, check the output terminals and relay contacts for looseness or burn marks.",
+          "ur": "Supply alag kar ke output terminals aur relay contacts check karein ke dheela ya jale hue nishan to nahin."
+        },
+        {
+          "en": "If the output is still too high with a light load, return the unit to the repair centre.",
+          "ur": "Halke load par bhi output zyada rahe, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Conflicts with SIMREX fault 06 Output voltage is abnormal.",
+        "ur": "Isay SIMREX fault 06 'Output voltage is abnormal' se conflict hai."
+      }
+    },
+    {
+      "code": "07",
+      "aliases": [
+        "07"
+      ],
+      "title": {
+        "en": "Overload time out",
+        "ur": "Over load timeout"
+      },
+      "meaning": {
+        "en": "Overload 110% and time is up.",
+        "ur": "110% par overload aur waqt khatam."
+      },
+      "causes": [
+        {
+          "en": "Load too high",
+          "ur": "load zyada"
+        },
+        {
+          "en": "Motor or pump start current too high.",
+          "ur": "Motor ya pump ka start current bohat zyada hai."
+        },
+        {
+          "en": "Too many appliances on at the same time.",
+          "ur": "Ek sath bohat sare appliances chalu karne se load zyada ho jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off some equipment so the load drops below the inverter rating, then restart the unit.",
+          "ur": "Kuch equipment band kar dein taake load inverter rating se neeche aa jaye, phir unit restart karein."
+        },
+        {
+          "en": "Check the load with a clamp meter if available — motors and pumps can draw more than their rated current.",
+          "ur": "Agar clamp meter ho to load check karein — motors aur pump apne rated current se zyada kha sakte hain."
+        },
+        {
+          "en": "Restart only after reducing the load; if it trips again, spread the load or have the unit checked.",
+          "ur": "Load kam karne ke baad hi restart karein; phir trip ho to load baant dein ya unit check karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "08",
+      "aliases": [
+        "08"
+      ],
+      "title": {
+        "en": "Bus voltage is too high",
+        "ur": "Bus voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "DC bus over-voltage.",
+        "ur": "DC bus par voltage zyada."
+      },
+      "causes": [
+        {
+          "en": "Internal components failed",
+          "ur": "andaruni kharabi"
+        },
+        {
+          "en": "Regenerative energy raising the DC bus.",
+          "ur": "Regenerative energy DC bus ko barha raha hai."
+        },
+        {
+          "en": "DC bus capacitor or bleed resistor failed.",
+          "ur": "DC bus capacitor ya bleed resistor kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, switch off AC input and PV and wait 5 minutes; do not probe the DC bus — capacitors hold dangerous voltage.",
+          "ur": "Unit band karein, AC input aur PV off kar ke 5 minute intezar karein; DC bus par probe na rakhein — capacitors mein khatarnak voltage reh jata hai."
+        },
+        {
+          "en": "Open the cover with supply isolated and look for burnt parts, bulged capacitors or loose connections.",
+          "ur": "Supply band kar ke cover kholein aur jalay hue parts, phoolay hue capacitors ya dheele connections dekhein."
+        },
+        {
+          "en": "If the fault repeats after restart, the power stage needs repair — send the unit to the repair centre.",
+          "ur": "Restart ke baad bhi fault dobara aaye, to power stage ki repair zaroori hai — unit ko repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "09",
+      "aliases": [
+        "09"
+      ],
+      "title": {
+        "en": "Bus soft start failed",
+        "ur": "Bus soft start nakaam"
+      },
+      "meaning": {
+        "en": "Bus soft-start failed.",
+        "ur": "Bus soft start nakaam."
+      },
+      "causes": [
+        {
+          "en": "Internal components failed",
+          "ur": "andaruni kharabi"
+        },
+        {
+          "en": "DC bus did not charge during the soft-start.",
+          "ur": "Soft-start ke dauran DC bus charge nahin hua."
+        },
+        {
+          "en": "Soft-start relay or resistor circuit fault.",
+          "ur": "Soft-start relay ya resistor circuit kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV, wait 5 minutes, then restart once and watch whether the code returns.",
+          "ur": "AC input aur PV alag kar ke 5 minute ruk kar ek baar restart karein aur dekhein ke code wapas aata hai ya nahin."
+        },
+        {
+          "en": "Check the DC input cable and main fuse for looseness or damage; do not probe the high-voltage bus yourself.",
+          "ur": "DC input cable aur main fuse check karein ke dheela ya kharab to nahin; high-voltage bus par khud probe na karein."
+        },
+        {
+          "en": "If the soft-start fails again, the DC/DC or bus stage has failed — send the unit for board repair.",
+          "ur": "Agar soft-start phir bhi fail ho, to DC/DC ya bus stage kharab ho gaya hai — unit ko board repair ke liye bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "10",
+      "aliases": [
+        "10"
+      ],
+      "title": {
+        "en": "PV over current",
+        "ur": "PV current zyada"
+      },
+      "meaning": {
+        "en": "PV input over-current.",
+        "ur": "PV input over current"
+      },
+      "causes": [
+        {
+          "en": "PV array oversize / fault",
+          "ur": "PV array bara ya kharab ho."
+        },
+        {
+          "en": "Parallel strings more than the unit rating.",
+          "ur": "Parallel strings unit rating se zyada hain."
+        },
+        {
+          "en": "Damaged panel leaking current in the array.",
+          "ur": "Kharab panel array mein current chhoda raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the PV DC isolator and check the array strings for damaged panels, water or loose connectors.",
+          "ur": "PV DC isolator band kar ke array strings check karein ke panels kharab, paani ya connectors dheele to nahin."
+        },
+        {
+          "en": "Confirm the array is within the unit rating; reduce parallel strings if it is oversized, then restart.",
+          "ur": "Confirm karein ke array unit rating ke andar hai; zyada bada ho to parallel strings kam kar ke restart karein."
+        },
+        {
+          "en": "If the fault returns with a correct array, have the DC input stage checked at the repair centre.",
+          "ur": "Sahi array ke sath bhi fault wapas aaye, to DC input stage ko repair centre se check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "51",
+      "aliases": [
+        "51"
+      ],
+      "title": {
+        "en": "Over current",
+        "ur": "Zyada current"
+      },
+      "meaning": {
+        "en": "Over-current fault.",
+        "ur": "Over current ki kharabi."
+      },
+      "causes": [
+        {
+          "en": "Surge or excessive load",
+          "ur": "Surge ya zyada load"
+        },
+        {
+          "en": "Motor or pump inrush current at start-up.",
+          "ur": "Motor ya pump ka start par inrush current."
+        },
+        {
+          "en": "Short or insulation fault on the output wiring.",
+          "ur": "Output wiring par short ya insulation fault."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off heavy loads such as motors and pumps, restart the unit and see if it runs on a light load.",
+          "ur": "Motor aur pump jaisi bhari load band kar dein, unit restart karein aur dekhein ke halke load par chal raha hai."
+        },
+        {
+          "en": "With supply isolated, check the output and battery wiring for shorts, loose terminals or burnt cables.",
+          "ur": "Supply band kar ke output aur battery wiring check karein ke short, dheele terminals ya jali hui cables to nahin."
+        },
+        {
+          "en": "If the error returns even on a light load, return the unit to the repair centre.",
+          "ur": "Halke load par bhi error wapas aa jaye, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "SIMREX uses Over current or surge.",
+        "ur": "SIMREX mein 'Over current or surge' use hota hai."
+      }
+    },
+    {
+      "code": "52",
+      "aliases": [
+        "52"
+      ],
+      "title": {
+        "en": "Bus voltage is too low",
+        "ur": "Bus voltage bohat kam"
+      },
+      "meaning": {
+        "en": "DC bus under-voltage.",
+        "ur": "DC bus voltage kam."
+      },
+      "causes": [
+        {
+          "en": "Weak battery / DC path",
+          "ur": "kamzor battery"
+        },
+        {
+          "en": "Battery discharged or one weak cell.",
+          "ur": "Battery discharge hai ya koi cell kamzor hai."
+        },
+        {
+          "en": "Blown fuse or loose DC cable.",
+          "ur": "Fuse uda hua hai ya DC cable dheeli hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the battery voltage under load with a multimeter — a weak battery is the usual cause.",
+          "ur": "Multimeter se load par battery voltage naapein — kamzor battery aam wajah hoti hai."
+        },
+        {
+          "en": "Isolate supply and check DC cables, fuse and connections for looseness, corrosion or a blown fuse.",
+          "ur": "Supply alag kar ke DC cables, fuse aur connections check karein ke dheela, zang ya uda hua fuse to nahin."
+        },
+        {
+          "en": "Charge or replace the battery and restart; if the trip repeats, send the unit to the repair centre.",
+          "ur": "Battery charge ya replace kar ke restart karein; trip dobara aaye to unit ko repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "53",
+      "aliases": [
+        "53"
+      ],
+      "title": {
+        "en": "Inverter soft start failed",
+        "ur": "Inverter soft start nakaam"
+      },
+      "meaning": {
+        "en": "Inverter soft-start failed.",
+        "ur": "Inverter soft start nakaam."
+      },
+      "causes": [
+        {
+          "en": "Internal components failed",
+          "ur": "andaruni kharabi"
+        },
+        {
+          "en": "DC bus did not reach the start level.",
+          "ur": "DC bus start level tak nahin pahuncha."
+        },
+        {
+          "en": "Gate drive fault in the inverter stage.",
+          "ur": "Inverter stage mein gate drive fault hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC input and PV and wait 5 minutes before opening the unit for a visual check.",
+          "ur": "Unit band karein, AC input aur PV alag kar ke 5 minute intezar karein, phir cover khol kar nazar se check karein."
+        },
+        {
+          "en": "Restart once after cooling; if the same code appears, the inverter stage failed to start.",
+          "ur": "Thanda hone ke baad ek baar restart karein; agar wohi code aaya to inverter stage start nahin hua."
+        },
+        {
+          "en": "Do not keep cycling power — return the unit to the repair centre for board repair.",
+          "ur": "Bar bar power on-off na karein — unit ko board repair ke liye repair centre le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "55",
+      "aliases": [
+        "55"
+      ],
+      "title": {
+        "en": "Over DC voltage in AC output",
+        "ur": "AC output main zyada DC"
+      },
+      "meaning": {
+        "en": "DC component on AC output (also described as output unbalanced in troubleshooting).",
+        "ur": "AC par DC mojood"
+      },
+      "causes": [
+        {
+          "en": "Output stage fault",
+          "ur": "output stage kharabi"
+        },
+        {
+          "en": "One output leg or relay contact has high resistance.",
+          "ur": "Kisi ek output leg ya relay contact par zyada resistance hai."
+        },
+        {
+          "en": "Output filter capacitor degraded.",
+          "ur": "Output filter capacitor kamzor ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the load, restart and measure the AC output with a multimeter to confirm the DC component or unbalance.",
+          "ur": "Load kam kar ke restart karein aur multimeter se AC output naapein ke DC component ya unbalance kitna hai."
+        },
+        {
+          "en": "With supply isolated, check the output wiring and relay contacts for looseness or burn marks.",
+          "ur": "Supply alag kar ke output wiring aur relay contacts check karein ke dheela ya jale hue nishan to nahin."
+        },
+        {
+          "en": "If it stays abnormal even at no load, return the unit to the repair centre.",
+          "ur": "Bina load ke bhi abnormal rahe, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "57",
+      "aliases": [
+        "57"
+      ],
+      "title": {
+        "en": "Current sensor failed",
+        "ur": "current sensor kharab"
+      },
+      "meaning": {
+        "en": "Current sensor failure.",
+        "ur": "current sensor kharab"
+      },
+      "causes": [
+        {
+          "en": "Sensor/hardware failure",
+          "ur": "sensor kharabi"
+        },
+        {
+          "en": "Current sensor connector loose or damaged.",
+          "ur": "Current sensor ka connection dheela ya kharab hai."
+        },
+        {
+          "en": "Main board sensing circuit fault.",
+          "ur": "Main board ki sensing circuit kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV, wait 5 minutes, then restart once to see whether the code clears.",
+          "ur": "AC input aur PV alag kar ke 5 minute ruk kar ek baar restart karein aur dekhein ke code hat jata hai ya nahin."
+        },
+        {
+          "en": "Open the unit with power isolated and check that the current sensor (CT/shunt) connector is seated and undamaged.",
+          "ur": "Power band kar ke unit kholein aur check karein ke current sensor (CT/shunt) ka connector theek laga hai ya kharab to nahin."
+        },
+        {
+          "en": "The sensor or board circuit has failed — send the unit to the repair centre for replacement.",
+          "ur": "Sensor ya board circuit kharab ho gaya hai — unit ko replacement ke liye repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "58",
+      "aliases": [
+        "58"
+      ],
+      "title": {
+        "en": "Output voltage is too low",
+        "ur": "output voltage bohat kam"
+      },
+      "meaning": {
+        "en": "Output voltage too low (grouped with 06: <190Vac or >260Vac).",
+        "ur": "output voltage bohat kam"
+      },
+      "causes": [
+        {
+          "en": "Heavy load / weak battery / stage fault",
+          "ur": "zyada load ya kamzor battery"
+        },
+        {
+          "en": "Long output cable causing voltage drop.",
+          "ur": "Lambi output cable voltage drop de rahi hai."
+        },
+        {
+          "en": "Weak battery under load.",
+          "ur": "Load par battery kamzor hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load and restart, then measure the AC output with a multimeter.",
+          "ur": "Load kam kar ke restart karein, phir multimeter se AC output naapein."
+        },
+        {
+          "en": "Check the battery voltage under load and the output wiring for loose joints — both pull the output down.",
+          "ur": "Load par battery voltage aur output wiring ke dheele joints check karein — dono output ko neeche kheenchte hain."
+        },
+        {
+          "en": "If the voltage is still low, return the unit to the repair centre.",
+          "ur": "Agar voltage phir bhi kam rahe, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "59",
+      "aliases": [
+        "59"
+      ],
+      "title": {
+        "en": "PV voltage is beyond the acceptable range",
+        "ur": "PV voltage qubool had se bahar"
+      },
+      "meaning": {
+        "en": "PV voltage outside acceptable range (SIMRON-only fault vs SIMREX).",
+        "ur": "PV voltage qubool had se bahar"
+      },
+      "causes": [
+        {
+          "en": "Too many panels in series for MPPT window",
+          "ur": "series main zyada panel"
+        },
+        {
+          "en": "Cold weather pushed the string voltage up.",
+          "ur": "Sardi ne string voltage ko upar kar diya."
+        },
+        {
+          "en": "Wrong array specification chosen for this model.",
+          "ur": "Is model ke liye ghalat array specification choose ki gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the PV DC isolator and measure the string voltage with a meter against the unit rating.",
+          "ur": "PV DC isolator band kar ke meter se string voltage naapein aur unit rating se compare karein."
+        },
+        {
+          "en": "Reduce the number of PV modules in series so the voltage falls inside the MPPT window, then reconnect.",
+          "ur": "Voltage ko MPPT window ke andar lane ke liye series mein PV modules ki tadad kam karein, phir dobara connect karein."
+        },
+        {
+          "en": "Check panels and connectors for damage and replace what is faulty before restarting.",
+          "ur": "Panels aur connectors mein kharabi check karein aur restart se pehle jo kharab ho use badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Not present in SIMREX fault table (SIMREX has fault 11 PV voltage is over instead).",
+        "ur": "SIMREX fault table mein maujood nahin (SIMREX mein fault 11 'PV voltage is over' hai)."
+      }
+    },
+    {
+      "code": "EQ",
+      "aliases": [
+        "EQ"
+      ],
+      "title": {
+        "en": "Battery equalization (warning row without numeric code)",
+        "ur": "Battery equalization"
+      },
+      "meaning": {
+        "en": "Warning table lists \"Battery equalization\" with no numeric code; mode indication.",
+        "ur": "Warning table mein \"Battery equalization\" baghair numeric code ke saath likha hai; yeh mode ki nishandahi hai."
+      },
+      "causes": [
+        {
+          "en": "Equalization cycle active (program 33/37/39)",
+          "ur": "Equalization cycle faal (program 33/37/39)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Normal process for flooded batteries; wait until float returns",
+          "ur": "Aam amal; float par wapas aaye ga."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Code field empty in source table - recorded as pseudo-code EQ only for inventory; do not treat as numeric code. Confidence medium because no official code string exists.",
+        "ur": "Source table mein Code field khali hai - inventory ke liye sirf pseudo-code EQ ke tor par record kiya gaya hai; ise numeric code na maana jaye. Kyunki koi official code string mojood nahin, confidence medium hai."
+      },
+      "blinkPattern": "audible; none; icon flashing"
+    },
+    {
+      "code": "W01",
+      "aliases": [
+        "W01"
+      ],
+      "title": {
+        "en": "Fan is locked when inverter is on",
+        "ur": "inverter chalte huey Pankha band"
+      },
+      "meaning": {
+        "en": "Fan locked while inverter running.",
+        "ur": "inverter chalte huey Pankha band."
+      },
+      "causes": [
+        {
+          "en": "Fan obstructed/failed",
+          "ur": "Pankha ruka/kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clear/replace fan",
+          "ur": "Pankha saaf/tabdeeli karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Audible: beep three times every second. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Audible: har second teen baar beep bajti hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      },
+      "blinkPattern": "audible; beep x3 every 1s; icon flashing"
+    },
+    {
+      "code": "W02",
+      "aliases": [
+        "W02"
+      ],
+      "title": {
+        "en": "Over temperature (warning)",
+        "ur": "Zyada temperature (warning)"
+      },
+      "meaning": {
+        "en": "High temperature warning.",
+        "ur": "Zyada temperature ki warning."
+      },
+      "causes": [
+        {
+          "en": "Heat / blocked vents",
+          "ur": "hararat/hawa band"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Improve ventilation",
+          "ur": "Hawa ka rasta behtar karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Audible alarm: None. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Audible alarm: None hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      },
+      "blinkPattern": "audible; none; icon flashing"
+    },
+    {
+      "code": "W03",
+      "aliases": [
+        "W03"
+      ],
+      "title": {
+        "en": "Battery is over-charged",
+        "ur": "battery zyada charge"
+      },
+      "meaning": {
+        "en": "Battery over-charge warning.",
+        "ur": "Battery over-charge ki warning."
+      },
+      "causes": [
+        {
+          "en": "Charge settings / battery issue",
+          "ur": "charge setting ya battery"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check charge settings and battery type",
+          "ur": "Setting aur battery type check karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Audible: beep once every second. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Audible: har second ek baar beep bajti hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      },
+      "blinkPattern": "audible; beep x1 every 1s; icon flashing"
+    },
+    {
+      "code": "W04",
+      "aliases": [
+        "W04"
+      ],
+      "title": {
+        "en": "Low battery",
+        "ur": "kam battery"
+      },
+      "meaning": {
+        "en": "Low battery warning.",
+        "ur": "Low battery ki warning."
+      },
+      "causes": [
+        {
+          "en": "Discharged battery",
+          "ur": "battery khaali"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Recharge / replace battery",
+          "ur": "battery charge/tabdeeli karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Audible: beep once every second. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Audible: har second ek baar beep bajti hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      },
+      "blinkPattern": "audible; beep x1 every 1s; icon flashing"
+    },
+    {
+      "code": "W07",
+      "aliases": [
+        "W07"
+      ],
+      "title": {
+        "en": "Overload (warning)",
+        "ur": "Overload ki warning"
+      },
+      "meaning": {
+        "en": "Overload warning before timeout fault.",
+        "ur": "Timeout fault se pehle overload ki warning."
+      },
+      "causes": [
+        {
+          "en": "Load high",
+          "ur": "load zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce load",
+          "ur": "load kam karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Audible: beep once every 0.5 second. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Audible: har 0.5 second mein ek baar beep bajti hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      },
+      "blinkPattern": "audible; beep x1 every 0.5s; icon flashing"
+    },
+    {
+      "code": "W10",
+      "aliases": [
+        "W10"
+      ],
+      "title": {
+        "en": "Output power derating",
+        "ur": "output power derating"
+      },
+      "meaning": {
+        "en": "Output power derating warning.",
+        "ur": "output power kam ho raha hai"
+      },
+      "causes": [
+        {
+          "en": "Thermal or overload derating",
+          "ur": "hararat ya load"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce load / improve cooling",
+          "ur": "load kam ya thandak barhayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Audible: beep twice every 3 seconds. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Audible: har 3 second mein do baar beep bajti hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      },
+      "blinkPattern": "audible; beep x2 every 3s; icon flashing"
+    },
+    {
+      "code": "W15",
+      "aliases": [
+        "W15",
+        "15"
+      ],
+      "title": {
+        "en": "PV energy is low",
+        "ur": "PV power kam"
+      },
+      "meaning": {
+        "en": "PV energy low (SIMRON-only warning; not in SIMREX warning table).",
+        "ur": "Solar power kam"
+      },
+      "causes": [
+        {
+          "en": "Shading, low irradiance, string issue",
+          "ur": "Saaye ya kam dhoop."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check PV strings/shading; wait for sun",
+          "ur": "PV check karein, dhoop ka intezar karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Audible: beep twice every 3 seconds. Unique to SIMRON. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Audible: har 3 second mein do baar beep bajti hai. Yeh sirf SIMRON par hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      },
+      "blinkPattern": "audible; beep x2 every 3s; icon flashing"
+    },
+    {
+      "code": "W16",
+      "aliases": [
+        "W16",
+        "16"
+      ],
+      "title": {
+        "en": "High AC input (>280VAC) during BUS soft start",
+        "ur": "Bus soft start ke dauran zyada AC input (>280VAC)"
+      },
+      "meaning": {
+        "en": "AC input over 280VAC while bus soft-starting.",
+        "ur": "soft start ke dauran AC input 280V se zyada"
+      },
+      "causes": [
+        {
+          "en": "Grid over-voltage",
+          "ur": "grid zyada voltage"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for grid normal; check input range settings",
+          "ur": "grid normal hone ka intezar setting check"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Audible alarm: None. Unique to SIMRON. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Audible alarm: None hai. Yeh sirf SIMRON par hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      },
+      "blinkPattern": "audible; none; icon flashing"
+    },
+    {
+      "code": "W32",
+      "aliases": [
+        "W32",
+        "32"
+      ],
+      "title": {
+        "en": "Communication failure between inverter and display panel",
+        "ur": "Inverter aur display panel ke darmiyan communication kharab."
+      },
+      "meaning": {
+        "en": "Display panel communication failure.",
+        "ur": "Display panel ka rabta toot gaya."
+      },
+      "causes": [
+        {
+          "en": "Display cable fault",
+          "ur": "display cable kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat/replace display cable",
+          "ur": "cable dobaara lagayein/tabdeeli karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMTEK SIMRON PV5000-VM-IV 4K Twin User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMTEK-SIMRON-PV5000-VM-IV-4K-TWIN-USER-MANUAL.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Audible alarm: None. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Audible alarm: None hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      },
+      "blinkPattern": "audible; none; icon flashing"
+    }
+  ]
+}

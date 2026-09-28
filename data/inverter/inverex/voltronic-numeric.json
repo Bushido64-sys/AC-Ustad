@@ -1,0 +1,1313 @@
+{
+  "schemaVersion": 1,
+  "brandId": "inverex",
+  "series": {
+    "id": "voltronic-numeric",
+    "name": "Veyron / Axpert King / AEROX / VM-II (Voltronic-class numeric 01–59 + W-codes)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*VEYRON*",
+      "*King*",
+      "*AEROX*",
+      "*VM*",
+      "*AXPERT*"
+    ],
+    "notes": "Inverex-badged Voltronic-platform units: Veyron II / Veyron IV, Axpert King, AEROX, VM-II Premium. Numeric fault 01–09/10/11/51–59 + warnings W01–W07/W10/W15 from Inverex-branded manuals (AEROX, Veyron IV, King, VM-II) cross-checked against Voltronic OEM manuals. Display: LCD + red FAULT LED + beep patterns on warnings. Veyron II Premium manual p.31 has a Fault Reference section — rows NOT extracted (Scribd block) — expected to match this Voltronic set but unconfirmed for Veyron II specifically. Never cite unlabeled Growatt/Must blogs as Inverex. Reset: AC input off → 2–5 min → on (DC strings isolated for DC work)."
+  },
+  "codes": [
+    {
+      "code": "01",
+      "aliases": [
+        "01"
+      ],
+      "title": {
+        "en": "Fan locked (inverter off)",
+        "ur": "Fan lock (inverter off)"
+      },
+      "meaning": {
+        "en": "Cooling fan is locked while inverter is off — fan did not spin at start.",
+        "ur": "Inverter off hone par cooling fan lock hai — start par fan nahi ghuma."
+      },
+      "causes": [
+        {
+          "en": "Fan jammed / foreign object",
+          "ur": "Fan jam / bahar ka cheez"
+        },
+        {
+          "en": "Fan connector",
+          "ur": "Fan ka connector"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and unplug the unit before touching the fan",
+          "ur": "Fan ko chhoone se pehle power off karke plug nikal lein"
+        },
+        {
+          "en": "Turn the fan blade by hand to free it, remove any wire or dust holding it and check the fan connector is seated",
+          "ur": "Fan ka patta haath se ghuma kar azaad karein, rukne wali taar/dhool hatayein aur connector sahi laga hon dekhein"
+        },
+        {
+          "en": "Do not force the unit to run with a jammed fan; replace the fan if it does not spin freely",
+          "ur": "Fan atka hona par unit ko zabardasti na chalayein; fan azaad na ghoome to use badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert King 3.2/5.2KW manual (Voltronic OEM)",
+        "url": "https://solaro.sk/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "02"
+      ]
+    },
+    {
+      "code": "02",
+      "aliases": [
+        "02"
+      ],
+      "title": {
+        "en": "Over-temperature (internal ≳100°C)",
+        "ur": "Over-temperature (andar ≳100°C)"
+      },
+      "meaning": {
+        "en": "Internal component temperature above ≈100°C.",
+        "ur": "Andar ka component temperature ≈100°C se upar."
+      },
+      "causes": [
+        {
+          "en": "Blocked vents / dusty heatsink",
+          "ur": "Vents block / dusty heatsink"
+        },
+        {
+          "en": "Fan failure",
+          "ur": "Fan fail"
+        },
+        {
+          "en": "High ambient load",
+          "ur": "Ambient/load zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and let the unit cool down completely before cleaning",
+          "ur": "Power off karke saaf karne se pehle unit ko mukammal thanda hone dein"
+        },
+        {
+          "en": "Clean the vents and heatsink, blow out the dust and confirm both fans run while the unit is on",
+          "ur": "Vent aur heatsink saaf karein, dhool nikalein aur unit ON hone par dono fan chalne confirm karein"
+        },
+        {
+          "en": "Restart once after cooling; if it heats up again, reduce the load and have a technician check the fans and thermal sensor",
+          "ur": "Thanda hone ke baad ek baar restart karein; dobara garmi aaye to load kam karwa kar technician se fan aur thermal sensor check karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Voltronic Axpert MKS II / VM IV OEM manuals (platform cross-check)",
+        "url": "https://voltronicpower.com/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "W02"
+      ]
+    },
+    {
+      "code": "03",
+      "aliases": [
+        "03"
+      ],
+      "title": {
+        "en": "Battery voltage too high / over-charged",
+        "ur": "Battery voltage zyada / over-charged"
+      },
+      "meaning": {
+        "en": "Battery voltage above maximum charge limit.",
+        "ur": "Battery voltage maximum charge limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Charge voltage set too high",
+          "ur": "Charge voltage setting zyada"
+        },
+        {
+          "en": "Battery bank fault",
+          "ur": "Battery bank mein kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Stop charging immediately and power off if the battery is hot, leaking or swollen",
+          "ur": "Foran charge rok dein aur battery garam, leakage wali ya phooli ho to power off karein"
+        },
+        {
+          "en": "Compare the charge voltage setting with the battery type and lower it to the battery maker's value",
+          "ur": "Charge voltage setting ko battery type se milayein aur battery wali company ki value par utarein"
+        },
+        {
+          "en": "Check each battery link with a meter for a weak cell and have a technician check the bank if voltage stays high",
+          "ur": "Meter se har battery link par weak cell check karein; voltage zyada hi rahe to technician se bank check karwayein"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Voltronic Axpert MKS II / VM IV OEM manuals (platform cross-check)",
+        "url": "https://voltronicpower.com/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "W03"
+      ]
+    },
+    {
+      "code": "04",
+      "aliases": [
+        "04"
+      ],
+      "title": {
+        "en": "Battery voltage too low",
+        "ur": "Battery voltage bohat kam"
+      },
+      "meaning": {
+        "en": "Battery voltage below cut-off.",
+        "ur": "Battery voltage cut-off se neeche."
+      },
+      "causes": [
+        {
+          "en": "Deep discharge",
+          "ur": "Battery deep discharge ho jana"
+        },
+        {
+          "en": "Weak/old bank",
+          "ur": "Purani/kamzor bank"
+        },
+        {
+          "en": "Loose battery links",
+          "ur": "Battery links dhile"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not deep-cycle the bank further; check it for heat or swelling before charging",
+          "ur": "Battery ko aur deep-cycle na karein; charge se pehle uski garmi ya phoolna check karein"
+        },
+        {
+          "en": "Charge from PV or grid if safe, tighten the loose battery links and watch the SOC rise",
+          "ur": "Safe ho to PV/grid se charge karein, dhile battery link tight karein aur dekhein ke SOC barh raha hai"
+        },
+        {
+          "en": "If the voltage does not recover, have a technician test the old bank and replace the weak batteries",
+          "ur": "Voltage wapas na aaye to technician se purani battery test karwa kar kamzor cell badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Voltronic Axpert MKS II / VM IV OEM manuals (platform cross-check)",
+        "url": "https://voltronicpower.com/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "W04"
+      ]
+    },
+    {
+      "code": "05",
+      "aliases": [
+        "05"
+      ],
+      "title": {
+        "en": "Output short-circuited / converter over-temp",
+        "ur": "Output short / converter over-temp"
+      },
+      "meaning": {
+        "en": "AC output shorted or converter over-temperature.",
+        "ur": "AC output short ya converter over-temperature."
+      },
+      "causes": [
+        {
+          "en": "Load short",
+          "ur": "Load mein short circuit"
+        },
+        {
+          "en": "Converter thermal",
+          "ur": "Converter zyada garm hona"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Disconnect AC load; insulation test; technician before re-energize",
+          "ur": "AC load disconnect karein; insulation test; re-energize se pehle technician"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Voltronic Axpert MKS II / VM IV OEM manuals (platform cross-check)",
+        "url": "https://voltronicpower.com/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "02"
+      ]
+    },
+    {
+      "code": "06",
+      "aliases": [
+        "06"
+      ],
+      "title": {
+        "en": "Output voltage abnormal / too high",
+        "ur": "Output voltage abnormal / zyada"
+      },
+      "meaning": {
+        "en": "Inverter output voltage outside limits.",
+        "ur": "Inverter output voltage limits se bahar."
+      },
+      "causes": [
+        {
+          "en": "Feedback/sense fault",
+          "ur": "Feedback/sense ka masla"
+        },
+        {
+          "en": "Load too light/heavy for regulation",
+          "ur": "Regulation ke liye load bohat kam/zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC before taking any measurement",
+          "ur": "Koi bhi measurement lene se pehle power off karke AC isolate karein"
+        },
+        {
+          "en": "Measure the output with a meter and check the load is neither too light nor too heavy for regulation",
+          "ur": "Output ko meter se napein aur check karein ke load regulation ke liye zyada halka ya bhaari na ho"
+        },
+        {
+          "en": "If the voltage is still out of range, have a technician check the feedback/sense circuit and the power stage",
+          "ur": "Voltage phir bhi range se bahir ho to technician se feedback/sense circuit aur power stage check karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Voltronic Axpert MKS II / VM IV OEM manuals (platform cross-check)",
+        "url": "https://voltronicpower.com/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "58"
+      ]
+    },
+    {
+      "code": "07",
+      "aliases": [
+        "07"
+      ],
+      "title": {
+        "en": "Overload time-out (≥110%)",
+        "ur": "Overload ka time-out (≥110% load)"
+      },
+      "meaning": {
+        "en": "Load stayed ≥110% until time-out.",
+        "ur": "Load ≥110% raha jab tak time-out nahi hua."
+      },
+      "causes": [
+        {
+          "en": "Too much load",
+          "ur": "Load zyada"
+        },
+        {
+          "en": "Load close to or above rating",
+          "ur": "Load rating ke qareeb ya usse zyada"
+        },
+        {
+          "en": "Heavy motor or AC start current",
+          "ur": "Motor/AC start ka bhaari current"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the load below 100% of the rating before restarting the unit",
+          "ur": "Unit ko restart karne se pehle load ko 100% rating se neeche karein"
+        },
+        {
+          "en": "Compare the nameplate rating with the measured load on a clamp meter and switch off non-essential loads",
+          "ur": "Nameplate rating ko clamp meter se naape hue load se milayein aur zaroori se bahir load band karein"
+        },
+        {
+          "en": "Start heavy loads one by one; if the trip returns at normal load, have a technician check the current sensor",
+          "ur": "Bhaari load ek ek karke start karein; mamooli load par bhi trip wapas aaye to technician se current sensor check karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Voltronic Axpert MKS II / VM IV OEM manuals (platform cross-check)",
+        "url": "https://voltronicpower.com/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "W07"
+      ]
+    },
+    {
+      "code": "08",
+      "aliases": [
+        "08"
+      ],
+      "title": {
+        "en": "Bus voltage too high",
+        "ur": "Bus voltage zyada"
+      },
+      "meaning": {
+        "en": "DC bus over-voltage.",
+        "ur": "DC bus par voltage zyada."
+      },
+      "causes": [
+        {
+          "en": "PV Voc too high",
+          "ur": "PV Voc zyada"
+        },
+        {
+          "en": "Load dump / regen",
+          "ur": "Load dump ya regen energy"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Check series module count vs max DC; technician",
+          "ur": "Series modules vs max DC check karein; technician"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Voltronic Axpert MKS II / VM IV OEM manuals (platform cross-check)",
+        "url": "https://voltronicpower.com/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "59",
+        "52"
+      ]
+    },
+    {
+      "code": "09",
+      "aliases": [
+        "09"
+      ],
+      "title": {
+        "en": "Bus soft-start failed",
+        "ur": "Bus soft-start fail"
+      },
+      "meaning": {
+        "en": "DC bus failed soft-start sequence.",
+        "ur": "DC bus soft-start sequence fail."
+      },
+      "causes": [
+        {
+          "en": "Precharge/relay fault",
+          "ur": "Precharge/relay mein kharabi"
+        },
+        {
+          "en": "Shorted bus",
+          "ur": "Bus short"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and wait for the DC bus to discharge; do not restart again and again",
+          "ur": "Power off karke DC bus ka discharge hone dein; baar baar restart na karein"
+        },
+        {
+          "en": "After isolating, use a meter to check the precharge circuit, relay and DC bus for a short",
+          "ur": "Isolate karke meter se precharge circuit, relay aur DC bus par short check karein"
+        },
+        {
+          "en": "If the bus will not charge, have a technician replace the failed relay or precharge part",
+          "ur": "Bus charge na ho to technician se kharab relay ya precharge part badalwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert King 3.2/5.2KW manual (Voltronic OEM)",
+        "url": "https://solaro.sk/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "53"
+      ]
+    },
+    {
+      "code": "10",
+      "aliases": [
+        "10"
+      ],
+      "title": {
+        "en": "PV over-current",
+        "ur": "PV ka current zyada"
+      },
+      "meaning": {
+        "en": "PV input current above limit.",
+        "ur": "PV input current limit se upar."
+      },
+      "causes": [
+        {
+          "en": "String config / MPPT fault",
+          "ur": "String config ya MPPT ka masla"
+        },
+        {
+          "en": "Too many parallel strings configured",
+          "ur": "Zyada parallel strings set kar di gayin"
+        },
+        {
+          "en": "MPPT tracking fault in charger",
+          "ur": "Charger mein MPPT tracking ka masla"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the PV DC breaker or isolator before checking the strings",
+          "ur": "String check karne se pehle PV ka DC breaker ya isolator band karein"
+        },
+        {
+          "en": "Verify the number of parallel strings matches the inverter limit and that no extra strings were added",
+          "ur": "Check karein ke parallel strings inverter ki limit ke mutabiq hain aur koi extra string judi to nahi"
+        },
+        {
+          "en": "Measure the string current with a meter; if it is within range but the trip returns, have a technician check the MPPT stage",
+          "ur": "Meter se string current napein; range ke andar hone par bhi trip wapas aaye to technician se MPPT stage check karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "APT VEYRON IV 3.2KW manual p.43 fault table",
+        "url": "https://www.manualslib.com/manual/2182101",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "11"
+      ]
+    },
+    {
+      "code": "11",
+      "aliases": [
+        "11"
+      ],
+      "title": {
+        "en": "PV over-voltage",
+        "ur": "PV par voltage zyada"
+      },
+      "meaning": {
+        "en": "PV input voltage above limit.",
+        "ur": "PV input voltage limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Too many modules in series",
+          "ur": "Series modules zyada"
+        },
+        {
+          "en": "Array Voc above inverter max PV",
+          "ur": "Array ka Voc inverter ke max PV se zyada"
+        },
+        {
+          "en": "Cold weather raising module voltage",
+          "ur": "Sardi mein module ka voltage barh jana"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the PV isolator first and let the array cool; PV wires stay live in daylight",
+          "ur": "Pehle PV isolator band karein aur array ko thanda hone dein; din ke waqt PV wires bhi live rehti hain"
+        },
+        {
+          "en": "Count the modules in each series string and compare the total Voc with the nameplate max PV Voc",
+          "ur": "Har series string mein modules gin kar total Voc ko nameplate max PV Voc se milayein"
+        },
+        {
+          "en": "Remove modules from the string until Voc is within limit; if it is still high, have a technician check the input stage",
+          "ur": "Voc limit ke andar aane tak string se modules hatayein; phir bhi zyada rahe to technician se input stage check karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "APT VEYRON IV 3.2KW manual p.43 fault table",
+        "url": "https://www.manualslib.com/manual/2182101",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "08",
+        "59"
+      ]
+    },
+    {
+      "code": "51",
+      "aliases": [
+        "51"
+      ],
+      "title": {
+        "en": "Over-current / surge",
+        "ur": "Over-current ya surge"
+      },
+      "meaning": {
+        "en": "Power-stage over-current or surge trip.",
+        "ur": "Power-stage over-current ya surge trip."
+      },
+      "causes": [
+        {
+          "en": "Inrush/short",
+          "ur": "Inrush ya short circuit"
+        },
+        {
+          "en": "Load inrush at startup",
+          "ur": "Start waqt ka load inrush"
+        },
+        {
+          "en": "Short on AC output",
+          "ur": "AC output par short"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "53"
+      ]
+    },
+    {
+      "code": "52",
+      "aliases": [
+        "52"
+      ],
+      "title": {
+        "en": "Bus voltage too low",
+        "ur": "Bus voltage kam"
+      },
+      "meaning": {
+        "en": "DC bus under-voltage.",
+        "ur": "DC bus par voltage kam."
+      },
+      "causes": [
+        {
+          "en": "Low battery / low PV",
+          "ur": "Battery/PV kam"
+        },
+        {
+          "en": "Battery deeply discharged",
+          "ur": "Battery deeply discharge ho gayi"
+        },
+        {
+          "en": "PV input weak or shaded",
+          "ur": "PV input kamzor ho ya shadow pada ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "04"
+      ]
+    },
+    {
+      "code": "53",
+      "aliases": [
+        "53"
+      ],
+      "title": {
+        "en": "Inverter soft-start failed",
+        "ur": "Inverter soft-start fail"
+      },
+      "meaning": {
+        "en": "Inverter output soft-start failed.",
+        "ur": "Inverter output soft-start fail."
+      },
+      "causes": [
+        {
+          "en": "Load too heavy at start",
+          "ur": "Start par load zyada"
+        },
+        {
+          "en": "Stage fault",
+          "ur": "Output stage kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate before retrying; do not keep restarting the unit",
+          "ur": "Dobara koshish se pehle power off karke isolate karein; unit ko baar baar restart na karein"
+        },
+        {
+          "en": "Disconnect heavy loads such as motors and the AC, then start the inverter on a light load",
+          "ur": "Motor/AC jaise bhaari load alag karke, halka load par inverter start karein"
+        },
+        {
+          "en": "If it still fails to start, have a technician check the output stage and relays and replace the faulty part",
+          "ur": "Phir bhi start na ho to technician se output stage aur relay check karwa kar kharab part badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "09"
+      ]
+    },
+    {
+      "code": "55",
+      "aliases": [
+        "55"
+      ],
+      "title": {
+        "en": "Over DC voltage in AC output / output unbalance",
+        "ur": "AC output mein DC voltage zyada / output barabar nahi"
+      },
+      "meaning": {
+        "en": "DC component in AC output or output imbalance.",
+        "ur": "AC output mein DC component ya output imbalance."
+      },
+      "causes": [
+        {
+          "en": "Feedback/bridge fault",
+          "ur": "Feedback/bridge mein kharabi"
+        },
+        {
+          "en": "Current sensor reading error",
+          "ur": "Current sensor ki reading ghalat"
+        },
+        {
+          "en": "Output stage device degraded",
+          "ur": "Output stage ka device kamzor ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC before measuring the output",
+          "ur": "Output napein se pehle power off karke AC isolate karein"
+        },
+        {
+          "en": "Measure the DC component on the output with a meter and check the load for a leakage path",
+          "ur": "Meter se output par DC component napein aur load mein leakage path check karein"
+        },
+        {
+          "en": "Have a technician check the feedback circuit and output bridge devices and replace the failed part",
+          "ur": "Technician se feedback circuit aur output bridge device check karwa kar kharab part badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "06"
+      ]
+    },
+    {
+      "code": "57",
+      "aliases": [
+        "57"
+      ],
+      "title": {
+        "en": "Current sensor failed",
+        "ur": "Current sensor fail"
+      },
+      "meaning": {
+        "en": "Current sensor/CT failed.",
+        "ur": "Current sensor/CT fail."
+      },
+      "causes": [
+        {
+          "en": "Sensor hardware",
+          "ur": "Sensor hardware kharab"
+        },
+        {
+          "en": "CT/sensor open or damaged",
+          "ur": "CT/sensor khula ya kharab ho gaya"
+        },
+        {
+          "en": "Sensor wiring loose",
+          "ur": "Sensor ki wiring dhili"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate before checking the sensor wiring",
+          "ur": "Sensor wiring check karne se pehle power off karke isolate karein"
+        },
+        {
+          "en": "Check the CT/sensor connector and wiring for looseness or damage and compare the readings across phases",
+          "ur": "CT/sensor connector aur wiring ke dhile ya kharab hona dekhein aur phases ki readings compare karein"
+        },
+        {
+          "en": "Replace the current sensor or CT if its reading stays wrong",
+          "ur": "Reading ghalat hi rahe to current sensor ya CT badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "58",
+      "aliases": [
+        "58"
+      ],
+      "title": {
+        "en": "Output voltage too low",
+        "ur": "Output voltage kam"
+      },
+      "meaning": {
+        "en": "Inverter output voltage below limit.",
+        "ur": "Inverter output voltage limit se neeche."
+      },
+      "causes": [
+        {
+          "en": "Regulation/fault under load",
+          "ur": "Load ke neeche regulation/fault"
+        },
+        {
+          "en": "Load heavier than regulation range",
+          "ur": "Load regulation range se zyada bhaari"
+        },
+        {
+          "en": "Feedback circuit fault",
+          "ur": "Feedback circuit kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC before measuring the output voltage",
+          "ur": "Output voltage napein se pehle power off karke AC isolate karein"
+        },
+        {
+          "en": "Measure the output voltage with a meter under a normal load and confirm the load is within the rating",
+          "ur": "Mamoomi load par meter se output voltage napein aur load rating ke andar hai confirm karein"
+        },
+        {
+          "en": "If the voltage stays low, have a technician check the regulation/feedback circuit and the output stage",
+          "ur": "Voltage kam hi rahe to technician se regulation/feedback circuit aur output stage check karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "06"
+      ]
+    },
+    {
+      "code": "59",
+      "aliases": [
+        "59"
+      ],
+      "title": {
+        "en": "PV voltage over limitation",
+        "ur": "PV voltage limit se upar"
+      },
+      "meaning": {
+        "en": "PV open-circuit voltage above inverter limit — reduce series modules.",
+        "ur": "PV open-circuit voltage inverter limit se upar — series modules kam karein."
+      },
+      "causes": [
+        {
+          "en": "Array oversize in series",
+          "ur": "Series mein array oversize"
+        },
+        {
+          "en": "Series string longer than allowed",
+          "ur": "Series string allowed se zyada lambi"
+        },
+        {
+          "en": "Cold-weather Voc rise",
+          "ur": "Sardi mein Voc barh jana"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the PV isolator before working on the string",
+          "ur": "String par kaam se pehle PV isolator band karein"
+        },
+        {
+          "en": "Count the modules per string and add up the Voc against the inverter max PV Voc",
+          "ur": "Har string ke modules gin kar total Voc ko inverter ke max PV Voc se milayein"
+        },
+        {
+          "en": "Reduce the modules per string until within limit and recheck the reading after connecting",
+          "ur": "Limit ke andar aane tak har string se modules kam karein aur lagane ke baad reading dobara check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "08",
+        "11"
+      ]
+    },
+    {
+      "code": "W01",
+      "aliases": [
+        "W01"
+      ],
+      "title": {
+        "en": "Fan locked while on (beep ×3/s)",
+        "ur": "Fan atka hua hai jab unit ON ho (beep ×3/s)"
+      },
+      "meaning": {
+        "en": "Fan locked warning while unit ON — beep pattern ×3 per second.",
+        "ur": "Unit ON par fan lock warning — beep ×3 har second."
+      },
+      "causes": [
+        {
+          "en": "Fan obstruction",
+          "ur": "Fan mein rukawat"
+        },
+        {
+          "en": "Fan blocked by dust or a wire",
+          "ur": "Fan dhool ya taar se atka hua"
+        },
+        {
+          "en": "Fan bearing jammed",
+          "ur": "Fan bearing jam ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the unit off first so the fan can be freed safely",
+          "ur": "Fan azaad karne se pehle unit ko band karein"
+        },
+        {
+          "en": "Remove the obstruction or dust by hand and spin the blade to confirm it turns freely",
+          "ur": "Rokawat ya dhool haath se hatayein aur patta ghuma kar uska azaad ghoomna confirm karein"
+        },
+        {
+          "en": "Restart the unit; if the fan still does not run, check its connector and replace the fan",
+          "ur": "Unit restart karein; fan phir bhi na chale to uska connector check karke fan badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "01"
+      ]
+    },
+    {
+      "code": "W02",
+      "aliases": [
+        "W02"
+      ],
+      "title": {
+        "en": "High internal temperature (beep escalates near trip)",
+        "ur": "Andar temperature zyada (trip ke qareeb beep barhta hai)"
+      },
+      "meaning": {
+        "en": "High internal temperature warning before F02 trip.",
+        "ur": "F02 trip se pehle high temperature warning."
+      },
+      "causes": [
+        {
+          "en": "Dusty/blocked cooling",
+          "ur": "Cooling dusty/block"
+        },
+        {
+          "en": "Filters and heatsink clogged",
+          "ur": "Filter aur heatsink block ho gaye"
+        },
+        {
+          "en": "High ambient temperature",
+          "ur": "Aas paas ka temperature bohat zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the load and let the unit cool before cleaning it",
+          "ur": "Load kam karein aur saaf karne se pehle unit ko thanda hone dein"
+        },
+        {
+          "en": "Clean the filters, vents and heatsink and confirm the fans are running",
+          "ur": "Filter, vent aur heatsink saaf karein aur fans ke chalne confirm karein"
+        },
+        {
+          "en": "Improve the airflow around the unit; if the warning repeats, have a technician check the thermal sensor and fans",
+          "ur": "Unit ke aas paas airflow behtar karein; warning dobara aaye to technician se thermal sensor aur fans check karwayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "02"
+      ]
+    },
+    {
+      "code": "W03",
+      "aliases": [
+        "W03"
+      ],
+      "title": {
+        "en": "Battery over-charged (beep 1/s)",
+        "ur": "Battery zyada charge (beep 1/s)"
+      },
+      "meaning": {
+        "en": "Battery over-charge warning.",
+        "ur": "Battery zyada charge hone ki warning."
+      },
+      "causes": [
+        {
+          "en": "Charge V high",
+          "ur": "Charge V zyada"
+        },
+        {
+          "en": "Battery type / charge V set wrong",
+          "ur": "Battery type ya charge V ghalat set hai"
+        },
+        {
+          "en": "Battery bank faulty or gassing",
+          "ur": "Battery bank kharab ho ya gassing kar rahi ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Stop charging if the battery is hot or swollen and keep it ventilated",
+          "ur": "Battery garam ya phooli ho to charge rok dein aur use khuli hawa mein rakhein"
+        },
+        {
+          "en": "Check the charge voltage and battery type settings and correct them to the battery maker's values",
+          "ur": "Charge voltage aur battery type setting check karke battery wali company ki values par theek karein"
+        },
+        {
+          "en": "Have a technician measure the battery voltage while charging and test the bank for a weak cell",
+          "ur": "Technician se charge karte waqt battery voltage naap kar bank mein weak cell test karwayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "03"
+      ]
+    },
+    {
+      "code": "W04",
+      "aliases": [
+        "W04"
+      ],
+      "title": {
+        "en": "Low battery (beep 1/s)",
+        "ur": "Battery low (beep 1/s)"
+      },
+      "meaning": {
+        "en": "Low-battery warning.",
+        "ur": "Battery ka charge kam hai — warning."
+      },
+      "causes": [
+        {
+          "en": "SOC low",
+          "ur": "SOC kam"
+        },
+        {
+          "en": "Load running on battery too long",
+          "ur": "Load bohat der se battery par chal raha"
+        },
+        {
+          "en": "PV/grid not charging the bank",
+          "ur": "PV/grid battery ko charge nahi kar rahe"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shed heavy loads and charge the battery before it reaches the cut-off voltage",
+          "ur": "Bhaari load utaar dein aur battery ke cut-off voltage se pehle use charge karein"
+        },
+        {
+          "en": "Charge from PV during the day or from the grid where allowed and watch the SOC in the app",
+          "ur": "Din mein PV se ya jahan ijazat ho grid se charge karein aur app mein SOC par nazar rakhein"
+        },
+        {
+          "en": "If the SOC does not rise, check the battery links and fuses and have the weak bank tested",
+          "ur": "SOC na barhe to battery link aur fuse check karein aur kamzor bank test karwayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "04"
+      ]
+    },
+    {
+      "code": "W07",
+      "aliases": [
+        "W07"
+      ],
+      "title": {
+        "en": "Overload warning (beep 1/0.5s)",
+        "ur": "Load zyada hone ki warning (beep 1/0.5s)"
+      },
+      "meaning": {
+        "en": "Load approaching limit before F07 trip.",
+        "ur": "F07 trip se pehle load limit ke qareeb."
+      },
+      "causes": [
+        {
+          "en": "Heavy load",
+          "ur": "Bohat zyada load"
+        },
+        {
+          "en": "Extra load added recently",
+          "ur": "Haal hi mein extra load jud gaya"
+        },
+        {
+          "en": "Motor or compressor start current",
+          "ur": "Motor/compressor start ka current"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shed load below the rating before the F07 trip occurs",
+          "ur": "F07 trip hone se pehle load ko rating se neeche utarein"
+        },
+        {
+          "en": "Check the total running load with a clamp meter against the nameplate rating",
+          "ur": "Clamp meter se chalte hue total load ko nameplate rating se milayein"
+        },
+        {
+          "en": "Switch off non-essential loads and start motors one at a time",
+          "ur": "Zaroori se bahir load band karein aur motor ek ek karke start karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "07"
+      ]
+    },
+    {
+      "code": "W10",
+      "aliases": [
+        "W10"
+      ],
+      "title": {
+        "en": "Output power derating (beep ×2/3s)",
+        "ur": "Output power kam ho raha hai (beep ×2/3s)"
+      },
+      "meaning": {
+        "en": "Unit intentionally reducing output power (thermal/grid/PV).",
+        "ur": "Unit jaan bujh kar output power kam kar rahi (thermal/grid/PV)."
+      },
+      "causes": [
+        {
+          "en": "Thermal derate / grid limit / low PV",
+          "ur": "Thermal derate / grid limit / PV kam"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Improve cooling; check grid/PV conditions",
+          "ur": "Cooling behtar karein; grid/PV dekhein"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "W15",
+      "aliases": [
+        "W15"
+      ],
+      "title": {
+        "en": "PV energy low (beep ×2/3s)",
+        "ur": "PV energy kam (beep ×2/3s)"
+      },
+      "meaning": {
+        "en": "PV production very low (night/heavy shade).",
+        "ur": "PV production bohat kam (raat/zyada shadow)."
+      },
+      "causes": [
+        {
+          "en": "Night/shade/soiling",
+          "ur": "Raat/shade/gandagi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Informational — clean panels; check strings after light",
+          "ur": "Sirf maloomat — panels saaf karein; dhoop aane ke baad strings check karein"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex Axpert VM-II Premium 1.5K–6.2K manual (Voltronic OEM)",
+        "url": "https://www.energypower.gr/",
+        "retrieved": "2026-09-23"
+      }
+    }
+  ]
+}

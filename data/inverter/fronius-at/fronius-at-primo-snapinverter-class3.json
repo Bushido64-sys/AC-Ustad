@@ -1,0 +1,486 @@
+{
+  "schemaVersion": 1,
+  "brandId": "fronius-at",
+  "series": {
+    "id": "fronius-at-primo-snapinverter-class3",
+    "name": "Fronius Primo 208-240 (SnapINverter) - Class 3 status codes",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*Primo 208-240*",
+      "*Primo 3.0-1*",
+      "*Primo 3.5-1*",
+      "*Primo 3.8-1*",
+      "*Primo 4.0-1*",
+      "*Primo 5.0-1*",
+      "*Primo 6.0-1*",
+      "*Primo 7.6-1*",
+      "*Primo 8.2-1*",
+      "*Primo 10.0-1*",
+      "*Primo 11.4-1*",
+      "*Primo 12.5-1*",
+      "*Primo 15.0-1*"
+    ],
+    "notes": "Legacy SnapINverter Primo, 3-digit codes, on-device LCD. Fronius: 'Class 3 comprises status codes that may appear during feed-in operation and that do not cause a permanent interruption of the grid power feed operation.' IMPORTANT per Fronius: codes 306 and 307 'appear naturally every morning and evening due to low solar irradiance. These status codes are not the result of a fault.' Codes 309 / 313 inherit the 308 behaviour and remedy block in the published table layout - flagged in their notes. Keep separate from the GEN24 4-digit tables."
+  },
+  "codes": [
+    {
+      "code": "301",
+      "aliases": [
+        "301"
+      ],
+      "title": {
+        "en": "Overcurrent (AC) (301)",
+        "ur": "AC side overcurrent (301)"
+      },
+      "meaning": {
+        "en": "Short interruption of grid power feed operation due to an AC overcurrent in the inverter. The inverter returns to the startup phase.",
+        "ur": "Inverter mein AC overcurrent ki wajah se grid feed-in mein chhoti interruption. Inverter startup phase par wapas chala jata hai."
+      },
+      "causes": [
+        {
+          "en": "Inrush or overload from a large appliance on the same AC circuit, or grid transients.",
+          "ur": "Usi AC circuit par bade appliance ka inrush ya overload, ya grid transients."
+        },
+        {
+          "en": "AC filter capacitor ageing causing excess ripple current on this model line.",
+          "ur": "Is model line par AC filter capacitor ke ageing se zyada ripple current."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Identify what was switched on when 301 appeared and check the AC circuit for an oversized or motor load.",
+          "ur": "Dhoondein ke 301 aate waqt kya on hua tha aur AC circuit par bara ya motor load check karein."
+        },
+        {
+          "en": "Fronius states the error is corrected automatically; if the code persists, contact a Fronius-trained service technician.",
+          "ur": "Fronius kehta hai error khud theek ho jata hai; agar code rahe to Fronius-trained service technician se rabta karein."
+        },
+        {
+          "en": "Measure the AC current at the inverter with a clamp meter and compare it with the inverter's rated AC output current.",
+          "ur": "Clamp meter se inverter par AC current measure karein aur inverter ke rated AC output current se milayein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "302",
+      "aliases": [
+        "302"
+      ],
+      "title": {
+        "en": "Overcurrent (DC) (302)",
+        "ur": "DC side overcurrent (302)"
+      },
+      "meaning": {
+        "en": "Short interruption of grid power feed operation due to a DC overcurrent in the inverter. The inverter returns to the startup phase.",
+        "ur": "Inverter mein DC overcurrent ki wajah se grid feed-in mein chhoti interruption. Inverter startup phase par wapas chala jata hai."
+      },
+      "causes": [
+        {
+          "en": "String current above the inverter's maximum input current - undersized string fuses or too many modules in parallel on one MPPT.",
+          "ur": "String current inverter ke maximum input current se zyada - chhote string fuses ya aik MPPT par parallel modules zyada."
+        },
+        {
+          "en": "A shorted or faulty PV module or bypass diode pulling excess current.",
+          "ur": "Koi short ya kharab PV module ya bypass diode zyada current kheench raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the AC breaker and DC disconnector, then measure each string's operating current with a clamp meter and compare it with the MPPT maximum input current.",
+          "ur": "AC breaker aur DC disconnector kholein, phir clamp meter se har string ka current measure karke MPPT ke maximum input current se milayein."
+        },
+        {
+          "en": "Verify string fuse sizing and the number of parallel strings per MPPT against the manual's module array configuration table.",
+          "ur": "String fuse sizing aur har MPPT par parallel strings ki tadaad ko manual ki module array configuration table se verify karein."
+        },
+        {
+          "en": "Fronius states the error is corrected automatically; if the code persists, contact a Fronius-trained service technician.",
+          "ur": "Fronius kehta hai error khud theek ho jata hai; agar code rahe to Fronius-trained service technician se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "303",
+      "aliases": [
+        "303"
+      ],
+      "title": {
+        "en": "Overtemperature power module (303)",
+        "ur": "Power module mein zyada temperature (303)"
+      },
+      "meaning": {
+        "en": "Short interruption of power feeding into the grid due to over-temperature of the power module. The inverter returns to the startup phase.",
+        "ur": "Power module ke over-temperature ki wajah se grid mein power feeding mein chhoti interruption. Inverter startup phase par wapas chala jata hai."
+      },
+      "causes": [
+        {
+          "en": "Blocked or clogged cooling vents and heat sink, e.g. dust, leaves, cotton or an animal nest.",
+          "ur": "Cooling vents aur heat sink block ya clogged, jaise dhool, patte, rui ya kisi jaanwar ka ghar."
+        },
+        {
+          "en": "High ambient temperature in a poorly ventilated installation position.",
+          "ur": "Kam ventilation wali jagah par high ambient temperature."
+        },
+        {
+          "en": "Fan failure or a defective internal temperature sensor on this model line.",
+          "ur": "Is model line par fan ki kharabi ya kharab internal temperature sensor."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean the cool air vents and cooling elements with compressed air, as Fronius instructs in the remedy column.",
+          "ur": "Fronius ke remedy column ke mutabiq cool air vents aur cooling elements ko compressed air se saaf karein."
+        },
+        {
+          "en": "Check the installation position leaves the required clearance for cooling airflow and is not in direct sun at midday.",
+          "ur": "Check karein ke installation position cooling airflow ke liye required clearance chhorta hai aur dopahar ki dhoop se nahi lagti."
+        },
+        {
+          "en": "Fronius states the fault is rectified automatically; if it persists, contact the system installer to check the fan and temperature sensor.",
+          "ur": "Fronius kehta hai fault khud theek ho jata hai; agar rahe to system installer se fan aur temperature sensor check karwayein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "304",
+      "aliases": [
+        "304"
+      ],
+      "title": {
+        "en": "Interior temperature too high (304)",
+        "ur": "Andar ki temperature bohat zyada (304)"
+      },
+      "meaning": {
+        "en": "Short interruption of power feeding into the grid due to excessive internal temperature. The inverter returns to the startup phase.",
+        "ur": "Andar ki temperature zyada hone ki wajah se grid mein power feeding mein chhoti interruption. Inverter startup phase par wapas chala jata hai."
+      },
+      "causes": [
+        {
+          "en": "Blocked cooling airflow around the inverter housing and heat sink.",
+          "ur": "Inverter housing aur heat sink ke aas paas cooling airflow block."
+        },
+        {
+          "en": "Very high ambient temperature, or several inverters stacked in one cabinet without spacing.",
+          "ur": "Bohat zyada ambient temperature, ya aik cabinet mein spacing ke baghair kai inverters rakhe hue."
+        },
+        {
+          "en": "Internal temperature sensor drift giving a false high reading.",
+          "ur": "Internal temperature sensor ka drift jis se ghalat high reading aaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean the cool air vents and cooling elements with compressed air and clear any obstruction around the unit.",
+          "ur": "Cool air vents aur cooling elements ko compressed air se saaf karein aur unit ke aas paas koi obstruction hata dein."
+        },
+        {
+          "en": "Verify the mounting gives the clearance required for cooling and that ambient temperature at the site stays within the rated range.",
+          "ur": "Verify karein ke mounting cooling ke liye required clearance deta hai aur site ka ambient temperature rated range mein rehta hai."
+        },
+        {
+          "en": "Fronius states the fault is rectified automatically; if it persists, contact the system installer.",
+          "ur": "Fronius kehta hai fault khud theek ho jata hai; agar rahe to system installer se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "306",
+      "aliases": [
+        "306",
+        "PV POWER LOW"
+      ],
+      "title": {
+        "en": "PV POWER LOW - DC power too low (306)",
+        "ur": "PV POWER LOW - DC power bohat kam (306)"
+      },
+      "meaning": {
+        "en": "The intermediate (DC link) circuit voltage is too low for grid power feed operation. Short interruption; the inverter returns to the startup phase.",
+        "ur": "Intermediate (DC link) circuit voltage grid feed-in ke liye bohat kam hai. Chhoti interruption; inverter startup phase par wapas chala jata hai."
+      },
+      "causes": [
+        {
+          "en": "Low solar irradiance - this code appears naturally at dawn, dusk and in poor weather and is not a fault.",
+          "ur": "Irradiation kam hai - ye code subah, shaam aur kharab mausam mein aata hai aur fault nahi hai."
+        },
+        {
+          "en": "Snow on the PV modules or heavy shading of the array.",
+          "ur": "PV modules par barf ya array par gehri shadowing."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Fronius states the fault is rectified automatically; no action is needed when irradiance is low.",
+          "ur": "Fronius kehta hai fault khud theek ho jata hai; irradiation kam hone par koi action zaroori nahi."
+        },
+        {
+          "en": "If 306 persists with sufficient sunlight, contact the system installer.",
+          "ur": "Agar kaafi dhoop ke bawajood 306 rahe to system installer se rabta karein."
+        },
+        {
+          "en": "Check for new shading (a new building, grown tree, water tank) if it appears at midday on a clear day.",
+          "ur": "Agar saaf din ke dopahar ko aaye to nayi shadowing check karein (nayi building, barhi hua darakht, pan ki tanki)."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Fronius IMPORTANT: 'Status codes 306 (PV POWER LOW) and 307 (PV VOLTAGE LOW) appear naturally every morning and evening due to low solar irradiance. These status codes are not the result of a fault.' Marked isFault: false accordingly.",
+        "ur": "Fronius IMPORTANT: 'Status codes 306 (PV POWER LOW) and 307 (PV VOLTAGE LOW) roz subah aur shaam naturally aate hain kyunke solar irradiance kam hota hai. Ye status codes kisi fault ka nateeja nahi hain.' Isi mutabiq isFault: false rakha gaya hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "307",
+      "aliases": [
+        "307",
+        "PV VOLTAGE LOW"
+      ],
+      "title": {
+        "en": "PV VOLTAGE LOW - DC input voltage low (307)",
+        "ur": "PV VOLTAGE LOW - DC input voltage kam (307)"
+      },
+      "meaning": {
+        "en": "The DC input voltage is too low for grid power feed operation. Short interruption; the inverter returns to the startup phase.",
+        "ur": "DC input voltage grid feed-in ke liye bohat kam hai. Chhoti interruption; inverter startup phase par wapas chala jata hai."
+      },
+      "causes": [
+        {
+          "en": "Low solar irradiance - appears naturally every morning and evening and is not a fault.",
+          "ur": "Irradiation kam hai - roz subah aur shaam aata hai aur fault nahi hai."
+        },
+        {
+          "en": "A string disconnected or an open DC connector, which also drops the string voltage below the minimum input voltage.",
+          "ur": "Koi string disconnect ya khula DC connector, jis se string voltage minimum input voltage se neeche gir jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Fronius states the fault is rectified automatically; no action is needed at dawn or dusk.",
+          "ur": "Fronius kehta hai fault khud theek ho jata hai; subah ya shaam ko koi action zaroori nahi."
+        },
+        {
+          "en": "If 307 persists with sufficient sunlight, check the DC disconnector position and every string connector and string fuse for an open connection.",
+          "ur": "Agar kaafi dhoop ke bawajood 307 rahe to DC disconnector ki position aur har string connector aur string fuse mein khuli connection check karein."
+        },
+        {
+          "en": "Contact the system installer if it keeps recurring in full sun.",
+          "ur": "Agar poori dhoop mein baar baar aata rahe to system installer se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Fronius IMPORTANT: codes 306 and 307 'appear naturally every morning and evening due to low solar irradiance. These status codes are not the result of a fault.'",
+        "ur": "Fronius IMPORTANT: codes 306 aur 307 'roz subah aur shaam aate hain kyunke solar irradiance kam hota hai. Ye status codes kisi fault ka nateeja nahi hain.'"
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "308",
+      "aliases": [
+        "308"
+      ],
+      "title": {
+        "en": "Intermediate circuit overvoltage (308)",
+        "ur": "Intermediate circuit ki voltage zyada (308)"
+      },
+      "meaning": {
+        "en": "Short interruption of grid power feed operation due to overvoltage on the intermediate circuit. The inverter returns to the startup phase.",
+        "ur": "Intermediate circuit par overvoltage ki wajah se grid feed-in mein chhoti interruption. Inverter startup phase par wapas chala jata hai."
+      },
+      "causes": [
+        {
+          "en": "DC input voltage above the maximum input voltage, e.g. too many modules in series for the ambient temperature.",
+          "ur": "DC input voltage maximum input voltage se upar, jaise ambient temperature ke liye series mein modules zyada."
+        },
+        {
+          "en": "String open-circuit voltage too high for the inverter's maximum input voltage rating.",
+          "ur": "String ki open-circuit voltage inverter ke maximum input voltage rating se zyada."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC disconnector and measure each string's open-circuit voltage with a multimeter; compare it with the inverter's maximum input voltage from the technical data.",
+          "ur": "DC disconnector kholein aur multimeter se har string ki open-circuit voltage measure karein; technical data ke inverter ke maximum input voltage se milayein."
+        },
+        {
+          "en": "Recalculate the string configuration for the site temperature using Fronius' string sizing guidance, or reduce modules per string.",
+          "ur": "Site temperature ke liye Fronius ki string sizing guidance se string configuration dobara calculate karein, ya har string mein modules kam karein."
+        },
+        {
+          "en": "Fronius states the error is corrected automatically; if the code persists, contact a Fronius-trained service technician.",
+          "ur": "Fronius kehta hai error khud theek ho jata hai; agar code rahe to Fronius-trained service technician se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "309",
+      "aliases": [
+        "309"
+      ],
+      "title": {
+        "en": "DC input voltage MPPT1 too high (309)",
+        "ur": "DC input voltage MPPT1 bohat zyada (309)"
+      },
+      "meaning": {
+        "en": "The DC input voltage on MPPT 1 is above the permissible limit, so grid power feed operation was briefly interrupted and the inverter returns to the startup phase.",
+        "ur": "MPPT 1 par DC input voltage permissible limit se upar hai, is liye grid feed-in chhoti der ke liye ruka aur inverter startup phase par wapas gaya."
+      },
+      "causes": [
+        {
+          "en": "String connected to MPPT 1 has an open-circuit voltage above the inverter's maximum DC input voltage.",
+          "ur": "MPPT 1 se juri string ki open-circuit voltage inverter ke maximum DC input voltage se zyada hai."
+        },
+        {
+          "en": "String fuse in the combiner has blown and left a partial string on MPPT 1 presenting a high voltage.",
+          "ur": "Combiner mein string fuse phool gaya hai aur MPPT 1 par aisi partial string reh gayi hai jo high voltage deti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC disconnector and measure the open-circuit voltage of the string on MPPT 1; compare it with the technical data maximum DC input voltage.",
+          "ur": "DC disconnector kholein aur MPPT 1 par wali string ki open-circuit voltage measure karein; technical data ke maximum DC input voltage se milayein."
+        },
+        {
+          "en": "Check the string fuses in the combiner and the DC connectors for a blown fuse or a partially unseated plug.",
+          "ur": "Combiner ke string fuses aur DC connectors mein phoola fuse ya aadha baitha plug check karein."
+        },
+        {
+          "en": "If the reading is within limits and the code persists, contact a Fronius-trained service technician - the MPPT input measurement may be faulty.",
+          "ur": "Agar reading limit ke andar ho aur code rahe to Fronius-trained service technician se rabta karein - MPPT input measurement kharab ho sakta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "In the published table, 309 and 313 appear immediately after the 308 behaviour/remedy block and carry no separate Behaviour or Remedy text of their own; they inherit the 308 behaviour. Treated here as a real fault rather than a Class 3 non-interruption because the DC input voltage is genuinely out of the permissible range.",
+        "ur": "Published table mein 309 aur 313 foran 308 ke behaviour/remedy block ke baad aate hain aur apna koi alag Behaviour ya Remedy text nahi rakhte; ye 308 ka behaviour inherit karte hain. Yahan inhe asal fault maana gaya hai, Class 3 non-interruption nahi, kyunke DC input voltage waqai permissible range se bahar hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    },
+    {
+      "code": "313",
+      "aliases": [
+        "313"
+      ],
+      "title": {
+        "en": "DC input voltage MPPT2 too high (313)",
+        "ur": "DC input voltage MPPT2 bohat zyada (313)"
+      },
+      "meaning": {
+        "en": "The DC input voltage on MPPT 2 is above the permissible limit, so grid power feed operation was briefly interrupted and the inverter returns to the startup phase.",
+        "ur": "MPPT 2 par DC input voltage permissible limit se upar hai, is liye grid feed-in chhoti der ke liye ruka aur inverter startup phase par wapas gaya."
+      },
+      "causes": [
+        {
+          "en": "String connected to MPPT 2 has an open-circuit voltage above the inverter's maximum DC input voltage.",
+          "ur": "MPPT 2 se juri string ki open-circuit voltage inverter ke maximum DC input voltage se zyada hai."
+        },
+        {
+          "en": "String fuse in the combiner for the MPPT 2 input has blown, leaving a high-voltage partial string on that MPPT.",
+          "ur": "MPPT 2 input ke liye combiner mein string fuse phool gaya hai, jis se us MPPT par high-voltage partial string reh gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC disconnector and measure the open-circuit voltage of the string on MPPT 2 against the technical data maximum DC input voltage.",
+          "ur": "DC disconnector kholein aur MPPT 2 par wali string ki open-circuit voltage ko technical data ke maximum DC input voltage se milayein."
+        },
+        {
+          "en": "Check the MPPT 2 string fuses, connectors and the DC disconnector terminals for a blown fuse, heat damage or a loose connection.",
+          "ur": "MPPT 2 ke string fuses, connectors aur DC disconnector terminals mein phoola fuse, garmi ka nishan ya dheela connection check karein."
+        },
+        {
+          "en": "If the reading is within limits and the code persists, contact a Fronius-trained service technician - the MPPT input measurement may be faulty.",
+          "ur": "Agar reading limit ke andar ho aur code rahe to Fronius-trained service technician se rabta karein - MPPT input measurement kharab ho sakta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "In the published table, 313 appears after 308 and 309 with no separate Behaviour or Remedy text, inheriting the 308 behaviour. Note that on GEN24 the equivalent condition is 1xxx (e.g. 1139 DC link voltage too low) and is NOT the same number - do not cross-map the numbers.",
+        "ur": "Published table mein 313, 308 aur 309 ke baad aata hai aur apna alag Behaviour ya Remedy text nahi rakhta, 308 ka behaviour inherit karta hai. Note: GEN24 par is ka equivalent 1xxx (jaise 1139 DC link voltage too low) hai aur wohi number nahi hai - numbers ko aik doosre par map na karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo 208-240 Operating instructions (digital eManual, rev. 025-16102024)",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204102116/en-US.html"
+      }
+    }
+  ]
+}

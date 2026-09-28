@@ -1,0 +1,609 @@
+{
+  "schemaVersion": 1,
+  "brandId": "fronius-at",
+  "series": {
+    "id": "fronius-at-gen24-symo-led",
+    "name": "GEN24 Symo 6-12 kW Plus / SC - LED status indicator",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*Symo GEN24*",
+      "*Symo GEN24 Plus*",
+      "*Symo GEN24 SC*"
+    ],
+    "notes": "Operating LED rows (6) + Communication LED rows (7) = 13 unnumbered LED states. Codes are synthetic LED labels, NOT Fronius state-code numbers. Differences vs SERIES 4 (Primo GEN24): the Symo Communication LED additionally shows blue = network connection active, '/ Flash blue' = update in progress, and white = service message present; and the yellow-flash Operating LED is worded 'The inverter displays an error. The inverter is operating correctly.' Do not merge this table with SERIES 4."
+  },
+  "codes": [
+    {
+      "code": "LED-OP-GREEN",
+      "aliases": [
+        "LED-OP-GREEN"
+      ],
+      "title": {
+        "en": "Operating LED green: running normally",
+        "ur": "Operating LED sabit hara: normal chal raha hai"
+      },
+      "meaning": {
+        "en": "The inverter is operating correctly.",
+        "ur": "Inverter theek se kaam kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Normal grid power feed operation on this three-phase unit.",
+          "ur": "Is three-phase unit par normal grid feed-in chal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Nothing to do - healthy state.",
+          "ur": "Kuch karne ki zaroorat nahi - healthy state."
+        },
+        {
+          "en": "If the customer reports low yield, read the per-phase energy figures rather than the LED, since three-phase imbalance is invisible on the LED.",
+          "ur": "Agar customer kam yield ki shikayat kare to LED ke bajaye har phase ki energy figures padhein, kyunke three-phase imbalance LED se nazar nahi aati."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Operating LED lights up green (steady)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    },
+    {
+      "code": "LED-OP-GREEN-FLASH",
+      "aliases": [
+        "LED-OP-GREEN-FLASH"
+      ],
+      "title": {
+        "en": "Operating LED green flashing: grid checks",
+        "ur": "Operating LED hara flash: grid checks chal rahe hain"
+      },
+      "meaning": {
+        "en": "The inverter is performing the grid checks required by the applicable standards for grid power feed operation.",
+        "ur": "Inverter grid power feed operation ke liye applicable standards ke mutabiq grid checks kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Startup or reconnection grid monitoring time running; voltage and frequency must both be in range.",
+          "ur": "Startup ya reconnection ka grid monitoring time chal raha hai; voltage aur frequency dono range mein hone chahiye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the monitoring time to expire; the inverter reconnects automatically afterwards.",
+          "ur": "Monitoring time poora hone dein; uske baad inverter khud reconnect ho jata hai."
+        },
+        {
+          "en": "If it never stops, measure voltage and frequency on all three phases at the AC terminals with a clamp meter.",
+          "ur": "Agar ye chalta hi rahe to clamp meter se AC terminals par teenon phases ka voltage aur frequency measure karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Operating LED flashes green",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    },
+    {
+      "code": "LED-OP-YELLOW",
+      "aliases": [
+        "LED-OP-YELLOW"
+      ],
+      "title": {
+        "en": "Operating LED yellow: standby, idle or not configured",
+        "ur": "Operating LED sabit peela: standby, idle ya configure nahi"
+      },
+      "meaning": {
+        "en": "The inverter is on standby, is not operating (e.g. no energy fed into the grid at night), or is not configured.",
+        "ur": "Inverter standby par hai, chal nahi raha (jaise raat ko grid mein koi energy feed nahi), ya configure nahi hua."
+      },
+      "causes": [
+        {
+          "en": "No energy fed into the grid at night - normal standby state.",
+          "ur": "Raat ko grid mein koi energy feed nahi ho rahi - normal standby state."
+        },
+        {
+          "en": "Setup wizard / commissioning not completed on this unit.",
+          "ur": "Is unit par setup wizard ya commissioning complete nahi hui."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the DC disconnector is closed and the PV generator is producing before assuming a fault.",
+          "ur": "Fault ka shak karne se pehle confirm karein ke DC disconnector band hai aur PV generator bana raha hai."
+        },
+        {
+          "en": "During daylight, log into the Fronius Solar.start app as Technician and complete the setup wizard.",
+          "ur": "Dopahar mein, Fronius Solar.start app mein Technician se login karke setup wizard poora karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Operating LED lights up yellow (steady)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    },
+    {
+      "code": "LED-OP-YELLOW-FLASH",
+      "aliases": [
+        "LED-OP-YELLOW-FLASH"
+      ],
+      "title": {
+        "en": "Operating LED yellow flashing: error, inverter still running",
+        "ur": "Operating LED peela flash: error, inverter chalta hai"
+      },
+      "meaning": {
+        "en": "The inverter displays an error but continues to operate correctly.",
+        "ur": "Inverter error dikha raha hai lekin sahi se kaam karta raha hai."
+      },
+      "causes": [
+        {
+          "en": "A warning-class state code is active while the inverter keeps producing.",
+          "ur": "Warning class ka state code active hai aur inverter bana raha hai."
+        },
+        {
+          "en": "An isolation or arc-warning condition that Fronius logs but does not shut down for.",
+          "ur": "Aisi isolation ya arc-warning condition jo Fronius log karta hai lekin shutdown nahi karta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the exact state code from System > Event Log, the Notifications user menu, or Solar.web - the LED colour does not identify the code.",
+          "ur": "System > Event Log, Notifications user menu ya Solar.web se exact state code padhein - LED ka rang code identify nahi karta."
+        },
+        {
+          "en": "Record the code and timestamp before resetting anything so the event history survives.",
+          "ur": "Kuch reset karne se pehle code aur timestamp note karein taake event history bachi rahe."
+        },
+        {
+          "en": "If a warning repeats every day, treat it as a configuration issue (protection function switched off) and have the installer review it.",
+          "ur": "Agar warning roz aaye to ise configuration masla samajhein (protection function band) aur installer se review karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Operating LED flashes yellow",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    },
+    {
+      "code": "LED-OP-RED",
+      "aliases": [
+        "LED-OP-RED"
+      ],
+      "title": {
+        "en": "Operating LED red: critical status, no feed-in",
+        "ur": "Operating LED laal: critical status, feed-in nahi"
+      },
+      "meaning": {
+        "en": "The inverter displays a critical status and no energy is fed into the grid.",
+        "ur": "Inverter critical status dikha raha hai aur grid mein koi energy feed nahi ho rahi."
+      },
+      "causes": [
+        {
+          "en": "A critical state code is latched - e.g. WSD Open (1030) or a grid protection trip.",
+          "ur": "Critical state code latched hai - jaise WSD khula (1030) ya grid protection trip."
+        },
+        {
+          "en": "The surge protection device has tripped, which on this model line lights the operating status LED red and raises 1030.",
+          "ur": "Surge protection device trigger hua hai, jo is model line par operating status LED laal karta hai aur 1030 deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the state code from System > Event Log or Solar.web first; do not open the inverter on the strength of the LED colour alone.",
+          "ur": "Pehle System > Event Log ya Solar.web se state code padhein; sirf LED ke rang ke bharose par inverter na kholein."
+        },
+        {
+          "en": "Switch off the AC breaker and the DC disconnector and confirm de-energised with a suitable measuring device before any work.",
+          "ur": "AC breaker aur DC disconnector off karein aur koi bhi kaam karne se pehle suitable measuring device se de-energised confirm karein."
+        },
+        {
+          "en": "Fronius states that if the SPD caused it, the inverter must be repaired by an authorised specialist company.",
+          "ur": "Fronius kehta hai ke agar SPD ne cause kiya hai to inverter ki repair authorised specialist company se karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Operating LED lights up red (steady)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    },
+    {
+      "code": "LED-OP-RED-FLASH",
+      "aliases": [
+        "LED-OP-RED-FLASH"
+      ],
+      "title": {
+        "en": "Operating LED red flashing: backup power overload",
+        "ur": "Operating LED laal flash: backup power overload"
+      },
+      "meaning": {
+        "en": "The inverter displays a backup power overload; the maximum power in backup power mode from the technical data must be observed.",
+        "ur": "Inverter backup power overload dikha raha hai; technical data mein di hui backup power mode ki maximum power ka khayal rakhna zaroori hai."
+      },
+      "causes": [
+        {
+          "en": "Connected loads exceed the inverter's maximum backup power output on this three-phase unit.",
+          "ur": "Is three-phase unit par connected loads inverter ki maximum backup power se zyada hain."
+        },
+        {
+          "en": "A large three-phase motor or heater with high inrush current was switched on in the backup circuit.",
+          "ur": "Backup circuit mein koi bara three-phase motor ya heater on kiya gaya jiska inrush current zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Identify the load that came on when the LED started flashing and shed the largest loads one at a time.",
+          "ur": "Dhoondein ke LED flash hone ke waqt kaunsa load on hua aur sab se bade loads aik aik kar ke hatayein."
+        },
+        {
+          "en": "Compare the measured backup power with the maximum backup power listed in the technical data for your Symo GEN24 size before re-enabling the load.",
+          "ur": "Apne Symo GEN24 size ki technical data mein likhi maximum backup power se measured backup power milayein, load wapas on karne se pehle."
+        },
+        {
+          "en": "Wait for backup power operation to restart after the load has been reduced; an overload stops backup power mode on this model line too.",
+          "ur": "Load kam karne ke baad backup power operation ke restart ka intezaar karein; is model line par bhi overload backup power mode rok deta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Operating LED flashes red",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    },
+    {
+      "code": "LED-COM-GREEN-FLASH-2X",
+      "aliases": [
+        "LED-COM-GREEN-FLASH-2X",
+        "WPS search"
+      ],
+      "title": {
+        "en": "Communication LED green 2x: WPS search mode",
+        "ur": "Communication LED hara 2 baar: WPS search mode"
+      },
+      "meaning": {
+        "en": "The network connection is being established via WPS (2 flashes = WPS search mode).",
+        "ur": "Network connection WPS ke zariye establish ho raha hai (2 flash = WPS search mode)."
+      },
+      "causes": [
+        {
+          "en": "WPS pairing was started from the inverter or the Fronius Solar.start app.",
+          "ur": "Inverter ya Fronius Solar.start app se WPS pairing shuru ki gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Cancel an unintended WPS session on the router rather than leaving the inverter searching.",
+          "ur": "Router par anjaani WPS session cancel karein, inverter ko search karte na chhodein."
+        },
+        {
+          "en": "If WPS keeps failing, commission over the WLAN access point in the Fronius Solar.start app or browser instead.",
+          "ur": "Agar WPS baar baar fail ho to Fronius Solar.start app ya browser mein WLAN access point ke zariye commissioning karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Communication LED flashes green twice (WPS search mode)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    },
+    {
+      "code": "LED-COM-BLUE-FLASH-1X",
+      "aliases": [
+        "LED-COM-BLUE-FLASH-1X",
+        "WLAN AP search"
+      ],
+      "title": {
+        "en": "Communication LED blue 1x: WLAN access point search",
+        "ur": "Communication LED neela 1 baar: WLAN access point search"
+      },
+      "meaning": {
+        "en": "The network connection is being established via WiFi access point; 1 flash = WiFi AP search mode, active for 30 minutes.",
+        "ur": "Network connection WiFi access point ke zariye establish ho raha hai; 1 flash = WiFi AP search mode, 30 minute ke liye active."
+      },
+      "causes": [
+        {
+          "en": "The optical sensor was touched once, opening the WiFi access point for commissioning.",
+          "ur": "Optical sensor ko aik baar chhua gaya, jis se commissioning ke liye WiFi access point khul gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Join the 'fronius_3xxxxxxx' network (key 12345678) and open the local user interface at the commissioning IP to finish setup.",
+          "ur": "'fronius_3xxxxxxx' network (key 12345678) se connect hoke commissioning IP par local user interface kholein aur setup poora karein."
+        },
+        {
+          "en": "Note the access point closes itself after 30 minutes; touch the sensor again to reopen it.",
+          "ur": "Yaad rakhein ke access point 30 minute baad khud band ho jata hai; dobara kholne ke liye sensor phir chhoonein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Communication LED flashes blue once (WiFi AP search mode, active 30 min)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    },
+    {
+      "code": "LED-COM-YELLOW",
+      "aliases": [
+        "LED-COM-YELLOW"
+      ],
+      "title": {
+        "en": "Communication LED yellow: network not configured",
+        "ur": "Communication LED peela: network configure nahi"
+      },
+      "meaning": {
+        "en": "The network connection is not configured.",
+        "ur": "Network connection configure nahi hua hai."
+      },
+      "causes": [
+        {
+          "en": "Commissioning finished without configuring Communication > Network.",
+          "ur": "Commissioning Communication > Network configure kiye baghair poori ki gayi."
+        },
+        {
+          "en": "The communication module was replaced and the network settings were lost.",
+          "ur": "Communication module badal diya gaya aur network settings kho gayin."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Touch the optical sensor once and complete network setup in the Fronius Solar.start app.",
+          "ur": "Optical sensor ko aik baar chha kar Fronius Solar.start app mein network setup poora karein."
+        },
+        {
+          "en": "Use Automatic (DHCP) unless the site requires static addressing; if static, ask the network administrator for the address, subnet and gateway.",
+          "ur": "Jab tak site ko static addressing ki zaroorat na ho, Automatic (DHCP) istemal karein; static ho to network administrator se address, subnet aur gateway poochein."
+        },
+        {
+          "en": "Save and confirm the Communication LED turns green or blue, meaning the network connection is active.",
+          "ur": "Save karein aur confirm karein ke Communication LED hara ya neela ho gaya, matlab network connection active hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Communication LED lights up yellow (steady)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    },
+    {
+      "code": "LED-COM-RED",
+      "aliases": [
+        "LED-COM-RED"
+      ],
+      "title": {
+        "en": "Communication LED red: network error, PV running",
+        "ur": "Communication LED laal: network error, PV chal raha hai"
+      },
+      "meaning": {
+        "en": "There is a network error while the inverter is operating correctly.",
+        "ur": "Inverter sahi chal raha hai lekin network error hai."
+      },
+      "causes": [
+        {
+          "en": "The inverter lost its network path (router, LAN1 cable or switch).",
+          "ur": "Inverter ka network path toot gaya (router, LAN1 cable ya switch)."
+        },
+        {
+          "en": "The router was replaced and the inverter still holds the previous static settings.",
+          "ur": "Router badal diya gaya aur inverter ke paas abhi bhi purani static settings hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Production is unaffected - check LAN1 cable, switch port and router power before touching anything on the DC side.",
+          "ur": "Production par asar nahi - DC side chhoone se pehle LAN1 cable, switch port aur router power check karein."
+        },
+        {
+          "en": "Set Communication > Network to Automatic so a new address is assigned, then confirm the inverter returns to Solar.web.",
+          "ur": "Communication > Network ko Automatic par set karein taake naya address mile, phir confirm karein ke inverter Solar.web par wapas aa gaya."
+        },
+        {
+          "en": "If it does not recover, power-cycle the router and check the inverter's internet services state under Communication.",
+          "ur": "Agar wapas na aaye to router ka power cycle karein aur Communication mein inverter ki internet services state check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Communication LED lights up red (steady)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    },
+    {
+      "code": "LED-COM-BLUE",
+      "aliases": [
+        "LED-COM-BLUE"
+      ],
+      "title": {
+        "en": "Communication LED blue: network connection active",
+        "ur": "Communication LED neela: network connection active"
+      },
+      "meaning": {
+        "en": "The network connection is active. This row exists only in the Symo GEN24 LED table.",
+        "ur": "Network connection active hai. Ye row sirf Symo GEN24 LED table mein mojood hai."
+      },
+      "causes": [
+        {
+          "en": "The inverter is connected and communicating over the network.",
+          "ur": "Inverter network se connected hai aur communicate kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Nothing to do - this is the healthy connected state on this model line.",
+          "ur": "Kuch karne ki zaroorat nahi - is model line par ye healthy connected state hai."
+        },
+        {
+          "en": "If Solar.web shows the system offline despite this LED, check that the system was registered to your Fronius account and that contacts for notifications are set.",
+          "ur": "Agar ye LED on ke bawajood Solar.web system offline dikhaye to check karein ke system aapke Fronius account par register hai aur notifications ke liye contacts set hain."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Communication LED lights up blue (steady)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    },
+    {
+      "code": "LED-COM-BLUE-FLASH-UPDATE",
+      "aliases": [
+        "LED-COM-BLUE-FLASH-UPDATE"
+      ],
+      "title": {
+        "en": "Communication LED flashing blue: update running",
+        "ur": "Communication LED flash neela: update chal raha hai"
+      },
+      "meaning": {
+        "en": "The inverter is performing an update (firmware update in progress). This row exists only in the Symo GEN24 LED table.",
+        "ur": "Inverter update kar raha hai (firmware update chal raha hai). Ye row sirf Symo GEN24 LED table mein mojood hai."
+      },
+      "causes": [
+        {
+          "en": "An inverter firmware update started locally or remotely via Solar.web.",
+          "ur": "Inverter firmware update locally ya Solar.web se remotely shuru hui."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not interrupt the power supply during the update - Fronius states this explicitly for Solar.web updates.",
+          "ur": "Update ke dauran power supply na kaatein - Fronius ye Solar.web updates ke liye saaf likhta hai."
+        },
+        {
+          "en": "After the update finishes, confirm the firmware version in Solar.web under Settings > Components.",
+          "ur": "Update khatam hone ke baad Solar.web mein Settings > Components mein firmware version confirm karein."
+        },
+        {
+          "en": "If the update stops midway and the LED keeps flashing, do not power-cycle immediately; note the state and re-check via Solar.web before intervening.",
+          "ur": "Agar update beech mein ruk jaye aur LED flash karta rahe to foran power cycle na karein; state note karein aur intervene karne se pehle Solar.web se dobara check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Communication LED flashes blue (update in progress)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    },
+    {
+      "code": "LED-COM-WHITE",
+      "aliases": [
+        "LED-COM-WHITE"
+      ],
+      "title": {
+        "en": "Communication LED white: service message present",
+        "ur": "Communication LED safed: service message maujood"
+      },
+      "meaning": {
+        "en": "There is a service message waiting. This row exists only in the Symo GEN24 LED table.",
+        "ur": "Aik service message mojood hai. Ye row sirf Symo GEN24 LED table mein mojood hai."
+      },
+      "causes": [
+        {
+          "en": "A state code / service message has been raised and not yet acknowledged on the inverter.",
+          "ur": "Inverter par aik state code ya service message aaya hai jo abhi acknowledge nahi hua."
+        },
+        {
+          "en": "The message is a normal operating message (e.g. after a restart or a settings change) rather than a fault.",
+          "ur": "Message normal operating message bhi ho sakta hai (jaise restart ya settings change ke baad) fault nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the user interface (System > Event Log or the Notifications user menu) or Solar.web and read the message before acknowledging it.",
+          "ur": "User interface (System > Event Log ya Notifications user menu) ya Solar.web kholein aur acknowledge karne se pehle message padhein."
+        },
+        {
+          "en": "Record the code and timestamp, then clear the message - on GEN24 the 3-second optical-sensor press acknowledges a service message (white rapid flash).",
+          "ur": "Code aur timestamp note karein, phir message clear karein - GEN24 par optical sensor ko 3 second dabane se service message acknowledge hota hai (safed rapid flash)."
+        },
+        {
+          "en": "If the white LED returns immediately, the message is being re-raised - treat the underlying code, not the LED, as the fault.",
+          "ur": "Agar safed LED foran wapas aa jaye to message dobara raise ho raha hai - fault LED nahi, uske neeche wala code hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Communication LED lights up white (steady)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Symo GEN24 6 - 10 kW Plus / Symo GEN24 6 - 12 kW Plus SC Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260315/en-US.html"
+      }
+    }
+  ]
+}

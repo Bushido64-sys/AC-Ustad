@@ -1,0 +1,2254 @@
+{
+  "schemaVersion": 1,
+  "brandId": "apc",
+  "series": {
+    "id": "apc-easy-ups-3s",
+    "name": "APC Easy UPS 3S 10-40 kVA (three-phase, 208 V/220 V) - display alarm text",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*Easy UPS 3S*",
+      "3S*",
+      "*E3S*"
+    ],
+    "notes": "Published in doc 990-6409B-001 'Easy UPS 3S 10-40 kVA 208 V - Operation', section 'Status and Alarm Messages'. SE states these are listed alphabetically with a suggested corrective action. IMPORTANT: SE's own table mixes true alarms with normal status messages, so this block separates them: isFault: true for alarms, isFault: false for normal statuses. Codes here are the exact LCD display strings (e.g. 'Batt maint incomplete', 'Output short circuit'). This is a DIFFERENT family from Easy UPS SRV/SRVL (Series 2) - do not merge."
+  },
+  "codes": [
+    {
+      "code": "Output short circuit",
+      "aliases": [
+        "Output short circuit"
+      ],
+      "title": {
+        "en": "Output short circuit",
+        "ur": "Output par short circuit"
+      },
+      "meaning": {
+        "en": "A short circuit is present on the UPS output, so the unit has tripped to protect itself and the load.",
+        "ur": "UPS output par short circuit mojood hai, is liye unit apni aur load ki protection ke liye trip ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Load-side short between phase and neutral or between two phases.",
+          "ur": "Load side par phase aur neutral ya do phases ke darmiyan short."
+        },
+        {
+          "en": "A connected motor, heater or appliance with a failed internal insulation.",
+          "ur": "Kisi connected motor, heater ya appliance ka andar ki insulation kharab ho gaya."
+        },
+        {
+          "en": "Damaged output busbar, cable or outlet with a pinched or crushed conductor.",
+          "ur": "Output busbar, cable ya outlet damaged aur koi conductor nichal ya crush hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut the unit down, isolate mains and the battery, then disconnect all load before touching any wiring.",
+          "ur": "Unit band karein, mains aur battery isolate karein, phir wiring chhoone se pehle saara load disconnect kar dein."
+        },
+        {
+          "en": "Check each phase to neutral and phase to phase continuity with a megger; a healthy installation reads open.",
+          "ur": "Megger se har phase se neutral aur phase se phase ki continuity check karein; healthy installation par yeh khuli parhni chahiye."
+        },
+        {
+          "en": "Walk the output conductors from the UPS to the furthest panel, looking for a crushed cable or a loose lug.",
+          "ur": "Output conductors ko UPS se aakhri panel tak dekhein, kuch crush hua cable ya loose lug dhoondhte hue."
+        },
+        {
+          "en": "Energise the load panel by panel to isolate the shorted section, then repair before reconnecting anything.",
+          "ur": "Short wala hissa dhoondne ke liye load panel aik aik karke power dein, phir kuch bhi dobara jorrne se pehle repair karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's corrective action is 'Check the status of the output. Please contact Schneider Electric.' Field-isolate before calling.",
+        "ur": "SE ka hal likha hai 'Output ki halat check karein. Schneider Electric se rabta karein.' Phone karne se pehle khud isolate karein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Output overload",
+      "aliases": [
+        "Output overload",
+        "System overload"
+      ],
+      "title": {
+        "en": "Output overload",
+        "ur": "Output par overload"
+      },
+      "meaning": {
+        "en": "The load is drawing more power than the UPS system can supply, so the unit has shut down.",
+        "ur": "Load UPS system ki capacity se zyada power kheech rahi hai, is liye unit band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Too much equipment connected, or load added after commissioning.",
+          "ur": "Bohat zyada equipment lagi hai, ya commissioning ke baad load barha diya gaya."
+        },
+        {
+          "en": "A load with a locked rotor or a seized compressor drawing several times running current.",
+          "ur": "Aisa load jiska rotor jam hai ya compressor atak gaya hai aur jo chalne wale current se kai guna kheech raha hai."
+        },
+        {
+          "en": "A shorted load presenting a very low impedance to the inverter.",
+          "ur": "Short ho gaya load jo inverter ko bohat kam impedance dikhata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the load kW and percent from the display and compare with the unit's rated capacity.",
+          "ur": "Display se load kW aur percent parhein aur unit ki rated capacity se compare karein."
+        },
+        {
+          "en": "Open load feeders one at a time until the alarm clears, which identifies the offending circuit.",
+          "ur": "Jab tak alarm na mithe load feeders aik-ek karke kholein, jisse ghalat circuit pakda ja jata hai."
+        },
+        {
+          "en": "Measure each feeder with a clamp meter; a circuit far above its nameplate rating is the culprit.",
+          "ur": "Har feeder ko clamp meter se nikaalein; nameplate rating se bohat oopper aik circuit hi culprit hai."
+        },
+        {
+          "en": "Verify the load current sensor and its wiring before suspecting a sensor drift, since the fault repeats after every rebuild.",
+          "ur": "Sensor drift ka shak karne se pehle load current sensor aur uski wiring check karein, kyunke har rebuild ke baad fault dohra jata hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Same wording in the table for both 'Output overload' and 'System overload' - SE treats them as the same condition.",
+        "ur": "Table mein 'Output overload' aur 'System overload' ka alfaz aik hi hai - SE dono ko aik hi halat samajhta hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Batt maint incomplete",
+      "aliases": [
+        "Batt maint incomplete"
+      ],
+      "title": {
+        "en": "Battery maintenance test incomplete",
+        "ur": "Battery maintenance test adhoora"
+      },
+      "meaning": {
+        "en": "The scheduled battery maintenance test did not pass, so the battery's actual capacity is not confirmed.",
+        "ur": "Scheduled battery maintenance test pass nahi hua, is liye battery ki asli capacity confirm nahi hui."
+      },
+      "causes": [
+        {
+          "en": "Battery genuinely aged and unable to carry the test discharge.",
+          "ur": "Battery asal mein purani ho chuki hai aur test discharge nahi uth sakti."
+        },
+        {
+          "en": "Test run at high ambient temperature, which shortens achievable capacity.",
+          "ur": "Test high ambient temperature par chalaya gaya jis se haasil hone wali capacity kam hoti hai."
+        },
+        {
+          "en": "String imbalance or a weak cell failing early in the discharge.",
+          "ur": "String imbalance ya koi weak cell discharge shuru hote hi fail ho jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the battery voltage and remaining capacity on the display before and after the test.",
+          "ur": "Test se pehle aur baad mein display par battery voltage aur baaki capacity parhein."
+        },
+        {
+          "en": "Measure each cell's voltage and internal resistance; the weakest cell identifies the failing string section.",
+          "ur": "Har cell ka voltage aur internal resistance nikaalein; sab se kamzor cell hi failing hissa identify karta hai."
+        },
+        {
+          "en": "Check the maintenance test settings - the test depth and interval may be set too aggressively.",
+          "ur": "Maintenance test settings check karein - test ki depth aur interval shayad bohat zyada rakha gaya hai."
+        },
+        {
+          "en": "After correcting the cause, re-run the maintenance test to clear the message.",
+          "ur": "Wajah theek karne ke baad maintenance test dobara chalayein taake message mit jaye."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE lists the message with an empty corrective action, so this is a judgement call for the technician.",
+        "ur": "SE yeh message khaali corrective action ke saath likhta hai, is liye yeh technician ka faisla hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Battery expired",
+      "aliases": [
+        "Battery expired"
+      ],
+      "title": {
+        "en": "Battery expired",
+        "ur": "Battery ki umar khatam"
+      },
+      "meaning": {
+        "en": "The battery service life has expired, so the pack must be replaced to restore any backup.",
+        "ur": "Battery ki service life khatam ho gayi hai, is liye koi bhi backup wapas karne ke liye pack badalna hoga."
+      },
+      "causes": [
+        {
+          "en": "Battery pack older than its rated service life of typically 3-5 years.",
+          "ur": "Battery pack apni 3-5 saal ki rated service life se oopper hai."
+        },
+        {
+          "en": "High ambient temperature throughout its life consumed the float life faster.",
+          "ur": "Zindagi bhar high ambient temperature ne float life jaldi khatam kar di."
+        },
+        {
+          "en": "Repeated deep discharge during long load-shedding outages.",
+          "ur": "Lambi load-shedding outages mein baar baar deep discharge hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm expiry on the display and count the battery log, which records the discharge history.",
+          "ur": "Display par expiry confirm karein aur battery log gino, jo discharge history record karta hai."
+        },
+        {
+          "en": "Replace the battery with the specified type and number; do not mix old and new cells in a string.",
+          "ur": "Battery ko bataye gaye type aur number se badal dein; string mein purani aur nayi cells milayein mat."
+        },
+        {
+          "en": "Set the battery install date correctly after fitting the new pack so the next expiry is counted from the right day.",
+          "ur": "Naya pack lagane ke baad battery ki install date theek set karein taake agli expiry sahi din se gino ja sake."
+        },
+        {
+          "en": "Improve the room cooling around the battery cabinet, since heat is what shortens the next pack's life too.",
+          "ur": "Battery cabinet ke aas paas room cooling behtar karein, kyunke garmi agle pack ki bhi umra kam karti hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's corrective action is simply 'Replace the battery.' Do the isolation first: mains off, battery disconnected.",
+        "ur": "SE ka hal sirf 'Battery badal dein' hai. Pehle isolation karein: mains off, battery disconnect."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Battery end of discharge",
+      "aliases": [
+        "Battery end of discharge"
+      ],
+      "title": {
+        "en": "Battery end of discharge (EOD)",
+        "ur": "Battery poori tarah discharge ho gayi"
+      },
+      "meaning": {
+        "en": "Battery capacity has fallen below the minimum acceptable value, so the pack needs recharging.",
+        "ur": "Battery ki capacity minimum qubool value se neeche gir gayi hai, is liye pack dobara charge karna zaroori hai."
+      },
+      "causes": [
+        {
+          "en": "Long outage drained the pack fully with no charge time since.",
+          "ur": "Lambi outage ne pack poori tarah khaali kar diya aur uske baad charge ka waqt nahi mila."
+        },
+        {
+          "en": "Charger not working, so the pack never recovers after a discharge.",
+          "ur": "Charger kaam nahi kar raha, is liye pack discharge ke baad recover nahi hota."
+        },
+        {
+          "en": "Ambient temperature very low, reducing achievable capacity and triggering the threshold early.",
+          "ur": "Ambient temperature bohat kam hai, jis se haasil capacity ghat ho kar threshold jaldi trigger ho jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restore mains and leave the unit charging on float; do not start the battery maintenance test until fully charged.",
+          "ur": "Mains wapas karein aur unit ko float par charge hone dein; poori charge hone se pehle battery maintenance test shuru na karein."
+        },
+        {
+          "en": "Measure the string and each cell's voltage to confirm the pack is recoverable rather than failed.",
+          "ur": "Confirm karne ke liye string aur har cell ka voltage nikaalein ke pack recover ho sakta hai ya nahi, ya failed hai."
+        },
+        {
+          "en": "Verify the charger is delivering current; if not, fix the charger before expecting any recovery.",
+          "ur": "Confirm karein ke charger current de raha hai; agar nahi to koi recovery ki umeed rakhne se pehle charger theek karein."
+        },
+        {
+          "en": "Re-read the message after a full charge; it should clear on its own if the pack recovered.",
+          "ur": "Poori charge ke baad message dobara parhein; pack recover hua to yeh khud clear ho jayega."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's corrective action is 'Recharge the batteries.' The engineering step is to check charger current while doing it.",
+        "ur": "SE ka hal hai 'Batteries dobara charge karein.' Engineering ka qadam hai charging ke dauran charger current check karna."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Battery temperature high",
+      "aliases": [
+        "Battery temperature high"
+      ],
+      "title": {
+        "en": "Battery temperature high",
+        "ur": "Battery temperature zyada"
+      },
+      "meaning": {
+        "en": "The battery temperature is too high, so the unit is protecting the pack from thermal damage.",
+        "ur": "Battery temperature bohat zyada hai, is liye unit pack ko thermal damage se bachane ki koshish kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Battery cabinet ventilation blocked, or the cabinet in a hot unventilated room.",
+          "ur": "Battery cabinet ki ventilation band hai, ya cabinet garm aur bina hawa ke kamre mein hai."
+        },
+        {
+          "en": "Pack overcharged, producing heat faster than it can be removed.",
+          "ur": "Pack zyada charge ho kar itni garmi bana raha hai jitni nikal nahi sakti."
+        },
+        {
+          "en": "One shorted cell heating in isolation inside the pack.",
+          "ur": "Pack ke andar aik shorted cell khud garam ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the battery temperature on the display and confirm the sensor is reading, not stuck.",
+          "ur": "Display par battery temperature parhein aur confirm karein ke sensor parh raha hai, atka hua nahi."
+        },
+        {
+          "en": "Measure the actual pack temperature with a probe and compare against the battery label's limit.",
+          "ur": "Probe se pack ki asli temperature nikaal kar battery label ki limit se compare karein."
+        },
+        {
+          "en": "Check every fan and grille for dust and clean with compressed air; confirm the fans actually spin.",
+          "ur": "Har fan aur grille mein dhool check karein aur compressed air se saaf karein; confirm karein ke fan sach mein chalte hain."
+        },
+        {
+          "en": "Measure each cell's voltage in turn and feel for a single hot cell; one hot cell means replace the pack.",
+          "ur": "Ek-ek cell ka voltage nikaalein aur koi aik garam cell mehsoos karein; aik garam cell matlab pack badal dein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's corrective action is 'Check the battery temperature.' Reading the sensor alone will not tell you if it is lying.",
+        "ur": "SE ka hal hai 'Battery temperature check karein.' Sirf sensor parhne se pata nahi chalega ke woh jhoot bol raha hai ya nahi."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Battery voltage low",
+      "aliases": [
+        "Battery voltage low"
+      ],
+      "title": {
+        "en": "Battery voltage low",
+        "ur": "Battery voltage kam"
+      },
+      "meaning": {
+        "en": "The battery voltage is low, so the runtime available is reduced and the unit is closer to shutting down.",
+        "ur": "Battery voltage kam hai, is liye mojood runtime kam ho gaya hai aur unit band hone ke qareeb hai."
+      },
+      "causes": [
+        {
+          "en": "Pack discharged by an outage and not yet recharged.",
+          "ur": "Pack outage se discharge ho chuka hai aur abhi recharge nahi hua."
+        },
+        {
+          "en": "Battery cells aged and holding charge poorly.",
+          "ur": "Battery cells purani ho chuki hain aur charge theek se nahi rakhti."
+        },
+        {
+          "en": "Charger output weak, so charge is going in too slowly.",
+          "ur": "Charger output kamzor hai, is liye charge bahut dheere se ja raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the battery voltage on the display and compare it against the float voltage for the pack's cell count.",
+          "ur": "Display par battery voltage parhein aur usay pack ke cell count ke mutabiq float voltage se compare karein."
+        },
+        {
+          "en": "Measure the string and each cell with a DC meter to separate a flat pack from a weak charger.",
+          "ur": "Flat pack aur kamzor charger ko alag karne ke liye string aur har cell ko DC meter se nikaalein."
+        },
+        {
+          "en": "Confirm the charger is delivering current by checking its output against the battery voltage.",
+          "ur": "Charger ki output ko battery voltage se compare kar ke confirm karein ke current de raha hai."
+        },
+        {
+          "en": "After a full charge, re-read the voltage; if it stays low, the pack has aged and needs replacing.",
+          "ur": "Poori charge ke baad voltage dobara parhein; agar kam hi rahe to pack purani ho chuki hai aur badalna hoga."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's corrective action is 'Check the battery.' Measure rather than assume - the fix differs by cause.",
+        "ur": "SE ka hal hai 'Battery check karein.' Andaza karein baghair na milein - har wajah ka hal alag hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Battery wiring incorrect",
+      "aliases": [
+        "Battery wiring incorrect"
+      ],
+      "title": {
+        "en": "Battery wiring incorrect",
+        "ur": "Battery wiring ghalat"
+      },
+      "meaning": {
+        "en": "The battery wiring is incorrect, so the string is not presenting the voltage the unit expects.",
+        "ur": "Battery wiring ghalat hai, is liye string woh voltage nahi de rahi jo unit ko chahiye."
+      },
+      "causes": [
+        {
+          "en": "String cables to one bank reversed, so that bank fights the other.",
+          "ur": "Aik bank ki string cables ulat hui hain, jis se woh bank doosre se lad raha hai."
+        },
+        {
+          "en": "Interconnect between strings missing or loose, so only part of the pack is in circuit.",
+          "ur": "Strings ke darmiyan interconnect missing ya loose hai, jis se pack ka sirf hissa circuit mein hai."
+        },
+        {
+          "en": "Wrong number of batteries for the configured string voltage.",
+          "ur": "Battery ki ghalat tadaad configured string voltage ke liye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery bank, then trace and photograph every inter-connection before changing anything.",
+          "ur": "Mains isolate karein aur battery bank disconnect karein, phir kuch badalne se pehle har inter-connection ko trace kar ke tasveer lein."
+        },
+        {
+          "en": "Verify polarity of every string cable with a multimeter; every bank must read positive toward the common positive rail.",
+          "ur": "Har string cable ki polarity multimeter se check karein; har bank ka common positive rail ki taraf positive parhna chahiye."
+        },
+        {
+          "en": "Count the batteries in series and confirm the count matches the string voltage setting in the manual.",
+          "ur": "Series mein batteries gino aur confirm karein ke tadaad manual ki string voltage setting se match karti hai."
+        },
+        {
+          "en": "Re-tighten all interconnect terminals to the specified torque and re-read the message.",
+          "ur": "Har interconnect terminal ko batay hui torque par dobara kasshein aur message dobara parhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Reversed banks can cause very high current and heat - disconnect before investigating, not after.",
+        "ur": "Ulat banks bohat high current aur garmi paida kar sakte hain - dekhne se pehle disconnect karein, baad mein nahi."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Battery/charger inoperable",
+      "aliases": [
+        "Battery/charger inoperable"
+      ],
+      "title": {
+        "en": "Battery/charger inoperable",
+        "ur": "Battery ya charger inoperable"
+      },
+      "meaning": {
+        "en": "Neither the battery nor the charger is working, so the unit has no battery backup path at all.",
+        "ur": "Na battery kaam kar raha hai na charger, is liye unit ke paas battery backup ka koi rasta hi nahi bacha."
+      },
+      "causes": [
+        {
+          "en": "Battery pack dead and charger also failed, often from the same surge event.",
+          "ur": "Battery pack dead aur charger bhi kharab, aksar ek hi surge event se."
+        },
+        {
+          "en": "Charger output blown open by a battery reverse-polarity connection.",
+          "ur": "Battery ulat polarity se jurne ki wajah se charger output khul ho kar uth gaya."
+        },
+        {
+          "en": "Fuse or breaker in the battery path open, cutting both supply and measurement.",
+          "ur": "Battery path ka fuse ya breaker khula hai, jis se supply aur measurement dono kat gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then check the path fuse or breaker continuity with an ohmmeter.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phin path fuse ya breaker ki continuity ohmmeter se check karein."
+        },
+        {
+          "en": "Measure the pack's open-circuit voltage; a fully dead pack reads far below the string's nominal voltage.",
+          "ur": "Pack ka open-circuit voltage nikaalein; poori tarah dead pack string ki nominal voltage se bohat neeche parhta hai."
+        },
+        {
+          "en": "Measure the charger output with a known-good battery or a dummy load to see if the charger works at all.",
+          "ur": "Aik ache wale battery ya dummy load se charger output nikaal ke dekhein ke charger kaam karta hai ya nahi."
+        },
+        {
+          "en": "Replace the failed component, then confirm the pack passes a battery test before returning the unit to the load.",
+          "ur": "Kharab component badal dein, phir unit wapas load par dene se pehle confirm karein ke pack battery test pass karta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's action is 'Check the battery. Check the charger.' Both, in that order - a dead pack will falsely accuse a good charger.",
+        "ur": "SE ka hal hai 'Battery check karein, charger check karein.' Usi tarah se - marr pack acha charger par bhi ilzaam lagayegi."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Bypass fan inoperable",
+      "aliases": [
+        "Bypass fan inoperable",
+        "Fan inoperable"
+      ],
+      "title": {
+        "en": "Fan inoperable",
+        "ur": "Fan kaam nahi kar raha"
+      },
+      "meaning": {
+        "en": "One or more of the UPS fans has stopped, so the unit cannot move enough air to keep components safe.",
+        "ur": "UPS ke ek ya zyada fans ruk chuke hain, is liye unit components ko mehfooz rakhne ke liye kaafi hawa nahi nikal sakta."
+      },
+      "causes": [
+        {
+          "en": "Fan bearing seized or motor failed, so the blade does not turn.",
+          "ur": "Fan ka bearing jam ho gaya ya motor kharab, jis se blade nahi chalta."
+        },
+        {
+          "en": "Fan connector unplugged or its supply has failed.",
+          "ur": "Fan ka connector nikal gaya ya uski supply kharab hai."
+        },
+        {
+          "en": "Fan blades clogged with dust, so airflow is negligible while the fan still powers up.",
+          "ur": "Fan ke blades dhool se band, jis se airflow khatam ho jati hai jabki fan chalti to hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then spin each fan blade by hand to find seized bearings.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir har fan ka blade haath se ghora kar jam bearings dhoondein."
+        },
+        {
+          "en": "Clean the fan blades and housings with compressed air and confirm air actually moves past a tissue held at the grille.",
+          "ur": "Fan blades aur housing ko compressed air se saaf karein aur confirm karein ke grille par tissue rakhne par hawa chalti hai."
+        },
+        {
+          "en": "Measure the fan's supply voltage and compare with the fan's rating; no supply means the connector or board is at fault.",
+          "ur": "Fan ki supply voltage nikaal kar fan ki rating se compare karein; supply na ho to connector ya board kharab hai."
+        },
+        {
+          "en": "Replace a seized or dead fan with the same size, voltage and airflow rating so the cooling capacity is not reduced.",
+          "ur": "Jam ya mara hua fan aik hi size, voltage aur airflow rating wale se badal dein taake cooling capacity kam na ho."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The table lists 'Bypass fan inoperable', 'Fan inoperable' and 'Input SCR fan inoperable' as separate rows with the same corrective action; they are grouped here because the remedy is identical.",
+        "ur": "Table mein 'Bypass fan inoperable', 'Fan inoperable' aur 'Input SCR fan inoperable' alag rows hain magar hal aik hi hai; is liye yahan ek saath rakhe hain."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Bypass out of tolerance",
+      "aliases": [
+        "Bypass out of tolerance"
+      ],
+      "title": {
+        "en": "Bypass out of tolerance",
+        "ur": "Bypass voltage tolerance se bahar"
+      },
+      "meaning": {
+        "en": "The bypass source voltage is outside the tolerance the unit accepts, so it will not transfer to bypass safely.",
+        "ur": "Bypass source ki voltage unit ki ijazat ke tolerance se bahar hai, is liye wo mehfooz tareeqe se bypass par nahi jayega."
+      },
+      "causes": [
+        {
+          "en": "Bypass source voltage outside the unit's configured bypass window.",
+          "ur": "Bypass source ki voltage unit ke configured bypass window se bahar hai."
+        },
+        {
+          "en": "Generator output voltage unstable or set too low, common during a generator changeover.",
+          "ur": "Generator output voltage unstable ya bohat kam set hai - generator changeover par aam masla hai."
+        },
+        {
+          "en": "Long or undersized feeder to the bypass input causing voltage drop at the unit.",
+          "ur": "Bypass input ka feeder lamba ya chhota hone ki wajah se unit par voltage gir raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the bypass input voltage at the unit's terminal with a meter, not at the distribution board.",
+          "ur": "Bypass input voltage unit ke terminal par meter se nikaalein, distribution board par nahi."
+        },
+        {
+          "en": "Compare the measured value against the bypass tolerance window printed in the manual, and widen it if the site is known to be unstable.",
+          "ur": "Measured value ko manual mein likhi bypass tolerance window se compare karein, aur site unstable ho to window barha dein."
+        },
+        {
+          "en": "Check the bypass input breaker is fully closed and its contacts are not burnt or loose.",
+          "ur": "Check karein ke bypass input breaker poori tarah band hai aur uske contacts jhale ya loose nahi hain."
+        },
+        {
+          "en": "If a generator feeds the bypass, check the generator's voltage and frequency settings before blaming the UPS.",
+          "ur": "Agar generator bypass ko chala raha hai to UPS par ilzaam lagane se pehle generator ke voltage aur frequency settings check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Tightening the bypass window too far lets a bad supply through to the load - widen only as much as the load can tolerate.",
+        "ur": "Bypass window bohat zyada kholne se kharab supply load tak pohanch jayega - sirf utna hi kholein jitna load bardasht kar sakta hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Bypass overload",
+      "aliases": [
+        "Bypass overload",
+        "Bypass overload timeout"
+      ],
+      "title": {
+        "en": "Bypass overload",
+        "ur": "Bypass par overload"
+      },
+      "meaning": {
+        "en": "The load is drawing more than the bypass source can supply, so the unit cannot sustain bypass operation.",
+        "ur": "Load bypass source ki capacity se zyada kheech rahi hai, is liye unit bypass par chal nahi sakta."
+      },
+      "causes": [
+        {
+          "en": "Load exceeds the bypass source rating, e.g. bypass rated below the UPS output.",
+          "ur": "Load bypass source ki rating se ooper hai, maslan bypass UPS output se kam rated hai."
+        },
+        {
+          "en": "Load on the bypass is only shared with the load on the inverter, and together they exceed the source.",
+          "ur": "Bypass ka load sirf inverter ke load ke saath mile kar source ki capacity se zyada ho gaya."
+        },
+        {
+          "en": "Bypass source is a generator whose output has sagged under the load.",
+          "ur": "Bypass source generator hai jiska output load ke neeche gir gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the load and confirm the total load is within both the inverter and the bypass ratings.",
+          "ur": "Load parhein aur confirm karein ke kul load inverter aur bypass dono ki rating ke andar hai."
+        },
+        {
+          "en": "Measure the bypass source current with a clamp meter and compare it with the source's rating.",
+          "ur": "Bypass source ka current clamp meter se nikaal kar source ki rating se compare karein."
+        },
+        {
+          "en": "Open load feeders until the bypass overload clears, identifying what to move onto a separate supply.",
+          "ur": "Jab tak bypass overload na mithe load feeders kholein, aur pata karein ke kisay alag supply par le jana hai."
+        },
+        {
+          "en": "If the bypass is deliberately undersized, split the load so the bypass carries only a critical subset.",
+          "ur": "Agar bypass jaan boojh kar chhota hai to load baant dein taake bypass sirf critical hissa uthaye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE distinguishes 'Bypass overload' from 'Bypass overload timeout' - the timeout means the unit can no longer sustain it and has given up.",
+        "ur": "SE 'Bypass overload' aur 'Bypass overload timeout' alag rakhta hai - timeout ka matlab unit ab ise bardasht nahi kar sakta aur chhod chuka hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Bypass sequence incorrect",
+      "aliases": [
+        "Bypass sequence incorrect"
+      ],
+      "title": {
+        "en": "Bypass sequence incorrect",
+        "ur": "Bypass sequence ghalat"
+      },
+      "meaning": {
+        "en": "The phase rotation on the bypass supply is incorrect, so transferring to bypass would be unsafe.",
+        "ur": "Bypass supply par phase rotation ghalat hai, is liye bypass par jaana unsafe hoga."
+      },
+      "causes": [
+        {
+          "en": "Bypass source phase sequence different from the unit's input sequence.",
+          "ur": "Bypass source ki phase sequence unit ki input sequence se alag hai."
+        },
+        {
+          "en": "Two phases swapped at the bypass terminal or in an upstream panel.",
+          "ur": "Bypass terminal ya upstream panel mein do phases swap ho gaye hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and the battery, then measure the bypass phase rotation with a phase rotation meter.",
+          "ur": "Mains aur battery isolate karein, phir bypass ki phase rotation phase rotation meter se nikaalein."
+        },
+        {
+          "en": "Correct the sequence at the terminal or panel so the bypass rotation matches the unit's input rotation.",
+          "ur": "Terminal ya panel par sequence theek karein taake bypass ki rotation unit ki input rotation se match kare."
+        },
+        {
+          "en": "Re-read the message and confirm the unit permits a manual transfer to bypass before reconnecting critical load.",
+          "ur": "Message dobara parhein aur confirm karein ke critical load dobara jorrne se pehle unit manual bypass transfer ki ijazat deta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Related to the SRV/SRVL register fault 0x49 (Input and output phases are incompatible) - same class of site wiring error.",
+        "ur": "Isay SRV/SRVL register fault 0x49 (Input aur output phases incompatible) se milein - site wiring error ki aik hi class hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Bypass unavailable",
+      "aliases": [
+        "Bypass unavailable"
+      ],
+      "title": {
+        "en": "Bypass unavailable",
+        "ur": "Bypass mojood nahi"
+      },
+      "meaning": {
+        "en": "The bypass source is not available, so the unit has no maintenance path to keep the load powered.",
+        "ur": "Bypass source mojood nahi hai, is liye load ko power dete rehne ke liye unit ke paas maintenance rasta nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Bypass input breaker open, or the bypass feed isolator off.",
+          "ur": "Bypass input breaker khula hai, ya bypass feed isolator off hai."
+        },
+        {
+          "en": "Bypass source fuse blown or the source itself dead.",
+          "ur": "Bypass source ka fuse uth gaya ya source hi dead hai."
+        },
+        {
+          "en": "Bypass static switch or its control failed, so the unit sees no bypass.",
+          "ur": "Bypass static switch ya uska control kharab hai, jis se unit bypass nahi dekh pata."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and the battery, then check the bypass breaker and feed isolator positions and their fuse continuity.",
+          "ur": "Mains aur battery isolate karein, phir bypass breaker aur feed isolator ki position aur unke fuse ki continuity check karein."
+        },
+        {
+          "en": "Measure the bypass source voltage at the unit terminal; a healthy source should read the expected supply voltage.",
+          "ur": "Unit terminal par bypass source ki voltage nikaalein; sehat source par expected supply voltage parhna chahiye."
+        },
+        {
+          "en": "If the source is healthy but the unit still reports unavailable, the bypass static switch or its control is faulty.",
+          "ur": "Agar source sehat hai magar unit phir bhi unavailable bata raha hai to bypass static switch ya uska control kharab hai."
+        },
+        {
+          "en": "Keep the unit on inverter and do not attempt a forced bypass transfer with a suspect static switch.",
+          "ur": "Unit ko inverter par hi rakhein aur shak wale static switch ke saath zabardasti bypass transfer na karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Bypass is the only way to service a three-phase unit without a shutdown; losing it means planned shutdowns, not hot work.",
+        "ur": "Bypass hi teen-phase unit ki service ka aik rasta hai; isay khone par planned shutdown honge, hot work nahi."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Capacitor expired",
+      "aliases": [
+        "Capacitor expired"
+      ],
+      "title": {
+        "en": "Capacitor expired",
+        "ur": "Capacitor ki umar khatam"
+      },
+      "meaning": {
+        "en": "Capacitor service life has expired, so ripple current handling and DC bus stability are now unreliable.",
+        "ur": "Capacitor ki service life khatam ho gayi hai, is liye ripple current sambhalna aur DC bus stability ab bharosemand nahi."
+      },
+      "causes": [
+        {
+          "en": "DC bus or inverter capacitors older than their rated life of typically 5-7 years.",
+          "ur": "DC bus ya inverter capacitors apni 5-7 saal ki rated life se oopper hain."
+        },
+        {
+          "en": "High internal temperature accelerating electrolytic drying.",
+          "ur": "Andar ki high temperature electrolytic drying ko tez kar rahi hai."
+        },
+        {
+          "en": "Sustained operation at high load and high ambient raising the ripple current stress.",
+          "ur": "High load aur high ambient par musalsal chalanay se ripple current stress barha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the confirmed expiry on the display and treat the unit as needing planned maintenance, not a breakdown repair.",
+          "ur": "Display par confirm shuda expiry parhein aur unit ko planned maintenance ka masla samajhein, breakdown repair ka nahi."
+        },
+        {
+          "en": "Measure each DC bus capacitor's capacitance and ESR against its rating; ESR rises well before capacitance drops.",
+          "ur": "Har DC bus capacitor ki capacitance aur ESR uski rating se nikaalein; ESR capacitance girne se pehle barh jata hai."
+        },
+        {
+          "en": "Inspect capacitors for bulging, cracking, crusting at the base or a burnt smell before any replacement.",
+          "ur": "Badalne se pehle capacitors ko phoolay, phate, base par crust ya burnt smell ke liye dekhein."
+        },
+        {
+          "en": "Improve cooling around the capacitor bank so the replacement lasts as long as the old one did.",
+          "ur": "Capacitor bank ke aas paas cooling behtar karein taake naya component purane jitna hi chala sake."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's corrective action is 'Replace the capacitor.' Capacitors are matched sets - replace the whole bank, not one.",
+        "ur": "SE ka hal hai 'Capacitor badal dein.' Capacitors jure hue set hain - aik nahi, poora bank badlein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "DC bus overvoltage",
+      "aliases": [
+        "DC bus overvoltage"
+      ],
+      "title": {
+        "en": "DC bus overvoltage",
+        "ur": "DC bus par overvoltage"
+      },
+      "meaning": {
+        "en": "There is overvoltage on the DC bus. SE publishes this message with no corrective action.",
+        "ur": "DC bus par overvoltage hai. SE yeh message khaali corrective action ke saath likhta hai."
+      },
+      "causes": [
+        {
+          "en": "AC input voltage too high, so the rectifier over-charges the bus.",
+          "ur": "AC input voltage bohat zyada hai, is liye rectifier bus ko zyada charge kar raha hai."
+        },
+        {
+          "en": "Battery disconnected or a branch open, so charging current has nowhere to go.",
+          "ur": "Battery disconnect ya branch khuli hai, is liye charging current ka koi rasta nahi."
+        },
+        {
+          "en": "Rectifier voltage sense divider failed, so the control loop keeps driving the bus up.",
+          "ur": "Rectifier ka voltage sense divider kharab hai, is liye control loop bus upar chalata rehta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then measure the DC bus with a meter before assuming the message is wrong.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir message galat samajhne se pehle DC bus ko meter se nikaalein."
+        },
+        {
+          "en": "Measure the input voltage and confirm it is inside the unit's rated window.",
+          "ur": "Input voltage nikaalein aur confirm karein ke yeh unit ki rated window ke andar hai."
+        },
+        {
+          "en": "Confirm the battery is connected and the string fuse intact; an open battery branch causes exactly this.",
+          "ur": "Confirm karein ke battery connected hai aur string fuse salamat hai; khuli battery branch se yahi hota hai."
+        },
+        {
+          "en": "If input and battery are both normal, the rectifier sense divider is faulty and needs component-level service.",
+          "ur": "Agar input aur battery dono normal hon to rectifier sense divider kharab hai aur component level par service chahiye."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE publishes this row with an EMPTY corrective action column - the remedies above are field engineering, not SE text.",
+        "ur": "SE yeh row khaali corrective action column ke saath likhta hai - upar ke hal field engineering hain, SE ke alfaz nahi."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "EPO",
+      "aliases": [
+        "EPO"
+      ],
+      "title": {
+        "en": "EPO activated",
+        "ur": "EPO activate ho gaya"
+      },
+      "meaning": {
+        "en": "An Emergency Power Off device has been activated, so the unit has been deliberately shut down.",
+        "ur": "Emergency Power Off device activate ho gaya hai, is liye unit ko jaan boojh kar band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "EPO wall switch pressed by a person, or the EPO contact closed in error.",
+          "ur": "EPO wall switch kisi ne daba diya, ya ghalat se EPO contact band ho gaya."
+        },
+        {
+          "en": "EPO wiring loop broken or shorted so the input reads active with nobody pressing it.",
+          "ur": "EPO wiring loop toota ya short ho gaya jis se bina kisi dabaye input active parh raha hai."
+        },
+        {
+          "en": "EPO relay or breaker stuck in the closed position.",
+          "ur": "EPO relay ya breaker band position mein atak gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the EPO wall switch and release it, then confirm the message clears and the unit returns to a normal state.",
+          "ur": "EPO wall switch check kar ke chhod dein, phir confirm karein ke message mit gaya aur unit normal par aa gaya."
+        },
+        {
+          "en": "Isolate the EPO loop wiring and measure continuity back to the unit; it should read open when released.",
+          "ur": "EPO loop wiring alag kar ke unit tak continuity nikaalein; chhode jaane par yeh khuli honi chahiye."
+        },
+        {
+          "en": "Check the EPO breaker and relay for sticking and confirm the wiring terminals are tight.",
+          "ur": "EPO breaker aur relay ko atakne ke liye check karein aur wiring terminals kassaa hua confirm karein."
+        },
+        {
+          "en": "Once the EPO source is cleared, reset the unit per the manual rather than just re-energising the input.",
+          "ur": "EPO source theek karne ke baad sirf input power dene ke bajaye manual ke mutabiq unit reset karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "EPO is a safety device, not a malfunction. If nobody pressed it, the loop wiring is the fault to fix.",
+        "ur": "EPO safety device hai, ghalti nahi. Agar kisi ne nahi dabaya to loop wiring hi hal karne wali masla hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Dust filter expired",
+      "aliases": [
+        "Dust filter expired"
+      ],
+      "title": {
+        "en": "Dust filter expired",
+        "ur": "Dust filter ki umar khatam"
+      },
+      "meaning": {
+        "en": "The dust filter service life has expired, so airflow is restricted and the unit will start overheating.",
+        "ur": "Dust filter ki service life khatam ho gayi hai, is liye airflow restricted hai aur unit garam hona shuru ho jayega."
+      },
+      "causes": [
+        {
+          "en": "Filter past its service life with dust loading blocking the intake path.",
+          "ur": "Filter apni service life se oopper hai aur dhool se bhar kar intake raasta block kar raha hai."
+        },
+        {
+          "en": "Site air unusually dusty, common with generators running in the same room.",
+          "ur": "Site ka hawa aam tor se zyada dhool bhara hai - aam tor se ek hi kamre mein generator chal raha hota hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note the current run hours on the display, then compare with the filter's rated service life.",
+          "ur": "Display par chalte ghante note karein, phir filter ki rated service life se compare karein."
+        },
+        {
+          "en": "Isolate mains and disconnect the battery, then withdraw the filter and clean or replace it as the manual directs.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir filter nikaal kar manual ke mutabiq saaf ya badal dein."
+        },
+        {
+          "en": "Check the intake and fan for dust build-up at the same time, since a clean filter with blocked fans still overheats.",
+          "ur": "Saath hi intake aur fan mein dhool bhi dekhein kyunke saaf filter ke saath band fans bhi unit garam karte hain."
+        },
+        {
+          "en": "Shorten the filter interval if the site is dusty so the next replacement is not left to fail.",
+          "ur": "Agar site dhool bhara hai to filter interval chhota kar dein taake agli badli na chhoot jaye."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's corrective action is 'Replace the Dust Filter.' This is the cheapest fault on the list to prevent.",
+        "ur": "SE ka hal hai 'Dust Filter badal dein.' Yehi list ka sab se sasta fault hai jo rok sakte hain."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Firmware incompatible",
+      "aliases": [
+        "Firmware incompatible"
+      ],
+      "title": {
+        "en": "Firmware incompatible",
+        "ur": "Firmware mismatch - firmware theek nahi"
+      },
+      "meaning": {
+        "en": "The firmware is detected as incompatible with the rest of the system, so the unit will not start.",
+        "ur": "Firmware baqi system ke saath incompatible detect hua hai, is liye unit start nahi karega."
+      },
+      "causes": [
+        {
+          "en": "Firmware update interrupted by power loss, leaving a partial or wrong image.",
+          "ur": "Bijli chali jane se firmware update adhoora reh gaya aur partial ya ghalat image chala raha hai."
+        },
+        {
+          "en": "Module or board replaced with firmware from a different hardware revision.",
+          "ur": "Module ya board badla gaya jis par alag hardware revision ka firmware hai."
+        },
+        {
+          "en": "Modules in a parallel system carrying mismatched firmware versions.",
+          "ur": "Parallel system ke modules par mismatch firmware versions hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not cut power during a firmware write; run the update on stable mains with the battery fully charged.",
+          "ur": "Firmware likhte waqt bijli na kaatein; stable mains aur poori charge wali battery par update chalayein."
+        },
+        {
+          "en": "Compare the running and available firmware versions on the display and note both before touching anything.",
+          "ur": "Display par chal raha aur available firmware version compare karein aur kuch chhoone se pehle dono note kar lein."
+        },
+        {
+          "en": "Perform a full system firmware update using Schneider Electric's package, not a single module's update.",
+          "ur": "Schneider Electric ke package se poore system ka firmware update karein, sirf aik module ka nahi."
+        },
+        {
+          "en": "If the unit will not boot far enough to update, the board must be reflashed at a service centre with the correct image.",
+          "ur": "Agar unit update ke liye itna boot hi nahi hota ke update ho jaye to board ko service centre par sahi image ke saath dobara flash karwa lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Related to the SRV/SRVL register fault 0x48 (Two DSP firmware versions are incompatible) - same class of problem.",
+        "ur": "Isay SRV/SRVL register fault 0x48 (Do DSP firmware versions incompatible) se milein - masle ki aik hi class hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Inverter high temp",
+      "aliases": [
+        "Inverter high temp"
+      ],
+      "title": {
+        "en": "Inverter high temperature",
+        "ur": "Inverter ki temperature zyada"
+      },
+      "meaning": {
+        "en": "The inverter is running too hot, so the unit has reduced load or shut down to protect the IGBTs.",
+        "ur": "Inverter bohat garam chal raha hai, is liye unit IGBTs bachane ke liye load kam kar chuka hai ya band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Heatsink fan failed or the heatsink fouled with dust.",
+          "ur": "Heatsink fan kharab ho gaya ya heatsink dhool se bhar gaya hai."
+        },
+        {
+          "en": "Room temperature above the unit's rated ambient, common in an unconditioned room in summer.",
+          "ur": "Room temperature unit ki rated ambient se upar hai - garmi mein bina air conditioning ke kamre mein aam masla hai."
+        },
+        {
+          "en": "Prolonged operation above 80% load, which drives inverter switching losses up.",
+          "ur": "80% load se upar lambi dafa chalanay se inverter switching losses barh jate hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the load percentage and inverter temperature on the display and check the load against the unit's rating.",
+          "ur": "Display par load percentage aur inverter temperature parhein aur load ko unit ki rating se compare karein."
+        },
+        {
+          "en": "Isolate mains and disconnect the battery, then clean the heatsink and check every inverter fan spins freely.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir heatsink saaf karein aur check karein ke har inverter fan azaad ghoomta hai."
+        },
+        {
+          "en": "Measure the room air temperature at the intake; if it is high, improve cooling before anything else.",
+          "ur": "Intake par room ki hawa ki temperature nikaalein; agar zyada hai to pehle cooling behtar karein."
+        },
+        {
+          "en": "Measure the inverter's internal temperature with a probe or IR reading and compare with the display to rule out a failed sensor.",
+          "ur": "Inverter ki andar ki temperature probe ya IR se nikaal kar display se compare karein taake kharab sensor rule out ho jaye."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Repeated high-temperature trips on a three-phase unit usually mean the room, not the inverter.",
+        "ur": "Teen-phase unit par baar baar high-temperature trip aam tor par kamre ka masla hota hai, inverter ka nahi."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Inverter IGBT inoperable",
+      "aliases": [
+        "Inverter IGBT inoperable",
+        "Inverter inoperable",
+        "Rectifier inoperable"
+      ],
+      "title": {
+        "en": "Inverter IGBT inoperable",
+        "ur": "Inverter IGBT kaam nahi kar raha"
+      },
+      "meaning": {
+        "en": "The inverter IGBT has failed, so the unit cannot produce output and has shut down.",
+        "ur": "Inverter IGBT kharab ho gaya hai, is liye unit output nahi bana sakta aur band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "IGBT failed shorted after an overload, short circuit or over-temperature event.",
+          "ur": "Overload, short circuit ya over-temperature event ke baad IGBT short ho kar kharab hua."
+        },
+        {
+          "en": "IGBT failed open, so the phase produces no current at all.",
+          "ur": "IGBT khul ho kar kharab, jis se woh phase bilkul current nahi banaata."
+        },
+        {
+          "en": "Gate drive circuit failed so the IGBT is not commanded on even though the device is good.",
+          "ur": "Gate drive circuit kharab ho kar IGBT ko on command nahi milta jabke device khud theek hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then measure each phase's output with a meter; a dead phase identifies the failed device.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir har phase ka output meter se nikaalein; mara phase kharab device identify kar deta hai."
+        },
+        {
+          "en": "Check the gate drive board's output at each IGBT gate; a good device with no gate drive is a board fault, not a device fault.",
+          "ur": "Har IGBT gate par gate drive board ka output check karein; device theek magar gate drive nahi ho to board fault hai, device ka nahi."
+        },
+        {
+          "en": "Inspect the IGBT for a failed case or bond wire by testing at component level, not by assumption.",
+          "ur": "IGBT ka case ya bond wire fail hai ya nahi component level par test kar ke check karein, andaze se nahi."
+        },
+        {
+          "en": "Before fitting a new module, find and fix the cause of the failure - a shorted load or blocked fan will destroy the replacement too.",
+          "ur": "Naya module lagane se pehle kharabi ki wajah dhoondein aur hal karein - short load ya band fan naya module bhi kharab kar dega."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE lists 'Inverter inoperable' and 'Rectifier inoperable' as separate rows; both are grouped here because the diagnostic approach is the same.",
+        "ur": "SE 'Inverter inoperable' aur 'Rectifier inoperable' alag rows likhta hai; dono yahan rakhe hain kyunke tareeqa dekhne ka aik hi hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Input out of tolerance",
+      "aliases": [
+        "Input out of tolerance"
+      ],
+      "title": {
+        "en": "Input out of tolerance",
+        "ur": "Input voltage tolerance se bahar"
+      },
+      "meaning": {
+        "en": "The input voltage is outside the range the unit accepts, so the unit will not run on it and warns instead.",
+        "ur": "Input voltage unit ki ijazat ke range se bahar hai, is liye unit us par chal nahi aur ehtiyat karta hai."
+      },
+      "causes": [
+        {
+          "en": "Utility voltage at the site outside the unit's rated input window.",
+          "ur": "Site ki utility voltage unit ki rated input window se bahar hai."
+        },
+        {
+          "en": "Long or undersized feeder causing voltage drop under load.",
+          "ur": "Lamba ya chhota feeder load ke neeche voltage girane ki wajah se."
+        },
+        {
+          "en": "Generator or supply changeover mid-transition leaving voltage momentarily outside the window.",
+          "ur": "Generator ya supply changeover ke darmiyan voltage moment par window se bahar reh gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the input voltage at the unit's terminals with a meter, both on no load and with the load applied.",
+          "ur": "Unit ke terminals par meter se input voltage nikaalein, bina load aur load ke saath dono haalat mein."
+        },
+        {
+          "en": "Log the reading over several minutes; Pakistani mains commonly swings far beyond the unit's window.",
+          "ur": "Kai minute tak reading note karte jayein; Pakistani mains aam tor par unit ki window se bohat door nikal jata hai."
+        },
+        {
+          "en": "Check the input breaker is not on a marginal size and that the feeder conductor is sized for the input current.",
+          "ur": "Check karein ke input breaker marginal size ka na ho aur feeder conductor input current ke liye sahi ho."
+        },
+        {
+          "en": "If the site supply is known to be unstable, configure the input voltage window within safe limits rather than forcing a start.",
+          "ur": "Agar site ka supply unstable jaana maqbool hai to unit ko zabardasti start karne ke bajaye input voltage window safe limits mein configure karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do not widen the input window beyond what the connected load can tolerate; over/under-voltage fries equipment quietly.",
+        "ur": "Input window ko us se aage na kholein jitna load bardasht kar sakta hai; over/under-voltage khamoshi se equipment kharab karta hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Input SCR fan inoperable",
+      "aliases": [
+        "Input SCR fan inoperable"
+      ],
+      "title": {
+        "en": "Input SCR fan inoperable",
+        "ur": "Input SCR fan kaam nahi kar raha"
+      },
+      "meaning": {
+        "en": "The rectifier SCR's cooling fan has stopped, so the input stage will overheat without a load trip to warn you.",
+        "ur": "Rectifier SCR ka cooling fan ruk gaya hai, is liye bina load trip ke input stage garam ho jayega."
+      },
+      "causes": [
+        {
+          "en": "Input SCR fan bearing seized or motor failed.",
+          "ur": "Input SCR fan ka bearing jam ho gaya ya motor kharab."
+        },
+        {
+          "en": "Fan connector unplugged or the fan's supply has failed.",
+          "ur": "Fan ka connector nikal gaya ya fan ki supply kharab hai."
+        },
+        {
+          "en": "Fan blades clogged with dust, so airflow is negligible while the fan still powers up.",
+          "ur": "Fan ke blades dhool se band, jis se airflow khatam ho jati hai jabki fan chalti to hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then check the input SCR fan spins on power-up and its blades are clean.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir check karein ke input SCR fan power par chalta hai aur blades saaf hain."
+        },
+        {
+          "en": "Measure the fan's supply voltage and compare with the fan's rating; no supply means the connector or board is at fault.",
+          "ur": "Fan ki supply voltage nikaal kar rating se compare karein; supply na ho to connector ya board kharab hai."
+        },
+        {
+          "en": "Clean the fan and its housing with compressed air and verify airflow at the SCR heatsink with a tissue.",
+          "ur": "Fan aur housing ko compressed air se saaf karein aur SCR heatsink par tissue rakh kar airflow verify karein."
+        },
+        {
+          "en": "Replace the fan with a matching size and rating, then confirm it runs before returning the unit to load.",
+          "ur": "Fan ko milan jaisa size aur rating se badal dein, phir unit load par wapas dene se pehle chalna confirm karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The table lists this separately from 'Fan inoperable' because it protects the rectifier rather than the inverter.",
+        "ur": "Table mein yeh 'Fan inoperable' se alag hai kyunke yeh rectifier ko protect karta hai, inverter ko nahi."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Input SCR temp high",
+      "aliases": [
+        "Input SCR temp high",
+        "Rectifier high temp"
+      ],
+      "title": {
+        "en": "Input SCR temperature high",
+        "ur": "Input SCR temperature zyada"
+      },
+      "meaning": {
+        "en": "The input SCR is too hot, so the unit has derated or shut down to protect the rectifier.",
+        "ur": "Input SCR bohat garam hai, is liye unit rectifier bachane ke liye load kam kar chuka hai ya band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Input SCR fan failed, so the rectifier is not being cooled.",
+          "ur": "Input SCR fan kharab ho gaya, is liye rectifier cool nahi ho raha."
+        },
+        {
+          "en": "SCR heatsink fouled with dust, insulating it from the airflow.",
+          "ur": "SCR heatsink dhool se bhar gaya hai, jis se hawa ko rok raha hai."
+        },
+        {
+          "en": "Input voltage very high or very low, forcing the rectifier to work outside its efficient region.",
+          "ur": "Input voltage bohat zyada ya bohat kam hai, jis se rectifier efficient area se bahar chal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the load and the input voltage on the display; high input voltage at high load is the common trigger.",
+          "ur": "Display par load aur input voltage parhein; high load par high input voltage aam trigger hai."
+        },
+        {
+          "en": "Isolate mains and disconnect the battery, then clean the SCR heatsink and verify the input SCR fan runs.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir SCR heatsink saaf karein aur input SCR fan chalna verify karein."
+        },
+        {
+          "en": "Measure the room temperature and improve cooling; the rectifier is a heat source in an already warm cabinet.",
+          "ur": "Room temperature nikaalein aur cooling behtar karein; rectifier garm cabinet mein khud bhi garmi ka source hai."
+        },
+        {
+          "en": "Compare the reported SCR temperature with a probe reading to rule out a failed temperature sensor.",
+          "ur": "SCR ki report hui temperature ko probe reading se compare kar ke kharab temperature sensor rule out karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Heat at the rectifier is often the first warning before a 3-phase unit trips on overload, so act before it trips.",
+        "ur": "Teen-phase unit ke overload par trip se pehle rectifier ki garmi pehla signal hai, is liye trip se pehle hi karakari karein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Load disconnected",
+      "aliases": [
+        "Load disconnected"
+      ],
+      "title": {
+        "en": "Load disconnected",
+        "ur": "Load disconnect ho gaya"
+      },
+      "meaning": {
+        "en": "The load has been disconnected, or the unit's output breaker UOB is open, so no load is being supplied.",
+        "ur": "Load disconnect ho gaya hai, ya unit ka output breaker UOB khula hai, is liye koi load supply nahi ho raha."
+      },
+      "causes": [
+        {
+          "en": "Unit output breaker UOB tripped, typically by an overload or short.",
+          "ur": "Unit output breaker UOB trip ho gaya, aam tor par overload ya short ki wajah se."
+        },
+        {
+          "en": "A downstream breaker in the distribution board tripped.",
+          "ur": "Distribution board mein aik downstream breaker trip ho gaya."
+        },
+        {
+          "en": "Load cable disconnected or pulled out at the unit or at a panel.",
+          "ur": "Load cable unit ya panel se disconnect ya nikal gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not reclose the UOB until the cause is known; find and clear the fault downstream first.",
+          "ur": "Wajah pata lage baghair UOB dobara na close karein; pehle neeche ka fault dhoondein aur hal karein."
+        },
+        {
+          "en": "Check the UOB and downstream breaker positions, and look for a tripped breaker with a visible cause.",
+          "ur": "UOB aur downstream breakers ki position check karein, aur wahan jane par pata chale ki kaun trip hua."
+        },
+        {
+          "en": "Measure insulation resistance of the downstream wiring with a megger to rule out a short before reclosing.",
+          "ur": "Dobara close karne se pehle megger se downstream wiring ki insulation resistance nikaal kar short rule out karein."
+        },
+        {
+          "en": "Confirm the load cable is seated and the terminals are tight before closing anything.",
+          "ur": "Kuch bhi close karne se pehle confirm karein ke load cable baitha hua hai aur terminals kassaa hue hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's corrective action is 'Check the load. Close the unit output breaker UOB.' Close it only after the fault is cleared.",
+        "ur": "SE ka hal hai 'Load check karein, unit output breaker UOB close karein.' Fault hatane ke baad hi close karein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Low battery shutdown",
+      "aliases": [
+        "Low battery shutdown"
+      ],
+      "title": {
+        "en": "Low battery shutdown",
+        "ur": "Low battery ki wajah se band"
+      },
+      "meaning": {
+        "en": "The UPS is shutting down because the batteries have reached end of discharge.",
+        "ur": "UPS band ho raha hai kyunke batteries end of discharge tak pohanch chuki hain."
+      },
+      "causes": [
+        {
+          "en": "Outage lasted longer than the pack's remaining runtime.",
+          "ur": "Outage pack ki baaki runtime se lambi rahi."
+        },
+        {
+          "en": "Battery pack aged, so its real capacity is much less than the nameplate.",
+          "ur": "Battery pack purani ho chuki hai, is liye asli capacity nameplate se bohat kam hai."
+        },
+        {
+          "en": "Load higher than the pack was sized for, draining it faster.",
+          "ur": "Load pack ki bajaye se zyada hai, jis se drain tez hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the reported runtime and the load on the display, and compare them against the pack's actual capacity.",
+          "ur": "Display par report hui runtime aur load parhein, aur pack ki asli capacity se compare karein."
+        },
+        {
+          "en": "After the unit restarts, measure the string and each cell's voltage and recharge on mains for at least 4 hours.",
+          "ur": "Unit restart hone ke baad string aur har cell ka voltage nikaal kar mains par kam az kam 4 ghante charge karein."
+        },
+        {
+          "en": "Run the battery test and replace the pack if it fails; a pack that reaches end of discharge early is aged.",
+          "ur": "Battery test chalayein aur fail ho to pack badal dein; jaldi end of discharge tak pohanchne wala pack purana hai."
+        },
+        {
+          "en": "Add an external battery cabinet if the runtime is genuinely needed, sized for the measured load.",
+          "ur": "Agar runtime waqai chahiye to nikaalay gaye load ke mutabiq external battery cabinet lagayein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's action: 'Recharge the batteries and restart the UPS. If auto-restart mode is configured, the UPS will start automatically when the mains return.'",
+        "ur": "SE ka hal: 'Batteries dobara charge karein aur UPS restart karein. Auto-restart mode set ho to mains aate hi UPS khud chal jayega.'"
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Module ID duplicate",
+      "aliases": [
+        "Module ID duplicate"
+      ],
+      "title": {
+        "en": "Module ID duplicate",
+        "ur": "Module ki ID repeat ho gayi"
+      },
+      "meaning": {
+        "en": "Two modules carry the same ID, so the parallel system cannot address them separately.",
+        "ur": "Do modules ka ID aik jaisa hai, is liye parallel system unhein alag address nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "A replacement module fitted without changing its ID from the module it replaced.",
+          "ur": "Replacement module lagai gayi magar uska ID badla nahi gaya, jis module ko usne replace kiya tha uska reh gaya."
+        },
+        {
+          "en": "Factory default IDs on two new modules never changed during commissioning.",
+          "ur": "Do naye modules ke factory default IDs commissioning mein kabhi badle nahi gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note every module's ID from the display, one module at a time, before changing anything.",
+          "ur": "Kuch badalne se pehle display se har module ka ID note karein, ek-ek karke."
+        },
+        {
+          "en": "Set each module to a unique ID following the numbering scheme in the installation manual.",
+          "ur": "Har module ko installation manual ke numbering scheme ke mutabiq unique ID dein."
+        },
+        {
+          "en": "Power-cycle the whole parallel system after setting the IDs so each module re-enumerates.",
+          "ur": "IDs set karne ke baad poore parallel system ko power-cycle karein taake har module dobara apna address le."
+        },
+        {
+          "en": "Label each module physically with its ID, because the next technician will need to read it.",
+          "ur": "Har module par uska ID physically label kar dein kyunke agli baar ka technician use parhna chahega."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Easy to overlook on a live site where modules were hot-swapped. Related to the SRV/SRVL register fault 0x31.",
+        "ur": "Jis site par modules hot-swap hue hon wahan nazar se chhoot jata hai. SRV/SRVL register fault 0x31 se milein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "No inlet temp sensor",
+      "aliases": [
+        "No inlet temp sensor",
+        "No input temp sensor",
+        "No outlet temp sensor"
+      ],
+      "title": {
+        "en": "No temperature sensor present",
+        "ur": "Koi temperature sensor mojood nahi"
+      },
+      "meaning": {
+        "en": "A required temperature sensor is missing or not reporting, so the unit has lost part of its thermal protection.",
+        "ur": "Zaroori temperature sensor mojood nahi ya report nahi kar raha, is liye unit ne apni halki thermal protection kho di hai."
+      },
+      "causes": [
+        {
+          "en": "Sensor module not fitted at all on a site assembled without the optional kit.",
+          "ur": "Sensor module bilkul nahi laga, ya site optional kit ke baghair banaya gaya."
+        },
+        {
+          "en": "Sensor connector unplugged or its harness damaged.",
+          "ur": "Sensor ka connector nikal gaya ya uska harness damaged hai."
+        },
+        {
+          "en": "Sensor itself failed open or short.",
+          "ur": "Sensor khud khul ya short ho kar kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then check the sensor harness and connector are present and seated.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir check karein ke sensor harness aur connector mojood aur baitha hua hai."
+        },
+        {
+          "en": "Measure the sensor's resistance across its two pins; a smooth value means healthy, open or zero means failed.",
+          "ur": "Sensor ke do pins par resistance nikaalein; smooth value healthy, khuli ya zero kharabi."
+        },
+        {
+          "en": "Fit the missing sensor of the specified type, or confirm with Schneider Electric whether the unit is rated to run without it.",
+          "ur": "Ghaayab sensor batay gaye type se laga dein, ya Schneider Electric se confirm karein ke unit uske baghair rated hai ya nahi."
+        },
+        {
+          "en": "Do not simply disable the alarm - restore the sensor so the unit keeps protecting itself thermally.",
+          "ur": "Sirf alarm band na karein - sensor wapas lagayein taake unit apni hifazat phir se kare."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Three separate rows in SE's table (inlet, input, outlet) grouped here because the check and the fix are identical.",
+        "ur": "SE ke table mein teen alag rows hain (inlet, input, outlet); yahan ek saath rakhe hain kyunke check aur hal wohi hain."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Parallel cabling incorrect",
+      "aliases": [
+        "Parallel cabling incorrect"
+      ],
+      "title": {
+        "en": "Parallel cabling incorrect",
+        "ur": "Parallel wiring ghalat"
+      },
+      "meaning": {
+        "en": "The parallel cabling between units is incorrect, so the units cannot communicate and share load safely.",
+        "ur": "Units ke darmiyan parallel wiring ghalat hai, is liye woh aapas mein baat nahi kar sakte aur load mehfooz tareeqe se share nahi kar sakte."
+      },
+      "causes": [
+        {
+          "en": "Parallel cable connected between the wrong ports, or reversed between units.",
+          "ur": "Parallel cable ghalat port par lagi, ya units ke darmiyan ulat di gayi."
+        },
+        {
+          "en": "Chain end termination missing on the last unit in the parallel chain.",
+          "ur": "Parallel chain ke aakhri unit par end termination missing hai."
+        },
+        {
+          "en": "Parallel cable damaged or chafed at a tray edge, breaking the bus intermittently.",
+          "ur": "Parallel cable damaged ya tray ke kinare par ragis hui hai, jis se bus baar baar toot rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate all units, then confirm the cable is in the parallel port specified in the manual, not a UPS management port.",
+          "ur": "Sab units power off aur isolate karein, phir confirm karein ke cable manual mein bataye gaye parallel port par hai, UPS management port par nahi."
+        },
+        {
+          "en": "Verify each inter-unit cable is identical and correctly oriented at both ends, following the manual's chain diagram.",
+          "ur": "Har inter-unit cable aik jaisa aur dono saron par sahi taraf ho, manual ke chain diagram ke mutabiq verify karein."
+        },
+        {
+          "en": "Fit the end termination on the last unit of the chain as the manual requires, then power up.",
+          "ur": "Chain ke aakhri unit par manual ke mutabiq end termination lagayein, phir power up karein."
+        },
+        {
+          "en": "Inspect the whole cable route for pinching and replace the cable if any conductor is damaged.",
+          "ur": "Poore cable ka raasta pinching ke liye dekhein aur koi conductor damaged ho to cable badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Related to the SRV/SRVL register fault 0x31 (Parallel communication failure).",
+        "ur": "Isay SRV/SRVL register fault 0x31 (Parallel communication failure) se milein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Power sharing incorrect",
+      "aliases": [
+        "Power sharing incorrect"
+      ],
+      "title": {
+        "en": "Power sharing incorrect",
+        "ur": "Power sharing ghalat"
+      },
+      "meaning": {
+        "en": "The load is not shared evenly between the UPS units, so one unit is carrying more than its share.",
+        "ur": "Load UPS units ke darmiyan barabar baanta hua nahi hai, is liye aik unit apni se zyada hissa uthayi jaa rahi hai."
+      },
+      "causes": [
+        {
+          "en": "Load not evenly distributed between the paralleled units.",
+          "ur": "Parallel units ke darmiyan load barabar baanta hua nahi hai."
+        },
+        {
+          "en": "One unit's inverter stage degraded, so it cannot deliver its share.",
+          "ur": "Kisi aik unit ka inverter stage weak ho gaya hai jis se woh apna hissa nahi de sakta."
+        },
+        {
+          "en": "Output current sensing on one unit drifted, so its share calculation is wrong.",
+          "ur": "Kisi aik unit ka output current sensing drift ho gaya hai jis se uska hissa ka hisaab ghalat hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure each unit's output current individually with a clamp meter and record the readings.",
+          "ur": "Har unit ka output current alag alag clamp meter se nikaal kar readings note karein."
+        },
+        {
+          "en": "Redistribute the load so each unit carries a similar share, then re-read the message.",
+          "ur": "Load aise baant dein ke har unit barabar hissa uthaye, phir message dobara parhein."
+        },
+        {
+          "en": "Take the suspect unit out of the parallel set and test it alone to separate a unit fault from a load fault.",
+          "ur": "Shak wale unit ko parallel set se nikaal kar akela test karein taake unit fault aur load fault alag ho jayein."
+        },
+        {
+          "en": "Check current transformer connections on the suspect unit, since a CT wiring error reads as a sharing fault.",
+          "ur": "Shak wale unit ke current transformer connections check karein, kyunke CT wiring ki ghalti sharing fault ki shakal leti hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's action: 'check the load sharing on the UPS units. Redistribute the load between UPS units.' Related to SRV/SRVL 0x36.",
+        "ur": "SE ka hal: 'UPS units par load sharing check karein aur load dobara baant dein.' SRV/SRVL 0x36 se milein."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Relay short-circuit",
+      "aliases": [
+        "Relay short-circuit",
+        "Relay disconnected"
+      ],
+      "title": {
+        "en": "Relay short-circuit",
+        "ur": "Relay mein short circuit"
+      },
+      "meaning": {
+        "en": "A relay has short-circuited, so the switching it performs is no longer controlled by the unit.",
+        "ur": "Koi relay short ho gaya hai, is liye uska switching ab unit ke control mein nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Static or bypass relay failed shorted after an arc during a fault event.",
+          "ur": "Fault event ke dauran arc ke baad static ya bypass relay short ho kar kharab."
+        },
+        {
+          "en": "Relay contacts welded, so it can no longer open when commanded.",
+          "ur": "Relay ke contacts jalm gaye hain, is liye command par yeh khul nahi sakta."
+        },
+        {
+          "en": "Solenoid or drive circuit failed, leaving the relay in one state.",
+          "ur": "Solenoid ya drive circuit kharab ho kar relay ko aik hi state mein rok deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and disconnect the battery, then confirm the relay position with the unit unpowered.",
+          "ur": "Mains isolate karein aur battery disconnect karein, phir unpowered state mein relay ki position confirm karein."
+        },
+        {
+          "en": "Measure relay coil continuity/resistance across its pins after lifting the relay from circuit.",
+          "ur": "Relay circuit se uthane ke baad uske pins par coil continuity/resistance nikaalein."
+        },
+        {
+          "en": "Inspect contact surfaces for welding pitting or discoloration; a welded relay cannot be cleaned back into spec.",
+          "ur": "Contact surfaces par welding pitting ya rang badla dekhein; jalmaya relay theek nahi ho sakta."
+        },
+        {
+          "en": "Replace the relay with the specified part number, and add upstream surge protection so arc events are absorbed.",
+          "ur": "Relay ko bataye gaye part number se badal dein, aur upstream surge protection lagayein taake arc events absorb hon."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "'Relay disconnected' (open) is grouped with 'Relay short-circuit' because the check sequence and the part are the same; only the coil/contact fault differs.",
+        "ur": "'Relay disconnected' (khuli) ko 'Relay short-circuit' ke saath rakha gaya hai kyunke check ka tareeqa aur part wohi hai; sirf coil/contact fault mukhtalif hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Room temp high",
+      "aliases": [
+        "Room temp high",
+        "Inlet temperature high",
+        "Outlet temperature high"
+      ],
+      "title": {
+        "en": "Room temperature high",
+        "ur": "Room temperature zyada"
+      },
+      "meaning": {
+        "en": "The room or the air at the unit's intake/outlet is too hot, so the unit cannot dissipate enough heat.",
+        "ur": "Kamre ya unit ke intake/outlet ki hawa bohat garam hai, is liye unit itni garmi nikal nahi sakta."
+      },
+      "causes": [
+        {
+          "en": "Equipment room without air conditioning, typical of Pakistani summers.",
+          "ur": "Bina air conditioning ke equipment room - Pakistani garmi mein aam halat."
+        },
+        {
+          "en": "Inlet blocked so the unit is recirculating its own hot exhaust air.",
+          "ur": "Inlet band hai jis se unit apni hi garam exhaust hawa wapas kheech raha hai."
+        },
+        {
+          "en": "Too many UPS units installed in one cabinet with no separation between intakes and exhausts.",
+          "ur": "Aik cabinet mein zyada units lage hain aur intake aur exhaust ke darmiyan farq nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the air temperature at the intake with a probe and compare with the unit's rated ambient range.",
+          "ur": "Probe se intake par hawa ki temperature nikaal kar unit ki rated ambient range se compare karein."
+        },
+        {
+          "en": "Touch-test the inlet air against the outlet air: if the inlet is as hot as the outlet, air is being recirculated.",
+          "ur": "Intake ki hawa ko outlet ki hawa se compare karein: agar intake bhi utni hi garam hai to hawa recirculate ho rahi hai."
+        },
+        {
+          "en": "Clear intake obstructions and separate the exhaust path of each unit so no unit breathes another's hot air.",
+          "ur": "Intake ki rukaawat saaf karein aur har unit ka exhaust raasta alag karein taake koi unit doosre ki garam hawa na saanse."
+        },
+        {
+          "en": "Install an air conditioner or a dedicated cooling unit for the equipment room and log the room temperature daily.",
+          "ur": "Equipment room ke liye air conditioner ya alag cooling unit lagayein aur room temperature roz note karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Three separate rows in SE's table (room, inlet, outlet) grouped here - the remedy is environmental in all three cases.",
+        "ur": "SE ke table mein teen alag rows hain (room, inlet, outlet) yahan ek saath - teenon hal aam tor par mahol se hain."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "System setting incorrect",
+      "aliases": [
+        "System setting incorrect"
+      ],
+      "title": {
+        "en": "System setting incorrect",
+        "ur": "System setting ghalat"
+      },
+      "meaning": {
+        "en": "The system settings are incorrect for the installed hardware, so the unit's behaviour does not match the design.",
+        "ur": "System settings installed hardware ke liye ghalat hain, is liye unit ka amal design ke mutabiq nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Battery string voltage, cell count or battery type setting does not match the installed pack.",
+          "ur": "Battery string voltage, cell count ya battery type setting installed pack se match nahi karti."
+        },
+        {
+          "en": "Rated capacity or nominal power setting does not match the hardware fitted.",
+          "ur": "Rated capacity ya nominal power setting fitted hardware se match nahi karti."
+        },
+        {
+          "en": "Settings copied from a different unit during a board swap or field service.",
+          "ur": "Board badalne ya field service ke dauran settings kisi doosre unit se copy kar li gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Record every relevant setting from the display before changing anything, so you can restore or compare.",
+          "ur": "Kuch badalne se pehle display se har aham setting note kar lein taake aap use wapas kar ya compare kar sakein."
+        },
+        {
+          "en": "Compare the battery string voltage, cell count and type against the actual pack's label and the manual's configuration table.",
+          "ur": "Battery string voltage, cell count aur type ko pack ke label aur manual ke configuration table se compare karein."
+        },
+        {
+          "en": "Compare the rated capacity and nominal power settings against the hardware nameplate on the chassis.",
+          "ur": "Rated capacity aur nominal power settings ko chassis ke nameplate se compare karein."
+        },
+        {
+          "en": "After correcting the settings, re-read the message and run a battery test to confirm the unit now matches the pack.",
+          "ur": "Settings theek karne ke baad message dobara parhein aur battery test chalayein taake confirm ho ke unit ab pack se match karta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "A settings error is the reason to check first after any board swap or a battery change on a three-phase unit.",
+        "ur": "Teen-phase unit par board badalne ya battery change ke baad pehle yahi check karna chahiye."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Transfers exceed limits",
+      "aliases": [
+        "Transfers exceed limits"
+      ],
+      "title": {
+        "en": "Transfers exceed limits",
+        "ur": "Transfers ne limit cross kar di"
+      },
+      "meaning": {
+        "en": "The unit has transferred between operating modes too many times in a given period, so it has locked out to prevent wear.",
+        "ur": "Unit ne muayyan arse mein operating modes ke darmiyan bohat zyada transfers kiye hain, is liye ghisne se bachne ke liye lock out kar diya."
+      },
+      "causes": [
+        {
+          "en": "Mains supply flapping repeatedly, driving the unit back and forth between normal and bypass.",
+          "ur": "Mains baar baar nikal kar aata raha hai, jis se unit baar baar normal aur bypass ke darmiyan chala raha hai."
+        },
+        {
+          "en": "Generator changeover not coordinated with the unit, so transfers pile up.",
+          "ur": "Generator changeover unit ke saath coordinated nahi hai, jis se transfers jama ho jate hain."
+        },
+        {
+          "en": "Overload or short trips repeatedly forcing inverter-to-bypass transfers.",
+          "ur": "Overload ya short baar baar inverter se bypass transfer karwa raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the transfer count and the time window shown on the display to confirm the pattern.",
+          "ur": "Display par transfer count aur time window dekhein taake tasdeq ho jaye ke pattern aisa hi hai."
+        },
+        {
+          "en": "Log the input voltage with a recording meter over a load-shedding cycle; flapping mains is the usual cause.",
+          "ur": "Load-shedding ke cycle par recording meter se input voltage note karein; flapping mains aam wajah hai."
+        },
+        {
+          "en": "Fit a proper changeover and generator auto-transfer switch with a time delay so transfers are separated.",
+          "ur": "Aik behtareen changeover aur generator auto-transfer switch time delay ke saath lagayein taake transfers alag alag hon."
+        },
+        {
+          "en": "Clear the load fault that is forcing the transfers, then reset the unit per the manual.",
+          "ur": "Transfers par majboor karne wala load fault theek karein, phir manual ke mutabiq unit reset karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Frequent transfers shorten relay and static-switch life even when each individual transfer succeeds.",
+        "ur": "Baar baar transfers relay aur static switch ki umra bhi kam karte hain chahe har transfer kamyaab ho."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Warranty expiring soon",
+      "aliases": [
+        "Warranty expiring soon"
+      ],
+      "title": {
+        "en": "Warranty expiring soon",
+        "ur": "Warranty khatam hone wali hai"
+      },
+      "meaning": {
+        "en": "The unit's warranty is close to expiry, so this is a service-notice message rather than a fault.",
+        "ur": "Unit ki warranty khatam hone wali hai, is liye yeh fault nahi balki service notice hai."
+      },
+      "causes": [
+        {
+          "en": "Normal passage of the warranty period from the recorded purchase or install date.",
+          "ur": "Purchase ya install date se warranty ka arse normal taur par guzar gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note the warranty end date shown on the display and record the unit's serial number for the renewal quote.",
+          "ur": "Display par dikhni wali warranty ki tareekh note karein aur renewal quote ke liye unit ka serial number likh lein."
+        },
+        {
+          "en": "Book a preventive maintenance visit before expiry so any wear is found while still covered.",
+          "ur": "Expiry se pehle preventive maintenance visit book karein taaki ghisann abhi bhi covered phase mein mil jaye."
+        },
+        {
+          "en": "Use the same SE service channel that issued the unit, since warranty terms follow the supplying office.",
+          "ur": "Wohi SE service channel istemaal karein jisne unit di thi, kyunke warranty sharaait dene wale office ke mutabiq chalti hain."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Not a fault - isFault: false. Included because the AC Ustad app must not flag a warranty notice as a breakdown.",
+        "ur": "Yeh fault nahi - isFault: false. Is liye shamil kiya kyunke app ko warranty notice ko breakdown na samajhe."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Load on inverter",
+      "aliases": [
+        "Load on inverter",
+        "Load on bypass",
+        "Transfer to inverter",
+        "Transfer to bypass",
+        "Shutdown",
+        "Manual shutdown",
+        "Manual transfer to inverter",
+        "Inhibit transfer to inv."
+      ],
+      "title": {
+        "en": "Normal operating status messages",
+        "ur": "Normal chalne ki halat ke messages"
+      },
+      "meaning": {
+        "en": "These are the unit's normal status messages confirming which path is supplying the load. They are not faults.",
+        "ur": "Yehi unit ke normal status messages hain jo confirm karte hain ke load kis raste se supply ho raha hai. Yehi fault nahi hain."
+      },
+      "causes": [
+        {
+          "en": "Normal operation, commanded transitions, or the maintenance bypass breaker being operated.",
+          "ur": "Normal chal raha hai, commanded transitions hue, ya maintenance bypass breaker chala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed for the status itself; log it so a later fault investigation has the state history.",
+          "ur": "Status ke liye khud koi karakari zaroori nahi; use note karein taake baad ki fault investigation mein state history mil jaye."
+        },
+        {
+          "en": "If 'Load on bypass' is showing when the unit was not asked to transfer, check the bypass input and the transfer settings.",
+          "ur": "Agar transfer ka koi faisla na ho phir bhi 'Load on bypass' dikh raha ho to bypass input aur transfer settings check karein."
+        },
+        {
+          "en": "If 'MBB closed' is showing, the load is on unprotected power; treat any work in the cabinet accordingly.",
+          "ur": "Agar 'MBB closed' dikh raha ho to load unprotected power par hai; cabinet ka koi bhi kaam usi hisab se karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Grouped because SE publishes them as informational display text, not alarms. 'MBB open', 'MBB closed', 'Load disconnected' and 'Shutdown' sit in the same informational cluster.",
+        "ur": "Grouped is liye ke SE inhein informational display text ke taur par likhta hai, alarms ke taur par nahi. 'MBB open', 'MBB closed', 'Load disconnected' aur 'Shutdown' bhi isi cluster mein hain."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Battery connected",
+      "aliases": [
+        "Battery connected",
+        "Battery boost charging",
+        "Battery float charging",
+        "Battery discharging"
+      ],
+      "title": {
+        "en": "Battery charging / discharging status",
+        "ur": "Battery charge/discharge ki halat"
+      },
+      "meaning": {
+        "en": "The unit is reporting the battery's current charge state, which is normal operation.",
+        "ur": "Unit battery ki maujooda charge halat bata raha hai, jo normal chalanay hai."
+      },
+      "causes": [
+        {
+          "en": "Normal charge or discharge depending on the mains state and load.",
+          "ur": "Mains ki halat aur load ke mutabiq normal charge ya discharge."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed; use the reading to confirm the pack is charging when mains is present.",
+          "ur": "Koi karakari zaroori nahi; mains mojood hone par pack charge ho raha hai is ki tasdeq ke liye reading ka istemaal karein."
+        },
+        {
+          "en": "If the pack is in boost charging for an unusually long time, check the load is not driving a persistent over-charge condition.",
+          "ur": "Agar pack bohat lambe arse tak boost charging par hai to check karein ke load aisi dafaadhar over-charge halat to nahi bana raha."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "'Battery discharging' is the healthy state during an outage, but SE lists it with 'Reduce the load' advice for a real over-discharge situation.",
+        "ur": "'Battery discharging' outage ke dauran sehat halat hai, magar SE isay asli over-discharge halat ke liye 'load kam karein' mashwara ke saath likhta hai."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    },
+    {
+      "code": "Battery test OK",
+      "aliases": [
+        "Battery test OK",
+        "Battery maintenance OK",
+        "Battery test incomplete",
+        "Battery maintenance"
+      ],
+      "title": {
+        "en": "Battery test result messages",
+        "ur": "Battery test ke natije ke messages"
+      },
+      "meaning": {
+        "en": "The unit is reporting the start, pass or fail of the battery maintenance and discharge tests.",
+        "ur": "Unit battery maintenance aur discharge tests ka shuru hona, pass hona ya fail hona bata raha hai."
+      },
+      "causes": [
+        {
+          "en": "A scheduled or manually started battery test running or finishing.",
+          "ur": "Scheduled ya manually shuru ki gayi battery test chal rahi hai ya mukammal ho rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Let the test complete undisturbed; interrupting it leaves an incomplete result on the display.",
+          "ur": "Test ko baghair taze ke mukammal hone dein; beech mein rokne par display par adhoora natija reh jata hai."
+        },
+        {
+          "en": "Only run the test on a fully charged pack, or the result will understate true capacity.",
+          "ur": "Test sirf poori charge pack par chalayein, warna natija asli capacity se kam parhega."
+        },
+        {
+          "en": "Read the resulting capacity percentage and log it, so the next test can be compared against a trend.",
+          "ur": "Natija capacity percentage parhein aur note karein, taake agla test us trend se compare ho sake."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "'Battery test incomplete' is the only one of these that indicates a problem - the others are progress confirmations.",
+        "ur": "In mein sirf 'Battery test incomplete' masla batata hai - baqi tareeki ki tasdeq hain."
+      },
+      "source": {
+        "type": "other",
+        "title": "Easy UPS 3S 10-40 kVA 208 V - Operation (990-6409B-001), section 'Status and Alarm Messages'",
+        "retrieved": "2026-09-26",
+        "url": "https://productinfo.se.com/easyups3s_ul/990-6409_master-easy-ups-3s-10-40-kva-208-v-operation/English/990-6409%20Easy%20UPS%203S%2010-40%20kVA%20208%20V%20Operation_0000535296.xml/$/StatusandAlarmMessagesREF_0000161232"
+      }
+    }
+  ]
+}

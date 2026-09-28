@@ -1,0 +1,399 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-h1-ac1-g2-battery",
+    "name": "H1(G2)/AC1(G2) - battery and EPS faults",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*H1*",
+      "*AC1*"
+    ],
+    "notes": "Battery-facing alarms. The Buck and Boost entries are MOSFET stage failures and are workshop items, not site items. CORRECTION to an earlier draft: the H1 V1.6 table DOES list both 'Bat Relay Open' and 'Bat Relay Short Circuit' (p.42) - an earlier claim that they were KH/KA-and-H3-only was wrong and has been removed. They are not expanded as separate entries here only because of the code-count budget; the verified strings are 'The battery relay keeps open' and 'The battery relay keeps close', both with the same disconnect/reconnect remedy, and both appear on H1, KH/KA and H3."
+  },
+  "codes": [
+    {
+      "code": "Bat Volt Fault",
+      "aliases": [
+        "Bat Volt Fault"
+      ],
+      "title": {
+        "en": "Battery voltage outside normal range",
+        "ur": "Battery voltage normal range se bahar"
+      },
+      "meaning": {
+        "en": "The battery terminal voltage seen by the inverter is outside its acceptable window.",
+        "ur": "Inverter jo battery terminal voltage dekh raha hai woh uski ijazat window se bahar hai."
+      },
+      "causes": [
+        {
+          "en": "Battery deeply discharged and unable to charge because PV output is too low.",
+          "ur": "Battery poori tarah discharge ho chuka hai aur charge nahi ho sakta kyunke PV output bohat kam hai."
+        },
+        {
+          "en": "BMS has cut the pack, or the pack's cell group is imbalanced.",
+          "ur": "BMS ne pack cut kar diya, ya pack ke cells ka group imbalanced hai."
+        },
+        {
+          "en": "Battery voltage window set too wide for the pack actually installed.",
+          "ur": "Battery voltage window installed pack ke liye bohat chota set kiya gaya hai."
+        },
+        {
+          "en": "Faulty battery voltage sensing harness between inverter and pack.",
+          "ur": "Inverter aur pack ke darmiyan battery voltage sensing wiring kharabi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure battery voltage at the inverter's battery terminals with a multimeter and compare it to the pack's allowed range.",
+          "ur": "Multimeter se inverter ke battery terminals par voltage napen aur pack ki ijazat range se compare karein."
+        },
+        {
+          "en": "Confirm the pack's SOC in FoxCloud; a deeply discharged pack normally needs PV generation to recover, not a reset.",
+          "ur": "FoxCloud mein pack ka SOC confirm karein; bohat discharge hua pack reset nahi, PV generation chahta hai."
+        },
+        {
+          "en": "Check every battery inter-pack communication and power connector for a pushed-back pin.",
+          "ur": "Har battery inter-pack communication aur power connector mein pin piche dhakeli hui to check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "If a BMS code such as 'BMS Lost' or 'Bms Ext Fault' is also on screen, treat the pack as the primary suspect - see Series 6.",
+        "ur": "Agar screen par 'BMS Lost' ya 'Bms Ext Fault' jaisa code bhi hai to pack ko hi pehla mamool maanein - Series 6 dekhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "Bat Power Low",
+      "aliases": [
+        "Bat Power Low"
+      ],
+      "title": {
+        "en": "Battery power low",
+        "ur": "Battery power kam"
+      },
+      "meaning": {
+        "en": "The pack is too empty to support the requested discharge; the inverter limits or blocks output to protect the battery.",
+        "ur": "Pack itni khali hai ke maangi gayi discharge ko support nahi kar sakti; inverter battery bachane ke liye output kam ya band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Sustained cloudy weather, or a load that outruns the PV array.",
+          "ur": "Lambi musamlat ke baadal, ya aisa load jo PV array se tez chal raha hai."
+        },
+        {
+          "en": "Grid outage lasting long enough to drain the pack to its floor.",
+          "ur": "Grid outage itna lamba ke pack apni floor tak khaali ho gaya."
+        },
+        {
+          "en": "Parallel battery pack not communicating, so only part of the stored energy is usable.",
+          "ur": "Parallel battery pack communicate nahi kar raha, is liye sirf mukhtasar stored energy hi istemal hoti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the battery to recharge, as FoxESS states; reduce discretionary load to let PV surplus go to the pack.",
+          "ur": "Jaise FoxESS kahe battery ko recharge hone dein; gharelu load kam karein taake PV ka zyada hissa battery mein jaye."
+        },
+        {
+          "en": "Read the pack's SOC and the per-pack voltages in FoxCloud to confirm every parallel pack is being seen.",
+          "ur": "FoxCloud mein pack ka SOC aur har pack ka voltage padhein taake confirm ho ke har parallel pack nazar aa raha hai."
+        },
+        {
+          "en": "If SOC is normal but the code persists, have the pack's BMS state-of-health read on site.",
+          "ur": "Agar SOC normal hai lekin code qataar nahi hota to pack ka BMS state-of-health site par check karwayein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Common on Pakistani systems after a long load-shedding window. Frequently misreported by owners as 'inverter dead' when the unit is actually protecting the battery correctly.",
+        "ur": "Lambi load shedding ke baad Pakistan ke systems par ye aam hai. Log isay aksar 'inverter kharab' keh dete hain jabke unit asal mein battery bacha raha hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "Bat Buck Fault",
+      "aliases": [
+        "Bat Buck Fault"
+      ],
+      "title": {
+        "en": "Battery buck circuit MOSFET failed",
+        "ur": "Battery buck circuit ka MOSFET kharab"
+      },
+      "meaning": {
+        "en": "The MOSFET in the inverter's battery buck stage has failed, so the inverter cannot regulate battery current.",
+        "ur": "Inverter ke battery buck stage ka MOSFET kharab ho gaya, is liye inverter battery current regulate nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Internal semiconductor failure, often from a prior over-current or thermal event.",
+          "ur": "Aam tor par semiconductor ki internal kharabi, jo aksar pichli over-current ya thermal event se hoti hai."
+        },
+        {
+          "en": "Repeated battery over-current trips that stressed the stage.",
+          "ur": "Baar baar battery over-current trip hona jis ne stage ko stress diya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery completely and leave the unit isolated.",
+          "ur": "AC, PV aur battery poori tarah disconnect kar ke unit ko isolate hi chhor dein."
+        },
+        {
+          "en": "Do not attempt to power-cycle repeatedly; each attempt runs current through a failed device.",
+          "ur": "Baar baar power-cycle na karein; har koshish failed device se current guzarta hai."
+        },
+        {
+          "en": "Log the fault code and serial number and raise a warranty/depot claim for the power board.",
+          "ur": "Fault code aur serial number note karke power board ke liye warranty ya depot claim raise karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Not a site-repairable item. Anything involving opening the inverter is licensed-electrician work.",
+        "ur": "Yeh site par theek nahi ho sakta. Inverter kholna kisi bhi licensed electrician ka kaam hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "Bat Boost Fault",
+      "aliases": [
+        "Bat Boost Fault"
+      ],
+      "title": {
+        "en": "Battery boost circuit MOSFET failed",
+        "ur": "Battery boost circuit ka MOSFET kharab"
+      },
+      "meaning": {
+        "en": "The MOSFET in the inverter's battery boost stage has failed, so the inverter cannot raise battery voltage to the bus.",
+        "ur": "Inverter ke battery boost stage ka MOSFET kharab ho gaya, is liye inverter battery voltage bus tak nahi barha sakta."
+      },
+      "causes": [
+        {
+          "en": "Internal semiconductor failure, commonly after a battery surge or short.",
+          "ur": "Internal semiconductor kharabi, jo aksar battery surge ya short ke baad hoti hai."
+        },
+        {
+          "en": "The battery-side relay in the inverter has not closed, which the H3 manual lists as an alternative cause of this same code.",
+          "ur": "Inverter ka battery side relay close nahi hua - H3 manual isi code ki doosri wajah yahi batata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery completely as FoxESS directs.",
+          "ur": "Jaise FoxESS kahe AC, PV aur battery poori tarah disconnect karein."
+        },
+        {
+          "en": "Have a technician confirm the battery-side relay actually closes when commanded, before condemning the MOSFET.",
+          "ur": "Technician se confirm karwayein ke command par battery-side relay asal mein close hota hai, phir MOSFET ko blame karein."
+        },
+        {
+          "en": "Update master firmware before reassessment - the H3 manual states a Boost fault on master below 1.69 can be a firmware artefact.",
+          "ur": "Dobara dekhne se pehle master firmware update karein - H3 manual kehta hai ke 1.69 se neeche master par Boost fault firmware ka artifact ho sakta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "H3 adds an explicit firmware caveat to this code; H1's table does not. Keep the two model lines separate - see CONFLICTS.",
+        "ur": "H3 is code par firmware ki explicit shart add karta hai; H1 ki table nahi karti. Dono model lines alag rakhein - CONFLICTS dekhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "BatCon Dir Fault",
+      "aliases": [
+        "BatCon Dir Fault",
+        "Bat Relay Short Circuit"
+      ],
+      "title": {
+        "en": "Battery connection polarity reversed",
+        "ur": "Battery connection ki polarity ulti hai"
+      },
+      "meaning": {
+        "en": "The battery positive and negative conductors are connected the wrong way round.",
+        "ur": "Battery ke positive aur negative conductor ulat de mein lage hue hain."
+      },
+      "causes": [
+        {
+          "en": "Installer error at first commissioning.",
+          "ur": "Pehli commissioning par installer ki galti."
+        },
+        {
+          "en": "Battery replaced or re-wired by a non-installer and polarity crossed.",
+          "ur": "Battery kisi non-installer ne badli ya rewired ki aur polarity badal gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the battery DC isolator before touching any conductor.",
+          "ur": "Kisi bhi conductor ko haath lagane se pehle battery DC isolator kholein."
+        },
+        {
+          "en": "With the battery isolated and pack disconnected, confirm polarity with a multimeter on the inverter's battery port before reconnecting.",
+          "ur": "Battery isolate aur pack disconnect kar ke, wapas lagane se pehle multimeter se inverter ke battery port par polarity confirm karein."
+        },
+        {
+          "en": "Never energise the battery port to 'test' polarity - the BMS or the pack will be damaged.",
+          "ur": "Polarity 'test' karne ke liye battery port ko kabhi energize na karein - BMS ya pack kharab ho jayega."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do NOT alias 'Bat Relay Short Circuit' to this. FoxESS lists that string as its own separate row, meaning 'The battery relay keeps close' - a welded-stuck relay, not reversed polarity. It is a different fault with a different meaning. See foxess-h3-ac3-power-relay for the verified H3 wording.",
+        "ur": "'Bat Relay Short Circuit' ko is code ka alias na banayein. FoxESS us string ko apni alag row mein likhta hai, matlab 'The battery relay keeps close' - yani relay jam gaya, polarity ulti nahi. Yeh alag fault hai, alag matlab hai. Verified H3 wording ke liye foxess-h3-ac3-power-relay dekhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "Eps Over Load",
+      "aliases": [
+        "Eps Over Load",
+        "Eps Overload"
+      ],
+      "title": {
+        "en": "EPS output overload (off-grid)",
+        "ur": "EPS output par overload (off-grid)"
+      },
+      "meaning": {
+        "en": "The load connected to the backup/EPS output exceeds the inverter's off-grid power limit.",
+        "ur": "Backup/EPS output se juda load inverter ki off-grid power limit se upar chala gaya."
+      },
+      "causes": [
+        {
+          "en": "Motor-based load (pump, compressor, blower) with high inrush current on the EPS output.",
+          "ur": "Motor wala load (pump, compressor, blower) jis ka EPS output par inrush current zyada hai."
+        },
+        {
+          "en": "Multiple high-starting appliances switching on together after a grid outage.",
+          "ur": "Grid outage ke baad ek saath kai high-inrush appliances on ho jana."
+        },
+        {
+          "en": "EPS output wired with too small a cable, causing a voltage drop that counts as overload.",
+          "ur": "EPS output choti cable se jura ho, jis se voltage drop hokar overload ke tor par report hota hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "List every EPS-connected load and sum the running power; keep it under the inverter's EPS rating.",
+          "ur": "EPS se jude tamam loads likhein aur chalne wali power ka jama karein; usay inverter ki EPS rating se neeche rakhein."
+        },
+        {
+          "en": "Stagger large motor starts so they do not energise simultaneously.",
+          "ur": "Bade motors ka start aise stagger karein ke wo ek saath on na hon."
+        },
+        {
+          "en": "If EPS trips under a load well within rating, check EPS cable size and the EPS connector for heat damage.",
+          "ur": "Agar rating se andar wala load par EPS trip kare to EPS cable size aur EPS connector ka garm hone ka nuqsan check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Keep apart from 'Over Load Fault', which is the ON-grid equivalent. Owners routinely confuse the two; only this one has anything to do with backup output.",
+        "ur": "'Over Load Fault' se alag rakhein - woh ON-grid wohi hai. Log dono ghalat karte hain; sirf ye backup output se related hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "Eps Relay Fault",
+      "aliases": [
+        "Eps Relay Fault"
+      ],
+      "title": {
+        "en": "EPS transfer relay failed",
+        "ur": "EPS transfer relay kharab"
+      },
+      "meaning": {
+        "en": "The relay that transfers the load between grid and EPS output has failed.",
+        "ur": "Load ko grid aur EPS output ke darmiyan transfer karne wala relay kharab ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Relay coil or contact failure after many transfer operations.",
+          "ur": "Bohat se transfer operations ke baad relay coil ya contact ki kharabi."
+        },
+        {
+          "en": "Relay chattering during frequent grid outages, wearing the contacts.",
+          "ur": "Bari tarah se grid outages mein relay ka chatter karna, jis se contacts ghis jate hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery completely before any work on the EPS wiring.",
+          "ur": "EPS wiring par kaam karne se pehle AC, PV aur battery poori tarah disconnect karein."
+        },
+        {
+          "en": "Check whether the relay clicks when a grid outage is simulated by switching the AC breaker off and on.",
+          "ur": "Check karein ke AC breaker off-on karke grid outage simulate karne par relay click karta hai ya nahi."
+        },
+        {
+          "en": "Persistent fault means the relay assembly needs replacement - log the code and raise a service claim.",
+          "ur": "Code qataar na ho to relay assembly badalna hoga - code note karke service claim raise karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "On a grid-unstable supply like Pakistan's, transfer-relay wear is a known high-incidence item on older hybrid units.",
+        "ur": "Pakistan jaisi grid-unstable supply par purane hybrid units par transfer-relay ki wear aam baat hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    }
+  ]
+}

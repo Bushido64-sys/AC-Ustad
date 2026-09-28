@@ -1,0 +1,1067 @@
+{
+  "schemaVersion": 1,
+  "brandId": "fronius-at",
+  "series": {
+    "id": "fronius-at-gen24-country-setup",
+    "name": "GEN24 / Tauro / Verto grid-protection state codes",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*Primo GEN24*",
+      "*Symo GEN24*",
+      "*Tauro*",
+      "*Verto*"
+    ],
+    "notes": "Codes come from the Country Setup Menu manual's grid-protection tables. These are the 4-digit GEN24 codes; do NOT merge with the 3-digit Primo SnapINverter codes in SERIES 6-8 (e.g. 1114 GEN24 AC voltage too high vs 102 Primo AC voltage too high). State code 1082/1182 is an unresolved internal contradiction in the same manual (see CONFLICTS). Codes 1184/1185/1188/1189 are configuration-warning states, not faults. Where the same fault also appears in SERIES 2 (1030, 1173) the meaning is identical and is cross-referenced in notes."
+  },
+  "codes": [
+    {
+      "code": "1004",
+      "aliases": [
+        "1004"
+      ],
+      "title": {
+        "en": "Islanding detected (1004)",
+        "ur": "Island ka pata chala, system band (1004)"
+      },
+      "meaning": {
+        "en": "The inverter detected unintentional islanding (stand-alone operation) and stopped grid power feed operation.",
+        "ur": "Inverter ne galti se island (stand-alone) chalna detect kar liya aur grid se feed-in band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Grid failure or a part of the grid is disconnected from the utility supply.",
+          "ur": "Grid failure ya grid ka koi hissa utility se disconnect ho gaya."
+        },
+        {
+          "en": "Generation and load (active and reactive) are balanced, so AC voltage and frequency stay inside the limits and the island is not cleared.",
+          "ur": "Generation aur load (active aur reactive) aik taraf balance mein hain, is liye AC voltage aur frequency limit ke andar reh jate hain aur island khud clear nahi hota."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure AC voltage and frequency at the inverter AC terminals with a multimeter; expect 230 V +/-10% and 50 Hz in AT/EU setups.",
+          "ur": "Inverter ke AC terminals par multimeter se AC voltage aur frequency check karein; AT/EU setup mein 230 V +/-10% aur 50 Hz expect karein."
+        },
+        {
+          "en": "Check the main AC breaker and the utility supply before restarting; restore grid power and let the inverter reconnect.",
+          "ur": "Restart se pehle main AC breaker aur utility supply check karein; grid power wapas karein aur inverter ko reconnect hone dein."
+        },
+        {
+          "en": "Do not defeat or bypass the islanding detection - it is required by the grid code and by the country setup.",
+          "ur": "Islanding detection ko disable ya bypass na karein - ye country setup aur grid code ke liye zaroori hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1006",
+      "aliases": [
+        "1006"
+      ],
+      "title": {
+        "en": "Arc fault detected, feed-in interrupted (1006)",
+        "ur": "Arc fault mila, feed-in ruk gaya (1006)"
+      },
+      "meaning": {
+        "en": "A serial arc was detected on the DC side. With Arc Fault Detection (AFD) and the Circuit Interrupter (CI) set to On, the inverter interrupts grid power feed operation.",
+        "ur": "DC side par serial arc detect hua. Arc Fault Detection (AFD) aur Circuit Interrupter (CI) On hone par inverter grid feed-in rok deta hai."
+      },
+      "causes": [
+        {
+          "en": "Loose, corroded or burnt DC connector (MC4 / strain-relieved plug) with a high-resistance contact.",
+          "ur": "DC connector (MC4) loose, zang lage ya jale hue aur contact resistance zyada hone se."
+        },
+        {
+          "en": "DC cable insulation damaged by UV, heat, rodents or mechanical abrasion.",
+          "ur": "UV, garmi, chuhe ya mechanical rubbing se DC cable ki insulation kharab ho jana."
+        },
+        {
+          "en": "Cracked PV module cell, damaged bypass diode or damaged module junction box.",
+          "ur": "PV module ki cell crack, bypass diode kharab ya module ka junction box damaged."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC breaker, then the integrated DC disconnector, and confirm the inverter is dead before touching any DC connector.",
+          "ur": "AC breaker off karein, phir inverter ka DC disconnector off karein, aur koi bhi DC connector chhoone se pehle verify karein ke inverter dead hai."
+        },
+        {
+          "en": "Inspect every DC connector and string cable in daylight; look for blackening, melting, green corrosion or a loose click. Replace burnt connectors - do not just re-tighten.",
+          "ur": "Har DC connector aur string cable ko roshni mein dekhein; kaala pan, pighalan, hari zang ya dheela click dhoondein. Jale connector badal dein - sirf tighten na karein."
+        },
+        {
+          "en": "With DC isolated, measure insulation resistance of each string to earth with a Riso/megger tester (1000 V DC test voltage); a healthy string reads in the megaohm range. A low reading means replace the affected cable or module.",
+          "ur": "DC isolate kar ke, har string ka earth ke saath insulation resistance Riso/megger se 1000 V DC test voltage par check karein; healthy string megaohm range mein read karta hai. Low reading aaye to affected cable ya module badal dein."
+        },
+        {
+          "en": "If more arcs are found than the Automatic Reconnects value allows in 24 h, state 1173 appears instead - see SERIES 2 / SERIES 3.",
+          "ur": "Agar 24 ghante mein Automatic Reconnects se zyada arc mil jayein to 1173 aata hai - SERIES 2 / SERIES 3 dekhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1009",
+      "aliases": [
+        "1009"
+      ],
+      "title": {
+        "en": "Arc detector self-test failed (1009)",
+        "ur": "Arc detector ka self-test fail hua (1009)"
+      },
+      "meaning": {
+        "en": "The integrated self-test of the arc-fault detection failed, so the inverter stopped grid power feed operation.",
+        "ur": "Arc-fault detection ka built-in self-test fail ho gaya, is liye inverter ne grid feed-in band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Hardware fault in the arc-detection (AFCI) circuit, often the DC current sensor used by arc detection.",
+          "ur": "Arc-detection (AFCI) circuit mein hardware fault, aksar arc detection ka istemal karne wala DC current sensor."
+        },
+        {
+          "en": "Persistent arc on the DC side that the self-test keeps detecting.",
+          "ur": "DC side par lagatar arc jo self-test ko detect karwata rehta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do a full AC/DC reset: switch off AC breaker, then DC, wait until the inverter is completely dark (~30 s), then switch AC and DC back on so the self-test re-runs.",
+          "ur": "Poora AC/DC reset karein: AC breaker off, phir DC off, inverter poori tarah dark hone dein (~30 s), phir AC aur DC wapas on karein taake self-test dobara chale."
+        },
+        {
+          "en": "With DC isolated, check the AFCI board and the arc-detection current sensor cable for looseness or damage at the string inputs.",
+          "ur": "DC isolate kar ke, AFCI board aur arc-detection current sensor ka cable check karein ke string inputs par loose ya damaged to nahi."
+        },
+        {
+          "en": "If the self-test fails again after a clean reset and a full DC inspection, the arc-detection module needs Fronius service - it is not an installer-replaceable item.",
+          "ur": "Clean reset aur poore DC inspection ke baad bhi self-test fail ho to arc-detection module Fronius service ke liye hai - ye installer khud nahi badal sakta."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1035",
+      "aliases": [
+        "1035"
+      ],
+      "title": {
+        "en": "AC frequency too high (1035)",
+        "ur": "AC frequency zyada hai (1035)"
+      },
+      "meaning": {
+        "en": "The grid frequency exceeded an overfrequency limit, so the inverter is treated as being in a grid fault and will not feed in until frequency is back in range.",
+        "ur": "Grid frequency overfrequency limit se upar chali gayi, is liye inverter grid fault maanta hai aur frequency wapas range mein aane tak feed-in nahi karega."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency above the country-setup overfrequency limit (inner, outer or alternative limit).",
+          "ur": "Country setup ka overfrequency limit se grid frequency zyada hai (inner, outer ya alternative limit)."
+        },
+        {
+          "en": "Large generator, CHP unit or neighbouring load pulling the local grid frequency up.",
+          "ur": "Bara generator, CHP unit ya paas ka bada load local grid frequency upar le gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid frequency at the inverter AC terminals with a clamp meter; confirm it is inside the country-setup band before touching anything else.",
+          "ur": "Clamp meter se inverter ke AC terminals par grid frequency measure karein; country setup ki limit ke andar hai ya nahi pehle ye confirm karein."
+        },
+        {
+          "en": "Wait for the grid to normalise, then let the inverter pass its grid monitoring time and reconnect on its own - no intervention is required.",
+          "ur": "Grid normal hone dein, phir inverter ko apna grid monitoring time poora karne dein aur wo khud reconnect ho jayega - koi kaam zaroori nahi."
+        },
+        {
+          "en": "If the frequency is persistently out of band only at your site, ask the utility to check the local network and the country setup with the installer.",
+          "ur": "Agar sirf aapke site par frequency baar baar out of band ho to utility se local network check karwayein aur installer ke saath country setup verify karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1037",
+      "aliases": [
+        "1037"
+      ],
+      "title": {
+        "en": "AC frequency too low (1037)",
+        "ur": "AC frequency kam hai (1037)"
+      },
+      "meaning": {
+        "en": "The grid frequency fell below an underfrequency limit; the inverter will not feed in until the frequency is back in the permitted range.",
+        "ur": "Grid frequency underfrequency limit se neeche gir gaya; frequency wapas permitted range mein aane tak inverter feed-in nahi karega."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency below the country-setup underfrequency limit (inner, outer or alternative limit).",
+          "ur": "Country setup ka underfrequency limit se grid frequency kam hai (inner, outer ya alternative limit)."
+        },
+        {
+          "en": "Inverter is running on islanded / weak grid supply, or a large motor load is starting on the same feeder.",
+          "ur": "Inverter island ya kamzor grid par chal raha hai, ya usi feeder par koi bara motor start ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid frequency at the AC terminals with a clamp meter; it should be 50 Hz +/- the country-setup tolerance in AT/EU.",
+          "ur": "Clamp meter se AC terminals par grid frequency measure karein; AT/EU mein 50 Hz +/- country setup tolerance hona chahiye."
+        },
+        {
+          "en": "Check the main AC breaker and the utility supply, then allow the inverter to complete its grid monitoring time and reconnect automatically.",
+          "ur": "Main AC breaker aur utility supply check karein, phir inverter ko grid monitoring time poora karne dein taake wo khud reconnect ho jaye."
+        },
+        {
+          "en": "Do not change the country setup frequency limits yourself; they may only be adjusted by an authorised installer with the utility's approval.",
+          "ur": "Country setup ki frequency limits apne aap na badlein; ye sirf authorised installer utility ki ijazat se badal sakta hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1052",
+      "aliases": [
+        "1052"
+      ],
+      "title": {
+        "en": "DC injection into AC output (1052)",
+        "ur": "AC output mein DC injection (1052)"
+      },
+      "meaning": {
+        "en": "The DC component of the injected AC current exceeded the configured absolute or relative limit, so grid power feed operation was interrupted.",
+        "ur": "Injected AC current ka DC component configured absolute ya relative limit se zyada ho gaya, is liye grid feed-in rok diya gaya."
+      },
+      "causes": [
+        {
+          "en": "Insulation / earth fault on the DC side feeding a DC offset into the AC output through the EMI filter capacitors.",
+          "ur": "DC side par insulation ya earth fault jo EMI filter capacitors ke zariye AC output mein DC offset daal raha hai."
+        },
+        {
+          "en": "A DC-side device (optimizer, combiner, datalogger) leaking DC current to earth.",
+          "ur": "DC side ka koi device (optimizer, combiner, datalogger) earth mein DC current leak kar raha hai."
+        },
+        {
+          "en": "Faulty EMI filter capacitor bank in the inverter.",
+          "ur": "Inverter ka EMI filter capacitor bank kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the AC breaker and the DC disconnector and confirm de-energised with a suitable measuring device before probing.",
+          "ur": "Probe karne se pehle AC breaker aur DC disconnector kholein aur suitable measuring device se de-energised confirm karein."
+        },
+        {
+          "en": "Measure DC insulation resistance string by string to earth with a Riso/megger tester; isolate optimizers/combiners one by one to find the leaking device.",
+          "ur": "Riso/megger se har string ka earth ke saath DC insulation resistance nikaalein; optimizer/combiner ko ek ek karke isolate karke leaking device dhoondein."
+        },
+        {
+          "en": "If insulation is good everywhere but 1052 repeats, the inverter's DC injection monitoring is reporting a hardware fault - log the code and escalate to Fronius service.",
+          "ur": "Agar insulation har jagah theek ho lekin 1055 dohra rahe to inverter ka DC injection monitoring hardware fault bata raha hai - code note karein aur Fronius service ko dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1076",
+      "aliases": [
+        "1076"
+      ],
+      "title": {
+        "en": "RCMU fault current, no reconnect left (1076)",
+        "ur": "RCMU fault current, reconnect baqi nahi (1076)"
+      },
+      "meaning": {
+        "en": "The residual current monitoring unit detected more fault currents in 24 hours than the Automatic Reconnects value allows. The inverter will not attempt to restart and the code must be acknowledged manually.",
+        "ur": "RCMU ne 24 ghante mein Automatic Reconnects se zyada fault current detect kiya. Inverter dobara start ki koshish nahi karega aur code manually acknowledge karna hoga."
+      },
+      "causes": [
+        {
+          "en": "Insulation fault on the PV array, DC wiring or inside the inverter that repeatedly produces a residual current above 300 mA.",
+          "ur": "PV array, DC wiring ya inverter ke andar insulation fault jo baar baar 300 mA se upar residual current banata hai."
+        },
+        {
+          "en": "A wet or water-damaged junction box, module back sheet or cable gland after rain or cleaning.",
+          "ur": "Barish ya dhoane ke baad geela ya paani se kharab junction box, module back sheet ya cable gland."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not just acknowledge the code. Isolate AC and DC, then measure insulation resistance of each string to earth with a Riso/megger and find the leaking section first.",
+          "ur": "Sirf code acknowledge na karein. AC aur DC isolate karein, phir Riso/megger se har string ka earth ke saath insulation resistance nikaal kar leaking hissa pehle dhoondein."
+        },
+        {
+          "en": "Open and inspect every junction box and combiner: look for water ingress, corrosion, burned contacts and damaged insulation. Dry, clean or replace as needed.",
+          "ur": "Har junction box aur combiner khol kar dekhein: paani ka ghusa hua, zang, jale contact aur damaged insulation dekhein. Sukhayein, saaf karein ya badlein."
+        },
+        {
+          "en": "After the insulation fault is repaired and confirmed, clear the code on the inverter user interface (System > Event Log) and let the RCMU pass its 24 h counter again.",
+          "ur": "Insulation fault theek aur confirm hone ke baad, inverter user interface (System > Event Log) par code clear karein aur RCMU ka 24 ghanta counter dobara chalne dein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1082",
+      "aliases": [
+        "1082"
+      ],
+      "title": {
+        "en": "Isolation error, insulation too low (1082)",
+        "ur": "Isolation error, insulation bohat kam (1082)"
+      },
+      "meaning": {
+        "en": "The measured insulation resistance at the DC terminals fell below the Isolation Error Threshold, so grid power feed operation was prevented.",
+        "ur": "DC terminals par measured insulation resistance Isolation Error Threshold se neeche gir gaya, is liye grid feed-in rok diya gaya."
+      },
+      "causes": [
+        {
+          "en": "Insulation breakdown on a DC string: damaged cable, aged module laminate or a wet connector.",
+          "ur": "DC string par insulation kharab: damaged cable, purana module laminate ya geela connector."
+        },
+        {
+          "en": "Module or string connected with reversed polarity, so the frame sits at a different potential.",
+          "ur": "Module ya string ulti polarity se lage hua, is liye frame alag potential par hai."
+        },
+        {
+          "en": "DC side not properly bonded to earth, so the measured value to earth reads low.",
+          "ur": "DC side ka earth se proper bond nahi, is liye earth ke saath measured value kam aa raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open AC breaker and DC disconnector, then measure insulation resistance to earth string by string with a Riso/megger (1000 V test voltage) to localise the fault.",
+          "ur": "AC breaker aur DC disconnector kholein, phir Riso/megger se 1000 V test voltage par har string ka earth ke saath insulation resistance nikaal kar fault ki jagah dhoondein."
+        },
+        {
+          "en": "Check DC polarity and string fusing at the combiner before condemning any cable - a swapped string reads as an insulation fault.",
+          "ur": "Kisi cable ko kharab kehne se pehle combiner par DC polarity aur string fusing check karein - ulti lagay hui string bhi insulation fault jaisi lagti hai."
+        },
+        {
+          "en": "Look for moisture: dry connectors, re-seat the MC4 plugs fully, and replace any cable or module with chafed, cracked or water-damaged insulation.",
+          "ur": "Nami dhoondein: connector sukhaayein, MC4 plugs ko poora baithayein, aur chafed, crack ya paani se kharab insulation wala cable ya module badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The same manual states the isolation error code twice: once as 1082 (prose, chapter 'Isolation monitoring') and once as 1182 (parameter table, same chapter). Both are carried; 1182 is flagged low confidence. See CONFLICTS.",
+        "ur": "Yehi manual isolation error code do baar likhta hai: ek baar 1082 (chapter 'Isolation monitoring' ki prose mein) aur ek baar 1182 (usi chapter ki parameter table mein). Dono rakhe gaye hain; 1182 low confidence hai. CONFLICTS dekhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1083",
+      "aliases": [
+        "1083"
+      ],
+      "title": {
+        "en": "Isolation warning, insulation below limit (1083)",
+        "ur": "Isolation warning, insulation limit se kam (1083)"
+      },
+      "meaning": {
+        "en": "The measured isolation value fell below the adjustable Isolation Warning Threshold. Fronius raises a warning but does not shut down feed-in.",
+        "ur": "Measured isolation value adjustable Isolation Warning Threshold se neeche gira. Fronius warning deta hai lekin feed-in band nahi karta."
+      },
+      "causes": [
+        {
+          "en": "Early-stage insulation degradation from moisture ingress or UV-damaged cable insulation.",
+          "ur": "Nami ya UV damage se insulation ki shuruaati beesi."
+        },
+        {
+          "en": "Warning threshold set too close to the measured normal value for the site.",
+          "ur": "Site ke liye warning threshold measured normal value ke bahut qareeb set ki gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Log the value now and trend it; if it keeps falling towards 1082, plan the DC inspection before the inverter stops producing.",
+          "ur": "Value abhi note karein aur uska trend dekhein; agar 1082 ki taraf girta rahe to inverter band hone se pehle DC inspection karwa lein."
+        },
+        {
+          "en": "With DC isolated, do a Riso/megger test per string and clean or dry any connector that shows a low reading.",
+          "ur": "DC isolate kar ke, har string ka Riso/megger test karein aur kam reading wala koi bhi connector saaf ya sukha dein."
+        },
+        {
+          "en": "Ask the installer to review the Isolation Warning Threshold; do not raise it just to silence the warning.",
+          "ur": "Installer se Isolation Warning Threshold dobara check karwayein; sirf warning chupane ke liye ise barha na dein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1114",
+      "aliases": [
+        "1114"
+      ],
+      "title": {
+        "en": "AC voltage too high (1114)",
+        "ur": "AC voltage bohat zyada hai (1114)"
+      },
+      "meaning": {
+        "en": "The mains voltage exceeded an overvoltage limit (inner, middle or outer limit) for longer than its protection time, so the inverter shut down and will not feed in.",
+        "ur": "Mains voltage apne protection time se zyada der ke liye overvoltage limit (inner, middle ya outer) se upar raha, is liye inverter band ho gaya aur feed-in nahi karega."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage genuinely too high for the configured country setup, e.g. a long lightly-loaded feeder at the end of the day.",
+          "ur": "Configured country setup ke liye grid voltage waqai zyada hai, jaise din ke aakhir mein halka load aur lamba feeder."
+        },
+        {
+          "en": "Incorrect or missing country setup after a device replacement or a site move.",
+          "ur": "Device badalne ya site shift ke baad galat ya missing country setup."
+        },
+        {
+          "en": "Inverter AC voltage measurement or relay measurement fault reporting a false high.",
+          "ur": "Inverter ka AC voltage measurement ya relay measurement fault jis se ghalat high reading aaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the true grid voltage at the inverter AC terminals and at the site distribution board with a true-RMS multimeter.",
+          "ur": "True-RMS multimeter se inverter ke AC terminals aur site distribution board par asal grid voltage check karein."
+        },
+        {
+          "en": "Compare the reading with the country-setup overvoltage limit; if the grid is inside the limit but 1114 repeats, suspect a voltage-measurement fault and log the code for Fronius service.",
+          "ur": "Reading ko country setup ke overvoltage limit se milayein; agar grid limit ke andar hai lekin 1114 dohra rahe to voltage-measurement fault ka shak karein aur code Fronius service ke liye note karein."
+        },
+        {
+          "en": "For genuinely high grid voltage, run a large local load (AC / pool pump) during peak PV hours to bring the voltage at the inverter terminals down - confirm with the utility and installer first.",
+          "ur": "Agar grid voltage waqai zyada hai to peak PV hours mein bara local load (AC / pool pump) chala kar inverter terminals par voltage kam karein - pehle utility aur installer se confirm karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1115",
+      "aliases": [
+        "1115"
+      ],
+      "title": {
+        "en": "Grid voltage too high, fast cut-out 1 (1115)",
+        "ur": "Grid voltage bohat zyada, fast cut-out 1 (1115)"
+      },
+      "meaning": {
+        "en": "The fast overvoltage protection (peak value above 135% of rated voltage) triggered and the inverter disconnected from the grid.",
+        "ur": "Fast overvoltage protection (rated voltage ke 135% se upar peak value) trigger hua aur inverter grid se disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Voltage transient / surge on the AC line, e.g. from a lightning strike or a large motor or transformer being switched in the area.",
+          "ur": "AC line par voltage transient ya surge, jaise lightning strike ya area mein koi bara motor ya transformer on hone se."
+        },
+        {
+          "en": "Surge protection device (SPD) on the AC side has operated or the AC connection is loose.",
+          "ur": "AC side ka surge protection device (SPD) chala ho ya AC connection dheela ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC and check the AC surge protective devices and the AC connection terminals for heat damage or a loose conductor.",
+          "ur": "AC aur DC isolate kar ke AC surge protective devices aur AC connection terminals par garmi ka nishan ya dheela conductor check karein."
+        },
+        {
+          "en": "Check that the PE / earth conductor is properly bonded to the inverter ground electrode terminal, so transients are diverted instead of entering the electronics.",
+          "ur": "Check karein ke PE / earth conductor inverter ke ground electrode terminal se achi tarah bond hai, taake transient electronics mein jaane ke bajaye bypass ho jaye."
+        },
+        {
+          "en": "If the transients repeat, fit a Type 2 SPD on the AC side as designed by the installer and have the surge event investigated.",
+          "ur": "Agar transients dohra rahein to installer ke design ke mutabiq AC side par Type 2 SPD lagwayein aur surge event ki investigation karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1116",
+      "aliases": [
+        "1116"
+      ],
+      "title": {
+        "en": "Grid voltage too high, fast cut-out 2 (1116)",
+        "ur": "Grid voltage bohat zyada, fast cut-out 2 (1116)"
+      },
+      "meaning": {
+        "en": "Second fast overvoltage trip state, used together with 1115 when the fast surge protection (>135%) responds on reconnect or on a further spike.",
+        "ur": "Doosra fast overvoltage trip state, jo 1115 ke saath aata hai jab fast surge protection (>135%) reconnect par ya aik aur spike par respond kare."
+      },
+      "causes": [
+        {
+          "en": "Same surge cause as 1115, recorded on the reconnect attempt rather than during running operation.",
+          "ur": "1115 jaisa hi surge ka wajaub, magar reconnect ki koshish par record hua, chalte hue nahi."
+        },
+        {
+          "en": "Grid still above the fast-overvoltage threshold when the inverter tried to reconnect.",
+          "ur": "Jab inverter reconnect karna chahta tha tab bhi grid fast-overvoltage threshold se upar tha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait until the grid settles, then allow the inverter to complete its reconnection monitoring time before the next attempt.",
+          "ur": "Grid settle hone dein, phir next koshish se pehle inverter ko apna reconnection monitoring time poora karne dein."
+        },
+        {
+          "en": "Measure grid voltage and check the AC SPD and earth bonding as for 1115 - the two codes share the same cause.",
+          "ur": "1115 ki tarah grid voltage measure karein aur AC SPD aur earth bonding check karein - dono codes ka wajaub ek hi hai."
+        },
+        {
+          "en": "Do not raise the Fast Overvoltage Disconnect threshold; it is a safety protection defined by the applicable standard.",
+          "ur": "Fast Overvoltage Disconnect threshold barha na dein; ye applicable standard ke mutabiq safety protection hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1117",
+      "aliases": [
+        "1117"
+      ],
+      "title": {
+        "en": "Long-term mains voltage limit exceeded (1117)",
+        "ur": "Lambi arse ka mains voltage limit se upar (1117)"
+      },
+      "meaning": {
+        "en": "The moving average mains voltage exceeded the Long Time Average Limit over the configured averaging time, so the inverter disconnected.",
+        "ur": "Moving average mains voltage configured averaging time ke dauran Long Time Average Limit se upar chala gaya, is liye inverter disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Sustained grid overvoltage over hours - typical on a long, lightly loaded feeder with high PV export.",
+          "ur": "Ghanton tak grid overvoltage - lamba, halka load wala feeder jahan PV export zyada ho, aam tor par yehi hota hai."
+        },
+        {
+          "en": "Feed-in limit set too high, or export limitation not configured for the connection.",
+          "ur": "Feed-in limit bahut zyada set hai, ya export limitation connection ke liye configure nahi hai."
+        },
+        {
+          "en": "Smart Meter not installed, so voltage control at the feed-in point cannot be done.",
+          "ur": "Smart Meter installed nahi hai, is liye feed-in point par voltage control nahi ho sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Record the time of day this appears; if it is always around midday, treat it as a grid-voltage / export issue rather than an inverter fault.",
+          "ur": "Note karein ke ye din ka kis waqt aata hai; agar hamesha dopahar ke aas paas aata hai to ise inverter fault nahi balki grid-voltage / export masla samajhein."
+        },
+        {
+          "en": "Log the average voltage value and ask the utility / installer for a voltage assessment of the local network.",
+          "ur": "Average voltage value note karein aur utility / installer se local network ka voltage assessment karwayein."
+        },
+        {
+          "en": "Run a high-draw appliance (air conditioner, pool pump) during peak PV hours to pull the voltage at the inverter terminals down, and ask the installer to review the feed-in limit and volt-watt response settings.",
+          "ur": "Peak PV hours mein bara load wala appliance (air conditioner, pool pump) chala kar inverter terminals par voltage kam karein, aur installer se feed-in limit aur volt-watt response settings dobara check karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1119",
+      "aliases": [
+        "1119"
+      ],
+      "title": {
+        "en": "AC voltage too low (1119)",
+        "ur": "AC voltage bohat kam hai (1119)"
+      },
+      "meaning": {
+        "en": "The mains voltage fell below an undervoltage limit (inner, middle or outer) for longer than its protection time, so the inverter shut down and stopped feed-in.",
+        "ur": "Mains voltage apne protection time se zyada der ke liye undervoltage limit (inner, middle ya outer) se neeche gir gaya, is liye inverter band ho kar feed-in chhorr diya."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage sagging because of a heavy local load or a fault somewhere on the feeder.",
+          "ur": "Bara local load ya feeder par kisi jagah fault ki wajah se grid voltage gir raha hai."
+        },
+        {
+          "en": "AC breaker has tripped, or an AC connection / neutral conductor is loose.",
+          "ur": "AC breaker trip ho gaya hai, ya AC connection ya neutral conductor dheela hai."
+        },
+        {
+          "en": "Wrong country setup after reinstallation, so the undervoltage limits do not match the actual grid.",
+          "ur": "Reinstallation ke baad galat country setup, is liye undervoltage limits asal grid se match nahi karte."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the AC breaker is fully on and the neutral conductor is tight at the inverter and at the distribution board.",
+          "ur": "Check karein ke AC breaker poori tarah on hai aur neutral conductor inverter aur distribution board dono par kasa hua hai."
+        },
+        {
+          "en": "Measure AC voltage at the inverter terminals during the event; if the distribution board reads normal while the inverter reads low, suspect a long or thin AC cable run and check its voltage drop.",
+          "ur": "Event ke dauran inverter terminals par AC voltage measure karein; agar distribution board par normal aur inverter par kam ho to lamba ya patla AC cable ka shak karein aur uska voltage drop check karein."
+        },
+        {
+          "en": "If it only happens when a large appliance starts, have the installer review the country setup undervoltage limits with the utility instead of raising them yourself.",
+          "ur": "Agar sirf bade appliance start hone par hota hai to installer se utility ke saath mil kar country setup ki undervoltage limits dobara check karwayein, khud barha na dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1173",
+      "aliases": [
+        "1173"
+      ],
+      "title": {
+        "en": "Arc fault, no automatic reconnect left (1173)",
+        "ur": "Arc fault, automatic reconnect baqi nahi (1173)"
+      },
+      "meaning": {
+        "en": "After an arc shutdown the inverter used up its allowed automatic restarts within 24 hours (Automatic Reconnects), so it stopped trying and the code must be acknowledged manually.",
+        "ur": "Arc shutdown ke baad inverter ne 24 ghante mein apne automatic reconnects istemal kar liye, is liye wo koshish chhorr diya aur code manually acknowledge karna hoga."
+      },
+      "causes": [
+        {
+          "en": "A real serial arc on the DC side that repeats every time the inverter tries to restart.",
+          "ur": "DC side par asal serial arc jo har restart ki koshish par dohra rehta hai."
+        },
+        {
+          "en": "The same damaged connector or cable re-arcs after every automatic reconnection attempt.",
+          "ur": "Wahi damaged connector ya cable har automatic reconnection ke baad dobara arc kar deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC and carry out a full inspection of the affected PV system before acknowledging - Fronius explicitly requires this.",
+          "ur": "Acknowledge karne se pehle AC aur DC isolate kar ke poore affected PV system ka inspection karein - Fronius yeh zaroori maanta hai."
+        },
+        {
+          "en": "Inspect DC connectors, cable runs, module junction boxes and the DC disconnect for burnt, melted, loose or water-damaged parts and replace them.",
+          "ur": "DC connectors, cable runs, module junction boxes aur DC disconnect ke jale, pighle, dheele ya paani se kharab hisson ko dekhein aur badlein."
+        },
+        {
+          "en": "Once the arc cause is fixed and insulation is confirmed, acknowledge the status on the inverter (System > Event Log, or the Notifications user menu) - on Primo GEN24 the 3-second optical-sensor press also acknowledges it.",
+          "ur": "Jab arc ka wajaub theek ho aur insulation confirm ho jaye, code inverter par acknowledge karein (System > Event Log, ya Notifications user menu) - Primo GEN24 par optical sensor ko 3 second daba kar bhi acknowledge hota hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Same fault family as 1006. The Primo GEN24 operating instructions also document 1173 with the name 'ArcContinuousFault' - see SERIES 3.",
+        "ur": "Wahi fault family jo 1006 hai. Primo GEN24 operating instructions bhi 1173 ko 'ArcContinuousFault' naam se likhte hain - SERIES 3 dekhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1182",
+      "aliases": [
+        "1182"
+      ],
+      "title": {
+        "en": "Isolation error per parameter table (1182)",
+        "ur": "Parameter table ke mutabiq isolation error (1182)"
+      },
+      "meaning": {
+        "en": "Listed in the Isolation Error Threshold row of the Country Setup manual as the code shown when measured insulation is below the configured threshold.",
+        "ur": "Country Setup manual ke Isolation Error Threshold row mein ye code likha hai jo insulation threshold se kam hone par dikhta hai."
+      },
+      "causes": [
+        {
+          "en": "Same physical cause as the insulation error: insulation breakdown or moisture on the DC side.",
+          "ur": "Isolation error ka wahi physical wajaub: DC side par insulation kharabi ya nami."
+        },
+        {
+          "en": "Possible documentation inconsistency - the same manual names this condition 1082 elsewhere.",
+          "ur": "Yeh documentation ki inconsistency ho sakti hai - wahi manual ise jagah 1082 ke naam se bhi likhta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat it as the insulation error and follow the isolation test procedure: AC/DC isolated, Riso/megger per string, localise the leaking section.",
+          "ur": "Ise isolation error samajhein aur isolation test tareeqa follow karein: AC/DC isolate, har string ka Riso/megger, leaking hissa dhoondein."
+        },
+        {
+          "en": "Record the exact code shown on the inverter, because Fronius documentation itself uses both 1082 and 1182 for the insulation error.",
+          "ur": "Inverter par jo code exactly dikha usay note karein, kyunke Fronius documentation khud insulation error ke liye 1082 aur 1182 dono istemal karta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "notes": {
+        "en": "CONFLICT: the same official manual states the isolation error as 1082 in the prose ('Isolation monitoring' chapter) and as 1182 in the 'Isolation Error Threshold' parameter table. Both are recorded; 1082 is treated as primary because it is the value used in the running text. Do not treat 1182 and 1082 as two different faults.",
+        "ur": "CONFLICT: wahi official manual isolation error ko prose ('Isolation monitoring' chapter) mein 1082 aur 'Isolation Error Threshold' parameter table mein 1182 likhta hai. Dono record kiye gaye; 1082 primary maana gaya kyunke wahi running text mein istemal hua. 1182 aur 1082 ko do alag faults na samajhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1183",
+      "aliases": [
+        "1183"
+      ],
+      "title": {
+        "en": "Isolation warning per parameter table (1183)",
+        "ur": "Parameter table ke mutabiq isolation warning (1183)"
+      },
+      "meaning": {
+        "en": "Listed in the Isolation Warning Threshold row as the code shown when measured insulation is below the warning threshold.",
+        "ur": "Isolation Warning Threshold row mein ye code likha hai jo insulation warning threshold se kam hone par dikhta hai."
+      },
+      "causes": [
+        {
+          "en": "Same physical cause as the isolation warning: early insulation degradation or moisture on the DC side.",
+          "ur": "Isolation warning ka wahi physical wajaub: DC side par insulation ki shuruaati beesi ya nami."
+        },
+        {
+          "en": "Possible documentation inconsistency - the same manual names this warning 1083 elsewhere.",
+          "ur": "Yeh documentation ki inconsistency ho sakti hai - wahi manual yeh warning jagah 1083 ke naam se bhi likhta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Trend the value and, if it is falling, run a Riso/megger test per string with DC isolated before the inverter escalates to an isolation error.",
+          "ur": "Value ka trend dekhein, aur gir rahi ho to inverter isolation error par jane se pehle DC isolate kar ke har string ka Riso/megger test karein."
+        },
+        {
+          "en": "Record the exact code from the inverter event log, because Fronius documentation uses both 1083 and 1183 for the isolation warning.",
+          "ur": "Inverter event log se exact code note karein, kyunke Fronius documentation isolation warning ke liye 1083 aur 1183 dono istemal karta hai."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "low",
+      "notes": {
+        "en": "CONFLICT: mirrors the 1083 / 1182 documentation inconsistency in the same manual - the Isolation Warning Threshold row names the code 1183 while the running text names it 1083. Not a separate fault from 1083.",
+        "ur": "CONFLICT: wahi manual ki 1083 / 1182 documentation inconsistency ka mirror - Isolation Warning Threshold row code 1183 likhta hai jabke running text 1083 likhta hai. 1083 se alag fault nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1184",
+      "aliases": [
+        "1184"
+      ],
+      "title": {
+        "en": "Arc Fault Detection switched off (1184)",
+        "ur": "Arc Fault Detection band kar diya (1184)"
+      },
+      "meaning": {
+        "en": "Arc Fault Detection (AFD) is set to 'Off (with Warning)', so arcs are not being detected and this code stays permanently on the user interface.",
+        "ur": "Arc Fault Detection (AFD) 'Off (with Warning)' par set hai, is liye arcs detect nahi ho rahe aur ye code user interface par hamesha rehta hai."
+      },
+      "causes": [
+        {
+          "en": "Installer selected 'Off (with Warning)' because an external arc-monitoring device is fitted on the PV system.",
+          "ur": "Installer ne 'Off (with Warning)' chuna hai kyunke PV system par external arc-monitoring device laga hua hai."
+        },
+        {
+          "en": "AFD genuinely disabled, so the inverter has no internal arc protection.",
+          "ur": "AFD waqai band hai, is liye inverter ke paas koi internal arc protection nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm with the installer whether an external arc-fault interrupter is actually installed and commissioned; if not, have AFD set to On.",
+          "ur": "Installer se confirm karein ke kya external arc-fault interrupter waqai laga aur commission hua hai; agar nahi to AFD On karwayein."
+        },
+        {
+          "en": "While AFD is off, do not dismiss DC arcing risk - keep the same connector and cable inspection discipline as for state 1006.",
+          "ur": "Jab tak AFD off hai, DC arcing risk ko halke mein na lein - state 1006 jaisa hi connector aur cable inspection routine rakhein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Configuration warning, not a fault. With AFD On the arc shutdown is state 1006; if the arc shuts down too many times, state 1173.",
+        "ur": "Configuration warning, fault nahi. AFD On hone par arc shutdown state 1006 hai; zyada arc hone par 1173 aata hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1185",
+      "aliases": [
+        "1185"
+      ],
+      "title": {
+        "en": "Arc Fault Circuit Interrupter off (1185)",
+        "ur": "Arc Fault Circuit Interrupter band (1185)"
+      },
+      "meaning": {
+        "en": "The Arc Fault Circuit Interrupter (CI) is set to 'Off (with Warning)', so a detected arc will not shut the inverter down and this code stays permanently on the user interface.",
+        "ur": "Arc Fault Circuit Interrupter (CI) 'Off (with Warning)' par set hai, is liye detect hua arc inverter band nahi karega aur ye code hamesha rehta hai."
+      },
+      "causes": [
+        {
+          "en": "Installer disabled the interrupter because an external arc-detection device is responsible for shutting down.",
+          "ur": "Installer ne interrupter is liye band kiya kyunke shutdown ka kaam external arc-detection device karta hai."
+        },
+        {
+          "en": "Arc detection is active (AFD On, diagnostic only) but nothing interrupts on an arc.",
+          "ur": "Arc detection active hai (AFD On, sirf diagnostic) lekin arc par kuch interrupt nahi karta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify that an external arc-fault interrupter is fitted, wired and tested; if the site relies on the inverter, set CI to On.",
+          "ur": "Check karein ke external arc-fault interrupter laga, wired aur test hua hai; agar site inverter par depend karti hai to CI On karein."
+        },
+        {
+          "en": "Check the Arc Logging and Automatic Reconnects settings so a real arc still ends in a visible, logged event rather than being silently ignored.",
+          "ur": "Arc Logging aur Automatic Reconnects settings check karein taake asal arc bhi visible aur logged event bane, khamoshi se ignore na ho."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Configuration warning, not a fault. With CI On a detected arc produces state 1006.",
+        "ur": "Configuration warning, fault nahi. CI On hone par detect hua arc state 1006 deta hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1188",
+      "aliases": [
+        "1188"
+      ],
+      "title": {
+        "en": "RCMU protection switched off (1188)",
+        "ur": "RCMU protection band kar di (1188)"
+      },
+      "meaning": {
+        "en": "The residual current monitoring unit protective function is set to 'Off (with Warning)', so the inverter no longer disconnects on residual current and this code stays permanently displayed.",
+        "ur": "RCMU protective function 'Off (with Warning)' par set hai, is liye inverter ab residual current par disconnect nahi hota aur ye code hamesha dikhta hai."
+      },
+      "causes": [
+        {
+          "en": "Installer switched RCMU off because of repeated nuisance RCMU trips on this site.",
+          "ur": "Installer ne RCMU is liye band kiya kyunke is site par baar baar nuisance RCMU trips aate thay."
+        },
+        {
+          "en": "RCMU actually defective, so it was disabled to keep the system producing.",
+          "ur": "RCMU waqai kharab hai, is liye system chalta rahe is liye band kar diya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Find and fix the residual current source: isolate DC and measure insulation resistance per string with a Riso/megger, and inspect junction boxes, cables and AC RCD/RCD-O for nuisance tripping.",
+          "ur": "Residual current ka source dhoondein aur theek karein: DC isolate kar ke har string ka Riso/megger se insulation resistance nikaalein, aur junction boxes, cables aur AC RCD ko nuisance tripping ke liye dekhein."
+        },
+        {
+          "en": "If no insulation fault is found, have the RCMU tested and replaced by Fronius service, then set RCMU back to On - do not leave a PV system permanently unprotected from residual current.",
+          "ur": "Agar koi insulation fault na mile to RCMU ko test karwayein aur Fronius service se badalwayein, phir RCMU wapas On karein - PV system ko residual current se hamesha bacha kar na chhodein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Configuration warning, not a fault. With RCMU On, exceeding the allowed number of fault currents in 24 h produces state 1076.",
+        "ur": "Configuration warning, fault nahi. RCMU On hone par 24 ghante mein allowed fault current se zyada hone par state 1076 aata hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    },
+    {
+      "code": "1189",
+      "aliases": [
+        "1189"
+      ],
+      "title": {
+        "en": "Isolation monitoring switched off (1189)",
+        "ur": "Isolation monitoring band kar di (1189)"
+      },
+      "meaning": {
+        "en": "Iso Monitoring Mode is set to 'Off (with Warning)', so the inverter does not measure insulation at the DC terminals and this code stays permanently displayed.",
+        "ur": "Iso Monitoring Mode 'Off (with Warning)' par set hai, is liye inverter DC terminals par insulation measure nahi karta aur ye code hamesha dikhta hai."
+      },
+      "causes": [
+        {
+          "en": "Installer disabled isolation monitoring because of repeated false trips on this particular array.",
+          "ur": "Installer ne is specific array par baar baar false trips ki wajah se isolation monitoring band kar di."
+        },
+        {
+          "en": "Isolation monitoring switched off during commissioning and never re-enabled.",
+          "ur": "Commissioning ke dauran isolation monitoring band ki gayi aur baad mein dobara on nahi hui."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With DC isolated, do a Riso/megger insulation test per string to earth to establish a real baseline before switching monitoring on.",
+          "ur": "DC isolate kar ke, har string ka earth ke saath Riso/megger insulation test karein taake monitoring on karne se pehle asal baseline pata chale."
+        },
+        {
+          "en": "Use the Precise isolation measurement mode so the measured insulation resistance is visible, and track whether it falls to 1083 / 1183 or 1082 / 1182.",
+          "ur": "Precise isolation measurement mode istemal karein taake measured insulation resistance dikhe, aur dekhein ke woh 1083 / 1183 ya 1082 / 1182 ki taraf girta hai ya nahi."
+        },
+        {
+          "en": "If the array is genuinely wet or degraded, repair or re-terminate before re-enabling; otherwise leave Iso Monitoring On for safety.",
+          "ur": "Agar array waqai geela ya kharab hai to pehle repair ya re-terminate karein, warna safety ke liye Iso Monitoring On hi rakhein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Configuration warning, not a fault. With isolation monitoring On, the related codes are 1083 / 1183 (warning) and 1082 / 1182 (error).",
+        "ur": "Configuration warning, fault nahi. Isolation monitoring On hone par related codes 1083 / 1183 (warning) aur 1082 / 1182 (error) hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GEN24, Tauro and Verto Country Setup Menu - Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/HTML/4204260413/en-US.html"
+      }
+    }
+  ]
+}

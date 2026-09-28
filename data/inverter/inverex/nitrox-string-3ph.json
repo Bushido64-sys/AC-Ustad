@@ -1,0 +1,3352 @@
+{
+  "schemaVersion": 1,
+  "brandId": "inverex",
+  "series": {
+    "id": "nitrox-string-3ph",
+    "name": "NitroX 3-Phase String 12–25KW (3Ph-5G) — F01–F64 + W03/W05/W13",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*3Ph*",
+      "*3P*",
+      "NITROX*25*",
+      "NITROX*20*",
+      "NITROX*15*",
+      "NITROX*12*"
+    ],
+    "notes": "Inverex NITROX 12/15/20/25KW-3Ph-5G string inverters. Codes from Inverex-branded manual Table 10.1 (ManualsLib) + OEM twin Deye SUN G03/G01P3-AM8 (F36–F64 verbatim platform match). Display: LCD controller + red fault LED. PLATFORM-SPLIT warnings: F13 (string=Reserved vs hybrid=mode change), F56 (string=PV bus low vs hybrid=battery low), F58 (string=phase-U OC vs hybrid=BMS lost) — confirm model before acting. F61/F62 numbering OEM-derived where Inverex snippet incomplete (medium). Reset: DC+AC breakers off 2–5 min → on. Support: +92-21-111-209-988 / 021-32711291."
+  },
+  "codes": [
+    {
+      "code": "F01",
+      "aliases": [
+        "F01"
+      ],
+      "title": {
+        "en": "PV string polarity reversed",
+        "ur": "PV string polarity ulti"
+      },
+      "meaning": {
+        "en": "DC input from the PV string has reversed polarity (+/− swapped).",
+        "ur": "PV string se DC input ki polarity ulti hai (+/− badal gaye)."
+      },
+      "causes": [
+        {
+          "en": "PV cable +/− swapped at terminals",
+          "ur": "PV cable ke +/− terminals par ulte"
+        },
+        {
+          "en": "String combiner wiring error",
+          "ur": "String combiner wiring ghalat"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Isolate DC; correct PV polarity at combiner/terminals; re-energize",
+          "ur": "DC isolate karein; combiner/terminals par polarity theek karein; dobara energize"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F02",
+      "aliases": [
+        "F02"
+      ],
+      "title": {
+        "en": "DC insulation impedance below limit",
+        "ur": "DC insulation impedance limit se neeche"
+      },
+      "meaning": {
+        "en": "Permanent DC insulation resistance measured below the safe threshold.",
+        "ur": "DC insulation resistance safe threshold se neeche mili."
+      },
+      "causes": [
+        {
+          "en": "Moisture in array/junction boxes",
+          "ur": "Array/junction boxes mein moisture"
+        },
+        {
+          "en": "Damaged PV cable insulation",
+          "ur": "PV cable insulation damage"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Do not reset repeatedly — insulation test required; technician megger the array",
+          "ur": "Baar baar reset na karein — insulation test zaroori; technician array megger kare"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F24",
+        "F27"
+      ]
+    },
+    {
+      "code": "F03",
+      "aliases": [
+        "F03"
+      ],
+      "title": {
+        "en": "DC leakage-current fault",
+        "ur": "DC leakage current fault"
+      },
+      "meaning": {
+        "en": "DC leakage current fault detected (rare per manual).",
+        "ur": "DC leakage current fault detect hui (manual ke mutabiq rare)."
+      },
+      "causes": [
+        {
+          "en": "Insulation breakdown on DC side",
+          "ur": "DC side insulation breakdown"
+        },
+        {
+          "en": "Moisture in DC cable or connector",
+          "ur": "DC cable ya connector mein nami"
+        },
+        {
+          "en": "Damaged module or motor insulation",
+          "ur": "Module ya motor ki insulation kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F02"
+      ]
+    },
+    {
+      "code": "F04",
+      "aliases": [
+        "F04"
+      ],
+      "title": {
+        "en": "GFDI ground fault",
+        "ur": "GFDI ka ground fault"
+      },
+      "meaning": {
+        "en": "Ground-fault interrupter detected a fault on PV/battery grounding path.",
+        "ur": "Ground-fault interrupter ne PV/battery grounding path par fault dekha."
+      },
+      "causes": [
+        {
+          "en": "Ground fault in array or battery bank",
+          "ur": "Array ya battery bank mein ground fault"
+        },
+        {
+          "en": "Wet/rodent-damaged cabling",
+          "ur": "Gili/chuha se kharab cabling"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Isolate DC and AC; technician locates ground fault before reset",
+          "ur": "DC aur AC isolate karein; reset se pehle technician ground fault dhoondhe"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F07",
+        "F08"
+      ]
+    },
+    {
+      "code": "F05",
+      "aliases": [
+        "F05"
+      ],
+      "title": {
+        "en": "EEPROM read failure",
+        "ur": "EEPROM read na ho saka"
+      },
+      "meaning": {
+        "en": "Inverter cannot read its configuration memory.",
+        "ur": "Inverter apni configuration memory read nahi kar pa raha."
+      },
+      "causes": [
+        {
+          "en": "EEPROM chip failure or corrupt data",
+          "ur": "EEPROM chip kharab ya data corrupt"
+        },
+        {
+          "en": "Power surge",
+          "ur": "Power mein achanak surge"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "If it returns: technician EEPROM reflash / board replacement",
+          "ur": "Wapas aaye to technician EEPROM reflash / board badle"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F06"
+      ]
+    },
+    {
+      "code": "F06",
+      "aliases": [
+        "F06"
+      ],
+      "title": {
+        "en": "EEPROM write failure",
+        "ur": "EEPROM mein write na ho saka"
+      },
+      "meaning": {
+        "en": "Inverter cannot write settings to configuration memory.",
+        "ur": "Inverter configuration memory mein settings write nahi kar pa raha."
+      },
+      "causes": [
+        {
+          "en": "EEPROM write path failure",
+          "ur": "EEPROM write path fail"
+        },
+        {
+          "en": "Configuration memory chip failed",
+          "ur": "Configuration memory chip kharab ho gaya"
+        },
+        {
+          "en": "Corrupt settings after power loss",
+          "ur": "Power cut ke baad settings corrupt ho gayin"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F05"
+      ]
+    },
+    {
+      "code": "F07",
+      "aliases": [
+        "F07"
+      ],
+      "title": {
+        "en": "GFDI fuse blown",
+        "ur": "GFDI fuse blow"
+      },
+      "meaning": {
+        "en": "Ground-fault detector fuse has blown.",
+        "ur": "Ground-fault detector ka fuse udd gaya."
+      },
+      "causes": [
+        {
+          "en": "Downstream ground fault blew the fuse",
+          "ur": "Downstream mein ground fault aaya aur fuse udd gaya"
+        },
+        {
+          "en": "Fuse aged/weak",
+          "ur": "Fuse purana/kamzor"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Isolate; replace GFDI fuse only after fault cause cleared by technician",
+          "ur": "Isolate karein; fuse sirf tab badlein jab technician fault cause clear kare"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F04",
+        "F08"
+      ]
+    },
+    {
+      "code": "F08",
+      "aliases": [
+        "F08"
+      ],
+      "title": {
+        "en": "GFDI ground-contact path failure",
+        "ur": "GFDI ground-contact path kharab"
+      },
+      "meaning": {
+        "en": "GFDI earth-contact/touch protection path failed.",
+        "ur": "GFDI earth-contact/touch protection path fail ho gayi."
+      },
+      "causes": [
+        {
+          "en": "GFDI relay/module failure",
+          "ur": "GFDI relay/module kharab"
+        },
+        {
+          "en": "Wiring to earth bar",
+          "ur": "Earth bar tak wiring"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F04",
+        "F07"
+      ]
+    },
+    {
+      "code": "F09",
+      "aliases": [
+        "F09"
+      ],
+      "title": {
+        "en": "IGBT damaged (excessive voltage drop)",
+        "ur": "IGBT kharab (voltage drop zyada)"
+      },
+      "meaning": {
+        "en": "Power IGBT shows excessive voltage drop — device damaged.",
+        "ur": "Power IGBT par voltage drop bohat zyada — device kharab."
+      },
+      "causes": [
+        {
+          "en": "Overstress/overheat of inverter bridge",
+          "ur": "Inverter bridge overstress/overheat"
+        },
+        {
+          "en": "Gate drive fault",
+          "ur": "Gate drive ka masla"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F64"
+      ]
+    },
+    {
+      "code": "F10",
+      "aliases": [
+        "F10"
+      ],
+      "title": {
+        "en": "Auxiliary switching supply failed",
+        "ur": "Auxiliary switching supply fail"
+      },
+      "meaning": {
+        "en": "Internal auxiliary (≈12 V) switching supply missing.",
+        "ur": "Andar ki auxiliary (≈12 V) switching supply gayab hai."
+      },
+      "causes": [
+        {
+          "en": "Aux PSU module failure",
+          "ur": "Aux PSU module kharab"
+        },
+        {
+          "en": "Internal connector loose",
+          "ur": "Andar ka connector dhila"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F11",
+      "aliases": [
+        "F11"
+      ],
+      "title": {
+        "en": "AC main contactor misoperation",
+        "ur": "AC main contactor theek se na chalna"
+      },
+      "meaning": {
+        "en": "Main AC contactor did not operate as commanded.",
+        "ur": "Main AC contactor command ke mutabiq operate nahi hua."
+      },
+      "causes": [
+        {
+          "en": "Contactor coil/contacts failed",
+          "ur": "Contactor coil/contacts kharab"
+        },
+        {
+          "en": "Control wiring",
+          "ur": "Control wiring mein masla"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F12",
+        "F30"
+      ]
+    },
+    {
+      "code": "F12",
+      "aliases": [
+        "F12"
+      ],
+      "title": {
+        "en": "AC auxiliary contactor misoperation",
+        "ur": "AC auxiliary contactor theek se na chalna"
+      },
+      "meaning": {
+        "en": "Auxiliary AC contactor did not operate as commanded.",
+        "ur": "Auxiliary AC contactor command ke mutabiq operate nahi hua."
+      },
+      "causes": [
+        {
+          "en": "Aux contactor failure",
+          "ur": "Aux contactor kharab"
+        },
+        {
+          "en": "Contactor coil open or burnt",
+          "ur": "Contactor coil khula ya jal gaya"
+        },
+        {
+          "en": "Control PCB not sending command",
+          "ur": "Control PCB command nahi bhej raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F11"
+      ]
+    },
+    {
+      "code": "F13",
+      "aliases": [
+        "F13"
+      ],
+      "title": {
+        "en": "Reserved (string) — may fire on phase/relay/mode",
+        "ur": "Reserved (string) — phase/relay/mode par aa sakta hai"
+      },
+      "meaning": {
+        "en": "Inverex string table labels F13 Reserved; Deye OEM notes some firmware also raise it on phase loss, relay-open, or grid-mode change.",
+        "ur": "Inverex string table mein F13 Reserved hai; Deye OEM batata hai ke kuch firmware phase loss, relay-open, ya grid-mode change par bhi isay raise karti hai."
+      },
+      "causes": [
+        {
+          "en": "Reserved code — behavior firmware-dependent",
+          "ur": "Reserved code — behavior firmware par depend"
+        },
+        {
+          "en": "Phase/relay/mode transition (OEM note)",
+          "ur": "Phase/relay/mode transition ke doran (OEM note)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "If persists with grid stable: technician checks phase/relay",
+          "ur": "Grid stable par rahe to technician phase/relay dekhe"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F35"
+      ],
+      "notes": {
+        "en": "Platform-split: hybrid F13 = working-mode change (self-clear) — do NOT apply that meaning to a 3Ph string unit without model check.",
+        "ur": "Platform-split: hybrid F13 = working-mode change (self-clear) — model check ke baghair string unit par woh meaning na lagayein."
+      }
+    },
+    {
+      "code": "F14",
+      "aliases": [
+        "F14"
+      ],
+      "title": {
+        "en": "DC over-current (firmware)",
+        "ur": "DC over-current — firmware trip"
+      },
+      "meaning": {
+        "en": "Firmware detected DC-side over-current.",
+        "ur": "Firmware ne DC-side over-current dekhi."
+      },
+      "causes": [
+        {
+          "en": "PV/battery current spike",
+          "ur": "PV/battery current ka spike"
+        },
+        {
+          "en": "DC wiring/connector fault",
+          "ur": "DC wiring ya connector mein kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F20"
+      ]
+    },
+    {
+      "code": "F15",
+      "aliases": [
+        "F15"
+      ],
+      "title": {
+        "en": "AC over-current (firmware)",
+        "ur": "AC over-current — firmware trip"
+      },
+      "meaning": {
+        "en": "Firmware detected AC-side over-current.",
+        "ur": "Firmware ne AC-side over-current dekhi."
+      },
+      "causes": [
+        {
+          "en": "Load inrush",
+          "ur": "Load ka inrush (achanak shuru)"
+        },
+        {
+          "en": "Internal current sense/PCB",
+          "ur": "Andaruni current sense ya PCB kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F18",
+        "F33"
+      ]
+    },
+    {
+      "code": "F16",
+      "aliases": [
+        "F16"
+      ],
+      "title": {
+        "en": "GFCI/RCD AC leakage above limit",
+        "ur": "GFCI/RCD AC leakage limit se upar"
+      },
+      "meaning": {
+        "en": "AC residual leakage above ≈300 mA average — RCD/GFCI trip.",
+        "ur": "AC residual leakage ≈300 mA average se upar — RCD/GFCI trip."
+      },
+      "causes": [
+        {
+          "en": "Load-side earth leakage",
+          "ur": "Load ki taraf se earth leakage"
+        },
+        {
+          "en": "Wet wiring / appliance fault",
+          "ur": "Gili wiring / appliance fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Isolate AC load; technician RCD test before re-energize",
+          "ur": "AC load isolate karein; re-energize se pehle technician RCD test kare"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F23"
+      ]
+    },
+    {
+      "code": "F17",
+      "aliases": [
+        "F17"
+      ],
+      "title": {
+        "en": "Three-phase current over-current",
+        "ur": "Teen phase ka current zyada"
+      },
+      "meaning": {
+        "en": "One or more phase currents above hardware limit.",
+        "ur": "Kisi phase current hardware limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Unbalanced heavy load",
+          "ur": "Teeno phase par load barabar nahi"
+        },
+        {
+          "en": "Sensor/CT fault",
+          "ur": "Sensor ya CT kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC and DC before measuring current or opening any terminal",
+          "ur": "Koi current napein ya terminal kholein usse pehle power off karke AC/DC isolate karein"
+        },
+        {
+          "en": "Measure the three output phase currents with a clamp meter and spread the load evenly across the phases",
+          "ur": "Clamp meter se teeno output phase current napein aur load ko phases par barabar baantein"
+        },
+        {
+          "en": "If one phase is still high with a balanced load, have a technician check the current sensor/CT and the power stage",
+          "ur": "Load barabar hone par bhi ek phase zyada rahe to technician se current sensor/CT aur power stage check karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F18"
+      ]
+    },
+    {
+      "code": "F18",
+      "aliases": [
+        "F18"
+      ],
+      "title": {
+        "en": "AC over-current (hardware)",
+        "ur": "AC over-current — hardware trip"
+      },
+      "meaning": {
+        "en": "Hardware AC over-current trip (independent of firmware path).",
+        "ur": "Hardware AC over-current trip (firmware path se alag)."
+      },
+      "causes": [
+        {
+          "en": "Short/heavy load",
+          "ur": "Short circuit ya bohat zyada load"
+        },
+        {
+          "en": "Power stage fault",
+          "ur": "Power stage mein kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F15",
+        "F33"
+      ]
+    },
+    {
+      "code": "F19",
+      "aliases": [
+        "F19"
+      ],
+      "title": {
+        "en": "Hardware-failure aggregate flag",
+        "ur": "Sab hardware faults ka combined flag"
+      },
+      "meaning": {
+        "en": "Inverter raised a combined hardware-failure flag — check preceding codes.",
+        "ur": "Inverter ne combined hardware-failure flag raise kiya — pehle wale codes dekhein."
+      },
+      "causes": [
+        {
+          "en": "Accumulated hardware faults",
+          "ur": "Hardware faults jama"
+        },
+        {
+          "en": "Board diagnostic latch",
+          "ur": "Board ka diagnostic latch"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not keep restarting; power off and write down every fault code that appeared before F19",
+          "ur": "Baar baar restart na karein; power off karein aur F19 se pehle aane wale har fault code likh lein"
+        },
+        {
+          "en": "Read the earlier hardware codes in the log and repair each one — F19 normally clears only after the real fault is fixed",
+          "ur": "Log mein pehle wale hardware codes parhein aur har ek theek karein — asal fault theek hone par hi F19 aam tor par hat-ta hai"
+        },
+        {
+          "en": "Have a technician inspect the board for a latched diagnostic, clear it after the repair and then power up once",
+          "ur": "Technician se board ka latched diagnostic check karwa kar repair ke baad clear karwayein, phir ek baar power up karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F20",
+      "aliases": [
+        "F20"
+      ],
+      "title": {
+        "en": "DC over-current (hardware)",
+        "ur": "DC over-current — hardware trip"
+      },
+      "meaning": {
+        "en": "Hardware DC over-current trip.",
+        "ur": "Hardware ne DC current zyada hone par trip diya."
+      },
+      "causes": [
+        {
+          "en": "Battery/PV surge",
+          "ur": "Battery ya PV taraf se surge"
+        },
+        {
+          "en": "DC breaker/CT fault",
+          "ur": "DC breaker ya CT mein kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F14"
+      ]
+    },
+    {
+      "code": "F21",
+      "aliases": [
+        "F21"
+      ],
+      "title": {
+        "en": "DC leakage flow fault",
+        "ur": "DC leakage current ka masla"
+      },
+      "meaning": {
+        "en": "DC leakage current flow detected beyond limit.",
+        "ur": "Limit se zyada DC leakage current flow detect hui."
+      },
+      "causes": [
+        {
+          "en": "Array insulation failure",
+          "ur": "Array insulation fail"
+        },
+        {
+          "en": "Wet or cracked PV module",
+          "ur": "PV module gila ho ya uska glass phata"
+        },
+        {
+          "en": "Damaged DC cable insulation",
+          "ur": "DC cable ki insulation kharab ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F02",
+        "F03"
+      ]
+    },
+    {
+      "code": "F22",
+      "aliases": [
+        "F22"
+      ],
+      "title": {
+        "en": "Crash / emergency stop",
+        "ur": "Crash ya emergency stop"
+      },
+      "meaning": {
+        "en": "Unit stopped by emergency/stop command or firmware crash halt.",
+        "ur": "Unit emergency/stop command ya firmware crash halt se ruki."
+      },
+      "causes": [
+        {
+          "en": "Stop button / remote-off",
+          "ur": "Stop button daba hona ya remote-off"
+        },
+        {
+          "en": "Firmware crash latch",
+          "ur": "Firmware crash ka latch"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "Clear stop condition; if crash repeats technician firmware/board",
+          "ur": "Stop condition hatayein; crash dobara aaye to technician firmware/board"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F23",
+      "aliases": [
+        "F23"
+      ],
+      "title": {
+        "en": "AC leakage transient over-current",
+        "ur": "AC leakage ki wajah se transient over-current"
+      },
+      "meaning": {
+        "en": "Transient AC leakage spike above ≈30 mA.",
+        "ur": "Transient AC leakage spike ≈30 mA se upar."
+      },
+      "causes": [
+        {
+          "en": "Momentary earth leakage",
+          "ur": "Lamha bhar ki earth leakage"
+        },
+        {
+          "en": "Moisture on AC terminals or load",
+          "ur": "AC terminals ya load par nami"
+        },
+        {
+          "en": "Capacitive inrush spike at load start",
+          "ur": "Load start hone par inrush spike"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "Recurs → technician load insulation",
+          "ur": "Dobara aaye to technician load insulation"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F16"
+      ]
+    },
+    {
+      "code": "F24",
+      "aliases": [
+        "F24"
+      ],
+      "title": {
+        "en": "DC insulation impedance failure (PV array–PE)",
+        "ur": "DC insulation impedance failure (PV–PE)"
+      },
+      "meaning": {
+        "en": "Insulation between PV array and protective earth below limit.",
+        "ur": "PV array aur protective earth ke beech insulation limit se neeche."
+      },
+      "causes": [
+        {
+          "en": "Wet panels/cables",
+          "ur": "Gile panels/cables"
+        },
+        {
+          "en": "Rodent damage",
+          "ur": "Chuha damage"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F02",
+        "F27"
+      ]
+    },
+    {
+      "code": "F25",
+      "aliases": [
+        "F25"
+      ],
+      "title": {
+        "en": "DC reverse feed into DC side",
+        "ur": "DC side reverse feed"
+      },
+      "meaning": {
+        "en": "Reverse power feed detected into the DC side.",
+        "ur": "DC side mein reverse power feed detect ho gayi."
+      },
+      "causes": [
+        {
+          "en": "Battery/PV reverse polarity path",
+          "ur": "Battery/PV ki polarity ulti"
+        },
+        {
+          "en": "Battery leads connected reverse",
+          "ur": "Battery ke leads ulte lage hue hain"
+        },
+        {
+          "en": "Wiring mistake during installation",
+          "ur": "Installation ke waqt wiring ghalat hui"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F01"
+      ]
+    },
+    {
+      "code": "F26",
+      "aliases": [
+        "F26"
+      ],
+      "title": {
+        "en": "DC busbar half-voltages unbalanced",
+        "ur": "DC busbar ke half-voltage barabar nahi"
+      },
+      "meaning": {
+        "en": "The two halves of the DC bus are not balanced.",
+        "ur": "DC bus ke dono halves balance mein nahi hain."
+      },
+      "causes": [
+        {
+          "en": "Capacitor bank imbalance",
+          "ur": "Capacitor bank barabar na chalna"
+        },
+        {
+          "en": "Leakage/discharge path fault",
+          "ur": "Leakage ya discharge path kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and wait for the DC bus to discharge fully before touching the capacitor bank",
+          "ur": "Power off karke capacitor bank ko chhoone se pehle DC bus ka mukammal discharge hone dein"
+        },
+        {
+          "en": "After isolating, measure the two half-voltages with a meter and look for loose DC links or leakage on the discharge path",
+          "ur": "Isolate karke dono half-voltage meter se napein aur discharge path par dhile DC link ya leakage dhundein"
+        },
+        {
+          "en": "If the capacitor bank is unbalanced, have a technician test the capacitors and replace the faulty one",
+          "ur": "Capacitor bank barabar na chale to technician se capacitor test karwa kar kharab wala badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F55",
+        "F56"
+      ]
+    },
+    {
+      "code": "F27",
+      "aliases": [
+        "F27"
+      ],
+      "title": {
+        "en": "DC-end insulation error",
+        "ur": "DC-end insulation mein ghalati"
+      },
+      "meaning": {
+        "en": "Insulation error measured at the DC end.",
+        "ur": "DC end par insulation error mili."
+      },
+      "causes": [
+        {
+          "en": "DC connector/motor insulation",
+          "ur": "DC connector/motor insulation kharab"
+        },
+        {
+          "en": "Water or dust in DC connector",
+          "ur": "DC connector mein paani ya dhool"
+        },
+        {
+          "en": "Aged or cracked insulation",
+          "ur": "Insulation purani ho gayi ya phat gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F02",
+        "F24"
+      ]
+    },
+    {
+      "code": "F28",
+      "aliases": [
+        "F28"
+      ],
+      "title": {
+        "en": "Inverter bridge 1 DC component too high",
+        "ur": "Inverter bridge 1 DC component zyada"
+      },
+      "meaning": {
+        "en": "DC component in bridge-1 output above limit.",
+        "ur": "Bridge-1 output ka DC component limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Asymmetric gate drive",
+          "ur": "Gate drive asymmetric (barabar nahi)"
+        },
+        {
+          "en": "Bridge device degradation",
+          "ur": "Bridge device purana/kharab hona"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC and DC before any internal measurement",
+          "ur": "Kisi bhi andaruni measurement se pehle power off karke AC/DC isolate karein"
+        },
+        {
+          "en": "Have a technician measure the DC component on bridge-1 output and compare it with the healthy bridge",
+          "ur": "Technician se bridge-1 ke output par DC component naap kar theek bridge se compare karwayein"
+        },
+        {
+          "en": "Replace the degraded bridge device or the asymmetric gate driver if the reading stays above limit",
+          "ur": "Reading limit se zyada rahe to kamzor bridge device ya asymmetric gate driver badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F32"
+      ]
+    },
+    {
+      "code": "F29",
+      "aliases": [
+        "F29"
+      ],
+      "title": {
+        "en": "AC load switch failure",
+        "ur": "AC load switch ka fail hona"
+      },
+      "meaning": {
+        "en": "AC load switch did not respond correctly.",
+        "ur": "AC load switch sahi respond nahi kiya."
+      },
+      "causes": [
+        {
+          "en": "Switch/relay failure",
+          "ur": "Switch/relay kharab"
+        },
+        {
+          "en": "Switch contacts burnt or pitted",
+          "ur": "Switch ke contacts jal ya ghis gaye"
+        },
+        {
+          "en": "Control signal missing to the switch",
+          "ur": "Switch tak control signal nahi pahunch raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC before checking the load switch",
+          "ur": "Load switch check karne se pehle power off karke AC isolate karein"
+        },
+        {
+          "en": "Watch and listen whether the load switch operates when commanded and check its control wiring and connector",
+          "ur": "Dekhein aur sunein ke load switch command par chalta hai ya nahi aur uski control wiring aur connector check karein"
+        },
+        {
+          "en": "If the switch does not respond, have a technician replace the switch/relay assembly",
+          "ur": "Switch jawab na de to technician se switch/relay assembly badalwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F30",
+      "aliases": [
+        "F30"
+      ],
+      "title": {
+        "en": "AC main contactor/relay failed to close",
+        "ur": "AC main contactor/relay close nahi hua"
+      },
+      "meaning": {
+        "en": "Main AC contactor/relay refused to close.",
+        "ur": "Main AC contactor/relay close hone se mana kar gaya."
+      },
+      "causes": [
+        {
+          "en": "Coil open / contacts pitted",
+          "ur": "Coil khula ho ya contacts ghis gaye"
+        },
+        {
+          "en": "Interlock",
+          "ur": "Interlock ne roka hua hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC; never force the contactor contacts by hand",
+          "ur": "Power off karke AC isolate karein; contactor ke contacts ko haath se zabardasti na kholein"
+        },
+        {
+          "en": "Check the contactor coil for an open circuit with a meter and inspect the contacts for pitting or welding",
+          "ur": "Meter se contactor coil ka open circuit check karein aur contacts par pit ya weld hone ki nazar daalein"
+        },
+        {
+          "en": "Check the interlock and control wiring and replace the contactor if the coil or contacts have failed",
+          "ur": "Interlock aur control wiring check karein; coil ya contacts kharab ho to contactor badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F11"
+      ]
+    },
+    {
+      "code": "F31",
+      "aliases": [
+        "F31"
+      ],
+      "title": {
+        "en": "Relay open-circuit / secondary contactor failure",
+        "ur": "Relay open-circuit ya secondary contactor kharab"
+      },
+      "meaning": {
+        "en": "Relay stuck open or secondary contactor failed (Inverex wording; Deye: relay open-circuit).",
+        "ur": "Relay khuli reh gayi ya secondary contactor fail (Inverex wording; Deye: relay open-circuit)."
+      },
+      "causes": [
+        {
+          "en": "Mechanical relay failure",
+          "ur": "Mechanical relay kharab ho jana"
+        },
+        {
+          "en": "Relay contacts welded or stuck",
+          "ur": "Relay ke contacts chipak gaye ya atak gaye"
+        },
+        {
+          "en": "Secondary contactor coil failed",
+          "ur": "Secondary contactor coil kharab ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC and DC before testing the relay",
+          "ur": "Relay test karne se pehle power off karke AC aur DC isolate karein"
+        },
+        {
+          "en": "Check the relay for continuity and listen for the click when it is commanded on, and inspect the contacts for sticking",
+          "ur": "Relay ki continuity check karein aur command par click ki awaaz sunein, phir contacts ke chipakne ki nazar daalein"
+        },
+        {
+          "en": "Replace the mechanical relay or the secondary contactor if it stays open",
+          "ur": "Relay khula hi rahe to mechanical relay ya secondary contactor badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F30"
+      ]
+    },
+    {
+      "code": "F32",
+      "aliases": [
+        "F32"
+      ],
+      "title": {
+        "en": "Inverter bridge 2 DC component too high",
+        "ur": "Inverter bridge 2 DC component zyada"
+      },
+      "meaning": {
+        "en": "DC component in bridge-2 output above limit.",
+        "ur": "Bridge-2 output ka DC component limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Asymmetric gate drive",
+          "ur": "Gate drive asymmetric (barabar nahi)"
+        },
+        {
+          "en": "Gate driver component degraded",
+          "ur": "Gate driver ka component kamzor ho gaya"
+        },
+        {
+          "en": "Bridge device (IGBT/MOSFET) failure",
+          "ur": "Bridge device (IGBT/MOSFET) kharab hona"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC and DC before any internal measurement",
+          "ur": "Kisi bhi andaruni measurement se pehle power off karke AC/DC isolate karein"
+        },
+        {
+          "en": "Have a technician measure the DC component on bridge-2 output and compare it with the healthy bridge",
+          "ur": "Technician se bridge-2 ke output par DC component naap kar theek bridge se compare karwayein"
+        },
+        {
+          "en": "Replace the degraded bridge device or the asymmetric gate driver if the reading stays above limit",
+          "ur": "Reading limit se zyada rahe to kamzor bridge device ya asymmetric gate driver badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F28"
+      ]
+    },
+    {
+      "code": "F33",
+      "aliases": [
+        "F33"
+      ],
+      "title": {
+        "en": "AC over-current",
+        "ur": "AC ka current zyada (over-current)"
+      },
+      "meaning": {
+        "en": "AC over-current condition on output.",
+        "ur": "Output par AC over-current condition."
+      },
+      "causes": [
+        {
+          "en": "Overload/short",
+          "ur": "Overload ya short circuit"
+        },
+        {
+          "en": "Short circuit on AC output",
+          "ur": "AC output par short circuit"
+        },
+        {
+          "en": "Load above inverter rating",
+          "ur": "Load inverter rating se zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F15",
+        "F18",
+        "F34"
+      ]
+    },
+    {
+      "code": "F34",
+      "aliases": [
+        "F34"
+      ],
+      "title": {
+        "en": "AC overload (current above rated)",
+        "ur": "AC overload (rated se upar current)"
+      },
+      "meaning": {
+        "en": "Output current above inverter rating.",
+        "ur": "Output current inverter rating se upar."
+      },
+      "causes": [
+        {
+          "en": "Too much load",
+          "ur": "Load bohat zyada"
+        },
+        {
+          "en": "Multiple heavy loads running together",
+          "ur": "Kayi bhaari load ek saath chal rahe"
+        },
+        {
+          "en": "Motor or AC start current high",
+          "ur": "Motor/AC start ka current zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the load first; if the unit is smoking or overheating, power off and isolate at once",
+          "ur": "Pehle load kam karein; unit se dhuan nikal raha ho ya zyada garm ho to foran power off karke isolate karein"
+        },
+        {
+          "en": "Compare the running load with the inverter nameplate kW/A with a clamp meter and shed non-critical loads",
+          "ur": "Clamp meter se chalte hue load ko inverter nameplate kW/A se milayein aur zaroori se kam load utarein"
+        },
+        {
+          "en": "Start heavy motors one at a time; if the trip continues at a normal load, have a technician check the current sensor",
+          "ur": "Bhaari motor ek ek karke start karein; mamooli load par bhi trip jaari rahe to technician se current sensor check karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F33",
+        "F07"
+      ]
+    },
+    {
+      "code": "F35",
+      "aliases": [
+        "F35"
+      ],
+      "title": {
+        "en": "No AC grid detected",
+        "ur": "AC grid detect nahi hui"
+      },
+      "meaning": {
+        "en": "Inverter sees no utility/grid present.",
+        "ur": "Inverter ko utility/grid nazar nahi aa rahi."
+      },
+      "causes": [
+        {
+          "en": "Grid outage",
+          "ur": "Grid band ho jana (outage)"
+        },
+        {
+          "en": "Open AC breaker / loose grid feed",
+          "ur": "AC breaker khula ho ya grid feed dhili ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Inverex NITROX 12/15/20/25KW-3Ph-5G User Manual p.22 Table 10.1 (ManualsLib mirror)",
+        "url": "https://www.manualslib.com/manual/2505242/",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F47",
+        "F48"
+      ]
+    },
+    {
+      "code": "F36",
+      "aliases": [
+        "F36"
+      ],
+      "title": {
+        "en": "Grid phase error (sequence/angle)",
+        "ur": "Grid phase ka masla (sequence/angle)"
+      },
+      "meaning": {
+        "en": "Grid phase sequence or angle out of window.",
+        "ur": "Grid phase sequence ya angle window se bahar."
+      },
+      "causes": [
+        {
+          "en": "Wrong phase rotation from utility",
+          "ur": "Utility se phase rotation ghalat"
+        },
+        {
+          "en": "Loose phase conductor",
+          "ur": "Phase conductor dhili"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F37",
+      "aliases": [
+        "F37"
+      ],
+      "title": {
+        "en": "3-phase grid voltage unbalance",
+        "ur": "3-phase grid voltage barabar nahi"
+      },
+      "meaning": {
+        "en": "Grid phase voltages not balanced.",
+        "ur": "Grid phase voltages balance mein nahi."
+      },
+      "causes": [
+        {
+          "en": "Single-phase heavy load / lost phase",
+          "ur": "Ek phase par heavy load / phase gayab"
+        },
+        {
+          "en": "One grid phase missing or loose",
+          "ur": "Grid ki ek phase gayab ya dhili"
+        },
+        {
+          "en": "Heavy single-phase load on one phase",
+          "ur": "Ek phase par bhaari single-phase load"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F38",
+      "aliases": [
+        "F38"
+      ],
+      "title": {
+        "en": "3-phase output current unbalance",
+        "ur": "3-phase output current barabar nahi"
+      },
+      "meaning": {
+        "en": "Inverter output phase currents unbalanced.",
+        "ur": "Inverter output ke phase currents unbalanced."
+      },
+      "causes": [
+        {
+          "en": "Unbalanced load distribution",
+          "ur": "Load distribution unbalanced"
+        },
+        {
+          "en": "Loads not divided evenly on three phases",
+          "ur": "Load teen phases par barabar nahi baanta"
+        },
+        {
+          "en": "One phase load much higher than others",
+          "ur": "Ek phase ka load baqi se kaafi zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F17"
+      ]
+    },
+    {
+      "code": "F39",
+      "aliases": [
+        "F39"
+      ],
+      "title": {
+        "en": "AC over-current within one grid cycle",
+        "ur": "Ek grid cycle ke andar AC over-current"
+      },
+      "meaning": {
+        "en": "Over-current detected within a single grid cycle.",
+        "ur": "Ek hi grid cycle ke andar over-current detect hui."
+      },
+      "causes": [
+        {
+          "en": "Hard short / inrush",
+          "ur": "Mukammal short ya achanak inrush"
+        },
+        {
+          "en": "Dead short on output cable",
+          "ur": "Output cable par mukammal short"
+        },
+        {
+          "en": "Very large motor load start",
+          "ur": "Bohat bara motor load jab ek saath start ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F18"
+      ]
+    },
+    {
+      "code": "F40",
+      "aliases": [
+        "F40"
+      ],
+      "title": {
+        "en": "DC over-current",
+        "ur": "DC current zyada (over-current)"
+      },
+      "meaning": {
+        "en": "DC over-current trip.",
+        "ur": "DC current zyada hone se trip."
+      },
+      "causes": [
+        {
+          "en": "PV/battery surge",
+          "ur": "Battery ya PV taraf se surge"
+        },
+        {
+          "en": "Sudden PV current spike when clouds clear",
+          "ur": "Badal hatne par achanak PV current spike"
+        },
+        {
+          "en": "Battery or DC wiring fault",
+          "ur": "Battery ya DC wiring mein kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F14",
+        "F20"
+      ]
+    },
+    {
+      "code": "F41",
+      "aliases": [
+        "F41"
+      ],
+      "title": {
+        "en": "Line W–U over-voltage",
+        "ur": "Line W–U par voltage zyada"
+      },
+      "meaning": {
+        "en": "Voltage between lines W and U above limit.",
+        "ur": "Lines W aur U ke voltages limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Utility over-voltage",
+          "ur": "Utility ka voltage zyada"
+        },
+        {
+          "en": "String CT sense fault",
+          "ur": "String CT sense mein kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F42",
+      "aliases": [
+        "F42"
+      ],
+      "title": {
+        "en": "Line W–U under-voltage",
+        "ur": "Line W–U par voltage kam"
+      },
+      "meaning": {
+        "en": "Voltage between lines W and U below limit.",
+        "ur": "Lines W aur U ke voltages limit se neeche."
+      },
+      "causes": [
+        {
+          "en": "Grid sag / lost phase",
+          "ur": "Grid sag / phase gayab"
+        },
+        {
+          "en": "Utility supply weak or sagging",
+          "ur": "Utility supply kamzor ya sag kar rahi"
+        },
+        {
+          "en": "Loose grid terminal or breaker",
+          "ur": "Grid terminal ya breaker dhila"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F37"
+      ]
+    },
+    {
+      "code": "F43",
+      "aliases": [
+        "F43"
+      ],
+      "title": {
+        "en": "Line V–W over-voltage",
+        "ur": "Line V–W par voltage zyada"
+      },
+      "meaning": {
+        "en": "Voltage between lines V and W above limit.",
+        "ur": "Lines V aur W ke voltages limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Utility over-voltage",
+          "ur": "Utility ka voltage zyada"
+        },
+        {
+          "en": "Utility regulator pushing voltage high",
+          "ur": "Utility regulator voltage zyada bhej raha"
+        },
+        {
+          "en": "Voltage rise on light-load long line",
+          "ur": "Halki load par lambi line ka voltage barhna"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F44",
+      "aliases": [
+        "F44"
+      ],
+      "title": {
+        "en": "Line V–W under-voltage",
+        "ur": "Line V–W par voltage kam"
+      },
+      "meaning": {
+        "en": "Voltage between lines V and W below limit.",
+        "ur": "Lines V aur W ke voltages limit se neeche."
+      },
+      "causes": [
+        {
+          "en": "Grid sag",
+          "ur": "Grid voltage kam hona (sag)"
+        },
+        {
+          "en": "Weak utility or long feeder",
+          "ur": "Kamzor utility ya lamba feeder"
+        },
+        {
+          "en": "Loose connection in grid path",
+          "ur": "Grid path ka connection dhila"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F37"
+      ]
+    },
+    {
+      "code": "F45",
+      "aliases": [
+        "F45"
+      ],
+      "title": {
+        "en": "Line U–V over-voltage",
+        "ur": "Line U–V par voltage zyada"
+      },
+      "meaning": {
+        "en": "Voltage between lines U and V above limit.",
+        "ur": "Lines U aur V ke voltages limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Utility over-voltage",
+          "ur": "Utility ka voltage zyada"
+        },
+        {
+          "en": "Utility over-voltage on this line",
+          "ur": "Is line par utility ka voltage zyada"
+        },
+        {
+          "en": "Transformer tap setting high",
+          "ur": "Transformer ka tap setting zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F46",
+      "aliases": [
+        "F46"
+      ],
+      "title": {
+        "en": "Line U–V under-voltage",
+        "ur": "Line U–V par voltage kam"
+      },
+      "meaning": {
+        "en": "Voltage between lines U and V below limit.",
+        "ur": "Lines U aur V ke voltages limit se neeche."
+      },
+      "causes": [
+        {
+          "en": "Grid sag",
+          "ur": "Grid voltage kam hona (sag)"
+        },
+        {
+          "en": "Grid voltage dropped under load",
+          "ur": "Load ke sath grid voltage gir gayi"
+        },
+        {
+          "en": "Loose or corroded grid terminal",
+          "ur": "Grid terminal dhila ya corode"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F37"
+      ]
+    },
+    {
+      "code": "F47",
+      "aliases": [
+        "F47"
+      ],
+      "title": {
+        "en": "Grid over-frequency",
+        "ur": "Grid frequency zyada"
+      },
+      "meaning": {
+        "en": "Grid frequency above allowed window.",
+        "ur": "Grid frequency allowed window se upar."
+      },
+      "causes": [
+        {
+          "en": "Weak grid / islanding",
+          "ur": "Kamzor grid (weak) ya islanding"
+        },
+        {
+          "en": "Grid frequency running high",
+          "ur": "Grid frequency zyada chal rahi"
+        },
+        {
+          "en": "Generator supply out of window",
+          "ur": "Generator supply window se bahir"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F48"
+      ]
+    },
+    {
+      "code": "F48",
+      "aliases": [
+        "F48"
+      ],
+      "title": {
+        "en": "Grid under-frequency",
+        "ur": "Grid frequency kam"
+      },
+      "meaning": {
+        "en": "Grid frequency below allowed window.",
+        "ur": "Grid frequency allowed window se neeche."
+      },
+      "causes": [
+        {
+          "en": "Grid load-shed frequency dip",
+          "ur": "Grid load-shed se frequency dip"
+        },
+        {
+          "en": "Load-shedding dropped grid frequency",
+          "ur": "Load-shedding se grid frequency giri"
+        },
+        {
+          "en": "Weak overloaded grid supply",
+          "ur": "Kamzor aur overloaded grid supply"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F47"
+      ]
+    },
+    {
+      "code": "F49",
+      "aliases": [
+        "F49"
+      ],
+      "title": {
+        "en": "U-phase grid current DC component high",
+        "ur": "U-phase grid current DC component zyada"
+      },
+      "meaning": {
+        "en": "Too much DC injected on U-phase grid current.",
+        "ur": "U-phase grid current mein DC zyada inject ho raha."
+      },
+      "causes": [
+        {
+          "en": "Feedback/control fault",
+          "ur": "Feedback/control ka masla"
+        },
+        {
+          "en": "Current sensor reading wrong",
+          "ur": "Current sensor ghalat reading de raha"
+        },
+        {
+          "en": "Control loop or PCB fault",
+          "ur": "Control loop ya PCB mein kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F50",
+      "aliases": [
+        "F50"
+      ],
+      "title": {
+        "en": "V-phase grid current DC component high",
+        "ur": "V-phase grid current DC component zyada"
+      },
+      "meaning": {
+        "en": "Too much DC injected on V-phase grid current.",
+        "ur": "V-phase grid current mein DC zyada inject ho raha."
+      },
+      "causes": [
+        {
+          "en": "Feedback/control fault",
+          "ur": "Feedback/control ka masla"
+        },
+        {
+          "en": "Feedback loop miscalibrated",
+          "ur": "Feedback loop ghalat calibrate hai"
+        },
+        {
+          "en": "Control board fault",
+          "ur": "Control board kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F51",
+      "aliases": [
+        "F51"
+      ],
+      "title": {
+        "en": "W-phase grid current DC component high",
+        "ur": "W-phase grid current DC component zyada"
+      },
+      "meaning": {
+        "en": "Too much DC injected on W-phase grid current.",
+        "ur": "W-phase grid current mein DC zyada inject ho raha."
+      },
+      "causes": [
+        {
+          "en": "Feedback/control fault",
+          "ur": "Feedback/control ka masla"
+        },
+        {
+          "en": "Current sensor/CT reading error",
+          "ur": "Current sensor/CT ki reading ghalat"
+        },
+        {
+          "en": "Gate driver or PCB fault",
+          "ur": "Gate driver ya PCB kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F52",
+      "aliases": [
+        "F52"
+      ],
+      "title": {
+        "en": "AC inductor phase A DC current high",
+        "ur": "AC inductor phase A DC current zyada"
+      },
+      "meaning": {
+        "en": "DC current in phase-A AC inductor above limit.",
+        "ur": "Phase-A AC inductor mein DC current limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Inductor/core saturation path",
+          "ur": "Inductor/core saturation ki wajah"
+        },
+        {
+          "en": "Inductor core damaged or aged",
+          "ur": "Inductor core kharab ya purana ho gaya"
+        },
+        {
+          "en": "Asymmetric switching on phase A",
+          "ur": "Phase A par switching asymmetric hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F53",
+      "aliases": [
+        "F53"
+      ],
+      "title": {
+        "en": "AC inductor phase B DC current high",
+        "ur": "AC inductor phase B DC current zyada"
+      },
+      "meaning": {
+        "en": "DC current in phase-B AC inductor above limit.",
+        "ur": "Phase-B AC inductor mein DC current limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Inductor/core saturation path",
+          "ur": "Inductor/core saturation ki wajah"
+        },
+        {
+          "en": "Inductor core damaged or aged",
+          "ur": "Inductor core kharab ya purana ho gaya"
+        },
+        {
+          "en": "Asymmetric switching on phase B",
+          "ur": "Phase B par switching asymmetric hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F54",
+      "aliases": [
+        "F54"
+      ],
+      "title": {
+        "en": "AC inductor phase C DC current high",
+        "ur": "AC inductor phase C DC current zyada"
+      },
+      "meaning": {
+        "en": "DC current in phase-C AC inductor above limit.",
+        "ur": "Phase-C AC inductor mein DC current limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Inductor/core saturation path",
+          "ur": "Inductor/core saturation ki wajah"
+        },
+        {
+          "en": "Inductor core damaged or aged",
+          "ur": "Inductor core kharab ya purana ho gaya"
+        },
+        {
+          "en": "Asymmetric switching on phase C",
+          "ur": "Phase C par switching asymmetric hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F55",
+      "aliases": [
+        "F55"
+      ],
+      "title": {
+        "en": "DC busbar voltage too high",
+        "ur": "DC busbar voltage zyada"
+      },
+      "meaning": {
+        "en": "DC bus over-voltage — often PV Voc too high for the design.",
+        "ur": "DC bus over-voltage — aam tor par design ke liye PV Voc bohat zyada."
+      },
+      "causes": [
+        {
+          "en": "Too many modules in series (Voc)",
+          "ur": "Series mein modules zyada (Voc)"
+        },
+        {
+          "en": "Hot-weather Voc rise",
+          "ur": "Garmi mein Voc barhna"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Compare array Voc (STC + temp) to inverter max DC",
+          "ur": "Array Voc (STC + temp) inverter max DC se compare karein"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F56"
+      ]
+    },
+    {
+      "code": "F56",
+      "aliases": [
+        "F56"
+      ],
+      "title": {
+        "en": "DC busbar voltage too low",
+        "ur": "DC busbar voltage kam"
+      },
+      "meaning": {
+        "en": "DC bus under-voltage — low PV input while running (string platform: energy source is PV).",
+        "ur": "DC bus under-voltage — run karte waqt PV input kam (string platform: energy source PV hai)."
+      },
+      "causes": [
+        {
+          "en": "Shade/low irradiance",
+          "ur": "Shadow/kam dhoop"
+        },
+        {
+          "en": "Open DC string",
+          "ur": "DC string khuli"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F55"
+      ],
+      "notes": {
+        "en": "Platform-split: hybrid F56 = battery-low driven bus drop — identify model first.",
+        "ur": "Platform-split: hybrid F56 = battery low se bus drop — pehle model confirm karein."
+      }
+    },
+    {
+      "code": "F57",
+      "aliases": [
+        "F57"
+      ],
+      "title": {
+        "en": "AC reverse feed-in detected",
+        "ur": "AC reverse feed-in detect hui"
+      },
+      "meaning": {
+        "en": "AC reverse feed (export when not permitted) detected.",
+        "ur": "AC reverse feed (jab export allowed na ho) detect hui."
+      },
+      "causes": [
+        {
+          "en": "Grid-tie export setting / metering",
+          "ur": "Grid-tie export setting ya metering"
+        },
+        {
+          "en": "Export limit / zero-export setting wrong",
+          "ur": "Export limit ya zero-export setting ghalat hai"
+        },
+        {
+          "en": "Energy meter CT wired backwards",
+          "ur": "Energy meter ka CT ulta laga"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check export/limit settings and CT direction",
+          "ur": "Export/limit settings aur CT direction check karein"
+        },
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F58",
+      "aliases": [
+        "F58"
+      ],
+      "title": {
+        "en": "Grid phase U over-current",
+        "ur": "Grid phase U ka current zyada"
+      },
+      "meaning": {
+        "en": "Phase-U grid current above limit (STRING platform meaning).",
+        "ur": "Phase-U grid current limit se upar (STRING platform meaning)."
+      },
+      "causes": [
+        {
+          "en": "Phase-U load/CT fault",
+          "ur": "Phase-U load ya CT mein kharabi"
+        },
+        {
+          "en": "Phase-U load higher than other phases",
+          "ur": "Phase U ka load baqi phases se zyada"
+        },
+        {
+          "en": "Phase-U CT or wiring fault",
+          "ur": "Phase U ka CT ya wiring kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC before measuring any grid current",
+          "ur": "Koi bhi grid current napein se pehle power off karke AC isolate karein"
+        },
+        {
+          "en": "Measure the three grid phase currents with a clamp meter and check whether phase U is carrying extra load",
+          "ur": "Clamp meter se teeno grid phase current napein aur check karein ke phase U par zyada load to nahi"
+        },
+        {
+          "en": "Check the phase-U CT and its wiring and have a technician replace the CT if the reading stays high",
+          "ur": "Phase U ka CT aur uski wiring check karein; reading zyada rahe to technician se CT badalwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F59",
+        "F60"
+      ],
+      "notes": {
+        "en": "Platform-split HIGH RISK: hybrid F58 = BMS communication lost — always confirm Nitrox string vs hybrid model before acting.",
+        "ur": "Platform-split KHATRA: hybrid F58 = BMS communication lost — act se pehle Nitrox string vs hybrid confirm karein."
+      }
+    },
+    {
+      "code": "F59",
+      "aliases": [
+        "F59"
+      ],
+      "title": {
+        "en": "Grid phase V over-current",
+        "ur": "Grid phase V ka current zyada"
+      },
+      "meaning": {
+        "en": "Phase-V grid current above limit.",
+        "ur": "Phase-V grid current limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Phase-V load/CT fault",
+          "ur": "Phase-V load ya CT mein kharabi"
+        },
+        {
+          "en": "Phase-V load higher than other phases",
+          "ur": "Phase V ka load baqi phases se zyada"
+        },
+        {
+          "en": "Phase-V CT or wiring fault",
+          "ur": "Phase V ka CT ya wiring kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F58"
+      ]
+    },
+    {
+      "code": "F60",
+      "aliases": [
+        "F60"
+      ],
+      "title": {
+        "en": "Grid phase W over-current",
+        "ur": "Grid phase W ka current zyada"
+      },
+      "meaning": {
+        "en": "Phase-W grid current above limit.",
+        "ur": "Phase-W grid current limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Phase-W load/CT fault",
+          "ur": "Phase-W load ya CT mein kharabi"
+        },
+        {
+          "en": "Phase-W load higher than other phases",
+          "ur": "Phase W ka load baqi phases se zyada"
+        },
+        {
+          "en": "Phase-W CT or wiring fault",
+          "ur": "Phase W ka CT ya wiring kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F58"
+      ]
+    },
+    {
+      "code": "F61",
+      "aliases": [
+        "F61"
+      ],
+      "title": {
+        "en": "Filter reactor phase A over-current",
+        "ur": "Filter reactor phase A ka current zyada"
+      },
+      "meaning": {
+        "en": "Phase-A filter reactor current above limit (OEM-derived numbering where Inverex snippet incomplete).",
+        "ur": "Phase-A filter reactor current limit se upar (Inverex snippet incomplete jahan OEM-derived numbering)."
+      },
+      "causes": [
+        {
+          "en": "Reactor/short path",
+          "ur": "Reactor ya short path"
+        },
+        {
+          "en": "Filter reactor winding shorted",
+          "ur": "Filter reactor ki winding short ho gayi"
+        },
+        {
+          "en": "Reactor core loose or damaged",
+          "ur": "Reactor core dhila ya kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F62"
+      ],
+      "notes": {
+        "en": "Numbering OEM-derived from Deye G03 where Inverex p.22 snippet was incomplete — medium confidence.",
+        "ur": "Numbering Inverex p.22 incomplete hone par Deye G03 se OEM-derived — medium confidence."
+      }
+    },
+    {
+      "code": "F62",
+      "aliases": [
+        "F62"
+      ],
+      "title": {
+        "en": "Filter reactor phase B over-current",
+        "ur": "Filter reactor phase B ka current zyada"
+      },
+      "meaning": {
+        "en": "Phase-B filter reactor current above limit (OEM-derived where snippet incomplete).",
+        "ur": "Phase-B filter reactor current limit se upar (snippet incomplete jahan OEM-derived)."
+      },
+      "causes": [
+        {
+          "en": "Reactor/short path",
+          "ur": "Reactor ya short path"
+        },
+        {
+          "en": "Filter reactor winding shorted",
+          "ur": "Filter reactor ki winding short ho gayi"
+        },
+        {
+          "en": "Reactor core loose or damaged",
+          "ur": "Reactor core dhila ya kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off karein; baar baar restart na karein — qualified technician se diagnosis karwayein"
+        },
+        {
+          "en": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori",
+          "ur": "Unit OFF karein; baar baar restart karne se bachein — qualified technician ko dikhana zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F61"
+      ],
+      "notes": {
+        "en": "Numbering OEM-derived from Deye G03 where Inverex p.22 snippet was incomplete — medium confidence.",
+        "ur": "Numbering Inverex p.22 incomplete hone par Deye G03 se OEM-derived — medium confidence."
+      }
+    },
+    {
+      "code": "F63",
+      "aliases": [
+        "F63"
+      ],
+      "title": {
+        "en": "DC arc fault (AFCI) on PV side",
+        "ur": "PV side par DC arc fault (AFCI)"
+      },
+      "meaning": {
+        "en": "DC arc detected on PV wiring (fire risk).",
+        "ur": "PV wiring par DC arc detect hui (aag ka khatra)."
+      },
+      "causes": [
+        {
+          "en": "Loose MC4/terminal arcing",
+          "ur": "MC4/terminal par arcing"
+        },
+        {
+          "en": "Damaged DC cable",
+          "ur": "DC cable damage"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Isolate DC immediately; do not reset — fire risk; technician repairs array wiring",
+          "ur": "Foran DC isolate karein; reset na karein — aag ka khatra; technician array wiring repair kare"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F64"
+      ]
+    },
+    {
+      "code": "F64",
+      "aliases": [
+        "F64"
+      ],
+      "title": {
+        "en": "IGBT heat-sink over-temperature",
+        "ur": "IGBT heat-sink zyada garm"
+      },
+      "meaning": {
+        "en": "Inverter IGBT heat-sink temperature above limit.",
+        "ur": "Inverter IGBT heat-sink temperature limit se upar."
+      },
+      "causes": [
+        {
+          "en": "Blocked fans/heatsink dust",
+          "ur": "Fans block / heatsink dust"
+        },
+        {
+          "en": "Fan failure (see W13)",
+          "ur": "Fan fail (W13 dekhein)"
+        },
+        {
+          "en": "Ambient too hot",
+          "ur": "Ambient bohat garam"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; clean heatsink/fans; verify fans spin; ambient within rating",
+          "ur": "Power off; heatsink/fans saaf karein; fans ghoomein check karein; ambient rating ke andar"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F09",
+        "W13"
+      ]
+    },
+    {
+      "code": "W03",
+      "aliases": [
+        "W03"
+      ],
+      "title": {
+        "en": "Arc warning (unit keeps running)",
+        "ur": "Arc warning (unit chalta rahega)"
+      },
+      "meaning": {
+        "en": "Arc condition warned while inverter continues operating.",
+        "ur": "Inverter chalte waqt arc condition ka warning."
+      },
+      "causes": [
+        {
+          "en": "Fan/firmware issue — see meaning",
+          "ur": "Fan/firmware issue — meaning dekhein"
+        },
+        {
+          "en": "Loose DC connection arcing",
+          "ur": "DC connection dhila ho aur chingari bana raha"
+        },
+        {
+          "en": "Wet or corroded PV connector",
+          "ur": "PV connector gila ya corode ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "W13: power off, clear dust, verify fan; W05: technician re-flash; W03: inspect DC connections",
+          "ur": "W13: power off, dhund hataein, fan check; W05: technician re-flash; W03: DC connections dekhein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "W05",
+      "aliases": [
+        "W05"
+      ],
+      "title": {
+        "en": "Firmware upgrade error",
+        "ur": "Firmware upgrade mein ghalati"
+      },
+      "meaning": {
+        "en": "Firmware upgrade failed or was interrupted.",
+        "ur": "Firmware upgrade fail ya interrupt ho gayi."
+      },
+      "causes": [
+        {
+          "en": "Fan/firmware issue — see meaning",
+          "ur": "Fan/firmware issue — meaning dekhein"
+        },
+        {
+          "en": "Power lost during upgrade",
+          "ur": "Upgrade ke waqt power chala gaya"
+        },
+        {
+          "en": "Wrong firmware file for this model",
+          "ur": "Is model ke liye ghalat firmware file"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "W13: power off, clear dust, verify fan; W05: technician re-flash; W03: inspect DC connections",
+          "ur": "W13: power off, dhund hataein, fan check; W05: technician re-flash; W03: DC connections dekhein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "W13",
+      "aliases": [
+        "W13"
+      ],
+      "title": {
+        "en": "Cooling fan not working",
+        "ur": "Cooling fan kaam nahi kar raha"
+      },
+      "meaning": {
+        "en": "A cooling fan is not running as commanded.",
+        "ur": "Cooling fan command ke mutabiq nahi chal raha."
+      },
+      "causes": [
+        {
+          "en": "Fan/firmware issue — see meaning",
+          "ur": "Fan/firmware issue — meaning dekhein"
+        },
+        {
+          "en": "Fan connector loose",
+          "ur": "Fan ka connector dhila"
+        },
+        {
+          "en": "Fan motor seized or failed",
+          "ur": "Fan motor atak gayi ya kharab ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "W13: power off, clear dust, verify fan; W05: technician re-flash; W03: inspect DC connections",
+          "ur": "W13: power off, dhund hataein, fan check; W05: technician re-flash; W03: DC connections dekhein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN G03/G01P3-AM8 (OEM twin of Nitrox 3Ph-5G) fault tables pp.60–63",
+        "url": "https://deyeinverters.net/en/error-codes/sun-g03-g01p3-am8-series",
+        "retrieved": "2026-09-23"
+      }
+    }
+  ]
+}

@@ -1,0 +1,617 @@
+{
+  "schemaVersion": 1,
+  "brandId": "victron",
+  "series": {
+    "id": "victron-lynx-smart-bms-status-led",
+    "name": "Lynx Smart BMS — Status LED red-flash fault codes",
+    "category": "inverter",
+    "unitType": "generic",
+    "modelPatterns": [
+      "*Lynx Smart BMS*",
+      "LYN*"
+    ],
+    "notes": "The Lynx Smart BMS has only TWO LEDs (Bluetooth + Status). Faults are identified by COUNTING red flashes of the Status LED in a 4-second window - there is no printed number. This is a self-contained series because a technician standing at the panel has no other display. Some counts (e.g. 2, 3, 4) appear only in the manual's appendix table; others (6, 7, 8, 9) appear in the Troubleshooting chapter. Codes 11 and 13 are NOT used by this manual - 12 and 14 are the next values after 10."
+  },
+  "codes": [
+    {
+      "code": "FL-1",
+      "aliases": [
+        "FL-1",
+        "Red 1 flash / 4 s",
+        "Status LED warning"
+      ],
+      "title": {
+        "en": "Status LED red 1x per 4 s - warning active",
+        "ur": "Status LED laal 1 baar / 4 s - warning chal rahi hai"
+      },
+      "meaning": {
+        "en": "A warning is active. The BMS is still running; open VictronConnect or the GX device to read which warning it is.",
+        "ur": "Aik warning chal rahi hai. BMS abhi chal raha hai; VictronConnect ya GX device kholein taake pata chale kaunsi warning hai."
+      },
+      "causes": [
+        {
+          "en": "Any of the BMS warning conditions (low cell voltage, high current, high BMS temperature, bad contactor, load about to disconnect, low SoC, VE.CAN or Distributor comms lost)",
+          "ur": "BMS ki koi bhi warning shart (low cell voltage, high current, high BMS temperature, kharab contactor, load disconnect hone wala hai, low SoC, VE.CAN ya Distributor comms lost)"
+        },
+        {
+          "en": "Warning has only just been raised, so the underlying cause may not yet be measured",
+          "ur": "Warning abhi abhi aayi hai, is liye asal wajah abhi tak measure bhi nahi hui ho sakti"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open VictronConnect or the GX device and read the actual warning code (see the Lynx warning series).",
+          "ur": "VictronConnect ya GX device kholein aur asal warning code parhein (Lynx warning series dekhein)."
+        },
+        {
+          "en": "Measure battery voltage and load current to see if a low-voltage or high-current warning is the cause.",
+          "ur": "Battery voltage aur load current nikaalein taake pata chale ke low voltage ya high current warning ki wajah hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 LED indications, warnings, alarm and error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "FL-2",
+      "aliases": [
+        "FL-2",
+        "Red 2 flashes / 4 s",
+        "Battery communication error"
+      ],
+      "title": {
+        "en": "Status LED red 2x - battery BMS comms error",
+        "ur": "Status LED laal 2 baar - battery BMS comms error"
+      },
+      "meaning": {
+        "en": "The BMS cannot talk to the batteries over the battery BMS cable loop.",
+        "ur": "BMS battery BMS cable loop ke zariye batteries se baat nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Battery BMS cable not connected or not seated in the BMS",
+          "ur": "Battery BMS cable BMS mein nahi jury ya poori tarah lagi nahi"
+        },
+        {
+          "en": "Open circuit in the battery BMS cable loop",
+          "ur": "Battery BMS cable loop mein khulna (open circuit)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC, then reseat every battery BMS connector, working along the chain from the BMS outwards.",
+          "ur": "DC disconnect karein, phir BMS se bahar ki taraf chain mein har battery BMS connector dobara lagaayein."
+        },
+        {
+          "en": "Measure continuity of the BMS cable loop end to end; the loop must be closed.",
+          "ur": "BMS cable loop ki continuity sifar se sifar nikaalein; loop band hona chahiye."
+        },
+        {
+          "en": "Inspect for water ingress or crushed cable, then re-test.",
+          "ur": "Paani ke ghusaav ya dabba hua cable dekhein, phir dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 LED indications, warnings, alarm and error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "FL-3",
+      "aliases": [
+        "FL-3",
+        "Red 3 flashes / 4 s",
+        "Cell voltage/temperature out of range"
+      ],
+      "title": {
+        "en": "Status LED red 3x - cell volt/temp out of range",
+        "ur": "Status LED laal 3 baar - cell voltage/temp range se bahar"
+      },
+      "meaning": {
+        "en": "A high or low cell voltage, or a high or low temperature, has been detected inside the battery pack.",
+        "ur": "Battery pack ke andar kisi cell ka voltage ya temperature high ya low detect hua hai."
+      },
+      "causes": [
+        {
+          "en": "Cell undervoltage - bank discharged",
+          "ur": "Cell undervoltage - bank khatam ho gaya"
+        },
+        {
+          "en": "Cell overvoltage - overcharging or unbalanced cells",
+          "ur": "Cell overvoltage - zyada charge ya cells unbalanced"
+        },
+        {
+          "en": "Pack temperature above or below the safe limit",
+          "ur": "Pack temperature safe limit se upar ya neeche"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure total bank voltage and compare it to the state of charge in VictronConnect.",
+          "ur": "Bank ka total voltage nikaal kar VictronConnect ke state of charge se compare karein."
+        },
+        {
+          "en": "If low: recharge the bank on a known-good charger and watch the cells re-balance.",
+          "ur": "Agar kam hai: bank ko aik ache charger se charge karein aur cells ko re-balance hote dekhein."
+        },
+        {
+          "en": "If high: disconnect all other chargers and loads, then check the BMS balancing readings per cell.",
+          "ur": "Agar zyada hai: baqi chargers aur loads disconnect karein, phir har cell ka BMS balancing reading check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 LED indications, warnings, alarm and error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "FL-4",
+      "aliases": [
+        "FL-4",
+        "Red 4 flashes / 4 s",
+        "High BMS temperature"
+      ],
+      "title": {
+        "en": "Status LED red 4x - BMS too hot",
+        "ur": "Status LED laal 4 baar - BMS garam hai"
+      },
+      "meaning": {
+        "en": "The BMS itself has overheated.",
+        "ur": "BMS khud garam ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Ambient temperature too high around the BMS",
+          "ur": "BMS ke aar paas ambient temperature bohat zyada hai"
+        },
+        {
+          "en": "BMS cooling fans not running",
+          "ur": "BMS ke cooling fans nahi chal rahe"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the ambient temperature where the Lynx is installed.",
+          "ur": "Check karein ke Lynx jahan lagi hai wahan ambient temperature kya hai."
+        },
+        {
+          "en": "Confirm the BMS fans actually spin; the manual says contact the dealer if they are not running.",
+          "ur": "Check karein ke BMS fans asal mein chalti hain; manual ke mutabiq agar nahi chalti to dealer se rabta karein."
+        },
+        {
+          "en": "Reduce the load and improve airflow; re-test after cooling.",
+          "ur": "Load kam karein aur hawa ka rausta behtar karein; thanda hote hi dobara test karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 LED indications, warnings, alarm and error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "FL-5",
+      "aliases": [
+        "FL-5",
+        "Red 5 flashes / 4 s",
+        "Pre-charge timeout"
+      ],
+      "title": {
+        "en": "Status LED red 5x - pre-charge timed out",
+        "ur": "Status LED laal 5 baar - pre-charge timeout"
+      },
+      "meaning": {
+        "en": "The BMS could not finish pre-charging the DC loads in time.",
+        "ur": "BMS DC loads ko pre-charge khatam nahi kar paya."
+      },
+      "causes": [
+        {
+          "en": "Load capacitance too high or load resistance too low (under about 20 Ohm)",
+          "ur": "Load ki capacitance bohat zyada ya resistance bohat kam (taqreeb 20 Ohm se neeche)"
+        },
+        {
+          "en": "Too many loads or chargers left connected during pre-charge",
+          "ur": "Pre-charge ke dauran bohat zyada loads ya chargers jury hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC and switch off all loads and chargers.",
+          "ur": "DC disconnect karein aur tamam loads aur chargers band karein."
+        },
+        {
+          "en": "Reconnect loads one at a time to find the one causing the pre-charge failure.",
+          "ur": "Loads ek ek kar ke dobara jurayein taake woh dhoondein jo pre-charge rok raha hai."
+        },
+        {
+          "en": "Measure the load resistance; it should be above the manual's 20 Ohm threshold.",
+          "ur": "Load resistance nikaalein; ye manual ke 20 Ohm se upar hona chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 LED indications, warnings, alarm and error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "FL-6",
+      "aliases": [
+        "FL-6",
+        "Red 6 flashes / 4 s",
+        "Pre-charge high current"
+      ],
+      "title": {
+        "en": "Status LED red 6x - pre-charge current too high",
+        "ur": "Status LED laal 6 baar - pre-charge current zyada hai"
+      },
+      "meaning": {
+        "en": "The energy or current drawn during pre-charging exceeded the allowed value.",
+        "ur": "Pre-charge ke dauran kharcha ya current matloon se zyada ho gaya."
+      },
+      "causes": [
+        {
+          "en": "A load with very low resistance connected to the load output",
+          "ur": "Load output par bohat kam resistance wala load jury hai"
+        },
+        {
+          "en": "Pre-charged energy limit exceeded by the combined load",
+          "ur": "Mil kar pre-charge kiya gaya energy matloon se zyada ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC, then disconnect or remove some DC loads.",
+          "ur": "DC disconnect karein, phir kuch DC loads hata dein ya disconnect kar dein."
+        },
+        {
+          "en": "Rule out short circuits in the load wiring with an insulation tester.",
+          "ur": "Insulation tester se load wiring ke shorts check karke hatayein."
+        },
+        {
+          "en": "Reconnect in stages and watch the pre-charge current each time.",
+          "ur": "Stage by stage dobara jurayein aur har baar pre-charge current dekhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 LED indications, warnings, alarm and error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "FL-7",
+      "aliases": [
+        "FL-7",
+        "Red 7 flashes / 4 s",
+        "Probably wrong system voltage"
+      ],
+      "title": {
+        "en": "Status LED red 7x - wrong system voltage",
+        "ur": "Status LED laal 7 baar - system voltage ghalat hai"
+      },
+      "meaning": {
+        "en": "The measured battery voltage sits outside the threshold for the configured system voltage. Thresholds are 9-15 V for 12 V, 16-30 V for 24 V, and 32-60 V for 48 V.",
+        "ur": "Measured battery voltage configured system voltage ki threshold se bahar hai. Thresholds: 12 V ke liye 9-15 V, 24 V ke liye 16-30 V, aur 48 V ke liye 32-60 V."
+      },
+      "causes": [
+        {
+          "en": "BMS configured for the wrong system voltage (12/24/48 V)",
+          "ur": "BMS ghalat system voltage (12/24/48 V) ke liye configure hai"
+        },
+        {
+          "en": "Actual battery voltage does not match the configuration",
+          "ur": "Asal battery voltage configuration se match nahi karti"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual bank voltage with a multimeter.",
+          "ur": "Multimeter se asal bank voltage nikaalein."
+        },
+        {
+          "en": "Compare it to the manual's threshold table and confirm the system voltage setting in VictronConnect.",
+          "ur": "Manual ki threshold table se compare karein aur VictronConnect mein system voltage setting confirm karein."
+        },
+        {
+          "en": "Correct the battery settings to match the real bank, then re-test.",
+          "ur": "Battery settings ko asal bank ke mutabiq theek karein, phir dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 LED indications, warnings, alarm and error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "FL-8",
+      "aliases": [
+        "FL-8",
+        "Red 8 flashes / 4 s",
+        "Contactor current too high"
+      ],
+      "title": {
+        "en": "Status LED red 8x - current too high",
+        "ur": "Status LED laal 8 baar - current bohat zyada hai"
+      },
+      "meaning": {
+        "en": "Sustained current exceeded the BMS rating - the manual cites more than 600 A (1200 A for the 1000 A model) for more than 5 minutes.",
+        "ur": "Mustaqbil current BMS rating se zyada raha - manual ke mutabiq 600 A (1000 A model ke liye 1200 A) se zyada, 5 minute se ooper."
+      },
+      "causes": [
+        {
+          "en": "Load current above the BMS continuous rating",
+          "ur": "Load current BMS ki continuous rating se zyada hai"
+        },
+        {
+          "en": "High discharge current or a high charge current sustained too long",
+          "ur": "High discharge current ya bohat der tak chalay gaya high charge current"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the current with a clamp meter on the main busbar.",
+          "ur": "Main busbar par clamp meter se current nikaalein."
+        },
+        {
+          "en": "Reduce the connected load until current is below the rating the manual states for your model.",
+          "ur": "Load itna kam karein jab tak current aapke model ki rating se neeche na aaye."
+        },
+        {
+          "en": "If the load is already small, check for a shorted appliance or a stuck inverter/charger drawing DC.",
+          "ur": "Agar load pehle se kam hai to short hua bartan ya atka hua inverter/charger jo DC kheech raha hai check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 LED indications, warnings, alarm and error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "FL-9",
+      "aliases": [
+        "FL-9",
+        "Red 9 flashes / 4 s",
+        "Initialisation error"
+      ],
+      "title": {
+        "en": "Status LED red 9x - initialisation error",
+        "ur": "Status LED laal 9 baar - initialisation error"
+      },
+      "meaning": {
+        "en": "The BMS failed to initialise. The manual groups this under internal errors requiring dealer contact.",
+        "ur": "BMS initialize nahi hua. Manual isay internal errors mein rakhta hai jis ke liye dealer se rabta karna hai."
+      },
+      "causes": [
+        {
+          "en": "Internal fault during the BMS power-up sequence",
+          "ur": "BMS ke power-up sequence mein internal fault"
+        },
+        {
+          "en": "Distributor or battery not detected during commissioning",
+          "ur": "Commissioning ke dauran Distributor ya battery detect nahi hui"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power everything down completely and wait 3 minutes before restarting.",
+          "ur": "Sab kuch mukammal band karein aur 3 minute intezaar kar ke dobara on karein."
+        },
+        {
+          "en": "Verify the battery and any Lynx Distributor connections are seated.",
+          "ur": "Check karein ke battery aur Lynx Distributor ke connections poori tarah lage hue hain."
+        },
+        {
+          "en": "If it returns, contact your Victron supplier - the manual lists this as an internal error.",
+          "ur": "Agar wapas aaye to Victron supplier se rabta karein - manual isay internal error batata hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 LED indications, warnings, alarm and error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "FL-10",
+      "aliases": [
+        "FL-10",
+        "Red 10 flashes / 4 s",
+        "Safety contactor failure"
+      ],
+      "title": {
+        "en": "Status LED red 10x - safety contactor failure",
+        "ur": "Status LED laal 10 baar - safety contactor failure"
+      },
+      "meaning": {
+        "en": "The safety contactor has failed to close or open as commanded.",
+        "ur": "Safety contactor ne command ke mutabiq band ya khulna nahi kiya."
+      },
+      "causes": [
+        {
+          "en": "Contactor mechanical failure or welded contacts",
+          "ur": "Contactor ki mechanical failure ya contacts weld ho gaye"
+        },
+        {
+          "en": "Contactor control wiring fault, or ATC/ATD wiring fault",
+          "ur": "Contactor control wiring fault, ya ATC/ATD wiring fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC, then check that all loads and chargers are actually wired to the ATC or ATD contact.",
+          "ur": "DC disconnect karein, phir check karein ke tamam loads aur chargers asal mein ATC ya ATD contact se jury hain."
+        },
+        {
+          "en": "Measure the contactor coil supply and the control voltage during a switching attempt.",
+          "ur": "Switching ke waqt contactor coil supply aur control voltage nikaalein."
+        },
+        {
+          "en": "Check the contactor main contacts for continuity and pitting; replace the contactor if welded.",
+          "ur": "Contactor ke main contacts ki continuity aur pitting check karein; weld ho gaye to contactor badal dein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 LED indications, warnings, alarm and error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "FL-12",
+      "aliases": [
+        "FL-12",
+        "Red 12 flashes / 4 s",
+        "Internal supply error"
+      ],
+      "title": {
+        "en": "Status LED red 12x - internal supply error",
+        "ur": "Status LED laal 12 baar - internal supply error"
+      },
+      "meaning": {
+        "en": "An internal supply rail has failed. The manual groups this with internal errors requiring dealer contact.",
+        "ur": "Koi internal supply rail fail hua hai. Manual isay internal errors mein rakhta hai jis ke liye dealer se rabta karna hai."
+      },
+      "causes": [
+        {
+          "en": "Internal supply voltage rail failure inside the BMS",
+          "ur": "BMS ke andar internal supply voltage rail ki failure"
+        },
+        {
+          "en": "Reverse polarity or severe voltage dip on the BMS supply",
+          "ur": "BMS supply par reverse polarity ya bohat gehri voltage dip"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC, then verify battery polarity and voltage at the BMS supply terminals.",
+          "ur": "DC disconnect karein, phir BMS supply terminals par battery polarity aur voltage check karein."
+        },
+        {
+          "en": "Check the supply fuse and cable gauge between the battery and the BMS.",
+          "ur": "Battery aur BMS ke darmiyan supply fuse aur cable gauge check karein."
+        },
+        {
+          "en": "If supply is correct, contact your Victron supplier - this is an internal error.",
+          "ur": "Agar supply theek hai to Victron supplier se rabta karein - ye internal error hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 LED indications, warnings, alarm and error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "FL-14",
+      "aliases": [
+        "FL-14",
+        "Red 14 flashes / 4 s",
+        "Battery voltage not allowed"
+      ],
+      "title": {
+        "en": "Status LED red 14x - battery voltage not allowed",
+        "ur": "Status LED laal 14 baar - battery voltage ki ijazat nahi hai"
+      },
+      "meaning": {
+        "en": "The battery voltage is outside every valid system voltage range. The manual states this occurs when the voltage is outside all ranges (9 V > Vbat > 60 V wording aside, the intent is outside 9-60 V).",
+        "ur": "Battery voltage har mumkin system voltage range se bahar hai. Manual ke mutabiq ye tab hota hai jab voltage sab ranges se bahar ho (9 V > Vbat > 60 V lafz ke bawajood, marzi 9-60 V se bahar hai)."
+      },
+      "causes": [
+        {
+          "en": "Battery voltage below 9 V or above 60 V",
+          "ur": "Battery voltage 9 V se neeche ya 60 V se upar"
+        },
+        {
+          "en": "Battery settings in VictronConnect set to the wrong value",
+          "ur": "VictronConnect mein battery settings ghalat value par hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the bank voltage with a multimeter before changing any setting.",
+          "ur": "Koi setting badalne se pehle multimeter se bank voltage nikaalein."
+        },
+        {
+          "en": "Compare against the manual's threshold table: 12 V = 9-15 V, 24 V = 16-30 V, 48 V = 32-60 V.",
+          "ur": "Manual ki threshold table se compare karein: 12 V = 9-15 V, 24 V = 16-30 V, 48 V = 32-60 V."
+        },
+        {
+          "en": "Correct the battery voltage setting in VictronConnect to match the measured bank.",
+          "ur": "VictronConnect mein battery voltage setting ko measured bank ke mutabiq theek karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 LED indications, warnings, alarm and error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 1,
+  "brandId": "solis",
+  "series": {
+    "id": "solis-rhi-48es",
+    "name": "RHI-(3-6)K-48ES-5G (single-phase hybrid + 48V battery)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*RHI*",
+      "*RHI-48ES*",
+      "*RHI-5G*"
+    ],
+    "notes": "RHI is the 48 V single-phase hybrid line; the LCD prints TEXT names ONLY (no hex, no DATA field) - that is the difference from S5-EH1P-L / S6-EH1P-L which print 'NAME (10xx DATA:0000)'. The RHI table has its OWN battery-side rows (OV-Vbatt1, OV-Vbatt-H, Over-Load, OV-VBackup) that do not exist on the string-only on-grid tables. Do not merge with SERIES 4. Note the official EUR S5-EH1P(3-6)K-L(-BE) manual and the RHI manual share hardware and the same three-LED layout, but the LCD code format is still what differs, so they stay in separate blocks."
+  },
+  "codes": [
+    {
+      "code": "NO-Battery",
+      "aliases": [
+        "NO-Battery",
+        "1055",
+        "Batt_Comm_FAIL follow-up"
+      ],
+      "title": {
+        "en": "Unconnected battery (NO-Battery)",
+        "ur": "Battery connected nahi (NO-Battery)"
+      },
+      "meaning": {
+        "en": "The RHI has not detected the 48 V pack, so it is running as a normal grid-tied PV inverter with no storage.",
+        "ur": "RHI ne 48 V pack detect nahi kiya, is liye ye normal grid-tied PV inverter ki tarah bina storage ke chal raha hai."
+      },
+      "causes": [
+        {
+          "en": "Battery power cable not connected, or the battery breaker/isolator is open",
+          "ur": "Battery power cable connected nahi, ya battery breaker ya isolator khula hai"
+        },
+        {
+          "en": "Battery output voltage outside the 42-58 V window the RHI expects",
+          "ur": "Battery output voltage RHI ke liye 42-58 V range se bahar hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the wire of battery power is connected correctly or not: reseat both battery power lugs and tighten them.",
+          "ur": "Check karein ke battery power wire sahi se connected hai ya nahi: dono battery power lugs dobara fit karke tighten karein."
+        },
+        {
+          "en": "Check the output voltage of the battery with a multimeter at the inverter end; the RHI expects roughly 42-58 V for a 48 V pack.",
+          "ur": "Multimeter se inverter ke taraf battery ka output voltage measure karein; 48 V pack ke liye RHI ko taqreeban 42-58 V chahiye."
+        },
+        {
+          "en": "If the pack is not being installed yet, set the battery select to 'No Battery' so the alarm is suppressed and the unit works like a normal grid-tied inverter.",
+          "ur": "Agar pack abhi lagaya nahi ja raha to battery select ko 'No Battery' par kar dein taake alarm na aaye aur unit normal grid-tied inverter ki tarah chale."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis RHI(3-6)K-5G / RHI-(3.6)K-48ES-5G Series Hybrid Inverter User Manual ENX V1,5, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.bimblesolar.com/docs/Solis_Manual_RHI(3-6)K_5G_ENX_V1,5.pdf"
+      }
+    },
+    {
+      "code": "OV-Vbatt1",
+      "aliases": [
+        "OV-Vbatt1",
+        "1053",
+        "105C",
+        "OV-Vbatt"
+      ],
+      "title": {
+        "en": "Battery 1 overvoltage detected (OV-Vbatt1)",
+        "ur": "Battery 1 ka overvoltage detect hua (OV-Vbatt1)"
+      },
+      "meaning": {
+        "en": "Battery 1 voltage is above the configured overvoltage protection point, so the RHI stopped charge and discharge.",
+        "ur": "Battery 1 ka voltage set kiye gaye overvoltage protection point se upar hai, is liye RHI ne charge aur discharge rok diya."
+      },
+      "causes": [
+        {
+          "en": "Battery pack charged above the inverter's overvoltage protection setting",
+          "ur": "Battery pack inverter ke overvoltage protection setting se upar charge ho gaya"
+        },
+        {
+          "en": "Two packs on the 48 V bus imbalanced, so one pack sits high while the other sits low",
+          "ur": "48 V bus par do packs unbalanced hain, ek high par hai aur doosra low par"
+        },
+        {
+          "en": "Battery aged so its resting voltage is higher than a new pack of the same SoC",
+          "ur": "Battery purani ho gayi is liye wisi SoC par uska resting voltage naye pack se zyada hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the protect point for overvoltage sets correctly or not: read the battery overvoltage protection value in Advanced Settings > 0010 and compare it with the battery maker's maximum charge voltage.",
+          "ur": "Overvoltage ke liye protection point sahi set hai ya nahi check karein: Advanced Settings > 0010 mein battery overvoltage protection value padhein aur battery maker ki maximum charge voltage se compare karein."
+        },
+        {
+          "en": "Measure each pack separately with a multimeter; if one pack reads noticeably higher, re-balance or isolate the packs before restarting.",
+          "ur": "Har pack ko alag alag multimeter se measure karein; koi ek pack zyada padhe to packs ko dobara balance karein ya alag karein phir restart karein."
+        },
+        {
+          "en": "Restart the inverter once and confirm the code clears; if it returns on a full battery, the protection point or the pack is at fault.",
+          "ur": "Inverter ek baar restart karke confirm karein ke code hat gaya; full battery par wapas aaye to protection point ya pack kharab hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "RHI names the battery-side code OV-Vbatt1 (with the digit 1) because the RHI can carry two battery channels; the S5-EH1P-L / S6-EH1P-L manuals print the same condition without the digit.",
+        "ur": "RHI battery-side code ko OV-Vbatt1 (digit 1 ke saath) kehta hai kyunke RHI do battery channels carry kar sakta hai; S5-EH1P-L / S6-EH1P-L manual wahi halat digit ke baghair print karte hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis RHI(3-6)K-5G / RHI-(3.6)K-48ES-5G Series Hybrid Inverter User Manual ENX V1,5, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.bimblesolar.com/docs/Solis_Manual_RHI(3-6)K_5G_ENX_V1,5.pdf"
+      }
+    },
+    {
+      "code": "OV-Vbatt-H",
+      "aliases": [
+        "OV-Vbatt-H",
+        "1051",
+        "OV-BUS-H",
+        "OV-BATT-H"
+      ],
+      "title": {
+        "en": "Battery overvoltage hardware fault (OV-Vbatt-H)",
+        "ur": "Battery circuit ka hardware overvoltage fault (OV-Vbatt-H)"
+      },
+      "meaning": {
+        "en": "The battery circuit hardware overvoltage protection has tripped, so the RHI has locked out to protect the pack.",
+        "ur": "Battery circuit ka hardware overvoltage protection trigger ho gaya, is liye RHI ne pack bachane ke liye lock out kar diya."
+      },
+      "causes": [
+        {
+          "en": "Battery circuit 'jumps' - a loose or arcing battery connection under high charge current",
+          "ur": "Battery circuit mein 'jumps' - high charge current par battery connection loose ya arcing"
+        },
+        {
+          "en": "Battery pack internal cell imbalance or a failed BMS contactor",
+          "ur": "Battery pack mein internal cell imbalance ya BMS contactor fail"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the circuit whether the battery circuit jumps: with the inverter off, inspect every battery connector and lug for heat marks, discolouration or looseness.",
+          "ur": "Check karein ke battery circuit jump karta hai ya nahi: inverter off kar ke har battery connector aur lug par heat marks, rang badalna ya looseness dekhein."
+        },
+        {
+          "en": "Isolate AC, PV and the battery, then measure each pack's voltage at the inverter battery port; a pack well above its rating points to the pack, not the inverter.",
+          "ur": "AC, PV aur battery isolate karke har pack ka voltage inverter battery port par measure karein; rating se zyada pack nikalay to masla pack ka hai, inverter ka nahi."
+        },
+        {
+          "en": "Restart the inverter. If it trips again with a healthy pack and clean connections, the pack BMS or contactor is faulty - RMA the battery.",
+          "ur": "Inverter restart karein. Agar pack aur connections theek hone par bhi dobara trip kare to pack ka BMS ya contactor kharab hai - battery RMA karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis RHI(3-6)K-5G / RHI-(3.6)K-48ES-5G Series Hybrid Inverter User Manual ENX V1,5, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.bimblesolar.com/docs/Solis_Manual_RHI(3-6)K_5G_ENX_V1,5.pdf"
+      }
+    },
+    {
+      "code": "Over-Load",
+      "aliases": [
+        "Over-Load",
+        "1057",
+        "Overload",
+        "Backup overload fault"
+      ],
+      "title": {
+        "en": "Backup port overload (Over-Load)",
+        "ur": "Backup port par load zyada (Over-Load)"
+      },
+      "meaning": {
+        "en": "The load connected to the backup port is above the inverter's rated backup output power, so the RHI shut that port down.",
+        "ur": "Backup port se jula hua load inverter ki rated backup output power se zyada hai, is liye RHI ne wo port band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Backup load above the inverter's rated output power",
+          "ur": "Backup load inverter ki rated output power se zyada hai"
+        },
+        {
+          "en": "Large inrush from a motor or compressor on the backup circuit",
+          "ur": "Backup circuit par motor ya compressor ka bada inrush"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the load of Backup port is over rating output power or not: add up the running watts of every backup appliance and compare with the RHI nameplate backup rating.",
+          "ur": "Check karein ke backup port ka load rated output power se zyada hai ya nahi: har backup appliance ke running watts jama karke RHI nameplate ki backup rating se compare karein."
+        },
+        {
+          "en": "Reduce the load of Backup port, then restart inverter and confirm the code clears.",
+          "ur": "Backup port ka load kam karein, phir inverter restart karke confirm karein ke code hat gaya."
+        },
+        {
+          "en": "If the alarm returns with a light load, measure the backup port voltage; an unstable backup voltage points to the inverter, not the load.",
+          "ur": "Agar halki load par bhi alarm wapas aaye to backup port voltage measure karein; backup voltage unstable hai to masla inverter ka hai, load ka nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis RHI(3-6)K-5G / RHI-(3.6)K-48ES-5G Series Hybrid Inverter User Manual ENX V1,5, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.bimblesolar.com/docs/Solis_Manual_RHI(3-6)K_5G_ENX_V1,5.pdf"
+      }
+    },
+    {
+      "code": "OV-VBackup",
+      "aliases": [
+        "OV-VBackup",
+        "1056",
+        "OV-Vbackup",
+        "Backup overvoltage fault"
+      ],
+      "title": {
+        "en": "Backup overvoltage (OV-VBackup)",
+        "ur": "Backup output par overvoltage (OV-VBackup)"
+      },
+      "meaning": {
+        "en": "The backup output voltage rose above the permitted window while running off-grid, so the RHI stopped.",
+        "ur": "Off-grid chalte waqt backup output voltage permitted window se upar chala gaya, is liye RHI ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Backup port wiring loose, so the measured backup voltage is false-high",
+          "ur": "Backup port wiring loose hai, is liye measured backup voltage ghalat high parha ja raha hai"
+        },
+        {
+          "en": "Generator connected to the same backup port, fighting the inverter output",
+          "ur": "Generator bhi isi backup port se connected hai aur inverter output se lad raha hai"
+        },
+        {
+          "en": "Direct sun on the cabinet and poor airflow while running hot",
+          "ur": "Cabinet par seedhi dhoop hai aur chalte waqt airflow kam hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC, PV and the battery, then check the backup port wiring: line, neutral and earth tight, and any generator correctly isolated through its changeover.",
+          "ur": "AC, PV aur battery off karke backup port wiring check karein: line, neutral aur earth tight, aur generator sahi changeover ke zariye isolate hua ho."
+        },
+        {
+          "en": "Measure the backup port voltage with a multimeter while the RHI runs on battery and compare it with the configured backup voltage.",
+          "ur": "RHI battery par chalte waqt multimeter se backup port voltage measure karein aur set ki hui backup voltage se compare karein."
+        },
+        {
+          "en": "Check inverter surrounding ventilation and whether sunshine is falling directly on the inverter in hot weather, then restart.",
+          "ur": "Inverter ke aas-paas ventilation check karein aur dekhein ke garmi ke mausam mein dhoop seedhi lag rahi hai ya nahi, phir restart karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis RHI(3-6)K-5G / RHI-(3.6)K-48ES-5G Series Hybrid Inverter User Manual ENX V1,5, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.bimblesolar.com/docs/Solis_Manual_RHI(3-6)K_5G_ENX_V1,5.pdf"
+      }
+    }
+  ]
+}

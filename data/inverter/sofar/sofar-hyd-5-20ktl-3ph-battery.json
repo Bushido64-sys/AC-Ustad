@@ -1,0 +1,550 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sofar",
+  "series": {
+    "id": "sofar-hyd-5-20ktl-3ph-battery",
+    "name": "HYD 5K...20KTL-3PH Battery error list (battery-side, 8xx/9xx IDs)",
+    "category": "inverter",
+    "unitType": "generic",
+    "modelPatterns": [
+      "*HYD*5KTL-3PH*",
+      "*HYD*6KTL-3PH*",
+      "*HYD*8KTL-3PH*",
+      "*HYD*10KTL-3PH*",
+      "*HYD*15KTL-3PH*",
+      "*HYD*20KTL-3PH*",
+      "*BTS*5K*"
+    ],
+    "notes": "Separate documented table in the same manual (section 8.2.2 'Battery error list'). The ID namespace jumps to 8xx/9xx here - these numbers NEVER collide with the inverter-side ID0xx rows, so they cannot be confused with SERIES 5. Battery-side rows also appear in the ESI 3-6K-S1 manual with the same numbers; kept separate per the one-series-per-table rule."
+  },
+  "codes": [
+    {
+      "code": "ID808",
+      "aliases": [
+        "ID808",
+        "HS1HighTempWarning",
+        "Radiator 1 high temperature alarm"
+      ],
+      "title": {
+        "en": "Battery radiator high-temperature warning (ID808)",
+        "ur": "Battery radiator high temperature warning (ID808)"
+      },
+      "meaning": {
+        "en": "The battery's own heat-sink temperature sensor is above the warning threshold. A warning, not a shutdown - the battery is still usable.",
+        "ur": "Battery ke apne heat-sink temperature sensor ki value warning threshold se upar hai. Ye sirf warning hai, shutdown nahi - battery abhi bhi chalti hai."
+      },
+      "causes": [
+        {
+          "en": "Battery cabinet installed in direct sun or a poorly ventilated store room.",
+          "ur": "Battery cabinet direct sun mein ya kam ventilated store room mein lagi hai."
+        },
+        {
+          "en": "High charge/discharge current pushing the battery's internal heat up.",
+          "ur": "Zyada charge/discharge current battery ki andar ki heat barha raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check that the number of batteries configured on the LCD matches the number physically installed.",
+          "ur": "Check karein ke LCD par configured batteries ki sankeya physically installed batteries ke barabar hai."
+        },
+        {
+          "en": "Install the battery in a cool, ventilated place out of direct sunlight and leave the recommended clearance.",
+          "ur": "Battery ko thande, ventilated jagah direct sunlight se door lagayein aur recommended clearance rakhein."
+        },
+        {
+          "en": "If the configuration is already correct and the warning stays, contact technical support for a software upgrade as the manual says.",
+          "ur": "Agar configuration pehle se theek hai phir bhi warning rahe to manual ke mutabiq technical support se software upgrade karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.2 Battery error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID809",
+      "aliases": [
+        "ID809",
+        "EnvHighTempWarning",
+        "Ambient high temperature alarm"
+      ],
+      "title": {
+        "en": "Battery ambient high-temperature warning (ID809)",
+        "ur": "Battery ambient high temperature warning (ID809)"
+      },
+      "meaning": {
+        "en": "The temperature inside the battery cabinet exceeded the ambient warning threshold. Manual action: make sure the battery is installed in a cool, well-ventilated place.",
+        "ur": "Battery cabinet ke andar ka temperature ambient warning threshold se upar chala gaya. Manual ka action: battery thande, well-ventilated jagah lagi honi chahiye."
+      },
+      "causes": [
+        {
+          "en": "Battery in a closed cupboard or against a hot wall with no airflow.",
+          "ur": "Battery band cupboard mein ya garm deewar se lagay, jahan koi airflow nahi."
+        },
+        {
+          "en": "Very hot season with high ambient plus poor spacing between battery units.",
+          "ur": "Bahut garmi ka mausam, zyada ambient aur battery units ke darmiyan kam faasla."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the ambient temperature inside the battery location with a thermometer and compare to the manual's limit.",
+          "ur": "Battery ki jagah ka andar ka ambient temperature thermometer se measure karke manual ki limit se compare karein."
+        },
+        {
+          "en": "Relocate or open up ventilation so air can move through and around the battery cabinet.",
+          "ur": "Battery cabinet ko aise jagah shift karein ya ventilation kholein ke hawa aas paas chale."
+        },
+        {
+          "en": "Keep at least the manual's stated clearance between stacked battery modules.",
+          "ur": "Stack kiye gaye battery modules ke darmiyan kam az kam manual ka bataya hua faasla rakhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.2 Battery error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID813",
+      "aliases": [
+        "ID813",
+        "StopChgWarning",
+        "Charging prohibition alarm"
+      ],
+      "title": {
+        "en": "Battery charging prohibited (ID813)",
+        "ur": "Battery charging prohibited - BMS ne charging rok di (ID813)"
+      },
+      "meaning": {
+        "en": "The BMS has blocked battery charging. The manual says this is normal if the battery is almost fully charged; only contact support if that is not the reason.",
+        "ur": "BMS ne battery charging block kar di hai. Manual ke mutabiq agar battery poori tarah charge ho chuki hai to ye normal hai; sirf tab support se rabta karein jab woh wajah na ho."
+      },
+      "causes": [
+        {
+          "en": "Battery already at or near full charge - BMS stops charging to avoid overcharge.",
+          "ur": "Battery poori tarah ya qareeb poori charge ho chuki hai - BMS overcharge se bachne ke liye charging rokta hai."
+        },
+        {
+          "en": "Battery temperature outside the safe charging window.",
+          "ur": "Battery temperature safe charging window se bahar hai."
+        },
+        {
+          "en": "Cell imbalance or a cell above its charge limit inside the pack.",
+          "ur": "Pack ke andar cell imbalance ya koi cell apni charge limit se upar."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the SOC on the LCD; if it is near 100% this is normal and needs no action.",
+          "ur": "LCD par SOC padhein; agar wo 100% ke qareeb hai to ye normal hai aur koi action nahi chahiye."
+        },
+        {
+          "en": "If SOC is low, check battery temperature - the BMS blocks charging when it is too hot or too cold.",
+          "ur": "Agar SOC kam hai to battery temperature check karein - BMS garm ya thand par charging rokta hai."
+        },
+        {
+          "en": "If SOC is low and temperature is normal, contact technical support rather than forcing charge.",
+          "ur": "Agar SOC kam hai aur temperature normal hai to charge force karne ke bajaye technical support se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.2 Battery error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID814",
+      "aliases": [
+        "ID814",
+        "StopDchgWarning",
+        "Discharging prohibition alarm"
+      ],
+      "title": {
+        "en": "Battery discharging prohibited (ID814)",
+        "ur": "Battery discharging prohibited - BMS ne discharge rok di (ID814)"
+      },
+      "meaning": {
+        "en": "The BMS has blocked battery discharge. Normal if the battery is almost empty; otherwise the pack or its BMS needs checking.",
+        "ur": "BMS ne battery discharge block kar diya. Agar battery khaali hone wali hai to normal hai; warna pack ya us ka BMS check karna hoga."
+      },
+      "causes": [
+        {
+          "en": "Battery SOC at the lower cutoff - BMS stops discharge to protect the cells.",
+          "ur": "Battery SOC lower cutoff par hai - BMS cells bachane ke liye discharge rokta hai."
+        },
+        {
+          "en": "Cell under-voltage: one or more cells in the pack dropped below its minimum.",
+          "ur": "Cell under-voltage: pack ka ek ya zyada cell apni minimum se neeche gir gaya."
+        },
+        {
+          "en": "Pack imbalance or an aged pack with high internal resistance.",
+          "ur": "Pack imbalance ya aging pack jis ki internal resistance zyada ho gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the SOC and battery voltage on the LCD; near-empty SOC with this message is expected.",
+          "ur": "LCD par SOC aur battery voltage padhein; khaali hone wali SOC ke saath ye message aana expected hai."
+        },
+        {
+          "en": "If SOC is high and discharge is still blocked, measure pack voltage at the inverter BAT terminals with a multimeter.",
+          "ur": "Agar SOC zyada hai phir bhi discharge blocked hai to multimeter se inverter BAT terminals par pack voltage measure karein."
+        },
+        {
+          "en": "A healthy pack with a blocked discharge points to a BMS or cell-balance problem - contact technical support.",
+          "ur": "Theek pack ke saath discharge blocked hona BMS ya cell-balance ki ghalti batata hai - technical support se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.2 Battery error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID864",
+      "aliases": [
+        "ID864",
+        "HS1OverTempFault",
+        "Over temperature protection of radiator 1"
+      ],
+      "title": {
+        "en": "Battery radiator over-temperature protection (ID864)",
+        "ur": "Battery radiator over temperature protection - battery band ho gayi (ID864)"
+      },
+      "meaning": {
+        "en": "The battery heat-sink over-temperature protection tripped - the battery is shut down, not just warning. Manual remedy: power off and wait 2 hours.",
+        "ur": "Battery heat-sink ka over-temperature protection trip hua - battery band ho gayi, sirf warning nahi. Manual ka hal: power off karke 2 ghante intezaar karein."
+      },
+      "causes": [
+        {
+          "en": "Sustained high charge/discharge current in a hot environment with no cooling.",
+          "ur": "Garm mahol mein bina cooling ke mustaqbil high charge/discharge current."
+        },
+        {
+          "en": "Battery cabinet air filter or vents blocked, so internal heat cannot escape.",
+          "ur": "Battery cabinet ka air filter ya vents band, is liye andar ki heat nahi nikal rahi."
+        },
+        {
+          "en": "Fan inside the battery cabinet failed or its connector is loose.",
+          "ur": "Battery cabinet ka andar ka fan fail ya us ka connector loose."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power the system off and wait 2 hours as the manual instructs, then re-check before restarting.",
+          "ur": "Manual ke mutabiq system power off karke 2 ghante intezaar karein, phir restart se pehle dobara check karein."
+        },
+        {
+          "en": "Inspect the battery cabinet vents and any air filter for dust blockage and clear them.",
+          "ur": "Battery cabinet ke vents aur koi air filter dust se band ho to dekhein aur saaf karein."
+        },
+        {
+          "en": "Measure cabinet internal temperature with a thermometer; if it exceeds the limit even when cool outside, the fan or sensor has failed.",
+          "ur": "Cabinet ka andar ka temperature thermometer se measure karein; agar bahar thandi ho ke bhi limit cross kare to fan ya sensor fail hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.2 Battery error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID865",
+      "aliases": [
+        "ID865",
+        "OverTempFault_Env",
+        "Over temperature protection of ambient temperature"
+      ],
+      "title": {
+        "en": "Battery ambient over-temperature protection (ID865)",
+        "ur": "Battery ambient over temperature protection - battery mahol garm hai (ID865)"
+      },
+      "meaning": {
+        "en": "The battery's ambient temperature protection tripped and the battery shut down. Manual remedy is the same: power off and wait 2 hours, then contact support if unresolved.",
+        "ur": "Battery ka ambient temperature protection trip hua aur battery band ho gayi. Manual ka hal wohi hai: power off karke 2 ghante intezaar karein, hal na ho to support se rabta karein."
+      },
+      "causes": [
+        {
+          "en": "Ambient temperature in the battery room above the permitted range.",
+          "ur": "Battery room ka ambient temperature allowed range se upar."
+        },
+        {
+          "en": "Battery installed in a sealed enclosure with no heat exchange.",
+          "ur": "Battery aise sealed enclosure mein hai jahan heat ka koi exchange nahi hota."
+        },
+        {
+          "en": "Room temperature sensor inside the cabinet misreading low, so protection timing is wrong.",
+          "ur": "Cabinet ke andar ka room temperature sensor galat low reading de raha hai, jis se protection ka timing ghalat hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and wait 2 hours, then measure the room temperature where the battery sits.",
+          "ur": "Power off karke 2 ghante intezaar karein, phir battery jahan lagi hai us kamre ka temperature measure karein."
+        },
+        {
+          "en": "Move the battery to a shaded, ventilated location and keep the manual's clearance from hot surfaces.",
+          "ur": "Battery ko dhallee, ventilated jagah le jayein aur garam surfaces se manual ka faasla rakhein."
+        },
+        {
+          "en": "If the room is genuinely cool and it still trips, the internal temperature sensor needs replacement.",
+          "ur": "Agar kamra sach mein thanda hai phir bhi trip ho to andar ka temperature sensor replace karna hoga."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.2 Battery error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID867",
+      "aliases": [
+        "ID867",
+        "Can1CommFault",
+        "Can1 communication failure"
+      ],
+      "title": {
+        "en": "Battery CAN1 communication failure (ID867)",
+        "ur": "Battery CAN1 communication failure - battery ka CAN link toota (ID867)"
+      },
+      "meaning": {
+        "en": "The battery's internal CAN1 link failed. Manual guidance: if it happens occasionally, wait a few minutes; if it happens frequently, contact support.",
+        "ur": "Battery ka apna CAN1 link fail ho gaya. Manual ka mashwara: agar kabhi kabhi ho to kuch minute intezaar karein; agar baar baar ho to support se rabta karein."
+      },
+      "causes": [
+        {
+          "en": "CAN cable loose at the battery or the inverter, or a poor contact at the connector.",
+          "ur": "Battery ya inverter par CAN cable loose, ya connector par poor contact."
+        },
+        {
+          "en": "CAN bus not properly terminated, or two devices sharing a duplicate address.",
+          "ur": "CAN bus theek terminate nahi hua, ya do devices ka address duplicate hai."
+        },
+        {
+          "en": "Battery CAN port damaged, or a battery-side controller fault.",
+          "ur": "Battery ka CAN port damaged, ya battery side controller ki ghalti."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, reseat the CAN cable at both ends and confirm the connector latches fully closed.",
+          "ur": "Power off karke CAN cable dono taraf se dobara baithayein aur confirm karein ke connector puri tarah band ho gaya."
+        },
+        {
+          "en": "Wait a few minutes and see whether the code clears, as the manual directs for occasional events.",
+          "ur": "Kuch minute intezaar karke dekhein ke code clear hota hai ya nahi, jaise manual occasional events ke liye kehta hai."
+        },
+        {
+          "en": "If it recurs, verify unique CAN addresses and termination, then raise it with support since it is frequent.",
+          "ur": "Agar dobara aaye to unique CAN address aur termination verify karein, phir support ko batayein kyunke ye frequent hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.2 Battery error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID872",
+      "aliases": [
+        "ID872",
+        "SwBusInstantOVP",
+        "Bus software overvoltage"
+      ],
+      "title": {
+        "en": "Battery bus software overvoltage (ID872)",
+        "ur": "Battery bus software overvoltage - bus firmware ne overvoltage pakda (ID872)"
+      },
+      "meaning": {
+        "en": "The battery's internal bus firmware detected an overvoltage condition. Manual guidance: wait a few minutes for occasional events, contact support if frequent.",
+        "ur": "Battery ke andar bus firmware ne overvoltage condition detect kiya. Manual ka mashwara: occasional event ho to kuch minute intezaar karein, frequent ho to support se rabta karein."
+      },
+      "causes": [
+        {
+          "en": "Transient bus spike when a high charge current command was applied.",
+          "ur": "Zyada charge current command lagane par bus mein transient spike."
+        },
+        {
+          "en": "Bus voltage sensing drift on the battery controller board.",
+          "ur": "Battery controller board par bus voltage sensing drift."
+        },
+        {
+          "en": "Battery cell imbalance pushing part of the pack overvoltage.",
+          "ur": "Battery cell imbalance jis se pack ka hissa overvoltage par chala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the battery pack voltage with a multimeter at the inverter BAT terminals and compare it to the LCD value.",
+          "ur": "Inverter BAT terminals par multimeter se battery pack voltage measure karke LCD value se compare karein."
+        },
+        {
+          "en": "Wait a few minutes to see if the event was transient, exactly as the manual advises for occasional faults.",
+          "ur": "Kabhi kabhi aane wale faults ke liye jaise manual kahe, kuch minute intezaar karke dekhein ke event transient tha ya nahi."
+        },
+        {
+          "en": "If the pack really is overvoltage, stop charging, let it settle and check the battery overvoltage setting against the battery spec.",
+          "ur": "Agar pack sach mein overvoltage hai to charging band karein, use settle hone dein aur battery overvoltage setting battery spec se match karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.2 Battery error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID873",
+      "aliases": [
+        "ID873",
+        "SwBusInstantUVP",
+        "Bus software undervoltage"
+      ],
+      "title": {
+        "en": "Battery bus software undervoltage (ID873)",
+        "ur": "Battery bus software undervoltage - bus firmware ne undervoltage pakda (ID873)"
+      },
+      "meaning": {
+        "en": "The battery's internal bus firmware detected an undervoltage condition on the battery bus.",
+        "ur": "Battery ke bus firmware ne battery bus par undervoltage condition detect kiya."
+      },
+      "causes": [
+        {
+          "en": "Battery deeply discharged, or the DC isolator between battery and inverter left open.",
+          "ur": "Battery gehri tarah discharge ho gayi, ya battery aur inverter ke darmiyan DC isolator chhota hua."
+        },
+        {
+          "en": "Battery cable voltage drop from a high-resistance or undersized connection.",
+          "ur": "Battery cable mein zyada resistance ya choti connection ki wajah se voltage drop."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the battery DC isolator is closed and fully seated before any other check.",
+          "ur": "Doosri har check se pehle confirm karein ke battery DC isolator band aur poora baitha hai."
+        },
+        {
+          "en": "Measure battery voltage at the inverter BAT terminals under load; a big drop across the cable means a bad connection.",
+          "ur": "Load ke saath inverter BAT terminals par battery voltage measure karein; cable par bada drop matlab kharis connection."
+        },
+        {
+          "en": "Re-torque the battery lugs and inspect for corrosion, then let the battery recover before charging again.",
+          "ur": "Battery lugs dobara tighten karke corrosion dekhein, phir dobara charge se pehle battery ko recover hone dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.2 Battery error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID879",
+      "aliases": [
+        "ID879",
+        "HwOCP",
+        "Hardware overcurrent"
+      ],
+      "title": {
+        "en": "Battery hardware overcurrent (ID879)",
+        "ur": "Battery hardware overcurrent - pack ka andar ka asli overcurrent (ID879)"
+      },
+      "meaning": {
+        "en": "The battery's own hardware overcurrent comparator tripped - a real overcurrent inside the pack, not a software protection.",
+        "ur": "Battery ka apna hardware overcurrent comparator trip hua - pack ke andar asal overcurrent, software protection nahi."
+      },
+      "causes": [
+        {
+          "en": "Internal cell short in the pack, or an over-discharge event that damaged cells.",
+          "ur": "Pack mein internal cell short, ya itna zyada over-discharge ke cells kharab ho gaye."
+        },
+        {
+          "en": "External short on the battery cable or a flooded connector.",
+          "ur": "Battery cable par external short ya geela connector."
+        },
+        {
+          "en": "Discharge current exceeded the pack's continuous limit for its temperature.",
+          "ur": "Discharge current pack ki us temperature par defined continuous limit se zyada ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the inverter off, isolate the battery and check for a short with a multimeter before anything else.",
+          "ur": "Inverter off karke battery isolate karein aur sab se pehle multimeter se short check karein."
+        },
+        {
+          "en": "Inspect every battery connector and cable for damage, water ingress or a crushed section, and replace what is faulty.",
+          "ur": "Har battery connector aur cable ko damage, paani ya marasi ke liye dekhein aur kharis hissa replace karein."
+        },
+        {
+          "en": "If the pack is shorted internally, stop using it and have the module replaced - a hardware OCP is not a software-reset fault.",
+          "ur": "Agar pack andar se short hai to use band karein aur module replace karwayein - hardware OCP software reset se hal nahi hota."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.2 Battery error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    }
+  ]
+}

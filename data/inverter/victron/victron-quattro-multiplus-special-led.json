@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "brandId": "victron",
+  "series": {
+    "id": "victron-quattro-multiplus-special-led",
+    "name": "Quattro / MultiPlus — special LED indications (2-LED simultaneous patterns)",
+    "category": "inverter",
+    "unitType": "off_grid_inverter",
+    "modelPatterns": [
+      "*Quattro*",
+      "*MultiPlus*"
+    ],
+    "notes": "Distinct from the numbered VE.Bus codes: these are non-numbered, two-LED-SIMULTANEOUS patterns. Crucial caveat carried verbatim in the source: if the 'inverter on' LED flashes in PHASE OPPOSITION to these patterns, it is a VE.Bus error code, not a special indication - look it up in the relevant VE.Bus series. Identical wording in Quattro 120 V, MultiPlus 230 V and Quattro-II/MP-II 230 V manuals."
+  },
+  "codes": [
+    {
+      "code": "LED-BULK+ABSORPTION-SIM",
+      "aliases": [
+        "LED-BULK+ABSORPTION-SIM",
+        "Bulk and absorption LEDs flash simultaneously"
+      ],
+      "title": {
+        "en": "Bulk + absorption flash together - voltage sense error",
+        "ur": "Bulk aur absorption saath flash - voltage sense error"
+      },
+      "meaning": {
+        "en": "Voltage sense error. The voltage at the sense connection deviates more than 7 V from the device's main terminals - usually a connection error. The device stays in normal operation.",
+        "ur": "Voltage sense error. Sense connection par voltage device ke main terminals se 7 V se zyada different hai - aam tor par connection error. Device normal chalta rehta hai."
+      },
+      "causes": [
+        {
+          "en": "Voltage sense lead connected to the wrong point or open circuit",
+          "ur": "Voltage sense lead galat jagah jury ya khuli hui hai"
+        },
+        {
+          "en": "Sense wiring disconnected or its fuse open",
+          "ur": "Sense wiring disconnect hai ya us ka fuse khul gaya hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure between the sense terminal and the battery negative; the difference must be under 7 V.",
+          "ur": "Sense terminal aur battery negative ke darmiyan voltage nikaalein; farq 7 V se kam hona chahiye."
+        },
+        {
+          "en": "Trace the sense lead end to end and reseat every terminal; check the sense fuse.",
+          "ur": "Sense lead ko sifar tak trace karein aur har terminal dobara lagaayein; sense fuse bhi check karein."
+        },
+        {
+          "en": "Confirm the polarity of the sense connections before restoring power.",
+          "ur": "Power wapas chalane se pehle sense connections ki polarity confirm karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "If the 'inverter on' LED flashes in phase OPPOSITION to this pattern, it is a VE.Bus error code instead - cross-reference the device's VE.Bus series.",
+        "ur": "Agar 'inverter on' LED is pattern ke saath phase OPPOSITION mein flash kare to ye VE.Bus error code hai - device ke VE.Bus series mein dekhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.2 Special LED indications",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    },
+    {
+      "code": "LED-ABSORPTION+FLOAT-SIM",
+      "aliases": [
+        "LED-ABSORPTION+FLOAT-SIM",
+        "Absorption and float LEDs flash simultaneously"
+      ],
+      "title": {
+        "en": "Absorption + float flash together - temp sensor fault",
+        "ur": "Absorption aur float saath flash - temperature sensor kharab"
+      },
+      "meaning": {
+        "en": "The measured battery temperature is an extremely unlikely value, so the sensor is probably defective or badly connected. The device stays in normal operation.",
+        "ur": "Measured battery temperature aik ajeeb value hai, is liye sensor ya to kharab hai ya ghalat se jury hua hai. Device normal chalta rehta hai."
+      },
+      "causes": [
+        {
+          "en": "Defective battery temperature sensor",
+          "ur": "Battery temperature sensor kharab"
+        },
+        {
+          "en": "Temperature sensor connected to the wrong terminals or not connected",
+          "ur": "Temperature sensor galat terminals par jury ya bilkul nahi jury"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure sensor resistance with a multimeter against the Victron temperature-sensor spec table.",
+          "ur": "Multimeter se sensor ki resistance nikaal kar Victron sensor spec table se compare karein."
+        },
+        {
+          "en": "Pull the temperature sensor plug out of the unit and watch for about 1 minute.",
+          "ur": "Temperature sensor plug nikaalein aur taqreeb aik minute intezaar karein."
+        },
+        {
+          "en": "If charging behaves normally with the plug out, the sensor should be replaced.",
+          "ur": "Agar plug nikaal kar charging normal chale to sensor badal dena chahiye."
+        },
+        {
+          "en": "Verify sensor polarity; reversed leads can read as an impossible value.",
+          "ur": "Sensor ki polarity check karein; ulti leads aik mumkin na value dikha deti hain."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "If the 'inverter on' LED flashes in phase OPPOSITION to this pattern, it is a VE.Bus error code instead.",
+        "ur": "Agar 'inverter on' LED is pattern ke saath phase OPPOSITION mein flash kare to ye VE.Bus error code hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.2 Special LED indications",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    },
+    {
+      "code": "LED-MAINS-ON-FLASH-NO-OUTPUT",
+      "aliases": [
+        "LED-MAINS-ON-FLASH-NO-OUTPUT",
+        "Mains on flashes and there is no output voltage"
+      ],
+      "title": {
+        "en": "Mains on flashes, no output voltage",
+        "ur": "Mains on flash, magar output voltage nahi"
+      },
+      "meaning": {
+        "en": "The device is in 'charger only' mode with mains present. It is either rejecting the mains supply or still synchronising to it.",
+        "ur": "Device 'charger only' mode mein hai aur mains maujood hai. Ya to mains supply reject kar raha hai ya abhi synchronize ho raha hai."
+      },
+      "causes": [
+        {
+          "en": "Normal 'charger only' position of the front rocker switch",
+          "ur": "Front rocker switch ki normal 'charger only' position"
+        },
+        {
+          "en": "Mains supply rejected - voltage, frequency or phase not acceptable",
+          "ur": "Mains supply reject hui - voltage, frequency ya phase qubool nahi"
+        },
+        {
+          "en": "Unit still synchronising to the incoming supply",
+          "ur": "Unit abhi incoming supply se synchronize ho raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the rocker switch is set to 'charger only' and not 'off'.",
+          "ur": "Check karein ke rocker switch 'charger only' par hai, 'off' par nahi."
+        },
+        {
+          "en": "Measure the incoming AC with a multimeter and confirm it is inside the configured window.",
+          "ur": "Multimeter se aane wala AC measure karein aur check karein ke woh configured window mein hai."
+        },
+        {
+          "en": "Switch briefly to 'on' and see whether the inverter picks up and the mains LED steadies.",
+          "ur": "MOMENT ke liye 'on' par karein aur dekhein ke inverter chalta hai aur mains LED steady ho jata hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.2 Special LED indications",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    }
+  ]
+}

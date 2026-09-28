@@ -1,0 +1,522 @@
+{
+  "schemaVersion": 1,
+  "brandId": "goodwe",
+  "series": {
+    "id": "goodwe-eh",
+    "name": "EH / EH Plus single-phase hybrid (F01-F163 F-code scheme)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*EH*",
+      "GW*-EH"
+    ],
+    "notes": "Documented models GW3600-EH, GW5000-EH, GW6000-EH, GW3600N-EH, GW5000N-EH, GW6000N-EH. Same F-prefix visual style as SDT-G3 but the numbering is NOT identical - see CONFLICTS. EH uses F160/F161/F162/F163/F164 for the higher block, SDT-G3 uses F160-F163, and some rows are '-'. Codes here apply to the EH manual only."
+  },
+  "codes": [
+    {
+      "code": "F01",
+      "aliases": [
+        "F01"
+      ],
+      "title": {
+        "en": "Grid power outage (F01)",
+        "ur": "Grid power chala gaya (F01)"
+      },
+      "meaning": {
+        "en": "No grid power, or the AC line / AC switch is disconnected, so the inverter is not exporting.",
+        "ur": "Grid power nahi hai ya AC line / AC switch disconnect hai, is liye inverter export nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "Grid power outage.",
+          "ur": "Grid power chali gayi."
+        },
+        {
+          "en": "AC line or AC switch disconnected.",
+          "ur": "AC line ya AC switch disconnect hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "The alarm clears by itself once grid power is restored.",
+          "ur": "Grid power aane par alarm khud ba khud clear ho jata hai."
+        },
+        {
+          "en": "Check the AC line and AC switch for a loose or tripped connection.",
+          "ur": "AC line aur AC switch ka dhila ya trip hua connection check karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EH User Manual, section 9.4 Inverter Fault",
+        "retrieved": "2026-09-26",
+        "url": "https://nl.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_EH_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F18",
+      "aliases": [
+        "F18",
+        "Low Insulation Resistance"
+      ],
+      "title": {
+        "en": "Low insulation resistance (F18)",
+        "ur": "Insulation resistance kam ho gayi (F18)"
+      },
+      "meaning": {
+        "en": "PV string or battery port insulation to protective earth is too low; the manual states above 80kOhm is normal.",
+        "ur": "PV string ya battery port ka protective earth se insulation bohat kam hai, manual ke mutabiq 80kOhm se upar normal hai."
+      },
+      "causes": [
+        {
+          "en": "PV string shorted to protective earth.",
+          "ur": "PV string protective earth se short ho gaya hai."
+        },
+        {
+          "en": "Long-term humid environment with poor line-to-ground insulation.",
+          "ur": "Nam mahaul aur line-to-ground insulation kamzor hai."
+        },
+        {
+          "en": "Low line-to-ground insulation resistance at the battery port.",
+          "ur": "Battery port par line-to-ground insulation resistance kam hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC isolator, then measure each string to PE; over 80kOhm is normal.",
+          "ur": "DC isolator kholein, phir har string ko PE se measure karein, 80kOhm se upar normal hai."
+        },
+        {
+          "en": "Disconnect strings one by one to isolate the leaking string.",
+          "ur": "Strings ko aik aik disconnect karke leaking string ko alag karein."
+        },
+        {
+          "en": "Confirm the inverter protective earth wire is connected.",
+          "ur": "Inverter ka protective earth wire laga hua hai ya nahi confirm karein."
+        },
+        {
+          "en": "In genuinely wet conditions only, reset the Insulation Resistance Protection Point in the app.",
+          "ur": "Sirf asal mein geelay mahaul mein app se Insulation Resistance Protection Point reset karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EH User Manual, section 9.4 Inverter Fault",
+        "retrieved": "2026-09-26",
+        "url": "https://nl.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_EH_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F32",
+      "aliases": [
+        "F32",
+        "Relay Check Abnormal"
+      ],
+      "title": {
+        "en": "Relay check abnormal (F32)",
+        "ur": "Relay ka self-check fail hua (F32)"
+      },
+      "meaning": {
+        "en": "The relay self-test found a problem: relay shorted, relay sampling circuit abnormal, or AC side wiring loose or shorted.",
+        "ur": "Relay self-test ne masla paya: relay short hai, relay sampling circuit abnormal hai ya AC side wiring dhili/shorted hai."
+      },
+      "causes": [
+        {
+          "en": "Relay fault such as a relay short circuit.",
+          "ur": "Relay short circuit jaisa fault."
+        },
+        {
+          "en": "Relay sampling circuit abnormality.",
+          "ur": "Relay sampling circuit ki kharabi."
+        },
+        {
+          "en": "AC side wiring abnormal, loose connection or short circuit.",
+          "ur": "AC side wiring abnormal, dhili connection ya short circuit."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC, wait 5 minutes, then re-energise before deeper checks.",
+          "ur": "AC aur DC isolate karein, 5 minute intezaar karein, phir dobara on karein."
+        },
+        {
+          "en": "With AC isolated, inspect and re-torque the AC output terminals for a loose conductor.",
+          "ur": "AC isolate kar ke AC output terminals ki tightening check karein."
+        },
+        {
+          "en": "Test the relay contacts for continuity and check the coil voltage on energising.",
+          "ur": "Relay contacts ki continuity test karein aur energize hone par coil voltage check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "On SDT-G3 the same number F32 means 'Inverter Internal Failure', so the two manuals must not be merged.",
+        "ur": "SDT-G3 par isi number F32 ka matlab 'Inverter Internal Failure' hai, is liye dono manuals merge nahi karne."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GW EH User Manual, section 9.4 Inverter Fault",
+        "retrieved": "2026-09-26",
+        "url": "https://nl.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_EH_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F42",
+      "aliases": [
+        "F42",
+        "DC Arcing Failure (String 1~16)"
+      ],
+      "title": {
+        "en": "DC arcing on strings 1-16 (F42)",
+        "ur": "DC arcing strings 1-16 par (F42)"
+      },
+      "meaning": {
+        "en": "An arc or bad connection was detected on the DC side within strings 1 to 16, usually from a loose or damaged terminal.",
+        "ur": "Strings 1 se 16 mein DC side par arc ya kharab connection mila, aam tor par dhile ya damaged terminal ki wajah se."
+      },
+      "causes": [
+        {
+          "en": "Loose DC side connection terminals.",
+          "ur": "DC side ke connection terminals dhile hain."
+        },
+        {
+          "en": "Poor contact at the DC side terminals.",
+          "ur": "DC side terminals par poor contact hai."
+        },
+        {
+          "en": "Damaged DC cable core causing poor contact.",
+          "ur": "DC cable ka core damaged hai jis se contact kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC isolator and confirm the DC arcs are dead before any inspection.",
+          "ur": "DC isolator kholein aur inspect karne se pehle confirm karein ke DC arcs band hain."
+        },
+        {
+          "en": "Read the string voltage and current after reconnect; an abnormal drop or zero means the affected string.",
+          "ur": "Reconnect karne ke baad string ka voltage aur current dekhein, girtan ya zero ka matlab usi string mein masla hai."
+        },
+        {
+          "en": "Re-crimp the affected MC4 connector with the correct tool and replace any heat-damaged connector.",
+          "ur": "Matlab wali MC4 connector sahi tool se dobara crimp karein aur garmi se kharab connector replace karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EH User Manual, section 9.4 Inverter Fault",
+        "retrieved": "2026-09-26",
+        "url": "https://nl.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_EH_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F52",
+      "aliases": [
+        "F52",
+        "Residual Current (GFCI) Multiple Fault Shutdown"
+      ],
+      "title": {
+        "en": "Residual current multi-fault shutdown (F52)",
+        "ur": "Residual current baar baar trip, band (F52)"
+      },
+      "meaning": {
+        "en": "North American rules require no automatic recovery after multiple residual current faults, so the unit needs manual recovery or a 24h wait.",
+        "ur": "North American rules ke mutabiq baar baar residual current fault ke baad auto recovery nahi hota, is liye manual recovery ya 24 ghante ka intezaar chahiye."
+      },
+      "causes": [
+        {
+          "en": "Multiple residual current events on the PV string.",
+          "ur": "PV string par baar baar residual current event hue hain."
+        },
+        {
+          "en": "PV string ground impedance too low.",
+          "ur": "PV string ka ground impedance bohat kam hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC and locate the leakage path before attempting a reset.",
+          "ur": "Reset se pehle DC isolate karke leakage ka asal rasta dhoondein."
+        },
+        {
+          "en": "Measure PV string to PE impedance; it must be comfortably above the protection point.",
+          "ur": "PV string se PE impedance measure karein, ye protection point se kaafi upar hona chahiye."
+        },
+        {
+          "en": "After the fix, clear the fault per the local utility procedure or allow the 24h wait.",
+          "ur": "Theek karne ke baad local utility ke tareeqe se fault clear karein ya 24 ghante ka intezaar dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EH User Manual, section 9.4 Inverter Fault",
+        "retrieved": "2026-09-26",
+        "url": "https://nl.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_EH_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F55",
+      "aliases": [
+        "F55",
+        "Back-up Port Overload fault"
+      ],
+      "title": {
+        "en": "Back-up port overload (F55)",
+        "ur": "Back-up port par load zyada (F55)"
+      },
+      "meaning": {
+        "en": "Back-up side load is above the inverter output, so the inverter can no longer sustain the overload.",
+        "ur": "Back-up side ka load inverter output se zyada hai, is liye inverter overload nahi sambhal sakta."
+      },
+      "causes": [
+        {
+          "en": "Back-up load above rated output.",
+          "ur": "Back-up load rated output se zyada hai."
+        },
+        {
+          "en": "Inductive motor starting current on back-up.",
+          "ur": "Back-up par motor ka starting current."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off some off-grid loads to reduce the inverter off-grid output power.",
+          "ur": "Kuch off-grid loads band karke inverter ki off-grid output power kam karein."
+        },
+        {
+          "en": "Add up the back-up load in watts and compare with the back-up rated power.",
+          "ur": "Back-up load ko watts mein jama karke rated power se compare karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EH User Manual, section 9.4 Inverter Fault",
+        "retrieved": "2026-09-26",
+        "url": "https://nl.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_EH_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F56",
+      "aliases": [
+        "F56",
+        "Back-up Port Overvoltage fault"
+      ],
+      "title": {
+        "en": "Back-up port overvoltage (F56)",
+        "ur": "Back-up port par voltage zyada (F56)"
+      },
+      "meaning": {
+        "en": "On the off-grid side the inverter output overvoltage could damage connected loads, so the unit reacted.",
+        "ur": "Off-grid side par inverter output overvoltage se loads kharab ho sakte hain, is liye unit ne protect kiya."
+      },
+      "causes": [
+        {
+          "en": "Caused by load switching.",
+          "ur": "Load switching ki wajah se hua."
+        },
+        {
+          "en": "Back-up output voltage rise into the load's non-tolerated band.",
+          "ur": "Back-up output voltage load ki tolerance se upar chala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If it only happens on load switching, ignore it; it is normal transient behaviour.",
+          "ur": "Agar sirf load switch karne par aaye to ignore karein, ye normal transient behaviour hai."
+        },
+        {
+          "en": "Measure the back-up output voltage with an AC meter during the switch-on surge.",
+          "ur": "Switch-on surge ke dauran AC meter se back-up output voltage measure karein."
+        },
+        {
+          "en": "If frequent, move surge-heavy loads off back-up and raise the inverter's switching margin.",
+          "ur": "Agar baar baar aaye to surge wale loads back-up se hatayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EH User Manual, section 9.4 Inverter Fault",
+        "retrieved": "2026-09-26",
+        "url": "https://nl.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_EH_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F65",
+      "aliases": [
+        "F65",
+        "AC Terminal Overtemperature"
+      ],
+      "title": {
+        "en": "AC terminal overtemperature (F65)",
+        "ur": "AC terminal garm ho gaya (F65)"
+      },
+      "meaning": {
+        "en": "The AC terminal is over temperature, attributed to poor ventilation, high ambient or an abnormal internal fan.",
+        "ur": "AC terminal ka temperature zyada hai, wajah poor ventilation, high ambient ya internal fan ki kharabi hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter installation location lacks ventilation.",
+          "ur": "Jahan inverter laga hai wahan ventilation kam hai."
+        },
+        {
+          "en": "Ambient temperature too high.",
+          "ur": "Ambient temperature bohat zyada hai."
+        },
+        {
+          "en": "Internal fan operation abnormal.",
+          "ur": "Internal fan theek nahi chal raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the ventilation at the installation point and the ambient temperature there.",
+          "ur": "Installation jagah ki ventilation aur wahan ka ambient temperature check karein."
+        },
+        {
+          "en": "Improve airflow around the unit; keep 300mm+ clearance as per the manual.",
+          "ur": "Unit ke aas paas airflow behtar karein, manual ke mutabiq 300mm se zyada gap rakhein."
+        },
+        {
+          "en": "If both are normal, the internal fan is likely at fault - replace it.",
+          "ur": "Agar dono normal hain to internal fan kharab hai, use replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EH User Manual, section 9.4 Inverter Fault",
+        "retrieved": "2026-09-26",
+        "url": "https://nl.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_EH_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F101",
+      "aliases": [
+        "F101",
+        "Battery 1 Precharge Fault"
+      ],
+      "title": {
+        "en": "Battery 1 precharge fault (F101)",
+        "ur": "Battery 1 precharge circuit kharab (F101)"
+      },
+      "meaning": {
+        "en": "The battery precharge circuit is faulty, commonly a burnt precharge resistor, so the bus never reaches battery voltage.",
+        "ur": "Battery precharge circuit kharab hai, aam tor par precharge resistor jal chuka hai, is liye bus battery voltage tak nahi pohanchta."
+      },
+      "causes": [
+        {
+          "en": "Precharge resistor burnt or precharge circuit fault.",
+          "ur": "Precharge resistor jal chuka hai ya precharge circuit fault hai."
+        },
+        {
+          "en": "Battery voltage does not match the bus voltage.",
+          "ur": "Battery voltage bus voltage se match nahi karti."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power the battery on alone with the inverter off and compare battery voltage with the DC bus voltage.",
+          "ur": "Inverter band karke sirf battery on karein aur battery voltage se DC bus voltage compare karein."
+        },
+        {
+          "en": "Inspect the precharge resistor for charring and the battery contactor for pitting.",
+          "ur": "Precharge resistor par kaale nishaan aur battery contactor par pitting check karein."
+        },
+        {
+          "en": "Replace the burnt precharge resistor at the same resistance and wattage.",
+          "ur": "Jale hue precharge resistor ko usi resistance aur wattage se replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EH User Manual, section 9.4 Inverter Fault",
+        "retrieved": "2026-09-26",
+        "url": "https://nl.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_EH_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "F122",
+      "aliases": [
+        "F122",
+        "PV Access Mode Setting Error"
+      ],
+      "title": {
+        "en": "PV access mode setting error (F122)",
+        "ur": "PV access mode ki setting ghalat (F122)"
+      },
+      "meaning": {
+        "en": "The configured PV access mode (AAAA, AACC, ABCD) does not match the real MPPT wiring, so the inverter refuses to run.",
+        "ur": "Set kiya gaya PV access mode (AAAA, AACC, ABCD) asal MPPT wiring se match nahi karta, is liye inverter nahi chalta."
+      },
+      "causes": [
+        {
+          "en": "Actual PV access mode does not match the device setting.",
+          "ur": "Asal PV access mode device ki setting se match nahi karta."
+        },
+        {
+          "en": "APP or screen still set to AAAA after an MPPT was split.",
+          "ur": "MPPT split karne ke baad bhi APP ya screen AAAA par hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Write down which PV channels share a string.",
+          "ur": "Likh lein ke kaun se PV channels aik hi string share karte hain."
+        },
+        {
+          "en": "Set the PV access mode in the app or on screen to match, then isolate PV and AC and restart.",
+          "ur": "App ya screen par PV access mode usi tarah set karein, phir PV aur AC isolate karke restart karein."
+        },
+        {
+          "en": "If the setting already matches and the code persists, escalate to GoodWe service.",
+          "ur": "Agar setting pehle se match karti hai aur phir bhi code aata hai to GoodWe service ko baat karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EH User Manual, section 9.4 Inverter Fault",
+        "retrieved": "2026-09-26",
+        "url": "https://nl.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_EH_User%20Manual-EN.pdf"
+      }
+    }
+  ]
+}

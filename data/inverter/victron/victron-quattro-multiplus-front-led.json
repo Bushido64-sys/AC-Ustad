@@ -1,0 +1,527 @@
+{
+  "schemaVersion": 1,
+  "brandId": "victron",
+  "series": {
+    "id": "victron-quattro-multiplus-front-led",
+    "name": "Quattro / MultiPlus — front-panel LED alarm indication table (8-LED units)",
+    "category": "inverter",
+    "unitType": "off_grid_inverter",
+    "modelPatterns": [
+      "*Quattro*",
+      "*MultiPlus*"
+    ],
+    "notes": "These rows are NOT numbered codes. The technician identifies them purely from the WHICH-LED-IS-LIT pattern on the 8-LED front panel (mains on / bulk / absorption / float / inverter on / overload / low battery / temperature). Sourced from the 120 V Quattro manual ch. 7.1 'General error indications'. The 230 V MultiPlus and MultiPlus-II/Quattro-II manuals carry the same table with the same LED patterns (identical wording, verified in both), so one series covers the pattern table across those units. Voltage figures differ: 95-140 VAC on the 120 V Quattro, 185-265 VAC on MultiPlus-II/Quattro-II 230 V, 187-250 VAC on MultiPlus 3k 230 V."
+  },
+  "codes": [
+    {
+      "code": "LED-LOWBATT-FLASH",
+      "aliases": [
+        "LED-LOWBATT-FLASH",
+        "Low battery LED flashes"
+      ],
+      "title": {
+        "en": "Low battery LED flashing (warning)",
+        "ur": "Low battery LED flash (warning)"
+      },
+      "meaning": {
+        "en": "Battery voltage is low. The inverter is warning you it is about to shut down.",
+        "ur": "Battery voltage kam hai. Inverter aap ko warn kar raha hai ke woh ab band hone wali hai."
+      },
+      "causes": [
+        {
+          "en": "Battery bank discharged under load",
+          "ur": "Load ke under battery bank khatam ho gaya"
+        },
+        {
+          "en": "Poor or loose battery connection causing voltage drop",
+          "ur": "Battery connection kharab ya dheela jo voltage drop kar raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure battery voltage with a multimeter under load, not at rest.",
+          "ur": "Multimeter se battery voltage load ke under nikaalein, khali nahi."
+        },
+        {
+          "en": "Check and tighten the battery terminals; clean any corrosion with a wire brush.",
+          "ur": "Battery terminals check karke tighten karein; wire brush se koi corrosion saaf karein."
+        },
+        {
+          "en": "Recharge the bank and confirm the charger is actually delivering current.",
+          "ur": "Bank dobara charge karein aur check karein ke charger haqeeqat current de raha hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.1 General error indications",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    },
+    {
+      "code": "LED-LOWBATT-ON",
+      "aliases": [
+        "LED-LOWBATT-ON",
+        "Low battery LED lights"
+      ],
+      "title": {
+        "en": "Low battery LED lit - inverter cut out",
+        "ur": "Low battery LED on - inverter band ho gaya"
+      },
+      "meaning": {
+        "en": "The unit has switched itself off because the battery voltage fell too low.",
+        "ur": "Battery voltage bohat girne ki wajah se unit ne khud band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "Battery voltage dropped below the cut-out threshold",
+          "ur": "Battery voltage cut-out threshold se neeche gir gaya"
+        },
+        {
+          "en": "Battery bank aged, sulfated or undersized for the load",
+          "ur": "Battery bank purana, sulfated ya load ke liye chhota hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect AC and DC before working on the bank.",
+          "ur": "Bank par kaam karne se pehle AC aur DC disconnect karein."
+        },
+        {
+          "en": "Charge the battery and check the battery connections.",
+          "ur": "Battery charge karein aur battery connections check karein."
+        },
+        {
+          "en": "Load test each cell with a cell tester; replace cells below 75% of rated capacity.",
+          "ur": "Har cell ko cell tester se load test karein; rated capacity se 75% se neeche cells badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.1 General error indications",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    },
+    {
+      "code": "LED-OVERLOAD-FLASH",
+      "aliases": [
+        "LED-OVERLOAD-FLASH",
+        "Overload LED flashes"
+      ],
+      "title": {
+        "en": "Overload LED flashing (warning)",
+        "ur": "Overload LED flash (warning)"
+      },
+      "meaning": {
+        "en": "The connected load is above the inverter's nominal rating; it is about to shut down.",
+        "ur": "Connected load inverter ki nominal rating se upar hai; woh ab band hone wali hai."
+      },
+      "causes": [
+        {
+          "en": "Load above the inverter's nominal VA/W rating",
+          "ur": "Load inverter ki nominal VA/W rating se upar hai"
+        },
+        {
+          "en": "Inrush current from motors or compressors at start-up",
+          "ur": "Motors ya compressors ka start-up inrush current"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure actual load current with a clamp meter on AC-out.",
+          "ur": "Clamp meter se AC-out par actual load current nikaalein."
+        },
+        {
+          "en": "Reduce the load - switch off non-essential appliances first.",
+          "ur": "Load kam karein - pehle ghair zaruri bartan band karein."
+        },
+        {
+          "en": "Stagger large appliance start-up so they do not all start together.",
+          "ur": "Bhaari bartan ka start-up alag alag karein taake sab ek saath na chalein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.1 General error indications",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    },
+    {
+      "code": "LED-OVERLOAD-ON",
+      "aliases": [
+        "LED-OVERLOAD-ON",
+        "Overload LED lights"
+      ],
+      "title": {
+        "en": "Overload LED lit - inverter cut out",
+        "ur": "Overload LED on - inverter band ho gaya"
+      },
+      "meaning": {
+        "en": "The unit has switched itself off because the load was excessively high, or there is a short circuit.",
+        "ur": "Load bohat zyada hone ya short circuit ki wajah se unit ne khud band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "Excessively high load or a short circuit on the AC output",
+          "ur": "AC output par bohat zyada load ya short circuit"
+        },
+        {
+          "en": "Damaged appliance with a shorted winding",
+          "ur": "Kharaz bartan jis ki winding short ho gayi ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC before inspecting anything.",
+          "ur": "Kuch bhi dekhne se pehle AC aur DC disconnect karein."
+        },
+        {
+          "en": "Disconnect loads in halves to find the offending circuit; then test that appliance for a short.",
+          "ur": "Loads aik aik aadhe hisse mein disconnect kar ke kharab circuit dhoondein; phir us bartan ko short ke liye test karein."
+        },
+        {
+          "en": "Replace the shorted appliance or cable - do not fit a bigger fuse to bypass it.",
+          "ur": "Short hua bartan ya cable badal dein - is par badi fuse lagakar bypass na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.1 General error indications",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    },
+    {
+      "code": "LED-TEMP",
+      "aliases": [
+        "LED-TEMP",
+        "Temperature LED flashes or lights"
+      ],
+      "title": {
+        "en": "Temperature LED on/flashing - over-temperature",
+        "ur": "Temperature LED on/flash - zyada temperature"
+      },
+      "meaning": {
+        "en": "Internal temperature is at a critical level. The unit derates and then switches off.",
+        "ur": "Internal temperature critical level par hai. Unit pehle power kam karta hai phir band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Ambient temperature too high in the installation room",
+          "ur": "Installation kamre mein ambient temperature bohat zyada hai"
+        },
+        {
+          "en": "Load too high causing internal heating",
+          "ur": "Load itna zyada ke unit khud garam ho raha hai"
+        },
+        {
+          "en": "Blocked or clogged cooling fan / poor airflow",
+          "ur": "Cooling fan band ya blocked, ya hawa ka aana kam hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Install the unit in a cool, well-ventilated place; leave 10 cm clear around it.",
+          "ur": "Unit ko thande aur hawa wala jagah lagayein; charon taraf 10 cm khali rakhein."
+        },
+        {
+          "en": "Blow dust out of the fan and vents with dry compressed air.",
+          "ur": "Fan aur vents ko dry compressed air se dhool saaf karein."
+        },
+        {
+          "en": "Reduce the connected load, then reset the unit by switching it off and on.",
+          "ur": "Connected load kam karein, phir unit ko off karke on karke reset karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.1 General error indications",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    },
+    {
+      "code": "LED-LOWBATT+OVERLOAD-FLASH-INT",
+      "aliases": [
+        "LED-LOWBATT+OVERLOAD-FLASH-INT",
+        "Low battery and overload LEDs flash intermittently"
+      ],
+      "title": {
+        "en": "Low batt + overload flashing alternately",
+        "ur": "Low battery aur overload baari baari flash kar rahe hain"
+      },
+      "meaning": {
+        "en": "Low battery voltage combined with an excessively high load. The unit is fighting both conditions at once.",
+        "ur": "Low battery voltage aur bohat zyada load aik saath. Unit dono conditions se lad raha hai."
+      },
+      "causes": [
+        {
+          "en": "Battery voltage too low for the load being drawn",
+          "ur": "Liye ja rahe load ke liye battery voltage bohat kam hai"
+        },
+        {
+          "en": "Load too high for the remaining battery capacity",
+          "ur": "Bachi hui battery capacity ke liye load bohat zyada hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure battery voltage and load current together with a clamp meter.",
+          "ur": "Clamp meter ke saath battery voltage aur load current aik saath nikaalein."
+        },
+        {
+          "en": "Charge the batteries, or disconnect / reduce the load.",
+          "ur": "Batteries charge karein, ya load disconnect karke kam karein."
+        },
+        {
+          "en": "Install higher capacity batteries, and fit shorter and/or thicker battery cables.",
+          "ur": "Bade capacity ki batteries lagayein, aur battery cables chhoti aur/or moti lagayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.1 General error indications",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    },
+    {
+      "code": "LED-LOWBATT+OVERLOAD-FLASH-SIM",
+      "aliases": [
+        "LED-LOWBATT+OVERLOAD-FLASH-SIM",
+        "Low battery and overload LEDs flash simultaneously"
+      ],
+      "title": {
+        "en": "Low batt + overload flashing together (DC ripple)",
+        "ur": "Low battery aur overload saath flash (DC ripple)"
+      },
+      "meaning": {
+        "en": "Ripple voltage on the DC connection exceeds 1.5 Vrms. The battery cable run is too thin, too long, or the connections are resistive.",
+        "ur": "DC connection par ripple voltage 1.5 Vrms se zyada hai. Battery cable bahut patli ya lambi hai, ya connections mein resistance hai."
+      },
+      "causes": [
+        {
+          "en": "Battery cable too thin or too long for the current",
+          "ur": "Battery cable current ke liye bahut patli ya lambi hai"
+        },
+        {
+          "en": "Corroded or loose battery connections adding resistance",
+          "ur": "Corrode ya dheele battery connections jo resistance barha rahe hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the battery cables and battery connections; clean and re-tighten every terminal.",
+          "ur": "Battery cables aur connections check karein; har terminal saaf karke dobara tighten karein."
+        },
+        {
+          "en": "Measure DC ripple with the unit off load using a true RMS meter; expect under 1.5 Vrms.",
+          "ur": "Unit load ke baghair true RMS meter se DC ripple nikaalein; 1.5 Vrms se kam hona chahiye."
+        },
+        {
+          "en": "Check whether battery capacity is high enough, and increase it if not.",
+          "ur": "Check karein ke battery capacity kaafi hai ya nahi, aur zaroorat ho to barha dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.1 General error indications",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    },
+    {
+      "code": "LED-LOWBATT+OVERLOAD-ON",
+      "aliases": [
+        "LED-LOWBATT+OVERLOAD-ON",
+        "Low battery and overload LEDs light"
+      ],
+      "title": {
+        "en": "Low batt + overload lit - cut out on DC ripple",
+        "ur": "Low battery aur overload on - DC ripple par band"
+      },
+      "meaning": {
+        "en": "The inverter has switched off because the ripple voltage on the DC input was excessively high.",
+        "ur": "DC input par ripple voltage bohat zyada hone ki wajah se inverter band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Excessively high ripple voltage on the battery input",
+          "ur": "Battery input par bohat zyada ripple voltage"
+        },
+        {
+          "en": "Undersized or over-long battery cables",
+          "ur": "Battery cables chhoti ya bohat lambi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Install batteries with a larger capacity.",
+          "ur": "Bade capacity ki batteries lagayein."
+        },
+        {
+          "en": "Fit shorter and/or thicker battery cables.",
+          "ur": "Chhoti aur/or moti battery cables lagayein."
+        },
+        {
+          "en": "Reset the inverter by switching it off and then on again.",
+          "ur": "Inverter ko off karke phir on karke reset karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.1 General error indications",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    },
+    {
+      "code": "LED-ONE-ALARM-ON-ONE-FLASH",
+      "aliases": [
+        "LED-ONE-ALARM-ON-ONE-FLASH",
+        "One alarm LED lights and the second flashes"
+      ],
+      "title": {
+        "en": "One LED lit + one flashing (imminent shutdown)",
+        "ur": "Aik LED on + aik flash (band hone wali hai)"
+      },
+      "meaning": {
+        "en": "The unit has already switched off. The lit LED names the alarm that tripped it; the flashing LED shows it was about to switch off for that reason.",
+        "ur": "Unit pehle hi band ho chuka hai. Jo LED on hai woh alarm bata raha hai; jo flash kar raha hai woh batata hai ke usi wajah se band hone wala tha."
+      },
+      "causes": [
+        {
+          "en": "Low battery, overload or over-temperature alarm tripped",
+          "ur": "Low battery, overload ya zyada temperature ka alarm trigger hua"
+        },
+        {
+          "en": "Load step or charging fault coinciding with the alarm",
+          "ur": "Load step ya charging fault alarm ke saath a gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read which LED is steady-lit and look up that row in this table.",
+          "ur": "Dekhein kaun sa LED steady on hai aur usi row ko is table mein dekhein."
+        },
+        {
+          "en": "Fix the cause in the matching row before resetting the unit.",
+          "ur": "Unit reset karne se pehle usi row ki wajah theek karein."
+        },
+        {
+          "en": "Reset by switching the front On/Off/Charger-only rocker off and on.",
+          "ur": "Front ke On/Off/Charger-only rocker ko off karke on karke reset karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.1 General error indications",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    },
+    {
+      "code": "LED-CHARGER-DEAD",
+      "aliases": [
+        "LED-CHARGER-DEAD",
+        "Charger does not operate"
+      ],
+      "title": {
+        "en": "Charger not operating",
+        "ur": "Charger kaam nahi kar raha"
+      },
+      "meaning": {
+        "en": "Several distinct causes: AC input out of range, the AC-in breaker or fuse open, the battery fuse blown, or heavy AC distortion (typically a generator).",
+        "ur": "Kai alag wajuhat: AC input range se bahar, AC-in breaker ya fuse khula hua, battery fuse ula hua, ya AC distortion zyada (aksar generator)."
+      },
+      "causes": [
+        {
+          "en": "AC input voltage or frequency outside the configured range",
+          "ur": "AC input voltage ya frequency configured range se bahar"
+        },
+        {
+          "en": "Circuit breaker or fuse in the AC-in input open after an overload",
+          "ur": "AC-in input ka circuit breaker ya fuse overload ke baad khul gaya"
+        },
+        {
+          "en": "Battery fuse has blown",
+          "ur": "Battery fuse ula hua hai"
+        },
+        {
+          "en": "AC input distortion or voltage too large, generally from a generator",
+          "ur": "AC input distortion ya voltage bohat zyada, aam tor par generator se"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "On 120 V Quattro confirm AC-in is 95-140 VAC and 45-65 Hz; on 230 V units use 185-265 VAC.",
+          "ur": "120 V Quattro par AC-in 95-140 VAC aur 45-65 Hz check karein; 230 V units par 185-265 VAC dekhein."
+        },
+        {
+          "en": "Isolate AC and DC, then check the AC-in breaker and the DC battery fuse with a continuity tester.",
+          "ur": "AC aur DC disconnect karke AC-in breaker aur DC battery fuse continuity tester se check karein."
+        },
+        {
+          "en": "Remove any overload or short on AC-out-1 or AC-out-2, then reset the fuse or breaker.",
+          "ur": "AC-out-1 ya AC-out-2 par overload ya short hata dein, phir fuse ya breaker reset karein."
+        },
+        {
+          "en": "Replace the battery fuse with the exact type and rating from the manual - never a bigger one.",
+          "ur": "Battery fuse manual wali exact type aur rating se badal dein - kabhi badi nahi."
+        },
+        {
+          "en": "If the supply is a generator, switch on 'Weak AC' and the dynamic current limiter in VEConfigure.",
+          "ur": "Agar supply generator hai to VEConfigure mein 'Weak AC' aur dynamic current limiter on karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.1 General error indications",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    }
+  ]
+}

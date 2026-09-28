@@ -1,0 +1,278 @@
+{
+  "schemaVersion": 1,
+  "brandId": "eaton",
+  "series": {
+    "id": "eaton-5p",
+    "name": "5P 650-1550 i (line-interactive UPS, tower/rack/wall)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*5P650*",
+      "*5P850*",
+      "*5P1150*",
+      "*5P1550*",
+      "*5P*iR*",
+      "*5P*AU*"
+    ],
+    "notes": "Line-interactive family. The gen-1 5P manual does NOT publish numeric A/F codes - it uses a short 'Operation status' text table that the LCD shows. Do not merge with SERIES 5 (5P Gen2) or with the 9PX table: 5P Gen2 adds explicit LED colours and beeper cadences and renames 'End of battery life' as 'Battery fault'."
+  },
+  "codes": [
+    {
+      "code": "Batteries disconnected",
+      "aliases": [
+        "Batteries disconnected",
+        "Battery disconnected"
+      ],
+      "title": {
+        "en": "Batteries disconnected",
+        "ur": "Batteries disconnected (battery nahi mil rahi)"
+      },
+      "meaning": {
+        "en": "The UPS does not recognise the internal batteries, so it has no battery backup.",
+        "ur": "UPS ko apni internal batteries nazar nahi aa rahi, is liye us ka koi battery backup nahi hai."
+      },
+      "causes": [
+        {
+          "en": "The internal battery harness connector is unplugged or not fully seated.",
+          "ur": "Internal battery harness connector nahi laga ya poori tarah seat nahi hua."
+        },
+        {
+          "en": "The battery pack has been pulled out during a previous service and not refitted.",
+          "ur": "Battery pack pichli service mein nikal kar wapas nahi lagaya gaya."
+        },
+        {
+          "en": "A battery connector pin is loose, corroded or broken, so the string reads as open.",
+          "ur": "Battery connector ka pin dhile, zang khaa ya toota hua hai, is liye string khuli nazar aati hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, unplug the mains and wait at least 5 minutes before touching the battery compartment.",
+          "ur": "UPS off karein, mains nikaal dein aur battery compartment chhoone se pehle kam az kam 5 minute intezaar karein."
+        },
+        {
+          "en": "Verify that all batteries are properly connected; push the connector firmly until it latches.",
+          "ur": "Check karein ke saari batteries theek se juri hain; connector ko latch hone tak mazbooti se push karein."
+        },
+        {
+          "en": "Measure the internal battery DC voltage with a DMM; an open circuit means the harness or a cell is dead.",
+          "ur": "DMM se internal battery ka DC voltage maarein; open circuit ka matlab hai ke harness ya koi cell mar chuka hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P UPS - Installation and user manual (620-00082-02-i)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-5p-ups/user-guides/eaton-5p-ups-installation-and-user-manual.pdf"
+      }
+    },
+    {
+      "code": "Overload",
+      "aliases": [
+        "Overload",
+        "5P Overload"
+      ],
+      "title": {
+        "en": "Overload (load above 105% of nominal)",
+        "ur": "Overload (load nominal ke 105% se zyada)"
+      },
+      "meaning": {
+        "en": "Power demand exceeds 105% of the UPS nominal capacity; the unit keeps running but may shut down if load increases.",
+        "ur": "Power demand UPS nominal capacity ke 105% se zyada hai; unit chalta rehta hai magar load barhne par band ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "More equipment is connected than the 5P is rated for.",
+          "ur": "5P ki rating se zyada equipment lagaya gaya hai."
+        },
+        {
+          "en": "A computer or air conditioner was added to the UPS without a load calculation.",
+          "ur": "Koi computer ya air conditioner load calculation ke baghair UPS par lagaya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off and unplug the output before disconnecting any load.",
+          "ur": "Koi bhi load disconnect karne se pehle UPS band karein aur output nikaal dein."
+        },
+        {
+          "en": "Remove some of the equipment from the UPS until the load percentage on the LCD is under 100%.",
+          "ur": "LCD par load percentage 100% se neeche aane tak UPS se kuch equipment nikaalte jayein."
+        },
+        {
+          "en": "Measure the output current with a clamp meter; if the load is permanently over 105%, move it to a larger UPS.",
+          "ur": "Clamp meter se output current maarein; agar load mustaqil 105% se upar hai to barhe UPS par le jaayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P UPS - Installation and user manual (620-00082-02-i)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-5p-ups/user-guides/eaton-5p-ups-installation-and-user-manual.pdf"
+      }
+    },
+    {
+      "code": "End of battery life",
+      "aliases": [
+        "End of battery life"
+      ],
+      "title": {
+        "en": "End of battery life (battery khatam)",
+        "ur": "End of battery life (battery ki umar khatam)"
+      },
+      "meaning": {
+        "en": "The batteries have reached end of life and can no longer give useful runtime.",
+        "ur": "Batteries end of life par aa chuki hain aur ab useful runtime nahi de sakti."
+      },
+      "causes": [
+        {
+          "en": "The battery string is aged beyond its design life and has lost capacity.",
+          "ur": "Battery string apni design life se zyada umar ke baad capacity khoyi chuki hai."
+        },
+        {
+          "en": "The batteries have been kept in a hot environment, which shortens their life by half per 10 degrees C above 25 C.",
+          "ur": "Batteries garmi mein rahi hain, jis se 25 C se 10 degree upar par har 10 degree par zindagi aadha ho jaati hai."
+        },
+        {
+          "en": "Repeated deep discharges have worn the cells out.",
+          "ur": "Baar baar gehri discharge ne cells ko kharab kiya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Record the alarm message and the UPS serial number before touching the battery.",
+          "ur": "Battery chhoone se pehle alarm message aur UPS serial number likh lein."
+        },
+        {
+          "en": "Contact your service representative for battery replacement, quoting the serial number.",
+          "ur": "Battery tabdeeli ke liye apne service representative se rabta karein aur serial number dein."
+        },
+        {
+          "en": "After replacement, apply utility power for at least 48 hours and run a battery test before relying on backup.",
+          "ur": "Tabdeeli ke baad kam az kam 48 ghante utility power dein aur backup par bharosa karne se pehle battery test chalayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P UPS - Installation and user manual (620-00082-02-i)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-5p-ups/user-guides/eaton-5p-ups-installation-and-user-manual.pdf"
+      }
+    },
+    {
+      "code": "Event",
+      "aliases": [
+        "Event",
+        "Remote Power OFF",
+        "RPO event"
+      ],
+      "title": {
+        "en": "Event (e.g. Remote Power OFF active)",
+        "ur": "Event (jaise Remote Power OFF active)"
+      },
+      "meaning": {
+        "en": "A UPS event has occurred. The manual's example is the RPO contact being activated, which shuts the UPS down and now prevents restart.",
+        "ur": "Koi UPS event ho gaya hai. Manual ka example hai ke RPO contact activate hua, jo UPS band karta hai aur ab restart nahi hone deta."
+      },
+      "causes": [
+        {
+          "en": "The Remote Power OFF (RPO) contact has been activated.",
+          "ur": "Remote Power OFF (RPO) contact activate ho gaya hai."
+        },
+        {
+          "en": "Another event such as a maintenance command or a remote shutdown was received.",
+          "ur": "Koi doosra event jaise maintenance command ya remote shutdown mila hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Set the contact back to its normal position (open, for a normally-closed RPO loop).",
+          "ur": "Contact ko us ki normal position par wapas set karein (normally-closed RPO loop ke liye open)."
+        },
+        {
+          "en": "Press the front-panel button to restart the UPS once the contact is released.",
+          "ur": "Contact chhodne ke baad UPS restart karne ke liye front panel ka button dabayein."
+        },
+        {
+          "en": "Investigate why the RPO was triggered (fire alarm loop, building system, accidental press) before clearing it.",
+          "ur": "RPO trigger hone ki wajah (fire alarm loop, building system, ghalti se dabana) jaan lein, phir clear karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P UPS - Installation and user manual (620-00082-02-i)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-5p-ups/user-guides/eaton-5p-ups-installation-and-user-manual.pdf"
+      }
+    },
+    {
+      "code": "UPS fault",
+      "aliases": [
+        "UPS fault",
+        "5P UPS fault"
+      ],
+      "title": {
+        "en": "UPS fault (internal fault)",
+        "ur": "UPS fault (andar ki kharabi)"
+      },
+      "meaning": {
+        "en": "The UPS has an internal fault and no longer protects the connected equipment.",
+        "ur": "UPS mein internal fault hai aur woh ab connected equipment ki protection nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "An internal power stage, relay, or control board failure.",
+          "ur": "Internal power stage, relay ya control board ki kharabi."
+        },
+        {
+          "en": "A failed battery or charger has dragged the internal rails out of range.",
+          "ur": "Kharab battery ya charger ne internal rails ko range se bahar kheench diya."
+        },
+        {
+          "en": "Input or output surge has damaged an internal component.",
+          "ur": "Input ya output surge ne koi internal component damage kar diya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note the alarm message and the UPS serial number, then contact your service representative.",
+          "ur": "Alarm message aur UPS serial number likh lein, phir apne service representative se rabta karein."
+        },
+        {
+          "en": "Do not leave the load on this unit: move it to a healthy UPS or a bypass-fed outlet in the meantime.",
+          "ur": "Load ko is unit par mat chhodein: us waqt use healthy UPS ya bypass-fed outlet par le jaayein."
+        },
+        {
+          "en": "Before any repair, switch off, unplug mains and disconnect the battery module with insulated tools.",
+          "ur": "Koi bhi tabdeeli se pehle UPS band karein, mains nikaal dein aur insulated tools se battery module disconnect karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P UPS - Installation and user manual (620-00082-02-i)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-5p-ups/user-guides/eaton-5p-ups-installation-and-user-manual.pdf"
+      }
+    }
+  ]
+}

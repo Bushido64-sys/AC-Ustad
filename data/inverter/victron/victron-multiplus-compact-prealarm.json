@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "brandId": "victron",
+  "series": {
+    "id": "victron-multiplus-compact-prealarm",
+    "name": "MultiPlus Compact — alarm LED pre-alarm indications 1-5 (3-LED unit)",
+    "category": "inverter",
+    "unitType": "off_grid_inverter",
+    "modelPatterns": [
+      "*MultiPlus Compact*",
+      "CMP12*",
+      "CMP24*",
+      "*MultiCompact*"
+    ],
+    "notes": "IMPORTANT SCOPING FINDING: the MultiPlus Compact has only THREE front LEDs (inverter, charger, alarm) and its manual contains NO VE.Bus 0-26 error code table and NO VE.Bus OK codes. The fault identification method is the numbered 'pre-alarm alternative 1-5' list in ch. 7 Troubleshooting. Do NOT cross-apply the MultiPlus 8-LED VE.Bus codes to a MultiPlus Compact - the LED hardware is physically different. Manual used: 12/2000/80-35 and 24/2000/50-50 230 V. The sibling manuals for 800/1200/1600 VA and the 120 V 2000 VA version carry the same pre-alarm 1-5 list."
+  },
+  "codes": [
+    {
+      "code": "PREALARM-1",
+      "aliases": [
+        "PREALARM-1",
+        "Pre-alarm alt. 1",
+        "Alarm LED flashes - DC input voltage low"
+      ],
+      "title": {
+        "en": "Pre-alarm 1 - DC input voltage low",
+        "ur": "Pre-alarm 1 - DC input voltage kam hai"
+      },
+      "meaning": {
+        "en": "The alarm LED is flashing because the DC input voltage is low. The inverter is warning before shutting down.",
+        "ur": "Alarm LED is liye flash kar raha hai kyunke DC input voltage kam hai. Inverter band hone se pehle warn kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Battery bank discharged",
+          "ur": "Battery bank khatam ho chuka hai"
+        },
+        {
+          "en": "Poor battery connection causing a voltage drop",
+          "ur": "Battery connection kharab jo voltage drop kar raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure battery voltage at the inverter terminals with the unit under load.",
+          "ur": "Unit load ke halat mein apne terminals par battery voltage nikaalein."
+        },
+        {
+          "en": "Charge the battery, then re-check the terminals for tightness and corrosion.",
+          "ur": "Battery charge karein, phir terminals ki tightness aur corrosion dobara check karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus Compact Manual - 12/2000/80-35, 24/2000/50-50 230V - ch. 7 Troubleshooting table",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-MultiPlus-Compact-2000-230V-EN-NL-FR-DE-ES.pdf"
+      }
+    },
+    {
+      "code": "PREALARM-2",
+      "aliases": [
+        "PREALARM-2",
+        "Pre-alarm alt. 2",
+        "Alarm LED flashes - ambient too hot"
+      ],
+      "title": {
+        "en": "Pre-alarm 2 - ambient temperature too high",
+        "ur": "Pre-alarm 2 - ambient temperature bohat zyada hai"
+      },
+      "meaning": {
+        "en": "The alarm LED is flashing because the ambient temperature is too high.",
+        "ur": "Alarm LED is liye flash kar raha hai kyunke ambient temperature bohat zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Unit installed in a hot, poorly ventilated room",
+          "ur": "Unit garam aur kam hawa wale kamre mein laga hua hai"
+        },
+        {
+          "en": "Load too high for the unit's thermal design",
+          "ur": "Load unit ke thermal design ke liye zyada hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Move the inverter to a cool, well-ventilated room with at least 10 cm clearance around it.",
+          "ur": "Inverter ko thande, hawa wale kamre mein le jayein jahan charon taraf 10 cm khali ho."
+        },
+        {
+          "en": "Never mount the unit directly above the batteries - move it away from them.",
+          "ur": "Unit ko kabhi batteries ke bilkul upar na lagayein - use batteries se door rakhein."
+        },
+        {
+          "en": "Reduce the connected load so it generates less internal heat.",
+          "ur": "Connected load kam karein taake andar kam garmi paida ho."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus Compact Manual - 12/2000/80-35, 24/2000/50-50 230V - ch. 7 Troubleshooting table",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-MultiPlus-Compact-2000-230V-EN-NL-FR-DE-ES.pdf"
+      }
+    },
+    {
+      "code": "PREALARM-3",
+      "aliases": [
+        "PREALARM-3",
+        "Pre-alarm alt. 3",
+        "Alarm LED flashes - overload"
+      ],
+      "title": {
+        "en": "Pre-alarm 3 - load above nominal",
+        "ur": "Pre-alarm 3 - load nominal se upar hai"
+      },
+      "meaning": {
+        "en": "The alarm LED is flashing because the connected load exceeds the inverter's nominal load.",
+        "ur": "Alarm LED is liye flash kar raha hai kyunke connected load inverter ke nominal load se zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Load connected above the inverter's nominal rating",
+          "ur": "Inverter ke nominal rating se upar load juri hui hai"
+        },
+        {
+          "en": "Several large appliances switched on together",
+          "ur": "Kai bhaari bartan aik saath on kar diye gaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the load current with a clamp meter and compare to the nameplate rating.",
+          "ur": "Clamp meter se load current nikaal kar nameplate rating se compare karein."
+        },
+        {
+          "en": "Reduce the load until the alarm LED stops flashing.",
+          "ur": "Load itna kam karein jab tak alarm LED band na ho jaye."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus Compact Manual - 12/2000/80-35, 24/2000/50-50 230V - ch. 7 Troubleshooting table",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-MultiPlus-Compact-2000-230V-EN-NL-FR-DE-ES.pdf"
+      }
+    },
+    {
+      "code": "PREALARM-4",
+      "aliases": [
+        "PREALARM-4",
+        "Pre-alarm alt. 4",
+        "Alarm LED flashes - DC ripple high"
+      ],
+      "title": {
+        "en": "Pre-alarm 4 - DC ripple above 1.25 Vrms",
+        "ur": "Pre-alarm 4 - DC ripple 1.25 Vrms se upar hai"
+      },
+      "meaning": {
+        "en": "Voltage ripple on the DC input exceeds 1.25 Vrms, so the battery cable run is too thin, too long or resistive.",
+        "ur": "DC input par voltage ripple 1.25 Vrms se zyada hai, is liye battery cable bahut patli, lambi ya resistance wala hai."
+      },
+      "causes": [
+        {
+          "en": "Battery cable too thin or too long for the current",
+          "ur": "Battery cable current ke liye bahut patli ya lambi hai"
+        },
+        {
+          "en": "Corroded or loose terminals adding resistance",
+          "ur": "Corrode ya dheele terminals jo resistance barha rahe hain"
+        },
+        {
+          "en": "Battery capacity too small for the load",
+          "ur": "Battery capacity load ke liye bahut kam hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the battery cables and terminals; clean and re-tighten every connection.",
+          "ur": "Battery cables aur terminals check karein; har connection saaf karke dobara tighten karein."
+        },
+        {
+          "en": "Measure DC ripple with a true RMS meter; it must stay below 1.25 Vrms.",
+          "ur": "True RMS meter se DC ripple nikaalein; ye 1.25 Vrms se neeche rehna chahiye."
+        },
+        {
+          "en": "Check whether battery capacity is sufficient and increase it if necessary.",
+          "ur": "Check karein ke battery capacity kaafi hai aur zaroorat ho to barha dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus Compact Manual - 12/2000/80-35, 24/2000/50-50 230V - ch. 7 Troubleshooting table",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-MultiPlus-Compact-2000-230V-EN-NL-FR-DE-ES.pdf"
+      }
+    },
+    {
+      "code": "PREALARM-5",
+      "aliases": [
+        "PREALARM-5",
+        "Pre-alarm alt. 5",
+        "Alarm LED flashes intermittently"
+      ],
+      "title": {
+        "en": "Pre-alarm 5 - low battery plus excessive load",
+        "ur": "Pre-alarm 5 - low battery aur bohat zyada load"
+      },
+      "meaning": {
+        "en": "The alarm LED flashes intermittently because low battery voltage and excessive load are occurring together.",
+        "ur": "Alarm LED baari baari flash karta hai kyunke low battery voltage aur bohat zyada load aik saath aa rahe hain."
+      },
+      "causes": [
+        {
+          "en": "Battery voltage low while a heavy load is running",
+          "ur": "Battery voltage kam hai jab bhaari load chal raha hai"
+        },
+        {
+          "en": "Bank capacity or cable gauge insufficient for the load",
+          "ur": "Bank capacity ya cable gauge load ke liye kaafi nahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Charge the batteries before investigating anything else.",
+          "ur": "Baqi sab dekhne se pehle batteries charge karein."
+        },
+        {
+          "en": "Reduce the load, or install batteries with a higher capacity.",
+          "ur": "Load kam karein, ya bade capacity ki batteries lagayein."
+        },
+        {
+          "en": "Use shorter and/or thicker battery cables.",
+          "ur": "Chhoti aur/or moti battery cables istemal karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus Compact Manual - 12/2000/80-35, 24/2000/50-50 230V - ch. 7 Troubleshooting table",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-MultiPlus-Compact-2000-230V-EN-NL-FR-DE-ES.pdf"
+      }
+    },
+    {
+      "code": "PREALARM-CUTOUT",
+      "aliases": [
+        "PREALARM-CUTOUT",
+        "Alarm LED is on",
+        "Inverter cut out after pre-alarm"
+      ],
+      "title": {
+        "en": "Alarm LED lit - inverter cut out after a pre-alarm",
+        "ur": "Alarm LED on - pre-alarm ke baad inverter cut out"
+      },
+      "meaning": {
+        "en": "The inverter did cut out following one of the pre-alarms above. The lit alarm LED means the shutdown has already happened.",
+        "ur": "Inverter upar wale kisi pre-alarm ke baad sach mein cut out ho gaya. Alarm LED ka on hona matlab band hone ki amal d ho chuki hai."
+      },
+      "causes": [
+        {
+          "en": "Any of pre-alarm 1-5 was allowed to continue until shutdown",
+          "ur": "Pre-alarm 1 se 5 mein se koi aik chalte rehne diya gaya aur band ho gaya"
+        },
+        {
+          "en": "Underlying cause not removed between restarts",
+          "ur": "Dobara on karne ke darmiyan asal wajah hatayi nahi gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Look up the matching pre-alarm 1-5 row and fix that specific cause first.",
+          "ur": "Pehle us pre-alarm 1 se 5 ki row dekhein jis wajah se ye hua, wohi masla theek karein."
+        },
+        {
+          "en": "Per the manual: disconnect DC loads from the batteries and AC loads from the inverter before testing.",
+          "ur": "Manual ke mutabiq: test karne se pehle batteries se DC loads aur inverter se AC loads disconnect karein."
+        },
+        {
+          "en": "Only then reset the unit by switching the front rocker off, waiting 4 s, and on again.",
+          "ur": "Uske baad front rocker off karke 4 second intezaar karein aur on karke unit reset karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus Compact Manual - 12/2000/80-35, 24/2000/50-50 230V - ch. 7 Troubleshooting table",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-MultiPlus-Compact-2000-230V-EN-NL-FR-DE-ES.pdf"
+      }
+    }
+  ]
+}

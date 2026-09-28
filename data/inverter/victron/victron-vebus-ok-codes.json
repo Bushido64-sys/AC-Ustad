@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "brandId": "victron",
+  "series": {
+    "id": "victron-vebus-ok-codes",
+    "name": "VE.Bus OK codes — non-fault status indications (Multi / Quattro family)",
+    "category": "inverter",
+    "unitType": "off_grid_inverter",
+    "modelPatterns": [
+      "*MultiPlus*",
+      "*Quattro*",
+      "*Multi*"
+    ],
+    "notes": "These are NOT faults. An OK code means THIS unit is healthy and can take part, but the system cannot start yet because one or more OTHER units in the group are in error. Wording is identical in the Quattro 120 V, MultiPlus 230 V and Quattro-II/MP-II 230 V manuals. Marked isFault: false / severity: info so the app never tells a customer to do something dangerous during a normal state."
+  },
+  "codes": [
+    {
+      "code": "OK-BULK-FLASH",
+      "aliases": [
+        "OK-BULK-FLASH",
+        "VE.Bus OK - bulk flashing",
+        "OK code inverter capable"
+      ],
+      "title": {
+        "en": "OK code - bulk LED flashing (inverter ready)",
+        "ur": "OK code - bulk LED flash (inverter tayyar hai)"
+      },
+      "meaning": {
+        "en": "This unit is healthy and CAN run as an inverter, but the system is held back because another unit is in error. Not a fault on this unit.",
+        "ur": "Ye unit theek hai aur inverter ki tarah chal sakta hai, magar system dusre unit ki error ki wajah se rukka hua hai. Ye is unit ki fault nahi hai."
+      },
+      "causes": [
+        {
+          "en": "A different unit in the same VE.Bus group is reporting an error",
+          "ur": "Usi VE.Bus group ka koi doosra unit error dikha raha hai"
+        },
+        {
+          "en": "The unit is not currently in inverter or charging operation",
+          "ur": "Unit abhi inverter ya charging mode mein nahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do NOT service this unit. Walk the group and find the unit NOT showing an OK code.",
+          "ur": "Is unit ki servicing na karein. Group mein ghoom kar woh unit dhoondein jo OK code nahi dikha raha."
+        },
+        {
+          "en": "On that unit read which alarm LED is lit and use the matching row in the LED indication series.",
+          "ur": "Us unit par dekhein kaun sa alarm LED on hai aur LED indication series ki us row ko dekhein."
+        },
+        {
+          "en": "Once the faulty unit is fixed this OK code disappears and the system starts normally.",
+          "ur": "Kharab unit theek hone par ye OK code ghayab ho jata hai aur system normal chal padta hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.3.1 VE.Bus OK codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    },
+    {
+      "code": "OK-FLOAT-FLASH",
+      "aliases": [
+        "OK-FLOAT-FLASH",
+        "VE.Bus OK - float flashing",
+        "OK code charger capable"
+      ],
+      "title": {
+        "en": "OK code - float LED flashing (charger ready)",
+        "ur": "OK code - float LED flash (charger tayyar hai)"
+      },
+      "meaning": {
+        "en": "This unit is healthy and CAN charge, but the system is held back because another unit is in error. Not a fault on this unit.",
+        "ur": "Ye unit theek hai aur charge kar sakta hai, magar system dusre unit ki error ki wajah se rukka hua hai. Ye is unit ki fault nahi hai."
+      },
+      "causes": [
+        {
+          "en": "A different unit in the same VE.Bus group is reporting an error",
+          "ur": "Usi VE.Bus group ka koi doosra unit error dikha raha hai"
+        },
+        {
+          "en": "The unit is not currently in inverter or charging operation",
+          "ur": "Unit abhi inverter ya charging mode mein nahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do NOT service this unit - it is reporting a healthy state.",
+          "ur": "Is unit ki servicing na karein - ye apni healthy state bata raha hai."
+        },
+        {
+          "en": "Find the unit in the group that is NOT showing an OK code; that is the one to investigate.",
+          "ur": "Group mein woh unit dhoondein jo OK code nahi dikha raha; usi ki investigation karein."
+        },
+        {
+          "en": "Note: the 'low battery' LED may show together with this code - that still does not block charging.",
+          "ur": "Yaad rakhein ke 'low battery' LED is code ke saath bhi aa sakta hai - phir bhi charging block nahi hoti."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Quattro Manual (firmware xxxx400 or higher) - ch. 7.3.1 VE.Bus OK codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Manual-Quattro-5k-10k-120V-(firmware-xxxx4xx)-EN-FR-ES.pdf"
+      }
+    }
+  ]
+}

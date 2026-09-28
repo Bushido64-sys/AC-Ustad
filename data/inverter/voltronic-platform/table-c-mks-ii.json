@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "brandId": "voltronic-platform",
+  "series": {
+    "id": "table-c-mks-ii",
+    "name": "Table C — Axpert MKS II 5KVA",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*MKS II*"
+    ],
+    "notes": "Faults 10/11/12 with MKS II meanings (10=PV over current, 11=PV over voltage, 12=DC/DC over current) — collides with older MKS service 11 and differs from Infini titles."
+  },
+  "codes": [
+    {
+      "code": "10",
+      "aliases": [
+        "10"
+      ],
+      "title": {
+        "en": "PV over current",
+        "ur": "PV par zyada current"
+      },
+      "meaning": {
+        "en": "PV input current over limit (MKS II meaning; InfiniSolar fault 10 = 'PV current over' — same idea, different title).",
+        "ur": "PV input current had se zyada (MKS II InfiniSolar 10 = 'PV current over')"
+      },
+      "causes": [
+        {
+          "en": "PV current above limit (array/short issue).",
+          "ur": "PV current had se zyada (array/short)"
+        },
+        {
+          "en": "PV array oversized with more parallel strings than the rating.",
+          "ur": "PV array zyada bada hai, rating se zyada parallel strings hain."
+        },
+        {
+          "en": "Water or dust causing leakage current in the DC wiring.",
+          "ur": "Paani ya dhool ki wajah se DC wiring mein leakage current hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the PV DC isolator, wait 5 minutes, then check the array strings for damaged panels, water or loose DC connectors.",
+          "ur": "Pehle PV DC isolator band karein, 5 minute ruk kar array strings check karein ke panels kharab, paani ya DC connectors dheele to nahin."
+        },
+        {
+          "en": "Confirm the array size is within the unit input rating; reduce parallel strings if it is oversized, then restart.",
+          "ur": "Check karein ke array size unit ki input rating ke andar hai; agar zyada bada hai to parallel strings kam kar ke restart karein."
+        },
+        {
+          "en": "If the fault returns with a correct array, have the DC input stage checked at the service centre.",
+          "ur": "Sahi array ke sath bhi fault wapas aaye, to DC input stage ko service centre se check karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert MKS II 5KVA manual-20190703 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20MKS%20II%205KVA%20manual-20190703.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Roadmap said Table A has fault 10 — true for MKS II/MKS III, **not** for official VM III (01–09 only). Platform reference entry (table source SRC-MKSII). Local brand rows may match but keep brand code space separate.",
+        "ur": "Roadmap mein likha tha Table A mein fault 10 hai — yeh MKS II/MKS III ke liye sahi hai, official VM III ke liye **nahin** (01–09 only). Yeh platform ka reference entry hai (table source SRC-MKSII). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; continuous buzzer."
+    },
+    {
+      "code": "11",
+      "aliases": [
+        "11"
+      ],
+      "title": {
+        "en": "PV over voltage",
+        "ur": "PV par zyada voltage"
+      },
+      "meaning": {
+        "en": "PV input voltage over limit (MKS II).",
+        "ur": "PV input voltage had se zyada (MKS II)"
+      },
+      "causes": [
+        {
+          "en": "PV string Voc too high (too many modules in series).",
+          "ur": "PV string Voc zyada (series mein modules zyada)."
+        },
+        {
+          "en": "Cold morning Voc rise pushed the string above the limit.",
+          "ur": "Thandi subah Voc badal kar string ko limit se upar le gaya."
+        },
+        {
+          "en": "Wrong array specification selected for this model.",
+          "ur": "Is model ke liye ghalat array specification choose ki gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the PV DC isolator before touching any DC cable, then measure the string Voc with a meter.",
+          "ur": "DC cable chhoone se pehle PV DC isolator band karein, phir meter se string ka Voc naapein."
+        },
+        {
+          "en": "Reduce the number of PV modules in series so the Voc stays within the unit limit, then power up and retest.",
+          "ur": "Voc unit ki limit ke andar rahe ke liye series mein PV modules ki tadad kam kar ke unit on kar ke dobara test karein."
+        },
+        {
+          "en": "Check panels for damage and connectors for burning; replace any faulty panel or connector before re-energising.",
+          "ur": "Panels mein kharabi aur connectors mein jalne ke nishan check karein; dobara power se pehle kharab panel ya connector badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert MKS II 5KVA manual-20190703 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20MKS%20II%205KVA%20manual-20190703.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "COLLISION: older MKS service fault 11 = 'Main relay failed' (SRC-MKSSVC); InfiniSolar fault 11 = 'PV voltage over' (same as MKS II). Platform reference entry (table source SRC-MKSII). Local brand rows may match but keep brand code space separate.",
+        "ur": "COLLISION: purane MKS service fault 11 = 'Main relay failed' (SRC-MKSSVC); InfiniSolar fault 11 = 'PV voltage over' (MKS II ke jaisa hi). Yeh platform ka reference entry hai (table source SRC-MKSII). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; continuous buzzer."
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12"
+      ],
+      "title": {
+        "en": "DC/DC over current",
+        "ur": "DC/DC par zyada current"
+      },
+      "meaning": {
+        "en": "DC/DC stage over-current (MKS II; InfiniSolar fault 12 = 'Charge current over').",
+        "ur": "DC/DC stage par over-current (MKS II; InfiniSolar fault 12 = 'Charge current over')."
+      },
+      "causes": [
+        {
+          "en": "DC/DC over current or surge.",
+          "ur": "DC/DC over current ya surge."
+        },
+        {
+          "en": "Battery bank too small for the charge current.",
+          "ur": "Charge current ke muqable battery bank chhota hai."
+        },
+        {
+          "en": "DC/DC stage component degraded over time.",
+          "ur": "DC/DC stage ka component waqt ke sath kamzor ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV, then check the battery bank size and wiring — a small bank or loose DC link causes the over-current.",
+          "ur": "AC input aur PV alag kar ke battery bank ki size aur wiring check karein — chhota bank ya dheela DC link over-current la sakta hai."
+        },
+        {
+          "en": "Measure the battery voltage and DC link with a meter after reconnecting, restart the unit and watch the current.",
+          "ur": "Dobara connect kar ke meter se battery voltage aur DC link naapein, unit restart karein aur current par nazar rakhein."
+        },
+        {
+          "en": "If the fault repeats with a correct battery and array, the DC/DC stage needs service — return the unit to the repair centre.",
+          "ur": "Sahi battery aur array ke sath bhi fault dobara aaye, to DC/DC stage ki service zaroori hai — unit ko repair centre le jayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Voltronic Power Axpert MKS II 5KVA manual-20190703 (official)",
+        "url": "https://voltronicpower.com/content/download/Manual/Axpert%20MKS%20II%205KVA%20manual-20190703.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Title differs from InfiniSolar 12. Platform reference entry (table source SRC-MKSII). Local brand rows may match but keep brand code space separate.",
+        "ur": "Yeh title InfiniSolar 12 se alag hai. Yeh platform ka reference entry hai (table source SRC-MKSII). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; continuous buzzer."
+    }
+  ]
+}

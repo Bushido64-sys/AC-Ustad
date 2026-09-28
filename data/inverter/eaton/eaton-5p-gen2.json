@@ -1,0 +1,488 @@
+{
+  "schemaVersion": 1,
+  "brandId": "eaton",
+  "series": {
+    "id": "eaton-5p-gen2",
+    "name": "5P Gen2 (line-interactive UPS, tower and rack models 550-3000 VA class)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*5P*G2*",
+      "*5P*IG2*",
+      "*5P*TG2*",
+      "*5P*RT*G2*",
+      "*5PX*G2*"
+    ],
+    "notes": "Generation 2 of the 5P line-interactive family. No numeric A/F codes in the manual - named LCD conditions with LED colour/on-off and beeper cadence. Differences from gen-1 5P (SERIES 4): overload threshold is '>100% of nominal' here vs '>105%' in gen 1; 'End of battery life' is renamed 'Battery fault'; overtemperature now says the UPS 'shuts down' if temperature rises another 10 degrees C (gen 1 9PX wording says 'transfers to Bypass mode or shuts down if Bypass is unusable'); RPO is a separate named cause. Treat gen 1 and gen 2 as separate lookups."
+  },
+  "codes": [
+    {
+      "code": "Battery mode",
+      "aliases": [
+        "Battery mode",
+        "5P Gen2 Battery mode LED On"
+      ],
+      "title": {
+        "en": "Battery mode (UPS running on battery)",
+        "ur": "Battery mode (UPS battery par chal raha hai)"
+      },
+      "meaning": {
+        "en": "A utility failure has occurred and the UPS is in battery mode, powering the equipment from its batteries.",
+        "ur": "Utility failure hua hai aur UPS battery mode mein hai, equipment ko apni batteries se power de raha hai."
+      },
+      "causes": [
+        {
+          "en": "The utility supply has failed or is outside the transfer window.",
+          "ur": "Utility supply chala gaya hai ya transfer range se bahar hai."
+        },
+        {
+          "en": "The user has deliberately selected battery mode from the panel.",
+          "ur": "User ne panel se jaanbujhkar battery mode select kiya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Save your work and prepare your equipment for shutdown, because runtime is limited.",
+          "ur": "Apna kaam bacha lein aur equipment ko shutdown ke liye tayyar karein, kyunke runtime mehdud hai."
+        },
+        {
+          "en": "Read the remaining runtime and battery level on the front panel display.",
+          "ur": "Front panel display par baaqi runtime aur battery level parhein."
+        },
+        {
+          "en": "When mains returns, confirm the unit is back on mains and the battery is charging.",
+          "ur": "Mains wapas aane par confirm karein ke unit mains par wapas aa gaya hai aur battery charge ho rahi hai."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "LED solid On, 1 beep every 10 seconds",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P Gen2 UPS - user manual, rack models (DSD-5P2208)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/5P-Gen2-UPS---EMEA/eaton-5p-gen2-ups-emea-resources/eaton-5pgen2-rack-user-manual-en-us.pdf"
+      }
+    },
+    {
+      "code": "Battery low",
+      "aliases": [
+        "Battery low",
+        "5P Gen2 Battery low LED On"
+      ],
+      "title": {
+        "en": "Battery low (low runtime warning)",
+        "ur": "Battery low (runtime khatam hone wali hai)"
+      },
+      "meaning": {
+        "en": "The UPS is in battery mode and the battery is running low. The manual warns this can appear before 20% capacity.",
+        "ur": "UPS battery mode mein hai aur battery low ho rahi hai. Manual kehti hai ke ye 20% capacity se pehle aa sakti hai."
+      },
+      "causes": [
+        {
+          "en": "The outage has lasted long enough to reach the low-charge warning level.",
+          "ur": "Outage itni der rahi ke low-charge warning level aa gaya."
+        },
+        {
+          "en": "The battery string is aged and holds less charge than rated.",
+          "ur": "Battery string purani hai aur rated se kam charge rakhti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down non-essential equipment now to stretch the remaining runtime.",
+          "ur": "Baaqi runtime barhane ke liye abhi ghair zaroori equipment band kar dein."
+        },
+        {
+          "en": "Read the actual remaining runtime on the display; the manual warns the estimate varies with load and EBM count.",
+          "ur": "Display par asal baaqi runtime parhein; manual kehti hai ke estimate load aur EBM tadaad ke saath badalti hai."
+        },
+        {
+          "en": "Once mains returns, give the UPS 48 hours of utility power to restore full charge.",
+          "ur": "Mains wapas aane par UPS ko poori charge ke liye 48 ghante utility power dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "LED solid On, 1 beep every 3 seconds",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P Gen2 UPS - user manual, rack models (DSD-5P2208)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/5P-Gen2-UPS---EMEA/eaton-5p-gen2-ups-emea-resources/eaton-5pgen2-rack-user-manual-en-us.pdf"
+      }
+    },
+    {
+      "code": "No battery",
+      "aliases": [
+        "No battery",
+        "5P Gen2 No battery LED On"
+      ],
+      "title": {
+        "en": "No battery (batteries disconnected)",
+        "ur": "No battery (batteries disconnect hain)"
+      },
+      "meaning": {
+        "en": "The batteries are disconnected, so the UPS has no battery backup at all.",
+        "ur": "Batteries disconnect hain, is liye UPS ka koi battery backup nahi hai."
+      },
+      "causes": [
+        {
+          "en": "The internal battery connector is unplugged or not fully seated.",
+          "ur": "Internal battery connector nahi laga ya poori tarah seat nahi hua."
+        },
+        {
+          "en": "An EBM power connector or its battery detection connector is unplugged.",
+          "ur": "EBM ka power connector ya us ka battery detection connector nahi laga hua."
+        },
+        {
+          "en": "A battery harness pin is loose, corroded or broken.",
+          "ur": "Battery harness ka pin dhile, zang khaa ya toota hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, unplug the mains and wait at least 5 minutes before opening the battery bay.",
+          "ur": "UPS band karein, mains nikaal dein aur battery bay kholne se pehle kam az kam 5 minute intezaar karein."
+        },
+        {
+          "en": "Verify that all batteries are properly connected; push every connector firmly until it clicks into place.",
+          "ur": "Check karein ke saari batteries theek se juri hain; har connector ko click hone tak mazbooti se push karein."
+        },
+        {
+          "en": "Measure battery DC voltage with a DMM; if the condition persists, contact your service representative.",
+          "ur": "DMM se battery DC voltage maarein; agar masla barqarar rahe to apne service representative se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "LED solid On, continuous beep",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P Gen2 UPS - user manual, rack models (DSD-5P2208)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/5P-Gen2-UPS---EMEA/eaton-5p-gen2-ups-emea-resources/eaton-5pgen2-rack-user-manual-en-us.pdf"
+      }
+    },
+    {
+      "code": "Battery fault",
+      "aliases": [
+        "Battery fault",
+        "5P Gen2 Battery fault LED On"
+      ],
+      "title": {
+        "en": "Battery fault (battery test failed)",
+        "ur": "Battery fault (battery test fail ho gaya)"
+      },
+      "meaning": {
+        "en": "The battery test failed because of bad or disconnected batteries. On 5P Gen2 this row replaces the gen-1 wording 'End of battery life'.",
+        "ur": "Battery test fail ho gaya kyunke batteries kharab ya disconnect hain. 5P Gen2 par is row ne gen-1 ke 'End of battery life' ki jagah li hai."
+      },
+      "causes": [
+        {
+          "en": "The battery cells are dead, shorted, or the string is at end of life.",
+          "ur": "Battery cells mar chuke hain, short hain, ya string end of life par hai."
+        },
+        {
+          "en": "A battery is disconnected, so the test fails before it can complete.",
+          "ur": "Koi battery disconnect hai, is liye test poora hone se pehle fail ho jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify that all batteries are properly connected, with the UPS off and mains unplugged.",
+          "ur": "UPS band karke aur mains nikal kar check karein ke saari batteries theek se juri hain."
+        },
+        {
+          "en": "Measure each cell voltage with a DMM; replace the string as a set if the readings are unequal or low.",
+          "ur": "DMM se har cell ka voltage maarein; readings barabar na hon ya kam hon to poori string set ke taur par replace karein."
+        },
+        {
+          "en": "If the condition persists after reconnection, contact your service representative for battery replacement.",
+          "ur": "Dohasne ke baad bhi masla barqarar rahe to battery tabdeeli ke liye apne service representative se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "LED solid On, continuous beep",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P Gen2 UPS - user manual, rack models (DSD-5P2208)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/5P-Gen2-UPS---EMEA/eaton-5p-gen2-ups-emea-resources/eaton-5pgen2-rack-user-manual-en-us.pdf"
+      }
+    },
+    {
+      "code": "The UPS does not provide the expected backup time",
+      "aliases": [
+        "The UPS does not provide the expected backup time",
+        "5P Gen2 short runtime"
+      ],
+      "title": {
+        "en": "Short runtime (expected backup not achieved)",
+        "ur": "Backup time itni kam hai jitni umeed thi nahi"
+      },
+      "meaning": {
+        "en": "The UPS does not give the rated runtime on discharge; the batteries need charging or service.",
+        "ur": "UPS discharge par rated runtime nahi deta; batteries ko charging ya servicing chahiye."
+      },
+      "causes": [
+        {
+          "en": "The batteries are not fully charged (new unit or long time unused).",
+          "ur": "Batteries poori tarah charge nahi hain (naya unit ya lambi der se istemal nahi)."
+        },
+        {
+          "en": "The battery string has aged and lost capacity.",
+          "ur": "Battery string purani ho chuki hai aur capacity khoyi hai."
+        },
+        {
+          "en": "The connected load is higher than the rating used to calculate the expected runtime.",
+          "ur": "Connected load un rating se zyada hai jis se expected runtime nikala gaya tha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Apply utility power for 48 hours to charge the batteries, then retest.",
+          "ur": "Batteries charge karne ke liye 48 ghante utility power dein, phir dobara test karein."
+        },
+        {
+          "en": "Measure the actual output current with a clamp meter and compare with the manual's runtime table.",
+          "ur": "Clamp meter se asal output current maarein aur manual ke runtime table se tulna karein."
+        },
+        {
+          "en": "If runtime is still short after 48 hours of charging, contact your service representative.",
+          "ur": "48 ghante charging ke baad bhi runtime kam ho to apne service representative se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P Gen2 UPS - user manual, rack models (DSD-5P2208)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/5P-Gen2-UPS---EMEA/eaton-5p-gen2-ups-emea-resources/eaton-5pgen2-rack-user-manual-en-us.pdf"
+      }
+    },
+    {
+      "code": "Power Overload",
+      "aliases": [
+        "Power Overload",
+        "5P Gen2 Power Overload LED On"
+      ],
+      "title": {
+        "en": "Power Overload (load above UPS capacity)",
+        "ur": "Power Overload (load UPS capacity se zyada)"
+      },
+      "meaning": {
+        "en": "Power requirements exceed the UPS capacity (greater than 100% of nominal). The alarm resets by itself once the condition becomes inactive.",
+        "ur": "Power requirements UPS capacity se zyada hain (nominal ke 100% se zyada). Shart hatne par alarm khud ba khud reset ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "More equipment is connected than the 5P Gen2 is rated for.",
+          "ur": "5P Gen2 ki rating se zyada equipment lagaya gaya hai."
+        },
+        {
+          "en": "A large inrush device such as an air conditioner or motor was switched on.",
+          "ur": "Koi bada inrush device jaise air conditioner ya motor on kiya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Remove some of the equipment from the UPS until the load percentage on the display is back under the limit.",
+          "ur": "Display par load percentage limit ke andar aane tak UPS se kuch equipment nikaalte jayein."
+        },
+        {
+          "en": "Check the specific output overload ranges under \"User Settings\" for your model before deciding.",
+          "ur": "Faisla karne se pehle apne model ke \"User Settings\" mein diye gaye khaas output overload ranges check karein."
+        },
+        {
+          "en": "Confirm the alarm clears by itself; if it does not, disconnect the output and recheck the load with a clamp meter.",
+          "ur": "Confirm karein ke alarm khud clear ho jata hai; agar na ho to output disconnect karke clamp meter se dobara load check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "LED solid On (manual does not state a beeper cadence for this row)",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P Gen2 UPS - user manual, rack models (DSD-5P2208)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/5P-Gen2-UPS---EMEA/eaton-5p-gen2-ups-emea-resources/eaton-5pgen2-rack-user-manual-en-us.pdf"
+      }
+    },
+    {
+      "code": "UPS overtemperature",
+      "aliases": [
+        "UPS overtemperature",
+        "5P Gen2 UPS overtemperature LED On"
+      ],
+      "title": {
+        "en": "UPS overtemperature (internal too hot)",
+        "ur": "UPS overtemperature (andar bohat garm)"
+      },
+      "meaning": {
+        "en": "The internal temperature is too high or a fan has failed. At warning level the UPS stays in its current state; another 10 degrees C rise shuts it down.",
+        "ur": "Andar ka temperature bohat zyada hai ya fan kharab ho gaya hai. Warning level par UPS apni halaat mein rehta hai; 10 degree C aur izafa hone par band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "A fan has failed and heat is building inside the unit.",
+          "ur": "Fan kharab ho gaya hai aur unit ke andar garmi jama ho rahi hai."
+        },
+        {
+          "en": "Vents are blocked or airflow around the unit is restricted.",
+          "ur": "Vents band hain ya unit ke gird ka airflow band hai."
+        },
+        {
+          "en": "The surrounding temperature is above the model's operating range (0 to 40 degrees C).",
+          "ur": "Gird ka temperature model ke operating range (0 se 40 degree C) se zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clear vents and remove any heat sources. Allow the UPS to cool.",
+          "ur": "Vents saaf karein aur heat source hata dein. UPS ko thanda hone dein."
+        },
+        {
+          "en": "Ensure the airflow around the UPS is not restricted; keep at least the manual's clearance on all sides.",
+          "ur": "UPS ke gird ka airflow band na ho; har taraf manual ki clearance rakhein."
+        },
+        {
+          "en": "Measure ambient temperature with a thermometer; if it is above 40 degrees C, fix the room cooling first, then check the fan.",
+          "ur": "Thermometer se ambient temperature maarein; 40 degree C se zyada ho to pehle room cooling theek karein, phir fan check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "LED solid On, 1 beep every 3 seconds",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P Gen2 UPS - user manual, rack models (DSD-5P2208)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/5P-Gen2-UPS---EMEA/eaton-5p-gen2-ups-emea-resources/eaton-5pgen2-rack-user-manual-en-us.pdf"
+      }
+    },
+    {
+      "code": "The UPS does not start (input source not connected correctly)",
+      "aliases": [
+        "The UPS does not start (input source not connected correctly)",
+        "5P Gen2 UPS does not start"
+      ],
+      "title": {
+        "en": "UPS does not start - input not connected",
+        "ur": "UPS start nahi ho raha - input connect nahi"
+      },
+      "meaning": {
+        "en": "The input source is not connected correctly, so the UPS will not start.",
+        "ur": "Input source theek se connect nahi hai, is liye UPS start nahi hota."
+      },
+      "causes": [
+        {
+          "en": "The mains input cable is loose or not fully pushed into the inlet.",
+          "ur": "Mains input cable dhili hai ya inlet mein poori tarah nahi lagi."
+        },
+        {
+          "en": "The input breaker or the input protection fuse has tripped.",
+          "ur": "Input breaker ya input protection fuse trip ho chuka hai."
+        },
+        {
+          "en": "The battery connection is also open, so the unit refuses to start.",
+          "ur": "Battery connection bhi khuli hai, is liye unit start karne se inkaar karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the input and battery connections as the manual directs, with the UPS switched off.",
+          "ur": "Manual ke mutabiq UPS band karte hue input aur battery connections check karein."
+        },
+        {
+          "en": "Measure mains voltage at the input inlet with a DMM and confirm the input breaker is closed.",
+          "ur": "DMM se input inlet par mains voltage maarein aur confirm karein ke input breaker band hai."
+        },
+        {
+          "en": "Reseat the battery connector firmly, then retry the start from the front panel.",
+          "ur": "Battery connector ko mazbooti se dobara baitha dein, phir front panel se dobara start karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P Gen2 UPS - user manual, rack models (DSD-5P2208)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/5P-Gen2-UPS---EMEA/eaton-5p-gen2-ups-emea-resources/eaton-5pgen2-rack-user-manual-en-us.pdf"
+      }
+    },
+    {
+      "code": "The UPS does not start (RPO active / connector missing)",
+      "aliases": [
+        "The UPS does not start (RPO active / connector missing)",
+        "RPO active",
+        "Remote Power Off active"
+      ],
+      "title": {
+        "en": "UPS does not start - RPO active",
+        "ur": "UPS start nahi ho raha - RPO active hai"
+      },
+      "meaning": {
+        "en": "The Remote Power Off switch is active or the RPO connector is missing, which is preventing restart.",
+        "ur": "Remote Power Off switch active hai ya RPO connector missing hai, jis ki wajah se restart nahi ho raha."
+      },
+      "causes": [
+        {
+          "en": "The RPO wall switch or contact has been pressed/closed.",
+          "ur": "RPO wall switch ya contact press/band kar diya gaya hai."
+        },
+        {
+          "en": "The RPO connector is not plugged into its terminal at all.",
+          "ur": "RPO connector apne terminal par lagaya hi nahi gaya."
+        },
+        {
+          "en": "A building/fire-alarm contact wired to RPO has closed.",
+          "ur": "RPO se juri building/fire-alarm contact band ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If the UPS Status menu displays the \"Remote Power Off\" notice, deactivate the RPO input.",
+          "ur": "Agar UPS Status menu par \"Remote Power Off\" ka notice aaye to RPO input deactivate karein."
+        },
+        {
+          "en": "Measure the RPO terminal pair with a DMM; it must be open for the unit to be allowed to run.",
+          "ur": "DMM se RPO terminal pair check karein; unit ko chalne dene ke liye ye open hona chahiye."
+        },
+        {
+          "en": "Find out why RPO was activated before you clear it, then restart from the front panel.",
+          "ur": "Clear karne se pehle dekhein ke RPO kyun activate hua, phir front panel se restart karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 5P Gen2 UPS - user manual, rack models (DSD-5P2208)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/5P-Gen2-UPS---EMEA/eaton-5p-gen2-ups-emea-resources/eaton-5pgen2-rack-user-manual-en-us.pdf"
+      }
+    }
+  ]
+}

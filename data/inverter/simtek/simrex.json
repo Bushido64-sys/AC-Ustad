@@ -1,0 +1,2156 @@
+{
+  "schemaVersion": 1,
+  "brandId": "simtek",
+  "series": {
+    "id": "simrex",
+    "name": "SIMREX hybrid 6KW-48V / PV-7000 Twin",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*SIMREX*",
+      "*PV-7000*",
+      "*7000*TW*"
+    ],
+    "notes": "Official SIMREX manual: warning + fault + parallel + BMS tables. Numeric warnings W-prefixed; BMS 60/71 BMS-prefixed on collision."
+  },
+  "codes": [
+    {
+      "code": "01",
+      "aliases": [
+        "01"
+      ],
+      "title": {
+        "en": "Fan is locked",
+        "ur": "Pankha band hai"
+      },
+      "meaning": {
+        "en": "Cooling fan not turning (fault).",
+        "ur": "Pankha ghoom nahin raha (kharabi)"
+      },
+      "causes": [
+        {
+          "en": "Fan seized, foreign object, failed fan",
+          "ur": "Pankha atka / kharab"
+        },
+        {
+          "en": "Fan connector loose or supply wire broken.",
+          "ur": "Fan ka connection dheela ya supply wire tooti hui hai."
+        },
+        {
+          "en": "Main board fan driver circuit failed.",
+          "ur": "Main board ka fan driver circuit kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC input and PV, open the DC breaker and wait 5 minutes; open the cover and look for dust or an object blocking the fan.",
+          "ur": "AC input aur PV band karein, DC breaker kholein aur 5 minute intezar karein; cover khol kar dekhein ke dhool ya koi cheez pankha rok rahi hai."
+        },
+        {
+          "en": "With power isolated, spin the fan by hand — it must turn freely; check the fan plug on the board for a loose fit or burn marks.",
+          "ur": "Power band hone ke baad pankha haath se ghuma kar dekhein — azaadi se ghumna chahiye; board par fan ka plug dheela ya jale hue nishan to nahin, yeh check karein."
+        },
+        {
+          "en": "If the fan is stuck or does not run, replace it with the same size fan and restart the unit to retest.",
+          "ur": "Agar pankha phans gaya hai ya chal nahin raha, to usi size ka naya fan lagayein aur unit restart kar ke dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "SIMRON fault 01 text: Fan is locked when inverter is off.",
+        "ur": "SIMRON fault 01 ka text: jab inverter off ho tab fan locked hai."
+      }
+    },
+    {
+      "code": "02",
+      "aliases": [
+        "02"
+      ],
+      "title": {
+        "en": "Over temperature (fault)",
+        "ur": "zyada darja hararat (kharabi)"
+      },
+      "meaning": {
+        "en": "Inverter component temperature over 100C.",
+        "ur": "Inverter component ki temperature 100C se zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Blocked airflow, ambient too high, dirty filters",
+          "ur": "Hawa ka rasta band, mahol ki temperature zyada, filters gande."
+        },
+        {
+          "en": "Cooling fan not running or running too slow.",
+          "ur": "Cooling fan chal nahin raha ya bohat dheere chal raha hai."
+        },
+        {
+          "en": "Temperature sensor (NTC) reading wrong.",
+          "ur": "Temperature sensor (NTC) ghalat reading de raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC input and PV and let the unit cool for 10–15 minutes; clear blocked vents and clean dust from filters and heat sinks.",
+          "ur": "AC input aur PV band kar ke unit ko 10-15 minute thanda hone dein; band vents kholein aur filters aur heat sinks se dhool saaf karein."
+        },
+        {
+          "en": "Restart with a lighter load and listen that the cooling fan runs; also check the room ambient is not too hot.",
+          "ur": "Halka load kar ke restart karein aur sun kar dekhein ke cooling fan chal raha hai; kamre ka temperature bhi zyada to nahin, yeh check karein."
+        },
+        {
+          "en": "If the trip returns with clear airflow, the fan or temperature sensor is faulty — have the board checked at the repair centre.",
+          "ur": "Hawa saaf hone ke baad bhi trip wapas aaye, to pankha ya temperature sensor kharab hai — board ko repair centre se check karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "03",
+      "aliases": [
+        "03"
+      ],
+      "title": {
+        "en": "Battery voltage is too high",
+        "ur": "battery voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "Battery over-charged / voltage above safe limit.",
+        "ur": "battery zyada charge / voltage had se zyada"
+      },
+      "causes": [
+        {
+          "en": "Wrong battery spec/quantity, charger fault, wrong settings",
+          "ur": "ghalat battery ya charger"
+        },
+        {
+          "en": "Charger full-charge voltage set higher than needed.",
+          "ur": "Charger ka full-charge voltage zaroorat se zyada set hai."
+        },
+        {
+          "en": "Battery cell weak or internally shorted.",
+          "ur": "Battery cell kamzor ya andar se short hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC input and PV, then measure the battery voltage with a meter and compare it with the battery specification.",
+          "ur": "AC input aur PV band kar ke meter se battery voltage naapein aur battery specification se compare karein."
+        },
+        {
+          "en": "Check the number of battery units and the charger full-charge setting; correct the setting or quantity if they are wrong.",
+          "ur": "Battery units ki tadad aur charger ka full-charge setting check karein; setting ya tadad ghalat ho to theek karein."
+        },
+        {
+          "en": "If the voltage is still too high with correct settings, return the unit to the repair centre.",
+          "ur": "Sahi settings ke baad bhi voltage zyada rahe, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "05",
+      "aliases": [
+        "05"
+      ],
+      "title": {
+        "en": "Output is short circuited",
+        "ur": "output short circuit"
+      },
+      "meaning": {
+        "en": "AC output short circuit detected; unit stops output.",
+        "ur": "AC output short circuit ho gaya, output band."
+      },
+      "causes": [
+        {
+          "en": "Wiring fault, appliance short, abnormal load",
+          "ur": "wiring kharabi ya load short"
+        },
+        {
+          "en": "Damaged appliance creating the short on the output.",
+          "ur": "Kharab appliance output par short bana raha hai."
+        },
+        {
+          "en": "Moisture or a loose joint in the output wiring.",
+          "ur": "Output wiring mein pani (moisture) ya dheela joint hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Stop the unit and isolate AC input and PV at once — never probe a short while the output is live.",
+          "ur": "Unit rok dein aur foran AC input aur PV alag karein — output chalte hue short par kabhi probe na karein."
+        },
+        {
+          "en": "With supply isolated, check the output wiring and each appliance for burn marks or wet joints; unplug the suspect load.",
+          "ur": "Supply band kar ke output wiring aur har appliance check karein ke jale hue nishan ya geele joints to nahin; shak wala load plug se nikaal dein."
+        },
+        {
+          "en": "Repair the wiring or remove the faulty appliance, then restart; if the code returns, the output stage needs service.",
+          "ur": "Wiring theek karein ya kharab appliance hatayein, phir restart karein; code wapas aaye to output stage ki service zaroori hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "06",
+      "aliases": [
+        "06"
+      ],
+      "title": {
+        "en": "Output voltage is abnormal",
+        "ur": "output voltage ghair mamooli"
+      },
+      "meaning": {
+        "en": "Output abnormal; troubleshooting: inverter voltage <190Vac or >260Vac.",
+        "ur": "output voltage had se bahar (<190V ya >260V)"
+      },
+      "causes": [
+        {
+          "en": "Overload dragging voltage, internal output stage fault",
+          "ur": "load ya andaruni kharabi"
+        },
+        {
+          "en": "Heavy load dragging the output voltage out of the band.",
+          "ur": "Bhari load output voltage ko band se bahar kheench raha hai."
+        },
+        {
+          "en": "Loose output terminal or a high-resistance joint.",
+          "ur": "Output terminal dheela hai ya joint par zyada resistance hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load and restart, then measure the AC output with a multimeter to see whether it stays in the 190–260Vac band.",
+          "ur": "Load kam kar ke restart karein, phir multimeter se AC output naapein ke woh 190-260Vac band ke andar rahta hai ya nahin."
+        },
+        {
+          "en": "With supply isolated, check the output terminals and wiring for looseness or burn marks.",
+          "ur": "Supply alag kar ke output terminals aur wiring check karein ke dheela ya jale hue nishan to nahin."
+        },
+        {
+          "en": "If the output is still outside the band with a light load, return the unit to the repair centre.",
+          "ur": "Halke load par bhi output band se bahar rahe, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Conflicts with SIMRON fault 06 wording Output voltage is too high.",
+        "ur": "Isay SIMRON fault 06 ki wording 'Output voltage is too high' se conflict hai."
+      }
+    },
+    {
+      "code": "07",
+      "aliases": [
+        "07"
+      ],
+      "title": {
+        "en": "Overload time out",
+        "ur": "Over load timeout"
+      },
+      "meaning": {
+        "en": "Overload at 110% and timer expired; inverter shut down.",
+        "ur": "110% par overload aur timer khatam; inverter band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Load exceeds capacity for too long",
+          "ur": "Load capacity se zyada hai aur yeh haal der tak raha."
+        },
+        {
+          "en": "Motor or pump drawing more than its rated current.",
+          "ur": "Motor ya pump apne rated current se zyada kha raha hai."
+        },
+        {
+          "en": "Many appliances started at the same time.",
+          "ur": "Ek sath bohat sare appliances start ho gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off some equipment so the load drops below the inverter rating, then restart the unit.",
+          "ur": "Kuch equipment band kar dein taake load inverter rating se neeche aa jaye, phir unit restart karein."
+        },
+        {
+          "en": "Check the load with a clamp meter if available — motors and pumps can draw more than their rated current.",
+          "ur": "Agar clamp meter ho to load check karein — motors aur pump apne rated current se zyada kha sakte hain."
+        },
+        {
+          "en": "Restart only after reducing the load; if it trips again, spread the load or have the unit checked.",
+          "ur": "Load kam karne ke baad hi restart karein; phir trip ho to load baant dein ya unit check karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "08",
+      "aliases": [
+        "08"
+      ],
+      "title": {
+        "en": "Bus voltage is too high",
+        "ur": "Bus voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "DC bus over-voltage.",
+        "ur": "DC bus par voltage zyada."
+      },
+      "causes": [
+        {
+          "en": "Internal power-stage issue, regenerative surge",
+          "ur": "andaruni power stage"
+        },
+        {
+          "en": "Load dump or regenerative energy raising the DC bus.",
+          "ur": "Load dump ya regenerative energy DC bus ko barha raha hai."
+        },
+        {
+          "en": "DC bus capacitor or bleed resistor failed.",
+          "ur": "DC bus capacitor ya bleed resistor kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, switch off AC input and PV and wait 5 minutes; do not probe the DC bus — capacitors hold dangerous voltage.",
+          "ur": "Unit band karein, AC input aur PV off kar ke 5 minute intezar karein; DC bus par probe na rakhein — capacitors mein khatarnak voltage reh jata hai."
+        },
+        {
+          "en": "Open the cover with supply isolated and look for burnt parts, bulged capacitors or loose connections.",
+          "ur": "Supply band kar ke cover kholein aur jalay hue parts, phoolay hue capacitors ya dheele connections dekhein."
+        },
+        {
+          "en": "If the fault repeats after restart, the power stage needs repair — send the unit to the repair centre.",
+          "ur": "Restart ke baad bhi fault dobara aaye, to power stage ki repair zaroori hai — unit ko repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Troubleshooting groups 08/09/53/57 as Internal components failed.",
+        "ur": "Troubleshooting 08/09/53/57 ko 'Internal components failed' ke group mein rakhti hai."
+      }
+    },
+    {
+      "code": "09",
+      "aliases": [
+        "09"
+      ],
+      "title": {
+        "en": "Bus soft start failure",
+        "ur": "Bus soft start nakaam"
+      },
+      "meaning": {
+        "en": "DC bus soft-start sequence failed.",
+        "ur": "DC bus ka soft-start sequence mukammal nahin hua."
+      },
+      "causes": [
+        {
+          "en": "Internal components failed",
+          "ur": "andaruni kharabi"
+        },
+        {
+          "en": "DC bus did not charge during the soft-start.",
+          "ur": "Soft-start ke dauran DC bus charge nahin hua."
+        },
+        {
+          "en": "Soft-start relay or resistor circuit fault.",
+          "ur": "Soft-start relay ya resistor circuit kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV, wait 5 minutes, then restart once and watch whether the code returns.",
+          "ur": "AC input aur PV alag kar ke 5 minute ruk kar ek baar restart karein aur dekhein ke code wapas aata hai ya nahin."
+        },
+        {
+          "en": "Check the DC input cable and main fuse for looseness or damage; do not probe the high-voltage bus yourself.",
+          "ur": "DC input cable aur main fuse check karein ke dheela ya kharab to nahin; high-voltage bus par khud probe na karein."
+        },
+        {
+          "en": "If the soft-start fails again, the DC/DC or bus stage has failed — send the unit for board repair.",
+          "ur": "Agar soft-start phir bhi fail ho, to DC/DC ya bus stage kharab ho gaya hai — unit ko board repair ke liye bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "10",
+      "aliases": [
+        "10"
+      ],
+      "title": {
+        "en": "PV current is over",
+        "ur": "PV current had se zyada"
+      },
+      "meaning": {
+        "en": "PV input current over limit (fault table). Troubleshooting maps fault 10 to Surge.",
+        "ur": "PV input current had se zyada (fault table). Troubleshooting mein fault 10 ko Surge likha gaya hai."
+      },
+      "causes": [
+        {
+          "en": "PV array oversized, surge on DC side",
+          "ur": "PV array bara aur DC side par surge."
+        },
+        {
+          "en": "Parallel strings more than the unit input rating.",
+          "ur": "Parallel strings unit input rating se zyada hain."
+        },
+        {
+          "en": "Lightning or switching surge on the DC side.",
+          "ur": "DC side par lightning ya switching surge aaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the PV DC isolator and check the array strings for damaged panels, water or loose connectors.",
+          "ur": "PV DC isolator band kar ke array strings check karein ke panels kharab, paani ya connectors dheele to nahin."
+        },
+        {
+          "en": "Confirm the array is within the unit rating; reduce parallel strings if it is oversized, then restart.",
+          "ur": "Confirm karein ke array unit rating ke andar hai; zyada bada ho to parallel strings kam kar ke restart karein."
+        },
+        {
+          "en": "If the fault returns with a correct array, have the DC input stage checked at the repair centre.",
+          "ur": "Sahi array ke sath bhi fault wapas aaye, to DC input stage ko repair centre se check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Internal wording conflict: table PV current is over vs troubleshooting Surge.",
+        "ur": "Andar hi wording conflict hai: table mein 'PV current is over' vs troubleshooting mein 'Surge'."
+      }
+    },
+    {
+      "code": "11",
+      "aliases": [
+        "11"
+      ],
+      "title": {
+        "en": "PV voltage is over",
+        "ur": "PV voltage zyada"
+      },
+      "meaning": {
+        "en": "Solar input voltage over limit (>500V per troubleshooting).",
+        "ur": "solar input voltage had se zyada (>500V)"
+      },
+      "causes": [
+        {
+          "en": "Too many panels in series, wrong Voc",
+          "ur": "zyada panels series main"
+        },
+        {
+          "en": "Cold weather pushed the string Voc above 500V.",
+          "ur": "Sardi mein string ka Voc 500V se upar chala gaya."
+        },
+        {
+          "en": "Wrong array specification chosen for this model.",
+          "ur": "Is model ke liye ghalat array specification choose ki gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the PV DC isolator before touching DC cables, then measure the string Voc with a meter.",
+          "ur": "DC cable chhoone se pehle PV DC isolator band karein, phir meter se string ka Voc naapein."
+        },
+        {
+          "en": "Reduce the number of panels in series until the voltage is within 500V, then reconnect and restart.",
+          "ur": "Voltage 500V ke andar aane tak series mein panels ki tadad kam karein, phir connect kar ke restart karein."
+        },
+        {
+          "en": "Check for damaged panels or burning in the DC connectors; replace what is faulty before re-energising.",
+          "ur": "Panels mein kharabi ya DC connectors mein jalan check karein; dobara power se pehle jo kharab ho use badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12"
+      ],
+      "title": {
+        "en": "Charge current is over",
+        "ur": "charge current had se zyada"
+      },
+      "meaning": {
+        "en": "Charge current over limit (fault table). Troubleshooting: DC/DC over current or surge.",
+        "ur": "Charge current had se zyada (fault table). Troubleshooting: DC/DC over current ya surge."
+      },
+      "causes": [
+        {
+          "en": "PV/battery mismatch, DC/DC stage surge",
+          "ur": "PV/battery mismatch, DC/DC stage par surge."
+        },
+        {
+          "en": "Battery bank smaller than the charge current needs.",
+          "ur": "Battery bank charge current ke mutabiq chhota hai."
+        },
+        {
+          "en": "Loose DC connection causing current spikes.",
+          "ur": "Dheela DC connection current spikes la raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV, then check the battery bank size and DC wiring — a small bank or loose link causes this.",
+          "ur": "AC input aur PV alag kar ke battery bank ki size aur DC wiring check karein — chhota bank ya dheela link yeh la sakta hai."
+        },
+        {
+          "en": "Measure battery and DC link voltage with a meter, reconnect and watch the charging current after restart.",
+          "ur": "Meter se battery aur DC link voltage naapein, dobara connect kar ke restart ke baad charging current dekhein."
+        },
+        {
+          "en": "If the fault repeats with a correct battery and array, return the unit to the repair centre.",
+          "ur": "Sahi battery aur array ke sath bhi fault dobara aaye, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Wording conflict table vs troubleshooting.",
+        "ur": "Table aur troubleshooting mein wording conflict hai."
+      }
+    },
+    {
+      "code": "51",
+      "aliases": [
+        "51"
+      ],
+      "title": {
+        "en": "Over current or surge",
+        "ur": "Over current ya surge"
+      },
+      "meaning": {
+        "en": "Output/DC over-current or surge fault.",
+        "ur": "Output/DC par over current ya surge."
+      },
+      "causes": [
+        {
+          "en": "Motor/inrush load, short surge, internal fault",
+          "ur": "Motor/inrush jaisa load, short surge ya andaruni fault."
+        },
+        {
+          "en": "Motor or pump inrush current at start-up.",
+          "ur": "Motor ya pump ka start par inrush current."
+        },
+        {
+          "en": "Short or insulation fault on the output wiring.",
+          "ur": "Output wiring par short ya insulation fault."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off heavy loads such as motors and pumps, restart the unit and see if it runs on a light load.",
+          "ur": "Motor aur pump jaisi bhari load band kar dein, unit restart karein aur dekhein ke halke load par chal raha hai."
+        },
+        {
+          "en": "With supply isolated, check the output and battery wiring for shorts, loose terminals or burnt cables.",
+          "ur": "Supply band kar ke output aur battery wiring check karein ke short, dheele terminals ya jali hui cables to nahin."
+        },
+        {
+          "en": "If the error returns even on a light load, return the unit to the repair centre.",
+          "ur": "Halke load par bhi error wapas aa jaye, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "52",
+      "aliases": [
+        "52"
+      ],
+      "title": {
+        "en": "Bus voltage is too low",
+        "ur": "Bus voltage bohat kam"
+      },
+      "meaning": {
+        "en": "DC bus under-voltage.",
+        "ur": "DC bus voltage bohat kam."
+      },
+      "causes": [
+        {
+          "en": "Weak battery, loose DC path",
+          "ur": "kamzor battery ya loose DC"
+        },
+        {
+          "en": "Battery discharged or one weak cell.",
+          "ur": "Battery discharge hai ya koi cell kamzor hai."
+        },
+        {
+          "en": "Blown fuse or loose DC cable.",
+          "ur": "Fuse uda hua hai ya DC cable dheeli hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the battery voltage under load with a multimeter — a weak battery is the usual cause.",
+          "ur": "Multimeter se load par battery voltage naapein — kamzor battery aam wajah hoti hai."
+        },
+        {
+          "en": "Isolate supply and check DC cables, fuse and connections for looseness, corrosion or a blown fuse.",
+          "ur": "Supply alag kar ke DC cables, fuse aur connections check karein ke dheela, zang ya uda hua fuse to nahin."
+        },
+        {
+          "en": "Charge or replace the battery and restart; if the trip repeats, send the unit to the repair centre.",
+          "ur": "Battery charge ya replace kar ke restart karein; trip dobara aaye to unit ko repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "53",
+      "aliases": [
+        "53"
+      ],
+      "title": {
+        "en": "Inverter soft start failure",
+        "ur": "Inverter soft start nakaam"
+      },
+      "meaning": {
+        "en": "Inverter soft-start failed.",
+        "ur": "Inverter soft start mukammal nahin hua"
+      },
+      "causes": [
+        {
+          "en": "Internal inverter stage fault",
+          "ur": "andaruni inverter kharabi"
+        },
+        {
+          "en": "DC bus did not reach the start level.",
+          "ur": "DC bus start level tak nahin pahuncha."
+        },
+        {
+          "en": "Gate drive fault in the inverter stage.",
+          "ur": "Inverter stage mein gate drive fault hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, isolate AC input and PV and wait 5 minutes before opening the unit for a visual check.",
+          "ur": "Unit band karein, AC input aur PV alag kar ke 5 minute intezar karein, phir cover khol kar nazar se check karein."
+        },
+        {
+          "en": "Restart once after cooling; if the same code appears, the inverter stage failed to start.",
+          "ur": "Thanda hone ke baad ek baar restart karein; agar wohi code aaya to inverter stage start nahin hua."
+        },
+        {
+          "en": "Do not keep cycling power — return the unit to the repair centre for board repair.",
+          "ur": "Bar bar power on-off na karein — unit ko board repair ke liye repair centre le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "55",
+      "aliases": [
+        "55"
+      ],
+      "title": {
+        "en": "Over DC offset in AC output",
+        "ur": "AC output mein DC offset zyada"
+      },
+      "meaning": {
+        "en": "DC component on AC output (fault table). Troubleshooting: Output voltage is unbalanced.",
+        "ur": "AC output par DC component (fault table). Troubleshooting: output voltage unbalanced hai."
+      },
+      "causes": [
+        {
+          "en": "Output stage imbalance/fault",
+          "ur": "output stage kharabi"
+        },
+        {
+          "en": "One output leg or relay contact has high resistance.",
+          "ur": "Kisi ek output leg ya relay contact par zyada resistance hai."
+        },
+        {
+          "en": "Output filter capacitor degraded.",
+          "ur": "Output filter capacitor kamzor ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the load, restart and measure the AC output with a multimeter to confirm the DC component or unbalance.",
+          "ur": "Load kam kar ke restart karein aur multimeter se AC output naapein ke DC component ya unbalance kitna hai."
+        },
+        {
+          "en": "With supply isolated, check the output wiring and relay contacts for looseness or burn marks.",
+          "ur": "Supply alag kar ke output wiring aur relay contacts check karein ke dheela ya jale hue nishan to nahin."
+        },
+        {
+          "en": "If it stays abnormal even at no load, return the unit to the repair centre.",
+          "ur": "Bina load ke bhi abnormal rahe, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Wording differs table vs troubleshooting.",
+        "ur": "Table aur troubleshooting mein wording alag hai."
+      }
+    },
+    {
+      "code": "57",
+      "aliases": [
+        "57"
+      ],
+      "title": {
+        "en": "Current sensor failure",
+        "ur": "current sensor kharab"
+      },
+      "meaning": {
+        "en": "Current sensor failed.",
+        "ur": "current sensor kharab"
+      },
+      "causes": [
+        {
+          "en": "Sensor/hardware failure",
+          "ur": "sensor kharabi"
+        },
+        {
+          "en": "Current sensor connector loose or damaged.",
+          "ur": "Current sensor ka connection dheela ya kharab hai."
+        },
+        {
+          "en": "Main board sensing circuit fault.",
+          "ur": "Main board ki sensing circuit kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV, wait 5 minutes, then restart once to see whether the code clears.",
+          "ur": "AC input aur PV alag kar ke 5 minute ruk kar ek baar restart karein aur dekhein ke code hat jata hai ya nahin."
+        },
+        {
+          "en": "Open the unit with power isolated and check that the current sensor (CT/shunt) connector is seated and undamaged.",
+          "ur": "Power band kar ke unit kholein aur check karein ke current sensor (CT/shunt) ka connector theek laga hai ya kharab to nahin."
+        },
+        {
+          "en": "The sensor or board circuit has failed — send the unit to the repair centre for replacement.",
+          "ur": "Sensor ya board circuit kharab ho gaya hai — unit ko replacement ke liye repair centre bhej dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "58",
+      "aliases": [
+        "58"
+      ],
+      "title": {
+        "en": "Output voltage is too low",
+        "ur": "output voltage bohat kam"
+      },
+      "meaning": {
+        "en": "Output below acceptable range (grouped with fault 06 in troubleshooting: <190Vac or >260Vac).",
+        "ur": "output voltage had se kam/zyada"
+      },
+      "causes": [
+        {
+          "en": "Heavy load, battery weak, output stage fault",
+          "ur": "zyada load ya kamzor battery"
+        },
+        {
+          "en": "Long output cable causing voltage drop.",
+          "ur": "Lambi output cable voltage drop de rahi hai."
+        },
+        {
+          "en": "Weak battery under load.",
+          "ur": "Load par battery kamzor hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load and restart, then measure the AC output with a multimeter.",
+          "ur": "Load kam kar ke restart karein, phir multimeter se AC output naapein."
+        },
+        {
+          "en": "Check the battery voltage under load and the output wiring for loose joints — both pull the output down.",
+          "ur": "Load par battery voltage aur output wiring ke dheele joints check karein — dono output ko neeche kheenchte hain."
+        },
+        {
+          "en": "If the voltage is still low, return the unit to the repair centre.",
+          "ur": "Agar voltage phir bhi kam rahe, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "56",
+      "aliases": [
+        "56"
+      ],
+      "title": {
+        "en": "Battery not connected well / fuse burnt",
+        "ur": "battery sahih munsalik nahin ya fuse jala gaya"
+      },
+      "meaning": {
+        "en": "Battery not connected well or fuse burnt (troubleshooting-only fault code; not in main fault table).",
+        "ur": "Battery connection kharab ya fuse jal gaya"
+      },
+      "causes": [
+        {
+          "en": "Loose battery cable, blown fuse",
+          "ur": "Loose cable ya fuse"
+        },
+        {
+          "en": "Battery terminal corroded or clamp loose.",
+          "ur": "Battery terminal par zang hai ya clamp dheela hai."
+        },
+        {
+          "en": "Main fuse blown after an over-current.",
+          "ur": "Over-current ke baad main fuse ud gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and PV, then check the battery cables and terminals are tight and clean.",
+          "ur": "AC input aur PV alag kar ke battery cables aur terminals check karein ke tight aur saaf hain."
+        },
+        {
+          "en": "Check the main fuse with a meter for continuity and replace it if it is blown.",
+          "ur": "Meter se main fuse ki continuity check karein aur uda hua ho to badal dein."
+        },
+        {
+          "en": "If the battery is connected well and the fuse is good but the code stays, return the unit to the repair centre.",
+          "ur": "Battery theek lagi hai aur fuse bhi theek hai phir bhi code rahe, to unit ko repair centre wapis le jayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Appears only in troubleshooting table, not Faults Reference Code table.",
+        "ur": "Yeh sirf troubleshooting table mein hai, Faults Reference Code table mein nahin."
+      }
+    },
+    {
+      "code": "60",
+      "aliases": [
+        "60"
+      ],
+      "title": {
+        "en": "Power feedback protection",
+        "ur": "Power feedback se protection"
+      },
+      "meaning": {
+        "en": "Current feedback into the inverter detected (parallel system).",
+        "ur": "Inverter mein current ka feedback mil raha hai (parallel system)."
+      },
+      "causes": [
+        {
+          "en": "L/N reversed, sharing cable missing/wrong",
+          "ur": "L/N ulti, sharing cable ghalat ya mojood nahi."
+        },
+        {
+          "en": "Parallel units wired on different phases.",
+          "ur": "Parallel units alag alag phases par lagi hain."
+        },
+        {
+          "en": "Current-sharing cable loose or wrong type.",
+          "ur": "Current-sharing cable dheeli hai ya ghalat type ki hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the paralleled units and isolate AC input and PV — power feedback between units is dangerous until wiring is corrected.",
+          "ur": "Parallel units band kar ke AC input aur PV alag karein — wiring theek hone tak units ke darmiyan power feedback khatarnak hai."
+        },
+        {
+          "en": "Check the parallel wiring, L/N phasing and current-sharing cables with a meter, and correct anything reversed or loose.",
+          "ur": "Meter se parallel wiring, L/N phasing aur current-sharing cables check karein; jo ulta ya dheela ho use theek karein."
+        },
+        {
+          "en": "Do not re-energise until the installer has verified the wiring; contact the installer if the code remains.",
+          "ur": "Installer ke wiring verify kiye baghair dobara power na dein; code bana rahe to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Dual meaning conflict with BMS code 60.",
+        "ur": "BMS code 60 ke sath is ki dual meaning conflict hai."
+      }
+    },
+    {
+      "code": "71",
+      "aliases": [
+        "71"
+      ],
+      "title": {
+        "en": "Firmware version inconsistent",
+        "ur": "Firmware version ghair mutabiq"
+      },
+      "meaning": {
+        "en": "Parallel units on different firmware/CPU versions.",
+        "ur": "Parallel units ke firmware/CPU versions alag-alag hain."
+      },
+      "causes": [
+        {
+          "en": "Mixed firmware across paralleled inverters",
+          "ur": "Paralleled inverters mein alag-alag firmware"
+        },
+        {
+          "en": "One unit upgraded while the others stayed on the old firmware.",
+          "ur": "Ek unit upgrade ho gayi, baqi purane firmware par reh gayin."
+        },
+        {
+          "en": "Replacement board fitted with newer firmware.",
+          "ur": "Nayi board lagayi gayi jisme firmware naya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note the firmware/CPU version shown on each unit and compare them — all units must run the same version.",
+          "ur": "Har unit par jo firmware/CPU version dikhaya gaya hai use note karein aur compare karein — sab units par wohi version hona chahiye."
+        },
+        {
+          "en": "Contact the installer for the correct firmware package and do not keep running mixed versions.",
+          "ur": "Sahi firmware package ke liye installer se rabta karein aur mixed versions par chalte na rahen."
+        },
+        {
+          "en": "Upgrade all units to the same version and restart to confirm the code clears.",
+          "ur": "Sab units ko ek hi version par upgrade kar ke restart karein aur code ke hatne ka tasdeeq karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Dual meaning conflict with BMS code 71.",
+        "ur": "BMS code 71 ke sath is ki dual meaning conflict hai."
+      }
+    },
+    {
+      "code": "72",
+      "aliases": [
+        "72"
+      ],
+      "title": {
+        "en": "Current sharing fault",
+        "ur": "current sharing kharabi"
+      },
+      "meaning": {
+        "en": "Output current of each parallel inverter different; often missing N bonds.",
+        "ur": "Parallel units ka output current alag-alag hai; aksar N bonds mojood nahi hoti."
+      },
+      "causes": [
+        {
+          "en": "Output N wires not commoned, sharing cable loose",
+          "ur": "Output N wires aapas mein juri hui nahi, sharing cable loose hai."
+        },
+        {
+          "en": "Output N terminal not bonded on one unit.",
+          "ur": "Ek unit par output N terminal bonded nahin hai."
+        },
+        {
+          "en": "Unequal sharing cable length or loose lug.",
+          "ur": "Sharing cable ki lambai alag hai ya lug dheela hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the units and isolate supplies before checking the parallel wiring.",
+          "ur": "Parallel wiring check karne se pehle units band kar dein aur supplies alag kar dein."
+        },
+        {
+          "en": "Check that all output N wires are commoned and the sharing cables are tight and equal.",
+          "ur": "Check karein ke sab output N wires common hain aur sharing cables tight aur barabar hain."
+        },
+        {
+          "en": "Balance the load, restart, and contact the installer if the code remains.",
+          "ur": "Load balance kar ke restart karein, aur code bana rahe to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Manual warns twice: missing common N causes fault 72.",
+        "ur": "Manual do baar warning deta hai: common N na hone par fault 72 aata hai."
+      }
+    },
+    {
+      "code": "80",
+      "aliases": [
+        "80"
+      ],
+      "title": {
+        "en": "CAN fault / CAN data loss",
+        "ur": "CAN fault / CAN data ka gayab hona"
+      },
+      "meaning": {
+        "en": "CAN communication data loss between parallel units.",
+        "ur": "Parallel units ke darmiyan CAN communication ka data kho gaya."
+      },
+      "causes": [
+        {
+          "en": "Communication cable disconnected/damaged",
+          "ur": "communication cable"
+        },
+        {
+          "en": "CAN connector loose or a pin bent.",
+          "ur": "CAN connector dheela hai ya pin tedhi hai."
+        },
+        {
+          "en": "Communication port on one unit faulty.",
+          "ur": "Ek unit ka communication port kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power down the units and isolate AC input before touching the communication wiring.",
+          "ur": "Communication wiring chhoone se pehle units band kar dein aur AC input alag kar dein."
+        },
+        {
+          "en": "Check the CAN cable at both ends — fully plugged in, with no broken pins or cuts.",
+          "ur": "CAN cable ke dono taraf check karein — pura laga hua hai, tooti hui pins ya kata hua jagah to nahin."
+        },
+        {
+          "en": "Swap with a known-good cable and restart; if the code remains, contact the installer.",
+          "ur": "Kisi known-good cable se badal kar restart karein; code bana rahe to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "81",
+      "aliases": [
+        "81"
+      ],
+      "title": {
+        "en": "Host loss / Host data loss",
+        "ur": "Host unit ka data gayab hona"
+      },
+      "meaning": {
+        "en": "Parallel host (master) communication lost.",
+        "ur": "Master (host) se communication ka rabta toot gaya."
+      },
+      "causes": [
+        {
+          "en": "Master offline or cable fault",
+          "ur": "master off line ya cable"
+        },
+        {
+          "en": "Host unit tripped or switched off.",
+          "ur": "Host unit trip ho gaya ya band kar diya gaya."
+        },
+        {
+          "en": "Cable between the host and the other units damaged.",
+          "ur": "Host aur baqi units ke darmiyan cable kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the host unit is powered on and not tripped, then isolate supplies before checking wiring.",
+          "ur": "Check karein ke host unit on hai ya trip to nahi, phir wiring check karne se pehle supplies alag karein."
+        },
+        {
+          "en": "Check the communication cable between host and other units for looseness or damage and re-seat it.",
+          "ur": "Host aur doosri units ke darmiyan communication cable check karein aur dobara theek se laga dein."
+        },
+        {
+          "en": "Restart the system; if the host is still not detected, contact the installer.",
+          "ur": "System restart karein; phir bhi host detect na ho to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "82",
+      "aliases": [
+        "82"
+      ],
+      "title": {
+        "en": "Synchronization loss",
+        "ur": "Synchronization kho gaya"
+      },
+      "meaning": {
+        "en": "Parallel units out of sync (e.g., AC input breakers closed at different times).",
+        "ur": "Parallel units sync mein nahi hain (misal ke tor par AC input breakers alag-alag waqt par band kiye gaye)."
+      },
+      "causes": [
+        {
+          "en": "Staggered AC input energization",
+          "ur": "AC input alag alag"
+        },
+        {
+          "en": "AC input breakers closed at different times.",
+          "ur": "AC input breakers alag alag waqt par band kiye gaye."
+        },
+        {
+          "en": "Mains phase shifted during the start.",
+          "ur": "Start ke dauran mains phase badal gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down the units and isolate AC input before checking the parallel setup.",
+          "ur": "Parallel setup check karne se pehle units band kar dein aur AC input alag kar dein."
+        },
+        {
+          "en": "Switch on the AC input breakers of all units at the same time and check the mains wiring between them.",
+          "ur": "Sab units ke AC input breakers ek sath on karein aur un ke darmiyan mains wiring check karein."
+        },
+        {
+          "en": "If the units still lose sync after a simultaneous start, contact the installer.",
+          "ur": "Ek sath start karne ke baad bhi units ka sync toota rahe to installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Commissioning note: fault 82 on following-order inverters then auto-restart.",
+        "ur": "Commissioning note: following-order inverters par fault 82 aata hai, phir auto-restart ho jata hai."
+      }
+    },
+    {
+      "code": "83",
+      "aliases": [
+        "83"
+      ],
+      "title": {
+        "en": "Battery voltage detected different",
+        "ur": "battery voltage alag alag mili"
+      },
+      "meaning": {
+        "en": "Parallel units measure different battery voltages.",
+        "ur": "parallel units par battery voltage alag mili"
+      },
+      "causes": [
+        {
+          "en": "Different battery strings, unequal cable length/material",
+          "ur": "Battery strings alag, ya cable ki lambai/material barabar nahi."
+        },
+        {
+          "en": "Different battery types or charge levels in the bank.",
+          "ur": "Bank mein alag battery types ya charge levels hain."
+        },
+        {
+          "en": "Long or thin battery cable causing voltage drop.",
+          "ur": "Lambi ya patli battery cable voltage drop de rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate supplies and measure the battery voltage at each unit DC input with the same meter.",
+          "ur": "Supplies alag kar ke ek hi meter se har unit ke DC input par battery voltage naapein."
+        },
+        {
+          "en": "Check that all units share one battery bank with equal cable length and size; fix loose or thin cables.",
+          "ur": "Check karein ke sab units ek hi battery bank share karte hain aur cables barabar lambai/motai ki hain; dheeli ya patli cables theek karein."
+        },
+        {
+          "en": "Restart and confirm the readings match; if they still differ, contact the installer.",
+          "ur": "Restart kar ke tasdeeq karein ke readings barabar hain; phir bhi farq ho to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "84",
+      "aliases": [
+        "84"
+      ],
+      "title": {
+        "en": "AC input voltage and frequency detected different",
+        "ur": "AC input voltage aur frequency alag detect hui"
+      },
+      "meaning": {
+        "en": "Parallel units see different utility voltage/frequency timing.",
+        "ur": "parallel units par utility alag mili"
+      },
+      "causes": [
+        {
+          "en": "Different utility start times, breakers not simultaneous",
+          "ur": "utility alag alag on"
+        },
+        {
+          "en": "Input breakers not switched on together.",
+          "ur": "Input breakers ek sath on nahin kiye gaye."
+        },
+        {
+          "en": "Loose mains terminal on one unit.",
+          "ur": "Ek unit par mains terminal dheela hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC input and check the mains wiring to each unit for loose terminals.",
+          "ur": "AC input alag kar ke har unit tak jane wali mains wiring ke dheele terminals check karein."
+        },
+        {
+          "en": "Measure the mains voltage at each unit input and compare the readings.",
+          "ur": "Har unit ke input par mains voltage naapein aur readings compare karein."
+        },
+        {
+          "en": "Switch all AC input breakers on together, restart, and contact the installer if the code remains.",
+          "ur": "Sab AC input breakers ek sath on karein, restart karein, aur code bana rahe to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "85",
+      "aliases": [
+        "85"
+      ],
+      "title": {
+        "en": "AC output current unbalance",
+        "ur": "AC output current ka toazn (unbalance)"
+      },
+      "meaning": {
+        "en": "Parallel units share load unequally.",
+        "ur": "Parallel units par load barabar nahi banta."
+      },
+      "causes": [
+        {
+          "en": "Excess load, unequal AC cable length/material",
+          "ur": "Load zyada, ya AC cable ki lambai/material barabar nahi."
+        },
+        {
+          "en": "Load concentrated on one unit.",
+          "ur": "Load ek unit par jama ho gaya."
+        },
+        {
+          "en": "AC input/output cable size not equal.",
+          "ur": "AC input/output cable ka size barabar nahin hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate supplies and check how the load is shared across units and phases.",
+          "ur": "Supplies alag kar ke check karein ke load units aur phases mein kis tarah banta hua hai."
+        },
+        {
+          "en": "Move some loads so each unit carries a similar share and check AC cable length and type are equal.",
+          "ur": "Kuch loads shift kar ke har unit ka hissa milta julta karein aur check karein ke AC cables barabar lambai/type ki hain."
+        },
+        {
+          "en": "Restart and watch the output currents; if they stay unbalanced, contact the installer.",
+          "ur": "Restart kar ke output currents dekhein; unbalance bana rahe to installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "86",
+      "aliases": [
+        "86"
+      ],
+      "title": {
+        "en": "AC output mode setting is different",
+        "ur": "AC output mode setting alag"
+      },
+      "meaning": {
+        "en": "Program 28 AC output mode not identical across parallel units.",
+        "ur": "program 28 (AC output mode) sb units par alag hai"
+      },
+      "causes": [
+        {
+          "en": "Different program 28 settings (PAL / 3P1 / 3P2 / 3P3)",
+          "ur": "Program 28 ki setting alag (PAL / 3P1 / 3P2 / 3P3)"
+        },
+        {
+          "en": "One unit left on a different output program.",
+          "ur": "Ek unit alag output program par chhodi gayi hai."
+        },
+        {
+          "en": "Settings changed after service on some units.",
+          "ur": "Kuch units ki service ke baad settings badal di gayin."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the units and open the AC output mode (program 28) menu on each unit.",
+          "ur": "Units band kar dein aur har unit mein AC output mode (program 28) menu kholein."
+        },
+        {
+          "en": "Set the same output mode on all units (PAL / 3P1 / 3P2 / 3P3 as used).",
+          "ur": "Sab units par ek hi output mode set karein (PAL / 3P1 / 3P2 / 3P3 jo use ho raha hai)."
+        },
+        {
+          "en": "Power up together and confirm the code clears; if it returns, contact the installer.",
+          "ur": "Ek sath power on karein aur code ke hatne ka tasdeeq karein; wapas aaye to installer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "BMS-60",
+      "aliases": [
+        "BMS-60"
+      ],
+      "title": {
+        "en": "BMS: charge and discharge stopped by battery",
+        "ur": "Battery ne charge/discharge band kar diya"
+      },
+      "meaning": {
+        "en": "After successful battery comms, battery status forbids charge+discharge, shown as code 60.",
+        "ur": "battery communication ke baad battery charge/discharge ki ijazat nahin de rahi code 60"
+      },
+      "causes": [
+        {
+          "en": "Lithium BMS protective trip (over-voltage, under-voltage, temp, etc.)",
+          "ur": "Lithium BMS ka protective trip (over-voltage, under-voltage, temperature wagaira)."
+        },
+        {
+          "en": "Battery cell over-voltage or under-voltage recorded by the BMS.",
+          "ur": "BMS ne cell over-voltage ya under-voltage record kiya hai."
+        },
+        {
+          "en": "Battery temperature out of the allowed range.",
+          "ur": "Battery temperature allowed range se bahar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the BMS alarm or log on the battery to see which protection tripped.",
+          "ur": "Battery ke BMS alarm ya log check karein ke kaunsi protection trip hui hai."
+        },
+        {
+          "en": "Clear the battery fault or let the battery recover, then check whether charging and discharging are allowed again.",
+          "ur": "Battery fault clear karein ya battery ko theek hone dein, phir check karein ke charge/discharge dobara ijazat mil gayi hai ya nahin."
+        },
+        {
+          "en": "If the battery still forbids operation, consult the battery maker before re-energising the system.",
+          "ur": "Agar battery phir bhi operation ki ijazat na de, to system ko dobara power dene se pehle battery maker se rai lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Same numeric id as parallel fault 60 (power feedback) - dual meaning depends on feature. BMS Code Reference context (collides with parallel fault number).",
+        "ur": "Parallel fault 60 (power feedback) ka wohi numeric id hai - feature ke hisab se dual meaning badalta hai. BMS Code Reference ka context hai (yeh parallel fault number se murtabta hai)."
+      }
+    },
+    {
+      "code": "69",
+      "aliases": [
+        "69"
+      ],
+      "title": {
+        "en": "BMS: stop charging only",
+        "ur": "BMS: sirf charging band"
+      },
+      "meaning": {
+        "en": "Battery forbids charging, shown as code 69.",
+        "ur": "battery charge ki ijazat nahin de rahi code 69"
+      },
+      "causes": [
+        {
+          "en": "BMS charge inhibit (full, cold, cell imbalance)",
+          "ur": "BMS charge rok"
+        },
+        {
+          "en": "Battery already full or nearly full.",
+          "ur": "Battery pehle se full ya nearly full hai."
+        },
+        {
+          "en": "Battery too cold for charging.",
+          "ur": "Battery charge ke liye bohat thandi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the BMS status on the battery — full, too cold or a cell imbalance usually inhibits charging.",
+          "ur": "Battery par BMS status check karein — full hona, sardi ya cell imbalance charging rok deta hai."
+        },
+        {
+          "en": "Let the battery warm up or discharge a little, then check whether charging starts again.",
+          "ur": "Battery ko garam hone dein ya thoda discharge karein, phir check karein ke charging dobara shuru hoti hai ya nahin."
+        },
+        {
+          "en": "Discharge may continue until the alarm clears; if it stays, contact the battery maker.",
+          "ur": "Alarm hatne tak discharge chalta reh sakta hai; agar woh ruka rahe to battery maker se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "70",
+      "aliases": [
+        "70"
+      ],
+      "title": {
+        "en": "BMS: force charge (battery must charge)",
+        "ur": "BMS: charge karo (battery ko charge zaroori)"
+      },
+      "meaning": {
+        "en": "Battery status requires charging; code 70 shown while charging per BMS.",
+        "ur": "battery kahe rahi hai charge zaroori hai code 70"
+      },
+      "causes": [
+        {
+          "en": "Normal BMS-driven charge request",
+          "ur": "Aam BMS se chalne wali charge request."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Informational; ensure charger/PV source available",
+          "ur": "Maloomati baat — charger/PV source mojood ho, iska intezam rakhein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Documented as status code not failure.",
+        "ur": "Isay status code ke tor par document kiya gaya hai, failure nahin."
+      }
+    },
+    {
+      "code": "BMS-71",
+      "aliases": [
+        "BMS-71"
+      ],
+      "title": {
+        "en": "BMS: stop discharge only",
+        "ur": "BMS: sirf discharge band"
+      },
+      "meaning": {
+        "en": "Battery forbids discharge, shown as code 71.",
+        "ur": "battery discharge ki ijazat nahin de rahi code 71"
+      },
+      "causes": [
+        {
+          "en": "BMS discharge inhibit (SOC low, temp, fault)",
+          "ur": "BMS discharge rok"
+        },
+        {
+          "en": "Battery state of charge too low to allow discharge.",
+          "ur": "Battery ka discharge hone layaq charge bohat kam hai."
+        },
+        {
+          "en": "Battery cell fault recorded by the BMS.",
+          "ur": "BMS ne battery cell fault record kiya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the BMS status — low state of charge, temperature limit or a cell fault usually blocks discharge.",
+          "ur": "BMS status check karein — kam charge, temperature limit ya cell fault discharge rok deta hai."
+        },
+        {
+          "en": "Charge the battery or correct the temperature or fault condition and check whether the load can be supplied again.",
+          "ur": "Battery charge karein ya temperature/fault theek karein, phir check karein ke load dobara supply ho sakta hai."
+        },
+        {
+          "en": "The load will be lost while discharge is forbidden; if it stays, contact the battery maker.",
+          "ur": "Discharge band rehne tak load chala jayega; woh bana rahe to battery maker se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Same numeric id as parallel fault 71 (firmware mismatch) - dual meaning. BMS Code Reference context (collides with parallel fault number).",
+        "ur": "Parallel fault 71 (firmware mismatch) ka wohi numeric id hai - dual meaning. BMS Code Reference ka context hai (yeh parallel fault number se murtabta hai)."
+      }
+    },
+    {
+      "code": "NE",
+      "aliases": [
+        "NE"
+      ],
+      "title": {
+        "en": "Un-identified unit for master or slave",
+        "ur": "Master/slave ke liye unit ki identification nahi hui."
+      },
+      "meaning": {
+        "en": "Unit role not yet assigned in parallel setup.",
+        "ur": "Parallel setup mein unit ka role abhi tak set nahin kiya gaya."
+      },
+      "causes": [
+        {
+          "en": "Parallel commissioning incomplete",
+          "ur": "Parallel commissioning adhoori hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Follow parallel commissioning steps (program 28, share cables)",
+          "ur": "Parallel commissioning ke steps follow karein (program 28, share cables)."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Code Reference table with HS/SL.",
+        "ur": "HS/SL ke sath Code Reference table."
+      }
+    },
+    {
+      "code": "HS",
+      "aliases": [
+        "HS"
+      ],
+      "title": {
+        "en": "Master unit",
+        "ur": "master unit"
+      },
+      "meaning": {
+        "en": "This unit is parallel master (randomly assigned at power-up).",
+        "ur": "yeh unit parallel master hai"
+      },
+      "causes": [
+        {
+          "en": "Normal parallel role display",
+          "ur": "Aam parallel role display"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "None; informational",
+          "ur": "koi kaam nahin"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "SL",
+      "aliases": [
+        "SL"
+      ],
+      "title": {
+        "en": "Slave unit",
+        "ur": "slave unit"
+      },
+      "meaning": {
+        "en": "This unit is parallel slave.",
+        "ur": "yeh unit parallel slave hai"
+      },
+      "causes": [
+        {
+          "en": "Normal parallel role display",
+          "ur": "Aam parallel role display"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "None; informational",
+          "ur": "koi kaam nahin"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "W01",
+      "aliases": [
+        "W01"
+      ],
+      "title": {
+        "en": "Fan locked (warning)",
+        "ur": "Pankha band (warning)"
+      },
+      "meaning": {
+        "en": "Cooling fan is locked while inverter is on.",
+        "ur": "inverter chal rahe huey Pankha band hai"
+      },
+      "causes": [
+        {
+          "en": "Fan obstructed or failed",
+          "ur": "Pankha ruka ya kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check airflow; replace fan if stuck",
+          "ur": "hawa ka rasta check karein Pankha atka ho to tabdeeli karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Warning table p.35. Same numeric id as fault 01; display context differs. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Warning table p.35 par hai. Fault 01 ka wohi numeric id hai; display context alag hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    },
+    {
+      "code": "W02",
+      "aliases": [
+        "W02"
+      ],
+      "title": {
+        "en": "Over temperature (warning)",
+        "ur": "Zyada temperature (warning)"
+      },
+      "meaning": {
+        "en": "Internal temperature high enough to warn, not yet full fault shutdown.",
+        "ur": "Andaruni temperature itni zyada ho gayi hai ke warning aa jaye, abhi tak full fault shutdown nahi hua."
+      },
+      "causes": [
+        {
+          "en": "Blocked vents, high ambient temp, heavy load, dust (anti-dust kit dirty)",
+          "ur": "Hawa ke raste band, mahol ki temperature zyada, bhari load, dust (anti-dust kit gandi)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Improve ventilation, clean filter foam monthly, reduce load",
+          "ur": "Hawa ka rasta behtar karein, filter foam mahine mein saaf karein, load kam karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Escalates to fault 02 when component >100C. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Component 100C se zyada hone par fault 02 par escalate hota hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    },
+    {
+      "code": "W03",
+      "aliases": [
+        "W03"
+      ],
+      "title": {
+        "en": "Battery over charged (warning)",
+        "ur": "Battery zyada charge (warning)"
+      },
+      "meaning": {
+        "en": "Battery voltage reached over-charge level.",
+        "ur": "Battery voltage over-charge level tak pahunch gaya."
+      },
+      "causes": [
+        {
+          "en": "Wrong charge settings, wrong battery type/quantity, faulty battery",
+          "ur": "ghalat charge setting ya battery"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify battery spec/quantity and charge voltage settings",
+          "ur": "battery specification aur charge setting check karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    },
+    {
+      "code": "W04",
+      "aliases": [
+        "W04",
+        "04"
+      ],
+      "title": {
+        "en": "Low battery (warning)",
+        "ur": "Low battery ki warning"
+      },
+      "meaning": {
+        "en": "Battery voltage below low-DC warning threshold; output may be cut.",
+        "ur": "Battery voltage low-DC warning threshold se neeche; output band ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Discharged battery, weak cells, long battery cables",
+          "ur": "battery khaali ya kamzor"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Recharge or replace battery; check connections",
+          "ur": "battery charge ya tabdeeli karein connection check karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "SIMREX fault table has no fault 04 (04 is warning-only here; SIMRON has fault 04). Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "SIMREX fault table mein fault 04 nahin hai (yahan 04 sirf warning hai; SIMRON mein fault 04 hai). Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    },
+    {
+      "code": "W07",
+      "aliases": [
+        "W07"
+      ],
+      "title": {
+        "en": "Overload (warning)",
+        "ur": "Overload ki warning"
+      },
+      "meaning": {
+        "en": "Load approaching/exceeding limit; derating or pre-shutdown warning.",
+        "ur": "Load had ke qareeb ya us se zyada; derating ya band hone se pehle ki warning."
+      },
+      "causes": [
+        {
+          "en": "Load > inverter rating",
+          "ur": "Load inverter rating se zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce load (switch off non-critical equipment)",
+          "ur": "Load kam karein (gair zaroori aalat band kar ke)."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Fault 07 = overload 110% and time is up. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Fault 07 = overload 110% aur time khatam. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    },
+    {
+      "code": "W10",
+      "aliases": [
+        "W10"
+      ],
+      "title": {
+        "en": "Inverter power derating",
+        "ur": "inverter power derating"
+      },
+      "meaning": {
+        "en": "Inverter reducing output power (thermal or overload derating).",
+        "ur": "Inverter output power kam kar raha hai (thermal ya overload derating)."
+      },
+      "causes": [
+        {
+          "en": "High temperature or sustained overload",
+          "ur": "zyada hararat ya load"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce load / improve cooling; service if persists",
+          "ur": "load kam karein ya thandak barhayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Distinct from fault 10 (PV current over / troubleshooting Surge). Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Fault 10 (PV current over / troubleshooting Surge) se alag hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    },
+    {
+      "code": "bP",
+      "aliases": [
+        "bP"
+      ],
+      "title": {
+        "en": "Battery is not connected",
+        "ur": "battery munsalik nahin"
+      },
+      "meaning": {
+        "en": "Battery path not detected (warning code bP).",
+        "ur": "battery connection nahin mila"
+      },
+      "causes": [
+        {
+          "en": "Battery disconnected, blown fuse, loose cable, reverse polarity",
+          "ur": "Battery nikalna, fuse uda hua, loose cable ya polarity ulti"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check battery wiring and fuses",
+          "ur": "battery wiring aur fuse check karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "Alphanumeric warning id; not on SIMRON. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "Yeh alphanumeric warning id hai; SIMRON par nahin hai. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    },
+    {
+      "code": "W32",
+      "aliases": [
+        "W32",
+        "32"
+      ],
+      "title": {
+        "en": "Communication lost (com. port / control board)",
+        "ur": "communication tooti (kam port / control board)"
+      },
+      "meaning": {
+        "en": "Communication failure between com. port and control board / display panel.",
+        "ur": "Com. port aur control board / display panel ke darmiyan communication ki failure."
+      },
+      "causes": [
+        {
+          "en": "Display/communication cable loose or damaged",
+          "ur": "display cable damage"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reseat communication cable; service if persists",
+          "ur": "cable dobaara lagayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "SIMREX 6KW-48V User Manual",
+        "url": "https://simtek.com.pk/wp-content/uploads/2024/09/SIMREX-6KW-48V-User-Manual.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "SIMRON wording: between inverter and display panel. Numeric warning stored W-prefixed to avoid collision with same-number fault in this series file.",
+        "ur": "SIMRON wording: inverter aur display panel ke darmiyan. Yeh numeric warning W-prefix ke sath store ki gayi hai taake isi file mein same number ke fault se takraw na ho."
+      }
+    }
+  ]
+}

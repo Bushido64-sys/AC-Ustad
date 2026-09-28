@@ -1,0 +1,1258 @@
+{
+  "schemaVersion": 1,
+  "brandId": "eaton",
+  "series": {
+    "id": "eaton-9e-6-20k",
+    "name": "9E 6-20 kVA (online UPS 6-20kVA, 3:1 and 1:1)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*9E6Ki*",
+      "*9E10Ki*",
+      "*9E10KiXL*",
+      "*9E15Ki*",
+      "*9E20Ki*",
+      "*9E20KiXL*"
+    ],
+    "notes": "The only Eaton small-UPS family with a full numeric A/F code table in the manual. Applies ONLY to 6-20 kVA. The 9E 1-3kVA manual has a DIFFERENT and partly conflicting code set (e.g. it has F007/F500/F308/F806/F208/F613/F816 but no A007/A10A/A806/A802/AC20) - see series eaton-9e-1-3k and CONFLICTS. F304 also differs in wording: 'Unbalanced capacitor bank' here vs 'DC Bus unbalanced' on 1-3kVA."
+  },
+  "codes": [
+    {
+      "code": "A007",
+      "aliases": [
+        "A007"
+      ],
+      "title": {
+        "en": "A007 Fans blocked",
+        "ur": "A007 Fans blocked / pankha band"
+      },
+      "meaning": {
+        "en": "One or more cooling fans are blocked or have stopped, so the UPS is overheating.",
+        "ur": "Ek ya zyada cooling fan band ya kharaab hai, jis ki wajah se UPS garmi se bhar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Dust or debris blocking the fan intake or exhaust grille.",
+          "ur": "Fan ke intake ya exhaust grill par dhool ya mochir ki gaddi lagi hui hai."
+        },
+        {
+          "en": "Fan motor has failed or the fan is jammed mechanically.",
+          "ur": "Fan ka motor kharab ho gaya ya fan mechanically atak gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, unplug the mains and wait 5 minutes before touching the fan area.",
+          "ur": "UPS band karein, mains nikaal dein aur fan area chhoone se pehle 5 minute intezaar karein."
+        },
+        {
+          "en": "Suck out dust from the fan intake and exhaust grille with a brush or vacuum cleaner.",
+          "ur": "Fan ke intake aur exhaust grill ki dhool brush ya vacuum cleaner se saaf karein."
+        },
+        {
+          "en": "Measure DC bus voltage with a multimeter; if the fan is dead and the bus reads near 0 Vdc, replace the fan module.",
+          "ur": "Multimeter se DC bus voltage maarein; agar fan mar chuka hai aur bus 0 Vdc ke qareeb hai to fan module replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "A107",
+      "aliases": [
+        "A107"
+      ],
+      "title": {
+        "en": "A107 Cable connection error",
+        "ur": "A107 Cable connection error / wiring ghalat"
+      },
+      "meaning": {
+        "en": "The input wiring is wrong, most often line and neutral swapped at the input terminal block.",
+        "ur": "Input wiring ghalat hai, aksar input terminal block par line aur neutral aapas mein badal diye gaye hain."
+      },
+      "causes": [
+        {
+          "en": "Line and neutral conductors reversed at the input terminal block.",
+          "ur": "Input terminal block par line aur neutral conductors aapas mein badle hue hain."
+        },
+        {
+          "en": "Input cable not fully tightened on the terminal, causing an open or loose connection.",
+          "ur": "Input cable terminal par poori tarah kasa nahi, connection khula ya dhila ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the input breaker OFF, then use a multimeter or a non-contact voltage tester to identify live and neutral.",
+          "ur": "Input breaker OFF karein, phir multimeter ya non-contact voltage tester se live aur neutral pehchanein."
+        },
+        {
+          "en": "Reconnect the input cable with correct polarity and torque the terminal screws firmly.",
+          "ur": "Input cable theek polarity par dobara lagayein aur terminal screws ko mazbooti se kheench lein."
+        },
+        {
+          "en": "Check earth continuity (<1 ohm) between the chassis earth terminal and the panel earth bar.",
+          "ur": "Chassis earth terminal aur panel earth bar ke darmiyan earth continuity (1 ohm se kam) check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "A10A",
+      "aliases": [
+        "A10A"
+      ],
+      "title": {
+        "en": "A10A Unbalanced input voltages",
+        "ur": "A10A Unbalanced input voltages (3-phase input)"
+      },
+      "meaning": {
+        "en": "On a three-phase input the three phase-to-neutral voltages differ too much from each other.",
+        "ur": "Teen phase input par teen phase-to-neutral voltages aapas mein bohat zyada farq se hain."
+      },
+      "causes": [
+        {
+          "en": "Utility supply or upstream generator is producing unbalanced phase voltages.",
+          "ur": "Utility supply ya upstream generator unbalanced phase voltages bana raha hai."
+        },
+        {
+          "en": "One phase conductor is loose, has a high-resistance joint, or a phase fuse has blown.",
+          "ur": "Kisi aik phase ka conductor dhila hai, us par high-resistance joint hai, ya phase fuse ud chuka hai."
+        },
+        {
+          "en": "Load is heavily single-phase on one leg of a three-phase supply.",
+          "ur": "Teen phase supply par load kisi aik leg par zyada single-phase hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure all three line-to-neutral voltages and all three line-to-line voltages with a clamp multimeter or DMM.",
+          "ur": "Teenon line-to-neutral aur teenon line-to-line voltages clamp multimeter ya DMM se maarein."
+        },
+        {
+          "en": "Tighten all phase connections and check each phase fuse in the upstream distribution board.",
+          "ur": "Sab phase connections kheench lein aur upstream distribution board ka har phase fuse check karein."
+        },
+        {
+          "en": "If the supply itself is unbalanced, ask the utility or generator owner to correct it before running the UPS.",
+          "ur": "Agar supply hi unbalanced hai to UPS chalane se pehle utility ya generator owner se usay theek karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "A806",
+      "aliases": [
+        "A806"
+      ],
+      "title": {
+        "en": "A806 E.P.O control active",
+        "ur": "A806 E.P.O control active (emergency power off)"
+      },
+      "meaning": {
+        "en": "The remote Emergency Power Off input is active, so the UPS has been driven to a shut-down state.",
+        "ur": "Remote Emergency Power Off input active hai, is liye UPS ko shutdown state par le aaya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "The EPO wall switch or contact has been pressed by someone, possibly accidentally.",
+          "ur": "EPO wall switch ya contact kisi ne press kar diya hai, shayad ghalti se."
+        },
+        {
+          "en": "The EPO circuit-breaker in the EPO wiring loop has tripped or been left open.",
+          "ur": "EPO wiring loop ka EPO circuit-breaker trip ho gaya hai ya khula chhoda gaya hai."
+        },
+        {
+          "en": "Building fire-alarm or BMS contact wired into the EPO input has closed.",
+          "ur": "Building fire-alarm ya BMS contact jo EPO input se juri hai woh band ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not reset the UPS yet. Go and find out why EPO was activated.",
+          "ur": "Abhi UPS reset na karein. Pehle dekhein ke EPO activate kyun hua."
+        },
+        {
+          "en": "With the UPS in maintenance bypass, measure the EPO terminal pair; it must read open (no continuity) for normal running.",
+          "ur": "UPS ko maintenance bypass par rakhein, EPO terminal pair voltage maarein; normal chalne par woh open hona chahiye."
+        },
+        {
+          "en": "Reset the EPO breaker, then press any front-panel button once to acknowledge and clear the alarm.",
+          "ur": "EPO breaker reset karein, phir front panel ka koi bhi button aik baar dabayein taake alarm clear ho."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "A80E",
+      "aliases": [
+        "A80E"
+      ],
+      "title": {
+        "en": "A80E Overload: load > 105%",
+        "ur": "A80E Overload: load 105% se zyada"
+      },
+      "meaning": {
+        "en": "The connected load is above 105% of the UPS rated output, so an overload fault is imminent.",
+        "ur": "Connected load UPS rated output ke 105% se zyada hai, is liye overload fault ka khatra hai."
+      },
+      "causes": [
+        {
+          "en": "Too much equipment connected, or load was added without resizing the UPS.",
+          "ur": "Bohat zyada equipment lagaya gaya hai, ya UPS resize kiye baghair load barha diya gaya hai."
+        },
+        {
+          "en": "A single large motor or compressor with high inrush current on the output.",
+          "ur": "Output par koi aik bada motor ya compressor hai jis ka inrush current bohat zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off and disconnect the output loads before changing anything.",
+          "ur": "Kuch bhi badalne se pehle UPS band karein aur output loads disconnect kar dein."
+        },
+        {
+          "en": "Measure the output current on each phase with a clamp meter; it must be below the rated output current.",
+          "ur": "Clamp meter se har phase ka output current maarein; woh rated output current se kam hona chahiye."
+        },
+        {
+          "en": "Remove non-essential loads one at a time until the load percentage on the display drops below 100%.",
+          "ur": "Display par load percentage 100% se neeche aane tak ek aik karke ghair zaroori loads nikaalte jayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "A810",
+      "aliases": [
+        "A810"
+      ],
+      "title": {
+        "en": "A810 Load % over user threshold",
+        "ur": "A810 Load % user threshold se upar"
+      },
+      "meaning": {
+        "en": "The load percentage has crossed the user-configured warning threshold, before the hard overload limit.",
+        "ur": "Load percentage ne user-configured warning threshold cross kar liya hai, hard overload limit se pehle hi."
+      },
+      "causes": [
+        {
+          "en": "The user-configured load warning threshold has been reached by normal growth of the load.",
+          "ur": "Normal load badhne se user-configured load warning threshold reach ho gaya hai."
+        },
+        {
+          "en": "Non-essential equipment was left connected on the output.",
+          "ur": "Output par ghair zaroori equipment chhoda gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the load percentage on the LCD and compare it with the UPS kVA rating on the nameplate.",
+          "ur": "LCD par load percentage parhein aur UPS kVA rating ke saath nameplate se compare karein."
+        },
+        {
+          "en": "Raise or lower the threshold in the User Settings menu if the site genuinely runs at this load.",
+          "ur": "Agar site asal mein isi load par chalta hai to User Settings menu mein threshold barha ya gira dein."
+        },
+        {
+          "en": "Plan an upgrade to the next kVA size before the threshold becomes a hard overload.",
+          "ur": "Threshold hard overload banne se pehle agle kVA size par upgrade ka plan banayein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "A60D",
+      "aliases": [
+        "A60D"
+      ],
+      "title": {
+        "en": "A60D Batteries missing / box not connected",
+        "ur": "A60D Batteries missing ya battery box connect nahi"
+      },
+      "meaning": {
+        "en": "The UPS cannot see its internal battery string or the external battery box; backup time is not available.",
+        "ur": "UPS ko apni internal battery string ya external battery box nazar nahi aa rahi; backup time maujood nahi."
+      },
+      "causes": [
+        {
+          "en": "The battery box is not inserted or its connector is unplugged.",
+          "ur": "Battery box insert nahi hai ya us ka connector nahi laga hua."
+        },
+        {
+          "en": "A battery connector or harness is loose, corroded, or broken.",
+          "ur": "Battery connector ya harness dhila, zang khaa ya toota hua hai."
+        },
+        {
+          "en": "The external battery breaker on the battery cabinet is open.",
+          "ur": "Battery cabinet ka external battery breaker khula hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Transfer the load to bypass, switch the UPS off, unplug the mains, then use insulated tools and gloves.",
+          "ur": "Load ko bypass par transfer karein, UPS band karein, mains nikaal dein, phir insulated tools aur gloves use karein."
+        },
+        {
+          "en": "Inspect the battery box connector and the battery harness for loose, bent or corroded pins.",
+          "ur": "Battery box connector aur battery harness ke pins ko dhile, tute ya zang khaye hue hone ke liye dekhein."
+        },
+        {
+          "en": "Measure DC voltage across the battery box terminals with a DMM; 240 Vdc nominal (180 Vdc for 1-3kVA units) is expected.",
+          "ur": "DMM se battery box terminals par DC voltage maarein; 240 Vdc nominal (1-3kVA par 180 Vdc) hona chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "A802",
+      "aliases": [
+        "A802"
+      ],
+      "title": {
+        "en": "A802 Low battery",
+        "ur": "A802 Low battery (battery kam ho gayi)"
+      },
+      "meaning": {
+        "en": "The UPS is on battery discharge and the battery has reached its low-charge warning level.",
+        "ur": "UPS battery par chal raha hai aur battery low-charge warning level par aa chuki hai."
+      },
+      "causes": [
+        {
+          "en": "The mains has failed and the UPS is running down its stored charge.",
+          "ur": "Mains chala gaya hai aur UPS apna stored charge khatam kar raha hai."
+        },
+        {
+          "en": "The battery string has aged and no longer holds its rated capacity.",
+          "ur": "Battery string purani ho chuki hai aur rated capacity nahi rakh sakti."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Save your work and shut down non-essential equipment immediately, before the UPS cuts out.",
+          "ur": "Apna kaam bacha lein aur UPS band hone se pehle ghair zaroori equipment foran band kar dein."
+        },
+        {
+          "en": "Read the remaining runtime and battery level from the LCD or the backlit button panel.",
+          "ur": "LCD ya backlit button panel se baaqi runtime aur battery level parhein."
+        },
+        {
+          "en": "Once mains returns, let the UPS charge on utility for at least 8 hours (48 h for a full runtime check).",
+          "ur": "Mains wapas aane par UPS ko kam az kam 8 ghante (poori runtime check ke liye 48 ghante) utility par charge karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "AC20",
+      "aliases": [
+        "AC20"
+      ],
+      "title": {
+        "en": "AC20 Manual Bypass operation mode",
+        "ur": "AC20 Manual Bypass mode chal raha hai"
+      },
+      "meaning": {
+        "en": "The UPS has been commanded into manual bypass, so the load is on the raw bypass supply and is not protected.",
+        "ur": "UPS ko manual bypass par command diya gaya hai, is liye load raw bypass supply par hai aur protected nahi."
+      },
+      "causes": [
+        {
+          "en": "A technician placed the unit in manual bypass for maintenance work and left it there.",
+          "ur": "Kisi technician ne maintenance ke liye unit ko manual bypass par rakha aur wapas nahi kiya."
+        },
+        {
+          "en": "The static switch latched into bypass after a previous overload or fault.",
+          "ur": "Pehle ke overload ya fault ke baad static switch bypass par latch ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm on the mimic screen whether the unit was deliberately put into bypass for maintenance.",
+          "ur": "Mimic screen par check karein ke unit ko maintenance ke liye jaanbujh kar bypass kiya gaya tha ya nahi."
+        },
+        {
+          "en": "Check the load is fully transferred and stable on bypass, then use the Controls menu to return the UPS to Normal mode.",
+          "ur": "Check karein ke load poori tarah bypass par transfer ho chuka hai aur stable hai, phir Controls menu se UPS ko Normal mode par laayein."
+        },
+        {
+          "en": "Read the Event log to see which alarm or command sent the unit to bypass, and fix that cause.",
+          "ur": "Event log parhein ke kaunsa alarm ya command unit ko bypass par le gaya, aur us wajah ko theek karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "A900",
+      "aliases": [
+        "A900"
+      ],
+      "title": {
+        "en": "A900 Maintenance bypass active",
+        "ur": "A900 Maintenance bypass active hai"
+      },
+      "meaning": {
+        "en": "The rear maintenance bypass switch is closed, so the load is bypassing the UPS completely and gets no protection.",
+        "ur": "Peeche maintenance bypass switch band hai, is liye load poora bypass ho raha hai aur UPS se koi protection nahi mil rahi."
+      },
+      "causes": [
+        {
+          "en": "The manual bypass switch at the back of the cabinet was closed for servicing.",
+          "ur": "Cabinet ke peeche wala manual bypass switch servicing ke liye band kar diya gaya tha."
+        },
+        {
+          "en": "The switch was left closed after maintenance and the UPS was never returned to Normal.",
+          "ur": "Maintenance ke baad switch band reh gaya aur UPS kabhi Normal par wapas nahi aaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the maintenance bypass switch at the back of the UPS to take the unit out of maintenance bypass.",
+          "ur": "Upar ke masle ko hal karne ke liye UPS ke peeche wala maintenance bypass switch khol dein."
+        },
+        {
+          "en": "With the switch open, press any control-panel button to acknowledge and clear the alarm.",
+          "ur": "Switch kholne ke baad alarm acknowledge aur clear karne ke liye control panel ka koi bhi button dabayein."
+        },
+        {
+          "en": "Verify the Normal status indicator is on and the load is again fed through the power module.",
+          "ur": "Check karein ke Normal status indicator on hai aur load dobara power module se aa raha hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "A004",
+      "aliases": [
+        "A004",
+        "A004/F004 over-temperature pair"
+      ],
+      "title": {
+        "en": "A004 UPS overtemperature (alarm half of A004/F004)",
+        "ur": "A004 UPS zyada garm (A004/F004 ka alarm hissa)"
+      },
+      "meaning": {
+        "en": "Alarm half of the over-temperature pair. The internal temperature is above the warning level; F004 is the fault that follows it.",
+        "ur": "Over-temperature pair ka alarm hissa. Andar ka temperature warning level se upar hai; iske baad F004 fault aata hai."
+      },
+      "causes": [
+        {
+          "en": "The ambient temperature around the UPS exceeds 40 degrees C.",
+          "ur": "UPS ke aas paas ka ambient temperature 40 degree C se zyada hai."
+        },
+        {
+          "en": "Intake or exhaust vents are blocked by dust or stacked equipment.",
+          "ur": "Intake ya exhaust vents dhool se ya upar rakhi cheezon se band hain."
+        },
+        {
+          "en": "A cooling fan has failed and heat is building inside the cabinet.",
+          "ur": "Koi cooling fan kharab ho gaya hai aur cabinet ke andar garmi jama ho rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure ambient temperature with a thermometer; the manual requires it to not exceed 40 degrees C.",
+          "ur": "Thermometer se ambient temperature maarein; manual ke mutabiq ye 40 degree C se zyada na ho."
+        },
+        {
+          "en": "Clear the vents and remove any heat sources or equipment stacked on the unit.",
+          "ur": "Vents saaf karein aur unit ke upar rakhi koi bhi cheez ya heat source hata dein."
+        },
+        {
+          "en": "Restart the UPS and confirm A004 no longer appears; if it returns, check the fan and the inverter NTC sensor.",
+          "ur": "UPS restart karein aur confirm karein ke A004 dobara nahi aaya; agar wapas aaye to fan aur inverter NTC sensor check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F002",
+      "aliases": [
+        "F002"
+      ],
+      "title": {
+        "en": "F002 UPS Fault",
+        "ur": "F002 UPS Fault (aam khami)"
+      },
+      "meaning": {
+        "en": "General internal UPS fault. The inverter is off and the load has been thrown to the bypass line.",
+        "ur": "Aam internal UPS fault. Inverter band hai aur load bypass line par daal diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "An internal power-stage, control or sensing failure detected by the self-diagnosis.",
+          "ur": "Self-diagnosis ne andar ka power stage, control ya sensing ka kharabi detect ki."
+        },
+        {
+          "en": "Often follows an earlier over-temperature, overload or DC bus fault that was not repaired.",
+          "ur": "Aksar is se pehle over-temperature, overload ya DC bus ka aisa fault aaya tha jo theek nahi kiya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If possible disconnect the power to the load, switch the UPS off and back on again.",
+          "ur": "Ho sake to load ki power disconnect karein, UPS band karke dobara on karein."
+        },
+        {
+          "en": "Open the Event log and Fault log to read which preceding alarm led to F002.",
+          "ur": "Event log aur Fault log kholein aur parhein ke kaunsa pehla alarm F002 ki wajah bana."
+        },
+        {
+          "en": "If the problem occurs again after the restart, call the Eaton support centre with the serial number.",
+          "ur": "Restart ke baad masla dobara aaye to serial number le kar Eaton support centre ko call karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F004",
+      "aliases": [
+        "F004"
+      ],
+      "title": {
+        "en": "F004 Dissipator over temperature",
+        "ur": "F004 Dissipator zyada garm ho gaya"
+      },
+      "meaning": {
+        "en": "The power-stage heatsink is over temperature. The inverter is switched off and the load runs on bypass.",
+        "ur": "Power stage ka heatsink zyada garm ho gaya hai. Inverter band ho gaya hai aur load bypass par chal raha hai."
+      },
+      "causes": [
+        {
+          "en": "The environment temperature around the UPS is above 40 degrees C.",
+          "ur": "UPS ke gird ka environment temperature 40 degree C se zyada hai."
+        },
+        {
+          "en": "A cooling fan has stopped or is blocked, so heat cannot leave the cabinet.",
+          "ur": "Koi cooling fan band ho gaya ya block ho gaya hai, is liye cabinet se garmi nahi nikal sakti."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check that the temperature of the environment in which the UPS is located does not exceed 40 degrees C.",
+          "ur": "Check karein ke jis environment mein UPS lagi hai uska temperature 40 degree C se zyada na ho."
+        },
+        {
+          "en": "Check that the fan is working normally first, then check the inverter NTC is not damaged.",
+          "ur": "Pehle check karein ke fan theek chal raha hai, phir inverter NTC damage na hua ho."
+        },
+        {
+          "en": "Clear the vents, give the unit airflow, then restart only after the temperature has dropped.",
+          "ur": "Vents saaf karein, unit ko hawa ka raasta dein, phir temperature girne ke baad hi restart karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F300",
+      "aliases": [
+        "F300"
+      ],
+      "title": {
+        "en": "F300 Capacitor bank overvoltage",
+        "ur": "F300 Capacitor bank overvoltage (DC bus zyada wala)"
+      },
+      "meaning": {
+        "en": "The DC bus capacitor bank has charged above its safe limit, so the UPS has shut the inverter down.",
+        "ur": "DC bus ka capacitor bank apni safe limit se upar charge ho gaya hai, is liye UPS ne inverter band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Charger output voltage is out of specification and is over-charging the bus.",
+          "ur": "Charger ka output voltage specification se bahar hai aur bus ko zyada charge kar raha hai."
+        },
+        {
+          "en": "Bus voltage sensing or the rectifier control loop is faulty.",
+          "ur": "Bus voltage sensing ya rectifier control loop kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Transfer the load to bypass, switch the UPS off and isolate mains and the battery before any measurement.",
+          "ur": "Load bypass par transfer karein, UPS band karein aur koi bhi voltage naapne se pehle mains aur battery isolate karein."
+        },
+        {
+          "en": "Measure each battery string voltage with a DMM; an over-charged string reads well above its nominal value.",
+          "ur": "DMM se har battery string ka voltage maarein; zyada charge hui string nominal se kaafi upar parhengi."
+        },
+        {
+          "en": "Have the charger output and rectifier board checked by an Eaton service engineer; do not simply reset F300.",
+          "ur": "Charger output aur rectifier board ki jaanch Eaton service engineer se karwayein; F300 ko sirf reset na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F301",
+      "aliases": [
+        "F301"
+      ],
+      "title": {
+        "en": "F301 Capacitor bank overvoltage",
+        "ur": "F301 Capacitor bank overvoltage (DC bus zyada wala)"
+      },
+      "meaning": {
+        "en": "Second over-voltage variant of the DC capacitor bank fault on the same bus; inverter is off, load on bypass.",
+        "ur": "DC capacitor bank ke over-voltage fault ka doosra variant isi bus par; inverter band, load bypass par."
+      },
+      "causes": [
+        {
+          "en": "A transient or unstable utility feed pushed the DC bus above its limit.",
+          "ur": "Mains feed ka koi transient ya instability ne DC bus ko limit se upar le diya."
+        },
+        {
+          "en": "Bulk capacitor has failed short or drifted out of tolerance.",
+          "ur": "Bulk capacitor short ho gaya ya tolerance se bahar chala gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then measure the DC bus voltage with a rated DMM.",
+          "ur": "Mains aur battery isolate karein, phir rated DMM se DC bus voltage maarein."
+        },
+        {
+          "en": "Check the input voltage at the UPS terminal block is inside the manual's allowed range.",
+          "ur": "Check karein ke UPS terminal block par input voltage manual ki ijazat ke andar hai."
+        },
+        {
+          "en": "Escalate to Eaton service for bulk capacitor and rectifier inspection.",
+          "ur": "Bulk capacitor aur rectifier ki jaanch ke liye Eaton service ko bulayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F302",
+      "aliases": [
+        "F302"
+      ],
+      "title": {
+        "en": "F302 Capacitor bank undervoltage",
+        "ur": "F302 Capacitor bank undervoltage (DC bus kam wala)"
+      },
+      "meaning": {
+        "en": "The DC bus capacitor bank has not reached its minimum operating voltage, so the inverter is off and the load is on bypass.",
+        "ur": "DC bus ka capacitor bank apni minimum operating voltage tak nahi pohanch chuka, is liye inverter band hai aur load bypass par hai."
+      },
+      "causes": [
+        {
+          "en": "Input AC is missing or out of range, so the rectifier cannot charge the bus.",
+          "ur": "Input AC missing ya range se bahar hai, is liye rectifier bus charge nahi kar sakta."
+        },
+        {
+          "en": "The pre-charge or soft-start path is open, so the capacitors never take charge.",
+          "ur": "Pre-charge ya soft-start path khula hai, is liye capacitors kabhi charge nahi hote."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the input line-to-neutral voltage at the input terminal block with a DMM while the UPS is off.",
+          "ur": "UPS band karte hue DMM se input terminal block par line-to-neutral voltage maarein."
+        },
+        {
+          "en": "Check the input breaker, fuses and the pre-charge contactor are closed and energised.",
+          "ur": "Check karein ke input breaker, fuses aur pre-charge contactor band aur energised hain."
+        },
+        {
+          "en": "Do not power-cycle repeatedly; book an Eaton technician to check the pre-charge circuit and capacitors.",
+          "ur": "Baar baar power-cycle na karein; Eaton technician se pre-charge circuit aur capacitors check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F303",
+      "aliases": [
+        "F303"
+      ],
+      "title": {
+        "en": "F303 Capacitor bank undervoltage",
+        "ur": "F303 Capacitor bank undervoltage (DC bus kam wala)"
+      },
+      "meaning": {
+        "en": "Second under-voltage variant of the DC capacitor bank fault; the inverter cannot start and the load is on bypass.",
+        "ur": "DC capacitor bank ke under-voltage fault ka doosra variant; inverter start nahi ho sakta aur load bypass par hai."
+      },
+      "causes": [
+        {
+          "en": "Battery string disconnected or open, so there is no DC source to charge the bus.",
+          "ur": "Battery string disconnect ya khuli hai, is liye bus ko charge karne ke liye koi DC source nahi."
+        },
+        {
+          "en": "Input voltage persistently low, below the rectifier's working minimum.",
+          "ur": "Input voltage lagatar kam hai, rectifier ke minimum working voltage se neeche."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the battery string is connected and measure its open-circuit voltage with a DMM.",
+          "ur": "Check karein ke battery string lagi hui hai aur DMM se us ka open-circuit voltage maarein."
+        },
+        {
+          "en": "Verify the external battery cabinet breaker is closed and the battery fuses are intact.",
+          "ur": "Check karein ke external battery cabinet ka breaker band hai aur battery fuses salamat hain."
+        },
+        {
+          "en": "Have the rectifier and bus sensing checked by an Eaton service engineer.",
+          "ur": "Rectifier aur bus sensing ki jaanch Eaton service engineer se karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F304",
+      "aliases": [
+        "F304"
+      ],
+      "title": {
+        "en": "F304 Unbalanced capacitor bank",
+        "ur": "F304 Unbalanced capacitor bank (DC bus asammulnot)"
+      },
+      "meaning": {
+        "en": "The DC bus capacitor voltages are not balanced within tolerance; the inverter is off and the load is on bypass.",
+        "ur": "DC bus ke capacitor voltages tolerance ke andar balance nahi hain; inverter band hai aur load bypass par hai."
+      },
+      "causes": [
+        {
+          "en": "One or more bus capacitors has degraded, lost capacitance or leaked.",
+          "ur": "Ek ya zyada bus capacitors degrade ho gaya, capacity khoyi ya leak kar raha hai."
+        },
+        {
+          "en": "Bus voltage balancing/sensing circuit has drifted.",
+          "ur": "Bus voltage balancing/sensing circuit drift ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery first, then measure each bus capacitor's voltage with a DMM and compare them.",
+          "ur": "Pehle mains aur battery isolate karein, phir DMM se har bus capacitor ka voltage maarein aur tulna karein."
+        },
+        {
+          "en": "Any capacitor reading far from the others must be replaced as a matched set, not individually.",
+          "ur": "Doosron se bohat alag parhne wala capacitor matched set ke taur par replace karein, akela nahi."
+        },
+        {
+          "en": "Book an Eaton service engineer for bus capacitor replacement and balancing check.",
+          "ur": "Bus capacitor ki tabdeeli aur balancing check ke liye Eaton service engineer bulaayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F305",
+      "aliases": [
+        "F305"
+      ],
+      "title": {
+        "en": "F305 Failed capacitor bank soft start",
+        "ur": "F305 Capacitor bank ka soft start fail"
+      },
+      "meaning": {
+        "en": "The soft-start circuit could not charge the capacitor bank smoothly at power-up, so the inverter stays off.",
+        "ur": "Soft-start circuit ne power-up par capacitor bank ko smoothly charge nahi kar paaya, is liye inverter band reh gaya."
+      },
+      "causes": [
+        {
+          "en": "Bus capacitors are aged or shorted, so the soft-start ramp cannot complete.",
+          "ur": "Bus capacitors purane ya short ho chuke hain, is liye soft-start ramp poora nahi ho sakta."
+        },
+        {
+          "en": "Soft-start thyristor or its gate drive has failed.",
+          "ur": "Soft-start thyristor ya us ka gate drive kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Transfer the load to bypass, switch the UPS off, isolate mains and the battery.",
+          "ur": "Load bypass par transfer karein, UPS band karein, mains aur battery isolate karein."
+        },
+        {
+          "en": "Check each bank fuse and the pre-charge resistor chain for continuity and heat damage.",
+          "ur": "Har bank fuse aur pre-charge resistor chain ki continuity aur garmi ke nishan check karein."
+        },
+        {
+          "en": "Have the soft-start circuit and bus capacitors replaced by an Eaton service engineer.",
+          "ur": "Soft-start circuit aur bus capacitors ki tabdeeli Eaton service engineer se karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F70C",
+      "aliases": [
+        "F70C"
+      ],
+      "title": {
+        "en": "F70C Inverter undervoltage",
+        "ur": "F70C Inverter undervoltage (inverter voltage kam)"
+      },
+      "meaning": {
+        "en": "The inverter output voltage has dropped below its acceptable window, so the UPS has shut the inverter down.",
+        "ur": "Inverter ka output voltage apni ijazat ke neeche gir gaya hai, is liye UPS ne inverter band kar diya."
+      },
+      "causes": [
+        {
+          "en": "DC bus voltage is too low because the battery or charger is not supplying enough.",
+          "ur": "DC bus voltage kam hai kyunke battery ya charger itna supply nahi kar raha."
+        },
+        {
+          "en": "Output is overloaded or the output voltage setting is set too low for the load.",
+          "ur": "Output overloaded hai ya output voltage setting load ke liye bohat kam rakhi gayi hai."
+        },
+        {
+          "en": "Inverter output voltage sensing or the inverter board itself has failed.",
+          "ur": "Inverter output voltage sensing ya inverter board khud kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce or remove the load first, then restart the UPS and see if F70C clears.",
+          "ur": "Pehle load kam karein ya hata dein, phir UPS restart karke dekhein ke F70C clear hota hai ya nahi."
+        },
+        {
+          "en": "Measure the DC bus voltage with a DMM (isolate mains and battery first) and compare it with the manual specification.",
+          "ur": "Pehle mains aur battery isolate karein, phir DMM se DC bus voltage maarein aur manual ki specification se tulna karein."
+        },
+        {
+          "en": "Measure the actual output voltage at the output terminal block with a true-RMS DMM while on battery.",
+          "ur": "Battery par chalte waqt true-RMS DMM se output terminal block par asal output voltage maarein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F70D",
+      "aliases": [
+        "F70D"
+      ],
+      "title": {
+        "en": "F70D Inverter overvoltage",
+        "ur": "F70D Inverter overvoltage (inverter voltage zyada)"
+      },
+      "meaning": {
+        "en": "The inverter output voltage has risen above its acceptable window, so the UPS has shut the inverter down.",
+        "ur": "Inverter ka output voltage apni ijazat se upar chala gaya hai, is liye UPS ne inverter band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Output voltage setting or the feedback potentiometer is misadjusted.",
+          "ur": "Output voltage setting ya feedback potentiometer ki adjustment ghalat hai."
+        },
+        {
+          "en": "Output is very lightly loaded, so the inverter steps the voltage up.",
+          "ur": "Output bohat kam load par hai, is liye inverter voltage barha deta hai."
+        },
+        {
+          "en": "Inverter board or output voltage sensing failure.",
+          "ur": "Inverter board ya output voltage sensing ki kharabi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the configured output voltage in the Setup menu and confirm it matches the load's requirement.",
+          "ur": "Setup menu se configured output voltage parhein aur confirm karein ke woh load ki requirement se match karta hai."
+        },
+        {
+          "en": "Measure the output voltage with a true-RMS DMM at the output terminal block.",
+          "ur": "True-RMS DMM se output terminal block par output voltage maarein."
+        },
+        {
+          "en": "Have the inverter board and output sensing calibrated by an Eaton service engineer.",
+          "ur": "Inverter board aur output sensing ki calibration Eaton service engineer se karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F704",
+      "aliases": [
+        "F704"
+      ],
+      "title": {
+        "en": "F704 Failed inverter soft start",
+        "ur": "F704 Inverter ka soft start fail"
+      },
+      "meaning": {
+        "en": "The inverter could not complete its soft-start ramp to operating voltage, so the UPS stays off the line and the load is on bypass.",
+        "ur": "Inverter apna soft-start ramp operating voltage tak poora nahi kar paya, is liye UPS line par nahi aaya aur load bypass par hai."
+      },
+      "causes": [
+        {
+          "en": "DC bus voltage was not within range when the inverter was asked to start.",
+          "ur": "Inverter ko start karne ke waqt DC bus voltage range mein nahi tha."
+        },
+        {
+          "en": "Inverter IGBT module or its gate drive has failed.",
+          "ur": "Inverter IGBT module ya us ka gate drive kharab ho gaya hai."
+        },
+        {
+          "en": "Output is short-circuited or heavily overloaded, so the ramp cannot be completed.",
+          "ur": "Output short ya bohat zyada overloaded hai, is liye ramp poora nahi ho sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If possible disconnect the power to the load, switch the UPS off and back on again.",
+          "ur": "Ho sake to load ki power disconnect karein, UPS band karke dobara on karein."
+        },
+        {
+          "en": "With mains and battery isolated, measure the DC bus voltage and check for a short across the output.",
+          "ur": "Mains aur battery isolate karke DC bus voltage maarein aur output par short check karein."
+        },
+        {
+          "en": "If the problem occurs again, call the support centre - the inverter module needs service.",
+          "ur": "Agar masla dobara aaye to support centre ko call karein - inverter module ki servicing zaroori hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F805",
+      "aliases": [
+        "F805"
+      ],
+      "title": {
+        "en": "F805 Short circuit",
+        "ur": "F805 Short circuit (output short)"
+      },
+      "meaning": {
+        "en": "A short circuit exists on the UPS output. There is a fault on one or more of the loads powered by the UPS.",
+        "ur": "UPS output par short circuit hai. UPS se power lene walay loads mein kisi aik ya zyada par fault hai."
+      },
+      "causes": [
+        {
+          "en": "A connected load, adaptor or power strip has failed short.",
+          "ur": "Koi connected load, adaptor ya power strip short ho gaya hai."
+        },
+        {
+          "en": "Damaged or pinched output wiring is touching the chassis earth.",
+          "ur": "Damage ya pinch hua output wiring chassis earth ko chhu raha hai."
+        },
+        {
+          "en": "Output breaker or a downstream distribution board breaker is closed onto a shorted circuit.",
+          "ur": "Output breaker ya koi downstream distribution board ka breaker short circuit par band hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off and disconnect all output loads before touching any wiring.",
+          "ur": "Kisi bhi wiring ko chhoone se pehle UPS band karein aur saare output loads disconnect kar dein."
+        },
+        {
+          "en": "Disconnect all the utilities, switch the UPS off and back on again, reconnect the loads one at a time to identify which one is faulty.",
+          "ur": "Saari utilities disconnect karein, UPS band karke dobara on karein, phir loads aik aik karke dobara lagayein taake pata chale kaunsa kharab hai."
+        },
+        {
+          "en": "Use a DMM continuity/insulation check on each suspect load and cable before reconnecting it.",
+          "ur": "Dohosne se pehle har shakhs load aur cable par DMM se continuity/insulation check karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F808",
+      "aliases": [
+        "F808"
+      ],
+      "title": {
+        "en": "F808 Output overload fault",
+        "ur": "F808 Output overload fault (load zyada)"
+      },
+      "meaning": {
+        "en": "The load applied to the UPS is too high. The overload has progressed from alarm to fault and the inverter is off.",
+        "ur": "UPS par lagaya hua load bohat zyada hai. Overload alarm se fault tak pohanch gaya hai aur inverter band hai."
+      },
+      "causes": [
+        {
+          "en": "The load is too high for the UPS capacity; A80E/A810 were ignored earlier.",
+          "ur": "Load UPS ki capacity se zyada hai; A80E/A810 pehle ignore kar diye gaye the."
+        },
+        {
+          "en": "A large motor or compressor with high inrush was switched on while on battery.",
+          "ur": "Battery chalte waqt koi bada motor ya compressor high inrush ke saath on kiya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Remove the load and switch the UPS off and back on again.",
+          "ur": "Load hata dein aur UPS band karke dobara on karein."
+        },
+        {
+          "en": "Reduce the load to within the threshold of 100% (or the user threshold in the case of code A80E).",
+          "ur": "Load ko 100% threshold ke andar laayein (code A80E ke haal mein user threshold tak)."
+        },
+        {
+          "en": "Size the load with a clamp meter and move permanent load to a larger UPS or an external bypass-fed outlet.",
+          "ur": "Clamp meter se load naaphein aur mustaqil load ko barhe UPS ya external bypass-fed outlet par le jaayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    },
+    {
+      "code": "F811",
+      "aliases": [
+        "F811"
+      ],
+      "title": {
+        "en": "F811 Negative output power",
+        "ur": "F811 Negative output power (output power ulti)"
+      },
+      "meaning": {
+        "en": "The UPS measured power flowing backwards out of the output; the inverter has been shut down to protect the load.",
+        "ur": "UPS ne output se power ulti taraf jaate hue naape hain; load bachane ke liye inverter band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Another source is feeding back into the UPS output, e.g. a generator or another UPS in parallel that is not synchronised.",
+          "ur": "Koi doosra source UPS output mein wapas power bhej raha hai, maslan generator ya doosra parallel UPS jo sync nahi hai."
+        },
+        {
+          "en": "Output current direction sensing or the output current transformer is faulty.",
+          "ur": "Output current direction sensing ya output current transformer kharab hai."
+        },
+        {
+          "en": "A generator or solar inverter changeover board is wired without an anti-backfeed device.",
+          "ur": "Generator ya solar inverter ka changeover board anti-backfeed device ke baghair jora gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Remove all other sources feeding the output bus and confirm only the UPS and bypass feed the output.",
+          "ur": "Output bus ko chalane walay saare doosre sources hata dein aur confirm karein ke sirf UPS aur bypass output ko feed kar rahe hain."
+        },
+        {
+          "en": "With a clamp meter, check the direction of current in each output conductor.",
+          "ur": "Clamp meter se har output conductor mein current ki direction check karein."
+        },
+        {
+          "en": "Install an anti-backfeed relay or correct the changeover interlock, then have the output sensing checked.",
+          "ur": "Anti-backfeed relay lagayein ya changeover interlock theek karein, phir output sensing check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E UPS - Installation and user manual (6-20 kVA)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/Eaton%209E%20UPS%20-%20Installation%20and%20user%20manual.pdf"
+      }
+    }
+  ]
+}

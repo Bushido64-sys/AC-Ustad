@@ -1,0 +1,841 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sma",
+  "series": {
+    "id": "sma-sunny-island-x-30-50",
+    "name": "Sunny Island X 30 / 50",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "SI30-20",
+      "SI50-20",
+      "SIxx-20",
+      "*Sunny Island X 30*",
+      "*Sunny Island X 50*"
+    ],
+    "notes": "Model scoping: doc SIxx-20-BE-en-11 v1.1, the modern Sunny Island X backup inverter for PV + battery. The 4-digit event scheme here looks like Sunny Tripower's but the DC side is the BATTERY, not a PV string, so identical numbers mean different things: 3302 is a battery fault here but a PV shortfall on Sunny Tripower 3-6; 3501 says 'check battery and DC cabling' here but 'check generator' there; 3901/3902 are firmware/comms related here rather than 'DC start conditions'; 6501/6502/6509 are generic over-temperature and 6511 specifically names the choke area. The 9xxx block is battery-management events and the 10xxx block is internal battery-system events. Not to be merged with SERIES 3 (older Sunny Island 3.0M-8.0H, 3-digit F/W/E numbering)."
+  },
+  "codes": [
+    {
+      "code": "3302",
+      "aliases": [
+        "3302"
+      ],
+      "title": {
+        "en": "Unstable operation — battery not supplying enough (3302)",
+        "ur": "Unstable operation — battery poora supply nahi kar rahi (3302)"
+      },
+      "meaning": {
+        "en": "There is not enough power at the DC input of the inverter for stable operation, so the inverter cannot connect to the utility grid. The manual's corrective measure is to check the battery.",
+        "ur": "DC input par stable operation ke liye power kam hai, is liye inverter utility grid se connect nahi ho sakta. Manual ka corrective measure hai battery check karein."
+      },
+      "causes": [
+        {
+          "en": "Battery state of charge too low to hold a stable DC bus while the inverter is idle on the grid.",
+          "ur": "Battery ka state of charge itna kam ke inverter grid par idle rehta hue bhi stable DC bus nahi rakh sakta."
+        },
+        {
+          "en": "Battery fault — a cell open-circuited, or the BMS has blocked the battery.",
+          "ur": "Battery fault — koi cell open ho gaya, ya BMS ne battery block kar di hai."
+        },
+        {
+          "en": "Battery communication intermittent, so the inverter does not trust the reported capacity.",
+          "ur": "Battery communication intermittent, jis se inverter ko reported capacity par bharosa nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and the battery via the external disconnection service before touching the battery side, as the safety section of this manual instructs.",
+          "ur": "Battery side chherne se pehle manual ke safety section ke mutabiq AC aur battery ko external disconnection service se isolate karein."
+        },
+        {
+          "en": "Read the battery state of charge and terminal voltage on the user interface; a SoC that disagrees with the measured voltage means the BMS or the SoC calibration is at fault.",
+          "ur": "User interface par battery ka state of charge aur terminal voltage padhein; agar SoC aur measured voltage aapas mein na milein to BMS ya SoC calibration kharab hai."
+        },
+        {
+          "en": "Measure each battery cell's voltage at the BMS, not just the pack voltage; a single open cell makes the whole pack look unstable.",
+          "ur": "Sirf pack voltage nahi, BMS par har battery cell ka voltage measure karein; aik khula cell poore pack ko unstable dikhata hai."
+        },
+        {
+          "en": "Run the inverter's battery calibration cycle once the pack is fully charged, then re-read the event.",
+          "ur": "Pack poori tarah charge hone ke baad inverter ka battery calibration cycle chalayein, phir event dobara padhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Same number as a PV shortfall code on Sunny Tripower 3-6 (3303 is the PV one there). Here it is explicitly a battery problem.",
+        "ur": "Yehi number Sunny Tripower 3-6 par PV shortfall ka code hai (wahan 3303 PV wala hai). Yahan yeh saaf tor par battery ka masla hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    },
+    {
+      "code": "3501",
+      "aliases": [
+        "3501"
+      ],
+      "title": {
+        "en": "Insulation error — ground fault on DC (battery) side (3501)",
+        "ur": "Insulation error — DC (battery) side par ground fault (3501)"
+      },
+      "meaning": {
+        "en": "The inverter detected a ground fault on the DC side, which on this product is the battery and its DC cabling, not a PV array.",
+        "ur": "Inverter ne DC side par ground fault detect kiya hai, aur is product par DC side ka matlab battery aur uski DC cabling hai, PV array nahi."
+      },
+      "causes": [
+        {
+          "en": "Battery rack or battery case with damaged insulation, or a cell with a cracked housing.",
+          "ur": "Battery rack ya battery case ki insulation damaged, ya kisi cell ka housing cracked."
+        },
+        {
+          "en": "DC cabling to the battery with chafed insulation or a connector with water ingress.",
+          "ur": "Battery ki DC cabling ki insulation ghis chuki ya connector mein paasush aa gaya."
+        },
+        {
+          "en": "Battery screwed to a metal surface without proper insulation, so the negative terminal is earthed through the rack.",
+          "ur": "Battery ko theek insulation ke baghair metal surface par bolt kiya gaya, jis se negative terminal rack ke zariye earth ho gaya."
+        },
+        {
+          "en": "Earthing arrangement in the battery room bonding the battery negative to earth unintentionally.",
+          "ur": "Battery room ki earthing arrangement battery negative ko ghalat se earth se bond kar rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the battery from the inverter and from the room earth, then measure battery negative to earth with a high-impedance meter; a healthy isolated battery should read high and drifting.",
+          "ur": "Battery ko inverter se aur room ki earth se isolate kar ke high-impedance meter se battery negative se earth tak voltage measure karein; saaf isolated battery ki reading high aur badhrti hui honi chahiye."
+        },
+        {
+          "en": "With the battery disconnected, measure DC+ and DC- to PE on the inverter side, then bisect the cable run to find the section leaking.",
+          "ur": "Battery nikaal kar inverter side par DC+ aur DC- se PE voltage measure karein, phir cable run ko aik aik hissa kar ke leaking hissa dhoondein."
+        },
+        {
+          "en": "Fit the proper battery rack and inter-cell insulation, and confirm the DC cable does not touch metalwork; replace any connector whose seal has failed.",
+          "ur": "Sahi battery rack aur inter-cell insulation lagayein, aur confirm karein ke DC cable metalwork ko chhu nahi rahi; jis connector ka seal fail ho woh badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The DC side here is a battery on a mains-referenced system — this fault can put the whole battery room at risk, so isolate fully before testing.",
+        "ur": "Yahan DC side mains-referenced system par battery hai — yeh fault poore battery room ko khatre mein daal sakta hai, is liye test se pehle poori tarah isolate karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    },
+    {
+      "code": "3523",
+      "aliases": [
+        "3523"
+      ],
+      "title": {
+        "en": "Start of cyclic insulation test (3523)",
+        "ur": "Cyclic insulation test shuru (3523)"
+      },
+      "meaning": {
+        "en": "The inverter has started a cyclic insulation test to verify that the electric strength of the battery is within the safe range. The inverter restarts once during an insulation test.",
+        "ur": "Inverter ne cyclic insulation test shuru kiya hai taake verify kare ke battery ki electric strength safe range ke andar hai. Insulation test ke dauran inverter aik baar restart hota hai."
+      },
+      "causes": [
+        {
+          "en": "Scheduled cyclic insulation self-test that runs automatically on this product.",
+          "ur": "Scheduled cyclic insulation self-test jo is product par automatically chalta hai."
+        },
+        {
+          "en": "The self-test started after a firmware update or a grid reconnection.",
+          "ur": "Firmware update ya grid reconnection ke baad self-test shuru hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed. Allow the test to complete and expect one restart of the inverter during the sequence.",
+          "ur": "Koi zaroorat nahi. Test poora hone dein aur sequence ke dauran inverter ka aik restart intezaar karein."
+        },
+        {
+          "en": "If the inverter never comes back after 15 minutes, power-cycle it once and check whether 3523 is followed by a real fault such as 3501 or 10818.",
+          "ur": "Agar 15 minute ke baad inverter wapas na aaye to aik baar power cycle karein aur dekhein ke 3524 ke baad koi asal fault jaise 3501 ya 10818 aata hai ya nahi."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Non-fault status row. The single restart during the test is normal, not a symptom.",
+        "ur": "Non-fault status row hai. Test ke dauran aik restart normal hai, masla nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    },
+    {
+      "code": "6511",
+      "aliases": [
+        "6511"
+      ],
+      "title": {
+        "en": "Overtemperature in the choke area (6511)",
+        "ur": "Choke area mein zyada temperature (6511)"
+      },
+      "meaning": {
+        "en": "An overtemperature has been detected in the choke area (the inductor bank), so the inverter has switched off. The manual's corrective measures are cooling-fin cleaning and ventilation only.",
+        "ur": "Choke area (inductor bank) mein zyada temperature detect hui hai, is liye inverter band ho gaya hai. Manual ke corrective measures sirf cooling fins ki safai aur ventilation hain."
+      },
+      "causes": [
+        {
+          "en": "Cooling fins and top air ducts clogged with dust or fluff, starving the choke area of airflow.",
+          "ur": "Cooling fins aur upar ke air ducts dhool ya rui se band, jis se choke area ko airflow nahi mil raha."
+        },
+        {
+          "en": "Inverter mounted in direct sun or in a closed cabinet with no convection path.",
+          "ur": "Inverter seedhi dhoop mein ya aise cabinet mein laga hai jahan convection ka rasta nahi."
+        },
+        {
+          "en": "Fan running but airflow restricted by a neighbouring device or wall too close.",
+          "ur": "Fan chal raha hai lekin airflow kisi paas wale device ya qareebi deewar ki wajah se blocked hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off DC and AC, wait 30 minutes for the enclosure to cool, then clean the rear cooling fins and top air ducts with a soft brush.",
+          "ur": "DC aur AC band karein, 30 minute intezaar karein ke enclosure thanda ho, phir peeche ke cooling fins aur upar ke air ducts soft brush se saaf karein."
+        },
+        {
+          "en": "Verify the inverter has the ventilation clearance the manual specifies on all sides, and remove any enclosure or cabinet door that is blocking convection.",
+          "ur": "Confirm karein ke inverter ke charon taraf manual ke mutabiq ventilation clearance hai, aur koi enclosure ya cabinet ka darwaza jo convection rok raha ho hata dein."
+        },
+        {
+          "en": "Measure the choke area temperature with an IR thermometer against ambient; if the gap is large with clean fins, ask SMA Service to check the internal fan and the choke temperature sensor.",
+          "ur": "IR thermometer se choke area ka temperature ambient ke against measure karein; agar saaf fins ke bawajood farq bara ho to SMA Service se internal fan aur choke temperature sensor check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "6511 is specific to the choke area; 6501/6502/6509 on this product are the generic over-temperature events with no component named.",
+        "ur": "6511 choke area ke liye khaas hai; is product par 6501/6502/6509 generic over-temperature events hain jinmein koi component naam nahi hota."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    },
+    {
+      "code": "6802",
+      "aliases": [
+        "6802",
+        "6805"
+      ],
+      "title": {
+        "en": "DC input defective — battery polarity reversed (6802)",
+        "ur": "DC input defective — battery ki polarity ulti (6802)"
+      },
+      "meaning": {
+        "en": "A polarity error is present on the inverter. The manual's corrective measure is to check whether a battery is connected to the DC input, then contact the Service.",
+        "ur": "Inverter par polarity error hai. Manual ka corrective measure hai check karein ke DC input par battery lagi hai ya nahi, phir Service se rabta karein."
+      },
+      "causes": [
+        {
+          "en": "Battery leads connected + to minus and minus to plus at the DC terminal.",
+          "ur": "Battery leads DC terminal par + se minus aur minus se plus jorde hue hain."
+        },
+        {
+          "en": "Battery leads connected to a DC input that is not the battery input on a multi-input unit.",
+          "ur": "Battery leads aise DC input par jode hue hain jo multi-input unit par battery input nahi hai."
+        },
+        {
+          "en": "A cell group with a reversed connection inside the battery rack.",
+          "ur": "Battery rack ke andar kisi cell group ka connection ulta hua hai."
+        },
+        {
+          "en": "Intermittent contact in the battery connector producing a transient apparent reversal.",
+          "ur": "Battery connector mein intermittent contact jo momentary apparent reversal bana raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the battery at the external disconnection service and the AC, then confirm zero volts at the DC terminals with a two-pole tester.",
+          "ur": "External disconnection service se battery aur AC isolate karein, phir two-pole tester se DC terminals par zero volt confirm karein."
+        },
+        {
+          "en": "Measure DC+ and DC- to the inverter's DC terminal with a DC meter; a correctly wired battery shows DC+ at about the pack voltage above DC- and DC- near the PE reference.",
+          "ur": "DC meter se inverter ke DC terminal par DC+ aur DC- measure karein; theek se wired battery DC+ par pack voltage aur DC- par PE ke qareeb dikhata hai."
+        },
+        {
+          "en": "Inspect every inter-cell connector in the battery rack and re-torque them; a single reversed or loose inter-cell link is enough to trip this event.",
+          "ur": "Battery rack mein har inter-cell connector check karke dobara torque karein; aik reversed ya loose inter-cell link is event ko trip kara dene ke liye kaafi hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Sunny Tripower 3-6 uses 6801/6802 and 6901/6902 for PV input A/B polarity with the same wording but a PV, not battery, input. Do not swap the two.",
+        "ur": "Sunny Tripower 3-6 par 6801/6802 aur 6901/6902 PV input A/B polarity ke liye hain, wording wohi hai lekin input PV ka hai battery ka nahi. Dono ko swap na karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    },
+    {
+      "code": "7727",
+      "aliases": [
+        "7727"
+      ],
+      "title": {
+        "en": "DC relay opened unintentionally (7727)",
+        "ur": "DC relay ghalat se khul gaya (7727)"
+      },
+      "meaning": {
+        "en": "The DC relay opened when it should not have. The manual states only that the cause must be determined by the Service.",
+        "ur": "DC relay aise khul gaya jahan nahi khulna chahiye tha. Manual sirf itna kehti hai ke wajah Service ko tay karni hogi."
+      },
+      "causes": [
+        {
+          "en": "Control board or relay coil failure allowing the relay to drop out under load.",
+          "ur": "Control board ya relay coil ka failure jis se relay load ke neeche gir jata hai."
+        },
+        {
+          "en": "Battery voltage momentarily collapsing and releasing the relay's undervoltage release.",
+          "ur": "Battery voltage pal ke liye gir kar relay ka undervoltage release chala gaya."
+        },
+        {
+          "en": "Loose relay holder or connector inside the unit allowing vibration to open the contact.",
+          "ur": "Unit ke andar relay holder ya connector loose, jis se vibration se contact khul jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and the battery from all voltage sources and secure the unit against being switched on before opening it.",
+          "ur": "Unit kholne se pehle AC aur battery ko sabhi voltage sources se isolate karke is taraf se secure karein ke koi ise on na kare."
+        },
+        {
+          "en": "With the unit dead, check the relay holder and connector seating and tighten them, then check the relay coil resistance against the service specification.",
+          "ur": "Unit dead kar ke relay holder aur connector ki seating check karke tighten karein, phir relay coil ki resistance service specification se check karein."
+        },
+        {
+          "en": "Log battery terminal voltage at the moment the event appears, using a logging meter; a voltage collapse at that instant confirms the undervoltage-release path.",
+          "ur": "Event aate hi logging meter se battery terminal voltage log karein; usi waqt voltage girna undervoltage-release path confirm karta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SMA gives no field corrective measure for this code beyond Service. Do not attempt to bridge or force the relay.",
+        "ur": "Is code ke liye SMA koi field corrective measure nahi deta, sirf Service kehta hai. Relay ko bridge ya force karne ki koshish na karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    },
+    {
+      "code": "7728",
+      "aliases": [
+        "7728"
+      ],
+      "title": {
+        "en": "DC relay defective — does not close or open (7728)",
+        "ur": "DC relay defective — band ya khulta hi nahi (7728)"
+      },
+      "meaning": {
+        "en": "The DC relay is defective and fails to close or fails to open as commanded. The manual states only that the cause must be determined by the Service.",
+        "ur": "DC relay defective hai aur command ke mutabiq ya band nahi hota ya khulta nahi. Manual sirf itna kehti hai ke wajah Service ko tay karni hogi."
+      },
+      "causes": [
+        {
+          "en": "Relay contacts welded closed, so the unit cannot isolate the DC side as commanded.",
+          "ur": "Relay contacts band ho kar weld ho gaye hain, jis se unit DC side ko command ke mutabiq isolate nahi kar sakta."
+        },
+        {
+          "en": "Relay contacts eroded open, so the unit cannot establish the DC path.",
+          "ur": "Relay contacts khul kar kharab ho gaye hain, jis se unit DC path nahi bana sakta."
+        },
+        {
+          "en": "Relay driver circuit failure, so the coil is never energised even when commanded.",
+          "ur": "Relay driver circuit ka failure, jis se coil command ke bawajood kabhi energize nahi hota."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and the battery from all voltage sources and lock the unit out before any inspection.",
+          "ur": "Koi bhi inspection se pehle AC aur battery ko sabhi voltage sources se isolate karke unit lock out karein."
+        },
+        {
+          "en": "With the unit dead and the DC cables removed, test the relay for continuity in both coil states and check the coil resistance; no continuity in one state confirms the relay itself.",
+          "ur": "Unit dead karke DC cables nikaal kar relay ko dono coil states mein continuity ke liye test karein aur coil resistance check karein; aik state mein continuity na hona khud relay confirm karta hai."
+        },
+        {
+          "en": "Check the relay driver output on the control board with a multimeter during a commanded close; no output means a board fault, output present means a relay fault.",
+          "ur": "Commanded close ke dauran multimeter se control board par relay driver output check karein; output na ho to board fault, output maujood ho to relay fault."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The DC relay is a service item, not a field-replaceable part. The manual routes this to Service by design.",
+        "ur": "DC relay service item hai, field par replace hone wala part nahi. Manual ise jaan boojh kar Service ko bhejta hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    },
+    {
+      "code": "7801",
+      "aliases": [
+        "7801"
+      ],
+      "title": {
+        "en": "Overvoltage protector fault — surge arrester (7801)",
+        "ur": "Overvoltage protector ka fault — surge arrester (7801)"
+      },
+      "meaning": {
+        "en": "One or more surge arresters have tripped, or one or more surge arresters are not inserted correctly.",
+        "ur": "Ek ya zyada surge arresters trip ho chuke hain, ya ek ya zyada surge arresters theek se insert nahi hue hain."
+      },
+      "causes": [
+        {
+          "en": "A lightning strike or mains surge on the AC side that has tripped the arresters.",
+          "ur": "AC side par lightning strike ya mains surge jo arresters ko trip kar chuka hai."
+        },
+        {
+          "en": "A surge arrester pulled out of its slot during a previous service operation and never re-seated.",
+          "ur": "Kisi pichli service ke dauran surge arrester slot se nikal gaya aur dobara seat nahi kiya gaya."
+        },
+        {
+          "en": "Repeated smaller surges that have cumulatively degraded the MOV element to its end of life.",
+          "ur": "Baar baar chhote surges jin ne MOV element ko us ki umar ke ant tak degrade kar diya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "First ensure the surge arrester is inserted correctly — this is the manual's first corrective measure and it is the most common cause.",
+          "ur": "Pehle confirm karein ke surge arrester theek se insert hai — yehi manual ka pehla corrective measure hai aur sab se aam wajah bhi yahi hai."
+        },
+        {
+          "en": "Isolate the inverter from all voltage sources (the manual's procedure 12.2 step 1) before touching the arresters.",
+          "ur": "Arresters ko chherne se pehle inverter ko sabhi voltage sources se isolate karein (manual ki procedure 12.2 ka step 1)."
+        },
+        {
+          "en": "Unlock the arrester with a screwdriver turned to the open position, pull it out and inspect it; a tripped arrester shows a visibly blackened or scorched element.",
+          "ur": "Screwdriver ko open position mein ghuma kar arrester unlock karein, bahar nikalein aur inspect karein; trip hua arrester ka element kaala ya jhula hua nazar aata hai."
+        },
+        {
+          "en": "Replace every tripped arrester with a new one of the same type and rating, seat them all the way home, then recommission and confirm 7801 clears.",
+          "ur": "Har trip hua arrester nayi type aur rating wali se badal dein, sab ko poora seat karein, phir recommission karke confirm karein ke 7801 clear ho gaya."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "A tripped arrester means the device absorbed a surge for you — replace it, never re-use the old one, even if it looks intact.",
+        "ur": "Trip hua arrester ka matlab device ne aap ke liye surge absorb kiya — use badal dein, purana wala kabhi dobara mat lagayein, agar woh sab theek lage tab bhi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    },
+    {
+      "code": "8104",
+      "aliases": [
+        "8104"
+      ],
+      "title": {
+        "en": "Communication impaired (8104)",
+        "ur": "Communication impaired — link kharab (8104)"
+      },
+      "meaning": {
+        "en": "Communication is impaired and the cause must be determined by SMA Service. On this product this covers the link to the battery system and the cluster master communication.",
+        "ur": "Communication impaired hai aur wajah SMA Service ko tay karni hogi. Is product par yeh battery system se aur cluster master communication ke link ko cover karta hai."
+      },
+      "causes": [
+        {
+          "en": "Ethernet or RS485 cable between inverter and Data Manager / Home Manager unplugged or damaged.",
+          "ur": "Inverter aur Data Manager / Home Manager ke darmiyan Ethernet ya RS485 cable nikal chuka ya damaged hai."
+        },
+        {
+          "en": "A network device on the same segment failing and taking the inverter's link down with it.",
+          "ur": "Usi segment par koi network device fail hua aur inverter ka link bhi usi ke saath gira."
+        },
+        {
+          "en": "Cluster communication cable to a slave unit not seated, or bus termination missing.",
+          "ur": "Slave unit ka cluster communication cable baithaya nahi, ya bus termination nahi."
+        },
+        {
+          "en": "Firmware version mismatch between inverter and battery after one of them was updated.",
+          "ur": "Inverter aur battery ke darmiyan firmware version mismatch, jab ek update hua aur doosra nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Walk every communication cable on the segment and reseat each connector, then confirm the switch or router port LEDs show an active link.",
+          "ur": "Segment ke har communication cable ko check karke har connector dobara baithayein, phir confirm karein ke switch ya router port ki LEDs par active link hai."
+        },
+        {
+          "en": "Compare the firmware versions of inverter and battery on the user interface and update the older one if they differ; a version mismatch is a known cause on this product.",
+          "ur": "User interface par inverter aur battery ke firmware versions compare karein aur agar farq ho to purane wale ko update karein; is product par version mismatch aam wajah hai."
+        },
+        {
+          "en": "Verify the bus is terminated at both ends and that no two devices share a Modbus address, then re-read the event.",
+          "ur": "Confirm karein ke bus dono ends par terminated hai aur do devices ka Modbus address ek jaisa nahi, phir event dobara padhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This code is a catch-all for comms; pair it with 9308 which specifically reports that the external battery management cannot be reached.",
+        "ur": "Yeh code comms ka umbrella hai; isay 9308 ke saath dekhein jo specifically batata hai ke external battery management tak nahi pohanch sakte."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    },
+    {
+      "code": "9206",
+      "aliases": [
+        "9206"
+      ],
+      "title": {
+        "en": "Short-circuit fault, self-healing (9206)",
+        "ur": "Short-circuit fault — khud theek hota hai (9206)"
+      },
+      "meaning": {
+        "en": "A short-circuit fault is present. After a certain time the error disappears automatically as a self-healing error, but if it occurs 3 times in succession operation may be permanently inhibited under event 9102.",
+        "ur": "Short-circuit fault maujood hai. Kuch der baad yeh error khud ba khud hat jata hai (self-healing error), lekin agar 3 baar lagatar ho to event 9102 ke tehat operation permanently inhibit ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "A momentary short across the DC side, e.g. during a connector mating or a fan inrush.",
+          "ur": "DC side par pal ke liye short, maslan connector jorte waqt ya fan inrush par."
+        },
+        {
+          "en": "A chafed DC cable whose insulation touches metal intermittently.",
+          "ur": "Ghis chuki DC cable jis ki insulation baar baar metal ko chhu leti hai."
+        },
+        {
+          "en": "A marginal DC connector bouncing between connected and open.",
+          "ur": "Marginal DC connector jo connected aur open ke darmiyan uchhalta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Let the self-healing cycle run once and count the occurrences; SMA's threshold is three in succession before 9102 inhibits operation.",
+          "ur": "Self-healing cycle aik baar chalne dein aur occurrences ginein; SMA ka threshold 3 lagatar hai, uske baad 9102 operation rok deta hai."
+        },
+        {
+          "en": "Isolate the DC side and check DC+ and DC- to PE and DC+ to DC- for an intermittent short, flexing the cable run by hand to make a marginal contact show up.",
+          "ur": "DC side isolate karke DC+ se PE, DC- se PE aur DC+ se DC- mein intermittent short check karein, cable run ko haath se hilate hue taake marginal contact nazar aaye."
+        },
+        {
+          "en": "Replace any connector that bounces, re-crimp the affected terminations, and if the count is already at 2, replace the suspect cable before it reaches a third occurrence.",
+          "ur": "Jis connector uchhalta ho use badal dein, affected terminations dobara crimp karein, aur agar count pehle se 2 par hai to teesri occurrence se pehle shak cable badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Three occurrences trigger 9102 operation inhibition — treat the count, not just the current message, as the urgency.",
+        "ur": "Teen occurrences 9102 operation inhibition ko trigger karte hain — foran sirf current message nahi, count ko hi urgency samajhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    },
+    {
+      "code": "9308",
+      "aliases": [
+        "9308"
+      ],
+      "title": {
+        "en": "Battery management timeout monitoring triggered (9308)",
+        "ur": "Battery management timeout monitoring trigger hui (9308)"
+      },
+      "meaning": {
+        "en": "The timeout monitoring system of the battery management has triggered, which means the external battery management cannot be reached. The manual says to wait, since the inverter can take up to 10 minutes to switch back on.",
+        "ur": "Battery management ka timeout monitoring system trigger hua hai, yaani external battery management tak nahi pohanch sakte. Manual kehti hai ke intezaar karein, kyunke inverter ko wapas on hone mein 10 minute lag sakte hain."
+      },
+      "causes": [
+        {
+          "en": "Battery communication parameters set incorrectly, for example a wrong IP address — the manual's first corrective measure.",
+          "ur": "Battery communication parameters ghalat set hain, maslan ghalat IP address — manual ka pehla corrective measure."
+        },
+        {
+          "en": "BMS power cycled or rebooted and did not come back on the network in time.",
+          "ur": "BMS ka power cycle ya reboot hua aur waqt par network par wapas nahi aaya."
+        },
+        {
+          "en": "Network switch or cable fault on the battery management segment.",
+          "ur": "Network switch ya cable ka fault battery management segment par."
+        },
+        {
+          "en": "Firmware version mismatch between inverter and battery after an update on one side only.",
+          "ur": "Inverter aur battery ke darmiyan firmware version mismatch, jab sirf aik side update hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait up to 10 minutes for the inverter to switch back on, as the manual states, before concluding anything is broken.",
+          "ur": "Manual ke mutabiq inverter ko wapas on hone mein 10 minute tak intezaar karein, is se pehle kuch tooti hua hone ka nateeja na nikaalein."
+        },
+        {
+          "en": "Check the battery communication parameters on the inverter, especially the IP address, and correct any mismatch with the battery's actual network settings.",
+          "ur": "Inverter par battery communication parameters check karein, khaas kar IP address, aur battery ke actual network settings se koi bhi mismatch theek karein."
+        },
+        {
+          "en": "Ping the battery management from the same network segment as the inverter and confirm it responds; a non-responding BMS is a battery-side problem, not an inverter problem.",
+          "ur": "Inverter wale hi network segment se battery management ko ping karein aur confirm karein ke jawab deta hai; jawab na dene wala BMS battery side ka masla hai, inverter ka nahi."
+        },
+        {
+          "en": "Compare the firmware versions and update the older device if they differ.",
+          "ur": "Firmware versions compare karein aur agar farq ho to purane device ko update karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The 10-minute wait in the manual is important: technicians frequently reset the unit during this window and lose the diagnostic state.",
+        "ur": "Manual ka 10 minute ka intezaar ahem hai: technicians is window mein unit reset kar ke diagnostic state kho dete hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    },
+    {
+      "code": "9395",
+      "aliases": [
+        "9395"
+      ],
+      "title": {
+        "en": "Battery separated externally (9395)",
+        "ur": "Battery bahar se alag kar di gayi (9395)"
+      },
+      "meaning": {
+        "en": "The DC power connection to the battery was disconnected. The inverter has simply reported an external action, not an internal fault.",
+        "ur": "Battery ka DC power connection disconnect kar diya gaya hai. Inverter ne sirf external action report kiya hai, koi internal fault nahi."
+      },
+      "causes": [
+        {
+          "en": "Someone opened the battery disconnection point or the DC isolator during servicing or a replacement.",
+          "ur": "Kisi ne servicing ya replacement ke dauran battery disconnection point ya DC isolator khol diya."
+        },
+        {
+          "en": "A main DC fuse blew, isolating the battery from the inverter.",
+          "ur": "Koi main DC fuse udd gaya, jis se battery inverter se alag ho gayi."
+        },
+        {
+          "en": "A connector on the battery DC run came loose from vibration or thermal movement.",
+          "ur": "Battery DC run par koi connector vibration ya thermal movement se dheela ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Ask the site owner whether anyone worked on the battery or DC side; the answer usually closes this event with no action.",
+          "ur": "Site owner se poochein ke kisi ne battery ya DC side par kaam kiya tha; aksar jawab mil jata hai aur koi zaroorat nahi padti."
+        },
+        {
+          "en": "With the DC side isolated, measure continuity from the battery terminals to the inverter DC input; an open point is a fuse, isolator or connector, not a battery fault.",
+          "ur": "DC side isolate kar ke battery terminals se inverter DC input tak continuity measure karein; koi khula point fuse, isolator ya connector hai, battery fault nahi."
+        },
+        {
+          "en": "Check the DC fuse rating against the manual before fitting a replacement; an over-rated fuse defeats the whole protection chain.",
+          "ur": "Naya fuse lagane se pehle uski rating manual se check karein; zyada rating wala fuse poori protection chain ko bekaar kar deta hai."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Non-fault status row. It is the counterpart of 9351, where the battery disconnection point is in the wrong switch position.",
+        "ur": "Non-fault status row hai. Yeh 9351 ka counterpart hai, jahan battery disconnection point galat switch position mein hota hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    },
+    {
+      "code": "10818",
+      "aliases": [
+        "10818"
+      ],
+      "title": {
+        "en": "Insulation error within the battery system (10818)",
+        "ur": "Battery system ke andar insulation error (10818)"
+      },
+      "meaning": {
+        "en": "An insulation error has been reported inside the battery system, and the manual states the cause must be determined by SMA Service. This is distinct from 3501, which is the inverter's own DC-side insulation measurement.",
+        "ur": "Battery system ke andar insulation error report hua hai, aur manual kehti hai ke wajah SMA Service ko tay karni hogi. Yeh 3501 se alag hai, jo inverter ka apna DC-side insulation measurement hai."
+      },
+      "causes": [
+        {
+          "en": "Cell with damaged or cracked internal insulation inside the battery module.",
+          "ur": "Battery module ke andar kisi cell ki internal insulation damaged ya cracked."
+        },
+        {
+          "en": "Moisture ingress inside the battery enclosure, e.g. from a leaking roof or a wet wall.",
+          "ur": "Battery enclosure ke andar paasush ka dakhil, maslan chhootay chhat ya geeli deewar se."
+        },
+        {
+          "en": "Internal wiring in the battery rack abrading on a metal edge and chafing.",
+          "ur": "Battery rack ki internal wiring metal kinare par ragar kar ghis chuki hai."
+        },
+        {
+          "en": "Battery earthed through its rack or a cable shield, creating a false insulation path.",
+          "ur": "Battery apne rack ya kisi cable shield ke zariye earth ho gaya, jis se galat insulation path bana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the battery from the inverter and from earth, then measure the battery's internal insulation resistance with an insulation tester rated for the battery voltage.",
+          "ur": "Battery ko inverter aur earth se isolate karke battery voltage ke liye rated insulation tester se battery ki internal insulation resistance measure karein."
+        },
+        {
+          "en": "Compare the reading with the battery manufacturer's minimum insulation specification; below that value the module itself is the fault and must not be returned to service.",
+          "ur": "Reading ko battery manufacturer ke minimum insulation specification se compare karein; us se neeche ho to module khud fault hai aur use service mein wapas nahi jana chahiye."
+        },
+        {
+          "en": "Check the battery room for water ingress and for any cable routing that touches metalwork, since both produce an internal insulation error that looks like a cell fault.",
+          "ur": "Battery room mein paasush ka dakhil aur metal ko chhune wali cable routing check karein, kyunke dono aisa internal insulation error banate hain jo cell fault jaisa lagta hai."
+        },
+        {
+          "en": "Supply the inverter event log to SMA Service together with the measured insulation value, since the manual routes this code to Service.",
+          "ur": "Manual is code ko Service ko bhejta hai, is liye inverter ka event log aur measured insulation value SMA Service ko dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do not clear 10818 by re-energising. It is a stop-production condition on the battery side.",
+        "ur": "10818 ko dobara energise karke clear na karein. Yeh battery side par production rokne ki halat hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    },
+    {
+      "code": "10820",
+      "aliases": [
+        "10820"
+      ],
+      "title": {
+        "en": "Disturbance in the battery rack (10820)",
+        "ur": "Battery rack mein disturbance (10820)"
+      },
+      "meaning": {
+        "en": "A disturbance has been reported in the battery rack. The manual states the cause must be determined by SMA Service and gives no field corrective measure.",
+        "ur": "Battery rack mein disturbance report hua hai. Manual kehti hai ke wajah SMA Service ko tay karni hogi aur koi field corrective measure nahi deti."
+      },
+      "causes": [
+        {
+          "en": "Loose or missing inter-cell connector in the rack producing an intermittent connection.",
+          "ur": "Rack mein koi inter-cell connector loose ya missing hai jis se connection intermittent ho gaya."
+        },
+        {
+          "en": "Rack not properly earthed or mounted, so it can move and disturb the connections.",
+          "ur": "Rack theek se earth ya mount nahi hai, jis se woh hila kar connections ko disturb kar sakta hai."
+        },
+        {
+          "en": "A cell or module inside the rack reporting a fault through the rack's monitoring line.",
+          "ur": "Rack ke andar koi cell ya module monitoring line ke zariye fault report kar raha hai."
+        },
+        {
+          "en": "Rack ventilation blocked, so a module has overheated and reported a disturbance.",
+          "ur": "Rack ki ventilation band hai, jis se koi module zyada garam hua aur disturbance report kiya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the battery via the external disconnection service before opening or working on the rack.",
+          "ur": "Rack par kaam karne ya use kholne se pehle battery ko external disconnection service se isolate karein."
+        },
+        {
+          "en": "With the battery isolated, re-torque every inter-cell connector and rack connection, and replace any connector whose crimp or spring force is weak.",
+          "ur": "Battery isolate kar ke har inter-cell connector aur rack connection dobara torque karein, aur jis connector ki crimp ya spring force kamzor ho use badal dein."
+        },
+        {
+          "en": "Measure the voltage of every cell in the rack; a cell far below its neighbours identifies the disturbed module and saves replacing the whole rack.",
+          "ur": "Rack mein har cell ka voltage measure karein; padosi cells se kaafi neeche wala cell disturbed module identify kar deta hai aur poora rack badalne se bachata hai."
+        },
+        {
+          "en": "Confirm the rack's ventilation path is clear, then send the event log to SMA Service for the cause determination the manual requires.",
+          "ur": "Rack ki ventilation path saaf karein, phir manual ke mutabiq wajah tay karne ke liye event log SMA Service ko bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Field-checkable in most cases despite the manual's Service-only wording: loose inter-cell connectors are the usual real cause.",
+        "ur": "Manual ke Service-only wording ke bawajood aksar field par check kiya ja sakta hai: loose inter-cell connectors aam asal wajah hote hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY ISLAND X 30 / 50 (SIxx-20-BE-en-11, Version 1.1), section 12.1 Event messages",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/SIxx-20-BE-en-11.pdf"
+      }
+    }
+  ]
+}

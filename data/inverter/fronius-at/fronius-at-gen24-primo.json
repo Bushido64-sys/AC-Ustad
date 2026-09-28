@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "brandId": "fronius-at",
+  "series": {
+    "id": "fronius-at-gen24-primo",
+    "name": "GEN24 Primo 3.8-6.0 kW / Plus / SC 208-240 (status code table)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*Primo GEN24 3.8*",
+      "*Primo GEN24 5.0*",
+      "*Primo GEN24 6.0*",
+      "*Primo GEN24 Plus*",
+      "*Primo GEN24 SC*"
+    ],
+    "notes": "Single-phase GEN24 ('Primo') 3.8-6.0 kW plus the Plus and SC variants. Manual rev. 025 (manual 42,0426,0530). Unit type is on_grid_inverter; with a compatible battery connected (BAT switch position 1) the same unit also provides backup power, but Fronius's own product class and these state codes are grid-tied inverter codes. Codes here are shown on the inverter LED; the text says 'in the event of faults, carry out the individual steps in the Fronius Solar.start app'."
+  },
+  "codes": [
+    {
+      "code": "1030",
+      "aliases": [
+        "1030",
+        "WSD Open"
+      ],
+      "title": {
+        "en": "WSD Open (1030)",
+        "ur": "WSD khul gaya (1030)"
+      },
+      "meaning": {
+        "en": "The wired shutdown (WSD) chain is open, so the inverter has shut down. On this model line the operating LED flashes red.",
+        "ur": "Wired shutdown (WSD) chain khuli hai, is liye inverter band ho gaya. Is model line par operating LED laal flash karta hai."
+      },
+      "causes": [
+        {
+          "en": "A device in the WSD chain has interrupted the signal line - most commonly a surge protection device (SPD) that has tripped.",
+          "ur": "WSD chain ka koi device signal line tod raha hai - aam tor par koi surge protection device (SPD) jo trigger ho chuka hai."
+        },
+        {
+          "en": "The bypass installed ex works has been removed and no trigger device has been installed instead.",
+          "ur": "Factory se lagi hui bypass hata di gayi hai aur us ki jagah koi trigger device install nahi kiya gaya."
+        },
+        {
+          "en": "The 2-pin signal cable of the surge protection device is interrupted or damaged.",
+          "ur": "Surge protection device ka 2-pin signal cable kata hua ya damaged hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC and visually check the WSD chain: the SPD indicator (green/red mechanical window) and the 2-pin signal cable back to the inverter.",
+          "ur": "AC aur DC isolate kar ke WSD chain dekhhein: SPD ka indicator (hara/laal mechanical window) aur inverter tak jaane wala 2-pin signal cable."
+        },
+        {
+          "en": "If the SPD has tripped, have the inverter repaired by an authorised specialist - Fronius states SPD work may only be carried out by Fronius-trained service personnel.",
+          "ur": "Agar SPD trigger hua hai to inverter ki repair authorised specialist se karwayein - Fronius kehta hai SPD ka kaam sirf Fronius-trained service personnel kar sakta hai."
+        },
+        {
+          "en": "If no emergency stop switch is installed, install the ex-works bypass or a proper trigger device on the WSD connector, and set the WSD switch to position 1 (WSD primary device).",
+          "ur": "Agar emergency stop switch installed nahi hai to WSD connector par factory bypass ya proper trigger device lagayein, aur WSD switch ko position 1 (WSD primary device) par set karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Operating LED flashes red",
+      "confidence": "high",
+      "notes": {
+        "en": "Also published on the Fronius GEN24 support page as '1030: WSD (Wired Shut Down) triggered' (SERIES 2), where it is split into three cases (a/b/c). Same fault, two independent official tables - not merged.",
+        "ur": "Fronius GEN24 support page par bhi '1030: WSD (Wired Shut Down) triggered' ke naam se publish hua hai (SERIES 2), jahan ise teen cases mein baanta hai (a/b/c). Wahi fault, do alag official tables - merge nahi kiya gaya."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo GEN24 3.8 - 6.0 kW / Plus / SC 208 - 240 Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260530/en-US.html"
+      }
+    },
+    {
+      "code": "1173",
+      "aliases": [
+        "1173",
+        "ArcContinuousFault"
+      ],
+      "title": {
+        "en": "ArcContinuousFault - arc, reconnect limit reached (1173)",
+        "ur": "ArcContinuousFault - arc, reconnect limit poori (1173)"
+      },
+      "meaning": {
+        "en": "An arc was identified on the PV system and the maximum number of automatic reconnections within 24 hours has been reached, so the inverter has stopped trying. Operating LED flashes red.",
+        "ur": "PV system par arc detect hua aur 24 ghante mein automatic reconnections ki maximum limit poori ho gayi, is liye inverter ne koshish chhorr di. Operating LED laal flash karta hai."
+      },
+      "causes": [
+        {
+          "en": "A real serial arc on the DC side that re-occurs every time the inverter restarts, e.g. a burnt DC connector or damaged cable insulation.",
+          "ur": "DC side par asal serial arc jo har restart par dohra rehta hai, jaise jala hua DC connector ya damaged cable insulation."
+        },
+        {
+          "en": "Arcing at a damaged module junction box, bypass diode or a connector that was not fully seated.",
+          "ur": "Kisi damaged module junction box, bypass diode ya aise connector par arcing jahan connector poora baitha nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Before confirming the code, check the entire affected photovoltaic system for damage - Fronius warns of serious injury and property damage from damaged PV components.",
+          "ur": "Code confirm karne se pehle poore affected photovoltaic system ko damage ke liye check karein - Fronius damaged PV components se serious injury aur nuqsan ki warning deta hai."
+        },
+        {
+          "en": "Isolate AC and DC, then inspect and replace burnt, melted or loose DC connectors and any cable with damaged insulation.",
+          "ur": "AC aur DC isolate kar ke, jale, pighle ya dheele DC connectors aur damaged insulation wala koi bhi cable inspect karke badal dein."
+        },
+        {
+          "en": "Only after the arc source is fixed: keep the optical sensor pressed on the inverter for 3 seconds (max. 6 seconds) to acknowledge, or confirm the status in System > Event Log or in the Notifications user menu.",
+          "ur": "Sirf arc ka wajaub theek karne ke baad: acknowledge karne ke liye inverter par optical sensor ko 3 second (max 6 second) tak daba kar rakhein, ya System > Event Log ya Notifications user menu mein status confirm karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Operating LED flashes red",
+      "confidence": "high",
+      "notes": {
+        "en": "Identical fault to 1006 / 1173 in SERIES 1 and SERIES 2; Fronius names it 'ArcContinuousFault' only in this table. Not merged with SERIES 1 / SERIES 2.",
+        "ur": "SERIES 1 aur SERIES 2 ke 1006 / 1173 se bilkul wahi fault; Fronius ise sirf isi table mein 'ArcContinuousFault' ke naam se likhta hai. SERIES 1 / SERIES 2 ke saath merge nahi kiya gaya."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo GEN24 3.8 - 6.0 kW / Plus / SC 208 - 240 Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260530/en-US.html"
+      }
+    },
+    {
+      "code": "1191",
+      "aliases": [
+        "1191",
+        "AfciDataTransfer"
+      ],
+      "title": {
+        "en": "AfciDataTransfer - arc data transfer (1191)",
+        "ur": "AFCI data transfer mein kharabi (1191)"
+      },
+      "meaning": {
+        "en": "An electric arc has been identified on the PV system and the arc signature is being transferred. Fronius states no action is required. Operating LED flashes yellow.",
+        "ur": "PV system par electric arc detect hua hai aur arc signature transfer ho rahi hai. Fronius kehta hai koi action zaroori nahi. Operating LED peela flash karta hai."
+      },
+      "causes": [
+        {
+          "en": "A detected DC arc; the inverter is uploading the arc signature to the cloud to improve arc detection accuracy.",
+          "ur": "Detect hua DC arc; inverter arc signature cloud par bhej kar arc detection ki accuracy behtar kar raha hai."
+        },
+        {
+          "en": "Arc Logging is switched on, so each detection is recorded and reported.",
+          "ur": "Arc Logging on hai, is liye har detection record aur report hoti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action required - this is the documented remedy in the manual.",
+          "ur": "Koi action zaroori nahi - manual mein yehi documented remedy hai."
+        },
+        {
+          "en": "Still watch for 1173 (ArcContinuousFault) or 1006: if the arc repeats, the inverter will escalate and stop restarting.",
+          "ur": "Phir bhi 1173 (ArcContinuousFault) ya 1006 par nazar rakhein: agar arc dohra to inverter escalate hokar restart karna chhorr dega."
+        },
+        {
+          "en": "If 1191 appears repeatedly with no physical arc found, ask the installer to check Arc Logging and Automatic Signal Recording settings.",
+          "ur": "Agar 1191 baar baar aaye aur koi physical arc na mile to installer se Arc Logging aur Automatic Signal Recording settings check karwayein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Operating LED flashes yellow",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronius Primo GEN24 3.8 - 6.0 kW / Plus / SC 208 - 240 Operating instructions",
+        "retrieved": "2026-09-26",
+        "url": "https://manuals.fronius.com/html/4204260530/en-US.html"
+      }
+    }
+  ]
+}

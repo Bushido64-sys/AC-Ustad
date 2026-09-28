@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-r-series-pv-leak",
+    "name": "R-Series / R G2 (three-phase grid-tie string) - DC component, leakage, PV overcurrent, polarity and insulation faults",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*R75*",
+      "*R100*",
+      "*R110*",
+      "*R-G2*",
+      "*RG2*"
+    ],
+    "notes": "R-Series DC and insulation block, still 4-DIGIT NUMERICS. FoxESS's R table uses a distinctive restart recipe that appears nowhere in the hybrid manuals: 'turn off the AC and DC side switches, wait for 10 minutes, and then turn on the AC and DC switches in turn to restart the inverter.' Two codes in this block break that pattern on purpose: 1035 is explicitly WEATHER-related ('excessive parasitic capacitance due to poor light or moist air. After the environment improves, the inverter will reconnect to the grid') and 1124 explicitly says to re-check on a better-weather day. Do not power-cycle a 1035 or 1124 in a storm. Confidence high: both codes appear identically in the PK V1.4 and RO R G2 V1.5 copies."
+  },
+  "codes": [
+    {
+      "code": "1034",
+      "aliases": [
+        "1034"
+      ],
+      "title": {
+        "en": "R: DC component current fault",
+        "ur": "R: DC component current kharab"
+      },
+      "meaning": {
+        "en": "A DC offset in the R-Series AC output current exceeded the permitted limit, so the unit has stopped.",
+        "ur": "R-Series ke AC output current mein DC offset ijazat limit se upar chala gaya, is liye unit ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Output filter capacitor degraded, allowing DC to leak into the AC output of a 75-110 kW stage.",
+          "ur": "Output filter capacitor kharaab hua, is liye 75-110 kW stage ke AC output mein DC leak hone laga."
+        },
+        {
+          "en": "Current-sensing channel offset or a failed sensing resistor on the main control board.",
+          "ur": "Main control board par current-sensing channel offset ya sensing resistor ki kharabi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the inverter to return to normal, as FoxESS's first step, and re-read the code.",
+          "ur": "Jaise FoxESS ka pehla step hai, inverter ke normal hone ka intezar karein aur code dobara dekhein."
+        },
+        {
+          "en": "If the fault recurs, turn off the AC and DC side switches, wait 10 minutes, then turn on the AC and DC switches in turn to restart - FoxESS's exact procedure.",
+          "ur": "Agar fault wapas aaye to AC aur DC side switches off karein, 10 minute intezar karein, phir AC aur DC switches ko baari baari on kar ke restart karein - FoxESS ka bilkul wahi tareeqa."
+        },
+        {
+          "en": "If the fault still exists, contact Fox ESS Customer Service for further assistance - the manual stops there and offers no field measurement.",
+          "ur": "Agar fault phir bhi mojood hai to Fox ESS Customer Service se madad ke liye rabta karein - manual yahin ruk jata hai aur koi field measurement nahi deta."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The 10-minute AC/DC switch cycle is the R-Series signature remedy and appears on most R codes. It does NOT appear in the H1, KH/KA, H3 or T manuals. A Pakistani R owner must be told to wait the full 10 minutes.",
+        "ur": "10 minute ka AC/DC switch cycle R-Series ki signature remedy hai aur zyada tar R codes par hai. Yeh H1, KH/KA, H3 ya T manuals mein NAHI hai. Pakistan ke R owner ko poore 10 minute intezar karne ko batayein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 8.2 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    },
+    {
+      "code": "1035",
+      "aliases": [
+        "1035"
+      ],
+      "title": {
+        "en": "R: leakage current overcurrent (weather-related)",
+        "ur": "R: leakage current overcurrent (hawa se wabasta)"
+      },
+      "meaning": {
+        "en": "A transient leakage-current trip that FoxESS explicitly attributes to damp air or poor light raising the array's parasitic capacitance. It is expected to self-clear when the weather improves.",
+        "ur": "Ek a Temporary leakage-current trip jise FoxESS saaf-saaf nami hawa ya kam roshni se array ke parasitic capacitance barhne ki wajah se batata hai. Mausam theek hone par khud clear hona chahiye."
+      },
+      "causes": [
+        {
+          "en": "Damp or moist air, which FoxESS names as the direct cause - this is the primary, expected trigger.",
+          "ur": "Nami ya geela hawa, jise FoxESS seedha wajah batata hai - yeh primary aur expected trigger hai."
+        },
+        {
+          "en": "Poor light or rain increasing the module-to-ground capacitance of a large array.",
+          "ur": "Kam roshni ya barish se bade array ki module-to-ground capacitance barh jana."
+        },
+        {
+          "en": "An actually leaky installation that is only noticed during damp weather - real, but a secondary cause.",
+          "ur": "Wakai leak wali installation jo sirf geele mausam mein nazar aati hai - asli magar secondary wajah hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do NOT power-cycle the inverter in the wet - the environment is the cause, not the unit.",
+          "ur": "Geele mausam mein inverter power-cycle na karein - wajah unit nahi, mausam hai."
+        },
+        {
+          "en": "Allow the weather to improve; FoxESS states the inverter will reconnect to the grid once the environment improves.",
+          "ur": "Mausam theek hone dein; FoxESS kehta hai ke environment theek hote hi inverter grid se khud reconnect ho jayega."
+        },
+        {
+          "en": "If the code returns in dry, settled weather, then treat it as a real leak and move to the 1036 insulation check on the AC and DC cables.",
+          "ur": "Agar code sukhe, thake hue mausam mein wapas aaye to isay asal leak samjhein aur 1036 ke AC aur DC cables ke insulation check par jayein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This is the one R code where the manual tells you to WAIT FOR WEATHER rather than restart. In Pakistan's monsoon this means a 1035 is frequently normal behaviour and must not be turned into a no-load battery/inverter replacement.",
+        "ur": "Yeh wohi ek R code hai jahan manual kaha ke mausam ka intezar karein, restart nahi karein. Pakistan ke mausam mein iska matlab hai ke 1035 aam tor par normal behaviour hai aur isay bina load battery ya inverter replacement par nahi badalna chahiye."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 8.2 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    },
+    {
+      "code": "1036",
+      "aliases": [
+        "1036"
+      ],
+      "title": {
+        "en": "R: leakage current static (steady) fault",
+        "ur": "R: leakage current static (mustaqil) fault"
+      },
+      "meaning": {
+        "en": "Leakage current is present continuously rather than in wet weather, so FoxESS directs you to check the insulation of the AC and DC cables.",
+        "ur": "Leakage current mustaqil mojood hai, geele mausam mein nahi, is liye FoxESS aapko AC aur DC cables ki insulation check karne ke liye bhejta hai."
+      },
+      "causes": [
+        {
+          "en": "Chafed or damaged DC cable insulation where the run crosses a metal structure, tray or sharp edge.",
+          "ur": "Gis chuki ya kharab DC cable insulation jahan run kisi metal structure, tray ya sharp edge se cross karti hai."
+        },
+        {
+          "en": "Water ingress into a DC junction box or an AC isolator that has since dried but left a resistive leak path.",
+          "ur": "DC junction box ya AC isolator mein paani ka dakhil jo ab suk chuka ho lekin resistive leak path chhod gaya ho."
+        },
+        {
+          "en": "Insulation resistance of an AC cable run degraded by heat and UV exposure - common on rooftop commercial runs in Pakistan.",
+          "ur": "AC cable run ki insulation resistance garmi aur UV se ghatak hui ho - Pakistan mein rooftop commercial runs par aam hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "First establish the environment: if the environment is NOT normal, FoxESS's own wording makes this a 1035 situation instead.",
+          "ur": "Pehle environment confirm karein: agar environment normal NAHI hai to FoxESS ka apna wording isay 1035 ki halaat banata hai."
+        },
+        {
+          "en": "If the environment is normal, check whether the insulation of the AC and DC cables is good - measure to earth with the DC switch open and AC isolated.",
+          "ur": "Agar environment normal hai to check karein ke AC aur DC cables ki insulation theek hai ya nahi - DC switch khuli aur AC isolate kar ke earth ke sath napen."
+        },
+        {
+          "en": "Isolate the AC and DC side switches, wait 10 minutes, then turn them on in turn to restart, and re-test on a dry day before quoting a service claim.",
+          "ur": "AC aur DC side switches isolate karein, 10 minute intezar karein, phir baari baari on kar ke restart karein, aur service claim quote karne se pehle sukhe din par dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "1035 and 1036 are the pair that separates 'wet-weather nuisance' from 'real insulation damage'. FoxESS makes the DISCRIMINATOR explicit: 1035 blames poor light or moist air, 1036 says check cable insulation if the environment is normal. Use the weather to decide which one you are actually chasing.",
+        "ur": "1035 aur 1036 wohi jore hain jo 'geele mausam ki pareshani' aur 'asal insulation nuqsaan' ko alag karte hain. FoxESS discriminator saaf likhta hai: 1035 kam roshni ya nami hawa ko blame karta hai, 1036 kehta hai environment normal ho to cable insulation check karein. Kaunsa code pakadna hai yeh mausam se decide karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 8.2 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    },
+    {
+      "code": "1065",
+      "aliases": [
+        "1065"
+      ],
+      "title": {
+        "en": "R: PV hardware overcurrent",
+        "ur": "R: PV current zyada (hardware)"
+      },
+      "meaning": {
+        "en": "A hardware comparator on the DC side detected PV current above the limit, so the R-Series has shut down.",
+        "ur": "DC side ka hardware comparator ne PV current limit se upar detect kiya, is liye R-Series band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "A degraded or heat-affected MC4 crimp on a high-current string, the leading real cause on dusty Pakistani rooftops.",
+          "ur": "High-current string par degraded ya garmi se asar-dehid MC4 crimp - dhool wale Pakistani rooftops par sab se aam asal wajah."
+        },
+        {
+          "en": "A DC arc forming on a damaged connector while the string is loaded.",
+          "ur": "String loaded hone par damaged connector par DC arc ban raha hai."
+        },
+        {
+          "en": "Partial shading or a bypassed module forcing current through the surviving path.",
+          "ur": "Partial shading ya bypassed module jo current ko bache hi path se guzarne par majboor kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the inverter to return to normal, as FoxESS's first step, and re-read the code.",
+          "ur": "Jaise FoxESS ka pehla step hai, inverter ke normal hone ka intezar karein aur code dobara dekhein."
+        },
+        {
+          "en": "If the fault recurs, turn off the AC and DC side switches, wait 10 minutes, then turn on the AC and DC switches in turn to restart.",
+          "ur": "Agar fault wapas aaye to AC aur DC side switches off karein, 10 minute intezar karein, phir AC aur DC switches baari baari on kar ke restart karein."
+        },
+        {
+          "en": "With DC isolated on a 75-110 kW unit, have a technician torque-check and thermally inspect the MC4 connectors on the affected MPPT and replace any discoloured or warm ones.",
+          "ur": "75-110 kW unit par DC isolate kar ke, affected MPPT ke MC4 connectors ka torque aur thermal inspection karwayein aur jo rang badle ya garm hon unhein replace karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The R table also lists 1176 'PV Hardware Overcurrent Permanent Fault' in the same 10-minute-recovery group, so a PV overcurrent can escalate from recoverable to a permanent stop code on the same unit.",
+        "ur": "R table mein 1176 'PV Hardware Overcurrent Permanent Fault' bhi usi 10-minute-recovery group mein hai, is liye aik hi unit par PV overcurrent recoverable se permanent stop code tak ja sakta hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 8.2 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    },
+    {
+      "code": "1085",
+      "aliases": [
+        "1085"
+      ],
+      "title": {
+        "en": "R: MPPT1 DC input access fault (reverse polarity)",
+        "ur": "R: MPPT1 DC input access fault (ulti polarity)"
+      },
+      "meaning": {
+        "en": "The R-Series detected an abnormal current pattern on MPPT1 indicating a reversed string. Sibling codes 1086 (MPPT2) and 1088 (MPPT3) are the same fault on the other inputs.",
+        "ur": "R-Series ne MPPT1 par abnormal current pattern detect kiya jo ulti string ki taraf ishara karta hai. Bhai codes 1086 (MPPT2) aur 1088 (MPPT3) wohi fault baaki inputs par hain."
+      },
+      "causes": [
+        {
+          "en": "The string's positive and negative are connected to the wrong MPPT input terminals - an installation error.",
+          "ur": "String ka positive aur negative ghalat MPPT input terminals par lage hue hain - installation ki galti."
+        },
+        {
+          "en": "A single string crossed to the neighbouring MPPT during a large multi-string rewire.",
+          "ur": "Bade multi-string rewire ke dauraan aik string padosi MPPT par chala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the positive and negative polarities of the strings corresponding to the fault are reversed - FoxESS's first instruction for this code.",
+          "ur": "Jaise FoxESS ka pehla instruction hai, fault se judi strings ki positive aur negative polarity ulati hui ya nahi check karein."
+        },
+        {
+          "en": "If the polarities are reversed, adjust the string polarities when the string current is low - do NOT swap a live high-voltage string.",
+          "ur": "Agar polarity ulti hai to string current kam hone par string ki polarity theek karein - live high-voltage string zinda nahi badlein."
+        },
+        {
+          "en": "Confirm which MPPT the code names (1085=MPPT1, 1086=MPPT2, 1088=MPPT3) and only re-verify that input's strings, so you do not disturb a working 18-connector field on an R75/R100.",
+          "ur": "Confirm karein ke code kaun sa MPPT bata raha hai (1085=MPPT1, 1086=MPPT2, 1088=MPPT3) aur sirf usi input ki strings dobara check karein, taake R75/R100 ke kaam karte 18-connector field mein tabiyat na aaye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "FoxESS's whole remedy here is polarity. If the polarity is correct and 1085 persists, the manual offers nothing further - note that R75 and R100 have 18 PAIRS of PV connectors, so a polarity mistake on a large field is a realistic and common install error.",
+        "ur": "FoxESS ka poora hal yahan polarity hai. Agar polarity theek hai aur 1085 qataar nahi hota to manual aage kuch nahi deta - note karein ke R75 aur R100 mein 18 JODIYAN PV connectors hain, is liye bade field par polarity ki galti aam aur realistic install error hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 8.2 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    },
+    {
+      "code": "1124",
+      "aliases": [
+        "1124"
+      ],
+      "title": {
+        "en": "R: low insulation impedance fault",
+        "ur": "R: insulation impedance kam hai"
+      },
+      "meaning": {
+        "en": "The measured insulation impedance is below the inverter's threshold. Unlike the T-Series ISO fault, FoxESS makes this a TWO-STEP check that also involves an APP setting and the local regulations.",
+        "ur": "Measured insulation impedance inverter ke threshold se neeche hai. T-Series ke ISO fault ke muqable, FoxESS isay do qadam ka check banata hai jisme APP setting aur local regulations bhi shamil hain."
+      },
+      "causes": [
+        {
+          "en": "Damaged DC cable insulation, or a DC cable and earth making poor contact - FoxESS's step 2 names both.",
+          "ur": "DC cable insulation ka nuqsaan, ya DC cable aur earth ka halat mein rabit na hona - FoxESS ka step 2 dono kehta hai."
+        },
+        {
+          "en": "The APP's ISO impedance protection value not matching local regulations, so the trip threshold is wrong for the site.",
+          "ur": "APP ka ISO impedance protection value local regulations se nahi milta, is liye site ke liye trip threshold ghalat hai."
+        },
+        {
+          "en": "A genuinely damp day, which FoxESS explicitly separates from a real fault by telling you to re-check in better weather.",
+          "ur": "Wakai geela din, jise FoxESS asal fault se saaf-saaf alag karta hai ke behtar mausam par dobara check kahein."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the inverter to return to normal, as FoxESS's first step, and re-read the code before touching anything.",
+          "ur": "Jaise FoxESS ka pehla step hai, kuch bhi chhune se pehle inverter ke normal hone ka intezar karein aur code dobara dekhein."
+        },
+        {
+          "en": "Then work both of FoxESS's steps with the DC side isolated: step 1 - check through the APP whether the ISO impedance protection value meets the local regulations; step 2 - check whether the DC cable and ground contact are good.",
+          "ur": "Phir DC side isolate kar ke FoxESS ke dono steps karein: step 1 - APP se check karein ke ISO impedance protection value local regulations ke mutabiq hai ya nahi; step 2 - check karein ke DC cable aur ground ka contact theek hai ya nahi."
+        },
+        {
+          "en": "If the cable is normal and the fault occurs on a cloudy or rainy day, check again when the weather gets better - FoxESS's own words; do not condemn the inverter in a storm.",
+          "ur": "Agar cable normal hai aur fault baadal ya barish ke din aaya hai to jab mausam theek ho dobara check karein - yehi FoxESS ke shabd hain; baarish mein inverter par blame na lagayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "THIRD distinct ISO procedure in this file. T-Series 'ISO fault' = measured impedance, should be >100 kOhm. Hybrids 'Iso Fault' = insulation-damage inspection, no value. R-Series 1124 = two-step check INCLUDING an APP threshold-versus-regulations step. Only the R version involves changing a setting in the app.",
+        "ur": "Is file mein TEOSRA alag ISO tareeqa. T-Series 'ISO fault' = measured impedance, 100 kOhm se zyada hona chahiye. Hybrids 'Iso Fault' = insulation-damage inspection, koi value nahi. R-Series 1124 = do qadam ka check jisme APP threshold aur regulations ka step bhi shamil hai. Sirf R wale mein app mein setting badalni shamil hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 8.2 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    }
+  ]
+}

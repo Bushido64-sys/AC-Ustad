@@ -1,0 +1,361 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-h3-ac3-power-relay",
+    "name": "H3/AC3 (three-phase hybrid) - power stage, bus and relay faults",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*H3*",
+      "*AC3*"
+    ],
+    "notes": "THE MOST IMPORTANT MODEL-LINE BLOCK IN THIS FILE. Every code here is a string that also exists on H1/KH-KA, but on H3 the OFFICIAL REMEDY IS DIFFERENT. Verified by reading the two tables side by side: (a) H3's 'SW Bus Vol Fault' adds 'Please check whether the N line is connected to the GRID port of the inverter' and 'at least ensure that the master is upgraded to 1.69 or above' - H1 V1.6 has neither. (b) H3's 'SW Inv Cur Fault' adds the master 1.69 requirement. (c) H3's 'Bat Boost Fault' adds 'or The relay on the battery side of the inverter is not closed' plus master 1.69. (d) H3's 'HW Pv Cur Fault' adds 'Check whether PV positive and negative are connected'. (e) H3 REPLACES H1's 'Main Relay Open' + 'S1/S2/M1/M2 Close Fault' with a single 'Grid Relay Fault' reading 'The grid relay keeps open or close' - confirmed absent from the H3 text entirely. Never give an H3 owner the H1 remedy, or an H1 owner the H3 advice."
+  },
+  "codes": [
+    {
+      "code": "SW Bus Vol Fault",
+      "aliases": [
+        "SW Bus Vol Fault",
+        "SW Bus Vol"
+      ],
+      "title": {
+        "en": "DC bus voltage out of range (software, H3)",
+        "ur": "DC bus voltage range se bahar (software, H3)"
+      },
+      "meaning": {
+        "en": "Software supervision saw the internal DC link voltage outside its safe window. On the H3 this alarm is also a prompt to verify the neutral and the master firmware, which the H1 table does not ask for.",
+        "ur": "Software supervision ne internal DC link voltage ko safe window se bahar dekha. H3 par yeh alarm neutral aur master firmware check karne ka bhi ishara hai, jo H1 ki table nahi maangti."
+      },
+      "causes": [
+        {
+          "en": "N line not connected to the GRID port - the H3 manual names this explicitly and it is the first thing to check on this model.",
+          "ur": "GRID port par N line nahi lagi - H3 manual yeh saaf-saaf batata hai aur is model par sab se pehle yahi check karein."
+        },
+        {
+          "en": "Grid voltage at an extreme, so the bus cannot be held in the operating window.",
+          "ur": "Grid voltage bilkul extreme par, is liye bus ko operating window mein nahi rakh sakte."
+        },
+        {
+          "en": "Master firmware below 1.69 - the H3 manual states this code requires master 1.69 or above.",
+          "ur": "Master firmware 1.69 se neeche - H3 manual kehta hai ke is code ke liye master 1.69 ya us se upar chahiye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then with the power dead confirm the neutral conductor is solidly landed at the inverter's GRID port and the PE is sound.",
+          "ur": "AC, PV aur battery disconnect karein, phir power murda kar ke confirm karein ke neutral conductor inverter ke GRID port par mazboot se laga hai aur PE theek hai."
+        },
+        {
+          "en": "Check the master firmware version in the app and update to the latest; FoxESS requires master 1.69 or above for this code.",
+          "ur": "App mein master firmware version check kar ke latest par update karein; is code ke liye FoxESS ko master 1.69 ya us se upar chahiye."
+        },
+        {
+          "en": "Reconnect PV, grid and battery as FoxESS directs, and if the code returns with the neutral confirmed and firmware current, treat it as a bus/sensing fault - a workshop item.",
+          "ur": "Jaise FoxESS kahe PV, grid aur battery wapas lagayein, aur agar neutral confirm aur firmware current hone par bhi code wapas aaye to isay bus/sensing fault samjhein - ye workshop ka kaam hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "H3-ONLY REMEDY DIFFERENCE vs H1/AC1 and KH/KA. Do not merge with foxess-h1-ac1-g2-current, which documents the identical string with the plain disconnect/reconnect remedy and no neutral or firmware instruction.",
+        "ur": "H1/AC1 aur KH/KA ke muqable H3-ONLY remedy ka farq. isay foxess-h1-ac1-g2-current se merge na karein, jahan yehi string sirf disconnect/reconnect remedy ke saath hai, na neutral na firmware instruction."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H3/AC3 Series User Manual V1.0.4 (2025-01-07), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-H3AC3-User-Manual-V1.0.4-20250107.pdf"
+      }
+    },
+    {
+      "code": "SW Inv Cur Fault",
+      "aliases": [
+        "SW Inv Cur Fault",
+        "SW Inv Cur"
+      ],
+      "title": {
+        "en": "Inverter output current high (software, H3)",
+        "ur": "Inverter output current zyada (software, H3)"
+      },
+      "meaning": {
+        "en": "The H3's current supervision saw output current above the limit and shut down. On the H3 the manual also requires the master firmware to be checked and upgraded first.",
+        "ur": "H3 ka current supervision ne output current limit se upar dekha aur band kar diya. H3 par manual yeh bhi maangta hai ke pehle master firmware check aur update kiya jaye."
+      },
+      "causes": [
+        {
+          "en": "Master firmware below 1.69 - the H3 manual attaches this requirement to the row, the H1 row has no such line.",
+          "ur": "Master firmware 1.69 se neeche - H3 manual yeh shart is row se latka deta hai, H1 ki row mein aisi koi line nahi."
+        },
+        {
+          "en": "Sudden large load step, or several single-phase loads switching on together on one phase of a three-phase supply.",
+          "ur": "Achanak bada load step, ya teenon-phase supply ki aik phase par kai single-phase loads ek saath on ho jana."
+        },
+        {
+          "en": "Inverter paralleled beyond its permitted unit count, so current sharing between units fails.",
+          "ur": "Inverter ijazat se zyada units mein parallel, is liye units ke darmiyan current sharing fail."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the master firmware version and upgrade to the latest, ensuring at least master 1.69, before any other action - FoxESS puts this first for this code on H3.",
+          "ur": "Kisi bhi doosre qadam se pehle master firmware version check karke latest par update karein, kam az kam master 1.69 - H3 par FoxESS is code ke liye yeh sab se pehle rakhta hai."
+        },
+        {
+          "en": "Isolate fully: AC switch off, PV DC switch off, battery isolator off, then reconnect one source at a time - battery, then PV, then grid.",
+          "ur": "Poori tarah isolate karein: AC switch off, PV DC switch off, battery isolator off, phir ek waqt mein ek source wapas karein - pehle battery, phir PV, phir grid."
+        },
+        {
+          "en": "If it returns with no load connected, do not keep cycling the unit - log the code and serial number and raise a service claim.",
+          "ur": "Agar koi load na hone par bhi wapas aaye to unit baar baar on/off na karein - code aur serial number note karke service claim raise karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "H3-ONLY REMEDY DIFFERENCE: the master 1.69 line appears only in the H3 table. The KH/KA and H1 tables give the bare disconnect/reconnect for this string.",
+        "ur": "H3-ONLY remedy ka farq: master 1.69 wali line sirf H3 ki table mein hai. KH/KA aur H1 ki tables is string ke liye sirf disconnect/reconnect deti hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H3/AC3 Series User Manual V1.0.4 (2025-01-07), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-H3AC3-User-Manual-V1.0.4-20250107.pdf"
+      }
+    },
+    {
+      "code": "Bat Boost Fault",
+      "aliases": [
+        "Bat Boost Fault",
+        "Bat Boost"
+      ],
+      "title": {
+        "en": "Battery boost MOSFET or battery-side relay fault (H3)",
+        "ur": "Battery boost MOSFET ya battery-side relay fault (H3)"
+      },
+      "meaning": {
+        "en": "Either the battery boost circuit MOSFET has failed, or the relay on the battery side of the inverter has not closed. FoxESS's H3 row states both as alternatives.",
+        "ur": "Ya battery boost circuit ka MOSFET kharab hai, ya inverter ke battery side ka relay close nahi hua. FoxESS ki H3 row dono ko mutabaqat ke tor par likhti hai."
+      },
+      "causes": [
+        {
+          "en": "The battery-side relay in the inverter has not closed - named by the H3 manual as an alternative to a failed MOSFET.",
+          "ur": "Inverter ka battery side relay close nahi hua - H3 manual isay failed MOSFET ke mutabaqat ke tor par likhta hai."
+        },
+        {
+          "en": "Internal semiconductor failure of the boost MOSFET, commonly after a battery surge or short.",
+          "ur": "Boost MOSFET ki internal semiconductor kharabi, jo aksar battery surge ya short ke baad hoti hai."
+        },
+        {
+          "en": "Master firmware below 1.69, which the H3 manual says can make a Boost fault appear.",
+          "ur": "Master firmware 1.69 se neeche, jis ke baare mein H3 manual kehta hai ke is se Boost fault aa sakta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the master firmware and update to at least 1.69 first, as the H3 manual directs, then re-read the code.",
+          "ur": "Pehle H3 manual ke mutabiq master firmware check kar ke kam az kam 1.69 par update karein, phir code dobara dekhein."
+        },
+        {
+          "en": "Isolate AC, PV and battery, then have a technician confirm the battery-side relay actually closes when commanded before condemning the MOSFET.",
+          "ur": "AC, PV aur battery disconnect karein, phir MOSFET ko blame karne se pehle technician se confirm karwayein ke command par battery-side relay asal mein close hota hai."
+        },
+        {
+          "en": "If the relay closes and the code remains on master 1.69 or above, log code and serial and raise a power-board warranty claim - not a site repair.",
+          "ur": "Agar relay close ho jata hai aur master 1.69 ya us se upar par bhi code qatam nahi hota to code aur serial note karke power-board warranty claim raise karein - ye site repair nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "H3-ONLY: the 'relay on the battery side is not closed' alternative and the master 1.69 requirement are absent from the H1 V1.6 and KH/KA rows, which say only 'The battery boost circuit mosfet is fail'.",
+        "ur": "H3-ONLY: 'relay on the battery side is not closed' ka mutabaqat aur master 1.69 ki shart H1 V1.6 aur KH/KA ki rows mein nahi hain, wahan sirf 'The battery boost circuit mosfet is fail' likha hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H3/AC3 Series User Manual V1.0.4 (2025-01-07), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-H3AC3-User-Manual-V1.0.4-20250107.pdf"
+      }
+    },
+    {
+      "code": "HW Pv Cur Fault",
+      "aliases": [
+        "HW Pv Cur Fault",
+        "HW Pv Cur"
+      ],
+      "title": {
+        "en": "PV input current high (hardware, H3)",
+        "ur": "PV input current zyada (hardware, H3)"
+      },
+      "meaning": {
+        "en": "A hardware comparator detected excessive PV input current. On the H3 the manual additionally instructs the technician to check PV polarity.",
+        "ur": "Hardware comparator ne zyada PV input current detect kiya. H3 par manual electrician ko PV polarity check karne ka aur instruction deta hai."
+      },
+      "causes": [
+        {
+          "en": "PV positive and negative connected incorrectly on the affected MPPT - named by the H3 manual as part of this row.",
+          "ur": "Affected MPPT par PV positive aur negative ghalat tarah se lage - H3 manual isay is row ka hissa batata hai."
+        },
+        {
+          "en": "Shading, a cracked or bypassed module, or current mismatch between the parallel strings on one MPPT.",
+          "ur": "Shading, toota ya bypassed module, ya aik MPPT ke parallel strings ke darmiyan current mismatch."
+        },
+        {
+          "en": "A DC arc or a degraded, heat-affected MC4 crimp on a string under load.",
+          "ur": "Load ke under kisi string par DC arc ya garmi se kharab MC4 crimp."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether PV positive and negative are connected, exactly as the H3 manual instructs, before anything else on this model.",
+          "ur": "Is model par sab se pehle, jaise H3 manual kahe, check karein ke PV positive aur negative connected hain ya nahi."
+        },
+        {
+          "en": "With the PV DC switch off, torque-check every MC4 on the affected MPPT and replace any that are discoloured, warm or not fully seated.",
+          "ur": "PV DC switch off kar ke, affected MPPT ke har MC4 ka torque check karein aur jo rang badla, garm ya puri tarah nahi lage usay replace karein."
+        },
+        {
+          "en": "Measure each string's current in FoxCloud against its neighbours to identify the mismatched string, then torque-check only that string's connectors.",
+          "ur": "FoxCloud mein har string ka current uske padosi se compare kar ke mismatch wali string pehchanein, phir sirf usi string ke connectors ka torque check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "H3-ONLY ADDITION: the polarity line appears in the H3 row only; H1 V1.6 and KH/KA give just disconnect/reconnect. Note the H3 also lists PvCon Dir Fault separately for outright reversal, so polarity here means mis-wiring within a string rather than a fully reversed string.",
+        "ur": "H3-ONLY addition: polarity wali line sirf H3 ki row mein hai; H1 V1.6 aur KH/KA sirf disconnect/reconnect dete hain. Note karein ke H3 mein poora reversal ke liye PvCon Dir Fault alag hai, is liye yahan polarity ka matlab string ke andar ghalat wiring hai, poori string ulatna nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H3/AC3 Series User Manual V1.0.4 (2025-01-07), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-H3AC3-User-Manual-V1.0.4-20250107.pdf"
+      }
+    },
+    {
+      "code": "Grid Relay Fault",
+      "aliases": [
+        "Grid Relay Fault"
+      ],
+      "title": {
+        "en": "Grid relay stuck open or closed (H3)",
+        "ur": "Grid relay khuli ya bandi atki hui (H3)"
+      },
+      "meaning": {
+        "en": "The grid-side relay has failed to reach a commanded state - FoxESS's H3 row reads 'The grid relay keeps open or close', covering both failure directions in one code.",
+        "ur": "Grid side ka relay command ki hui halat par nahi pohanch saka - H3 ki row kehti hai 'The grid relay keeps open or close', dono taraf ki failure aik code mein cover karti hai."
+      },
+      "causes": [
+        {
+          "en": "Grid relay contact welded closed, so the inverter cannot disconnect from the grid - the more dangerous direction.",
+          "ur": "Grid relay ka contact weld ho kar band pada hai, is liye inverter grid se disconnect nahi ho sakta - yeh zyada khatarnaak raasta hai."
+        },
+        {
+          "en": "Grid relay coil failed or contacts worn so it never closes, and the inverter cannot export.",
+          "ur": "Grid relay ki coil kharab ya contacts gis chuke hain is liye woh kabhi close nahi hota, aur inverter export nahi kar sakta."
+        },
+        {
+          "en": "Relay chattering during frequent grid outages, wearing the contacts.",
+          "ur": "Bari tarah se grid outages mein relay ka chatter karna, jis se contacts ghis jate hain."
+        },
+        {
+          "en": "A blown DC-side control fuse in the relay drive circuit.",
+          "ur": "Relay drive circuit mein DC side ka control fuse udd gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery completely before opening the enclosure - a welded grid relay means the AC side may be live from the grid.",
+          "ur": "Enclosure kholne se pehle AC, PV aur battery poori tarah disconnect karein - weld hua grid relay matlab AC side grid se live ho sakta hai."
+        },
+        {
+          "en": "Confirm the relay actually transfers: with the unit isolated, have a technician check the relay contacts for continuity closed and full separation open.",
+          "ur": "Relay ke wazeeray se confirm karein: unit isolate kar ke, technician se relay contacts ki continuity band par aur poori separation khuli par check karwayein."
+        },
+        {
+          "en": "If the relay will not transfer, log the code and serial number and raise a service claim for the relay assembly - this is not a site-repairable item.",
+          "ur": "Agar relay transfer hi nahi karega to code aur serial number note karke relay assembly ke liye service claim raise karein - ye site par theek nahi ho sakta."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "H3-ONLY GROUPING. H1/AC1 and KH/KA split the same physical problem into FOUR codes with per-relay wording: 'Main Relay Open' (the grid relay keeps open), 'S1 Close Fault', 'S2 Close Fault', 'M1 Close Fault', 'M2 Close Fault' (the grid relay S1/S2/M1/M2 keep close). None of those five strings appear anywhere in the H3 text. A Pakistani H3 owner will never see 'S1 Close Fault'.",
+        "ur": "H3-ONLY grouping. H1/AC1 aur KH/KA wohi maslay ko CHAAR codes mein torate hain: 'Main Relay Open' (grid relay keeps open), 'S1 Close Fault', 'S2 Close Fault', 'M1 Close Fault', 'M2 Close Fault' (grid relay S1/S2/M1/M2 keep close). In paanchon strings mein se koi bhi H3 ke text mein nahi hai. Pakistan ke H3 owner ko 'S1 Close Fault' kabhi nazar nahi aayega."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H3/AC3 Series User Manual V1.0.4 (2025-01-07), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-H3AC3-User-Manual-V1.0.4-20250107.pdf"
+      }
+    },
+    {
+      "code": "Bat Relay Open",
+      "aliases": [
+        "Bat Relay Open"
+      ],
+      "title": {
+        "en": "Battery relay stayed open",
+        "ur": "Battery relay khuli hi rahi"
+      },
+      "meaning": {
+        "en": "The battery relay inside the inverter did not close, so the pack is electrically disconnected from the unit even though it is connected and charged.",
+        "ur": "Inverter ka battery relay close nahi hua, is liye pack unit se electrically juda hua hai halke woh lagna hua aur charged bhi hai."
+      },
+      "causes": [
+        {
+          "en": "Relay coil or driver failed, so the relay never receives or obeys the close command.",
+          "ur": "Relay ki coil ya driver kharab, is liye relay ko close command milta hi nahi ya obey nahi karta."
+        },
+        {
+          "en": "The BMS has not permitted a close because the pack is outside its voltage or temperature window.",
+          "ur": "BMS ne close ki ijazat nahi di kyunke pack apne voltage ya temperature window se bahar hai."
+        },
+        {
+          "en": "The battery voltage is too low or too high for the inverter to safely close onto the pack.",
+          "ur": "Battery voltage itna kam ya zyada hai ke inverter pack par mehfoozana close hi nahi kar sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reconnect as FoxESS directs and re-read the code after 60 seconds.",
+          "ur": "AC, PV aur battery disconnect kar ke jaise FoxESS kahe wapas lagayein aur 60 second baad code dobara dekhein."
+        },
+        {
+          "en": "Measure battery voltage at the inverter's battery terminals and confirm it sits inside the range the manual lists before condemning the relay.",
+          "ur": "Inverter ke battery terminals par battery voltage napen aur confirm karein ke woh manual mein likhi range mein hai, phir relay par blame karein."
+        },
+        {
+          "en": "Read the pack SOC and any BMS code in FoxCloud; if a BMS code is present the pack, not the relay, is holding the line open.",
+          "ur": "FoxCloud mein pack ka SOC aur koi BMS code padhein; agar BMS code mojood hai to relay nahi, pack line ko khuli rok kar baitha hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Verified present on H1 V1.6, KH/KA (both copies) and H3 V1.0.4, with the identical wording 'The battery relay keeps open' and identical remedy. An earlier draft in this file wrongly claimed H1 does not list it - that was incorrect and is corrected in the Series 3 notes.",
+        "ur": "H1 V1.6, KH/KA (dono copies) aur H3 V1.0.4 par verify hua, wohi wording 'The battery relay keeps open' aur wohi remedy ke saath. Is file ke pichle draft ne ghalat kaha tha ke H1 isay nahi likhta - ghalti thi aur Series 3 ke notes mein theek kar di gayi hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H3/AC3 Series User Manual V1.0.4 (2025-01-07), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-H3AC3-User-Manual-V1.0.4-20250107.pdf"
+      }
+    }
+  ]
+}

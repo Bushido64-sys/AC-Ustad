@@ -1,0 +1,661 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sofar",
+  "series": {
+    "id": "sofar-ktlx-g4-100-125",
+    "name": "KTLX-G4 (three-phase 100-125 kW, C&I on-grid)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*100-125KTLX-G4*",
+      "*100KTLX-G4*",
+      "*110KTLX-G4*",
+      "*125KTLX-G4*",
+      "*40-75KTLX-G4-LV*"
+    ],
+    "notes": "Large commercial string inverter, 10 MPPT / 20 strings, shown by SOFAR at Solar Pakistan 2023 (strong PK relevance). This table is the C&I G4 table; several ID numbers collide with the KTLX-G3P and HYD tables but with different names/solutions - e.g. ID013 is 'ReﬂuxFault / Anti-countercurrent overload' here vs 'RefluxFault / Feed-in limitation function is faulty' on KTLX-G3P, and ID023/ID025/ID026/ID104/ID189/ID191/ID192 exist only here. Never merged."
+  },
+  "codes": [
+    {
+      "code": "ID014",
+      "aliases": [
+        "ID014",
+        "VGridUnbalance"
+      ],
+      "title": {
+        "en": "Grid voltage imbalance (ID014)",
+        "ur": "Grid voltage imbalance - teen phase ka farq zyada (ID014)"
+      },
+      "meaning": {
+        "en": "The three grid phase voltages differ by too much, so the inverter stopped. This code exists only on the G4 C&I table.",
+        "ur": "Teen grid phase voltages ka farq bohat zyada hai, is liye inverter ruk gaya. Yeh code sirf G4 C&I table par hai."
+      },
+      "causes": [
+        {
+          "en": "Single-phase loads too heavily concentrated on one leg of a three-phase supply.",
+          "ur": "Teen phase supply par single-phase load kisi ek leg par bohat zyada jama ho gaya."
+        },
+        {
+          "en": "One phase conductor with high resistance - a loose or undersized connection.",
+          "ur": "Kisi ek phase conductor ka resistance zyada - loose ya choti connection."
+        },
+        {
+          "en": "Utility single-phase earth fault on one phase of the feeder.",
+          "ur": "Feeder ke kisi ek phase par utility ka single-phase earth fault."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure all three phase-to-neutral voltages with a true-RMS multimeter; the spread should be inside the grid operator's limit.",
+          "ur": "True-RMS multimeter se teen phase-to-neutral voltages check karein; un ka farq grid operator ki limit ke andar hona chahiye."
+        },
+        {
+          "en": "Switch off AC breaker and torque all three phase lugs plus neutral, checking for heat discolouration.",
+          "ur": "AC breaker off karke teenon phase lugs aur neutral ko tighten karein aur garmi ke nishaan dekhein."
+        },
+        {
+          "en": "If grid balance is correct at the meter but not at the inverter, the fault is in the site's AC cable run.",
+          "ur": "Agar meter par balance theek ho magar inverter par nahi, to ghalti site ke AC cable run mein hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 100-125KTLX-G4 User Manual, section 9 'Trouble Shooting and Maintenance', Table 8-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20230920/1695196332754062551.pdf"
+      }
+    },
+    {
+      "code": "ID039",
+      "aliases": [
+        "ID039",
+        "ArcShutdownAlarm"
+      ],
+      "title": {
+        "en": "Arc fault shutdown protection (ID039)",
+        "ur": "Arc fault shutdown protection - PV wiring mein arcing (ID039)"
+      },
+      "meaning": {
+        "en": "The AFCI arc-detection function tripped and shut the inverter down because it saw arcing in the PV wiring. Indicates a real loose/arcing connection.",
+        "ur": "AFCI arc-detection ne trip karke inverter band kar diya kyunke PV wiring mein arcing dekhi. Iska matlab wahan asal mein loose ya arcing connection hai."
+      },
+      "causes": [
+        {
+          "en": "Loose, corroded or partially disconnected MC4 connector arcing under load.",
+          "ur": "Load ke neeche loose, corroded ya adhoora disconnected MC4 connector arc kar raha hai."
+        },
+        {
+          "en": "Cable damaged by UV, heat or rodents, breaking down to earth.",
+          "ur": "UV, garmi ya chuha se damage hua cable, earth ke saath short kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open DC switch and AC breaker, wait 5 minutes, and do all connector inspection in the dark with an insulation tester.",
+          "ur": "DC switch aur AC breaker open karein, 5 minute wait karein, aur saare connector checks andhere mein insulation tester se karein."
+        },
+        {
+          "en": "Disconnect all MC4 connectors, then reconnect every one firmly and re-seat the combiner fuses; replace any burnt connector.",
+          "ur": "Saare MC4 connectors nikaalein, phir har ek ko mazbooti se laga kar combiner fuses dobara baithayein; jala hua connector replace karein."
+        },
+        {
+          "en": "Torque the string fuses to spec and re-test; never bypass an AFCI trip repeatedly - it means real arcing.",
+          "ur": "String fuses ko spec par tighten karein aur dobara test karein; AFCI trip ko baar baar bypass na karein - uska matlab asal arcing hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 100-125KTLX-G4 User Manual, section 9 'Trouble Shooting and Maintenance', Table 8-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20230920/1695196332754062551.pdf"
+      }
+    },
+    {
+      "code": "ID041",
+      "aliases": [
+        "ID041",
+        "RelayFail"
+      ],
+      "title": {
+        "en": "Grid relay self-test failure (ID041)",
+        "ur": "Grid relay ka self-test fail (ID041)"
+      },
+      "meaning": {
+        "en": "Internal self-test of the output relay failed at startup, so the inverter will not connect to the grid. Same number, same meaning as the G3P table - but kept separate per instructions.",
+        "ur": "Startup par output relay ka internal self-test fail hua, is liye inverter grid se connect nahi hoga. Yehi number G3P table jaisa hai - phir bhi instructions ke mutabiq alag rakha gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Output relay contacts welded or coil damaged from a previous overcurrent event.",
+          "ur": "Pehle ke overcurrent event se output relay ke contacts juce hue ya coil kharab."
+        },
+        {
+          "en": "Relay drive circuit or relay detection circuit faulty.",
+          "ur": "Relay drive circuit ya relay detection circuit kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off DC switch and AC breaker, wait 5 minutes, then do one clean restart.",
+          "ur": "DC switch aur AC breaker off karein, 5 minute wait karke ek baar saaf restart karein."
+        },
+        {
+          "en": "With power off, check the relay connector is fully seated on the board and re-seat it if loose.",
+          "ur": "Power off karke dekhein ke relay connector board par poora baitha hai aur loose ho to dobara lagayein."
+        },
+        {
+          "en": "If it fails self-test on every restart, replace the relay module through a SOFAR service centre.",
+          "ur": "Agar har restart par fail ho to relay module SOFAR service centre se replace karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 100-125KTLX-G4 User Manual, section 9 'Trouble Shooting and Maintenance', Table 8-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20230920/1695196332754062551.pdf"
+      }
+    },
+    {
+      "code": "ID044",
+      "aliases": [
+        "ID044",
+        "PvConfigError"
+      ],
+      "title": {
+        "en": "Input mode setting error (ID044)",
+        "ur": "Input mode setting error - MPPT mode ghalat (ID044)"
+      },
+      "meaning": {
+        "en": "The MPPT input mode is wrong for the installed array, so the inverter refuses to run. On the G4 table the same number is spelled 'PvConfigError' (not 'ConfigError').",
+        "ur": "MPPT input mode installed array ke mutabiq ghalat hai, is liye inverter chalne se inkaar karta hai. G4 table par yehi number 'PvConfigError' ke naam se likha hai ('ConfigError' nahi)."
+      },
+      "causes": [
+        {
+          "en": "10-MPPT unit set to independent mode while the design expects parallel MPPT pairing.",
+          "ur": "10-MPPT unit independent mode par set hai magar design mein parallel MPPT pairing ka plan hai."
+        },
+        {
+          "en": "Setting lost after safety-parameter import or firmware upgrade.",
+          "ur": "Safety-parameter import ya firmware upgrade ke baad setting khoj gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Count connected strings per MPPT on site and compare with the wiring drawing before touching the menu.",
+          "ur": "Site par har MPPT ki connected strings gino aur menu chhoone se pehle wiring drawing se compare karein."
+        },
+        {
+          "en": "Set parallel/independent mode to match the actual string allocation, then confirm the LCD input mode line.",
+          "ur": "Parallel/independent mode ko actual string allocation ke mutabiq set karein, phir LCD par input mode line confirm karein."
+        },
+        {
+          "en": "After any firmware upgrade, re-verify input mode and country code from the LCD menu.",
+          "ur": "Har firmware upgrade ke baad LCD menu se input mode aur country code dobara verify karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 100-125KTLX-G4 User Manual, section 9 'Trouble Shooting and Maintenance', Table 8-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20230920/1695196332754062551.pdf"
+      }
+    },
+    {
+      "code": "ID046",
+      "aliases": [
+        "ID046",
+        "ReversalConnect"
+      ],
+      "title": {
+        "en": "PV input polarity reversed (ID046)",
+        "ur": "PV input polarity reverse (ID046)"
+      },
+      "meaning": {
+        "en": "One or more PV strings are connected backwards. Manual action: connect the PV assembly according to the correct polarity.",
+        "ur": "Ek ya zyada PV strings ulti polarity se jure hain. Manual ka action: PV assembly ko sahi polarity ke mutabiq connect karein."
+      },
+      "causes": [
+        {
+          "en": "String wired back-to-front at the combiner or the DC input terminals.",
+          "ur": "Combiner ya DC input terminals par string aage se peechhe wire ki gayi."
+        },
+        {
+          "en": "Installer error on one of 20 inputs - easy to miss on a 10-MPPT unit.",
+          "ur": "20 inputs mein se ek par installer ka ghalti - 10-MPPT unit par aam tor par nazar nahi aati."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open DC switch and AC breaker, wait 5 minutes, then measure each string with a DC multimeter; correct polarity reads positive at PV+.",
+          "ur": "DC switch aur AC breaker off karein, 5 minute wait karke har string DC multimeter se check karein; sahi polarity par PV+ par positive reading aati hai."
+        },
+        {
+          "en": "Disconnect and re-terminate the reversed string with the correct polarity; never swap DC cables live.",
+          "ur": "Reversed string ko disconnect karke sahi polarity par dobara terminate karein; DC kabhi live par swap na karein."
+        },
+        {
+          "en": "After correction, confirm each string's Voc matches the design before re-energising.",
+          "ur": "Ghalti theek karne ke baad, dobara current dene se pehle har string ka Voc design se match karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 100-125KTLX-G4 User Manual, section 9 'Trouble Shooting and Maintenance', Table 8-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20230920/1695196332754062551.pdf"
+      }
+    },
+    {
+      "code": "ID050",
+      "aliases": [
+        "ID050",
+        "TempErrHeatSink1"
+      ],
+      "title": {
+        "en": "Radiator 1 over-temperature (ID050)",
+        "ur": "Radiator 1 over temperature (ID050)"
+      },
+      "meaning": {
+        "en": "Heatsink 1 temperature protection tripped. The G4 table numbers radiators individually: ID050-ID055 for radiator 1-6, plus ID057/ID058 ambient, ID059-ID061 module 1-3.",
+        "ur": "Heatsink 1 ka temperature protection trip hua. G4 table par radiators alag number hote hain: radiator 1-6 ke liye ID050-ID055, plus ID057/ID058 ambient, ID059-ID061 module 1-3."
+      },
+      "causes": [
+        {
+          "en": "Heat sink fins blocked by dust, cotton or bird droppings - very common on C&I roof arrays.",
+          "ur": "Heat sink ke fins dhool, rui ya parindon ke guane se band - C&I roof arrays par bohat aam."
+        },
+        {
+          "en": "Ambient above the unit's limit because of poor clearance between inverters in a row.",
+          "ur": "Row mein inverters ke darmiyan kam clearance ki wajah se unit ka limit se upar ambient."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, then clean the heat sink with an air blower and soft brush - never water or chemicals.",
+          "ur": "Power off karke heat sink ko air blower aur soft brush se saaf karein - kabhi paani ya chemicals na lagayein."
+        },
+        {
+          "en": "Measure heatsink surface with an IR thermometer and check the clearance gap to the next unit against the manual's minimum.",
+          "ur": "IR thermometer se heatsink surface temperature check karein aur agle unit se clearance manual ke minimum se compare karein."
+        },
+        {
+          "en": "If it trips again with a clean sink, check the fan codes ID169-ID175 and the NTC connector on that heatsink.",
+          "ur": "Saaf heatsink ke saath dobara trip ho to fan codes ID169-ID175 aur us heatsink ka NTC connector check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 100-125KTLX-G4 User Manual, section 9 'Trouble Shooting and Maintenance', Table 8-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20230920/1695196332754062551.pdf"
+      }
+    },
+    {
+      "code": "ID057",
+      "aliases": [
+        "ID057",
+        "TempErrEnv1"
+      ],
+      "title": {
+        "en": "Ambient temperature 1 protection (ID057)",
+        "ur": "Ambient temperature 1 protection - mahol bohat garm (ID057)"
+      },
+      "meaning": {
+        "en": "The ambient temperature sensor tripped its protection, so the inverter shut down. The G4 table has two ambient sensors: ID057 and ID058.",
+        "ur": "Ambient temperature sensor ka protection trip hua, is liye inverter band ho gaya. G4 table par do ambient sensors hain: ID057 aur ID058."
+      },
+      "causes": [
+        {
+          "en": "Ambient above the datasheet limit - common in a Pakistani summer with a hot roof or west-facing wall.",
+          "ur": "Datasheet limit se upar ambient - garm roof ya purkh wali deewar par Pakistani garmi mein aam."
+        },
+        {
+          "en": "Inverter mounted in an enclosed plant room with no ventilation.",
+          "ur": "Inverter aise enclosure mein lage hai jahan ventilation nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the LCD's ambient temperature value and compare it with the datasheet limit.",
+          "ur": "LCD par ambient temperature ki value padhein aur datasheet limit se compare karein."
+        },
+        {
+          "en": "Install a shade hood and open up clearance on the shaded wall; keep the unit vertical.",
+          "ur": "Shade hood lagayein aur dhal wali deewar par clearance barhayein; unit vertical rakhein."
+        },
+        {
+          "en": "If the LCD reading is normal but it still trips, check the ambient NTC connector and consider an external shade panel.",
+          "ur": "Agar LCD reading theek ho phir bhi trip ho to ambient NTC connector check karein aur external shade panel sochen."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 100-125KTLX-G4 User Manual, section 9 'Trouble Shooting and Maintenance', Table 8-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20230920/1695196332754062551.pdf"
+      }
+    },
+    {
+      "code": "ID059",
+      "aliases": [
+        "ID059",
+        "TempErrInv1"
+      ],
+      "title": {
+        "en": "Inverter module 1 over-temperature (ID059)",
+        "ur": "Inverter module 1 over temperature (ID059)"
+      },
+      "meaning": {
+        "en": "The power-module temperature protection tripped. The G4 table has module 1-3 as ID059, ID060 and ID061.",
+        "ur": "Power module ka temperature protection trip hua. G4 table par module 1-3 ke liye ID059, ID060 aur ID061 hain."
+      },
+      "causes": [
+        {
+          "en": "Fan failure reducing airflow over the power modules.",
+          "ur": "Power modules par airflow kam karne wala fan failure."
+        },
+        {
+          "en": "Heavy DC load pushing module temperature over the limit even with fans running.",
+          "ur": "Fans chal rahe hon ke bawajood DC load itna zyada ke module temperature limit cross kar gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the fan codes ID169-ID175 first - a stopped fan is the usual trigger for this code.",
+          "ur": "Pehle fan codes ID169-ID175 check karein - ruka hua fan is code ki aam wajah hai."
+        },
+        {
+          "en": "Clean the heat sink and confirm vertical mounting and adequate clearance per the manual's spacing table.",
+          "ur": "Heat sink saaf karein aur manual ke spacing table ke mutabiq vertical mounting aur kaafi clearance confirm karein."
+        },
+        {
+          "en": "Compare actual DC input against the unit rating; oversizing the array raises module temperature.",
+          "ur": "Actual DC input ko unit rating se compare karein; array ka size zyada hona module temperature barhata hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 100-125KTLX-G4 User Manual, section 9 'Trouble Shooting and Maintenance', Table 8-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20230920/1695196332754062551.pdf"
+      }
+    },
+    {
+      "code": "ID062",
+      "aliases": [
+        "ID062",
+        "TempDiffErrInv"
+      ],
+      "title": {
+        "en": "Inverter module temperature difference too large (ID062)",
+        "ur": "Inverter module temperature difference bohat zyada (ID062)"
+      },
+      "meaning": {
+        "en": "The inverter detected too large a temperature difference between its modules, which usually means a cooling or sensing fault rather than a genuinely hot site.",
+        "ur": "Inverter ne apne modules ke darmiyan temperature difference bohat zyada nikala, jo aksar cooling ya sensing ki ghalti hai, garmi ki sachchi wajah nahi."
+      },
+      "causes": [
+        {
+          "en": "One heatsink blocked and the adjacent one clear, creating a false differential.",
+          "ur": "Ek heatsink band aur doosra khula, jis se false differential bana."
+        },
+        {
+          "en": "One NTC sensor drifted, reporting a wrong module temperature.",
+          "ur": "Ek NTC sensor drift kar gaya, galat module temperature report kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and check every heat sink for equal airflow; clean the dusty one.",
+          "ur": "Power off karke har heat sink par barabar airflow check karein; ghaas wala saaf karein."
+        },
+        {
+          "en": "Compare each module NTC reading against its neighbours; a single outlier points to the sensor.",
+          "ur": "Har module ka NTC reading padosiyon se compare karein; ek akhla reading sensor ki taraf ishara karti hai."
+        },
+        {
+          "en": "If all sinks are clean and readings match, have the module NTC harness checked by a service centre.",
+          "ur": "Agar sab sinks saaf hain aur readings match karein to service centre se module NTC harness check karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 100-125KTLX-G4 User Manual, section 9 'Trouble Shooting and Maintenance', Table 8-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20230920/1695196332754062551.pdf"
+      }
+    },
+    {
+      "code": "ID104",
+      "aliases": [
+        "ID104",
+        "HwDiffOCP"
+      ],
+      "title": {
+        "en": "Hardware differential over-current (ID104)",
+        "ur": "Hardware differential over-current - earth leakage pakda (ID104)"
+      },
+      "meaning": {
+        "en": "The hardware residual/differential current comparator tripped. This code appears only on the G4 table and points to earth leakage or a current transformer problem.",
+        "ur": "Hardware residual/differential current comparator trip hua. Yeh code sirf G4 table par hai aur earth leakage ya current transformer ki ghalti ki taraf ishara karta hai."
+      },
+      "causes": [
+        {
+          "en": "Real earth leakage in the PV array - moisture ingress or damaged cable.",
+          "ur": "PV array mein asal earth leakage - moisture andar jaana ya damaged cable."
+        },
+        {
+          "en": "CT or the differential sensing circuit faulty, giving a false trip.",
+          "ur": "CT ya differential sensing circuit kharab, jis se false trip aaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open DC switch and AC breaker, wait 5 minutes, then megger each PV string to earth at 1000 V.",
+          "ur": "DC switch aur AC breaker open karein, 5 minute wait karke har PV string ka earth ke saath 1000 V par megger lagayein."
+        },
+        {
+          "en": "Measure the CT secondary with a multimeter at rest; it should read close to zero amps with PV isolated.",
+          "ur": "PV isolate karne ke baad multimeter se CT secondary ka resting reading lein; ye zero amps ke qareeb hona chahiye."
+        },
+        {
+          "en": "If strings are clean and CT reading is normal, escalate - the differential comparator module needs service.",
+          "ur": "Agar strings saaf hain aur CT reading normal hai to aage batayein - differential comparator module ko service chahiye."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 100-125KTLX-G4 User Manual, section 9 'Trouble Shooting and Maintenance', Table 8-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20230920/1695196332754062551.pdf"
+      }
+    },
+    {
+      "code": "ID113",
+      "aliases": [
+        "ID113",
+        "OverTempDerating"
+      ],
+      "title": {
+        "en": "Over-temperature derating (ID113)",
+        "ur": "Over temperature derating (ID113)"
+      },
+      "meaning": {
+        "en": "The inverter has throttled its output because internal temperature is high. It is a controlled reduction, not a shutdown.",
+        "ur": "Internal temperature zyada hone ki wajah se inverter ne output kam kar diya hai. Ye controlled reduction hai, shutdown nahi."
+      },
+      "causes": [
+        {
+          "en": "Direct sunlight on the unit or a hot plant room.",
+          "ur": "Unit par direct sunlight ya garm plant room."
+        },
+        {
+          "en": "Heat sink partly blocked, or one fan has failed.",
+          "ur": "Heat sink aadha band, ya ek fan kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check for direct sun and add a shade hood if the unit is exposed.",
+          "ur": "Direct sun check karein aur unit exposed ho to shade hood lagayein."
+        },
+        {
+          "en": "Power off and clean the heat sink with an air blower; keep the unit vertical and ventilated.",
+          "ur": "Power off karke heat sink ko air blower se saaf karein; unit vertical aur ventilated rakhein."
+        },
+        {
+          "en": "Confirm fans are spinning; if a fan code ID169-ID175 is active, fix that first.",
+          "ur": "Dekhein ke fans ghoch rahe hain; agar fan code ID169-ID175 active hai to pehle woh theek karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 100-125KTLX-G4 User Manual, section 9 'Trouble Shooting and Maintenance', Table 8-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20230920/1695196332754062551.pdf"
+      }
+    },
+    {
+      "code": "ID145",
+      "aliases": [
+        "ID145",
+        "USBFault"
+      ],
+      "title": {
+        "en": "USB port fault (ID145)",
+        "ur": "USB port fault - USB kaam nahi kar raha (ID145)"
+      },
+      "meaning": {
+        "en": "The inverter USB port or drive is faulty. Manual action: check the USB port of the inverter.",
+        "ur": "Inverter ka USB port ya drive kharab hai. Manual ka action: inverter ka USB port check karein."
+      },
+      "causes": [
+        {
+          "en": "USB drive not FAT32 formatted, or a marginal drive connector.",
+          "ur": "USB drive FAT32 format mein nahi, ya connector wala kharab drive."
+        },
+        {
+          "en": "Firmware file placed outside the required firmware subfolder.",
+          "ur": "Firmware file gharah folder ke bahar rakhi gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the DC switch, re-seat the USB port and drive, and inspect for bent pins or debris.",
+          "ur": "DC switch off karke USB port aur drive ko dobara baithayein aur tange pins ya gaddon ke liye dekhein."
+        },
+        {
+          "en": "Reformat the drive as FAT32 and copy the update file into the folder named firmware.",
+          "ur": "Drive ko FAT32 mein dobara format karein aur update file firmware naam ke folder mein copy karein."
+        },
+        {
+          "en": "Keep AC isolated and PV disconnected while updating; never update with power live.",
+          "ur": "Update ke dauran AC isolate aur PV disconnect rakhein; live power par kabhi update na karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 100-125KTLX-G4 User Manual, section 9 'Trouble Shooting and Maintenance', Table 8-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20230920/1695196332754062551.pdf"
+      }
+    },
+    {
+      "code": "ID192",
+      "aliases": [
+        "ID192",
+        "PLC_Com_Fail"
+      ],
+      "title": {
+        "en": "PLC communication lost (ID192)",
+        "ur": "PLC communication lost - inverter aapas mein baat nahi kar rahe (ID192)"
+      },
+      "meaning": {
+        "en": "Power-line carrier communication between inverters was lost, so the master/slave link or the PLC comms wiring is at fault. Manual's listed action is to check the meters wiring.",
+        "ur": "Inverters ke aapas power-line carrier communication toot gaya, is liye master/slave link ya PLC comms wiring mein ghalti hai. Manual ka diya hua action: meters wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "PLC comms wiring loose, or a different modbus address assigned to two units.",
+          "ur": "PLC comms wiring loose, ya do units ko same modbus address diya gaya."
+        },
+        {
+          "en": "RS485 line too long, unterminated, or sharing a noisy route with the AC bus.",
+          "ur": "RS485 line bohat lambi, open-ended, ya AC bus ke saath noisy route share kar rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and check PLC/RS485 A and B termination and connector seating at each unit.",
+          "ur": "Power off karke har unit par PLC/RS485 A aur B termination aur connector ki seating check karein."
+        },
+        {
+          "en": "Confirm every inverter has a unique modbus address from the LCD SystemInfo menu.",
+          "ur": "LCD SystemInfo menu se confirm karein ke har inverter ka modbus address unique hai."
+        },
+        {
+          "en": "Keep the comms cable away from AC power runs, and re-seat the meter per the manual's wiring check.",
+          "ur": "Comms cable ko AC power runs se door rakhein, aur manual ke wiring check ke mutabiq meter dobara baithayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 100-125KTLX-G4 User Manual, section 9 'Trouble Shooting and Maintenance', Table 8-1 Even list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20230920/1695196332754062551.pdf"
+      }
+    }
+  ]
+}

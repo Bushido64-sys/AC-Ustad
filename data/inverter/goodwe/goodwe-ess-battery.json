@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 1,
+  "brandId": "goodwe",
+  "series": {
+    "id": "goodwe-ess-battery",
+    "name": "EMEA ESS battery / BMS alarm table (bare integers 1-17)",
+    "category": "inverter",
+    "unitType": "generic",
+    "modelPatterns": [
+      "*EM*",
+      "*ET*",
+      "*BT*",
+      "*Lynx*",
+      "*BAT*"
+    ],
+    "notes": "Separate battery-side alarm table in the same EMEA guide, numbered 1-17 with short alarm names (not app error codes). Applies to lithium packs with BMS communication. It collides with SERIES 3 / 4 / 5 integers: battery 1 is 'High battery temperature' while ES-US 1 is Utility Loss and ESS app 01 is AC HCT Check Failure. The table's troubleshooting column is a single merged cell covering rows 1, 15-17, so per-row wording is limited to what the guide actually states."
+  },
+  "codes": [
+    {
+      "code": "1",
+      "aliases": [
+        "1",
+        "High battery temperature"
+      ],
+      "title": {
+        "en": "High battery temperature (1)",
+        "ur": "Battery ka temperature bohat zyada (1)"
+      },
+      "meaning": {
+        "en": "The battery pack is running too hot, most often because it is being pushed beyond its rating.",
+        "ur": "Battery pack bohat garm chal raha hai, aam tor par is liye ke us ki rating se zyada load daala ja raha hai."
+      },
+      "causes": [
+        {
+          "en": "Battery overloaded by charge or discharge demand.",
+          "ur": "Charge ya discharge demand ki wajah se battery overloaded hai."
+        },
+        {
+          "en": "Poor battery cabinet ventilation.",
+          "ur": "Battery cabinet ki ventilation kamzor hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the charge and discharge power in the app and watch the temperature fall.",
+          "ur": "App par charge aur discharge power kam karein aur temperature girte dekhein."
+        },
+        {
+          "en": "Measure battery temperature with an IR thermometer and compare with the BMS reading.",
+          "ur": "IR thermometer se battery temperature measure karke BMS reading se compare karein."
+        },
+        {
+          "en": "Check the battery cabinet is not in direct sun and has airflow on all sides.",
+          "ur": "Check karein ke battery cabinet direct dhoop mein nahi aur charon taraf airflow hai."
+        },
+        {
+          "en": "If the problem persists, contact the after-sales service.",
+          "ur": "Agar masla barqarar rahe to after-sales service se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 5.1 Battery Faults",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "2",
+      "aliases": [
+        "2",
+        "Low battery temperature"
+      ],
+      "title": {
+        "en": "Low battery temperature (2)",
+        "ur": "Battery ka temperature bohat kam (2)"
+      },
+      "meaning": {
+        "en": "Ambient is too cold for the battery to run, so the BMS blocks charge or discharge.",
+        "ur": "Battery chalne ke liye ambient bohat thanda hai, is liye BMS charge ya discharge rok deta hai."
+      },
+      "causes": [
+        {
+          "en": "Ambient temperature below the battery's permitted range.",
+          "ur": "Ambient temperature battery ki allowed range se neeche hai."
+        },
+        {
+          "en": "Battery cabinet exposed to cold airflow or a night-time temperature drop below the pack's permitted minimum.",
+          "ur": "Battery cabinet thande hawa ya raat ke temperature girne ke mutabiq pack ki minimum limit se neeche jaa raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check ambient at the battery cabinet with a thermometer; in winter expect protection, not damage.",
+          "ur": "Thermometer se battery cabinet ka ambient check karein, sarshaat mein protection normal hai nuqsan nahi."
+        },
+        {
+          "en": "Keep the cabinet away from cold airflow and improve enclosure insulation.",
+          "ur": "Cabinet ko thande hawa se door rakhein aur enclosure ki insulation behtar karein."
+        },
+        {
+          "en": "Confirm the battery chemistry's low-temperature charge limit before enabling charging again.",
+          "ur": "Dobara charge enable karne se pehle battery chemistry ka low-temperature charge limit confirm karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Never charge a lithium pack below its permitted low-temperature limit - plating is irreversible.",
+        "ur": "Lithium pack ko us ki low-temperature limit se neeche kabhi charge na karein, plating permanent nuqsan hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 5.1 Battery Faults",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "3",
+      "aliases": [
+        "3",
+        "Battery cell voltage differences"
+      ],
+      "title": {
+        "en": "Battery cell voltage differences (3)",
+        "ur": "Battery cells ke voltage mein farq (3)"
+      },
+      "meaning": {
+        "en": "Individual cell voltages inside the pack have drifted apart beyond the permitted spread.",
+        "ur": "Pack ke andar mukhtalif cells ke voltage ki farq allowed se zyada ho gayi hai."
+      },
+      "causes": [
+        {
+          "en": "Cell imbalance from ageing or a single weak cell.",
+          "ur": "Bhaaran ya kisi aik kamzor cell ki wajah se cell imbalance."
+        },
+        {
+          "en": "Cell voltage sensing line fault.",
+          "ur": "Cell voltage sensing line ka fault."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read per-cell voltages from the BMS in the app and find the outlier cell.",
+          "ur": "App se BMS ki per-cell voltage readings parhein aur koi aik unusual cell dhoondein."
+        },
+        {
+          "en": "If the spread is small, run the pack's balancing/charge-refresh cycle per the battery manual.",
+          "ur": "Agar farq kam ho to battery manual ke mutabiq pack ka balancing ya charge refresh cycle chalayein."
+        },
+        {
+          "en": "Inspect the cell voltage sense harness connectors for a loose pin.",
+          "ur": "Cell voltage sense harness ke connectors mein dhila pin check karein."
+        },
+        {
+          "en": "If it persists, contact the after-sales service - cells are not field-serviceable.",
+          "ur": "Agar masla rahe to after-sales service se rabta karein, cells field level par repair nahi hote."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 5.1 Battery Faults",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "7",
+      "aliases": [
+        "7",
+        "Battery under SOC"
+      ],
+      "title": {
+        "en": "Battery under SOC (7)",
+        "ur": "Battery ka SOC neeche gir gaya (7)"
+      },
+      "meaning": {
+        "en": "State of charge has fallen below the usable minimum, so the inverter will not discharge the pack further.",
+        "ur": "State of charge minimum se neeche gir chuka hai, is liye inverter pack aur discharge nahi karega."
+      },
+      "causes": [
+        {
+          "en": "SOC fell below the configured depth-of-discharge limit.",
+          "ur": "SOC configured depth-of-discharge limit se neeche gir gaya."
+        },
+        {
+          "en": "PV has not been producing enough to recharge the pack.",
+          "ur": "PV itna generate nahi kar raha ke pack recharge ho sake."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm PV is actually producing by reading live PV power in the app.",
+          "ur": "App se live PV power parh ke confirm karein ke PV actually generate kar raha hai ya nahi."
+        },
+        {
+          "en": "Check the SOC lower limit and the I-DOD setting in the app are what you intended.",
+          "ur": "App par SOC lower limit aur I-DOD setting check karein ke jo aap chahte hain wahi hai."
+        },
+        {
+          "en": "If PV works properly but the fault persists, contact the after-sales service.",
+          "ur": "Agar PV theek chal raha hai phir bhi masla rahe to after-sales service se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "GoodWe packs also stop discharging below roughly 20% SOC and only resume after a recharge hysteresis, so a low SOC is often protection rather than a fault.",
+        "ur": "GoodWe packs bhi taqreeban 20% SOC se neeche discharge band kar dete hain aur recharge ke baad hi dobara chalte hain, is liye low SOC aksar protection hai fault nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 5.1 Battery Faults",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "9",
+      "aliases": [
+        "9",
+        "Battery communication failure"
+      ],
+      "title": {
+        "en": "Battery communication failure (9)",
+        "ur": "Battery ki communication fail (9)"
+      },
+      "meaning": {
+        "en": "The inverter is not getting valid data from the BMS, so it will not charge or discharge the pack.",
+        "ur": "Inverter ko BMS se valid data nahi mil raha, is liye woh pack charge ya discharge nahi karega."
+      },
+      "causes": [
+        {
+          "en": "Battery communication cable loose, damaged or wrong pinout.",
+          "ur": "Battery communication cable dhili, damaged ya ghalat pinout wali hai."
+        },
+        {
+          "en": "Battery not switched on.",
+          "ur": "Battery on nahi hai."
+        },
+        {
+          "en": "Incompatible firmware on the battery or the inverter.",
+          "ur": "Battery ya inverter par incompatible firmware hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the battery is switched on and its own status LEDs show a healthy state.",
+          "ur": "Confirm karein ke battery on hai aur us ke status LEDs healthy state dikha rahe hain."
+        },
+        {
+          "en": "With power off, re-seat both ends of the BMS CAN cable and check the polarity and pinout.",
+          "ur": "Power off karke BMS CAN cable ke dono ends dobara lagayein aur polarity aur pinout check karein."
+        },
+        {
+          "en": "Confirm the battery model selected in the app matches the installed pack; a mismatch blocks comms.",
+          "ur": "Confirm karein ke app mein select kiya hua battery model installed pack se match karta hai, mismatch par comms band ho jata hai."
+        },
+        {
+          "en": "Update the battery and inverter firmware to the versions the supplier specifies.",
+          "ur": "Battery aur inverter ka firmware supplier ki bataye versions tak update karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 5.1 Battery Faults",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12",
+        "BMS module fault"
+      ],
+      "title": {
+        "en": "BMS module fault (12)",
+        "ur": "BMS module kharab hai (12)"
+      },
+      "meaning": {
+        "en": "The battery management system itself has reported a fault, so the pack is taken out of service.",
+        "ur": "Battery management system ne khud fault report kiya hai, is liye pack service se bahar ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "BMS module internal fault or BMS system-level fault.",
+          "ur": "BMS module ka internal fault ya BMS system level ka fault."
+        },
+        {
+          "en": "Cell voltage sensing line abnormal.",
+          "ur": "Cell voltage sensing line abnormal hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the BMS status bit and the reported cell voltages in the app before anything else.",
+          "ur": "Pehle app se BMS status bit aur reported cell voltages parhein."
+        },
+        {
+          "en": "Power down completely, then power up again and check whether the BMS fault is latched.",
+          "ur": "Puri tarah power down karke dobara power up karein aur dekhein ke BMS fault latch hua ya nahi."
+        },
+        {
+          "en": "Inspect the BMS CAN harness and connectors for water, corrosion or a loose pin.",
+          "ur": "BMS CAN harness aur connectors mein paani, zang ya dhila pin check karein."
+        },
+        {
+          "en": "If it returns after all of the above, the BMS module must be replaced - contact after-sales.",
+          "ur": "Agar upar ke sab steps ke baad bhi wapas aaye to BMS module replace karna hoga, after-sales se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 5.1 Battery Faults",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    }
+  ]
+}

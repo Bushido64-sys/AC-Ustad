@@ -1,0 +1,2351 @@
+{
+  "schemaVersion": 1,
+  "brandId": "apc",
+  "series": {
+    "id": "apc-smart-ups-c-1000-1500",
+    "name": "Smart-UPS C 1000/1500 VA (Tower / Rack-Mount 2U, 120/230 Vac)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*Smart-UPS C*",
+      "SMC1000*",
+      "SMC1500*",
+      "SMC1000C*",
+      "SMC1500C*",
+      "SMC1000I*",
+      "SMC1500I*"
+    ],
+    "notes": "Line-interactive Smart-UPS C. The LCD prints a single 'System Errors and Message Codes' table with four code families: P.## (output/power stage), b.## (battery), G.## (general/ground) and L.## (lifetime). For Pakistan use the 230 Vac column; G.00 Site Wiring Fault is explicitly '(Applicable for 120 V units only)' and is NOT expected on 230 V installs. G.07 EPO Active is reserved for 2200/3000 VA models only, so it will not appear on 1000/1500 VA units. Codes are case-sensitive as printed ('b.00' lower-case b). Sc.0-Sc.8 are SmartConnect network states, not faults."
+  },
+  "codes": [
+    {
+      "code": "P.00",
+      "aliases": [
+        "P.00"
+      ],
+      "title": {
+        "en": "Output Overload (P.00)",
+        "ur": "Output par zyada load (P.00)"
+      },
+      "meaning": {
+        "en": "The connected load draws more power than the UPS output stage is rated for, so the inverter trips to protect itself.",
+        "ur": "Jo load lagi hai wo UPS ki rated capacity se zyada le rahi hai, is liye inverter apni protection ke liye band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Too much equipment on the UPS outlets, or load added after installation.",
+          "ur": "UPS ke outlets par bohat zyada equipment lagi hai, ya installation ke baad load barha diya gaya."
+        },
+        {
+          "en": "One faulty or shorted load dragging current continuously.",
+          "ur": "Koi ek kharaab ya short karne wala load lagatar current kheech raha hai."
+        },
+        {
+          "en": "Inverter DC bus or output IGBT degraded with age, tripping below real capacity.",
+          "ur": "Umra ke saath inverter DC bus ya output IGBT weak ho gaya hai, asli capacity se kam par hi trip kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the load percentage on the LCD and compare it with the unit's rated watts.",
+          "ur": "LCD par load percentage dekhein aur unit ki rated watts se compare karein."
+        },
+        {
+          "en": "Unplug non-essential equipment one item at a time until the overload clears.",
+          "ur": "Ek-ek karke naami equipment nikaalte jayein jab tak overload na hat jaye."
+        },
+        {
+          "en": "Measure each load's draw with a clamp meter on the output to find the offending device.",
+          "ur": "Output par clamp meter lagakar har load ka current nikaalein taake ghalat device pakda ja sake."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Unit will keep trying to restart while the overload is present; unplugging the load is what clears it.",
+        "ur": "Load mojood hone tak unit restart karta rahega; load nikalne par hi yeh hat jata hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "P.01",
+      "aliases": [
+        "P.01"
+      ],
+      "title": {
+        "en": "Output Short Circuit (P.01)",
+        "ur": "Output par short circuit (P.01)"
+      },
+      "meaning": {
+        "en": "The inverter output is shorted to line, neutral or earth, so the UPS shuts the output down.",
+        "ur": "Inverter output line, neutral ya earth ke saath short ho gaya hai, is liye UPS ne output band kar diya."
+      },
+      "causes": [
+        {
+          "en": "A connected device has failed with a shorted internal supply.",
+          "ur": "Kisi connected device ka internal supply short ho kar kharab ho gaya hai."
+        },
+        {
+          "en": "Damaged or pinched output wiring, or a bad outlet/PDU feeding the load.",
+          "ur": "Output wiring damaged ya pinched hai, ya load ke liye outlet/PDU kharab hai."
+        },
+        {
+          "en": "Output relay or IGBT failed shorted inside the UPS.",
+          "ur": "UPS ke andar output relay ya IGBT short ho kar kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, unplug the output plug, and disconnect all load before touching wiring.",
+          "ur": "UPS off karein, output plug nikaalein, aur wiring chhoone se pehle saara load disconnect kar lein."
+        },
+        {
+          "en": "Test continuity and insulation of each output branch with a multimeter; expect no continuity to earth.",
+          "ur": "Har output branch ki continuity aur insulation multimeter se check karein; earth par continuity nahi honi chahiye."
+        },
+        {
+          "en": "Reconnect loads one at a time to identify which branch is shorted.",
+          "ur": "Load ek-ek karke dobara connect karke dekhein kaunsi branch short hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do not re-power with a short still present; it can destroy the inverter stage.",
+        "ur": "Short mojood hone par dobara power na karein; inverter stage kharab ho sakta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "P.02",
+      "aliases": [
+        "P.02"
+      ],
+      "title": {
+        "en": "Output Over Voltage (P.02)",
+        "ur": "Output voltage zyada (P.02)"
+      },
+      "meaning": {
+        "en": "The inverter output voltage has risen above the safe window, so the UPS aborts to protect the load.",
+        "ur": "Inverter output voltage safe limit se upar chala gaya hai, is liye UPS load bachane ke liye ruk jata hai."
+      },
+      "causes": [
+        {
+          "en": "Utility input voltage far too high and the boost/AVR stage driven to its limit.",
+          "ur": "Utility input voltage bohat zyada hai aur boost/AVR stage apni limit tak chala gaya hai."
+        },
+        {
+          "en": "Failed output voltage feedback sensor, so the control loop reads high.",
+          "ur": "Output voltage feedback sensor kharab hai, is liye control loop voltage zyada parh raha hai."
+        },
+        {
+          "en": "DC bus over-voltage from an over-charging battery string or a failed charger.",
+          "ur": "Battery string zyada charge hone ya charger kharab hone se DC bus over-voltage ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the wall outlet with a multimeter; confirm the input is inside the unit's rated window.",
+          "ur": "Wall outlet ko multimeter se measure karein; confirm karein input unit ki rating ke andar hai."
+        },
+        {
+          "en": "Read input and output voltage on the UPS LCD and compare against the LCD readings with a meter.",
+          "ur": "UPS LCD par input aur output voltage dekhein aur multimeter reading se compare karein."
+        },
+        {
+          "en": "Turn the UPS off and have the battery string and charger checked before restarting.",
+          "ur": "UPS band karein aur restart se pehle battery string aur charger check karwa lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "On 230 V installs, a long or undersized mains feed from the DB is the usual reason input is high.",
+        "ur": "230 V par DB se aane wala lamba ya chhota feeder aksar input high hone ki wajah hota hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "P.03",
+      "aliases": [
+        "P.03"
+      ],
+      "title": {
+        "en": "Transformer DC Imbalance (P.03)",
+        "ur": "Transformer DC imbalance (P.03)"
+      },
+      "meaning": {
+        "en": "The DC offset between the inverter's half-bridge legs is outside the allowed window, so the UPS shuts down.",
+        "ur": "Inverter ke dono half-bridge legs ke darmiyan DC imbalance allowed limit se bahar hai, is liye UPS band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "A weak, sulphated or out-of-balance battery string feeding the DC link.",
+          "ur": "Weak, sulphated ya unbalanced battery string DC link ko feed kar rahi hai."
+        },
+        {
+          "en": "One inverter leg (IGBT/module) leaking, so its half bus sags differently.",
+          "ur": "Inverter ka ek leg (IGBT/module) leak kar raha hai, is liye uska half bus alag girta hai."
+        },
+        {
+          "en": "Blown fusible in the DC link or a DC bus capacitor leaking.",
+          "ur": "DC link ka fuse uth gaya ya DC bus capacitor leak kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power the UPS off and disconnect the battery before opening the unit.",
+          "ur": "Unit kholne se pehle UPS off karein aur battery disconnect kar lein."
+        },
+        {
+          "en": "Measure each battery cell in series with a DC meter; every cell should read within about 0.2 V of its neighbours.",
+          "ur": "Har battery cell ko DC meter se series mein measure karein; har cell apne padosi se lagbhag 0.2 V ke andar hona chahiye."
+        },
+        {
+          "en": "Have the inverter legs, DC link fuse and bus capacitors tested at component level by a service centre.",
+          "ur": "Inverter legs, DC link fuse aur bus capacitors service centre par component level par test karwa lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "P.03 and P.04 frequently appear together on the same ageing battery/cooling problem.",
+        "ur": "P.03 aur P.04 aksar ek hi battery ya cooling ki kharabi par saath aate hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "P.04",
+      "aliases": [
+        "P.04"
+      ],
+      "title": {
+        "en": "Unit Over Temperature (P.04)",
+        "ur": "Unit zyada garam (P.04)"
+      },
+      "meaning": {
+        "en": "The UPS internal temperature sensor has gone above the shutdown limit, so the unit protects itself by cutting out.",
+        "ur": "UPS ka internal temperature sensor shutdown limit se upar chala gaya hai, is liye unit apni protection ke liye band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Blocked air intake or a dusty/clogged fan, so the fan cannot move air.",
+          "ur": "Air intake block hai ya fan dusty/clogged hai, is liye fan hawa nahi chala raha."
+        },
+        {
+          "en": "Fan failed or its supply/disconnect has come loose.",
+          "ur": "Fan kharab ho gaya hai ya uska connector nikal gaya hai."
+        },
+        {
+          "en": "Rack or cupboard too enclosed and ambient temperature above the rated limit.",
+          "ur": "Rack ya cabinet bohat band hai aur ambient temperature rated limit se upar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off, unplug from mains, and disconnect the battery before opening the unit or clearing dust.",
+          "ur": "Unit kholne ya saaf karne se pehle off karein, mains se nikaalein aur battery disconnect kar lein."
+        },
+        {
+          "en": "Clear dust from the intake and exhaust grilles and the fan with compressed air; confirm the fan spins freely by hand.",
+          "ur": "Intake aur exhaust grilles aur fan ko compressed air se saaf karein; haath se ghoorne par fan khul ke ghoomne ka muwadaqa karein."
+        },
+        {
+          "en": "Check fan spin-up on DC: with the battery connected and the UPS off, the fan should start within a second of power-up.",
+          "ur": "Fan ka DC par chalna check karein: battery connect kar ke UPS off hone par power dete hi fan 1 second ke andar chalna shuru kare."
+        },
+        {
+          "en": "Move the UPS out of a closed cabinet and keep at least the clearance printed in the manual.",
+          "ur": "UPS ko band cabinet se nikaalein aur manual mein likhi hui minimum clearance rakhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "APC's own wording for a related symptom: 'Ensure that ambient temperature is within limits. Ensure that adequate clearance is maintained.'",
+        "ur": "APC ka usi masle ke liye alfaz: 'Ambient temperature limit ke andar ho, aur clearance poori ho.'"
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "P.05",
+      "aliases": [
+        "P.05"
+      ],
+      "title": {
+        "en": "BackFeed Relay Error (P.05)",
+        "ur": "Backfeed relay error (P.05)"
+      },
+      "meaning": {
+        "en": "The relay that stops utility power reaching the load while the UPS is on battery is not in the commanded state.",
+        "ur": "Woh relay jo battery chalte waqt utility ko load tak nahi pohanchne deta, apni commanded position mein nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Backfeed relay contacts welded together from an arc fault.",
+          "ur": "Arc fault ki wajah se backfeed relay ke contacts jalm (weld) gaye hain."
+        },
+        {
+          "en": "Backfeed relay coil open or its drive circuit failed, so it never pulls in.",
+          "ur": "Backfeed relay ki coil khuli hai ya drive circuit kharab hai, is liye relay kabhi attract nahi hota."
+        },
+        {
+          "en": "Relay mechanically stuck due to foreign matter or internal mechanism wear.",
+          "ur": "Relay ke andar ghusi cheez ya wearing ki wajah se mechanically atak gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Remove mains and battery before opening the UPS, then note the backfeed relay position with the unit unpowered.",
+          "ur": "UPS kholne se pehle mains aur battery nikaalein, phir unpowered state mein relay ki position note karein."
+        },
+        {
+          "en": "Check relay coil continuity/resistance with an ohmmeter across the coil pins after removing the relay from circuit.",
+          "ur": "Relay circuit se nikaal kar ohmmeter se coil ki continuity/resistance check karein."
+        },
+        {
+          "en": "Look for darkened or pitted contact surfaces; pitted or welded contacts cannot be cleaned back into spec and the relay must be replaced.",
+          "ur": "Contact surfaces par kaale ya ghis ke nishaan dekhein; ghisay ya jalmay contact theek nahi ho sakte aur relay badalna zaroori hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Never bridge or defeat the backfeed relay - it is the isolation that keeps the load safe.",
+        "ur": "Backfeed relay ko kabhi bypass ya jaam na karein - yahi load ko mehfooz rakhta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "P.06",
+      "aliases": [
+        "P.06"
+      ],
+      "title": {
+        "en": "AVR Relay Error (P.06)",
+        "ur": "AVR relay error (P.06)"
+      },
+      "meaning": {
+        "en": "The relay that switches the tap on the boost transformer is not moving as commanded, so line regulation has failed.",
+        "ur": "Boost transformer ke tap ko switch karne wala relay apni command ke mutabiq nahi chal raha, is liye line regulation kharab hai."
+      },
+      "causes": [
+        {
+          "en": "AVR relay contacts welded or pitted, so the tap never changes.",
+          "ur": "AVR relay ke contacts jalm ya ghis chuke hain, is liye tap kabhi nahi badalta."
+        },
+        {
+          "en": "AVR relay drive transistor or its coil supply has failed.",
+          "ur": "AVR relay ka drive transistor ya uski coil supply kharab ho gayi hai."
+        },
+        {
+          "en": "Actuator or transformer tap mechanism jammed by dust or wear.",
+          "ur": "Actuator ya transformer ka tap mechanism dust ya wearing ki wajah se jam ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery first, then exercise the AVR relay by hand to check for free movement.",
+          "ur": "Pehle mains aur battery isolate karein, phir AVR relay ko haath se chala kar aazadi dekh lein."
+        },
+        {
+          "en": "Measure coil resistance and the drive transistor's collector-emitter junction as a short test.",
+          "ur": "Coil resistance aur drive transistor ka collector-emitter junction short test se check karein."
+        },
+        {
+          "en": "Clean the relay and relay bay with compressed air and a contact-cleaner spray, then re-seat the connector.",
+          "ur": "Relay aur relay bay ko compressed air aur contact-cleaner spray se saaf karein, phir connector dobara baitha dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Until the AVR relay is fixed the unit will still pass power but without boost regulation, so loads see sags.",
+        "ur": "AVR relay theek hone tak unit power dega magar boost regulation ke baghair, is liye load ko sags jhelne padenge."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "P.08",
+      "aliases": [
+        "P.08"
+      ],
+      "title": {
+        "en": "Output Relay Error (P.08)",
+        "ur": "Output relay error (P.08)"
+      },
+      "meaning": {
+        "en": "The relay that connects the inverter output to the load has not switched or cannot hold, so output is lost or unsafe.",
+        "ur": "Woh relay jo inverter output ko load se jorta hai switch nahi hua ya hold nahi kar sakta, is liye output gaya ya unsafe ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Output relay contacts welded from an inrush or short-circuit event.",
+          "ur": "Inrush ya short-circuit event se output relay ke contacts jalm gaye hain."
+        },
+        {
+          "en": "Output relay coil open or its driver failed.",
+          "ur": "Output relay ki coil khuli hai ya driver kharab hai."
+        },
+        {
+          "en": "Transformer secondary or output bus fault dragging excessive current through the relay.",
+          "ur": "Transformer secondary ya output bus ka fault relay se zyada current kheech raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the unit off, unplug from mains and disconnect the battery before any inspection.",
+          "ur": "Check karne se pehle unit off karein, mains se nikaalein aur battery disconnect kar lein."
+        },
+        {
+          "en": "With the load unplugged, measure output voltage at the outlets; the relay should switch cleanly on and off.",
+          "ur": "Load nikaal kar outlets par output voltage measure karein; relay saaf se on aur off hona chahiye."
+        },
+        {
+          "en": "Inspect contact faces for welding pitting and check coil resistance; replace the relay if pitted or welded.",
+          "ur": "Welding/pitting ke liye contact surfaces dekhein aur coil resistance check karein; pitted ya jalmay relay badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "A welded output relay is a stop-production fault - the UPS cannot be trusted to transfer back.",
+        "ur": "Jalmaya hua output relay production-stopping fault hai - UPS par bharosa nahi kiya ja sakta."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "P.13",
+      "aliases": [
+        "P.13"
+      ],
+      "title": {
+        "en": "Inverter Error (P.13)",
+        "ur": "Inverter error (P.13)"
+      },
+      "meaning": {
+        "en": "The inverter stage has reported an internal error and the UPS has shut the output down.",
+        "ur": "Inverter stage ne internal error report kiya hai aur UPS ne output band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter IGBT or module failed short or open, usually after an overload or over-temperature event.",
+          "ur": "Overload ya over-temperature ke baad inverter IGBT ya module short ya khul ho kar kharab hua hai."
+        },
+        {
+          "en": "Inverter drive board component failure.",
+          "ur": "Inverter drive board ka koi component kharab ho gaya hai."
+        },
+        {
+          "en": "DC link under-voltage because the battery string is dead or the connector is loose.",
+          "ur": "Battery string kharab ya connector loose hone se DC link under-voltage ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then measure the DC bus voltage with a meter to confirm the link is being charged.",
+          "ur": "Mains aur battery isolate karein, phir meter se DC bus voltage nikaalein taake confirm ho ke link charge ho raha hai."
+        },
+        {
+          "en": "Check battery string voltage and each cell; recharge for at least 4 hours and re-run self-test before condemning the inverter.",
+          "ur": "Battery string voltage aur har cell check karein; inverter kharab kehne se pehle kam az kam 4 ghante charge karein aur self-test chalayein."
+        },
+        {
+          "en": "Have the inverter IGBTs and drive board tested at component level; if the stage is dead the board or module must be replaced, not the batteries alone.",
+          "ur": "Inverter IGBT aur drive board component level par test karwa lein; stage kharab ho to board ya module badalna hoga, sirf battery nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "APC's manual for an internal fault reads: 'Do not attempt to use the UPS. Contact the Customer Care Center immediately.'",
+        "ur": "APC manual mein internal fault ke liye likha hai: 'UPS istemaal na karein, foran Customer Care Center se rabta karein.'"
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "P.17",
+      "aliases": [
+        "P.17"
+      ],
+      "title": {
+        "en": "Green Relay Error (P.17)",
+        "ur": "Green relay error (P.17)"
+      },
+      "meaning": {
+        "en": "The relay that routes load through the efficiency bypass in Green Mode has not switched as commanded.",
+        "ur": "Green Mode mein load ko efficiency bypass se chalane wala relay apni command ke mutabiq switch nahi hua."
+      },
+      "causes": [
+        {
+          "en": "Green relay contacts welded or pitted from repeated bypass transfers.",
+          "ur": "Baar baar bypass transfer se Green relay ke contacts jalm ya ghis chuke hain."
+        },
+        {
+          "en": "Green relay coil open or its drive circuit failed.",
+          "ur": "Green relay ki coil khuli hai ya uska drive circuit kharab ho gaya hai."
+        },
+        {
+          "en": "Green Mode misconfigured for a load that cannot tolerate bypass transfer.",
+          "ur": "Green Mode aise load ke liye set hai jo bypass transfer bardasht nahi kar sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then exercise the relay mechanism by hand to confirm it is free and not welded.",
+          "ur": "Mains aur battery isolate karein, phir relay mechanism ko haath se chala kar confirm karein ke azaad hai aur jalm nahi hua."
+        },
+        {
+          "en": "Measure the relay coil resistance and check the drive output at the coil pins with the unit powered safely.",
+          "ur": "Relay coil ki resistance nikaalein aur unit ko mehfooz tareeqe se power par rakh kar coil pins par drive output check karein."
+        },
+        {
+          "en": "Disable Green Mode in the configuration as a test: if P.17 stops, the relay or its drive circuit is confirmed.",
+          "ur": "Test ke liye configuration mein Green Mode band kar dein: agar P.17 ruk jaye to relay ya uska drive circuit confirm ho gaya."
+        },
+        {
+          "en": "If the relay is welded or pitted, replace it - a welded bypass relay cannot be cleaned back into spec.",
+          "ur": "Agar relay jalm ya pitted hai to badal dein - jalmaya bypass relay theek nahi ho sakta."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Green Mode passes utility power straight to the load through this relay when input is within set limits; that is why its failure matters.",
+        "ur": "Green Mode mein input set limits ke andar ho to yeh relay utility seedha load tak bhejta hai; is liye iski kharabi ahem hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "b.00",
+      "aliases": [
+        "b.00"
+      ],
+      "title": {
+        "en": "Battery Disconnected (b.00)",
+        "ur": "Battery disconnect (b.00)"
+      },
+      "meaning": {
+        "en": "The UPS has lost the battery pack, so there is no backup and the runtime is zero.",
+        "ur": "UPS ka battery pack disconnect ho gaya hai, is liye backup nahi hai aur runtime zero hai."
+      },
+      "causes": [
+        {
+          "en": "Battery connector unplugged or not fully seated.",
+          "ur": "Battery connector nikal gaya hai ya poora baith nahi hai."
+        },
+        {
+          "en": "Internal battery fuse or breaker tripped or blown.",
+          "ur": "Internal battery fuse ya breaker trip ya uth chuka hai."
+        },
+        {
+          "en": "Battery string aged, deep-discharged and no longer accepted by the charger.",
+          "ur": "Battery string purani ho kar deep-discharge ho chuki hai aur charger use qubool nahi karta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, unplug mains, then open the battery bay and reseat the battery connector firmly.",
+          "ur": "UPS off karein, mains se nikaalein, phir battery bay khol kar battery connector mazbooti se baitha dein."
+        },
+        {
+          "en": "Check the internal battery fuse/breaker with an ohmmeter; replace it with the same rating if open.",
+          "ur": "Ohmmeter se internal battery fuse/breaker check karein; khuli ho to usi rating se badal dein."
+        },
+        {
+          "en": "Measure the battery string DC voltage; a healthy Smart-UPS C string reads roughly 2 x 12 V per battery pack at float.",
+          "ur": "Battery string ka DC voltage nikaalein; healthy string float par lagbhag 2 x 12 V per battery pack deta hai."
+        },
+        {
+          "en": "Allow 4 hours of charging then run self-test; if the code returns, replace the battery pack.",
+          "ur": "4 ghante charge karne ke baad self-test chalayein; code dobara aaye to battery pack badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "APC's Easy UPS equivalent wording: 'Battery is not connected. Connect battery to the UPS.'",
+        "ur": "APC ke Easy UPS mein isi ka alfaz: 'Battery connected nahi hai. Battery UPS se connect karein.'"
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "b.01",
+      "aliases": [
+        "b.01"
+      ],
+      "title": {
+        "en": "Battery Over Voltage (b.01)",
+        "ur": "Battery over voltage (b.01)"
+      },
+      "meaning": {
+        "en": "Battery pack voltage has climbed above the safe ceiling, so the charger has shut down to protect the cells.",
+        "ur": "Battery pack voltage safe ceiling se upar chala gaya hai, is liye charger ne cells bachane ke liye band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Charger output failed high or the charge voltage setting is wrong for the pack.",
+          "ur": "Charger output high par kharab ho gaya hai ya charge voltage setting pack ke liye ghalat hai."
+        },
+        {
+          "en": "Wrong battery type fitted - a higher-capacity pack charged at a voltage above its spec.",
+          "ur": "Ghalat battery type lagi hai - zyada capacity wala pack apni spec se upar voltage par charge ho raha hai."
+        },
+        {
+          "en": "Ambient temperature high inside the cabinet with no temperature compensation on the charger.",
+          "ur": "Cabinet ke andar ambient temperature zyada hai aur charger par temperature compensation nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then measure each cell with a DC voltmeter; cells should sit near 13.5-13.8 V at float.",
+          "ur": "Mains aur battery isolate karein, phir har cell ko DC voltmeter se nikaalein; float par cells 13.5-13.8 V ke qareeb hone chahiye."
+        },
+        {
+          "en": "Confirm the fitted battery matches the type/spec printed in the manual and on the battery label.",
+          "ur": "Lagi hui battery ka type aur spec manual aur battery ke label se match karein."
+        },
+        {
+          "en": "Check charger output voltage at the battery terminals with the battery connected; out-of-spec output means the charger board is faulty.",
+          "ur": "Battery connect kar ke charger ki output voltage battery terminals par nikaalein; output spec se bahar ho to charger board kharab hai."
+        },
+        {
+          "en": "If cells are swollen, hot or leaking, stop using the pack and dispose of it safely - do not recharge.",
+          "ur": "Agar cells phool gaye, garam ya leaking hain to pack istemaal band karein aur mehfooz tareeqe se fenk dein - dobara charge na karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Over-charge is a battery-safety fault, not a nuisance alarm. Treat as danger.",
+        "ur": "Over-charge battery safety ka masla hai, chhoti si ghabrahat nahi. Isay khatarnaq samajhein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "b.02",
+      "aliases": [
+        "b.02"
+      ],
+      "title": {
+        "en": "Battery Need Replacement (b.02)",
+        "ur": "Battery badalni chahiye (b.02)"
+      },
+      "meaning": {
+        "en": "The battery failed the self-test, so its capacity is no longer able to carry the load and it must be replaced.",
+        "ur": "Battery self-test mein fail ho gayi hai, is liye uski capacity ab load uthane ke qabil nahi aur badalni chahiye."
+      },
+      "causes": [
+        {
+          "en": "Battery aged past 3-5 years, which is normal service life for these packs.",
+          "ur": "Battery 3-5 saal se ooper ho gayi hai, jo in packs ki normal service life hai."
+        },
+        {
+          "en": "Battery repeatedly deep-discharged by long outages or frequent switching.",
+          "ur": "Lambi outages ya baar baar on/off ki wajah se battery baar baar deep-discharge hui."
+        },
+        {
+          "en": "Battery operated at high cabinet temperature, which shortens life sharply.",
+          "ur": "Battery cabinet ki high temperature par chalti rahi hai, jis se umra bohat kam ho jati hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm it is not a false alarm: leave the UPS on mains for at least 4 hours to full charge, then run a self-test.",
+          "ur": "Pehle confirm karein ke yeh ghalat alarm nahi: UPS ko mains par kam az kam 4 ghante lagayein taake poori charge ho, phir self-test chalayein."
+        },
+        {
+          "en": "Measure the battery string DC voltage and confirm the connector is seated; a loose connector mimics a bad battery.",
+          "ur": "Battery string ka DC voltage nikaalein aur connector baitha hua check karein; loose connector kharab battery jaisa lagta hai."
+        },
+        {
+          "en": "Replace the battery pack with the same number and type APC specifies, then re-run self-test to clear the code.",
+          "ur": "Battery pack APC ki batay hui same number aur type se badal dein, phir self-test chala kar code clear karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "APC manual: 'Allow the battery to recharge for at least four hours. Then, perform a self-test. If the problem persists after recharging, replace the battery.'",
+        "ur": "APC manual: 'Battery ko kam az kam chaar ghante charge karne dein, phir self-test karein. Charge ke baad masla baki rahe to battery badal dein.'"
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "b.03",
+      "aliases": [
+        "b.03"
+      ],
+      "title": {
+        "en": "Battery Overtemperature Critical (b.03)",
+        "ur": "Battery temperature critical (b.03)"
+      },
+      "meaning": {
+        "en": "The battery pack temperature has reached the critical limit, so the UPS has cut the battery to prevent thermal runaway.",
+        "ur": "Battery pack ki temperature critical limit tak pohanch gayi hai, is liye UPS ne thermal runaway rokne ke liye battery band kar di hai."
+      },
+      "causes": [
+        {
+          "en": "Battery pack overcharged, generating heat faster than it can dissipate.",
+          "ur": "Battery pack zyada charge ho kar itni garmi bana rahi hai jitni nikal nahi sakti."
+        },
+        {
+          "en": "Cabinet ventilation blocked, or the UPS and battery pack crammed in a closed rack with no airflow.",
+          "ur": "Cabinet ki ventilation band hai, ya UPS aur battery pack aise rack mein rakhe hain jahan hawa nahi chalti."
+        },
+        {
+          "en": "One or more cells shorted internally and heating up in isolation.",
+          "ur": "Ek ya zyada cells andar se short ho kar khud garam ho rahe hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut the UPS down, unplug mains, disconnect the battery and move the pack to open air before touching it.",
+          "ur": "UPS band karein, mains se nikaalein, battery disconnect karein aur chhoone se pehle pack ko khulay hawa mein le jayein."
+        },
+        {
+          "en": "Measure the pack temperature with an IR thermometer or probe; compare against the battery label's limit.",
+          "ur": "Pack ki temperature IR thermometer ya probe se nikaalein; battery label ki limit se compare karein."
+        },
+        {
+          "en": "Open the cabinet and check the intake/exhaust grilles for dust build-up; clean with compressed air and restore airflow.",
+          "ur": "Cabinet khol kar intake/exhaust grilles par dhool check karein; compressed air se saaf karein aur airflow wapas karein."
+        },
+        {
+          "en": "Measure each cell's voltage and temperature in turn; a single hot cell means replace the pack, not the whole UPS.",
+          "ur": "Ek-ek cell ka voltage aur temperature nikaalein; ek bhi garam cell ho to pack badal dein, poora UPS nahi."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "APC manual on battery over-temperature: 'Power off the UPS, unplug it from the AC input, and disconnect the batteries. Do not operate the UPS until the batteries have been replaced.'",
+        "ur": "APC manual battery over-temperature ke liye: 'UPS band karein, AC input se nikaalein, aur battery disconnect karein. Batteries badle baghair UPS istemaal na karein.'"
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "b.04",
+      "aliases": [
+        "b.04"
+      ],
+      "title": {
+        "en": "Battery Charger Error (b.04)",
+        "ur": "Battery charger error (b.04)"
+      },
+      "meaning": {
+        "en": "The charger circuit has faulted, so the battery is not being charged and runtime will collapse.",
+        "ur": "Charger circuit mein fault aa gaya hai, is liye battery charge nahi ho rahi aur runtime gir jayegi."
+      },
+      "causes": [
+        {
+          "en": "Charger board component failure (MOSFET, rectifier or sense resistor).",
+          "ur": "Charger board ka koi component kharab (MOSFET, rectifier ya sense resistor)."
+        },
+        {
+          "en": "Battery or external battery cabinet presenting a short on the charge path.",
+          "ur": "Battery ya external battery cabinet charge path par short kar raha hai."
+        },
+        {
+          "en": "Fan failure stopping forced cooling of the charger stage.",
+          "ur": "Fan kharab ho kar charger stage ki forced cooling rok raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, unplug mains and disconnect the battery, then visually and by smell-check the charger area for burnt parts.",
+          "ur": "UPS off karein, mains se nikaalein aur battery disconnect karein, phir charger area mein jale hue parts dekh kar smell check karein."
+        },
+        {
+          "en": "Measure the battery pack's DC resistance/short across its terminals; a near-zero reading means a shorted pack.",
+          "ur": "Battery pack ke terminals par DC resistance/short nikaalein; zero ke qareeb reading matlab shorted pack."
+        },
+        {
+          "en": "Check the charger fan runs when the UPS is powered from battery; a stopped fan points straight at overheating.",
+          "ur": "Check karein ke UPS battery se chalte waqt charger fan chalta hai; fan ruka ho to seedha overheating ki taraf ishara hai."
+        },
+        {
+          "en": "Run a full charge then self-test; if the charger still reports error the charger board must be serviced or replaced.",
+          "ur": "Poori charge karein phir self-test chalayein; charger phir bhi error de to charger board service ya tabdeeli zaroori hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SE's Easy UPS equivalent (CH9) remedy: verify no short at the battery terminal, then do a manual restart off output and mains.",
+        "ur": "SE ke Easy UPS mein isi masle (CH9) ka hal: battery terminal par short check karein, phir output aur mains off karke manual restart karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "b.05",
+      "aliases": [
+        "b.05"
+      ],
+      "title": {
+        "en": "Battery Temperature Sensor Error (b.05)",
+        "ur": "Battery temperature sensor error (b.05)"
+      },
+      "meaning": {
+        "en": "The UPS has lost the battery temperature sensor reading, so it cannot manage charging safely.",
+        "ur": "UPS ka battery temperature sensor ka reading chala gaya hai, is liye charging ko mehfooz tareeqe se control nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Sensor module unplugged or its ribbon/pin connector pushed off the board.",
+          "ur": "Sensor module plug nikal gaya hai ya uska ribbon/pin connector board se hat gaya hai."
+        },
+        {
+          "en": "Sensor thermistor open or short inside the battery cabinet.",
+          "ur": "Sensor ka thermistor battery cabinet ke andar khul gaya ya short ho gaya hai."
+        },
+        {
+          "en": "Sense wiring harness chafed or pinched during a battery replacement.",
+          "ur": "Sense wiring harness battery badalne waqt ragis ya nichal gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then reseat the battery temperature sensor connector at the board and at the battery cabinet.",
+          "ur": "Mains aur battery isolate karein, phir sensor connector board aur battery cabinet dono par mazbooti se baitha dein."
+        },
+        {
+          "en": "Measure sensor resistance across its two pins with an ohmmeter; it should read a smooth value, not open or zero.",
+          "ur": "Ohmmeter se sensor ke do pins par resistance nikaalein; yeh smooth value de, khuli ya zero na ho."
+        },
+        {
+          "en": "Trace the harness for a break near the cabinet hinge or a battery tray edge; repair with heat-shrink and re-route the cable.",
+          "ur": "Harness mein cabinet ke hinge ya battery tray ke kinare ke paas toota hua hissa dekhein; heat-shrink se repair karke cable dobara layein."
+        },
+        {
+          "en": "Charge normally once the sensor reads again and re-run self-test to clear the code.",
+          "ur": "Sensor dobara read karne ke baad normal charge karein aur self-test chala kar code clear karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Without a working sensor the charger runs on a fixed temperature, so do not leave the unit charging unattended long-term.",
+        "ur": "Sensor kharab hone par charger aik hi temperature par chalta hai, is liye unit ko lambe arse tak bina nazar ke charge na chhodein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "b.07",
+      "aliases": [
+        "b.07"
+      ],
+      "title": {
+        "en": "Battery Overtemperature Indicator (b.07)",
+        "ur": "Battery over temperature indicator (b.07)"
+      },
+      "meaning": {
+        "en": "The battery pack is running above its temperature limit; the indicator warns before the critical cut-off at b.03.",
+        "ur": "Battery pack apni temperature limit se upar chal raha hai; b.03 ke critical cut-off se pehle yeh indicator ehtiyat karata hai."
+      },
+      "causes": [
+        {
+          "en": "Cabinet poorly ventilated and room temperature high, typical of Pakistani summers.",
+          "ur": "Cabinet ki ventilation kam aur room temperature zyada hai - Pakistani garmi mein aam masla."
+        },
+        {
+          "en": "Dust-clogged fans so the UPS cannot move air over the pack.",
+          "ur": "Fan dhool se block hain, is liye UPS battery par se hawa nahi nikal pata."
+        },
+        {
+          "en": "Battery pack mounted tight against the UPS chassis or another hot unit.",
+          "ur": "Battery pack UPS chassis ya kisi garam unit se bilkul chipak kar fit ki gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure room temperature and the pack temperature with a probe; confirm both are within the battery label limits.",
+          "ur": "Room temperature aur pack temperature probe se nikaalein; dono battery label ki limit ke andar hain ya nahi confirm karein."
+        },
+        {
+          "en": "Clean every fan and grille with compressed air and confirm the UPS fan actually spins with the unit powered.",
+          "ur": "Har fan aur grille ko compressed air se saaf karein aur unit power par hone par fan sach mein ghoomta hai ya nahi confirm karein."
+        },
+        {
+          "en": "Open up the cabinet for cross-ventilation and add a small exhaust fan if the site is a closed equipment room.",
+          "ur": "Cabinet ko cross-ventilation ke liye kholein aur agar site band equipment room hai to chhota exhaust fan lagayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "b.07 is the warning tier of the same over-temperature family that ends at b.03 - act on it before it escalates.",
+        "ur": "b.07 usi over-temperature family ki warning hai jo b.03 par khatam hoti hai - badhne se pehle hal kar lein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "b.12",
+      "aliases": [
+        "b.12"
+      ],
+      "title": {
+        "en": "Battery Voltage Sensor Error (b.12)",
+        "ur": "Battery voltage sensor error (b.12)"
+      },
+      "meaning": {
+        "en": "The battery voltage sensing circuit has faulted, so the UPS cannot judge the state of charge correctly.",
+        "ur": "Battery voltage sensing circuit kharab ho gaya hai, is liye UPS battery ki charge state theek se nahi dekh sakta."
+      },
+      "causes": [
+        {
+          "en": "Voltage sense wire disconnected, broken or corroded at the battery terminal.",
+          "ur": "Battery terminal par voltage sense wire disconnect, toota ya zang lagay hua hai."
+        },
+        {
+          "en": "Sense divider resistor or op-amp on the control board failed.",
+          "ur": "Control board ka sense divider resistor ya op-amp kharab ho gaya hai."
+        },
+        {
+          "en": "Sensing line picking up noise or earth leakage from a badly earthed chassis.",
+          "ur": "Sensing line mein noise ya khami se grounding se earth leakage aa raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then compare the LCD battery voltage against a direct DC meter reading at the battery terminals.",
+          "ur": "Mains aur battery isolate karein, phir LCD ka battery voltage seedhe battery terminals par DC meter se reading se compare karein."
+        },
+        {
+          "en": "Clean battery terminals and re-tighten them; corrosion on the terminal is a common cause of bad sensing.",
+          "ur": "Battery terminals saaf karein aur dobara kasshein; terminals par zang aksar kharab sensing ki wajah hota hai."
+        },
+        {
+          "en": "Check the sense wire for continuity end to end with an ohmmeter and repair the break.",
+          "ur": "Sense wire ki aik se doosri taraf continuity ohmmeter se check kar ke toota hua hissa repair karein."
+        },
+        {
+          "en": "Verify chassis earth continuity; a floating earth on the UPS body will upset the sensing reference.",
+          "ur": "Chassis earth continuity verify karein; body ka earth adhoora hone par sensing reference bigad jata hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "A wrong battery voltage reading on the LCD is the quickest field check for this code.",
+        "ur": "LCD par battery voltage ki ghalat reading is code ka sab se tez field check hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "G.00",
+      "aliases": [
+        "G.00"
+      ],
+      "title": {
+        "en": "Site Wiring Fault (G.00)",
+        "ur": "Site wiring fault (G.00)"
+      },
+      "meaning": {
+        "en": "The UPS has measured a wiring defect in the supply: missing earth, hot-neutral reversal or an overloaded neutral.",
+        "ur": "UPS ne supply wiring mein koi khaami paayi hai: earth missing, hot-neutral ulat gaya, ya neutral par bohat load."
+      },
+      "causes": [
+        {
+          "en": "Protective earth not connected at the wall outlet or socket.",
+          "ur": "Wall outlet ya socket par protective earth connect nahi hai."
+        },
+        {
+          "en": "Line and neutral reversed at the outlet (hot-neutral polarity reversal).",
+          "ur": "Outlet par line aur neutral aapas mein ulat gaye hain (hot-neutral polarity reversal)."
+        },
+        {
+          "en": "Neutral conductor overloaded or shared with other high-current loads.",
+          "ur": "Neutral conductor overloaded hai ya doosre bhaari loads ke saath mushtarka hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not open or work on a live socket - have a qualified electrician inspect the building wiring.",
+          "ur": "Live socket par kaam ya kholna na karein - building wiring kisi qualified electrician se check karwa lein."
+        },
+        {
+          "en": "Ask the electrician to verify earth continuity and polarity with a socket tester, then confirm earth pin truly bonded to earth.",
+          "ur": "Electrician se socket tester se earth continuity aur polarity check karwa lein, aur confirm karein ke earth pin asal mein earth se juri hai."
+        },
+        {
+          "en": "Have the neutral conductor size and load sharing re-checked, and correct the reversal before re-powering the UPS.",
+          "ur": "Neutral conductor ka size aur load sharing dobara check karwa lein, aur UPS dobara power dene se pehle reversal theek karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "System Error LED flashes on for 2 seconds then off for 1 second to indicate site wiring fault",
+      "confidence": "high",
+      "notes": {
+        "en": "APC states this check is '(Applicable for 120 V units only)' - a Pakistani 230 V install will not normally show G.00. If it does, treat the wiring as genuinely faulty.",
+        "ur": "APC kehta hai yeh check '(Sirf 120 V units ke liye)' - Pakistan ke 230 V install par aam tor par G.00 nahi aayega. Aaye to samajhein ke wiring asal mein kharab hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "G.01",
+      "aliases": [
+        "G.01"
+      ],
+      "title": {
+        "en": "EEPROM Error (G.01)",
+        "ur": "EEPROM error (G.01)"
+      },
+      "meaning": {
+        "en": "The non-volatile settings memory failed a read/write check, so calibration or configuration data is unreliable.",
+        "ur": "Non-volatile settings memory ka read/write check fail hua hai, is liye calibration ya configuration data bharosemand nahi."
+      },
+      "causes": [
+        {
+          "en": "Ongoing power loss or brownout writing to the memory repeatedly and corrupting it.",
+          "ur": "Baar baar bijli chali jaane ya brownout se memory corrupt ho raha hai."
+        },
+        {
+          "en": "Battery removed for long periods so the memory cells discharged flat.",
+          "ur": "Battery lambe arse ke liye nikalne se memory cells flat ho gaye."
+        },
+        {
+          "en": "EEPROM chip itself failed.",
+          "ur": "EEPROM chip hi kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, unplug mains and disconnect the battery before any board work.",
+          "ur": "Board par kaam karne se pehle power off karein, mains se nikaalein aur battery disconnect kar lein."
+        },
+        {
+          "en": "Run the factory-reset / re-setup routine from the manual, which forces a full memory rewrite and recalibration.",
+          "ur": "Manual mein di gayi factory-reset / re-setup routine chalayein, jo poori memory dobara likhta aur recalibrate karta hai."
+        },
+        {
+          "en": "If the code returns after a successful reset, the EEPROM/control board must be replaced - no user-repairable path exists.",
+          "ur": "Agar reset ke baad bhi code laut aaye to EEPROM/control board badalna hoga - user ke liye koi hal nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Intermittent mains is the root cause worth fixing first; otherwise the new board fails the same way.",
+        "ur": "Sabse pehle bijli ki aa-jane ki masla theek karein; warna naya board bhi waise hi kharab hoga."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "G.02",
+      "aliases": [
+        "G.02"
+      ],
+      "title": {
+        "en": "AD Converter Error (G.02)",
+        "ur": "AD converter error (G.02)"
+      },
+      "meaning": {
+        "en": "The analogue-to-digital converter on the control board has failed, so voltage and current readings are wrong.",
+        "ur": "Control board ka analogue-to-digital converter kharab hai, is liye voltage aur current ki readings ghalat hain."
+      },
+      "causes": [
+        {
+          "en": "ADC chip failed, usually from earlier surge or over-voltage events.",
+          "ur": "ADC chip kharab, aam tor par pichle surge ya over-voltage ke baad."
+        },
+        {
+          "en": "Control board contaminated or cracked by heat.",
+          "ur": "Control board par ghusa hua ya garmi se crack hua."
+        },
+        {
+          "en": "Sense divider network feeding the ADC has failed open.",
+          "ur": "ADC ko chalane wala sense divider network khul chuka hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect mains and battery before opening the unit, and use an anti-static wrist strap when handling the board.",
+          "ur": "Unit kholne se pehle mains aur battery disconnect karein, aur board chhoone se pehle anti-static wrist strap lagayein."
+        },
+        {
+          "en": "Compare every LCD reading (input V, output V, load %, battery V) against a meter's readings; consistent error across all confirms the ADC.",
+          "ur": "Har LCD reading (input V, output V, load %, battery V) ko meter se compare karein; sab par aik hi ghalat error ADC kharabi confirm karta hai."
+        },
+        {
+          "en": "Have the ADC IC and its sense divider tested and replaced at component level; the board is not field-repairable beyond that.",
+          "ur": "ADC IC aur uska sense divider component level par test karwa kar badle dein; us se aage board field level par theek nahi hota."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Expect all displayed values to be untrustworthy while this code is active.",
+        "ur": "Is code ke dauran LCD ki saari values par bharosa na karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "G.03",
+      "aliases": [
+        "G.03"
+      ],
+      "title": {
+        "en": "Logic Power Supply Error (G.03)",
+        "ur": "Logic power supply error (G.03)"
+      },
+      "meaning": {
+        "en": "The internal auxiliary rail that powers the control electronics has collapsed, so the logic board is running without proper supply.",
+        "ur": "Control electronics ko chalane wali andar ki auxiliary rail gir gayi hai, is liye logic board sahi supply ke baghair chal raha hai."
+      },
+      "causes": [
+        {
+          "en": "Auxiliary SMPS on the logic board failed its switching stage or a rectifier diode.",
+          "ur": "Logic board ka auxiliary SMPS ka switching stage ya rectifier diode kharab."
+        },
+        {
+          "en": "Logic rail shorted to earth by a failed capacitor, dragging the supply down.",
+          "ur": "Koi capacitor short ho kar logic rail ko earth se connect kar raha hai aur supply gira raha hai."
+        },
+        {
+          "en": "Harness feeding the logic rail disconnected or a bad solder joint opened.",
+          "ur": "Logic rail ko chalane wala harness disconnect ya koi solder joint khul gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery first, then measure the logic rail on the board with a multimeter against the value marked on the board silk-screen.",
+          "ur": "Pehle mains aur battery isolate karein, phir board par logic rail ko multimeter se board ki silk-screen par likhi value se compare karein."
+        },
+        {
+          "en": "Check for a shorted decoupling capacitor on the logic rail by measuring resistance to earth; a very low reading points to the shorted cap.",
+          "ur": "Logic rail par earth ke mutabiq resistance nikaal kar decoupling capacitor check karein; bohat kam reading shorted cap ka ishara hai."
+        },
+        {
+          "en": "Inspect the auxiliary supply fuse and the harness connectors; reflow or replace the failed stage on the board.",
+          "ur": "Auxiliary supply ka fuse aur harness connectors dekhein; kharab stage ko board par reflow ya badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "An internal logic supply failure can also cause random restarts, not just this code.",
+        "ur": "Logic supply kharabi se sirf yeh code nahi, balki beytarbi restart bhi ho sakte hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "G.04",
+      "aliases": [
+        "G.04"
+      ],
+      "title": {
+        "en": "Internal Communication Error (G.04)",
+        "ur": "Internal communication error (G.04)"
+      },
+      "meaning": {
+        "en": "The control boards inside the UPS cannot talk to each other, so the unit loses coordination between power and logic.",
+        "ur": "UPS ke andar control boards aapas mein baat nahi kar pa rahe, is liye power aur logic ka coordination khatam ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Ribbon cable or board-to-board harness unplugged or chafed.",
+          "ur": "Ribbon cable ya board-to-board harness nikal hua ya ragis hua hai."
+        },
+        {
+          "en": "A daughter board failed and is holding the bus low.",
+          "ur": "Koi daughter board kharab ho kar bus ko low par rok kar baitha hai."
+        },
+        {
+          "en": "Connector pins corroded or bent, so the bus is intermittent.",
+          "ur": "Connector ke pins zange ya tede hue hain, is liye bus baar baar toot raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, unplug mains, disconnect the battery, and use an anti-static strap before touching board connectors.",
+          "ur": "Power off karein, mains se nikaalein, battery disconnect karein, aur board connector chhoone se pehle anti-static strap lagayein."
+        },
+        {
+          "en": "Reseat every board-to-board ribbon and connector firmly, then inspect the cable for cuts along its routing.",
+          "ur": "Har board-to-board ribbon aur connector mazbooti se dobara baitha dein, phir cable mein tute hue hisse dekhein."
+        },
+        {
+          "en": "With the boards powered but safe to probe, scope or meter the communication bus for a stuck-low line and trace it to the board holding it.",
+          "ur": "Boards power par hone ke baad, communication bus ko scope ya meter se check karein ke kaunsi line low par atki hai aur us board tak pohonchein."
+        },
+        {
+          "en": "If one board is proven faulty, replace that board; the bus itself does not normally fail.",
+          "ur": "Agar koi aik board kharab sabit ho to wo board badal dein; bus aam tor par khud nahi kharab hota."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "A mains surge is the common trigger - check the input earthing and surge protection if this recurs.",
+        "ur": "Mains surge aam wajah hai - yeh baar baar aaye to input earthing aur surge protection check karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "G.05",
+      "aliases": [
+        "G.05"
+      ],
+      "title": {
+        "en": "UI Button Error (G.05)",
+        "ur": "UI button error (G.05)"
+      },
+      "meaning": {
+        "en": "The user interface button on the front panel is stuck or its switch is faulty, so the unit cannot be commanded normally.",
+        "ur": "Front panel ka user interface button atak gaya hai ya uska switch kharab hai, is liye unit ko normal command nahi di ja sakta."
+      },
+      "causes": [
+        {
+          "en": "Button mechanically jammed by dust, a dropped object or a swollen battery pressing the panel.",
+          "ur": "Button dhool, giray huay cheez ya phooli battery ke dabayaane se mechanically atak gaya hai."
+        },
+        {
+          "en": "Button switch contact welded closed from repeated pressing.",
+          "ur": "Baar baar dabane se button switch ka contact jalm kar band ho gaya hai."
+        },
+        {
+          "en": "Front panel flex cable to the control board unplugged or torn.",
+          "ur": "Control board se jude front panel ke flex cable ka connector nikal gaya ya phat gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, unplug mains and disconnect the battery, then press and release the button several times to free it.",
+          "ur": "Power off karein, mains se nikaalein aur battery disconnect karein, phir button ko kai baar daba kar chhod kar azaad karein."
+        },
+        {
+          "en": "Blow dust out of the button gap and clean the switch contact with contact cleaner spray.",
+          "ur": "Button ke suraakh mein dhool ki saaf karein aur switch contact ko contact cleaner spray se saaf karein."
+        },
+        {
+          "en": "With power removed, check the button switch for continuity in and out of position and reseat the panel flex cable.",
+          "ur": "Power nikal kar button switch ki continuity pressed aur released position mein check karein aur panel flex cable dobara baitha dein."
+        },
+        {
+          "en": "If the switch reads permanently closed, replace the switch/button assembly - do not leave a stuck control key.",
+          "ur": "Agar switch hamesha band continuity de to switch/button assembly badal dein - atka hua control key chhodein mat."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This is a front-panel fault, not a power fault: the UPS keeps protecting the load while it is showing.",
+        "ur": "Yeh front-panel ka fault hai, power ka nahi: yeh aate hue bhi UPS load ko protect kar raha hota hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "G.06",
+      "aliases": [
+        "G.06"
+      ],
+      "title": {
+        "en": "Needs Factory Setup (G.06)",
+        "ur": "Factory setup chahiye (G.06)"
+      },
+      "meaning": {
+        "en": "The unit has lost or never received its factory configuration and must be re-initialised before it will run.",
+        "ur": "Unit ki factory configuration kho gayi hai ya pehle se set nahi hui, is liye chalne se pehle dobara initialize karna zaroori hai."
+      },
+      "causes": [
+        {
+          "en": "Settings memory cleared by a G.01 EEPROM event or by removing the battery too long.",
+          "ur": "G.01 EEPROM event ya battery lambe arse ke liye nikalne se settings memory khaali ho gayi."
+        },
+        {
+          "en": "Control board replaced without the factory programming being written to it.",
+          "ur": "Control board badalne ke baad factory programming us mein likhi nahi gayi."
+        },
+        {
+          "en": "Firmware and memory data mismatch after a partial firmware update.",
+          "ur": "Adhoori firmware update ke baad firmware aur memory data mein mismatch ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Follow the manual's factory setup / start-up wizard exactly, including any module ID and rating entries.",
+          "ur": "Manual ka factory setup / start-up wizard bilkul waise hi follow karein, jis mein module ID aur rating bhi shamil hai."
+        },
+        {
+          "en": "Ensure the battery is connected and charging before the wizard runs; the wizard writes the memory and needs stable rail power.",
+          "ur": "Wizard chalane se pehle battery connect aur charging par zaroor ho; wizard memory likhta hai aur use stable rail power chahiye."
+        },
+        {
+          "en": "After setup completes, power-cycle the unit and run a self-test to confirm G.06 is cleared.",
+          "ur": "Setup mukammal hone ke baad unit ko power-cycle karein aur G.06 mitne ki tasdeq ke liye self-test chalayein."
+        },
+        {
+          "en": "If setup cannot be completed, the control board needs APC's factory programming file and service access.",
+          "ur": "Agar setup mukammal na ho to control board ko APC ka factory programming file aur service access chahiye."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "G.06 often follows G.01 - the EEPROM event erased the data this code complains about.",
+        "ur": "G.06 aksar G.01 ke baad aata hai - EEPROM event ne wohi data mita diya jis ki is code ko shikayat hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "G.07",
+      "aliases": [
+        "G.07"
+      ],
+      "title": {
+        "en": "EPO Active (G.07)",
+        "ur": "EPO active (G.07)"
+      },
+      "meaning": {
+        "en": "The Emergency Power Off input has been triggered, so the UPS has been deliberately shut down.",
+        "ur": "Emergency Power Off input trigger ho gaya hai, is liye UPS ko jaan boojh kar band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "EPO wall switch pressed by a person, or the EPO contact closed in error.",
+          "ur": "EPO wall switch kisi ne daba diya, ya ghalat se EPO contact band ho gaya."
+        },
+        {
+          "en": "EPO wiring loop broken or shorted, so the input reads active without anyone pressing it.",
+          "ur": "EPO wiring loop toota ya short ho gaya, is liye bina kisi dabaye input active parh raha hai."
+        },
+        {
+          "en": "EPO breaker or relay in the circuit stuck in the closed position.",
+          "ur": "Circuit ka EPO breaker ya relay band position mein atak gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note that G.07 is reserved for 2200 VA and 3000 VA models only, so on a 1000/1500 VA unit it means an installation or wiring problem.",
+          "ur": "Yeh yaad rakhein ke G.07 sirf 2200 VA aur 3000 VA models ke liye hai, is liye 1000/1500 VA unit par yeh installation ya wiring ki masla hai."
+        },
+        {
+          "en": "Check the EPO wall switch and reset it to the released (non-pressed) position.",
+          "ur": "EPO wall switch check karein aur usay chhoda (dabaya hua nahin) position par reset karein."
+        },
+        {
+          "en": "Measure the EPO loop continuity back to the UPS with the loop wiring isolated; the input should read open when released.",
+          "ur": "EPO loop wiring alag karke UPS tak continuity nikaalein; chhode jaane par input khuli honi chahiye."
+        },
+        {
+          "en": "Confirm the UPS returns to normal after the EPO source is cleared; if not, service the EPO input board.",
+          "ur": "EPO source theek karne ke baad confirm karein ke UPS normal par aa jaye; warna EPO input board service karwa lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "EPO is a safety device, not a malfunction. If nobody pressed it, treat the loop wiring as the fault.",
+        "ur": "EPO safety device hai, ghalti nahi. Agar kisi ne nahi dabaya to loop wiring ko hi fault samajhein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "G.08",
+      "aliases": [
+        "G.08"
+      ],
+      "title": {
+        "en": "Firmware Mismatch (G.08)",
+        "ur": "Firmware mismatch (G.08)"
+      },
+      "meaning": {
+        "en": "The control board firmware does not match the unit's hardware revision, so the unit refuses to run.",
+        "ur": "Control board ka firmware unit ke hardware revision se match nahi karta, is liye unit chalne se inkar karta hai."
+      },
+      "causes": [
+        {
+          "en": "Firmware update interrupted or power lost part-way through writing.",
+          "ur": "Firmware update dauran-baadan mein ruk gaya ya likhte waqt bijli chali gayi."
+        },
+        {
+          "en": "Control board swapped from another unit, carrying the wrong firmware.",
+          "ur": "Doosre unit ka control board lagaya gaya, jis par ghalat firmware hai."
+        },
+        {
+          "en": "Firmware corrupted by a brownout while idle in memory.",
+          "ur": "Brownout ki wajah se memory mein firmware corrupt ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not cut power during any firmware write; run the update on a fully charged battery and stable mains.",
+          "ur": "Firmware likhte waqt bijli na kaatein; update poori charge wali battery aur stable mains par chalayein."
+        },
+        {
+          "en": "Check the running firmware version and the available version on the About/Firmware menu; if they differ, run the update again from the manual.",
+          "ur": "About/Firmware menu se chal raha aur available firmware version compare karein; farq ho to manual ke mutabiq update dobara chalayein."
+        },
+        {
+          "en": "Confirm the board part number matches the unit part number before flashing anything onto it.",
+          "ur": "Kuch bhi flash karne se pehle confirm karein ke board ka part number unit ke part number se match karta hai."
+        },
+        {
+          "en": "If the unit's version will not load, the control board must be re-flashed by a service centre with the correct image.",
+          "ur": "Agar unit ka version load nahi hota to control board ko service centre se sahi image ke saath dobara flash karwa lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Never flash a board from a different model; this is how boards get bricked.",
+        "ur": "Doosre model ka board kabhi flash na karein; isi tarah boards puri tarah dead ho jate hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "G.09",
+      "aliases": [
+        "G.09"
+      ],
+      "title": {
+        "en": "Oscillator Error (G.09)",
+        "ur": "Oscillator error (G.09)"
+      },
+      "meaning": {
+        "en": "The inverter's timing reference oscillator has failed, so the unit cannot hold a stable output frequency.",
+        "ur": "Inverter ka timing reference oscillator kharab ho gaya hai, is liye unit stable output frequency nahi rakh sakta."
+      },
+      "causes": [
+        {
+          "en": "Crystal or oscillator module on the control/inverter board failed.",
+          "ur": "Control ya inverter board ka crystal ya oscillator module kharab ho gaya."
+        },
+        {
+          "en": "Oscillator output stage (buffer/divider) failed after a surge.",
+          "ur": "Surge ke baad oscillator ka output stage (buffer/divider) kharab ho gaya."
+        },
+        {
+          "en": "Oscillator supply rail not reaching the oscillator because of a decoupling fault.",
+          "ur": "Decoupling fault ki wajah se oscillator ki supply rail oscillator tak nahi pohanch rahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery and use an anti-static strap before opening the unit.",
+          "ur": "Unit kholne se pehle mains aur battery isolate karein aur anti-static strap lagayein."
+        },
+        {
+          "en": "Check the output frequency on the LCD and on a multimeter or frequency meter; drift off 50 Hz confirms the oscillator is not holding.",
+          "ur": "LCD aur multimeter/frequency meter par output frequency check karein; 50 Hz se hatna confirm karta hai ke oscillator hold nahi kar raha."
+        },
+        {
+          "en": "Measure the oscillator circuit supply and the oscillator output amplitude; an absent output means the module or its buffer has failed.",
+          "ur": "Oscillator circuit ki supply aur oscillator output amplitude nikaalein; output na mile to module ya uska buffer kharab hai."
+        },
+        {
+          "en": "Replace the oscillator module or crystal matching the board's part number; do not substitute a random crystal.",
+          "ur": "Board ke part number se milta jula oscillator module ya crystal badle dein; aik ghalat crystal istemaal na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "On a 50 Hz site an output that will not sit at 50 Hz will show up as load-side timing faults.",
+        "ur": "50 Hz site par agar output 50 Hz par tikay nahi rahta to load side par timing ke masle nazar aayenge."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "G.10",
+      "aliases": [
+        "G.10"
+      ],
+      "title": {
+        "en": "Measurement Mismatch (G.10)",
+        "ur": "Measurement mismatch (G.10)"
+      },
+      "meaning": {
+        "en": "Two measurement paths disagree, so the unit has shut down rather than run on a reading it does not trust.",
+        "ur": "Do measurement raaste aapas mein match nahi kar rahe, is liye unit un par bharosa karke chalne ke bajaye band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Redundant voltage/current sensors disagree because one has drifted or failed.",
+          "ur": "Do redundant voltage/current sensors mein se koi ek drift ya kharab ho gaya hai."
+        },
+        {
+          "en": "Sensor or sense wiring harness connector loose, so the two channels read differently.",
+          "ur": "Sensor ya sense wiring harness ka connector loose hai, is liye dono channels alag readings de rahe hain."
+        },
+        {
+          "en": "Calibration data lost after a factory reset or EEPROM event.",
+          "ur": "Factory reset ya EEPROM event ke baad calibration data kho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then measure input voltage, output voltage and load current independently with a meter.",
+          "ur": "Mains aur battery isolate karein, phir input voltage, output voltage aur load current ko meter se alag alag nikaalein."
+        },
+        {
+          "en": "Compare both channels against the meter; the channel with the larger deviation is the failed one.",
+          "ur": "Dono channels ko meter se compare karein; jis channel ka farq zyada ho wohi kharab hai."
+        },
+        {
+          "en": "Reseat all sensor harness connectors, clean the pin contacts, and re-tighten any loose earth at the sensor board.",
+          "ur": "Har sensor harness connector dobara baitha dein, pin contacts saaf karein, aur sensor board par koi loose earth ho to kass lein."
+        },
+        {
+          "en": "If channels agree with a meter but not each other, run the calibration/factory setup from the manual.",
+          "ur": "Agar channels meter se match karein magar aapas mein nahi, to manual ka calibration/factory setup chalayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The unit choosing to stop on a measurement disagreement is correct behaviour - do not force it to run.",
+        "ur": "Measurement mismatch par unit ka rukna theek hai - use zabardasti chalane ki koshish na karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "G.11",
+      "aliases": [
+        "G.11"
+      ],
+      "title": {
+        "en": "Subsystem Error (G.11)",
+        "ur": "Subsystem error (G.11)"
+      },
+      "meaning": {
+        "en": "A functional block of the UPS has reported a fault to the controller and the unit has shut the output down.",
+        "ur": "UPS ka koi aik functional block ne controller ko fault report kiya hai aur unit ne output band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "A sub-assembly (inverter, charger, fan controller or bypass) has failed.",
+          "ur": "Koi sub-assembly (inverter, charger, fan controller ya bypass) kharab ho gaya hai."
+        },
+        {
+          "en": "The subsystem's own self-test failed on start-up.",
+          "ur": "Subsystem ka apna self-test start-up par fail ho gaya."
+        },
+        {
+          "en": "Subsystem supply or its interlock to the main board is faulty.",
+          "ur": "Subsystem ki supply ya main board se uska interlock kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery before opening the unit, and photograph the board connections before disturbing anything.",
+          "ur": "Unit kholne se pehle mains aur battery isolate karein, aur kuch bhi chhedne se pehle board connections ki tasveer lein."
+        },
+        {
+          "en": "Identify which subsystem raised the fault by reading the diagnostic/event log on the LCD after restart.",
+          "ur": "LCD par diagnostic/event log parh kar pata karein ke kaunsa subsystem fault uthata hai."
+        },
+        {
+          "en": "Check that subsystem's own supply rail and interlock signal at the main board connector with a meter.",
+          "ur": "Us subsystem ki apni supply rail aur interlock signal main board connector par meter se check karein."
+        },
+        {
+          "en": "Service or replace the failed sub-assembly; a generic 'subsystem' code only becomes specific once the board is probed.",
+          "ur": "Kharab sub-assembly service ya badle dein; 'subsystem' code board probe ke baad hi specific hota hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "G.11 is a wrapper code - it tells you a subsystem failed, not which one. Expect to escalate this.",
+        "ur": "G.11 aik wrapper code hai - yeh batata hai ke subsystem kharab hua, keunsa nahi. Isay aage barhana hoga."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "L.01",
+      "aliases": [
+        "L.01"
+      ],
+      "title": {
+        "en": "Battery Lifetime Near End (L.01)",
+        "ur": "Battery ki umar khatam hone wali hai (L.01)"
+      },
+      "meaning": {
+        "en": "The UPS has counted enough discharge cycles that the battery is near the end of its service life, so plan a replacement.",
+        "ur": "UPS ne itne discharge cycles gin liye ke battery apni service life ke ant par hai, is liye badalne ki planning kar lein."
+      },
+      "causes": [
+        {
+          "en": "Battery has reached its rated cycle count for the installed chemistry.",
+          "ur": "Battery apni installed chemistry ke rated cycle count tak pohanch gaya hai."
+        },
+        {
+          "en": "High operating temperature has consumed the battery's float life faster.",
+          "ur": "Chalti hui battery ki float life high temperature ki wajah se jaldi khatam ho gayi."
+        },
+        {
+          "en": "Frequent deep discharge from repeated long outages.",
+          "ur": "Baar baar lambi outages ki wajah se baar baar deep discharge hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "The LCD alarm is acknowledged by pressing MUTE for 0.2 second; the warning clears but the underlying battery is still ageing.",
+          "ur": "LCD alarm MUTE dabakar 0.2 second ke liye acknowledge hota hai; warning mit jata hai magar battery phir bhi purani ho rahi hai."
+        },
+        {
+          "en": "Measure the battery string DC voltage at float and run a self-test to see actual remaining capacity.",
+          "ur": "Float par battery string ka DC voltage nikaalein aur self-test chalayein taake asli baaki capacity pata chale."
+        },
+        {
+          "en": "Book a replacement battery of the specified type and number, and schedule it before the next expected outage.",
+          "ur": "Munasib battery type aur number ka replacement mangwayein, aur agli mutaabiya outage se pehle schedule kar lein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "APC manual: 'If the LCD indicates battery LifeTime NearEnd or Exceeded, press the MUTE button for 0.2 second to acknowledge the alarm.'",
+        "ur": "APC manual: 'Agar LCD par battery LifeTime NearEnd ya Exceeded dikh raha ho to alarm acknowledge karne ke liye MUTE 0.2 second ke liye dabayein.'"
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "L.02",
+      "aliases": [
+        "L.02"
+      ],
+      "title": {
+        "en": "Battery Lifetime Exceeded (L.02)",
+        "ur": "Battery ki umar khatam (L.02)"
+      },
+      "meaning": {
+        "en": "The battery is past its end of service life, so the UPS is running without effective backup and the pack must be changed.",
+        "ur": "Battery apni service life ke baad nikal chuki hai, is liye UPS bina effective backup ke chal raha hai aur pack badalna zaroori hai."
+      },
+      "causes": [
+        {
+          "en": "Battery pack is older than its rated 3-5 year service life.",
+          "ur": "Battery pack apni 3-5 saal ki rated service life se ooper hai."
+        },
+        {
+          "en": "Repeated high-temperature operation aged the cells far faster than calendar life suggests.",
+          "ur": "Baar baar high temperature par chalanay se cells calendar life se bohat zyada jaldi purani ho gayi."
+        },
+        {
+          "en": "Deep discharge and partial discharges accumulated over years of load-shedding conditions.",
+          "ur": "Saalon ke load-shedding mein deep aur partial discharges jama ho gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Acknowledge the LCD alarm with MUTE for 0.2 second so the unit stops beeping, then plan the replacement.",
+          "ur": "LCD alarm ko MUTE 0.2 second ke liye dabakar acknowledge karein taake beeping band ho, phir replacement ki planning karein."
+        },
+        {
+          "en": "Power off, unplug mains, disconnect the old battery, then load-test or replace it - the unit has no real backup now.",
+          "ur": "Power off karein, mains se nikaalein, purani battery disconnect karein, phir use load-test ya replace karein - abhi unit ka koi asli backup nahi."
+        },
+        {
+          "en": "Dispose of the old pack properly; lead-acid batteries are hazardous waste and must not be recharged or reused.",
+          "ur": "Purane pack ko mehfooz tareeqe se fenk dein; lead-acid batteries hazardous waste hain, dobara charge ya istemaal na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "L.02 means the customer is effectively running unprotected during outages until the pack is replaced.",
+        "ur": "L.02 ka matlab hai ke pack badle tak customer outages mein bilkul unprotected chal raha hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "Sc.0",
+      "aliases": [
+        "Sc.0"
+      ],
+      "title": {
+        "en": "SmartConnect No Ethernet (Sc.0)",
+        "ur": "SmartConnect: no Ethernet (Sc.0)"
+      },
+      "meaning": {
+        "en": "The SmartConnect network card has no Ethernet link, so cloud monitoring is unavailable.",
+        "ur": "SmartConnect network card ka Ethernet link nahi hai, is liye cloud monitoring mojood nahi."
+      },
+      "causes": [
+        {
+          "en": "Ethernet cable not plugged into the SmartConnect port, or a different port used.",
+          "ur": "Ethernet cable SmartConnect port mein plug nahi, ya koi doosra port use kiya gaya hai."
+        },
+        {
+          "en": "Switch or router port down, or the cable damaged.",
+          "ur": "Switch ya router ka port down hai, ya cable damaged hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the network switch/router port LED; it must be lit and flickering with traffic.",
+          "ur": "Network switch/router ke port ka LED dekhein; yeh chala hua aur traffic ke saath flicker karna chahiye."
+        },
+        {
+          "en": "Confirm the cable is in the SmartConnect port on the UPS, not a UPS management passthrough port.",
+          "ur": "Confirm karein ke cable UPS ke SmartConnect port mein hai, kisi passthrough port mein nahi."
+        },
+        {
+          "en": "Test the cable with another known-good cable or on another port to rule out the cable itself.",
+          "ur": "Cable ko aik ache se chalne wale cable ya doosre port par test karein taake cable khud confirm ho jaye."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Communication state, not a power fault. The UPS protects the load normally while showing this.",
+        "ur": "Yeh communication state hai, power fault nahi. Ise aate hue bhi UPS load ko normal protect karta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "Sc.1",
+      "aliases": [
+        "Sc.1"
+      ],
+      "title": {
+        "en": "SmartConnect Service Connected (Sc.1)",
+        "ur": "SmartConnect: service connected (Sc.1)"
+      },
+      "meaning": {
+        "en": "The SmartConnect card has opened its session with the cloud service; monitoring is live.",
+        "ur": "SmartConnect card ne cloud service se apna session khol liya hai; monitoring chalu hai."
+      },
+      "causes": [
+        {
+          "en": "Normal successful network registration with the SmartConnect cloud service.",
+          "ur": "SmartConnect cloud service ke saath normal aur kamyab network registration."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed; log into the SmartConnect portal to confirm the UPS is reporting.",
+          "ur": "Koi karakari zaroori nahi; SmartConnect portal mein login karke confirm karein ke UPS report kar raha hai."
+        },
+        {
+          "en": "For security, change the default portal credentials and enable a strong password on first login.",
+          "ur": "Security ke liye pehli login par default portal credentials badal dein aur mazboot password lagayein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "This is a healthy status. The 'See Manual' icon is hidden in all Sc.x states per the manual.",
+        "ur": "Yeh sehat status hai. Manual ke mutabiq tamam Sc.x states mein 'See Manual' icon chhupa hota hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "Sc.2",
+      "aliases": [
+        "Sc.2"
+      ],
+      "title": {
+        "en": "SmartConnect Addressing / DHCP (Sc.2)",
+        "ur": "SmartConnect: addressing / DHCP (Sc.2)"
+      },
+      "meaning": {
+        "en": "The SmartConnect card is obtaining its local address via DHCP, so it is still starting up.",
+        "ur": "SmartConnect card DHCP se apna local address le raha hai, is liye abhi startup chal raha hai."
+      },
+      "causes": [
+        {
+          "en": "Normal DHCP lease in progress on the local network.",
+          "ur": "Local network par normal DHCP lease chal raha hai."
+        },
+        {
+          "en": "DHCP server unreachable because the card is on a different VLAN or a different building.",
+          "ur": "DHCP server tak nahi pohanch raha kyunke card doosre VLAN ya doosri building mein hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait a couple of minutes for the lease; the state clears on its own once an address is assigned.",
+          "ur": "Lease ke liye do minute intezaar karein; address milte hi yeh khud clear ho jata hai."
+        },
+        {
+          "en": "If it stays on Sc.2, check the site router's DHCP pool has not been exhausted and that VLAN routing is permitted.",
+          "ur": "Agar Sc.2 par atka rahe to check karein ke site router ka DHCP pool khaali nahi hua aur VLAN routing ijazat hai."
+        },
+        {
+          "en": "Reserve a static address for the card in the router using its MAC to avoid DHCP dependence.",
+          "ur": "Card ke MAC se router mein static address reserve kar dein taake DHCP par depend na ho."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Transient state; a UPS stuck here is a network configuration issue, not a UPS fault.",
+        "ur": "Yehi guzarta hua state hai; yahan atka hua UPS network configuration ki masla hai, UPS ki kharabi nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "Sc.3",
+      "aliases": [
+        "Sc.3"
+      ],
+      "title": {
+        "en": "SmartConnect Resolving DNS (Sc.3)",
+        "ur": "SmartConnect: DNS resolve ho raha hai (Sc.3)"
+      },
+      "meaning": {
+        "en": "The card is resolving the cloud service name via DNS, so internet access is being established.",
+        "ur": "Card DNS se cloud service ka naam resolve kar raha hai, is liye internet access ban raha hai."
+      },
+      "causes": [
+        {
+          "en": "Normal DNS lookup in progress.",
+          "ur": "Normal DNS lookup chal raha hai."
+        },
+        {
+          "en": "Site DNS server or internet link down, or the card has no route to the internet.",
+          "ur": "Site ka DNS server ya internet link down hai, ya card tak internet ka route nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Test DNS from a laptop on the same network: resolve the SmartConnect hostname; an answer means DNS is fine.",
+          "ur": "Usi network par laptop se DNS test karein: SmartConnect hostname resolve karein; jawab aa jaye to DNS theek hai."
+        },
+        {
+          "en": "Check the site internet link and router WAN status light before touching the UPS.",
+          "ur": "UPS chhoone se pehle site ka internet link aur router ka WAN status light check karein."
+        },
+        {
+          "en": "If the site is behind a captive portal or blocks outbound traffic, allow the SmartConnect service through the firewall.",
+          "ur": "Agar site captive portal ke peeche hai ya outbound traffic rokta hai to firewall se SmartConnect service ko ijazat dein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Common in Pakistani sites using a shared or filtered uplink; the fix is on the network, not the UPS.",
+        "ur": "Pakistan mein shared ya filtered uplink par aam masla hai; hal network mein hai, UPS mein nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "Sc.4",
+      "aliases": [
+        "Sc.4"
+      ],
+      "title": {
+        "en": "SmartConnect Contracting / No DNS (Sc.4)",
+        "ur": "SmartConnect: contracting, DNS nahi mila (Sc.4)"
+      },
+      "meaning": {
+        "en": "DNS resolution failed, so the card cannot contract with the cloud service.",
+        "ur": "DNS resolve nahi hua, is liye card cloud service se contract nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Site DNS server down or not reachable from the UPS VLAN.",
+          "ur": "Site ka DNS server down hai ya UPS VLAN se pohanchable nahi."
+        },
+        {
+          "en": "Router/firewall blocking outbound DNS (UDP 53) or blocking the service domains.",
+          "ur": "Router/firewall outbound DNS (UDP 53) ya service domains block kar raha hai."
+        },
+        {
+          "en": "Wrong or manually entered DNS addresses on the network.",
+          "ur": "Network par galat ya manually daale gaye DNS addresses hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "From a PC on the same network, test name resolution; if it fails, the fault is upstream of the UPS.",
+          "ur": "Usi network par PC se name resolution test karein; fail ho to fault UPS se pehle hai."
+        },
+        {
+          "en": "Set the router's DNS to a known-working resolver and confirm the UPS VLAN inherits it.",
+          "ur": "Router ka DNS kisi confirmed chal raha resolver par set karein aur confirm karein ke UPS VLAN use hi leta hai."
+        },
+        {
+          "en": "Allow outbound DNS and HTTPS from the UPS subnet on the firewall.",
+          "ur": "Firewall par UPS subnet se outbound DNS aur HTTPS ki ijazat dein."
+        },
+        {
+          "en": "Power-cycle the network card so it retries the whole addressing and DNS sequence.",
+          "ur": "Network card ko power-cycle karein taake wo poora addressing aur DNS sequence dobara try kare."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "No UPS hardware fault is implied by Sc.4 - check the network path before condemning the card.",
+        "ur": "Sc.4 ka matlab UPS hardware kharab nahi - card kharab kehne se pehle network raasta check karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "Sc.5",
+      "aliases": [
+        "Sc.5"
+      ],
+      "title": {
+        "en": "SmartConnect Securing / TLS (Sc.5)",
+        "ur": "SmartConnect: TLS secure ho raha hai (Sc.5)"
+      },
+      "meaning": {
+        "en": "The Transport Layer Security handshake with the cloud service is in progress.",
+        "ur": "Cloud service ke saath Transport Layer Security handshake chal raha hai."
+      },
+      "causes": [
+        {
+          "en": "Normal TLS session establishment in progress.",
+          "ur": "Normal TLS session establish ho raha hai."
+        },
+        {
+          "en": "System clock badly wrong so the certificate validity check stalls or fails.",
+          "ur": "System clock bohat ghalat hai is liye certificate validity check ruk gaya ya fail hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Let the handshake finish; it normally takes a few seconds on a good link.",
+          "ur": "Handshake mukammal hone dein; ache uplink par yeh chand secondon mein hota hai."
+        },
+        {
+          "en": "If it hangs, check the UPS date/time setting is correct and, if the site uses NTP, that NTP is reachable.",
+          "ur": "Agar atak jaye to check karein ke UPS ki date/time setting theek hai, aur site NTP istemaal karti ho to NTP pohanchable hai."
+        },
+        {
+          "en": "Verify the site router date is correct as well, since TLS validation depends on it.",
+          "ur": "Site router ki date bhi check karein kyunke TLS validation us par depend karta hai."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Clock accuracy matters more than it looks - a wrong date is a common cause of stuck cloud connections.",
+        "ur": "Date ki sahi lagah cheezon se zyada ahem hai - ghalat date cloud connection atakne ki aam wajah hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "Sc.6",
+      "aliases": [
+        "Sc.6"
+      ],
+      "title": {
+        "en": "SmartConnect Connecting to Cloud (Sc.6)",
+        "ur": "SmartConnect: cloud se connect ho raha hai (Sc.6)"
+      },
+      "meaning": {
+        "en": "The application link with the cloud is being established, so the card is mid-registration.",
+        "ur": "Cloud se application link banaaya ja raha hai, is liye card registration ke darmiyan hai."
+      },
+      "causes": [
+        {
+          "en": "Normal cloud registration in progress.",
+          "ur": "Normal cloud registration chal raha hai."
+        },
+        {
+          "en": "Slow or heavily filtered uplink extending the registration time.",
+          "ur": "Slow ya zyada filtered uplink ki wajah se registration ka waqt barh raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Allow the registration to finish before power-cycling; interrupting it restarts the whole sequence.",
+          "ur": "Power-cycle karne se pehle registration mukammal hone dein; beech mein rokna poora sequence dobara shuru karta hai."
+        },
+        {
+          "en": "If it never completes, test HTTPS reachability to the service from a PC on the same subnet.",
+          "ur": "Agar mukammal na ho to usi subnet ke PC se service ki HTTPS reachability test karein."
+        },
+        {
+          "en": "Check that the site firewall allows outbound HTTPS and does not do TLS inspection on the UPS traffic.",
+          "ur": "Check karein ke site firewall outbound HTTPS ki ijazat deta hai aur UPS traffic par TLS inspection nahi karta."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Some Pakistani corporate firewalls do TLS inspection, which breaks certificate validation for the card.",
+        "ur": "Kuch Pakistani corporate firewalls TLS inspection karte hain, jisse card ka certificate validation toot jata hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "Sc.7",
+      "aliases": [
+        "Sc.7"
+      ],
+      "title": {
+        "en": "SmartConnect Disabled (Sc.7)",
+        "ur": "SmartConnect disabled (Sc.7)"
+      },
+      "meaning": {
+        "en": "Cloud monitoring is switched off because a wombat card is inserted for embedded systems, or a configuration has disabled it.",
+        "ur": "Cloud monitoring band hai kyunke embedded systems ke liye wombat card laga hai, ya kisi configuration ne isay band kar diya hai."
+      },
+      "causes": [
+        {
+          "en": "A wombat card is inserted for an embedded system, which disables the cloud link by design.",
+          "ur": "Embedded system ke liye wombat card laga hai, jis se design ke mutabiq cloud link band ho jata hai."
+        },
+        {
+          "en": "SmartConnect has been deliberately disabled in the configuration.",
+          "ur": "Configuration mein SmartConnect jaan boojh kar band kar diya gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm with the site owner whether cloud monitoring is wanted; if yes, re-enable SmartConnect in the configuration.",
+          "ur": "Site ke maalik se poochein ke cloud monitoring chahiye ya nahi; chahiye to configuration mein SmartConnect dobara on karein."
+        },
+        {
+          "en": "If a wombat card is fitted for an embedded application, leave SmartConnect off - that is the intended behaviour.",
+          "ur": "Agar embedded application ke liye wombat card laga hai to SmartConnect off hi rakhein - yeh hi mansooba hua amal hai."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Not a fault. The UPS continues to protect the load; only remote reporting is unavailable.",
+        "ur": "Yeh fault nahi. UPS load ko protect karta rehta hai; sirf door ki reporting nahi milti."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    },
+    {
+      "code": "Sc.8",
+      "aliases": [
+        "Sc.8"
+      ],
+      "title": {
+        "en": "SmartConnect Prohibited - Unit in Factory Mode (Sc.8)",
+        "ur": "SmartConnect prohibited, unit factory mode mein (Sc.8)"
+      },
+      "meaning": {
+        "en": "The card cannot reach the cloud because the unit is still in factory mode, or EEPROM, MAC or PHY hardware has failed.",
+        "ur": "Card cloud tak nahi pohanch sakta kyunke unit abhi factory mode mein hai, ya EEPROM, MAC ya PHY hardware kharab ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Unit is still in factory mode and has not completed G.06 factory setup.",
+          "ur": "Unit abhi factory mode mein hai aur G.06 factory setup mukammal nahi hua."
+        },
+        {
+          "en": "EEPROM on the SmartConnect card has failed, so no identity can be read.",
+          "ur": "SmartConnect card ka EEPROM kharab ho gaya hai, is liye koi identity parhi nahi ja sakti."
+        },
+        {
+          "en": "MAC address or PHY (Ethernet physical layer) hardware failure detected.",
+          "ur": "MAC address ya PHY (Ethernet physical layer) hardware kharabi detect hui hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Complete the factory setup on the unit first; Sc.8 is expected until G.06 is cleared.",
+          "ur": "Pehle unit par factory setup mukammal karein; G.06 mitne tak Sc.8 aana normal hai."
+        },
+        {
+          "en": "Power off, unplug mains, disconnect the battery, then reseat the SmartConnect card in its slot firmly.",
+          "ur": "Power off karein, mains se nikaalein, battery disconnect karein, phir SmartConnect card ko apni slot mein mazbooti se baitha dein."
+        },
+        {
+          "en": "Check the card's MAC address label against the one reported in the network, and confirm only one card is fitted.",
+          "ur": "Card ke MAC address label ko network mein report hone wale se compare karein, aur confirm karein ke aik hi card laga hai."
+        },
+        {
+          "en": "If EEPROM/MAC/PHY hardware is genuinely failed, replace the SmartConnect card; the UPS itself still works.",
+          "ur": "Agar EEPROM/MAC/PAY hardware asal mein kharab hai to SmartConnect card badal dein; UPS khud chalta rehta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do not discard the UPS for this code - only the network card is implicated.",
+        "ur": "Is code ki wajah se UPS phenk dein mat - sirf network card mutasir hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Operation Manual - Smart-UPS C Uninterruptible Power Supply 1000/1500 VA Tower / Rack-Mount 2U, 120 Vac/230 Vac (part su0752c/su0752d)",
+        "retrieved": "2026-09-26",
+        "url": "https://m.media-amazon.com/images/I/91uOT05EpPL.pdf"
+      }
+    }
+  ]
+}

@@ -1,0 +1,377 @@
+{
+  "schemaVersion": 1,
+  "brandId": "cyberpower",
+  "series": {
+    "id": "cyberpower-cp-epfclcd",
+    "name": "CP550/900/1300/1500EPFCLCD (PFC Sinewave, line-interactive 550-1500VA, 230V EU/UK)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*CP550EPFCLCD*",
+      "*CP900EPFCLCD*",
+      "*CP1300EPFCLCD*",
+      "*CP1500EPFCLCD*",
+      "*CP100PFCLCD*"
+    ],
+    "notes": "CRITICAL SCOPE WARNING: this family uses the F-prefix namespace, NOT the E-prefix of SERIES 1/2. F01 here is Overload, not Charger Overcharge. Do NOT map SERIES 1 E-codes onto these models. Two independent CyberPower manuals (CP1300/1500EPFCLCD K01-0000197-00 and CP550/900/1300/1500EPFCLCD) both list the identical F01-F04 set, so these four codes are high confidence."
+  },
+  "codes": [
+    {
+      "code": "F01",
+      "aliases": [
+        "F01"
+      ],
+      "title": {
+        "en": "F01 Overload fault (battery or AC mode)",
+        "ur": "F01 Overload fault (battery ya AC mode)"
+      },
+      "meaning": {
+        "en": "The connected load exceeds the unit rating in battery mode or on AC/utility power. Manual remedy is simply to turn the UPS on again after reducing load.",
+        "ur": "Battery mode ya AC/utility power par connected load unit ki rating se zyada hai. Manual ka hal yeh hai ke load kam kar ke UPS dobara on karein."
+      },
+      "causes": [
+        {
+          "en": "Too many or too high-wattage devices on the battery-supplied outlets.",
+          "ur": "Battery-supplied outlets par zyada devices ya zyada watt wale devices lage hain."
+        },
+        {
+          "en": "High inrush from a compressor, laser printer or motor when mains returns.",
+          "ur": "Mains wapas aate hi compressor, laser printer ya motor ka high inrush ho raha hai."
+        },
+        {
+          "en": "Rear circuit breaker has tripped on overload and is projecting from the case.",
+          "ur": "Rear circuit breaker overload par trip ho gaya hai aur case se bahar nikal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, unplug at least one piece of equipment, wait 10 seconds, then reset the circuit breaker by depressing the button and turn the UPS on.",
+          "ur": "UPS off karein, kam az kam ek equipment nikaal dein, 10 second intezaar karein, phir circuit breaker button daba kar reset karein aur UPS on karein."
+        },
+        {
+          "en": "Add loads back one at a time and total the watts on a power meter; keep the sum under the unit's rated watts (e.g. 900W on CP1500EPFCLCD).",
+          "ur": "Loads ek-ek karke wapas lagayein aur power meter se watt total karein; total ko unit ki rated watts se kam rakhein (CP1500EPFCLCD ke liye 900W)."
+        },
+        {
+          "en": "Measure each battery on DC volts; a worn bank can trip the overload alarm during the transfer test even when the AC load looks within rating.",
+          "ur": "Har battery DC volt par measure karein; purani battery bank transfer test ke dauran overload alarm kar sakti hai jabke AC load rating mein lage."
+        },
+        {
+          "en": "If F01 returns with everything unplugged, treat the current-limit/inverter stage as faulty and send the unit to CyberPower Systems support.",
+          "ur": "Agar sab kuch nikal kar bhi F01 aaye to current-limit/inverter stage kharab samajhein aur unit CyberPower Systems support ko bhejein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1300/1500EPFCLCD User's Manual K01-0000197-00",
+        "retrieved": "2026-09-26",
+        "url": "https://akcesoriapc.pl/instr/cyberpower_cp1300-1500epfclcd_um_eu.pdf"
+      }
+    },
+    {
+      "code": "F02",
+      "aliases": [
+        "F02"
+      ],
+      "title": {
+        "en": "F02 Battery Output Short fault",
+        "ur": "F02 Battery Output Short fault (battery se chalte waqt output short)"
+      },
+      "meaning": {
+        "en": "The output is shorted while running on battery. The FAULT icon latches; the manual remedy is to turn the UPS on again after removing the short.",
+        "ur": "Battery par chalte waqt output short ho gaya hai. FAULT icon lock ho jata hai; manual ka hal hai ke short hatane ke baad UPS dobara on karein."
+      },
+      "causes": [
+        {
+          "en": "A connected appliance has failed short-circuiting.",
+          "ur": "Koi connected appliance short ho kar kharab ho gaya hai."
+        },
+        {
+          "en": "A power strip or extension lead has a crushed or cut live core.",
+          "ur": "Power strip ya extension wire ka koi live core kata ya daba hua hai."
+        },
+        {
+          "en": "Outlet board terminals loose or bridged, or the battery lead chafed against the chassis.",
+          "ur": "Outlet board ke terminals dheele ya bridge hue hain, ya battery lead chassis se ghis gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off, unplug mains and disconnect the internal battery quick-connect, then unplug every load from all UPS outlets.",
+          "ur": "Off karein, mains aur internal battery quick-connect disconnect karein, phir tamam UPS outlets se saara load nikaal dein."
+        },
+        {
+          "en": "Reconnect one device at a time; the unit that trips F02 again is the short and must be repaired or removed.",
+          "ur": "Ek-ek device wapas lagayein; jis par dobara F02 aaye wohi short hai aur use repair ya nikaalna hoga."
+        },
+        {
+          "en": "With the unit isolated, use a multimeter on continuity/ohms from each outlet to neutral; near-zero ohms confirms the short path.",
+          "ur": "Unit isolate karne ke baad multimeter continuity/ohms par har outlet ko neutral se check karein; zero ke qareeb ohms short path confirm karta hai."
+        },
+        {
+          "en": "If all outlets are clean and F02 still returns, the inverter output stage has failed - send to CyberPower Systems support.",
+          "ur": "Agar sab outlets clean hain phir bhi F02 aaye to inverter output stage kharab ho gaya hai - CyberPower Systems support ko bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1300/1500EPFCLCD User's Manual K01-0000197-00",
+        "retrieved": "2026-09-26",
+        "url": "https://akcesoriapc.pl/instr/cyberpower_cp1300-1500epfclcd_um_eu.pdf"
+      }
+    },
+    {
+      "code": "F03",
+      "aliases": [
+        "F03"
+      ],
+      "title": {
+        "en": "F03 Charger Fault",
+        "ur": "F03 Charger Fault (charger kharab, battery charge nahi hoti)"
+      },
+      "meaning": {
+        "en": "The internal battery charger has failed. CyberPower's stated remedy is to contact their support; there is no user-level fix.",
+        "ur": "Internal battery charger kharab ho gaya hai. CyberPower ka kaha hua hal yeh hai ke unki support se rabta karein; koi user-level hal nahi."
+      },
+      "causes": [
+        {
+          "en": "Charger IC, MOSFET or the charge-sense divider on the main board has failed.",
+          "ur": "Main board par charger IC, MOSFET ya charge-sense divider kharab ho gaya hai."
+        },
+        {
+          "en": "Battery bank dead, deeply discharged or of the wrong type, dragging the charger into a fault state.",
+          "ur": "Battery bank dead, gehri tarah discharged ya galat type ki hai, jis se charger fault state mein chala jata hai."
+        },
+        {
+          "en": "Ambient heat or a failed internal fan has cooked the charger section.",
+          "ur": "Mauhal ka garmi ya internal fan ki khami ne charger section kharab kiya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate before anything else: switch off, unplug mains, disconnect the internal battery quick-connect.",
+          "ur": "Sab se pehle isolate karein: off karein, mains nikaal dein, internal battery quick-connect disconnect kar dein."
+        },
+        {
+          "en": "Measure the battery pack on DC volts; a rested healthy 12V pack reads 12.4-12.7V per cell and near-zero means the pack is dead.",
+          "ur": "Battery pack DC volt par measure karein; aaram wali healthy 12V pack 12.4-12.7V per cell hoti hai aur zero ke qareeb ho to pack dead hai."
+        },
+        {
+          "en": "With mains reconnected, read the charge voltage at the battery terminals; 13.5-14V is healthy and near 0V means the charger output stage has failed.",
+          "ur": "Mains wapas lagane ke baad battery terminals par charge voltage dekhein; 13.5-14V healthy hai aur 0V ke qareeb ho to charger output stage kharab hai."
+        },
+        {
+          "en": "As the manual directs, contact CyberPower Systems for support / RMA - do not attempt to bypass the charger fault.",
+          "ur": "Jaise manual kehta hai, CyberPower Systems se support/RMA ke liye rabta karein - charger fault ko bypass karne ki koshish na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1300/1500EPFCLCD User's Manual K01-0000197-00",
+        "retrieved": "2026-09-26",
+        "url": "https://akcesoriapc.pl/instr/cyberpower_cp1300-1500epfclcd_um_eu.pdf"
+      }
+    },
+    {
+      "code": "F04",
+      "aliases": [
+        "F04"
+      ],
+      "title": {
+        "en": "F04 Internal Fault",
+        "ur": "F04 Internal Fault (unit ka andar ka hissa kharab)"
+      },
+      "meaning": {
+        "en": "A general internal hardware fault inside the UPS, not specific to battery, charger or output. CyberPower's stated remedy is support contact.",
+        "ur": "UPS ke andar ka aam internal hardware fault, jo battery, charger ya output se khaas nahi. CyberPower ka kaha hua hal support se rabta hai."
+      },
+      "causes": [
+        {
+          "en": "Failed relay, SCR, or inverter MOSFET stage inside the power path.",
+          "ur": "Power path ke andar relay, SCR ya inverter MOSFET stage kharab ho gaya hai."
+        },
+        {
+          "en": "Main control board has failed or lost its calibration.",
+          "ur": "Main control board kharab ho gaya hai ya us ki calibration kho gaya hai."
+        },
+        {
+          "en": "Internal solder joint cracked, or a component inside has overheated and failed.",
+          "ur": "Internal solder joint crack ho gaya hai, ya koi component garmi se kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Perform a full power-off isolation first: switch off, unplug mains, disconnect the battery, and leave it for a few minutes to discharge.",
+          "ur": "Pehle poora isolation karein: off karein, mains nikaal dein, battery disconnect karein, aur kuch minute chhor dein taake discharge ho jaye."
+        },
+        {
+          "en": "After full discharge, reconnect mains and try one power cycle; if F04 clears, note the cause and monitor the unit closely.",
+          "ur": "Poori discharge ke baad mains wapas lagayein aur aik power cycle karein; agar F04 clear ho jaye to wajaib note karein aur unit par nazar rakhein."
+        },
+        {
+          "en": "If F04 returns on a second cycle with the battery disconnected, the control or inverter board is at fault, not the load or the battery.",
+          "ur": "Agar battery disconnect kar ke doosre cycle par bhi F04 aaye to control ya inverter board kharab hai, load ya battery nahi."
+        },
+        {
+          "en": "As the manual states, contact CyberPower Systems for support - this is a service-centre level fault, not a field repair.",
+          "ur": "Jaise manual kehta hai, CyberPower Systems se support lein - yeh service centre level fault hai, field repair nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1300/1500EPFCLCD User's Manual K01-0000197-00",
+        "retrieved": "2026-09-26",
+        "url": "https://akcesoriapc.pl/instr/cyberpower_cp1300-1500epfclcd_um_eu.pdf"
+      }
+    },
+    {
+      "code": "ENERGY-SAVING (icon)",
+      "aliases": [
+        "ENERGY-SAVING (icon)",
+        "GreenPower",
+        "GreenPower UPS Technology"
+      ],
+      "title": {
+        "en": "ENERGY-SAVING icon (bypass bypass mode)",
+        "ur": "ENERGY-SAVING icon (energy-saving bypass mode)"
+      },
+      "meaning": {
+        "en": "Status icon showing the unit is in energy-saving bypass mode (CyberPower GreenPower technology). Normal, not a fault.",
+        "ur": "Status icon jo batata hai ke unit energy-saving bypass mode mein hai (CyberPower GreenPower technology). Normal hai, fault nahi."
+      },
+      "causes": [
+        {
+          "en": "Utility power is normal and the load is light enough for the unit to stay in bypass to save power.",
+          "ur": "Mains normal hai aur load itna halka hai ke unit power bachane ke liye bypass mein reh sakta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed - this reduces standby consumption and extends battery life.",
+          "ur": "Koi action zaruri nahi - is se standby power consumption kam hoti hai aur battery ki umar barhti hai."
+        },
+        {
+          "en": "If you want guaranteed runtime, raise the load above the energy-saving threshold or disable the GreenPower feature per the Function Setup Guide.",
+          "ur": "Agar aap pakka runtime chahte hain to load ko energy-saving threshold se upar lein ya Function Setup Guide ke mutabiq GreenPower feature band kar dein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1300/1500EPFCLCD User's Manual K01-0000197-00",
+        "retrieved": "2026-09-26",
+        "url": "https://akcesoriapc.pl/instr/cyberpower_cp1300-1500epfclcd_um_eu.pdf"
+      }
+    },
+    {
+      "code": "BATTERY (icon)",
+      "aliases": [
+        "BATTERY (icon)",
+        "BATTERY capacity"
+      ],
+      "title": {
+        "en": "BATTERY icon / capacity meter (on-battery status)",
+        "ur": "BATTERY icon / capacity meter (abhi battery se chal raha hai)"
+      },
+      "meaning": {
+        "en": "Status icon plus a 20% step capacity meter shown when a blackout or severe brownout moves the UPS to battery power. Continuous rapid beeping means the battery is nearly out.",
+        "ur": "Status icon aur 20% step wala capacity meter jo blackout ya severe brownout par UPS ko battery power par le jata hai. Mukhtalif rapid beeping ka matlab hai ke battery khatam hone wali hai."
+      },
+      "causes": [
+        {
+          "en": "Utility power failed or fell below the transfer threshold.",
+          "ur": "Mains chali gayi ya transfer threshold se neeche gir gayi."
+        },
+        {
+          "en": "On/off switch cycled too rapidly, so the unit is protecting its control circuit.",
+          "ur": "On/off switch bohat jaldi chala-pala gaya, is liye unit apna control circuit protect kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Save files and shut down equipment immediately, or let the software perform a controlled shutdown.",
+          "ur": "Files foran save karein aur equipment band karein, ya software se controlled shutdown karwayein."
+        },
+        {
+          "en": "After mains returns, recharge for 8-16 hours as the battery procedure in this manual specifies, to fully restore charge.",
+          "ur": "Mains wapas aane ke baad 8-16 ghante recharge karein jaise is manual ki battery procedure kehta hai, taake charge poora ho jaye."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1300/1500EPFCLCD User's Manual K01-0000197-00",
+        "retrieved": "2026-09-26",
+        "url": "https://akcesoriapc.pl/instr/cyberpower_cp1300-1500epfclcd_um_eu.pdf"
+      }
+    },
+    {
+      "code": "OVER LOAD (icon)",
+      "aliases": [
+        "OVER LOAD (icon)",
+        "OVERLOAD",
+        "OVER LOAD"
+      ],
+      "title": {
+        "en": "OVER LOAD icon (overload status)",
+        "ur": "OVER LOAD icon (outlets par load zyada hai)"
+      },
+      "meaning": {
+        "en": "Status icon with an alarm indicating the battery-supplied outlets are overloaded. Clears as equipment is unplugged one at a time.",
+        "ur": "Status icon jo alarm ke saath batata hai ke battery-supplied outlets overloaded hain. Equipment ek-ek karke nikalte hi clear ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Combined device wattage exceeds the unit's battery-outlet rating.",
+          "ur": "Devices ka total wattage unit ki battery-outlet rating se zyada hai."
+        },
+        {
+          "en": "A surge or motor inrush from a newly plugged device.",
+          "ur": "Naye lagaye hue device se power surge ya motor inrush aaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Unplug some equipment from the battery-supplied outlets until the icon turns off and the alarm stops.",
+          "ur": "Battery-supplied outlets se kuch equipment nikaalte jayein jab tak icon band na ho aur alarm na ruke."
+        },
+        {
+          "en": "Check the rear circuit breaker knob is depressed and reset it after a 10 second wait before restarting.",
+          "ur": "Check karein ke rear circuit breaker knob neeche dabba hua hai, aur restart se pehle 10 second baad use reset karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1300/1500EPFCLCD User's Manual K01-0000197-00",
+        "retrieved": "2026-09-26",
+        "url": "https://akcesoriapc.pl/instr/cyberpower_cp1300-1500epfclcd_um_eu.pdf"
+      }
+    }
+  ]
+}

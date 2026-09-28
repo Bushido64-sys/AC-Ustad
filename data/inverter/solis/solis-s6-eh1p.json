@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "brandId": "solis",
+  "series": {
+    "id": "solis-s6-eh1p",
+    "name": "S6-EH1P(3-6)K-L (single-phase hybrid + 48V battery, new-DSP platform)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*S6-EH1P*"
+    ],
+    "notes": "Same hex DATA code family as S5-EH1P-L but a DIFFERENT hardware/APP generation: FIVE LEDs (Battery, Power, WiFi/RS485, Bluetooth) instead of three, APP alarms show 'Alarm Code: 1030 / Alarm Grade: Hint', and the earth-fault message is PVISO-PRO shown in the APP rather than on the LCD. CRITICAL: this manual DESCRIBES OV-Vbatt and UN-Vbatt the other way round from the S5-EH1P-L and S6-EH3P manuals - see CONFLICTS and the notes on the two entries below. Kept separate from SERIES 4."
+  },
+  "codes": [
+    {
+      "code": "OV-Vbatt",
+      "aliases": [
+        "OV-Vbatt",
+        "OV-Vbatt (S6-EH1P reading)"
+      ],
+      "title": {
+        "en": "Battery overvoltage detected (OV-Vbatt, S6-EH1P manual)",
+        "ur": "Battery overvoltage detect hua (OV-Vbatt, S6-EH1P manual)"
+      },
+      "meaning": {
+        "en": "In the S6-EH1P manual OV-Vbatt is described as BATTERY OVERVOLTAGE. Verify the actual voltage before acting, because the S5-EH1P-L and S6-EH3P manuals describe this same name as battery UNDERvoltage.",
+        "ur": "S6-EH1P manual mein OV-Vbatt ko BATTERY OVERVOLTAGE bataya gaya hai. Amal karne se pehle asli voltage verify karein, kyunke S5-EH1P-L aur S6-EH3P manual isi naam ko battery UNDERvoltage kehta hai."
+      },
+      "causes": [
+        {
+          "en": "Pack fully charged and sitting at maximum SOC with the BMS charge limit already reached",
+          "ur": "Pack poori tarah charge ho kar maximum SOC par hai aur BMS ka charge limit pehle hi poori ho chuka hai"
+        },
+        {
+          "en": "Battery overvoltage protection point set too low in the user settings",
+          "ur": "User settings mein battery overvoltage protection point bahut low set hai"
+        },
+        {
+          "en": "Pack aged or cell imbalance pushing the resting voltage up",
+          "ur": "Pack purani ho gayi ya cell imbalance resting voltage upar le gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Verify battery voltage is within standards: read the battery voltage on Information page 1 and confirm it against the battery maker's maximum charge voltage.",
+          "ur": "Battery voltage standards ke andar hai yeh verify karein: Information page 1 par battery voltage padhein aur battery maker ki maximum charge voltage se confirm karein."
+        },
+        {
+          "en": "Measure the pack with a multimeter at the inverter connection point so you know which of the two Solis descriptions applies to your unit.",
+          "ur": "Multimeter se inverter connection point par pack measure karein taake pata chale ke aapke unit par Solis ki kaun si do descriptions mein se lagti hai."
+        },
+        {
+          "en": "Raise the battery overvoltage protection point inside the battery maker's stated window, then contact the battery vendor if the code keeps returning.",
+          "ur": "Battery maker ke bataye window mein battery overvoltage protection point barhayein, phir code baar baar aaye to battery vendor se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "CONFLICT FLAG: the S6-EH1P(3-6)K-L-AU manual Table 8.1 says 'OV-Vbatt / Battery overvoltage detected' and 'UN-Vbatt / Battery undervoltage detected', while the S5-EH1P(3-6)K-L(-BE) EUR manual and the S6-EH3P manual say the opposite pairing. Always trust the measured voltage, never the name alone.",
+        "ur": "CONFLICT FLAG: S6-EH1P(3-6)K-L-AU manual Table 8.1 kehta hai 'OV-Vbatt / Battery overvoltage detected' aur 'UN-Vbatt / Battery undervoltage detected', jabke S5-EH1P(3-6)K-L(-BE) EUR manual aur S6-EH3P manual ulta pairing kehte hain. Hamesha measured voltage par bharosa karein, sirf naam par nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S6-EH1P(3-6)K-L-AU User Manual V1,1, Section 3.1 Intelligent LED Indicators, Section 4.12 Earth Fault Alarm, Section 6.4 APP Alarm page, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.au/uploads/files/202411/Solis_Manual_S6-EH1P(3-6)K-L-AU_AUS_V1,1(20241114).pdf"
+      }
+    },
+    {
+      "code": "UN-Vbatt",
+      "aliases": [
+        "UN-Vbatt",
+        "UN-Vbatt (S6-EH1P reading)"
+      ],
+      "title": {
+        "en": "Battery undervoltage detected (UN-Vbatt, S6-EH1P manual)",
+        "ur": "Battery undervoltage detect hua (UN-Vbatt, S6-EH1P manual)"
+      },
+      "meaning": {
+        "en": "In the S6-EH1P manual UN-Vbatt is described as BATTERY UNDERVOLTAGE. Measure the pack before acting because the S5-EH1P-L and S6-EH3P manuals use this name for battery overvoltage.",
+        "ur": "S6-EH1P manual mein UN-Vbatt ko BATTERY UNDERVOLTAGE bataya gaya hai. Amal karne se pehle pack measure karein kyunke S5-EH1P-L aur S6-EH3P manual is naam ko battery overvoltage ke liye use karte hain."
+      },
+      "causes": [
+        {
+          "en": "Pack deeply discharged after a long outage or a load left running on backup",
+          "ur": "Lambi outage ya backup par chhoda load ki wajah se pack gehri tarah discharge"
+        },
+        {
+          "en": "Pack aged, or the pack BMS cutting out early",
+          "ur": "Pack purani ho gayi, ya pack ka BMS jaldi cut out kar raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the battery voltage on Information page 1 and compare it with a multimeter reading taken at the pack terminals.",
+          "ur": "Information page 1 par battery voltage padhein aur pack terminals par liye multimeter reading se compare karein."
+        },
+        {
+          "en": "Confirm the battery breaker is closed and the pack BMS has woken up; deep-sleep packs need a wake signal before they answer CAN.",
+          "ur": "Battery breaker band hai aur pack BMS jaag chuka hai yeh confirm karein; gehri neend wale pack ko CAN jawab dene se pehle wake signal chahiye."
+        },
+        {
+          "en": "Restart the system and check if the fault persists; if it does, contact the manufacturer's customer service rather than raising the protection limit blindly.",
+          "ur": "System restart karke dekhein ke fault rehta hai ya nahi; agar rahe to protection limit blind le kar barhane ke bajaye manufacturer ke customer service se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Same CONFLICT as the OV-Vbatt entry above - the S6-EH1P manual's OV-Vbatt / UN-Vbatt descriptions are swapped relative to S5-EH1P-L and S6-EH3P.",
+        "ur": "OV-Vbatt wali entry jaisa hi CONFLICT: S6-EH1P manual ke OV-Vbatt / UN-Vbatt descriptions S5-EH1P-L aur S6-EH3P ke muqable mein swap hue hue hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S6-EH1P(3-6)K-L-AU User Manual V1,1, Section 3.1 Intelligent LED Indicators, Section 4.12 Earth Fault Alarm, Section 6.4 APP Alarm page, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.au/uploads/files/202411/Solis_Manual_S6-EH1P(3-6)K-L-AU_AUS_V1,1(20241114).pdf"
+      }
+    },
+    {
+      "code": "ILeak-PRO01 / 02 / 03 / 04 (1034 DATA:0001..0004)",
+      "aliases": [
+        "ILeak-PRO01 / 02 / 03 / 04 (1034 DATA:0001..0004)",
+        "ILeak-PRO01",
+        "ILeak-PRO02",
+        "ILeak-PRO03",
+        "ILeak-PRO04",
+        "1034 DATA:0001",
+        "1034 DATA:0002",
+        "1034 DATA:0003",
+        "1034 DATA:0004"
+      ],
+      "title": {
+        "en": "Leakage current trip 01/02/03/04 (1034)",
+        "ur": "Leakage current trip, level 01/02/03/04 par (1034)"
+      },
+      "meaning": {
+        "en": "The residual current detector tripped at a defined level: 01 over 30 mA, 02 over 60 mA, 03 over 150 mA, 04 continuous leakage current.",
+        "ur": "Residual current detector ek defined level par trigger hua: 01 30 mA se zyada, 02 60 mA se zyada, 03 150 mA se zyada, 04 continuous leakage current."
+      },
+      "causes": [
+        {
+          "en": "Wet or humid weather, when the array's stray capacitance pushes leakage current up",
+          "ur": "Geela ya humid mausam, jab array ki stray capacitance leakage current barha deta hai"
+        },
+        {
+          "en": "Cable laid directly on a metal or tile roof with no conduit, so pooled water leaks current",
+          "ur": "Cable seedha metal ya tile roof par bina conduit lagi, is liye khara paani current leak karta hai"
+        },
+        {
+          "en": "Poor system grounding, so capacitive leakage is not drained to earth",
+          "ur": "System grounding kamzor, is liye capacitive leakage earth par nahi ja rahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check current leakage to ground with a clamp meter on the earth conductor while the inverter is running.",
+          "ur": "Inverter chalte waqt earth conductor par clamp meter se current leakage to ground check karein."
+        },
+        {
+          "en": "Verify your grounding: check the earth conductor size and continuity, and confirm the inverter earth lug is tight and free of rust.",
+          "ur": "Apna grounding verify karein: earth conductor ka size aur continuity check karein, aur confirm karein ke inverter earth lug tight hai aur rust se paak hai."
+        },
+        {
+          "en": "Verify all wires are in good condition and not leaking current to ground; reroute roof-laid cable through conduit and replace any cable that fails a 1000 V megohmmeter test.",
+          "ur": "Confirm karein ke sab wires theek hain aur ground par leak nahi kar rahi; roof par lagi cable ko conduit se le jayein aur jo cable 1000 V megohmmeter test mein fail ho use replace karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Solis's own I-Leak-Pro article notes that in wet weather leakage faults are more common than PV insulation faults, that the stray capacitance on rainy days is about 3 times that of sunny days, and that a fault only on rainy mornings that self-clears is a normal phenomenon that may be handled by raising the ILeak.-L threshold in Advanced settings > special settings > IgZero_COPM.Set.",
+        "ur": "Solis ka apna I-Leak-Pro article kehta hai ke gehle mausam mein leakage faults PV insulation faults se zyada aate hain, ke rainy days par stray capacitance sunny days ke qareeb 3 guna hota hai, aur ke sirf rainy subah hone wala jo khud clear ho jaye wo normal phenomenon hai jise Advanced settings > special settings > IgZero_COPM.Set mein ILeak.-L threshold barha kar handle kiya ja sakta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S6-EH1P(3-6)K-L-AU User Manual V1,1, Section 3.1 Intelligent LED Indicators, Section 4.12 Earth Fault Alarm, Section 6.4 APP Alarm page, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.au/uploads/files/202411/Solis_Manual_S6-EH1P(3-6)K-L-AU_AUS_V1,1(20241114).pdf"
+      }
+    },
+    {
+      "code": "Power LED",
+      "aliases": [
+        "Power LED",
+        "Blue solid ON",
+        "Yellow solid ON",
+        "Red flashing every 3s",
+        "PVISO-PRO"
+      ],
+      "title": {
+        "en": "Power LED + five-LED layout (S6-EH1P)",
+        "ur": "Power LED aur paanch LED ka layout (S6-EH1P)"
+      },
+      "meaning": {
+        "en": "On this model the Battery LED shows pack state with blue flash rates of 3 s (discharge) and 1.5 s (charge), and the Power LED shows normal / warning / alarm.",
+        "ur": "Is model par Battery LED blue flash rate 3 s (discharge) aur 1.5 s (charge) se pack state dikhata hai, aur Power LED normal, warning ya alarm dikhata hai."
+      },
+      "causes": [
+        {
+          "en": "Normal battery and inverter state indication",
+          "ur": "Normal battery aur inverter state indication"
+        },
+        {
+          "en": "PV earth fault: the yellow alarm indicator flashes and PVISO-PRO appears in the APP",
+          "ur": "PV earth fault: yellow alarm indicator flash karta hai aur APP mein PVISO-PRO aata hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "For a red Power LED, connect to the inverter with the Bluetooth tool and read the alarm code; the LED does not identify the fault by itself.",
+          "ur": "Red Power LED par Bluetooth tool se inverter se connect karke alarm code padhein; LED akela fault nahi batata."
+        },
+        {
+          "en": "For a flashing yellow alarm indicator, isolate AC and PV before any insulation measurement - a PV earth fault can put lethal voltage on the array.",
+          "ur": "Flashing yellow alarm indicator par koi bhi insulation measure karne se pehle AC aur PV isolate karein - PV earth fault array par lethal voltage de sakta hai."
+        },
+        {
+          "en": "Note that Battery/WiFi/Ethernet/Bluetooth indicators turn off after 1 minute to conserve power; short-press the Power indicator to wake them.",
+          "ur": "Yeh yaad rakhein ke Battery/WiFi/Ethernet/Bluetooth indicators 1 minute baad power bachane ke liye band ho jate hain; Power indicator par short-press karke unhein jaganey dein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Battery: blue flash 3s = discharging, blue flash 1.5s = charging, blue solid = idle, OFF = no battery. Power: blue solid = normal, yellow solid = warning, red solid or flash every 3s = alarm. Yellow alarm indicator flashing = PV earth fault (PVISO-PRO in the APP)",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Solis S6-EH1P(3-6)K-L-AU User Manual V1,1, Section 3.1 Intelligent LED Indicators, Section 4.12 Earth Fault Alarm, Section 6.4 APP Alarm page, Table 8.1 Fault message and description",
+        "retrieved": "2026-09-26",
+        "url": "https://www.solisinverters.au/uploads/files/202411/Solis_Manual_S6-EH1P(3-6)K-L-AU_AUS_V1,1(20241114).pdf"
+      }
+    }
+  ]
+}

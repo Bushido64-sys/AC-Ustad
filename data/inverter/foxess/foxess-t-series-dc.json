@@ -1,0 +1,305 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-t-series-dc",
+    "name": "T-Series (single-phase grid-tie string) - DC bus, PV input and memory faults",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*T*-M*",
+      "*T*Series*"
+    ],
+    "notes": "The T-Series DC-side block. Every one of these codes has the SAME two-step FoxESS remedy: 'Disconnect PV (+), PV (-) using DC switch' then 'After the LCD switches off, reconnect and check again' - note that the T manual requires waiting for the LCD to actually go dark, which the hybrid manuals do not say. Do NOT merge with the hybrids' 'SW Bus Vol Fault' / 'DCI Fault' / 'Pv Volt Fault' strings: same physics, different vocabulary, and only the T rows carry the LCD-off wait. Confidence high: identical in both official FoxESS T copies (PK V1.0.1, global V1.0.2)."
+  },
+  "codes": [
+    {
+      "code": "Bus volt fault",
+      "aliases": [
+        "Bus volt fault",
+        "Bus Voltage Fault"
+      ],
+      "title": {
+        "en": "DC bus voltage out of range (T-Series)",
+        "ur": "DC bus voltage range se bahar (T-Series)"
+      },
+      "meaning": {
+        "en": "The internal DC link voltage has moved outside its safe window, so the T-Series has shut down.",
+        "ur": "Internal DC link voltage apni safe window se bahar chala gaya, is liye T-Series band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage at an extreme, so the bus cannot be held in its operating window.",
+          "ur": "Grid voltage bilkul extreme par, is liye bus apni operating window mein nahi rakh sakta."
+        },
+        {
+          "en": "PV string open-circuit voltage too high for the inverter, forcing the bus up.",
+          "ur": "PV string ka open-circuit voltage inverter ke liye zyada hai, is liye bus upar chala gaya."
+        },
+        {
+          "en": "Grid-side relay not transferring, leaving the bus floating on the PV side only.",
+          "ur": "Grid side relay transfer nahi kar raha, is liye bus sirf PV side par latka raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV (+) and PV (-) using the DC switch, as FoxESS instructs for this code.",
+          "ur": "Jaise FoxESS is code ke liye kahe DC switch se PV (+) aur PV (-) disconnect karein."
+        },
+        {
+          "en": "Wait for the LCD to switch off, then reconnect and check again - FoxESS makes the LCD-off wait part of the remedy, so do not reconnect early.",
+          "ur": "LCD band hone ka intezar karein, phir wapas lagayein aur dobara check karein - FoxESS remedy mein LCD-off ka intezar shamil hai, is liye jaldi wapas na lagayein."
+        },
+        {
+          "en": "Measure the PV string open-circuit voltage with a meter; if it is above the inverter's DC maximum, that is the cause, not the bus.",
+          "ur": "Meter se PV string ka open-circuit voltage napen; agar woh inverter ki DC maximum se upar hai to wohi wajah hai, bus ki nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Not the same code as the hybrids' 'SW Bus Vol Fault' or 'HW Bus Vol Fault'. The T string is 'Bus volt fault' with a space and no SW/HW prefix, and its remedy is the DC-switch-plus-LCD-off pair. FoxESS never gives the T a separate hardware vs software bus split.",
+        "ur": "Hybrids ke 'SW Bus Vol Fault' ya 'HW Bus Vol Fault' se yeh wahi code nahi. T string hai 'Bus volt fault' - space ke saath, aur SW/HW prefix ke baghair - aur iska hal DC switch aur LCD off ka jora hai. FoxESS T ko kabhi alag hardware aur software bus split nahi deta."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    },
+    {
+      "code": "DCI over range",
+      "aliases": [
+        "DCI over range",
+        "DCI Over Range"
+      ],
+      "title": {
+        "en": "DC component in AC output over limit (T-Series)",
+        "ur": "AC output mein DC component limit se upar (T-Series)"
+      },
+      "meaning": {
+        "en": "A DC offset in the inverter's AC output current has exceeded the permitted limit, so the unit has shut down.",
+        "ur": "Inverter ke AC output current mein DC offset ijazat limit se upar chala gaya, is liye unit band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Output filter capacitor degraded, letting DC leak into the AC output.",
+          "ur": "Output filter capacitor kharaab hua, is liye AC output mein DC leak hone laga."
+        },
+        {
+          "en": "Internal current-sensing offset or a failed sensing resistor.",
+          "ur": "Internal current-sensing offset ya sensing resistor ki kharabi."
+        },
+        {
+          "en": "A DC-injecting load on the AC output - an unusual but real cause on grid-tie installs with mis-wired equipment.",
+          "ur": "AC output par DC inject karne wala load - grid-tie install par mis-wired equipment ki wajah se yeh aam nahi lekin asal wajah hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for one minute after the inverter reconnects to grid, as FoxESS states for this code, then re-read.",
+          "ur": "Jaise FoxESS is code ke liye kahe, inverter grid se reconnect hone ke aik minute baad intezar karein, phir dobara dekhein."
+        },
+        {
+          "en": "Disconnect PV (+) and PV (-) using the DC switch; after the LCD switches off, reconnect and check again.",
+          "ur": "DC switch se PV (+) aur PV (-) disconnect karein; LCD band hone ke baad wapas lagayein aur dobara check karein."
+        },
+        {
+          "en": "If it returns on an idle inverter, the output filter or current sensing is at fault - a workshop job, not a site job.",
+          "ur": "Agar khali inverter par wapas aaye to output filter ya current sensing kharab hai - ye workshop ka kaam hai, site ka nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Same physics as the hybrids' 'DCI Fault' and the R-Series' numeric 1034 'DC Component Current Fault'. THREE separate code strings for one fault across three model lines. Give a T-Series owner 'DCI over range', never 'DCI Fault' and never '1034'.",
+        "ur": "Aik hi fault ki teen alag code strings - hybrids ka 'DCI Fault', R-Series ka numeric 1034 'DC Component Current Fault', aur yeh 'DCI over range'. T-Series owner ko 'DCI over range' dein, na 'DCI Fault' aur na '1034'."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    },
+    {
+      "code": "Pv volt fault",
+      "aliases": [
+        "Pv volt fault",
+        "Pv Volt Fault",
+        "PV volt fault"
+      ],
+      "title": {
+        "en": "PV string voltage outside window (T-Series)",
+        "ur": "PV string voltage window se bahar (T-Series)"
+      },
+      "meaning": {
+        "en": "The PV string voltage is outside the window the inverter accepts. FoxESS states the open-circuit check explicitly and gives a 1000 Vdc figure.",
+        "ur": "PV string voltage us window se bahar hai jo inverter qubool karta hai. FoxESS saaf-saaf open-circuit check likhta hai aur 1000 Vdc ka figure deta hai."
+      },
+      "causes": [
+        {
+          "en": "String open-circuit voltage below the inverter's minimum, usually an open connection, a blown string fuse, or too few modules in series.",
+          "ur": "String ka open-circuit voltage inverter ki minimum se kam - aam tor par khari connection, udd hua string fuse, ya series mein modules kam."
+        },
+        {
+          "en": "String open-circuit voltage above the inverter's maximum, from too many modules in series for the model.",
+          "ur": "String ka open-circuit voltage inverter ki maximum se upar - model ke liye series mein modules zyada."
+        },
+        {
+          "en": "Partial shading or heavy soiling on part of the string dragging the operating point down.",
+          "ur": "String ka koi hissa dhuund se dhulai ya shading se operating point neeche kheench raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the panel's open-circuit voltage - whether the value is similar across strings or already above 1000 Vdc - exactly as FoxESS instructs.",
+          "ur": "Jaise FoxESS kahe, panel ka open-circuit voltage check karein - kya value strings ke darmiyan barabar hai ya pehle hi 1000 Vdc se upar hai."
+        },
+        {
+          "en": "Measure every string's open-circuit voltage with the DC switch open and compare them; one low string identifies the open or fused section.",
+          "ur": "DC switch khuli rakh kar har string ka open-circuit voltage napen aur compare karein; aik low string khari ya fuse wali jagah identify kar deti hai."
+        },
+        {
+          "en": "Count the modules in series and compare the calculated Voc to the inverter's DC maximum before adding any more - the manual says seek help at 1000 Vdc or below only.",
+          "ur": "Series mein modules gin kar calculated Voc ko inverter ki DC maximum se compare karein, kuch add karne se pehle - manual sirf 1000 Vdc ya us se neeche par help maangne ko kehta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "FoxESS's T wording 'Please seek help for us when voltage ≤1000Vdc' is oddly phrased and does not clearly state the model's DC maximum. Do NOT assert a specific max PV voltage for any T model from this manual - read it off the model's own rating label.",
+        "ur": "FoxESS ka T wording 'Please seek help for us when voltage ≤1000Vdc' ajeeb hai aur model ki DC maximum saaf nahi batata. Is manual se kisi T model ki khaas max PV voltage ka daawa na karein - model ke apne rating label se parhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    },
+    {
+      "code": "EEprom fault",
+      "aliases": [
+        "EEprom fault",
+        "EEprom Fault",
+        "EEPROM fault"
+      ],
+      "title": {
+        "en": "Configuration memory (EEPROM) fault",
+        "ur": "Settings memory (EEPROM) kharab"
+      },
+      "meaning": {
+        "en": "The inverter's non-volatile configuration memory has failed or become unreliable, so stored settings can no longer be trusted.",
+        "ur": "Inverter ki non-volatile configuration memory kharab ya unreliable ho gayi, is liye us mein stored settings par bharosa nahi."
+      },
+      "causes": [
+        {
+          "en": "The memory device itself has failed with age, heat or power loss during a write.",
+          "ur": "Memory device khud umar, garmi ya likhte waqt power khatam hone se kharab ho gaya."
+        },
+        {
+          "en": "A brown-out or DC bus collapse during a settings write left the stored configuration half-written.",
+          "ur": "Settings likhte waqt brown-out ya DC bus girne se stored configuration adhoora reh gaya."
+        },
+        {
+          "en": "A related sample-channel fault presenting as a memory symptom - the T table lists 'Sample fault' separately.",
+          "ur": "Koi related sample-channel fault jo memory ke symptom ki shakal mein aa raha hai - T table mein 'Sample fault' alag hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV (+) and PV (-) using the DC switch, wait for the LCD to switch off, then reconnect and check again - FoxESS's full instruction.",
+          "ur": "DC switch se PV (+) aur PV (-) disconnect karein, LCD band hone ka intezar karein, phir wapas lagayein aur dobara check karein - FoxESS ka poora instruction yahi hai."
+        },
+        {
+          "en": "If settings look lost after the reconnect, do NOT start re-entering them - record the symptom first, because a failing EEPROM will corrupt whatever you write.",
+          "ur": "Agar wapas lagane ke baad settings gayab lagein to unhein dobara daalna shuru na karein - pehle symptom note karein, kyunke kharab EEPROM jo likhenge usay corrupt kar dega."
+        },
+        {
+          "en": "On a repeat fault, log the code and serial number and raise a service claim; the memory device is not a site-replaceable item.",
+          "ur": "Baar baar fault aane par code aur serial number note karke service claim raise karein; memory device site par nahi badalna hota."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The T spelling is 'EEprom fault' (lowercase p). The hybrids use 'Inv EEPROM Fault' and 'ARM EEPROM Fault' for their master and manager memories specifically. A T-Series owner will never see the hybrid strings.",
+        "ur": "T ki spelling hai 'EEprom fault' (chhota p). Hybrids apni master aur manager ki memories ke liye khaas 'Inv EEPROM Fault' aur 'ARM EEPROM Fault' istemal karte hain. T-Series owner kabhi hybrid strings nazar nahi karega."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    },
+    {
+      "code": "SCI Comm fault",
+      "aliases": [
+        "SCI Comm fault",
+        "SCI Comm fault or SPI Comm fault",
+        "SPI Comm fault"
+      ],
+      "title": {
+        "en": "Internal processor communication fault",
+        "ur": "Andar ke processor ka communication fault"
+      },
+      "meaning": {
+        "en": "The T manual prints this as the paired code 'SCI Comm fault or SPI Comm fault' - the inverter's own processors cannot exchange data, so the unit has shut down.",
+        "ur": "T manual isay jorte code 'SCI Comm fault or SPI Comm fault' ke tor par likhta hai - inverter ke apne processors aapas mein data nahi kar sakte, is liye unit band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Internal communication bus between the main and auxiliary processor has failed, often after a surge.",
+          "ur": "Main aur auxiliary processor ke darmiyan internal communication bus kharab ho gaya, aksar surge ke baad."
+        },
+        {
+          "en": "Auxiliary 12 V / 5 V rails sagging so the processors reset - the same rails the R-Series codes separately as 1097 and 1098.",
+          "ur": "Auxiliary 12 V / 5 V rails gir rahe hain is liye processors reset ho rahe hain - wohi rails jo R-Series alag codes 1097 aur 1098 ke tor par likhta hai."
+        },
+        {
+          "en": "Heat-related failure of the control board in a hot, unventilated enclosure.",
+          "ur": "Garm aur bina ventilation ke enclosure mein control board ka garmi se kharab hona."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV+ and PV-, reconnect them - FoxESS's full instruction for this code, and note it says PV only, not the AC.",
+          "ur": "PV+ aur PV- disconnect karke wapas lagayein - is code ke liye FoxESS ka poora instruction yahi hai, aur note karein ke isay kehta hai sirf PV, AC nahi."
+        },
+        {
+          "en": "Give the unit a genuine full discharge - DC switch open, AC off - for at least 60 seconds before reconnecting, so both processors power up cleanly.",
+          "ur": "Wapas lagane se pehle unit ko sach mein poori tarah discharge dein - DC switch khuli, AC off - kam az kam 60 second, taake dono processors saaf power up hon."
+        },
+        {
+          "en": "If it returns on every power-up, log code and serial and raise a service claim for the control board; no external check will clear an internal processor bus failure.",
+          "ur": "Agar har power-up par wapas aaye to code aur serial note karke control board ke liye service claim raise karein; internal processor bus ki kharabi koi bahri check nahi theek kar sakta."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do not confuse with the hybrids' 'SCI Fault' (master-to-manager communication) or 'MDSP SPI Fault' (master-to-slave) - the strings are similar but the T table defines one combined code and gives a PV-only remedy.",
+        "ur": "Hybrids ke 'SCI Fault' (master se manager) ya 'MDSP SPI Fault' (master se slave) se confuse na karein - strings milti hain lekin T table aik joda code define karti hai aur sirf PV wala hal deti hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    }
+  ]
+}

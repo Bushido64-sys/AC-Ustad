@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-r-led-status",
+    "name": "R-Series / R G2 - LED indicator panel states (status, not faults)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*R75*",
+      "*R100*",
+      "*R110*",
+      "*R-G2*",
+      "*RG2*"
+    ],
+    "notes": "These are NOT fault codes - they are the four physical LEDs on the R-Series indicator panel (section 3.4) read as STATUS. All are isFault: false / severity: info. They are kept in their own series because a technician standing at a 75-110 kW unit with no app access diagnoses from these LEDs alone, and because the hybrids have no equivalent published LED table - the H1/KH-KA/H3 manuals mention the RED LED only in the single earth-fault note, and the T-Series has no LED status table at all. FoxESS's own threshold in the table is DC 200 V for the PV indicator. Verified identical in the PK V1.4 and RO R G2 V1.5 manuals."
+  },
+  "codes": [
+    {
+      "code": "LED D (Alarm indicator, Red)",
+      "aliases": [
+        "LED D (Alarm indicator, Red)",
+        "Alarm LED"
+      ],
+      "title": {
+        "en": "R: red alarm LED steady on",
+        "ur": "R: laal alarm LED chala hua"
+      },
+      "meaning": {
+        "en": "The red alarm LED is lit steadily, which the manual defines simply as 'An alarm is generated'. It tells you a fault exists but not which one.",
+        "ur": "Laal alarm LED chala hua hai, jise manual bilkul 'An alarm is generated' define karta hai. Yeh batata hai ke fault maujood hai, kaun sa nahi."
+      },
+      "causes": [
+        {
+          "en": "Any active entry in the 8.2 alarm list - the LED is a single shared indicator, not per-code.",
+          "ur": "8.2 alarm list ka koi bhi active entry - yeh LED aik hi shared indicator hai, har code ka apna nahi."
+        },
+        {
+          "en": "On a unit with no app or logger access, the technician simply has no way to identify the code from the panel alone.",
+          "ur": "Aisi unit par jahan app ya logger ki dastrasht nahi hai, technician ko sirf panel se code pehchanne ka koi tareeqa hi nahi milta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the fault code from the inverter's information panel or the app before doing anything - the LED gives no code number.",
+          "ur": "Kuch bhi karne se pehle inverter ke information panel ya app se fault code parhein - LED koi code number nahi deta."
+        },
+        {
+          "en": "If no app or logger is fitted, connect one temporarily or use the inverter's own display; do not start disconnecting strings on the strength of the red LED alone.",
+          "ur": "Agar koi app ya logger nahi laga to aik waqt ke liye wapas laga dein ya inverter ka apna display istemal karein; sirf laal LED ke bharose par strings khulna shuru na karein."
+        },
+        {
+          "en": "Once the numeric code is known, look it up in the R-Series 8.2 table rather than guessing - 1030, 1035, 1065 and 1124 all light the same LED.",
+          "ur": "Jab numeric code pata chal jaye to usay R-Series ki 8.2 table mein dekhein, andaza na lagayein - 1030, 1035, 1124 aur 1170 sab aik hi LED jalate hain."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Alarm LED red, steady on (no blink)",
+      "confidence": "high",
+      "notes": {
+        "en": "The H1, KH/KA and H3 manuals mention a RED LED only once each, in the section 6 note that an earth-fault alarm lights it. There is no published LED status table on those lines, so a Pakistani hybrid owner cannot use this series.",
+        "ur": "H1, KH/KA aur H3 manuals laal LED ka zikr sirf aik baar karte hain - section 6 ki note mein ke earth-fault alarm isay jalata hai. Un lines par koi LED status table publish nahi hai, is liye Pakistan ke hybrid owner is series ka istemal nahi kar sakte."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 3.4 LED Indicator Panel (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    },
+    {
+      "code": "LED B (Grid indicator, light blue) OFF",
+      "aliases": [
+        "LED B (Grid indicator, light blue) OFF",
+        "Grid LED off"
+      ],
+      "title": {
+        "en": "R: grid LED off - grid voltage not in range",
+        "ur": "R: grid LED band - grid voltage range mein nahi"
+      },
+      "meaning": {
+        "en": "The manual defines LED B Off as 'Grid voltage is not in normal range. The solar inverter is not in grid-tied mode.' This is a status, not an alarm code.",
+        "ur": "Manual LED B Off ko define karta hai 'Grid voltage is not in normal range. The solar inverter is not in grid-tied mode.' Yeh status hai, alarm code nahi."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage genuinely out of range - the normal reason the unit is not grid-tied.",
+          "ur": "Grid voltage waqai range se bahar - unit grid-tied na hone ki aam wajah."
+        },
+        {
+          "en": "AC side isolated by the installer, which is indistinguishable from a supply problem by LED alone.",
+          "ur": "Installer ne AC side isolate kiya ho, jo sirf LED se dekh kar supply ke masle se alag nahi kiya ja sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage at the inverter's AC terminals to find out whether the grid is genuinely bad or the AC side has been deliberately isolated.",
+          "ur": "Inverter ke AC terminals par grid voltage napen taake pata chale ke grid waqai kharab hai ya AC side jaan boojh kar isolate kiya gaya hai."
+        },
+        {
+          "en": "If voltage is good but the LED is off, check the grid breaker and the AC-side contactor before suspecting the inverter.",
+          "ur": "Agar voltage theek hai lekin LED band hai to inverter par shak karne se pehle grid breaker aur AC-side contactor check karein."
+        },
+        {
+          "en": "Only escalate to a grid code such as 1040 or 1051 once the measured voltage confirms the grid is at fault.",
+          "ur": "Sirf tab 1040 ya 1051 jaise grid code par jaayein jab naapa hua voltage yeh confirm kar de ke grid hi kharab hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Grid LED light blue, off (steady dark)",
+      "confidence": "high",
+      "notes": {
+        "en": "Note the three-state logic: LED B STEADY ON means grid-tied, BLINKING (1s on / 1s off) means grid voltage normal but NOT grid-tied, OFF means grid voltage not normal. 'Not grid-tied' therefore has two very different causes and the blink state is the discriminator.",
+        "ur": "Teen-halat ka logic note karein: LED B STEADY ON ka matlab grid-tied, BLINKING (1s on / 1s off) ka matlab grid voltage normal lekin grid-tied NAHI, OFF ka matlab grid voltage normal nahi. Is liye 'grid-tied na hona' do bilkul alag wajahon ka hota hai aur blink state hi discriminator hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 3.4 LED Indicator Panel (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    },
+    {
+      "code": "LED C (PID Recovery indicator, light blue) BLINKING",
+      "aliases": [
+        "LED C (PID Recovery indicator, light blue) BLINKING",
+        "PID LED blinking"
+      ],
+      "title": {
+        "en": "R: PID recovery alarm active",
+        "ur": "R: PID recovery ka alarm chal raha hai"
+      },
+      "meaning": {
+        "en": "The manual defines LED C blinking (1s on / 1s off) as 'An alarm of PID recovery is generated'. Steady On means PID recovery is on; Off means it is off.",
+        "ur": "Manual LED C ko blink karte (1s on / 1s off) 'An alarm of PID recovery is generated' define karta hai. Steady On ka matlab PID recovery on hai; Off ka matlab off hai."
+      },
+      "causes": [
+        {
+          "en": "The anti-PID function has raised its own alarm - it is a self-protection feature working, not a failure.",
+          "ur": "Anti-PID function ne apna alarm uthaya hai - yeh khud ki hifazat ka kaam kar raha hai, kharabi nahi."
+        },
+        {
+          "en": "On humid or shaded strings, PID recovery runs periodically and can report an alarm while it works.",
+          "ur": "Nami ya dhuund wali strings par PID recovery baar baar chalta hai aur kaam karte hue bhi alarm report kar sakta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the DC string voltage before acting: PID recovery raises module voltage, so a healthy array may read higher than expected during the recovery window.",
+          "ur": "Qadam karne se pehle DC string ka voltage check karein: PID recovery module voltage barhata hai, is liye theek array recovery window mein expected se zyada parh sakta hai."
+        },
+        {
+          "en": "Compare the LED state with the app: blinking means an alarm exists, steady On means the function is simply enabled with no alarm.",
+          "ur": "LED ki halat app se compare karein: blinking ka matlab alarm maujood hai, steady On ka matlab function sirf enabled hai koi alarm nahi."
+        },
+        {
+          "en": "The R table also has dedicated numeric codes for this function - 1377/1378 Anti-PID Software and 1379/1380 Anti-PID Hardware - so quote those, not the LED, when escalating.",
+          "ur": "R table mein is function ke khaas numeric codes bhi hain - 1377/1378 Anti-PID Software aur 1379/1380 Anti-PID Hardware - is liye escalate karte waqt LED nahi, wohi codes dein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "PID Recovery LED light blue, 1s on / 1s off",
+      "confidence": "high",
+      "notes": {
+        "en": "PID recovery is a FEATURE on the R-Series that a Pakistani rooftop install will not normally have enabled. Do not tell an owner to 'fix' a blinking PID LED by disabling PID recovery without first confirming the DC string voltage is healthy.",
+        "ur": "PID recovery R-Series par aik FEATURE hai jo Pakistani rooftop install mein aam tor par enabled nahi hota. DC string voltage theek hai yeh confirm kiye baghair kisi owner ko 'theek' karne ko blink karte PID LED ko PID recovery disable karne na kahein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 3.4 LED Indicator Panel (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    }
+  ]
+}

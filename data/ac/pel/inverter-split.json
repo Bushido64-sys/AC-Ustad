@@ -1,0 +1,1537 @@
+{
+  "schemaVersion": 1,
+  "brandId": "pel",
+  "series": {
+    "id": "inverter-split",
+    "name": "Splits — InverterOn / Full DC / T3 (shared platform)",
+    "category": "ac",
+    "unitType": "split",
+    "modelPatterns": [
+      "*"
+    ],
+    "notes": "PEL wall splits (InverterOn, Full DC, T3 heat/cool, WiFi T3 lines) share one display-code platform. No public PEL service manual / official error table found (pel.com.pk search returns transformer docs only). Core set (E0–E5/E8, F0–F9, FA, P2–P8) is documented identically by Electra Fix and Holife — confidence high as two agreeing technician sources. P1 and FF are field/video/title evidence only (confidence low). Electra Fix staff replied on the same page that 'PEL inverter EC error does not occur' — EC deliberately omitted. Reset: remote OFF → breaker OFF 5–10 min → breaker ON → remote ON. Support UAN: 042-111-102-103; WhatsApp 0300-1102103."
+  },
+  "codes": [
+    {
+      "code": "E0",
+      "aliases": [
+        "E0"
+      ],
+      "title": {
+        "en": "Indoor Unit Overcurrent Protection",
+        "ur": "Indoor unit overcurrent protection"
+      },
+      "meaning": {
+        "en": "The indoor unit drew more current than allowed and protection shut it down.",
+        "ur": "Indoor unit ne allowed se zyada current liya aur protection ne band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Indoor fan motor fault, binding, or winding short",
+          "ur": "Indoor fan motor fault ya winding short"
+        },
+        {
+          "en": "PCB short, damaged wiring, or moisture on the board",
+          "ur": "PCB short, wiring kharab, ya board par moisture"
+        },
+        {
+          "en": "Supply surge from unstable mains",
+          "ur": "Unstable bijli se surge"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Power isolated: inspect indoor fan motor free movement and wiring terminals",
+          "ur": "Power band karke indoor fan ki movement aur wiring terminals check karein"
+        },
+        {
+          "en": "If it trips again immediately: technician indoor PCB/motor diagnosis — do not keep restarting",
+          "ur": "Foran dobara trip ho to technician PCB/motor dekhe — baar baar restart na karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "E4",
+        "P8"
+      ],
+      "notes": {
+        "en": "Single detailed table (Electra Fix); Holife lists the same E0 wording — two agreeing sources, no official PEL manual found.",
+        "ur": "Detail Electra Fix table se; Holife ne bhi wahi E0 wording likhi — do sources agree, official PEL manual nahi mila."
+      }
+    },
+    {
+      "code": "E1",
+      "aliases": [
+        "E1"
+      ],
+      "title": {
+        "en": "Indoor Temperature Sensor Error",
+        "ur": "Indoor temperature sensor ki fault"
+      },
+      "meaning": {
+        "en": "The room/indoor temperature sensor is disconnected, damaged, or reading out of range.",
+        "ur": "Room/indoor temperature sensor disconnect hai, kharab hai, ya ghalat reading de raha hai."
+      },
+      "causes": [
+        {
+          "en": "Loose or broken sensor wire",
+          "ur": "Sensor wire dhila ya toota hua"
+        },
+        {
+          "en": "Sensor itself failed (open/short)",
+          "ur": "Sensor khud kharab (open/short)"
+        },
+        {
+          "en": "Connector corrosion or PCB read fault",
+          "ur": "Connector par corrosion ya PCB read fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Check sensor plug at PCB; measure resistance at room temp and compare with spec",
+          "ur": "PCB par sensor plug check karein; room temp par resistance naapein"
+        },
+        {
+          "en": "Replace the sensor if readings are wrong; clean dust off the probe",
+          "ur": "Reading ghalat ho to sensor badlein; probe ki dust saaf karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "E3",
+        "F6"
+      ],
+      "notes": {
+        "en": "Electra Fix + Holife agree on wording; no official PEL table.",
+        "ur": "Electra Fix + Holife wording par agree; official PEL table nahi mili."
+      }
+    },
+    {
+      "code": "E2",
+      "aliases": [
+        "E2"
+      ],
+      "title": {
+        "en": "Outdoor Coil Sensor Error",
+        "ur": "Outdoor coil sensor ki fault"
+      },
+      "meaning": {
+        "en": "The outdoor condenser coil temperature sensor is faulty or disconnected.",
+        "ur": "Outdoor condenser coil ka temperature sensor kharab ya disconnect hai."
+      },
+      "causes": [
+        {
+          "en": "Damaged sensor or loose wire",
+          "ur": "Sensor kharab ya wire dhila"
+        },
+        {
+          "en": "Water/corrosion at sensor terminal",
+          "ur": "Sensor terminal par paani/corrosion"
+        },
+        {
+          "en": "PCB communication/read failure",
+          "ur": "PCB communication ya read fail ho raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Inspect outdoor coil sensor wiring and plug",
+          "ur": "Outdoor coil sensor wiring aur plug check karein"
+        },
+        {
+          "en": "Test resistance with a multimeter; replace if abnormal",
+          "ur": "Multimeter se resistance check karein; ghalat ho to badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "E3",
+        "F6"
+      ]
+    },
+    {
+      "code": "E3",
+      "aliases": [
+        "E3"
+      ],
+      "title": {
+        "en": "Indoor Coil Sensor Error",
+        "ur": "Indoor coil sensor ki fault"
+      },
+      "meaning": {
+        "en": "The indoor evaporator coil temperature sensor is faulty — risk of coil icing if ignored.",
+        "ur": "Indoor evaporator coil ka temperature sensor kharab hai — ignore karne par coil barf jama sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Disconnected or damaged coil sensor",
+          "ur": "Coil sensor disconnect ya kharab"
+        },
+        {
+          "en": "Connector corrosion",
+          "ur": "Connector par corrosion"
+        },
+        {
+          "en": "Moisture damage on sensor wiring",
+          "ur": "Sensor wiring par moisture damage"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Check sensor connection at indoor PCB; clean connector",
+          "ur": "Indoor PCB par sensor connection check karein; connector saaf karein"
+        },
+        {
+          "en": "Replace the sensor if resistance is out of spec",
+          "ur": "Resistance spec se bahar ho to sensor badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "E1",
+        "P7"
+      ]
+    },
+    {
+      "code": "E4",
+      "aliases": [
+        "E4"
+      ],
+      "title": {
+        "en": "Indoor Fan Error",
+        "ur": "Indoor fan ki fault"
+      },
+      "meaning": {
+        "en": "The indoor fan is blocked, the motor/bearing has failed, or the fan capacitor is bad.",
+        "ur": "Indoor fan block hai, motor/bearing kharab hai, ya fan capacitor kharab hai."
+      },
+      "causes": [
+        {
+          "en": "Object blocking the fan blade",
+          "ur": "Fan blade par rukawat"
+        },
+        {
+          "en": "Worn bearings or burnt motor winding",
+          "ur": "Bearing ghis gaye ya motor winding jali"
+        },
+        {
+          "en": "Loose fan wiring or failed capacitor",
+          "ur": "Fan wiring dhila ya capacitor kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Remove obstructions; check wiring to the fan motor",
+          "ur": "Rukawat hatayein; fan motor ki wiring check karein"
+        },
+        {
+          "en": "Technician: test capacitor and motor, replace as needed",
+          "ur": "Technician capacitor aur motor test kare, zarurat par badle"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "E0",
+        "F0"
+      ]
+    },
+    {
+      "code": "E5",
+      "aliases": [
+        "E5",
+        "5E"
+      ],
+      "title": {
+        "en": "Indoor–Outdoor Communication Error",
+        "ur": "Indoor–outdoor communication ki fault"
+      },
+      "meaning": {
+        "en": "Indoor and outdoor units are not exchanging control signals (also shown as 5E on some models).",
+        "ur": "Indoor aur outdoor units control signals exchange nahi kar rahe (kuch models par 5E bhi nazar aata hai)."
+      },
+      "causes": [
+        {
+          "en": "Loose, broken, or water-damaged communication wire",
+          "ur": "Communication wire dhila, toota, ya paani se kharab"
+        },
+        {
+          "en": "Power supply issue on either unit",
+          "ur": "Kisi ek unit ka power supply masla"
+        },
+        {
+          "en": "Main control board fault or interference",
+          "ur": "Main control board fault ya interference"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Check the inter-unit cable terminals for tightness and corrosion",
+          "ur": "Inter-unit cable ke terminals ki tightness aur corrosion check karein"
+        },
+        {
+          "en": "Power both units off 5 min, then restart; if still E5, technician board/wiring check",
+          "ur": "Dono units 5 minute band karein, phir start; phir bhi E5 ho to technician board/wiring dekhe"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "E8",
+        "F8"
+      ],
+      "notes": {
+        "en": "Alias 5E noted by both sources; no official PEL service manual found.",
+        "ur": "Alias 5E dono sources ne bataya; official PEL service manual nahi mila."
+      }
+    },
+    {
+      "code": "E8",
+      "aliases": [
+        "E8"
+      ],
+      "title": {
+        "en": "Display↔Main Control Communication Error",
+        "ur": "Display aur main control board communication ki fault"
+      },
+      "meaning": {
+        "en": "The display board and the main control panel have lost communication.",
+        "ur": "Display board aur main control panel ka communication toot gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Loose ribbon cable or bent connector pins",
+          "ur": "Ribbon cable dhila ya connector pins tede"
+        },
+        {
+          "en": "Moisture inside the control panel",
+          "ur": "Control panel ke andar moisture"
+        },
+        {
+          "en": "Main control board failure or supply fluctuation",
+          "ur": "Main control board failure ya supply fluctuation"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Reseat ribbon/cables; inspect pins for corrosion",
+          "ur": "Ribbon/cable dobara lagayein; pins corrosion ke liye dekhein"
+        },
+        {
+          "en": "Dry any moisture; technician replaces board if fault remains",
+          "ur": "Moisture sookhayein; fault rahe to technician board badle"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "E5",
+        "F8"
+      ]
+    },
+    {
+      "code": "F0",
+      "aliases": [
+        "F0"
+      ],
+      "title": {
+        "en": "Outdoor Fan Error",
+        "ur": "Outdoor fan ki fault"
+      },
+      "meaning": {
+        "en": "The outdoor fan is not running at the correct speed (blocked blade, bad motor, or capacitor).",
+        "ur": "Outdoor fan sahi speed par nahi chal raha (blade block, motor kharab, ya capacitor)."
+      },
+      "causes": [
+        {
+          "en": "Debris blocking the outdoor fan",
+          "ur": "Outdoor fan ko gand-bhuchar block kar raha hai"
+        },
+        {
+          "en": "Fan motor bearing seized or winding failed",
+          "ur": "Fan motor bearing jam ya winding kharab"
+        },
+        {
+          "en": "Swollen/failed fan capacitor",
+          "ur": "Fan capacitor phoola/kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Clear debris around outdoor unit; spin blade by hand (power off)",
+          "ur": "Outdoor unit ke aas-paas ka gand-bhuchar saaf karein; power off karke blade haath se ghumayein"
+        },
+        {
+          "en": "Technician: test motor/capacitor and replace",
+          "ur": "Technician motor/capacitor test kare aur badle"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "E4",
+        "F4"
+      ]
+    },
+    {
+      "code": "F1",
+      "aliases": [
+        "F1"
+      ],
+      "title": {
+        "en": "Module (IPM) Protection",
+        "ur": "Module / IPM protection"
+      },
+      "meaning": {
+        "en": "The inverter power module detected abnormal voltage, current, or temperature and shut the unit down.",
+        "ur": "Inverter power module ne voltage/current/temperature abnormal dekh kar unit band kar di."
+      },
+      "causes": [
+        {
+          "en": "Module overheat or short on outdoor PCB",
+          "ur": "Module overheat ya outdoor PCB par short"
+        },
+        {
+          "en": "Unstable supply or surge",
+          "ur": "Supply unstable ya surge"
+        },
+        {
+          "en": "Moisture or loose module connections",
+          "ur": "Moisture ya module ke dhile connections"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off at breaker; wait 10+ minutes for modules to cool",
+          "ur": "Breaker se power band; modules ko 10+ minute thanda hone dein"
+        },
+        {
+          "en": "Ensure clear airflow around outdoor unit; restart once",
+          "ur": "Outdoor unit ke aas-paas airflow clear rakhein; ek baar restart"
+        },
+        {
+          "en": "If F1 returns: stop — technician IPM/board diagnosis (do not open the unit yourself)",
+          "ur": "F1 wapas aaye to rokein — technician IPM/board dekhe (khud unit na kholein)"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F2",
+        "P8"
+      ],
+      "notes": {
+        "en": "Both PK sources list F1 as module protection; technician videos also show F1 on PEL outdoor PCB (IPM repair).",
+        "ur": "Dono PK sources F1 ko module protection batate hain; technician videos mein bhi PEL outdoor PCB par F1 (IPM repair) nazar aata hai."
+      }
+    },
+    {
+      "code": "F2",
+      "aliases": [
+        "F2"
+      ],
+      "title": {
+        "en": "PFC Board Error",
+        "ur": "PFC board ki fault"
+      },
+      "meaning": {
+        "en": "The Power Factor Correction board on the outdoor side is failing — efficiency drops and protection can trip.",
+        "ur": "Outdoor side ka Power Factor Correction board fail ho raha hai — efficiency girti hai aur protection trip hoti hai."
+      },
+      "causes": [
+        {
+          "en": "Voltage fluctuations damaging PFC components",
+          "ur": "Voltage fluctuation se PFC components kharab"
+        },
+        {
+          "en": "Failed capacitor or poor solder joints on PFC board",
+          "ur": "PFC board par capacitor kharab ya solder joint kharab"
+        },
+        {
+          "en": "Moisture on the PFC board",
+          "ur": "PFC board par moisture"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Power isolated: inspect PFC board for burn marks / bulged capacitors",
+          "ur": "Power band karke PFC board par burn marks / phoole capacitors dekhein"
+        },
+        {
+          "en": "Install/verify a voltage stabilizer for weak supply areas; technician board repair/replace",
+          "ur": "Kamzor supply wale ilaqe mein stabilizer lagwayein aur technician se board repair ya replace karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F1",
+        "F7"
+      ]
+    },
+    {
+      "code": "F3",
+      "aliases": [
+        "F3"
+      ],
+      "title": {
+        "en": "Compressor Out of Step",
+        "ur": "Compressor out-of-step fault"
+      },
+      "meaning": {
+        "en": "The compressor lost synchronization with the inverter drive (out-of-step / sync fault).",
+        "ur": "Compressor inverter drive ke saath sync se bahar aa gaya (out-of-step fault)."
+      },
+      "causes": [
+        {
+          "en": "Voltage fluctuation stressing the compressor drive",
+          "ur": "Voltage fluctuation se compressor drive par load"
+        },
+        {
+          "en": "Worn compressor bearings or winding damage",
+          "ur": "Compressor bearings ghis gaye ya winding damage"
+        },
+        {
+          "en": "Refrigerant pressure imbalance",
+          "ur": "Refrigerant pressure barabar nahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Check supply voltage / stabilizer; verify refrigerant pressures (technician)",
+          "ur": "Supply voltage / stabilizer check karein; refrigerant pressures technician se check karwayein"
+        },
+        {
+          "en": "If it repeats: compressor and inverter board inspection — do not keep restarting",
+          "ur": "Bar bar aaye to compressor aur inverter board check — baar baar restart na karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F1",
+        "P3",
+        "P4"
+      ]
+    },
+    {
+      "code": "F4",
+      "aliases": [
+        "F4"
+      ],
+      "title": {
+        "en": "Exhaust (Discharge) Sensor Error",
+        "ur": "Exhaust / discharge sensor ki fault"
+      },
+      "meaning": {
+        "en": "The compressor discharge/exhaust temperature sensor is disconnected or failed — the board cannot monitor discharge temp.",
+        "ur": "Compressor discharge/exhaust temperature sensor disconnect ya kharab hai — board discharge temp monitor nahi kar paa raha."
+      },
+      "causes": [
+        {
+          "en": "Broken sensor probe or wiring",
+          "ur": "Sensor probe ya wiring toota"
+        },
+        {
+          "en": "Corroded terminals / open circuit",
+          "ur": "Terminals corroded / open circuit"
+        },
+        {
+          "en": "PCB read fault",
+          "ur": "PCB reading nahi le pa raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Check sensor plug and wiring from outdoor board to compressor line",
+          "ur": "Outdoor board se compressor line tak sensor plug/wiring check karein"
+        },
+        {
+          "en": "Measure resistance; replace sensor if out of spec",
+          "ur": "Resistance naapein; spec se bahar ho to sensor badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F5",
+        "P5"
+      ]
+    },
+    {
+      "code": "F5",
+      "aliases": [
+        "F5"
+      ],
+      "title": {
+        "en": "Compressor Top Head Sensor Error",
+        "ur": "Compressor top head sensor ki fault"
+      },
+      "meaning": {
+        "en": "The temperature sensor on the compressor top/head is faulty — system shuts down as a safety measure.",
+        "ur": "Compressor ke top/head par temperature sensor kharab hai — safety ke liye system band ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Disconnected or damaged top sensor",
+          "ur": "Top sensor disconnect ya kharab"
+        },
+        {
+          "en": "Corroded terminals",
+          "ur": "Terminals par corrosion"
+        },
+        {
+          "en": "Control board not reading the sensor",
+          "ur": "Control board sensor read nahi kar raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Inspect sensor on compressor top; clean terminals",
+          "ur": "Compressor top par sensor dekhein; terminals saaf karein"
+        },
+        {
+          "en": "Technician: test/replace sensor",
+          "ur": "Technician sensor test/replace kare"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F4"
+      ]
+    },
+    {
+      "code": "F6",
+      "aliases": [
+        "F6"
+      ],
+      "title": {
+        "en": "Outdoor Ambient Temperature Sensor Error",
+        "ur": "Outdoor ambient temperature sensor ki fault"
+      },
+      "meaning": {
+        "en": "The outdoor ambient temperature sensor is faulty — the unit cannot gauge outside conditions correctly.",
+        "ur": "Outdoor ambient temperature sensor kharab hai — unit baahar ka mausam sahi judge nahi kar paa raha."
+      },
+      "causes": [
+        {
+          "en": "Damaged sensor or open wire",
+          "ur": "Sensor kharab ya wire open"
+        },
+        {
+          "en": "Corroded terminals",
+          "ur": "Terminals par corrosion"
+        },
+        {
+          "en": "Natural sensor drift with age",
+          "ur": "Umar se sensor drift"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Check outdoor ambient sensor wiring and plug",
+          "ur": "Outdoor ambient sensor wiring/plug check karein"
+        },
+        {
+          "en": "Replace sensor if resistance is abnormal",
+          "ur": "Resistance abnormal ho to sensor badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "E2",
+        "F4"
+      ]
+    },
+    {
+      "code": "F7",
+      "aliases": [
+        "F7"
+      ],
+      "title": {
+        "en": "Over/Under Voltage Protection (OVP/UVP)",
+        "ur": "Over/under voltage protection (OVP/UVP)"
+      },
+      "meaning": {
+        "en": "Mains voltage went above the safe upper limit or below the minimum — the unit shut down to protect electronics.",
+        "ur": "Mains voltage safe upper limit se ooper ya minimum se neeche chala gaya — electronics ki hifazat ke liye unit band hui."
+      },
+      "causes": [
+        {
+          "en": "Unstable grid / load-shedding swings",
+          "ur": "Unstable grid / load-shedding ke upar-neeche"
+        },
+        {
+          "en": "Surges during storms or heavy load",
+          "ur": "Storm ya heavy load par surges"
+        },
+        {
+          "en": "Undersized home wiring",
+          "ur": "Ghar ki wiring capacity kam"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for supply to normalise, then restart",
+          "ur": "Supply normal hone ka intezar karein, phir start karein"
+        },
+        {
+          "en": "Install a voltage stabilizer sized for the AC",
+          "ur": "AC ke liye sahi size ka voltage stabilizer lagwayein"
+        },
+        {
+          "en": "Avoid other heavy loads on the same circuit",
+          "ur": "Usi circuit par doosre heavy loads na chalayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F2",
+        "P2"
+      ]
+    },
+    {
+      "code": "F8",
+      "aliases": [
+        "F8"
+      ],
+      "title": {
+        "en": "Outdoor Control↔Module Communication Error",
+        "ur": "Outdoor control board aur module board communication ki fault"
+      },
+      "meaning": {
+        "en": "The outdoor unit's control panel and module/inverter panel have lost communication.",
+        "ur": "Outdoor unit ka control panel aur module/inverter panel communicate nahi kar rahe."
+      },
+      "causes": [
+        {
+          "en": "Loose or damaged link cables between boards",
+          "ur": "Boards ke darmiyan cables dhili/kharab"
+        },
+        {
+          "en": "Power-surge damage on a board",
+          "ur": "Kisi board par surge damage"
+        },
+        {
+          "en": "Moisture or interference",
+          "ur": "Moisture ya interference"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle first: remote off → breaker off 5–10 min → breaker on → remote on",
+          "ur": "Pehle reset karein: remote off → breaker 5–10 minute off → breaker on → remote on"
+        },
+        {
+          "en": "Power off; reseat board-to-board cables (power isolated)",
+          "ur": "Power off; board-to-board cables dobara lagayein (power band)"
+        },
+        {
+          "en": "Technician board diagnosis if fault remains",
+          "ur": "Fault rahe to technician board dekhe"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "E5",
+        "E8",
+        "F1"
+      ]
+    },
+    {
+      "code": "F9",
+      "aliases": [
+        "F9"
+      ],
+      "title": {
+        "en": "Outdoor EEPROM Error",
+        "ur": "Outdoor EEPROM ki fault"
+      },
+      "meaning": {
+        "en": "The outdoor unit's stored parameters (EEPROM) are unreadable or corrupted — settings lost after power events.",
+        "ur": "Outdoor unit ki stored parameters (EEPROM) read nahi ho rahi ya corrupt hain — power event ke baad settings kharab."
+      },
+      "causes": [
+        {
+          "en": "Power surge corrupting memory",
+          "ur": "Power surge se memory corrupt"
+        },
+        {
+          "en": "Outdoor PCB component failure",
+          "ur": "Outdoor PCB ka koi component kharab hai"
+        },
+        {
+          "en": "Age/environmental degradation of the chip",
+          "ur": "Chip ki umar ya environment se kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off 3–5 minutes and restart",
+          "ur": "Power 3–5 minute band karke restart karein"
+        },
+        {
+          "en": "If it returns: technician EEPROM reflash / outdoor PCB replacement",
+          "ur": "Wapas aaye to technician EEPROM reflash / outdoor PCB badle"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F1"
+      ]
+    },
+    {
+      "code": "FA",
+      "aliases": [
+        "FA"
+      ],
+      "title": {
+        "en": "Recirculated Air Sensor Error",
+        "ur": "Recirculated air sensor ki fault"
+      },
+      "meaning": {
+        "en": "The return-air (recirculated) temperature sensor is faulty — room temp is measured wrong and cooling suffers.",
+        "ur": "Return-air (recirculated) temperature sensor kharab hai — room temp ghalat mapta hai aur cooling kharab hoti hai."
+      },
+      "causes": [
+        {
+          "en": "Dust on the sensor",
+          "ur": "Sensor par dust"
+        },
+        {
+          "en": "Loose or damaged sensor wiring",
+          "ur": "Sensor wiring dhili/kharab"
+        },
+        {
+          "en": "Complete sensor failure",
+          "ur": "Sensor poora kharab"
+        },
+        {
+          "en": "Board issue affecting sensor read",
+          "ur": "Board issue jis se sensor read kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean air filter and sensor area",
+          "ur": "Air filter aur sensor wala hissa saaf karein"
+        },
+        {
+          "en": "Check and secure sensor wiring",
+          "ur": "Sensor wiring check karke tight karein"
+        },
+        {
+          "en": "Power off ~30 min, then restart; replace sensor if fault remains",
+          "ur": "Power ~30 minute band, phir restart; fault rahe to sensor badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "E1"
+      ],
+      "notes": {
+        "en": "Both PK tables list FA the same way; no official PEL manual.",
+        "ur": "Dono PK tables mein FA wahi hai; official PEL manual nahi."
+      }
+    },
+    {
+      "code": "P1",
+      "aliases": [
+        "P1"
+      ],
+      "title": {
+        "en": "Protection Trip (meaning not published for PEL)",
+        "ur": "Protection trip (PEL ka official meaning nahi mila)"
+      },
+      "meaning": {
+        "en": "PEL units are documented showing P1 on the outdoor PCB in field videos, but neither published PEL table defines P1 (their tables start at P2).",
+        "ur": "Field videos mein PEL outdoor PCB par P1 dikhai diya hai, lekin kisi published PEL table mein P1 define nahi (un tables ki shuruat P2 se hoti hai)."
+      },
+      "causes": [
+        {
+          "en": "Likely a voltage/module-class protection on the shared platform (unverified for PEL)",
+          "ur": "Shared platform par voltage/module class protection ho sakta hai (PEL ke liye verify nahi)"
+        },
+        {
+          "en": "Outdoor PCB repair videos show P1 with P4 on PEL/Dawlance/Orient boards",
+          "ur": "Outdoor PCB repair videos mein PEL/Dawlance/Orient boards par P1 aur P4 saath nazar aate hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off at breaker and check supply voltage with a meter",
+          "ur": "Breaker se power band karke meter se supply voltage check karein"
+        },
+        {
+          "en": "If voltage is stable and P1 returns: technician outdoor PCB diagnosis",
+          "ur": "Voltage stable ho aur P1 wapas aaye to technician outdoor PCB dekhe"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "low",
+      "source": {
+        "type": "video",
+        "title": "YouTube — PEL Inverter AC P1 error",
+        "url": "https://www.youtube.com/watch?v=V7G_i029k7k",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "P2",
+        "F7",
+        "P4"
+      ],
+      "notes": {
+        "en": "Confidence low: only video/field evidence (2 videos). Meaning not in Electra Fix or Holife tables — do not assume another brand's P1 meaning.",
+        "ur": "Confidence low: sirf video/field evidence (2 videos). Electra Fix ya Holife table mein P1 nahi — doosre brand ki P1 meaning yahan na maanein."
+      }
+    },
+    {
+      "code": "P2",
+      "aliases": [
+        "P2"
+      ],
+      "title": {
+        "en": "High Voltage Switch Protection",
+        "ur": "High voltage switch protection"
+      },
+      "meaning": {
+        "en": "The high-voltage protection switch saw abnormal mains and cut power to protect the electronics.",
+        "ur": "High-voltage protection switch ne abnormal mains dekh kar electronics ki hifazat ke liye power kaat di."
+      },
+      "causes": [
+        {
+          "en": "Unstable grid supply / peak-hour surges",
+          "ur": "Unstable grid / peak-hour surges"
+        },
+        {
+          "en": "Home wiring or stabilizer issues",
+          "ur": "Ghar ki wiring ya stabilizer masla"
+        },
+        {
+          "en": "Internal AC circuit fault",
+          "ur": "AC ke andar circuit fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for voltage to normalise, then restart",
+          "ur": "Voltage normal hone ka wait karein, phir restart"
+        },
+        {
+          "en": "Install/verify a stabilizer; check home breakers",
+          "ur": "Stabilizer lagwayein/check karein; ghar ke breakers dekhein"
+        },
+        {
+          "en": "If repeated on stable supply: technician internal check",
+          "ur": "Stable supply par baar baar aaye to technician andaruni check kare"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F7",
+        "P1"
+      ]
+    },
+    {
+      "code": "P3",
+      "aliases": [
+        "P3"
+      ],
+      "title": {
+        "en": "Refrigerant Deficiency Protection",
+        "ur": "Refrigerant kam hone ki protection"
+      },
+      "meaning": {
+        "en": "Refrigerant is low — protection runs to stop the compressor from damage.",
+        "ur": "Refrigerant kam hai — compressor ko bachane ke liye protection chalu hoti hai."
+      },
+      "causes": [
+        {
+          "en": "Leak in copper lines or service valves",
+          "ur": "Copper lines ya service valves leak"
+        },
+        {
+          "en": "Loose flare/union after installation",
+          "ur": "Installation ke baad flare/union dhila"
+        },
+        {
+          "en": "Corrosion pinholes in the coil",
+          "ur": "Coil par corrosion ke chhote surakh"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not keep running the unit — schedule leak test",
+          "ur": "Unit ko chalate na rakhein — leak test karwayein"
+        },
+        {
+          "en": "Technician: repair leak, vacuum, and recharge to spec",
+          "ur": "Technician leak theek kare, vacuum kare, spec ke mutabiq gas bhare"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "P4",
+        "F3"
+      ]
+    },
+    {
+      "code": "P4",
+      "aliases": [
+        "P4"
+      ],
+      "title": {
+        "en": "Refrigerant Overload / High Pressure Protection",
+        "ur": "Refrigerant zyada hone par high pressure protection"
+      },
+      "meaning": {
+        "en": "System pressure is too high (overcharge, blocked condenser, or expansion fault) — unit shut down.",
+        "ur": "System pressure bohat zyada hai (overcharge, condenser block, ya expansion fault) — unit band ho gayi."
+      },
+      "causes": [
+        {
+          "en": "Overcharged during last service",
+          "ur": "Last service mein zyada gas bhar di gayi thi"
+        },
+        {
+          "en": "Dirty/blocked condenser or filters",
+          "ur": "Condenser/filter gande ya block"
+        },
+        {
+          "en": "Faulty expansion valve or very high ambient",
+          "ur": "Expansion valve kharab ya ambient bohat zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; clean condenser and filters; ensure outdoor clearance",
+          "ur": "Power band; condenser/filter saaf karein; outdoor ki jagah khuli rakhein"
+        },
+        {
+          "en": "Technician: verify charge, TXV, and pressures — do not vent refrigerant yourself",
+          "ur": "Technician charge/TXV/pressures check kare — khud gas na kholen"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "P3",
+        "P5"
+      ],
+      "notes": {
+        "en": "Also seen in technician videos on PEL outdoor PCB together with P1.",
+        "ur": "Technician videos mein bhi PEL outdoor PCB par P1 ke saath P4 nazar aata hai."
+      }
+    },
+    {
+      "code": "P5",
+      "aliases": [
+        "P5"
+      ],
+      "title": {
+        "en": "Exhaust Temperature Protection",
+        "ur": "Exhaust temperature protection"
+      },
+      "meaning": {
+        "en": "Compressor exhaust/discharge temperature went too high — protection stopped the compressor.",
+        "ur": "Compressor exhaust/discharge temperature bohat zyada ho gayi — protection ne compressor band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Low refrigerant, dirty coils, or blocked airflow",
+          "ur": "Refrigerant kam, coils gandi, ya airflow block"
+        },
+        {
+          "en": "Failing compressor or bad discharge sensor",
+          "ur": "Compressor kharab ho raha ya discharge sensor kharab"
+        },
+        {
+          "en": "High ambient with dirty outdoor unit",
+          "ur": "Ambient zyada aur outdoor unit gandi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off; clean coils/filters and clear space around outdoor unit",
+          "ur": "Power band; coils/filters saaf karein aur outdoor ke aas-paas jagah khali karein"
+        },
+        {
+          "en": "Technician: check gas charge, discharge sensor, and compressor",
+          "ur": "Technician gas charge, discharge sensor, aur compressor dekhe"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F4",
+        "P4"
+      ]
+    },
+    {
+      "code": "P6",
+      "aliases": [
+        "P6"
+      ],
+      "title": {
+        "en": "Indoor High-Temperature Protection",
+        "ur": "Indoor high-temperature protection"
+      },
+      "meaning": {
+        "en": "The indoor unit detected excessive internal temperature and powered off until it cools.",
+        "ur": "Indoor unit ke andar temperature bohat zyada tha — thanda hone tak power off ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Clogged air filters or blocked vents",
+          "ur": "Air filter ganda ya vents block"
+        },
+        {
+          "en": "Indoor fan motor not moving air",
+          "ur": "Indoor fan hawa nahi chala raha"
+        },
+        {
+          "en": "Board overheating or install location too hot",
+          "ur": "Board garam ya install jagah bohat garam"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean/replace filters; clear vent obstructions",
+          "ur": "Filters saaf/badlein; vents ki rukawat hatayein"
+        },
+        {
+          "en": "Let the unit cool, then restart once",
+          "ur": "Unit ko thanda hone dein, phir ek baar start karein"
+        },
+        {
+          "en": "If it recurs: technician fan/board check",
+          "ur": "Baar baar aaye to technician fan/board dekhe"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "P7",
+        "E4"
+      ]
+    },
+    {
+      "code": "P7",
+      "aliases": [
+        "P7"
+      ],
+      "title": {
+        "en": "Anti-Freeze Protection",
+        "ur": "Anti-freeze protection"
+      },
+      "meaning": {
+        "en": "Evaporator got too cold (near freezing) — compressor stopped to protect the indoor coil.",
+        "ur": "Evaporator bohat thanda ho gaya (freezing ke qareeb) — indoor coil ki hifazat ke liye compressor band hua."
+      },
+      "causes": [
+        {
+          "en": "Very low room temperature setpoint",
+          "ur": "Room temperature bohat neeche set ki"
+        },
+        {
+          "en": "Low refrigerant",
+          "ur": "Refrigerant kam"
+        },
+        {
+          "en": "Restricted airflow (dirty filter, blocked blower)",
+          "ur": "Filter ganda ho ya blower block, hawa kam aa rahi hai"
+        },
+        {
+          "en": "Faulty coil sensor",
+          "ur": "Coil sensor kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Keep setpoint above ~16°C; clean filters",
+          "ur": "Setpoint ~16°C se ooper rakhein; filters saaf karein"
+        },
+        {
+          "en": "If airflow is weak: technician blower/check gas",
+          "ur": "Airflow kamzor ho to technician blower/gas dekhe"
+        },
+        {
+          "en": "Replace coil sensor if readings are wrong",
+          "ur": "Reading ghalat ho to coil sensor badlein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "E3",
+        "P3"
+      ]
+    },
+    {
+      "code": "P8",
+      "aliases": [
+        "P8"
+      ],
+      "title": {
+        "en": "Overcurrent Protection",
+        "ur": "Overcurrent protection"
+      },
+      "meaning": {
+        "en": "Current draw exceeded the safe limit — the system cut power to prevent electrical damage.",
+        "ur": "Current safe limit se zyada tha — electrical damage se bachane ke liye power kat gayi."
+      },
+      "causes": [
+        {
+          "en": "Short in electrical components",
+          "ur": "Electrical components mein short"
+        },
+        {
+          "en": "Compressor drawing excessive power",
+          "ur": "Compressor zyada power le raha hai"
+        },
+        {
+          "en": "Damaged power board or loose/corroded joints",
+          "ur": "Power board kharab ya joints loose/corroded"
+        },
+        {
+          "en": "Mains voltage fluctuations",
+          "ur": "Mains voltage fluctuation"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reset breaker after checking home wiring/stabilizer",
+          "ur": "Ghar ki wiring/stabilizer check karke breaker reset karein"
+        },
+        {
+          "en": "Technician: check compressor current, board, and connections",
+          "ur": "Technician compressor current, board, aur connections dekhe"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "outdoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "technician_note",
+        "title": "Electra Fix — PEL Inverter AC Error Codes: E0, FF & Common Troubleshooting Tips",
+        "url": "https://electrafix.pk/pel-inverter-ac-error-codes",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "E0",
+        "F1"
+      ]
+    },
+    {
+      "code": "FF",
+      "aliases": [
+        "FF"
+      ],
+      "title": {
+        "en": "FF — meaning not published for PEL",
+        "ur": "FF — PEL ka official meaning nahi mila"
+      },
+      "meaning": {
+        "en": "PEL users report FF on the display; Electra Fix's guide highlights FF as a common PEL code, but neither PK table defines what FF means.",
+        "ur": "PEL users display par FF report karte hain; Electra Fix ki guide mein FF common PEL code hai, lekin koi table FF ka meaning define nahi karti."
+      },
+      "causes": [
+        {
+          "en": "Meaning is model/firmware dependent and not published in available PEL sources",
+          "ur": "Meaning model/firmware par depend karti hai aur available PEL sources mein publish nahi"
+        },
+        {
+          "en": "Some shared-platform brands use FF for outdoor fan / system fault — unverified for PEL",
+          "ur": "Kuch shared-platform brands FF ko outdoor fan/system fault ke liye rakhte hain — PEL ke liye verify nahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off at breaker and note whether cooling/heating still runs",
+          "ur": "Breaker se power band karein aur dekhein ke cooling/heating chal rahi hai ya nahi"
+        },
+        {
+          "en": "Technician should read the model's service chart for FF — do not guess the fault",
+          "ur": "Technician model ki service chart se FF dekhe — fault andaza na lagayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "unknown",
+      "isFault": true,
+      "confidence": "low",
+      "source": {
+        "type": "forum",
+        "title": "Fixya — My pel inverter ac showing FF error after sometime (user report)",
+        "url": "https://www.fixya.com/support/t27117722-pel_inverter_ac_showing_ff_error_after",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F0",
+        "E5"
+      ],
+      "notes": {
+        "en": "Confidence low: code is highlighted as common on PEL (Electra Fix title + Fixya user report of a PEL unit showing FF), but no source states the meaning — app must show the 'verify on your model' badge.",
+        "ur": "Confidence low: code PEL par common batayi gayi hai (Electra Fix title + Fixya user report jisme PEL unit par FF tha), lekin koi source meaning nahi batata — app par 'verify on your model' badge dikhana zaroori hai."
+      }
+    }
+  ]
+}

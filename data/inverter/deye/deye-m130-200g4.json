@@ -1,0 +1,496 @@
+{
+  "schemaVersion": 1,
+  "brandId": "deye",
+  "series": {
+    "id": "deye-m130-200g4",
+    "name": "SUN-M130-200G4-EU-Q0 (grid-connected microinverter, LED blink reporting)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*M130-200G4*",
+      "SUN-M130G4*",
+      "SUN-M200G4*",
+      "*M(130-200)G4*"
+    ],
+    "notes": "Deye's microinverter line has NO numeric F/W fault table at all. The official Installation/User Manual V2.0.0 chapter 'Status Indications and Error Reporting' reports faults by RED LED BLINK COUNT, so the code identifiers below are KB-generated (LED-2, LED-3, LED-4 etc.) and are NOT Deye numbers — they must never be matched against a Deye F-table. The 2026 revision of the same manual (BManualSUN-M130-200G4-EU-Q0EU20260327en.pdf) is an Adobe Illustrator file with all text outlined, so it has no extractable text layer at all; this series therefore rests on the 2024 V2.0.0 manual, and older M130-200G3/G2 micro manuals were not filed."
+  },
+  "codes": [
+    {
+      "code": "LED-1",
+      "aliases": [
+        "LED-1",
+        "one short red blink at startup"
+      ],
+      "title": {
+        "en": "Startup OK (one red blink)",
+        "ur": "Startup theek (aik red blink)"
+      },
+      "meaning": {
+        "en": "About one minute after DC is first applied, one short red blink means the microinverter completed its startup sequence successfully.",
+        "ur": "DC pehli baar lagane ke taqreeb ek minute baad aik short red blink ka matlab hai ke microinverter ka startup sequence moheem se complete hua hai."
+      },
+      "causes": [
+        {
+          "en": "DC input was newly applied and the unit finished its self start-up routine.",
+          "ur": "DC input naya lagaya gaya aur unit ka apna start-up routine complete hua."
+        },
+        {
+          "en": "The unit was power-cycled and is re-synchronising with the grid.",
+          "ur": "Unit ka power cycle hua hai aur wo grid ke saath dobara sync ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the blue LED to start blinking — slow blue means producing small power, fast blue means producing big power.",
+          "ur": "Blue LED ke blink hune tak intezaar karein — slow blue ka matlab kam power, fast blue ka matlab zyada power."
+        },
+        {
+          "en": "If the blink never comes within two minutes, check the DC connector seating and the string Voc.",
+          "ur": "Agar do minute mein blink na aaye to DC connector ki seating aur string ki Voc check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "One short red blink about one minute after DC is first applied",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Photovoltaic Grid-connected Microinverter (Built-in WIFI-G4) Installation / User Manual, SUN-M(130-200)G4-EU-Q0, Ver 2.0.0",
+        "retrieved": "2026-09-26",
+        "url": "https://hqcdn.hqsmartcloud.com/deyeinverter/2024/06/22/instructions_sun-m130-200g4-eu-q0eu_240622_en.pdf"
+      }
+    },
+    {
+      "code": "LED-2",
+      "aliases": [
+        "LED-2",
+        "two or more short red blinks at startup"
+      ],
+      "title": {
+        "en": "Startup / setup failure (2+ red blinks)",
+        "ur": "Startup ya setup failure (2 ya zyada red blink)"
+      },
+      "meaning": {
+        "en": "Two or more short red blinks instead of one means the microinverter failed during its setup sequence after DC was first applied.",
+        "ur": "Aik ke bajaye do ya us se zyada short red blinks ka matlab hai ke DC pehli baar lagane ke baad microinverter setup sequence mein fail hua hai."
+      },
+      "causes": [
+        {
+          "en": "PV DC input voltage is outside the allowable range of the module string.",
+          "ur": "PV DC input voltage module string ki ijazat shuda range se bahar hai."
+        },
+        {
+          "en": "AC grid is missing or out of range when the unit attempts to start.",
+          "ur": "Start karte waqt AC grid mojood nahi ya range se bahar hai."
+        },
+        {
+          "en": "DC connector is not fully seated, or the module string is disconnected.",
+          "ur": "DC connector poora fit nahi hai ya module string disconnect hai."
+        },
+        {
+          "en": "The internal Wi-Fi module or the unit's own self test has failed.",
+          "ur": "Internal Wi-Fi module ya unit ka apna self test fail ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Never disconnect the DC connectors under load — cover the module with an opaque cover first, as the manual warns.",
+          "ur": "Load ke neeche DC connectors kabhi disconnect na karein — pehle module par opaque cover lagayein, jaise manual kahe."
+        },
+        {
+          "en": "Switch off the AC branch breaker, then disconnect AC, then DC, and measure the module string Voc.",
+          "ur": "AC branch breaker off karein, phir AC disconnect karein, phir DC, aur module string ki Voc naalein."
+        },
+        {
+          "en": "Compare the measured Voc with the allowable range in the manual's Technical Data section.",
+          "ur": "Naali hui Voc ko manual ke Technical Data section ki ijazat shuda range se compare karein."
+        },
+        {
+          "en": "Re-connect DC first, then AC, and watch for the startup blink sequence again.",
+          "ur": "Pehle DC dobara jodein, phir AC, aur startup blink sequence dobara dekhein."
+        },
+        {
+          "en": "If the multi-blink startup repeats with a good string, the unit is faulty — do not repair it in the field, call Deye technical support.",
+          "ur": "Achi string ke saath bhi multi-blink startup dohre to unit kharab hai, field par repair na karein, Deye technical support ko bulayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Two or more short red blinks at startup instead of one",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Photovoltaic Grid-connected Microinverter (Built-in WIFI-G4) Installation / User Manual, SUN-M(130-200)G4-EU-Q0, Ver 2.0.0",
+        "retrieved": "2026-09-26",
+        "url": "https://hqcdn.hqsmartcloud.com/deyeinverter/2024/06/22/instructions_sun-m130-200g4-eu-q0eu_240622_en.pdf"
+      }
+    },
+    {
+      "code": "LED-BLUE-SLOW",
+      "aliases": [
+        "LED-BLUE-SLOW",
+        "Flashing Slow Blue"
+      ],
+      "title": {
+        "en": "Producing small power (slow blue)",
+        "ur": "Kam power bana raha hai (slow blue)"
+      },
+      "meaning": {
+        "en": "The microinverter is working normally but is producing only a small amount of power, so the blue LED blinks slowly.",
+        "ur": "Microinverter theek kaam kar raha hai lekin sirf thora power bana raha hai, is liye blue LED dheere blink karta hai."
+      },
+      "causes": [
+        {
+          "en": "Low irradiance, e.g. dawn, dusk, cloud or partial shading on the module.",
+          "ur": "Kam roshni, jaise fajr, sham, baadal ya module par aadha parda."
+        },
+        {
+          "en": "Module string is operating far below its power band.",
+          "ur": "Module string apni power band se bahut neeche chal rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the app or website data and compare the DC power with the site irradiance.",
+          "ur": "App ya website ka data check karke DC power ko site ki roshni se compare karein."
+        },
+        {
+          "en": "If power is low only at certain hours, look for shading on the module from new construction, trees or dirt.",
+          "ur": "Agar sirf kuch ghanton mein power kam ho to nayi construction, darakht ya dhool ki wajah se module par parda dekhein."
+        },
+        {
+          "en": "Clean the module glass if it is dusty; shaded modules cannot be fixed electrically.",
+          "ur": "Module ka glass dhool se bhara ho to saaf karein; parde wale modules ko electrical tareeqe se theek nahi kiya ja sakta."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Blue LED flashing slowly",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Photovoltaic Grid-connected Microinverter (Built-in WIFI-G4) Installation / User Manual, SUN-M(130-200)G4-EU-Q0, Ver 2.0.0",
+        "retrieved": "2026-09-26",
+        "url": "https://hqcdn.hqsmartcloud.com/deyeinverter/2024/06/22/instructions_sun-m130-200g4-eu-q0eu_240622_en.pdf"
+      }
+    },
+    {
+      "code": "LED-BLUE-FAST",
+      "aliases": [
+        "LED-BLUE-FAST",
+        "Flashing Fast Blue"
+      ],
+      "title": {
+        "en": "Producing big power (fast blue)",
+        "ur": "Zyada power bana raha hai (fast blue)"
+      },
+      "meaning": {
+        "en": "The microinverter is producing a large amount of power, so the blue LED blinks fast. This is normal healthy operation.",
+        "ur": "Microinverter bohat zyada power bana raha hai, is liye blue LED tez blink karta hai. Ye normal aur sehat mand chalta hai."
+      },
+      "causes": [
+        {
+          "en": "Good irradiance and a healthy module string near its rated power.",
+          "ur": "Achi roshni aur healthy module string apni rated power ke qareeb."
+        },
+        {
+          "en": "Multiple microinverters on the same branch circuit, each producing its own share.",
+          "ur": "Aik hi branch circuit par multiple microinverters, har aik apna hissa bana raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm on the app or website that production matches the irradiance and the string's rated power.",
+          "ur": "App ya website par confirm karein ke production roshni aur string ki rated power ke mutabiq hai."
+        },
+        {
+          "en": "No action needed — this is the healthy running state.",
+          "ur": "Koi karam ki zaroorat nahi, ye healthy chalan ki halat hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Blue LED flashing fast",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Photovoltaic Grid-connected Microinverter (Built-in WIFI-G4) Installation / User Manual, SUN-M(130-200)G4-EU-Q0, Ver 2.0.0",
+        "retrieved": "2026-09-26",
+        "url": "https://hqcdn.hqsmartcloud.com/deyeinverter/2024/06/22/instructions_sun-m130-200g4-eu-q0eu_240622_en.pdf"
+      }
+    },
+    {
+      "code": "LED-RED",
+      "aliases": [
+        "LED-RED",
+        "Flashing Red"
+      ],
+      "title": {
+        "en": "Not producing power (red flashing)",
+        "ur": "Power nahi bana raha (red flashing)"
+      },
+      "meaning": {
+        "en": "A continuously flashing red LED with no counted pattern means the microinverter is not producing power.",
+        "ur": "Bina kisi pattern ke lafzon wala lafz chalta hua red LED ka matlab hai ke microinverter power nahi bana raha."
+      },
+      "causes": [
+        {
+          "en": "PV module DC voltage is outside the allowable range of the microinverter.",
+          "ur": "PV module ka DC voltage microinverter ki ijazat shuda range se bahar hai."
+        },
+        {
+          "en": "The AC branch circuit breaker is open, or the utility AC is absent.",
+          "ur": "AC branch circuit breaker khula hai ya utility AC mojood nahi hai."
+        },
+        {
+          "en": "The module string is disconnected or a DC connector is not seated.",
+          "ur": "Module string disconnect hai ya DC connector dheela baitha hai."
+        },
+        {
+          "en": "Grid voltage or frequency is out of the unit's operating window.",
+          "ur": "Grid voltage ya frequency unit ke operating window se bahar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn on the AC branch breaker, then the main utility AC breaker, and wait the one-minute grid delay.",
+          "ur": "AC branch breaker on karein, phir main utility AC breaker, aur ek minute ka grid delay intezaar karein."
+        },
+        {
+          "en": "Verify the utility voltage and frequency are within the ranges in the manual's Technical Data.",
+          "ur": "Confirm karein ke utility voltage aur frequency manual ke Technical Data ke range mein hain."
+        },
+        {
+          "en": "Check the connection to the utility grid: disconnect AC first, then DC, then measure grid voltage at the AC connector.",
+          "ur": "Utility grid se connection check karein: pehle AC disconnect karein, phir DC, phir AC connector par grid voltage naalein."
+        },
+        {
+          "en": "Check the DC connection between the microinverter and the PV module, with the AC branch breaker off.",
+          "ur": "AC branch breaker off karke microinverter aur PV module ke darmiyan DC connection check karein."
+        },
+        {
+          "en": "Make sure every AC breaker in the branch circuit is functioning properly and closed, then contact Deye technical support if it still will not run.",
+          "ur": "Check karein ke branch circuit ka har AC breaker theek aur band hua hai; phir bhi na chale to Deye technical support se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Red LED flashing continuously (not in a counted pattern)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Photovoltaic Grid-connected Microinverter (Built-in WIFI-G4) Installation / User Manual, SUN-M(130-200)G4-EU-Q0, Ver 2.0.0",
+        "retrieved": "2026-09-26",
+        "url": "https://hqcdn.hqsmartcloud.com/deyeinverter/2024/06/22/instructions_sun-m130-200g4-eu-q0eu_240622_en.pdf"
+      }
+    },
+    {
+      "code": "LED-2RED",
+      "aliases": [
+        "LED-2RED",
+        "Red blinking two times"
+      ],
+      "title": {
+        "en": "AC low voltage or high voltage (2 red blinks)",
+        "ur": "AC low voltage ya high voltage (2 red blink)"
+      },
+      "meaning": {
+        "en": "Two red blinks means the microinverter has measured AC grid voltage that is too low or too high, so it stops producing.",
+        "ur": "Do red blinks ka matlab hai ke microinverter ne AC grid voltage bohat kam ya bohat zyada naali hai, is liye wo power banana chhor deta hai."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage is genuinely low or high at the site.",
+          "ur": "Site par grid voltage waqai kam ya zyada hai."
+        },
+        {
+          "en": "Long or thin AC branch cable from the meter to the microinverter is dropping voltage.",
+          "ur": "Meter se microinverter tak lamba ya patla AC branch cable voltage gira raha hai."
+        },
+        {
+          "en": "A heavy load on the same branch circuit is pulling the voltage down at startup.",
+          "ur": "Aik hi branch circuit par bhaara load startup par voltage neeche gira raha hai."
+        },
+        {
+          "en": "AC connector on the microinverter is loose, or the branch breaker is only partly on.",
+          "ur": "Microinverter ka AC connector loose hai ya branch breaker aadha band hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the AC voltage at the microinverter AC connector and at the meter with a true-RMS meter.",
+          "ur": "True-RMS meter se microinverter ke AC connector aur meter dono par AC voltage naalein."
+        },
+        {
+          "en": "Compare with the utility voltage range in the manual's Technical Data section.",
+          "ur": "Manual ke Technical Data section ki utility voltage range se compare karein."
+        },
+        {
+          "en": "If voltage is only low at the connector, shorten or upsize the AC branch cable and re-tighten the AC connector.",
+          "ur": "Agar sirf connector par voltage kam ho to AC branch cable chhoti ya moti karein aur AC connector dobara tighten karein."
+        },
+        {
+          "en": "Stagger the large loads on that branch circuit so they do not all start together.",
+          "ur": "Us branch circuit ke bhaare loads ko alag alag start karayein taake sath na chalu hon."
+        },
+        {
+          "en": "Confirm the utility voltage with the utility before sending the unit for repair; a healthy unit is often just fighting a bad supply.",
+          "ur": "Unit bhejne se pehle utility se voltage confirm karein; aksar healthy unit bas buri supply ke saath lad rahi hoti hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Red LED blinking two times, repeating",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Photovoltaic Grid-connected Microinverter (Built-in WIFI-G4) Installation / User Manual, SUN-M(130-200)G4-EU-Q0, Ver 2.0.0",
+        "retrieved": "2026-09-26",
+        "url": "https://hqcdn.hqsmartcloud.com/deyeinverter/2024/06/22/instructions_sun-m130-200g4-eu-q0eu_240622_en.pdf"
+      }
+    },
+    {
+      "code": "LED-3RED",
+      "aliases": [
+        "LED-3RED",
+        "Red blinking three times"
+      ],
+      "title": {
+        "en": "Grid failure / no AC available (3 red blinks)",
+        "ur": "Grid failure ya AC mojood nahi (3 red blink)"
+      },
+      "meaning": {
+        "en": "Three quick red blinks repeating about every second means the microinverter has no usable AC, which is the same indication the manual gives when DC is plugged in before AC exists.",
+        "ur": "Har second teqreeban dohrate teen quick red blinks ka matlab hai ke microinverter ke paas usable AC nahi hai, aur DC pehle lagane par AC na hone ke waqt bhi yehi indication manual mein diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "The main utility grid is off, or the utility AC breaker is off.",
+          "ur": "Main utility grid band hai ya utility AC breaker band hai."
+        },
+        {
+          "en": "The AC branch circuit breaker for this microinverter is open.",
+          "ur": "Is microinverter ka AC branch circuit breaker khula hai."
+        },
+        {
+          "en": "The AC branch interconnection between microinverters has a break in one position.",
+          "ur": "Microinverters ke darmiyan AC branch interconnection mein kisi position par break hai."
+        },
+        {
+          "en": "An upstream breaker or the utility service has tripped on this branch.",
+          "ur": "Koi up-stream breaker ya is branch par utility service trip hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the main utility breaker, then each AC branch breaker along the string, one at a time.",
+          "ur": "Pehle main utility breaker check karein, phir string ke har AC branch breaker ko ek ek karke."
+        },
+        {
+          "en": "Verify the grid voltage can be measured at the AC connector with DC fully disconnected.",
+          "ur": "DC poori tarah disconnect karke confirm karein ke AC connector par grid voltage naali ja sakti hai."
+        },
+        {
+          "en": "Check the AC branch circuit interconnection between all the microinverters, and verify each is energised.",
+          "ur": "Sab microinverters ke darmiyan AC branch circuit interconnection check karein aur confirm karein ke har aik energised hai."
+        },
+        {
+          "en": "If the utility is off, wait for supply to return; the unit will start by itself and blink blue.",
+          "ur": "Grid band ho to supply aane ka intezaar karein; unit khud start hokar blue blink karegi."
+        },
+        {
+          "en": "Grid present but the unit stays on 3 red blinks: check every AC connector and the branch breaker rating for the number of units.",
+          "ur": "Grid mojood ho phir bhi unit 3 red blink par atki ho to har AC connector aur branch breaker ki rating units ki tadaad ke liye check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Red LED blinking three times quickly, repeating every second",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Photovoltaic Grid-connected Microinverter (Built-in WIFI-G4) Installation / User Manual, SUN-M(130-200)G4-EU-Q0, Ver 2.0.0",
+        "retrieved": "2026-09-26",
+        "url": "https://hqcdn.hqsmartcloud.com/deyeinverter/2024/06/22/instructions_sun-m130-200g4-eu-q0eu_240622_en.pdf"
+      }
+    },
+    {
+      "code": "LED-4RED",
+      "aliases": [
+        "LED-4RED",
+        "Red blinking four times",
+        "GFDI Error"
+      ],
+      "title": {
+        "en": "GFDI ground fault error (4 red blinks)",
+        "ur": "GFDI ground fault error (4 red blink)"
+      },
+      "meaning": {
+        "en": "Four red blinks means the microinverter has detected a Ground Fault Detector Interrupter (GFDI) error in the PV system and will keep blinking until it is cleared.",
+        "ur": "Chaar red blinks ka matlab hai ke microinverter ne PV system mein Ground Fault Detector Interrupter (GFDI) error detect kiya hai aur clear hone tak blink karta rahega."
+      },
+      "causes": [
+        {
+          "en": "Insulation breakdown between the module frame or a connector and earth.",
+          "ur": "Module frame ya connector aur earth ke darmiyan insulation ki barafak."
+        },
+        {
+          "en": "Water or dirt inside a DC connector, or a damaged module laminate.",
+          "ur": "DC connector mein paani ya dhool, ya module ka laminate kharab."
+        },
+        {
+          "en": "PV string shorted to the mounting rail or the earthed array frame.",
+          "ur": "PV string mounting rail ya earthed array frame par short ho gayi."
+        },
+        {
+          "en": "Rodent damage to the module or cable insulation after dark (rodent mode is a normal microinverter feature that can leave real damage).",
+          "ur": "Andheray ke baad chuhe ne module ya cable ki insulation kharab kar di ho — rodent mode aik normal feature hai lekin asal nuqsan bhi chhor sakta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the AC branch breaker and cover the module with an opaque cover before touching any DC connector.",
+          "ur": "AC branch breaker off karein aur koi bhi DC connector chhune se pehle module par opaque cover lagayein."
+        },
+        {
+          "en": "Disconnect AC first, then DC, and never pull a DC connector while current is flowing.",
+          "ur": "Pehle AC disconnect karein, phir DC, aur current flow hote hue DC connector kabhi na nikalein."
+        },
+        {
+          "en": "Open every DC connector and check for water, dirt, green corrosion or a loose contact.",
+          "ur": "Har DC connector khol ke paani, dhool, hari zang ya loose contact check karein."
+        },
+        {
+          "en": "With DC isolated, insulation-test the module string and compare with the module datasheet; never test with the microinverter connected.",
+          "ur": "DC isolate karke module string ka insulation test karein aur module datasheet se compare karein; microinverter jude hue halat mein test na karein."
+        },
+        {
+          "en": "Replace the damaged connector, cable or module, then re-close the AC breaker and confirm the blink pattern clears.",
+          "ur": "Kharab connector, cable ya module replace karein, phir AC breaker wapas on karke confirm karein ke blink pattern clear ho gaya."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Red LED blinking four times, repeating until cleared",
+      "confidence": "high",
+      "notes": {
+        "en": "The manual says the GFDI error must be cleared before the LED stops blinking, and that all other faults are to be reported through the website or app.",
+        "ur": "Manual kehta hai ke GFDI error clear hone tak LED blink karta rehta hai, aur baqi sab faults website ya app se report karne hote hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Deye Photovoltaic Grid-connected Microinverter (Built-in WIFI-G4) Installation / User Manual, SUN-M(130-200)G4-EU-Q0, Ver 2.0.0",
+        "retrieved": "2026-09-26",
+        "url": "https://hqcdn.hqsmartcloud.com/deyeinverter/2024/06/22/instructions_sun-m130-200g4-eu-q0eu_240622_en.pdf"
+      }
+    }
+  ]
+}

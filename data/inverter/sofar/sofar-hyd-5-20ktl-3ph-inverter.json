@@ -1,0 +1,841 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sofar",
+  "series": {
+    "id": "sofar-hyd-5-20ktl-3ph-inverter",
+    "name": "HYD 5K...20KTL-3PH (three-phase hybrid 5-20 kW, PV + battery + EPS)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*HYD*5KTL-3PH*",
+      "*HYD*6KTL-3PH*",
+      "*HYD*8KTL-3PH*",
+      "*HYD*10KTL-3PH*",
+      "*HYD*15KTL-3PH*",
+      "*HYD*20KTL-3PH*"
+    ],
+    "notes": "Manual section 8.2.1 'Inverter error list' only - the battery-side rows live in SERIES 6. This is the only table that carries EPS-specific permanent faults (ID133 PermEPSBatOCP) and generator/parallel rows. Codes shared numerically with KTLX-G3P/ME/G4 have DIFFERENT names and solutions here (e.g. ID013 here is 'RefluxFault / Feed-in Limit function is faulty', ID038 'InvSoftStartFail / Inverter failed to output'). Range rows are recorded as published: ID009-010, ID050-055, ID057-058, ID059-061, ID110-112, ID157-160, ID169-175, ID401-402."
+  },
+  "codes": [
+    {
+      "code": "ID001",
+      "aliases": [
+        "ID001",
+        "GridOVP"
+      ],
+      "title": {
+        "en": "Grid overvoltage (ID001)",
+        "ur": "Grid over voltage - zyada (ID001)"
+      },
+      "meaning": {
+        "en": "Grid voltage above the trip window. The manual splits behaviour: occasional alarms are grid wobble and self-clear, frequent alarms mean check the AC breaker and AC wiring.",
+        "ur": "Grid voltage trip window se upar hai. Manual do surat ka hal batata hai: occasional alarm grid ki hilne se hai aur khud clear hota hai, frequent alarm ka matlab AC breaker aur AC wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "Occasional grid abnormality - the manual's first explanation.",
+          "ur": "Occasional grid abnormality - manual ki pehli waja."
+        },
+        {
+          "en": "AC circuit breaker or AC wiring fault when the alarm is frequent.",
+          "ur": "AC circuit breaker ya AC wiring ki ghalti jab alarm frequent ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage and frequency with a multimeter at the AC terminal and log the readings.",
+          "ur": "AC terminal par multimeter se grid voltage aur frequency measure kar ke readings note karein."
+        },
+        {
+          "en": "If readings are within range, check the AC circuit breaker and the AC wiring of the inverter as the manual directs.",
+          "ur": "Agar readings range mein hain to manual ke mutabiq AC circuit breaker aur inverter ki AC wiring check karein."
+        },
+        {
+          "en": "If readings are out of range AND wiring is correct, contact support to move the protection points with the grid operator's written approval.",
+          "ur": "Agar readings range se bahar hain AUR wiring theek hai to grid operator ki written approval se protection points change karwane ke liye support se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID005",
+      "aliases": [
+        "ID005",
+        "GFCI",
+        "Charge Leakage Fault"
+      ],
+      "title": {
+        "en": "Charge leakage fault (ID005)",
+        "ur": "Charge leakage fault - leakage current limit cross kar gaya (ID005)"
+      },
+      "meaning": {
+        "en": "Leakage current exceeded the limit and the inverter stopped. The manual's stated action for this row is unusually short: 'Check for inverter and wiring.'",
+        "ur": "Leakage current limit cross kar gaya aur inverter ruk gaya. Is row ka manual ka action chhota hai: 'Check for inverter and wiring.'"
+      },
+      "causes": [
+        {
+          "en": "PV array insulation breakdown or a wet connector causing earth leakage.",
+          "ur": "PV array ki insulation kharab ya geela connector, jis se earth leakage ho raha hai."
+        },
+        {
+          "en": "Internal inverter leakage on the DC or AC side.",
+          "ur": "DC ya AC side par inverter ka internal leakage."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off DC switch and AC breaker, wait 5 minutes, then megger each PV string to earth at 1000 V.",
+          "ur": "DC switch aur AC breaker off karke 5 minute wait karke har PV string ka earth ke saath 1000 V par megger lagayein."
+        },
+        {
+          "en": "Check the AC and battery wiring for insulation damage and moisture as the manual asks.",
+          "ur": "Manual ke mutabiq AC aur battery wiring ki insulation damage aur moisture check karein."
+        },
+        {
+          "en": "If strings and wiring are clean, isolate the battery and retest to tell a PV leak from an internal one.",
+          "ur": "Agar strings aur wiring saaf hain to battery isolate kar ke dobara test karein takay PV leak aur internal leak alag ho sakein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID008",
+      "aliases": [
+        "ID008",
+        "IslandFault"
+      ],
+      "title": {
+        "en": "Island protection fault (ID008)",
+        "ur": "Island protection fault - grid chala gaya (ID008)"
+      },
+      "meaning": {
+        "en": "Grid lost while exporting, so the inverter locked out. This is a correct protective action; the manual's remedy is the same grid-check routine as ID001-ID004.",
+        "ur": "Export karte hue grid chala gaya, is liye inverter lock out ho gaya. Yeh ek sahi protective action hai; manual ka hal ID001-ID004 wala grid check hi hai."
+      },
+      "causes": [
+        {
+          "en": "Real grid outage - utility breaker, transformer fuse or a local fault.",
+          "ur": "Asli grid outage - utility breaker, transformer fuse ya local fault."
+        },
+        {
+          "en": "AC contact dropout from a loose breaker or chattering supply.",
+          "ur": "Loose breaker ya supply chatter ki wajah se AC contact ka gap."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the outage at the utility breaker and at the site AC isolator before touching the inverter.",
+          "ur": "Inverter chhoone se pehle utility breaker aur site AC isolator par outage confirm karein."
+        },
+        {
+          "en": "Once the grid is stable, restore the AC breaker first, then the DC switch, and watch the LCD restart.",
+          "ur": "Grid stable hone ke baad pehle AC breaker aur phir DC switch on karein aur LCD restart dekhein."
+        },
+        {
+          "en": "If it trips on a healthy grid, have the AC wiring and CT/meter configuration reviewed by the installer.",
+          "ur": "Agar healthy grid par trip ho to AC wiring aur CT/meter configuration installer se check karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID027",
+      "aliases": [
+        "ID027",
+        "PVLowImpedance"
+      ],
+      "title": {
+        "en": "PV low ground impedance (ID027)",
+        "ur": "PV low ground impedance - PV ka ground impedance kam (ID027)"
+      },
+      "meaning": {
+        "en": "The PV array presented low impedance to ground, so the inverter stopped. This is the hybrid-specific PV insulation row and appears only on this table.",
+        "ur": "PV array ne ground ke saath kam impedance dikhaya, is liye inverter ruk gaya. Yeh hybrid ka apna PV insulation row hai aur sirf is table par hai."
+      },
+      "causes": [
+        {
+          "en": "Moisture ingress on modules, connectors or the combiner box.",
+          "ur": "Modules, connectors ya combiner box mein moisture andar jaana."
+        },
+        {
+          "en": "Cable damaged by UV, heat or rodents causing leakage to earth.",
+          "ur": "UV, garmi ya chuha se cable damage, jis se earth mein leakage."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC switch and AC breaker, wait 5 minutes, then measure insulation between the PV array and ground.",
+          "ur": "DC switch aur AC breaker open karke 5 minute wait karke PV array aur ground ke darmiyan insulation measure karein."
+        },
+        {
+          "en": "If there is a short circuit, the manual says repair it in time - isolate strings one by one to find it.",
+          "ur": "Agar short circuit hai to manual ke mutabiq jaldi theek karein - strings ek ek karke isolate kar ke dhoondhein."
+        },
+        {
+          "en": "Replace the wet or damaged part and re-measure before re-energising; never leave a low-impedance PV array live.",
+          "ur": "Geela ya damaged hissa replace karke dobara measure karein, phir current dein; low-impedance PV array ko live na chhodein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID032",
+      "aliases": [
+        "ID032",
+        "N-PE fault",
+        "Neutral ground fault"
+      ],
+      "title": {
+        "en": "Neutral-earth fault (ID032)",
+        "ur": "Neutral-earth fault - neutral aur earth ke darmiyan fault (ID032)"
+      },
+      "meaning": {
+        "en": "A fault between neutral and protective earth was detected. This is a wiring fault on the three-phase system and a fire risk, not a soft alarm.",
+        "ur": "Neutral aur protective earth ke darmiyan fault mila. Yeh teen phase system par wiring ki ghalti hai aur aag ka khatra hai, halki sa alarm nahi."
+      },
+      "causes": [
+        {
+          "en": "Neutral and earth bonded at a point the inverter does not expect, or neutral swapped with PE.",
+          "ur": "Neutral aur earth aise point par bond ho gaye jo inverter expect nahi karta, ya neutral aur PE swap ho gaye."
+        },
+        {
+          "en": "Neutral conductor broken inside the AC panel so the inverter sees an N-PE offset.",
+          "ur": "AC panel ke andar neutral conductor kat gaya, is liye inverter ko N-PE offset nazar aaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC breaker and remove the inverter from the panel before touching neutral or earth bars.",
+          "ur": "AC breaker off karke neutral ya earth bar chhoone se pehle inverter ko panel se nikaalein."
+        },
+        {
+          "en": "Measure continuity between neutral and PE at the inverter AC terminal; it must not be a low-resistance path.",
+          "ur": "Inverter AC terminal par neutral aur PE ke darmiyan continuity measure karein; ye low-resistance path na ho."
+        },
+        {
+          "en": "Verify the neutral-earth bonding arrangement matches the site design, and check every neutral lug for tightness.",
+          "ur": "Confirm karein ke neutral-earth bonding site design ke mutabiq hai, aur har neutral lug ki tightness check karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID041",
+      "aliases": [
+        "ID041",
+        "RelayFail",
+        "Relay detection failure"
+      ],
+      "title": {
+        "en": "Relay detection failure (ID041)",
+        "ur": "Relay detection failure - relay ka self-test fail (ID041)"
+      },
+      "meaning": {
+        "en": "The inverter's relay self-check failed so it will not tie in to the grid. Manual remedy: internal fault, switch off, wait 5 minutes, switch on, then check.",
+        "ur": "Inverter ka relay self-check fail ho gaya is liye woh grid se tie nahi hoga. Manual ka hal: internal fault, off karein, 5 minute wait, on karein, phir check karein."
+      },
+      "causes": [
+        {
+          "en": "Output relay contacts welded or coil damaged from a previous overcurrent event.",
+          "ur": "Pehle ke overcurrent event se output relay ke contacts juce hue ya coil kharab."
+        },
+        {
+          "en": "Relay drive or detection circuit faulty on the control board.",
+          "ur": "Control board par relay drive ya detection circuit kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the inverter OFF, wait 5 minutes, then switch it ON and check whether the problem is solved.",
+          "ur": "Inverter OFF karein, 5 minute wait karein, phir ON karke dekhein ke masla hal hua ya nahi."
+        },
+        {
+          "en": "With power off, re-seat the relay connector and inspect for socket pins pushed back or burnt.",
+          "ur": "Power off karke relay connector dobara baithayein aur piche dhakle ya jale pins dekhein."
+        },
+        {
+          "en": "If it fails on every restart, the relay module needs replacement through a SOFAR service centre.",
+          "ur": "Agar har restart par fail ho to relay module SOFAR service centre se replace karwana hoga."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID043",
+      "aliases": [
+        "ID043",
+        "PEConnectFault",
+        "Earth fault"
+      ],
+      "title": {
+        "en": "PE conductor / earth fault (ID043)",
+        "ur": "PE conductor / earth fault - earth conductor mein ghalti (ID043)"
+      },
+      "meaning": {
+        "en": "The earth-fault alarm fired. Manual action: check the PE conductor for function.",
+        "ur": "Earth-fault alarm chala. Manual ka action: PE conductor ka function check karein."
+      },
+      "causes": [
+        {
+          "en": "PE conductor disconnected, loose or corroded at the earth bar or inverter stud.",
+          "ur": "PE conductor earth bar ya inverter stud par disconnect, loose ya corroded."
+        },
+        {
+          "en": "Real earth leakage in the PV array presenting as an earth fault at the inverter.",
+          "ur": "PV array mein asal earth leakage jo inverter par earth-fault ki surat mein aata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off DC switch and AC breaker, then inspect the PE stud and ring lug for tightness and corrosion.",
+          "ur": "DC switch aur AC breaker off karke PE stud aur ring lug ki tightness aur corrosion check karein."
+        },
+        {
+          "en": "Measure PE continuity from the inverter to the site earth bar with a low-ohm meter; expect near zero.",
+          "ur": "Low-ohm meter se inverter se site earth bar tak PE continuity measure karein; reading zero ke qareeb honi chahiye."
+        },
+        {
+          "en": "If PE is healthy, megger the PV array to earth - the leakage is on the DC side, not the earth conductor.",
+          "ur": "Agar PE theek hai to PV array ko earth ke saath megger lagayein - leakage DC side par hai, earth conductor par nahi."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID046",
+      "aliases": [
+        "ID046",
+        "ReversalConnect"
+      ],
+      "title": {
+        "en": "Battery connected in reverse (ID046)",
+        "ur": "Battery reverse mein juri hui (ID046)"
+      },
+      "meaning": {
+        "en": "The battery is wired backwards into the BAT terminals. Manual action: check whether the battery wiring is correct.",
+        "ur": "Battery BAT terminals mein ulti polarity se juri hai. Manual ka action: check karein ke battery wiring sahi hai ya nahi."
+      },
+      "causes": [
+        {
+          "en": "BAT+ and BAT- swapped at the inverter connector or at the battery end.",
+          "ur": "Inverter connector ya battery side par BAT+ aur BAT- swap ho gaye."
+        },
+        {
+          "en": "Reverse-polarity battery installed with a keyed connector fitted the wrong way round.",
+          "ur": "Aisi battery lagi jaye jis ka keyed connector ulti taraf baith jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the DC switch and AC breaker and isolate the battery before touching any battery cable.",
+          "ur": "DC switch aur AC breaker off karke battery cable chhoone se pehle battery isolate karein."
+        },
+        {
+          "en": "Measure battery DC voltage at the inverter BAT terminals with a multimeter; correct polarity reads positive at BAT+.",
+          "ur": "Multimeter se inverter BAT terminals par battery DC voltage check karein; sahi polarity par BAT+ par positive reading aati hai."
+        },
+        {
+          "en": "If reversed, power down fully, re-terminate with correct polarity and re-torque the lugs before reconnecting.",
+          "ur": "Agar reverse hai to poori tarah power down karke sahi polarity par dobara terminate karein aur reconnect se pehle lugs tighten karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID049",
+      "aliases": [
+        "ID049",
+        "TempErrBat",
+        "Battery temperature error"
+      ],
+      "title": {
+        "en": "Battery temperature error (ID049)",
+        "ur": "Battery temperature error - battery ka NTC temperature galat (ID049)"
+      },
+      "meaning": {
+        "en": "The battery temperature sensor reported out-of-range, so the inverter stopped charging/discharging the battery. Manual emphasises the battery NTC cable.",
+        "ur": "Battery temperature sensor ne range se bahar value di, is liye inverter ne battery ka charge/discharge band kar diya. Manual battery NTC cable par zor deta hai."
+      },
+      "causes": [
+        {
+          "en": "Inner-BMS battery NTC cable not properly connected at the inverter COM port.",
+          "ur": "Inner-BMS battery ka NTC cable inverter COM port par theek se connected nahi."
+        },
+        {
+          "en": "Inverter installed in direct sunlight or a hot, poorly ventilated enclosure.",
+          "ur": "Inverter direct sunlight mein ya garm, kam ventilated enclosure mein lage hai."
+        },
+        {
+          "en": "Ambient temperature above the inverter limit with a genuinely hot battery.",
+          "ur": "Ambient temperature inverter limit se upar aur battery sach mein garm ho gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and confirm the battery NTC cable is seated in the COM port, then reseat the connector firmly.",
+          "ur": "Power off karke confirm karein ke battery NTC cable COM port mein baithi hai, phir connector mazbooti se dobara lagayein."
+        },
+        {
+          "en": "Check where the inverter is mounted - remove direct sun and improve ventilation in the enclosure.",
+          "ur": "Dekhein ke inverter kahan lage hai - direct sun hataayein aur enclosure mein ventilation behtar karein."
+        },
+        {
+          "en": "Read the battery temperature on the LCD; if it is genuinely high, let the battery cool before charging again.",
+          "ur": "LCD par battery temperature padhein; agar sach mein zyada hai to dobara charge se pehle battery thandi hone dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID105",
+      "aliases": [
+        "ID105",
+        "MeterCommFault",
+        "Communication fault with meter unit"
+      ],
+      "title": {
+        "en": "Meter communication fault (ID105)",
+        "ur": "Meter communication fault - meter unit se baat nahi ho rahi (ID105)"
+      },
+      "meaning": {
+        "en": "The inverter cannot talk to the meter unit, so export limiting and monitoring data are lost. Manual action: check communication to meter.",
+        "ur": "Inverter meter unit se baat nahi kar pa raha, is liye export limiting aur monitoring data chala gaya. Manual ka action: meter se communication check karein."
+      },
+      "causes": [
+        {
+          "en": "RS485 A/B swapped or the meter lead not seated in the COM port.",
+          "ur": "RS485 A/B swap ya meter lead COM port mein baithi hi nahi."
+        },
+        {
+          "en": "Meter modbus address duplicated with another device on the RS485 bus.",
+          "ur": "Meter ka modbus address RS485 bus par kisi aur device se duplicate."
+        },
+        {
+          "en": "Meter powered off, or a blown fuse in the meter supply.",
+          "ur": "Meter power off, ya meter supply ka fuse uthha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and check meter RS485 A and B pairing at both the meter and the inverter end.",
+          "ur": "Power off karke meter aur inverter dono taraf RS485 A aur B ki pairing check karein."
+        },
+        {
+          "en": "Set a unique modbus address for the meter from the inverter LCD menu and confirm it is powered.",
+          "ur": "Inverter LCD menu se meter ka unique modbus address set karein aur confirm karein ke us mein power hai."
+        },
+        {
+          "en": "Re-power the meter, then confirm it shows online in the SOFAR monitoring app before changing anything else.",
+          "ur": "Meter ko dobara power dein, phir confirm karein ke SOFAR monitoring app mein online dikh raha hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID125",
+      "aliases": [
+        "ID125",
+        "BatLowVoltShut",
+        "No battery protection shut"
+      ],
+      "title": {
+        "en": "Battery low - shutdown protection (ID125)",
+        "ur": "Battery low - shutdown protection - battery voltage gir gaya (ID125)"
+      },
+      "meaning": {
+        "en": "Battery voltage fell to the shutdown threshold, so the inverter stopped discharging to protect the battery. Manual action: check if the battery voltage is too low.",
+        "ur": "Battery voltage shutdown threshold tak gir gaya, is liye inverter ne battery bachane ke liye discharge band kar diya. Manual ka action: check karein ke battery voltage kam to nahi."
+      },
+      "causes": [
+        {
+          "en": "Battery genuinely discharged below its depth-of-discharge limit overnight.",
+          "ur": "Battery raat bhar mein sach mein apni depth-of-discharge limit se neeche discharge ho gaya."
+        },
+        {
+          "en": "PV generation insufficient for the load plus battery charging, so SOC never recovered.",
+          "ur": "PV generation load aur battery charging ke liye kam thi, is liye SOC wapas nahi aaya."
+        },
+        {
+          "en": "Battery cell imbalance or an aged pack reporting a falsely low pack voltage.",
+          "ur": "Battery cell imbalance ya aging pack ki taraf se galat low pack voltage."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the battery voltage and SOC on the LCD and confirm the actual pack voltage with a multimeter at the BAT terminals.",
+          "ur": "LCD par battery voltage aur SOC padhein aur BAT terminals par multimeter se actual pack voltage confirm karein."
+        },
+        {
+          "en": "Check whether PV output exceeded the load for the day; if not, add array capacity or reduce the load.",
+          "ur": "Check karein ke kya din bhar PV output load se zyada raha; agar nahi to array capacity barhayein ya load kam karein."
+        },
+        {
+          "en": "If the pack is healthy but voltage reads falsely low, have the BMS calibration and cell balance checked.",
+          "ur": "Agar pack theek hai magar voltage galat kam parha ja raha hai to BMS calibration aur cell balance check karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID133",
+      "aliases": [
+        "ID133",
+        "PermEPSBatOCP",
+        "Permanent EPS battery overcurrent"
+      ],
+      "title": {
+        "en": "Permanent EPS battery overcurrent (ID133)",
+        "ur": "Permanent EPS battery overcurrent - backup mein battery ka overcurrent (ID133)"
+      },
+      "meaning": {
+        "en": "During EPS (backup) mode the battery overcurrent protection latched into an unrecoverable state. This row is unique to the HYD hybrid table - no on-grid model has an EPS battery path.",
+        "ur": "EPS (backup) mode mein battery overcurrent protection permanent state mein chala gaya. Yeh row sirf HYD hybrid table par hai - kisi on-grid model mein EPS battery path nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Backup load switched on far above inverter EPS rating - a big AC or pump start on transfer.",
+          "ur": "Backup load inverter EPS rating se kaafi upar switch ho gaya - transfer par bara AC ya pump start."
+        },
+        {
+          "en": "Inrush from motors or compressors on the backup panel exceeding the battery discharge limit.",
+          "ur": "Backup panel par motor ya compressor ka inrush battery discharge limit se zyada."
+        },
+        {
+          "en": "Battery or BMS fault causing a short-like current draw.",
+          "ur": "Battery ya BMS ki ghalti jis se short jaisa current draw ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the backup panel and measure its total current with a clamp meter before re-energising the inverter.",
+          "ur": "Backup panel isolate karke dobara current dene se pehle clamp meter se us ka kul current measure karein."
+        },
+        {
+          "en": "Compare the measured EPS load with the inverter's EPS output rating on the datasheet; move large loads to the grid side.",
+          "ur": "Measured EPS load ko datasheet par inverter ke EPS output rating se compare karein; bade loads grid side mein shift karein."
+        },
+        {
+          "en": "Because this is a permanent fault, log the event and raise it as a service case - it will not clear on its own.",
+          "ur": "Kyunke ye permanent fault hai, event note karke service case banayein - ye khud clear nahi hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID157-160",
+      "aliases": [
+        "ID157-160",
+        "BMS1-4CommFault",
+        "Lithium battery communication error"
+      ],
+      "title": {
+        "en": "Lithium battery BMS 1-4 communication error (ID157-160)",
+        "ur": "Lithium battery BMS 1-4 communication error - BMS se baat nahi (ID157-160)"
+      },
+      "meaning": {
+        "en": "Communication between the inverter and the internal BMS of lithium battery 1, 2, 3 or 4 failed. Published as one range row covering ID157 to ID160.",
+        "ur": "Inverter aur lithium battery ke internal BMS (battery 1, 2, 3 ya 4) ke darmiyan communication fail ho gaya. Yeh ID157 se ID160 tak ek hi range row ke tor par published hai."
+      },
+      "causes": [
+        {
+          "en": "Battery not compatible with the inverter, so the BMS protocol does not match.",
+          "ur": "Battery inverter ke saath compatible nahi, is liye BMS protocol match nahi karta."
+        },
+        {
+          "en": "CAN communication cable loose, unseated, or using the wrong pinout.",
+          "ur": "CAN communication cable loose, unseated, ya galat pinout wala."
+        },
+        {
+          "en": "CAN bus not terminated, or several batteries with duplicate addresses on one bus.",
+          "ur": "CAN bus terminated nahi, ya ek bus par kai batteries ke duplicate address."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the battery model is on the inverter's compatibility list before anything else.",
+          "ur": "Sab se pehle confirm karein ke battery model inverter ki compatibility list mein hai."
+        },
+        {
+          "en": "Power off and reseat the CAN communication cable at both the battery and inverter ends; verify the pin assignment.",
+          "ur": "Power off karke CAN communication cable battery aur inverter dono taraf se dobara baithayein; pin assignment verify karein."
+        },
+        {
+          "en": "If multiple batteries are chained, check termination and that each has a unique CAN address, then power up one battery at a time.",
+          "ur": "Agar kai batteries chained hain to termination check karein aur har ek ka CAN address unique ho, phir ek ek battery power up karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID169-175",
+      "aliases": [
+        "ID169-175",
+        "FanFault1-7",
+        "Fan 1-7 fault"
+      ],
+      "title": {
+        "en": "Cooling fan 1-7 fault (ID169-175)",
+        "ur": "Cooling fan 1-7 fault - koi fan chalu nahi (ID169-175)"
+      },
+      "meaning": {
+        "en": "One or more of the seven internal cooling fans has failed. Published as a single range row ID169 to ID175. Manual action: check if the corresponding fan is running normally.",
+        "ur": "Saat internal cooling fans mein se ek ya zyada kharab ho gaya hai. Yeh ek hi range row ID169 se ID175 tak hai. Manual ka action: check karein ke corresponding fan normal chal raha hai ya nahi."
+      },
+      "causes": [
+        {
+          "en": "Dust-packed fan blades blocking rotation.",
+          "ur": "Fan blades par dhool ki parat jo rotation rok rahi hai."
+        },
+        {
+          "en": "Fan motor bearing worn or the fan cable connector come loose from the baseboard.",
+          "ur": "Fan motor ka bearing ghis gaya ya fan cable connector baseboard se nikal gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off DC switch and AC breaker, then use a tissue strip at each vent to identify which fan has stopped.",
+          "ur": "DC switch aur AC breaker off karke har vent par tissue rakh kar pehchan ke kaun sa fan ruka hua hai."
+        },
+        {
+          "en": "Remove the fan, unplug its terminal, clean the blades with a soft brush and re-check free rotation by hand.",
+          "ur": "Fan nikaalein, us ka terminal nikaalein, blades soft brush se saaf karein aur haath se dobara check karein ke blades azaad ghoomte hain ya nahi."
+        },
+        {
+          "en": "If it does not spin freely after cleaning, replace the fan - a stopped fan leads to ID050-ID055 heatsink over-temperature.",
+          "ur": "Agar saaf karne ke baad bhi azaadi se na ghoome to fan replace karein - ruka hua fan ID050-ID055 heatsink over-temperature tak le jata hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID189",
+      "aliases": [
+        "ID189",
+        "AFCICommLose",
+        "Arc device communication faulty"
+      ],
+      "title": {
+        "en": "Arc device (AFCI) communication lost (ID189)",
+        "ur": "Arc device (AFCI) communication lost - arc detector se baat nahi (ID189)"
+      },
+      "meaning": {
+        "en": "The inverter lost communication with its arc-fault detection module, so arcing in the PV wiring would go undetected. Treat as a safety function outage, not a nuisance alarm.",
+        "ur": "Inverter ne apne arc-fault detection module se communication kho di, is liye PV wiring mein arcing detect nahi hoti. Ise safety function ki outage samajhein, pareshaan karne wali alarm nahi."
+      },
+      "causes": [
+        {
+          "en": "AFCI module harness disconnected or its connector not seated.",
+          "ur": "AFCI module ka harness disconnect ya us ka connector seat nahi hua."
+        },
+        {
+          "en": "AFCI board faulty, or the internal comms channel between AFCI and control board failed.",
+          "ur": "AFCI board kharab, ya AFCI aur control board ke darmiyan internal comms channel fail."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off DC switch and AC breaker, then reseat the AFCI harness connector on the control board.",
+          "ur": "DC switch aur AC breaker off karke control board par AFCI harness connector dobara baithayein."
+        },
+        {
+          "en": "Inspect the ribbon/harness for chafing or a broken pin and replace the harness if damaged.",
+          "ur": "Ribbon/harness ko ghisav ya tute pin ke liye dekhein aur damage ho to harness replace karein."
+        },
+        {
+          "en": "If the connector is sound, the AFCI module needs replacement; log the outage and raise a service case.",
+          "ur": "Agar connector theek hai to AFCI module replace karna hoga; outage note karke service case karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    },
+    {
+      "code": "ID401-402",
+      "aliases": [
+        "ID401-402",
+        "AFCI0/1",
+        "Arc pulling fault"
+      ],
+      "title": {
+        "en": "AFCI arc detection fault (ID401-402)",
+        "ur": "AFCI arc detection fault - arc detector ka apna fault (ID401-402)"
+      },
+      "meaning": {
+        "en": "The AFCI hardware itself reported a fault (ID401 and ID402, published as one range row). Manual remedy: switch off the inverter and the lithium battery, wait 5 minutes, then switch both on.",
+        "ur": "AFCI hardware ne khud fault report kiya (ID401 aur ID402, ek hi range row). Manual ka hal: inverter aur lithium battery off karein, 5 minute wait karein, phir dono on karein."
+      },
+      "causes": [
+        {
+          "en": "AFCI sensor or its analogue channel failed - a self-test fault, not necessarily real arcing.",
+          "ur": "AFCI sensor ya us ka analogue channel fail - ye self-test fault hai, asal arcing zaroori nahi."
+        },
+        {
+          "en": "AFCI harness chafing producing a false arc signal.",
+          "ur": "AFCI harness ghisat hua kar false arc signal de raha hai."
+        },
+        {
+          "en": "Arc detector board itself defective.",
+          "ur": "Arc detector board khud kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the inverter AND the lithium battery, wait 5 minutes, then switch both on and re-check.",
+          "ur": "Inverter AUR lithium battery off karein, 5 minute wait karein, phir dono on karke dobara check karein."
+        },
+        {
+          "en": "If the error persists, inspect the PV connectors in the dark for arcing before assuming a board failure.",
+          "ur": "Agar error baki rahe to board failure maan lene se pehle andhere mein PV connectors mein arcing dekhein."
+        },
+        {
+          "en": "If connectors are clean and it still self-faults, the AFCI board needs replacement by a service centre.",
+          "ur": "Agar connectors saaf hain phir bhi self-fault aaye to AFCI board service centre se replace karwana hoga."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR HYD 5K...20KTL-3PH USER MANUAL, section 8.2.1 Inverter error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241010/1728530425537061360.pdf"
+      }
+    }
+  ]
+}

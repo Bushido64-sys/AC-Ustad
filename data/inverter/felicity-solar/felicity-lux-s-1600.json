@@ -1,0 +1,771 @@
+{
+  "schemaVersion": 1,
+  "brandId": "felicity-solar",
+  "series": {
+    "id": "felicity-lux-s-1600",
+    "name": "LUX-S-1600LG01 Micro Energy Storage System",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "LUX-S-1600LG01",
+      "*LUX-S*"
+    ],
+    "notes": "Combined lithium battery + inverter unit, 32 V battery, 60 A max charge current, max PV 95 V, MPPT 30 A. Table 8.10 codes 1-22; 14-20 and 22 could not be read from the source PDF. The manual's own troubleshooting chapter is explicit that many of these indications are normal protection behaviour, not a product fault - do not over-react to them."
+  },
+  "codes": [
+    {
+      "code": "1",
+      "aliases": [
+        "1",
+        "01",
+        "F1",
+        "Battery voltage is too high"
+      ],
+      "title": {
+        "en": "Fault 1 Battery voltage too high",
+        "ur": "Fault 1 Battery voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "Battery pack voltage is above the safe limit; output is cut.",
+        "ur": "Battery pack ka voltage safe limit se upar hai; output band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Charger overcharging a full pack",
+          "ur": "Poore pack ko charger zyada charge kar raha hai"
+        },
+        {
+          "en": "Cell imbalance in the pack so the highest cell hits the limit first",
+          "ur": "Pack mein cell imbalance hai, is liye sabse upar wala cell pehle limit par pohanch jata hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the pack voltage with a meter and compare it with the pack's maximum charge voltage.",
+          "ur": "Meter se pack ka voltage measure karke pack ke max charge voltage se compare karein."
+        },
+        {
+          "en": "Switch off the charger/AC input and let the pack settle before restarting.",
+          "ur": "Charger ya AC input band karke pack ko settle hone dein, phir restart karein."
+        },
+        {
+          "en": "Have cell voltages checked on the BMS; a single high cell needs balancing, not a charger change.",
+          "ur": "BMS par cell voltages check karwayein; aik upar wala cell balancing chahta hai, charger badalne ki nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "2",
+      "aliases": [
+        "2",
+        "02",
+        "F2",
+        "Battery voltage is too low"
+      ],
+      "title": {
+        "en": "Fault 2 Battery voltage too low",
+        "ur": "Fault 2 Battery voltage bohat kam"
+      },
+      "meaning": {
+        "en": "Battery pack voltage has dropped below the safe limit; output is cut.",
+        "ur": "Battery pack ka voltage safe limit se neeche gir gaya hai; output band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Pack deeply discharged during a long outage",
+          "ur": "Lambi outage mein pack gehri tarah discharge ho gaya"
+        },
+        {
+          "en": "PV not generating so the pack never recharges",
+          "ur": "PV se power nahi aa raha is liye pack recharge hi nahi hota"
+        },
+        {
+          "en": "Load connected exceeds what the small pack can supply",
+          "ur": "Lagaya hua load is chhote pack ke bajaye zyada hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the pack voltage with a meter at the DC terminals.",
+          "ur": "DC terminals par meter se pack ka voltage measure karein."
+        },
+        {
+          "en": "Recharge from PV or mains until the voltage is above the restart threshold on the LCD.",
+          "ur": "PV ya mains se recharge karein jab tak voltage LCD ke restart threshold se upar na aa jaye."
+        },
+        {
+          "en": "Confirm the CAN cable between this unit and the inverter is seated, as the manual's troubleshooting says.",
+          "ur": "Manual ke troubleshooting ke mutabiq confirm karein ke is unit aur inverter ke darmiyan CAN cable baithi hui hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "3",
+      "aliases": [
+        "3",
+        "03",
+        "F3",
+        "Cell voltage is too high"
+      ],
+      "title": {
+        "en": "Fault 3 Cell voltage too high",
+        "ur": "Fault 3 Cell voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "At least one cell in the pack is above the cell over-voltage limit.",
+        "ur": "Pack mein kam az kam aik cell cell over-voltage limit se upar hai."
+      },
+      "causes": [
+        {
+          "en": "One cell group in the pack has higher capacity than the rest",
+          "ur": "Pack mein aik cell group baqi se zyada capacity ka hai"
+        },
+        {
+          "en": "Cell imbalance left uncorrected for a long time",
+          "ur": "Cell imbalance lambi der tak theek na hua"
+        },
+        {
+          "en": "Pack temperature sensor reading low so charging was not derated",
+          "ur": "Pack temperature sensor kam dikha raha hai, is liye charging derate nahi hui"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read per-cell voltages from the BMS and identify which cell is high.",
+          "ur": "BMS se har cell ka voltage padhein aur dekhein kaunsa cell upar hai."
+        },
+        {
+          "en": "Stop charging and let the pack discharge, then charge it fully so the BMS can balance the cells.",
+          "ur": "Charging band karke pack discharge hone dein, phir use poora charge karein taake BMS cells balance kar sake."
+        },
+        {
+          "en": "If one cell stays high after balancing, that module must be replaced.",
+          "ur": "Balancing ke baad bhi aik cell upar rahe to woh module replace karna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "4",
+      "aliases": [
+        "4",
+        "04",
+        "F4",
+        "Cell voltage is too low"
+      ],
+      "title": {
+        "en": "Fault 4 Cell voltage too low",
+        "ur": "Fault 4 Cell voltage bohat kam"
+      },
+      "meaning": {
+        "en": "At least one cell in the pack is below the cell under-voltage limit.",
+        "ur": "Pack mein kam az kam aik cell cell under-voltage limit se neeche hai."
+      },
+      "causes": [
+        {
+          "en": "One weak cell pulling the pack down",
+          "ur": "Aik kamzor cell pack ko neeche kheench raha hai"
+        },
+        {
+          "en": "Cell imbalance after a long float period",
+          "ur": "Lambi float period ke baad cell imbalance"
+        },
+        {
+          "en": "Pack capacity faded so the weakest cell reaches its limit early",
+          "ur": "Pack ki capacity fade ho gayi, is liye sabse kamzor cell jaldi limit par pohanch jata hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read per-cell voltages on the BMS and find the cell below the limit.",
+          "ur": "BMS par har cell ka voltage padhein aur limit se neeche wala cell dhoondein."
+        },
+        {
+          "en": "Charge the pack fully and let the BMS run its balancing routine.",
+          "ur": "Pack ko poora charge karein aur BMS ko apna balancing routine chalne dein."
+        },
+        {
+          "en": "Load-test the pack; a cell that collapses under load is a failed module, not a setting problem.",
+          "ur": "Pack ka load test karein; load ke neeche girne wala cell kharab module hai, setting ki masla nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "5",
+      "aliases": [
+        "5",
+        "05",
+        "F5",
+        "Over charge current"
+      ],
+      "title": {
+        "en": "Fault 5 Charge overcurrent",
+        "ur": "Fault 5 Charge over current"
+      },
+      "meaning": {
+        "en": "Charge current exceeded the safe limit; output is cut.",
+        "ur": "Charge current safe limit se zyada ho gaya; output band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Charge current limit configured above the pack rating",
+          "ur": "Charge current limit pack rating se upar configure hai"
+        },
+        {
+          "en": "Charger module failure drawing excess current",
+          "ur": "Charger module ki kharabi zyada current kheench rahi hai"
+        },
+        {
+          "en": "Battery cable shorted or terminals loose causing an arc",
+          "ur": "Battery cable short ho gaya ya terminals dhile hain, jis se arc ban raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Set the charge current in the setup within the pack's rated maximum.",
+          "ur": "Setup mein charge current pack ke rated maximum ke andar set karein."
+        },
+        {
+          "en": "Isolate the battery and inspect the cable and terminals for damage or looseness.",
+          "ur": "Battery isolate karke cable aur terminals ko damage ya dhilapan ke liye dekhein."
+        },
+        {
+          "en": "Measure actual charge current with a clamp meter and compare it with the setting.",
+          "ur": "Clamp meter se actual charge current measure karke setting se compare karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "6",
+      "aliases": [
+        "6",
+        "06",
+        "F6",
+        "Over discharge current"
+      ],
+      "title": {
+        "en": "Fault 6 Discharge overcurrent",
+        "ur": "Fault 6 Discharge over current"
+      },
+      "meaning": {
+        "en": "Discharge current exceeded the safe limit; reduce the loads.",
+        "ur": "Discharge current safe limit se zyada ho gaya; loads kam karein."
+      },
+      "causes": [
+        {
+          "en": "Connected load bigger than this unit is rated for",
+          "ur": "Laga hua load is unit ki rating se bhaari hai"
+        },
+        {
+          "en": "Motor starting surge on a small pack",
+          "ur": "Chhote pack par motor ka starting surge"
+        },
+        {
+          "en": "Output short circuit on the load board",
+          "ur": "Load board par output short circuit"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the loads: switch off appliances one at a time until the fault clears.",
+          "ur": "Loads kam karein: appliances ko aik aik band karein jab tak fault na hat jaye."
+        },
+        {
+          "en": "Measure the output conductor with a clamp meter to see the actual discharge current.",
+          "ur": "Output conductor par clamp meter se actual discharge current dekhein."
+        },
+        {
+          "en": "Check the load board for a short circuit before adding load back.",
+          "ur": "Load wapas lagane se pehle load board mein short circuit check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "7",
+      "aliases": [
+        "7",
+        "07",
+        "F7",
+        "Heat sink temperature is too high"
+      ],
+      "title": {
+        "en": "Fault 7 Heat sink too hot",
+        "ur": "Fault 7 Heat sink bohat garm"
+      },
+      "meaning": {
+        "en": "The internal heat sink is above its temperature limit; output is cut.",
+        "ur": "Internal heat sink apni temperature limit se upar hai; output band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Heat sink blocked with dust",
+          "ur": "Heat sink dhool se block hai"
+        },
+        {
+          "en": "Unit installed in a closed cupboard with no airflow",
+          "ur": "Unit band almirah mein lagi hai jahan airflow nahi hai"
+        },
+        {
+          "en": "Internal fan failed",
+          "ur": "Internal fan kharab ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate power and clean the heat sink with a soft dry brush or vacuum.",
+          "ur": "Power isolate karke heat sink ko soft dry brush ya vacuum se saaf karein."
+        },
+        {
+          "en": "Check that the unit has open airflow on all sides and is not inside a sealed cupboard.",
+          "ur": "Check karein ke unit charon taraf khul hawa pa rahi hai aur band almirah mein nahi hai."
+        },
+        {
+          "en": "Verify the internal fan spins freely and its connector is seated.",
+          "ur": "Confirm karein ke internal fan azaad ghoomta hai aur uska connector baitha hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "8",
+      "aliases": [
+        "8",
+        "08",
+        "F8",
+        "Heat sink temperature is too low"
+      ],
+      "title": {
+        "en": "Fault 8 Heat sink too cold",
+        "ur": "Fault 8 Heat sink bohat thanda"
+      },
+      "meaning": {
+        "en": "The heat sink temperature is below the permitted range; output is cut.",
+        "ur": "Heat sink ka temperature allowed range se neeche hai; output band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Unit operated below its minimum ambient temperature",
+          "ur": "Unit apni minimum ambient temperature se neeche chalaya gaya"
+        },
+        {
+          "en": "Heat sink temperature sensor failed open",
+          "ur": "Heat sink temperature sensor open ho gaya"
+        },
+        {
+          "en": "Sensor connector disconnected, so the reading is implausible",
+          "ur": "Sensor connector nikal gaya, is liye reading ghayab haqeeqat ke mutabiq nahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure ambient temperature at the unit; it must be within the manual's operating range.",
+          "ur": "Unit par ambient temperature measure karein; woh manual ke operating range mein hona chahiye."
+        },
+        {
+          "en": "Isolate power and measure the heat sink sensor resistance to see if it is open.",
+          "ur": "Power isolate karke heat sink sensor ki resistance measure karein ke woh open hai ya nahi."
+        },
+        {
+          "en": "Reseat or replace the temperature sensor; do not bypass the thermal cut-out.",
+          "ur": "Temperature sensor dobara lagayein ya replace karein; thermal cut-out bypass na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "9",
+      "aliases": [
+        "9",
+        "09",
+        "F9",
+        "Cell temperature is too high"
+      ],
+      "title": {
+        "en": "Fault 9 Cell temperature too high",
+        "ur": "Fault 9 Cell temperature bohat zyada"
+      },
+      "meaning": {
+        "en": "A battery cell is above its temperature limit; output is cut.",
+        "ur": "Battery ka aik cell apni temperature limit se upar hai; output band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Direct sun or a hot room on the battery enclosure",
+          "ur": "Battery enclosure par seedhi dhoop ya garam kamra"
+        },
+        {
+          "en": "Cell temperature sensor reading high or failed",
+          "ur": "Cell temperature sensor ki reading high hai ya kharab hai"
+        },
+        {
+          "en": "Cell imbalance causing a hot cell under load",
+          "ur": "Cell imbalance ki wajah se load ke daurat aik cell garam ho raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure cell temperature with a contact thermometer and compare with the BMS reading.",
+          "ur": "Contact thermometer se cell temperature measure karke BMS reading se compare karein."
+        },
+        {
+          "en": "Keep the battery out of direct sun and away from heat sources, with ventilation around it.",
+          "ur": "Battery ko seedhi dhoop se aur heat sources se door rakhein, aur aarpaar ventilation rahe."
+        },
+        {
+          "en": "Replace a failed cell temperature sensor with the correct part number.",
+          "ur": "Kharab cell temperature sensor ko sahi part number se replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 10",
+      "aliases": [
+        "Fault 10",
+        "10",
+        "F10",
+        "Cell temperature is too low"
+      ],
+      "title": {
+        "en": "Fault 10 Cell temperature too low",
+        "ur": "Fault 10 Cell temperature bohat kam"
+      },
+      "meaning": {
+        "en": "A battery cell is below its permitted temperature; charging/discharging is blocked.",
+        "ur": "Battery ka aik cell apni allowed temperature se neeche hai; charge/discharge block ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Unit operated in a very cold room or shed in winter",
+          "ur": "Unit sardi mein bohat thande kamre ya shed mein chalaya gaya"
+        },
+        {
+          "en": "Cell temperature sensor reading low or failed",
+          "ur": "Cell temperature sensor ki reading kam hai ya kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure cell temperature with a contact thermometer; allow the pack to warm up before charging.",
+          "ur": "Contact thermometer se cell temperature measure karein; charging se pehle pack ko garam hone dein."
+        },
+        {
+          "en": "Keep the pack within its specified temperature range, away from outside walls in winter.",
+          "ur": "Pack ko us ki specified temperature range mein rakhein, sarr mein deewar se door."
+        },
+        {
+          "en": "If the reading is implausible, reseat or replace the cell temperature sensor.",
+          "ur": "Reading ghayab haqeeqat ke mutabiq na ho to cell temperature sensor dobara lagayein ya replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 11",
+      "aliases": [
+        "Fault 11",
+        "11",
+        "F11",
+        "PV1 overcurrent"
+      ],
+      "title": {
+        "en": "Fault 11 PV1 overcurrent",
+        "ur": "Fault 11 PV1 over current"
+      },
+      "meaning": {
+        "en": "PV1 input current is above the safe limit; output is cut.",
+        "ur": "PV1 input current safe limit se upar hai; output band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "More panels in parallel on PV1 than the input is rated for",
+          "ur": "PV1 par input rating se zyada panels parallel lage hue hain"
+        },
+        {
+          "en": "Reflected sunlight off a neighbouring white wall raising current",
+          "ur": "Paas ki safed deewar se reflect hui dhoop current barha rahi hai"
+        },
+        {
+          "en": "PV1 current sensor fault",
+          "ur": "PV1 current sensor ki kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clamp-meter the PV1 string and compare it with the unit's max MPPT current (30 A for this unit).",
+          "ur": "PV1 string par clamp meter lagayein aur usay unit ke max MPPT current (30 A) se compare karein."
+        },
+        {
+          "en": "Reduce the number of panels in parallel on PV1 to within the input rating.",
+          "ur": "PV1 par parallel panels ki kami karke input rating ke andar la dein."
+        },
+        {
+          "en": "Check the PV1 current sensor and its connector at the service centre if the reading is wrong with no load.",
+          "ur": "Bina load par bhi reading ghalat ho to service centre par PV1 current sensor aur uska connector check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 12",
+      "aliases": [
+        "Fault 12",
+        "12",
+        "F12",
+        "PV2 overcurrent"
+      ],
+      "title": {
+        "en": "Fault 12 PV2 overcurrent",
+        "ur": "Fault 12 PV2 over current"
+      },
+      "meaning": {
+        "en": "PV2 input current is above the safe limit; output is cut.",
+        "ur": "PV2 input current safe limit se upar hai; output band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "More panels in parallel on PV2 than the input is rated for",
+          "ur": "PV2 par input rating se zyada panels parallel lage hue hain"
+        },
+        {
+          "en": "PV2 string current sensor fault",
+          "ur": "PV2 string current sensor ki kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clamp-meter the PV2 string and compare it with the unit's max MPPT current.",
+          "ur": "PV2 string par clamp meter lagayein aur usay unit ke max MPPT current se compare karein."
+        },
+        {
+          "en": "Reduce the number of panels in parallel on PV2 to within the input rating.",
+          "ur": "PV2 par parallel panels ki kami karke input rating ke andar la dein."
+        },
+        {
+          "en": "Check the PV2 string fuse and connector for a fault before re-energising.",
+          "ur": "Dobara chalu karne se pehle PV2 string fuse aur connector mein fault check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 13",
+      "aliases": [
+        "Fault 13",
+        "13",
+        "F13",
+        "Output1 overcurrent"
+      ],
+      "title": {
+        "en": "Fault 13 Output 1 overcurrent",
+        "ur": "Fault 13 Output 1 over current"
+      },
+      "meaning": {
+        "en": "The output stage is drawing too much current; reduce the loads.",
+        "ur": "Output stage bohat zyada current kheench raha hai; loads kam karein."
+      },
+      "causes": [
+        {
+          "en": "Connected load bigger than the unit can supply",
+          "ur": "Laga hua load unit se zyada hai"
+        },
+        {
+          "en": "Output short circuit on the load board",
+          "ur": "Load board par output short circuit"
+        },
+        {
+          "en": "Inverter stage device with increased leakage",
+          "ur": "Inverter stage device ka leakage barh gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the loads until the fault clears, then note the total connected wattage.",
+          "ur": "Fault hat jane tak loads kam karein, phir kul lagaya hua wattage note karein."
+        },
+        {
+          "en": "With power isolated, test the output wiring to earth to rule out a short.",
+          "ur": "Power isolate karke output wiring ki earth ke saath continuity test karke short rule out karein."
+        },
+        {
+          "en": "If it trips with no load, have the inverter stage inspected at the service centre.",
+          "ur": "Bina load ke trip ho to inverter stage ka muaina service centre par karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 21",
+      "aliases": [
+        "Fault 21",
+        "21",
+        "F21",
+        "PV Mos Short"
+      ],
+      "title": {
+        "en": "Fault 21 PV MOSFET short",
+        "ur": "Fault 21 PV MOSFET short ho gaya"
+      },
+      "meaning": {
+        "en": "A short has been detected in the PV MOSFET stage; output is cut.",
+        "ur": "PV MOSFET stage mein short detect hua hai; output band kar diya gaya hai."
+      },
+      "causes": [
+        {
+          "en": "PV MOSFET device failed short",
+          "ur": "PV MOSFET device short ho kar kharab ho gaya"
+        },
+        {
+          "en": "PV string shorted to earth through damaged insulation",
+          "ur": "PV string ki insulation kharab hone se earth se short"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate PV at the DC isolator before any inspection; a shorted MOSFET is a fire risk.",
+          "ur": "Koi bhi muaina karne se pehle DC isolator se PV isolate karein; shorted MOSFET aag ka khatra hai."
+        },
+        {
+          "en": "Megohmmeter-test the PV strings to earth to rule out an insulation short first.",
+          "ur": "Pehle insulation short rule out karne ke liye PV strings ki earth ke khilaf megohmmeter test karein."
+        },
+        {
+          "en": "If the strings are clean, the MOSFET board needs replacement at the service centre.",
+          "ur": "Agar strings theek hon to MOSFET board service centre par replace karna hoga."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUX-S-1600LG01 Lithium Battery / Micro Energy Storage System User Guide (358-S010022-00B)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/LUX-S-1600LG01-Lithium-Battery-User-Guide.pdf"
+      }
+    }
+  ]
+}

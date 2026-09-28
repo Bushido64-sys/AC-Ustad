@@ -1,0 +1,442 @@
+{
+  "schemaVersion": 1,
+  "brandId": "cyberpower",
+  "series": {
+    "id": "cyberpower-cp-pf",
+    "name": "CP1350PFCLCD / CP1500PFCLCD (PFC Sinewave, line-interactive 1350-1500VA)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*CP1350PFCLCD*",
+      "*CP1500PFCLCD*",
+      "*CP1500PFCLCDa*",
+      "*CP1350PFCLCDa*"
+    ],
+    "notes": "Manual 1 lists E01 Charger Fault-Overcharge, E02 Charger Fault-No Charge, E11 Battery Overvoltage, E21 Battery Output Short Fault, E22 Battery Mode/AC Mode Overload Fault. IMPORTANT: the same E-prefix namespace with DIFFERENT meanings exists on other CyberPower families (see CONFLICTS) — e.g. EPFCLCD uses F01-F04, and a later CP1500PFCLCD manual (image-salsify mirror) drops E01 entirely, so this block must not be applied to other CP models without checking their own manual."
+  },
+  "codes": [
+    {
+      "code": "E01",
+      "aliases": [
+        "E01"
+      ],
+      "title": {
+        "en": "E01 Charger Fault - Overcharge",
+        "ur": "E01 Charger Fault - Overcharge (charger battery ko zyada charge kar raha)"
+      },
+      "meaning": {
+        "en": "The battery charger is pushing too much voltage into the internal battery bank. The UPS shuts its output off and stays in fault until serviced.",
+        "ur": "Battery charger internal battery mein zyada voltage daal raha hai. UPS apna output band kar deta hai aur fault mein reh-ta hai jab tak service na ho."
+      },
+      "causes": [
+        {
+          "en": "Charger circuit failed or the charge-voltage sense resistor/mosfet is faulty.",
+          "ur": "Charger circuit kharab hai ya charge-voltage sense resistor/mosfet faulty hai."
+        },
+        {
+          "en": "Battery bank is over-aged, overheated or swollen, driving the charger into overcharge.",
+          "ur": "Battery purani ho chuki hai, garam ya phooli hui hai, jis se charger overcharge mein chala jata hai."
+        },
+        {
+          "en": "Wrong or high-voltage replacement battery fitted to a unit rated for a lower battery string.",
+          "ur": "Galat ya high-voltage replacement battery lagi ho jis se unit ka battery string rating se upar ho jaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, unplug the mains cord, then pull the battery quick-connect off before touching anything else.",
+          "ur": "UPS off karein, mains cord nikaal dein, phir battery quick-connect nikaal lein - uske baad hi koi cheez chhunein."
+        },
+        {
+          "en": "Set your multimeter to DC volts and measure each battery terminal-to-terminal; a healthy 12V cell reads about 12.6-13.0V and should not read above roughly 13.8V.",
+          "ur": "Multimeter DC volt par karein aur har battery ke terminal se measure karein; healthy 12V cell 12.6-13.0V par hota hai aur 13.8V se upar nahi hona chahiye."
+        },
+        {
+          "en": "If one battery is over 13.8V, replace the whole bank together with the CyberPower-specified replacement battery rather than mixing old and new cells.",
+          "ur": "Agar koi ek battery 13.8V se upar hai, to poori battery bank ko CyberPower ki spec wali battery se saath-saath badal dein, puri aur nayi ko mix na karein."
+        },
+        {
+          "en": "If all cells are in range but E01 persists, the charger board itself is at fault - contact CyberPower Systems support for an RMA.",
+          "ur": "Agar sab cells theek hain phir bhi E01 aata hai, to charger board khud kharab hai - CyberPower Systems support se RMA ke liye rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PFC Sinewave UPS Series CP1350PFCLCD/CP1500PFCLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500PFCLCD.pdf"
+      }
+    },
+    {
+      "code": "E02",
+      "aliases": [
+        "E02"
+      ],
+      "title": {
+        "en": "E02 Charger Fault - No Charge",
+        "ur": "E02 Charger Fault - No Charge (charger battery charge hi nahi kar raha)"
+      },
+      "meaning": {
+        "en": "The charger is not charging the battery bank at all. The UPS drops into fault because it has no usable reserve.",
+        "ur": "Charger battery bank ko bilkul charge nahi kar raha. UPS fault mein chala jata hai kyunke us ke paas koi reserve power nahi bacha."
+      },
+      "causes": [
+        {
+          "en": "Internal battery quick-connect is unplugged or the battery terminals are corroded/loose.",
+          "ur": "Internal battery quick-connect nikaala hua hai ya battery terminals zang lagay ya dheele hain."
+        },
+        {
+          "en": "Battery bank is fully dead (open-circuit) or a cell has swollen and split.",
+          "ur": "Battery bank poori tarah kharab (open circuit) hai ya koi cell phool kar phat gaya hai."
+        },
+        {
+          "en": "Charger section, fuse on the battery lead, or the PCB solder joint has failed.",
+          "ur": "Charger section, battery lead ka fuse, ya PCB ka solder joint kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, remove the mains plug, and disconnect the battery quick-connect before inspection.",
+          "ur": "UPS off karein, mains plug nikaal dein, aur check karne se pehle battery quick-connect disconnect kar dein."
+        },
+        {
+          "en": "Check battery DC voltage with a multimeter: a rested healthy 12V battery reads about 12.4-12.7V; a reading near 0V means the battery is dead.",
+          "ur": "Multimeter se battery ka DC voltage check karein: aaram karne wali healthy 12V battery 12.4-12.7V par hoti hai; 0V ke qareeb ho to battery kharab hai."
+        },
+        {
+          "en": "Measure DC voltage at the battery terminals while mains is reconnected: a healthy charger gives about 13.5-14V; near 0V means the charger/fuse has failed.",
+          "ur": "Mains dobara lagane ke baad battery terminals par DC voltage measein karein: healthy charger 13.5-14V deta hai; 0V ke qareeb ho to charger ya fuse kharab hai."
+        },
+        {
+          "en": "Replace a dead battery bank with the CyberPower-specified pack; if the new battery still shows E02, escalate the charger board to support.",
+          "ur": "Kharab battery bank ko CyberPower ki spec wali battery se badal dein; nayi battery par bhi E02 aaye to charger board support ko bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PFC Sinewave UPS Series CP1350PFCLCD/CP1500PFCLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500PFCLCD.pdf"
+      }
+    },
+    {
+      "code": "E11",
+      "aliases": [
+        "E11"
+      ],
+      "title": {
+        "en": "E11 Battery Overvoltage",
+        "ur": "E11 Battery Overvoltage (battery ka voltage safe limit se upar)"
+      },
+      "meaning": {
+        "en": "The measured battery voltage is above the safe limit, so the UPS cuts inverter drive to protect the battery bank.",
+        "ur": "Battery ka measured voltage safe limit se upar hai, is liye UPS battery bank bachane ke liye inverter drive band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Over-voltage relay or sensing circuit has failed and no longer cuts charging.",
+          "ur": "Over-voltage relay ya sensing circuit kharab ho gaya hai aur charging band nahi kar raha."
+        },
+        {
+          "en": "An extra cell was added in series to the bank, raising the string above the charger set-point.",
+          "ur": "Bank mein series mein ek extra cell lagaya gaya ho, jis se string charger set-point se upar chali gayi."
+        },
+        {
+          "en": "Battery is swollen from age/heat and internally shorted, sending the charge current into a rising voltage.",
+          "ur": "Battery umar ya garmi se phooli hui hai aur andar se short ho gayi hai, jis se charge current voltage badhata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate first: switch off, unplug mains, and disconnect the internal battery quick-connect.",
+          "ur": "Pehle isolate karein: off karein, mains nikaal dein, aur internal battery quick-connect disconnect kar dein."
+        },
+        {
+          "en": "Count the cells in series and compare with the model spec; the CP1500PFCLCD battery is a sealed maintenance-free lead-acid pack, so an extra cell is a wrong-battery fit.",
+          "ur": "Series mein cells gin lein aur model spec se compare karein; CP1500PFCLCD ki battery sealed maintenance-free lead-acid pack hai, is liye extra cell ka matlab galat battery lagi hai."
+        },
+        {
+          "en": "Measure each cell with a multimeter on DC range; anything above ~13.8V at rest means replace that battery, and replace the pair at the same time.",
+          "ur": "Har cell ko multimeter DC range par measure karein; aaram karte waqt 13.8V se upar ho to us battery ko badal dein, aur dono ek saath badal lein."
+        },
+        {
+          "en": "If voltage is normal but E11 remains, treat it as a sensing/relay failure and send the unit to CyberPower Systems support.",
+          "ur": "Agar voltage theek ho phir bhi E11 bana rahe, to ise sensing ya relay failure samajhein aur unit CyberPower Systems support ko bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PFC Sinewave UPS Series CP1350PFCLCD/CP1500PFCLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500PFCLCD.pdf"
+      }
+    },
+    {
+      "code": "E21",
+      "aliases": [
+        "E21"
+      ],
+      "title": {
+        "en": "E21 Battery Output Short Fault",
+        "ur": "E21 Battery Output Short Fault (battery mode mein output short)"
+      },
+      "meaning": {
+        "en": "The inverter output is shorted while on battery. The UPS latches a fault and will not restart until the short is removed.",
+        "ur": "Battery mode mein inverter output short ho gaya hai. UPS fault lock kar leta hai aur short hataye baghair dobara start nahi hoga."
+      },
+      "causes": [
+        {
+          "en": "A connected appliance has failed short-circuiting (e.g. a desktop PSU, monitor, motorised device or a fridge compressor).",
+          "ur": "Koi connected appliance short ho kar kharab hua hai (jaise desktop PSU, monitor, motor wala device ya fridge ka compressor)."
+        },
+        {
+          "en": "A multi-way power strip or extension lead has crushed/nicked a live conductor.",
+          "ur": "Kisi multi-way power strip ya extension wire mein live conductor daba ya kat gaya hai."
+        },
+        {
+          "en": "UPS outlet board terminals are loose or bridged, or the battery cable has chafed against the chassis.",
+          "ur": "UPS outlet board ke terminals dheele hain ya aapas mein short hain, ya battery cable chassis ke saath ghis gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, unplug mains and disconnect the battery, then unplug every single load from all UPS outlets before powering up again.",
+          "ur": "UPS off karein, mains aur battery disconnect karein, phir UPS ke tamam outlets se ek-ek karke saara load nikaal lein, uske baad dobara on karein."
+        },
+        {
+          "en": "Reconnect loads one at a time; the load that trips E21 again is the shorted device - unplug it and have it repaired.",
+          "ur": "Load ek-ek karke wapas lagayein; jis load par dobara E21 aaye wohi shorted device hai - use nikaal dein aur repair karwayein."
+        },
+        {
+          "en": "With the battery and mains isolated, set a multimeter to continuity/ohms and check each UPS output socket to the neutral terminal; a near-zero reading confirms a socket short.",
+          "ur": "Battery aur mains isolate karne ke baad multimeter continuity/ohms par karein aur har UPS output socket ko neutral se check karein; zero ke qareeb reading socket short confirm karti hai."
+        },
+        {
+          "en": "If all sockets measure clean and the fault still returns, the inverter stage is damaged - send the unit to CyberPower Systems support.",
+          "ur": "Agar sab sockets saaf nikal lein phir bhi fault aaye, to inverter stage kharab hai - unit CyberPower Systems support ko bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PFC Sinewave UPS Series CP1350PFCLCD/CP1500PFCLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500PFCLCD.pdf"
+      }
+    },
+    {
+      "code": "E22",
+      "aliases": [
+        "E22"
+      ],
+      "title": {
+        "en": "E22 Battery or AC Mode Overload Fault",
+        "ur": "E22 Battery ya AC mode Overload Fault"
+      },
+      "meaning": {
+        "en": "The connected load exceeds the UPS rating, either on battery or on utility power. The UPS shuts the output to protect itself.",
+        "ur": "Connected load UPS ki rating se zyada hai, ya battery par ya utility power par. UPS apni protection ke liye output band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Too many or too high-wattage devices plugged into the battery-backed outlets.",
+          "ur": "Battery wale outlets mein zyada devices ya zyada watt wale devices lagaye gaye hain."
+        },
+        {
+          "en": "A device with a large inrush (compressor, laser printer, motor) trips the overload when mains returns.",
+          "ur": "Bade inrush wala device (compressor, laser printer, motor) mains wapas aate hi overload kar deta hai."
+        },
+        {
+          "en": "Load inrush is being drawn through a power strip whose own rating is below the UPS output.",
+          "ur": "Load aisi power strip se aa raha hai jis ki apni rating UPS output se kam hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and unplug the UPS, then remove at least one piece of equipment from the battery outlets as the manual instructs.",
+          "ur": "UPS off karke plug nikaal dein, phir manual ke mutabiq battery outlets se kam az kam ek device nikaal dein."
+        },
+        {
+          "en": "Add the loads back one at a time and total their watts on a label or a power meter; keep it under the unit's rated watts (e.g. 1000W for CP1500PFCLCD).",
+          "ur": "Loads ek-ek karke wapas lagayein aur un ke watt label par ya power meter se total karein; unit ki rated watts se kam rakhein (CP1500PFCLCD ke liye 1000W)."
+        },
+        {
+          "en": "Check the rear circuit breaker knob and the load rating printed next to the battery outlets before restarting.",
+          "ur": "Restart karne se pehle rear circuit breaker knob aur battery outlets ke paas likhi hui load rating check karein."
+        },
+        {
+          "en": "If the overload clears with one device removed but a large inrush device is still needed, stagger restarts or leave the heavy appliance on mains directly.",
+          "ur": "Agar ek device nikalne par overload clear ho jaye lekin bade inrush wala device chahiye, to restart stagger karein ya bhaari appliance ko seedha mains par chhorein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PFC Sinewave UPS Series CP1350PFCLCD/CP1500PFCLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500PFCLCD.pdf"
+      }
+    },
+    {
+      "code": "ON BATTERY (icon)",
+      "aliases": [
+        "ON BATTERY (icon)",
+        "ON BATT"
+      ],
+      "title": {
+        "en": "ON BATTERY icon (mains failure status)",
+        "ur": "ON BATTERY icon (mains chali gayi, ab battery chal raha hai)"
+      },
+      "meaning": {
+        "en": "Normal operating status shown when a severe sag or loss of utility power moves the UPS onto its internal batteries. Not a fault; it beeps twice then pauses.",
+        "ur": "Normal operating status jo severe sag ya mains power khatam hone par UPS ko internal battery par le jata hai. Fault nahi; do baar beep karta hai phir ruk jata hai."
+      },
+      "causes": [
+        {
+          "en": "Utility power failed, browned out, or dropped out of the transfer range.",
+          "ur": "Mains power chali gayi, brownout hua, ya transfer range se bahar chala gaya."
+        },
+        {
+          "en": "Input plug not fully seated, or a supply breaker/isolator is open.",
+          "ur": "Input plug poori tarah nahi lagi, ya supply breaker/isolator khula hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No repair needed - save work and let the software shut the system down if the outage is long.",
+          "ur": "Koi marammat zaruri nahi - kaam save karein, agar outage lamba ho to system software se shutdown karwayein."
+        },
+        {
+          "en": "Confirm the wall socket and the input breaker are live, then let the UPS recharge for about 8 hours after the mains returns.",
+          "ur": "Check karein ke wall socket aur input breaker mein power hai, phir mains wapas aane ke baad UPS ko kareeb 8 ghante recharge karne dein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PFC Sinewave UPS Series CP1350PFCLCD/CP1500PFCLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500PFCLCD.pdf"
+      }
+    },
+    {
+      "code": "OVERLOAD (icon)",
+      "aliases": [
+        "OVERLOAD (icon)",
+        "OVER LOAD"
+      ],
+      "title": {
+        "en": "OVERLOAD icon (overload status)",
+        "ur": "OVERLOAD icon (outlets par load zyada hai)"
+      },
+      "meaning": {
+        "en": "Status icon with an alarm that indicates the battery-supplied outlets are overloaded. Clears when the load is reduced.",
+        "ur": "Status icon jo alarm ke saath batata hai ke battery wale outlets par load zyada hai. Load kam karne par yeh hat jata hai."
+      },
+      "causes": [
+        {
+          "en": "Combined wattage of plugged devices exceeds the UPS output rating.",
+          "ur": "Lagaye gaye devices ka total wattage UPS output rating se zyada hai."
+        },
+        {
+          "en": "A power surge or inrush from a device such as a compressor or motor.",
+          "ur": "Kisi compressor ya motor jaise device se power surge ya inrush aaya ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Unplug one piece of equipment from the battery-supplied outlets at a time until the icon turns off and the alarm stops, exactly as the manual says.",
+          "ur": "Battery-supplied outlets se ek-ek karke equipment nikaalte jayein jab tak icon band na ho aur alarm na ruke - manual bilkul yehi kehta hai."
+        },
+        {
+          "en": "Verify the remaining load with a power meter and confirm the rear circuit breaker knob is fully in.",
+          "ur": "Power meter se bachi hui load verify karein aur confirm karein ke rear circuit breaker knob poori tarah andar hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PFC Sinewave UPS Series CP1350PFCLCD/CP1500PFCLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500PFCLCD.pdf"
+      }
+    },
+    {
+      "code": "REPLACE BATTERY (icon)",
+      "aliases": [
+        "REPLACE BATTERY (icon)",
+        "REPLACE battery"
+      ],
+      "title": {
+        "en": "REPLACE BATTERY icon (battery condition status)",
+        "ur": "REPLACE BATTERY icon (battery badalne ka waqt aa gaya hai)"
+      },
+      "meaning": {
+        "en": "Status icon that lights when the batteries are not connected well or have worn out. Calls for battery replacement, not a whole-unit failure.",
+        "ur": "Status icon jo tab jalta hai jab batteries theek se nahi lagi hon ya purani ho chuki hon. Ye battery badalne ka signal hai, poora unit kharab hone ka nahi."
+      },
+      "causes": [
+        {
+          "en": "Battery quick-connect is loose or unplugged at the rear of the unit.",
+          "ur": "Battery quick-connect unit ke pichhe se dheela ya nikaala hua hai."
+        },
+        {
+          "en": "Battery terminals are corroded, giving a high-resistance connection.",
+          "ur": "Battery terminals zang lagay hain aur connection mein resistance zyada hai."
+        },
+        {
+          "en": "Batteries are simply worn out after repeated deep discharge cycles.",
+          "ur": "Baar baar deep discharge ke baad batteries bas purani ho chuki hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, unplug mains, then reseat the internal battery quick-connect firmly until it clicks.",
+          "ur": "UPS off karein, mains nikaal dein, phir internal battery quick-connect ko mazbooti se baithayein jab tak click na ho."
+        },
+        {
+          "en": "Clean battery terminals with a stiff brush and a solution of baking soda and water, dry them, then reconnect.",
+          "ur": "Battery terminals ko sakht brush aur baking soda + pani ke solution se saaf karein, khushk karein, phir wapas lagayein."
+        },
+        {
+          "en": "Measure the pack on DC volts; replace the battery/bank when rested voltage is well below spec or runtime will no longer meet the load.",
+          "ur": "Pack ko DC volt par measure karein; aaram wali voltage spec se kaafi neeche ho ya runtime load ke liye na mile to battery/bank badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PFC Sinewave UPS Series CP1350PFCLCD/CP1500PFCLCD User Manual",
+        "retrieved": "2026-09-26",
+        "url": "https://dl4jz3rbrsfum.cloudfront.net/documents/CyberPower_UM_CP1500PFCLCD.pdf"
+      }
+    }
+  ]
+}

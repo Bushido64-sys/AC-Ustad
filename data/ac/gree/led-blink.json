@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "brandId": "gree",
+  "series": {
+    "id": "led-blink",
+    "name": "LED indicator / blink semantics (not separate fault codes)",
+    "category": "ac",
+    "unitType": "generic",
+    "modelPatterns": [
+      "*GREE*",
+      "*BORA*",
+      "*LOMO*",
+      "*U-MATCH*",
+      "*U-CROWN*",
+      "*G10*",
+      "*RF-*",
+      "*SPLIT*"
+    ],
+    "notes": "Lamp↔family semantics + blink reading method. Exact blink-count↔code map not recovered — do not invent counts."
+  },
+  "codes": [
+    {
+      "code": "BLINK-RUNNING",
+      "aliases": [
+        "BLINK-RUNNING",
+        "RUN"
+      ],
+      "title": {
+        "en": "Running lamp — E-family (and H6) reporting",
+        "ur": "Running lamp — E-family (aur H6) ki report"
+      },
+      "meaning": {
+        "en": "On models without full text display, the Running indicator blinks to report E-series codes (and H6 per source); blink count corresponds to the code suffix within the repeating ~3 s cycle.",
+        "ur": "Jin units par poora text display nahi hota, wahan Running indicator blink karke E-series codes (source ke mutabiq H6 bhi) dikhata hai; ~3 second ki dohrayi cycle mein blink ki tadaad code ke suffix ka digit batati hai."
+      },
+      "causes": [
+        {
+          "en": "Reported fault in E family / H6",
+          "ur": "E family ya H6 ka fault report ho raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Count blinks across the repeating interval; match to model’s code list; or read code on remote/display if available",
+          "ur": "Pehle repeating interval ke darmiyan blinks count karein, apne model ki code list se milayein; remote/display par code dikh raha ho to woh parhein"
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "airconditioningmanuals Gree page + maqsoodandsons reading method",
+        "retrieved": "2026-09-24",
+        "url": "https://www.airconditioningmanuals.com/gree/gree-air-conditioners-error-codes/"
+      },
+      "notes": {
+        "en": "Exact blink count↔code table not recovered from a verified free source. Per-code attribution: airconditioningmanuals.",
+        "ur": "Exact blink count-code table verified free source se nahi mila. Per-code attribution: airconditioningmanuals."
+      },
+      "blinkPattern": "E codes (+H6); period ~3 s between repeats"
+    },
+    {
+      "code": "BLINK-HEATING",
+      "aliases": [
+        "BLINK-HEATING",
+        "HEAT"
+      ],
+      "title": {
+        "en": "Heating lamp — H0–H9, FA, FH family",
+        "ur": "Heating lamp — H0–H9, FA, FH wali codes"
+      },
+      "meaning": {
+        "en": "Heating-mode indicator blinks to report H-series plus FA/FH codes.",
+        "ur": "Heating mode ka indicator blink karke H-series ke saath FA/FH codes dikhata hai."
+      },
+      "causes": [
+        {
+          "en": "Reported fault/status in heating/H family",
+          "ur": "Heating/H family ka fault ya status report ho raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Count blinks; match to H/FA/FH table above",
+          "ur": "Blinks count karein aur upar di H/FA/FH table se milayein"
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "airconditioningmanuals Gree page + maqsoodandsons reading method",
+        "retrieved": "2026-09-24",
+        "url": "https://www.airconditioningmanuals.com/gree/gree-air-conditioners-error-codes/"
+      },
+      "notes": {
+        "en": "Per-code attribution: airconditioningmanuals.",
+        "ur": "Is blink ka source airconditioningmanuals hai (per-code attribution)."
+      },
+      "blinkPattern": "H0–H9, FA, FH"
+    },
+    {
+      "code": "BLINK-COOLING",
+      "aliases": [
+        "BLINK-COOLING",
+        "COOL"
+      ],
+      "title": {
+        "en": "Cooling lamp — F0–F9, FF family",
+        "ur": "Cooling lamp — F0–F9, FF wali codes"
+      },
+      "meaning": {
+        "en": "Cooling-mode indicator blinks to report F-series (sensor/refrigerant) codes.",
+        "ur": "Cooling mode ka indicator blink karke F-series (sensor/refrigerant) codes dikhata hai."
+      },
+      "causes": [
+        {
+          "en": "Reported fault in F family",
+          "ur": "F family ka fault report ho raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Count blinks; match to F table",
+          "ur": "Blinks count karein aur F table se match karein"
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "airconditioningmanuals Gree page + maqsoodandsons reading method",
+        "retrieved": "2026-09-24",
+        "url": "https://www.airconditioningmanuals.com/gree/gree-air-conditioners-error-codes/"
+      },
+      "notes": {
+        "en": "Per-code attribution: airconditioningmanuals.",
+        "ur": "Yeh blink source airconditioningmanuals se liya gaya (per-code attribution)."
+      },
+      "blinkPattern": "F0–F9, FF"
+    },
+    {
+      "code": "BLINK-METHOD",
+      "aliases": [
+        "BLINK-METHOD"
+      ],
+      "title": {
+        "en": "Standard blink reading method",
+        "ur": "Standard blink count karne ka tareeqa"
+      },
+      "meaning": {
+        "en": "Pattern = ~3 seconds OFF, then N flashes = digit N of the code (codes repeat cyclically). Duplicate confirmation on remote or indoor panel when available.",
+        "ur": "Pattern: pehle ~3 second band rahe, phir N bar flash hon — woh code ka N number digit hai (codes baar baar repeat hote hain). Jahan mumkin ho, remote ya indoor panel par code dobara confirm bhi ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Unit without digital text display",
+          "ur": "Unit mein digital text display nahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Count carefully over a full cycle; cross-check with remote code display",
+          "ur": "Poore cycle par gaur se count karein; remote ke code display se cross-check karein"
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "other",
+        "title": "airconditioningmanuals Gree page + maqsoodandsons reading method",
+        "retrieved": "2026-09-24",
+        "url": "https://www.airconditioningmanuals.com/gree/gree-air-conditioners-error-codes/"
+      },
+      "notes": {
+        "en": "Some units report 9 or 11 pulses per cycle per airconditioningmanuals — model-dependent. Per-code attribution: maqsoodandsons + airconditioningmanuals.",
+        "ur": "Kuch units airconditioningmanuals ke mutabiq har cycle mein 9 ya 11 pulses dete hain, yeh model par depend karta hai. Per-code attribution: maqsoodandsons + airconditioningmanuals."
+      },
+      "blinkPattern": "3 s pause then N pulses"
+    }
+  ]
+}

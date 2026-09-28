@@ -1,0 +1,518 @@
+{
+  "schemaVersion": 1,
+  "brandId": "huawei",
+  "series": {
+    "id": "huawei-sun2000-usl0-res",
+    "name": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 (US residential string inverter, numbered alarm table)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*SUN2000-3.8KTL-USL0*",
+      "*SUN2000-5KTL-USL0*",
+      "*SUN2000-7.6KTL-USL0*",
+      "*SUN2000-9KTL-USL0*",
+      "*SUN2000-10KTL-USL0*",
+      "*SUN2000-11.4KTL-USL0*",
+      "*USL0*"
+    ],
+    "notes": "Separate table from SERIES 1 - same numeric codes, different severity and different cause/suggestion text. Codes unique to this table: 2021, 2068, 2077, 2080. CONFLICTS: 2063 Overtemperature is Major here vs Minor in M0 (SERIES 1); 2065 Upgrade Failed is Major here vs Minor in M0. This block is a DELIBERATE SUBSET of Table 8-2: only the rows that either (a) exist nowhere in SERIES 1, or (b) differ from SERIES 1 in severity, action or Cause-ID semantics, are carried. The USL0 rows 2033/2034/2035/2036/2037/2039/2040/2051/2061/2062/61440 are present in this same USL0 table but carry wording identical in substance to SERIES 1, so they are represented once in SERIES 1 and are NOT duplicated here - this is deduplication, not merging, and the two tables remain separate records. Never merge this series into SERIES 1."
+  },
+  "codes": [
+    {
+      "code": "2021",
+      "aliases": [
+        "2021",
+        "AFCI Self-Check Failure",
+        "AFCI fault"
+      ],
+      "title": {
+        "en": "AFCI Self-Check Failure",
+        "ur": "AFCI self-check failure (arc detector khud check nahi kar paya)"
+      },
+      "meaning": {
+        "en": "The inverter's AFCI (arc fault circuit interrupter) failed its self-check at startup, so the unit shuts down.",
+        "ur": "Inverter ka AFCI startup par self-check mein fail ho gaya, is liye unit shutdown ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "AFCI self-check fails (Cause ID 1-2).",
+          "ur": "AFCI self-check fail ho gaya (Cause ID 1-2)."
+        },
+        {
+          "en": "AFCI detector module or its wiring is faulty, or PV-side noise triggered a false trip.",
+          "ur": "AFCI detector module ya uski wiring kharabi hai, ya PV side ke noise se false trip hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the AC output switch and the DC input switch, then wait 5 minutes.",
+          "ur": "AC output switch aur DC input switch band karein, phir 5 minute intezaar karein."
+        },
+        {
+          "en": "Turn them back on and watch whether the AFCI self-check completes on the next start.",
+          "ur": "Dobara on karein aur dekhein ke next start par AFCI self-check complete hoti hai ya nahi."
+        },
+        {
+          "en": "If it persists, inspect PV string cables for chafing near the combiner and record the Cause ID for the installer.",
+          "ur": "Agar bani rahe to combiner ke paas PV string cables ki chafing check karein aur installer ke liye Cause ID note karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Section 8.2 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "2002",
+      "aliases": [
+        "2002",
+        "DC Arc Fault (ADMC alarm, need to be manually cleared)"
+      ],
+      "title": {
+        "en": "DC Arc Fault (manual clear)",
+        "ur": "DC arc fault (manually clear karna hota hai)"
+      },
+      "meaning": {
+        "en": "PV string power cable arcs or is in poor contact. This is an ADMC alarm - after fixing, it must be manually cleared.",
+        "ur": "PV string power cable mein arc ya poor contact hai. Yeh ADMC alarm hai - theek karne ke baad manually clear karna hota hai."
+      },
+      "causes": [
+        {
+          "en": "The PV string power cable arcs or is in poor contact.",
+          "ur": "PV string power cable mein arc ya poor contact hai."
+        },
+        {
+          "en": "Cause ID 1 = string 1, Cause ID 2 = string 2 (this model's Cause IDs are per-string, unlike M0's per-MPPT).",
+          "ur": "Is model mein Cause ID 1 = string 1, Cause ID 2 = string 2 (M0 ke per-MPPT ke bajaye per-string)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV before inspecting; treat as a live arc risk, not a nuisance alarm.",
+          "ur": "Ghairat ka masla hai, is liye AC aur PV disconnect kar ke hi inspect karein."
+        },
+        {
+          "en": "Check every string circuit for arcing or poor contact, including combiner fuses and cable gland entries.",
+          "ur": "Har string circuit mein arc ya poor contact check karein, combiner fuses aur cable gland entries bhi."
+        },
+        {
+          "en": "After the fault is rectified, clear the alarm manually in the app and start the inverter again.",
+          "ur": "Fault theek hone ke baad app mein alarm manually clear karein aur inverter dobara start karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Section 8.2 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "2032",
+      "aliases": [
+        "2032",
+        "Grid Failure"
+      ],
+      "title": {
+        "en": "Grid Failure",
+        "ur": "Grid failure (grid ya AC nahi hai)"
+      },
+      "meaning": {
+        "en": "Grid outage, or the AC circuit is disconnected / AC switch off. Shutdown with automatic recovery.",
+        "ur": "Grid outage hai, ya AC circuit disconnect hai / AC switch off hai. Shutdown ke saath khud recover hota hai."
+      },
+      "causes": [
+        {
+          "en": "The power grid experiences an outage (Cause ID 1).",
+          "ur": "Power grid mein outage hai (Cause ID 1)."
+        },
+        {
+          "en": "The AC circuit is disconnected or the AC switch is in the OFF position.",
+          "ur": "AC circuit disconnect hai ya AC switch OFF position mein hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the AC voltage with a multimeter at the inverter AC terminals.",
+          "ur": "Multimeter se inverter ke AC terminals par AC voltage check karein."
+        },
+        {
+          "en": "Confirm the AC power cable is connected and the AC switch is in the ON position.",
+          "ur": "Tasdeeq karein ke AC power cable connected hai aur AC switch ON position mein hai."
+        },
+        {
+          "en": "If the utility side is fine but the alarm repeats, check the AC cable for a high-resistance joint at the lug.",
+          "ur": "Agar utility side theek hai lekin alarm dohraye to AC cable ke lug par high-resistance joint check karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Section 8.2 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "2063",
+      "aliases": [
+        "2063",
+        "Overtemperature"
+      ],
+      "title": {
+        "en": "Overtemperature (Major on USL0)",
+        "ur": "Overtemperature (USL0 par Major hai)"
+      },
+      "meaning": {
+        "en": "Inverter internal temperature high - poor ventilation, ambient above the upper threshold, or unit not working properly. This manual grades it Major, unlike the M0 manual which grades it Minor.",
+        "ur": "Inverter ka andar ka temperature zyada hai - ventilation kam, ambient upper threshold se upar, ya unit theek nahi chal raha. Ye manual ise Major grade karta hai, M0 manual Minor karta hai."
+      },
+      "causes": [
+        {
+          "en": "The SUN2000 is installed in a place with poor ventilation.",
+          "ur": "SUN2000 kam ventilation wali jagah lagai hai."
+        },
+        {
+          "en": "The ambient temperature exceeds the upper threshold.",
+          "ur": "Ambient temperature upper threshold se zyada hai."
+        },
+        {
+          "en": "The SUN2000 is not working properly (internal fault).",
+          "ur": "SUN2000 theek nahi chal raha (internal fault)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the ventilation and ambient temperature at the installation position.",
+          "ur": "Installation position par ventilation aur ambient temperature check karein."
+        },
+        {
+          "en": "If ventilation is poor or ambient is above the threshold, improve ventilation and heat dissipation before anything else.",
+          "ur": "Agar ventilation kam hai ya ambient threshold se upar hai to pehle ventilation aur heat dissipation behtar karein."
+        },
+        {
+          "en": "If both meet requirements, contact your installer - this points to an internal fault.",
+          "ur": "Agar dono requirements meet karte hain to installer se rabta karein - yeh internal fault ki nishani hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Section 8.2 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "2064",
+      "aliases": [
+        "2064",
+        "Device Fault"
+      ],
+      "title": {
+        "en": "Device Fault (Cause IDs 3-14)",
+        "ur": "Device fault (Cause ID 3-14)"
+      },
+      "meaning": {
+        "en": "An unrecoverable fault on an internal circuit. Cause ID 3,4 auto-recover; 5,6-7,14 need manual reset; 8-13 shut down and auto-recover.",
+        "ur": "Internal circuit par unrecoverable fault. Cause ID 3,4 khud recover hote hain; 5, 6-7, 14 manual reset maangte hain; 8-13 shutdown karke khud recover hote hain."
+      },
+      "causes": [
+        {
+          "en": "Unrecoverable fault on a circuit inside the SUN2000 (Cause ID 3 through 14).",
+          "ur": "SUN2000 ke andar kisi circuit par unrecoverable fault (Cause ID 3 se 14 tak)."
+        },
+        {
+          "en": "Two failure modes share this one cause text: transient faults (Cause ID 3, 4, 8-13) clear themselves, while latched faults (Cause ID 5, 6-7, 14) need a manual alarm reset.",
+          "ur": "Ek hi cause text ke neeche do failure modes hain: transient faults (Cause ID 3, 4, 8-13) khud clear ho jate hain, jabke latched faults (Cause ID 5, 6-7, 14) ko manual alarm reset chahiye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the AC output switch and DC input switch, wait 5 minutes, then turn them on again.",
+          "ur": "AC output switch aur DC input switch band karein, 5 minute intezaar karein, phir dobara on karein."
+        },
+        {
+          "en": "If the fault persists, contact your installer - do not keep power cycling the unit.",
+          "ur": "Agar fault bana rahe to installer se rabta karein - unit ko baar baar power cycle na karein."
+        },
+        {
+          "en": "Record which Cause ID the app shows; 5, 6-7 and 14 need a manual alarm reset, not just a power cycle.",
+          "ur": "Note karein ke app kaun sa Cause ID dikhata hai; 5, 6-7 aur 14 ko sirf power cycle nahi, manual alarm reset chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Section 8.2 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "2065",
+      "aliases": [
+        "2065",
+        "Upgrade Failed"
+      ],
+      "title": {
+        "en": "Upgrade Failed (Major on USL0)",
+        "ur": "Upgrade failed (USL0 par Major hai)"
+      },
+      "meaning": {
+        "en": "The firmware upgrade did not complete normally. This manual grades it Major, unlike the M0 manual which grades it Minor.",
+        "ur": "Firmware upgrade normally complete nahi hua. Ye manual ise Major grade karta hai, M0 manual Minor karta hai."
+      },
+      "causes": [
+        {
+          "en": "The upgrade does not complete normally (Cause ID 1-4).",
+          "ur": "Upgrade normally complete nahi hota (Cause ID 1-4)."
+        },
+        {
+          "en": "The upgrade package files were modified, which breaks the RSA signature verification the SUN2000 upgrade procedure depends on.",
+          "ur": "Upgrade package ki files modify kar di gayi hain, jisse SUN2000 upgrade procedure ka RSA signature verification toot jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Perform the upgrade again using a supported USB flash drive and keep PV input disconnected during the retry.",
+          "ur": "Supported USB flash drive se upgrade dohra karein aur retry ke dauran PV input disconnect rakhein."
+        },
+        {
+          "en": "Verify the upgrade package files were not modified - modification breaks RSA signature verification and the upgrade fails.",
+          "ur": "Check karein ke upgrade package ki files modify nahi hui - modification se RSA signature verification toot-ta hai aur upgrade fail hota hai."
+        },
+        {
+          "en": "If the upgrade fails several times, contact your installer instead of retrying indefinitely.",
+          "ur": "Agar kai baar fail ho to baar baar retry karne ke bajaye installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Section 8.2 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "2067",
+      "aliases": [
+        "2067",
+        "Faulty Power Collector"
+      ],
+      "title": {
+        "en": "Faulty Power Collector",
+        "ur": "Faulty power collector"
+      },
+      "meaning": {
+        "en": "In Grid Connection with Zero Power mode or Power-limited Grid Connection Power mode, energy meter communication is interrupted.",
+        "ur": "In Grid Connection with Zero Power ya Power-limited Grid Connection Power mode mein energy meter ki communication interrupt ho gayi."
+      },
+      "causes": [
+        {
+          "en": "Energy meter communication interrupted in zero-power or power-limited grid connection mode (Cause ID 1).",
+          "ur": "Zero-power ya power-limited grid connection mode mein energy meter communication interrupt (Cause ID 1)."
+        },
+        {
+          "en": "RS485 A/B reversed or the meter's RS485 termination is missing.",
+          "ur": "RS485 A/B ulhe hue hain ya meter par RS485 termination missing hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check that the energy meter model setting matches the actual model fitted on site.",
+          "ur": "Check karein ke energy meter ka model setting site par lagi actual model se match karta hai."
+        },
+        {
+          "en": "Check that the preset communication parameters for the meter match the actual configuration.",
+          "ur": "Check karein ke meter ke preset communication parameters actual configuration se match karte hain."
+        },
+        {
+          "en": "Check that the meter is powered on and the RS485 cable is connected correctly, then reseat the connectors.",
+          "ur": "Check karein ke meter on hai aur RS485 cable theek connected hai, phir connectors dobara laga dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Section 8.2 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "2068",
+      "aliases": [
+        "2068",
+        "Battery Abnormal"
+      ],
+      "title": {
+        "en": "Battery Abnormal",
+        "ur": "Battery abnormal (battery ka masla)"
+      },
+      "meaning": {
+        "en": "Battery fault, interrupted battery communication, or the battery switch tripping while the inverter runs. Cause ID 2 (battery faulty) causes shutdown.",
+        "ur": "Battery fault, battery communication interrupt, ya inverter chalte waqt battery switch trip. Cause ID 2 (battery faulty) par shutdown hota hai."
+      },
+      "causes": [
+        {
+          "en": "The battery is faulty; battery communication is interrupted; battery switch trips when the SUN2000 is running (Cause ID 1, 3, 4).",
+          "ur": "Battery faulty hai; battery communication interrupt; inverter chalte waqt battery switch trip (Cause ID 1, 3, 4)."
+        },
+        {
+          "en": "The battery is faulty and communication is interrupted (Cause ID 2) - this one causes shutdown.",
+          "ur": "Battery faulty aur communication interrupt (Cause ID 2) - isi se shutdown hota hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the FAULT indicator on the front of the battery pack; if it is ON or flashing, stop and inspect.",
+          "ur": "Battery pack ke front par FAULT indicator check karein; agar ON ya flash ho raha ho to ruk kar inspect karein."
+        },
+        {
+          "en": "Verify the communication cable and power cable between SUN2000 and battery, and that communication parameters match the SUN2000 RS485 config.",
+          "ur": "SUN2000 aur battery ke darmiyan communication cable aur power cable check karein, aur communication parameters SUN2000 ke RS485 config se match karte hain check karein."
+        },
+        {
+          "en": "Send a shutdown command on the app, then cycle battery switch -> AC output switch -> DC input switch, waiting 5 minutes.",
+          "ur": "App par shutdown command bhejein, phir battery switch -> AC output switch -> DC input switch ka cycle karein, 5 minute intezaar ke saath."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Section 8.2 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "2077",
+      "aliases": [
+        "2077",
+        "Output Overload",
+        "Overload (manual clear)"
+      ],
+      "title": {
+        "en": "Output Overload (manual clear)",
+        "ur": "Output overload (manually clear karna hota hai)"
+      },
+      "meaning": {
+        "en": "The inverter output is overloaded or short-circuited. Needs manual clearing after the cause is removed.",
+        "ur": "Inverter output overloaded ya short-circuited hai. Wajah hatane ke baad manually clear karna hota hai."
+      },
+      "causes": [
+        {
+          "en": "The device output is short-circuited.",
+          "ur": "Device ka output short-circuited hai."
+        },
+        {
+          "en": "The connected device load exceeds the inverter's rated value - the manual lists this as a separate check from the short circuit.",
+          "ur": "Connected device ka load inverter ki rated value se zyada hai - manual ise short circuit se alag check ke tor par list karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then check with a multimeter whether the output circuit is short-circuited.",
+          "ur": "AC aur PV isolate karein, phir multimeter se check karein ke output circuit short to nahi hai."
+        },
+        {
+          "en": "Check whether the connected device load exceeds the inverter's rated apparent power.",
+          "ur": "Check karein ke connected device ka load inverter ki rated apparent power se zyada to nahi hai."
+        },
+        {
+          "en": "After fixing, clear the alarm manually in the app - a power cycle alone is not enough for this alarm.",
+          "ur": "Theek karne ke baad app mein alarm manually clear karein - sirf power cycle is alarm ke liye kaafi nahi hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Section 8.2 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    },
+    {
+      "code": "2080",
+      "aliases": [
+        "2080",
+        "Abnormal PV Module Configuration"
+      ],
+      "title": {
+        "en": "Abnormal PV Module Configuration",
+        "ur": "Abnormal PV module configuration"
+      },
+      "meaning": {
+        "en": "PV array configuration does not meet requirements, or module output is reversely connected or short-circuited. Cause IDs spell out which rule is broken.",
+        "ur": "PV array configuration requirements ke mutabiq nahi, ya module output ulti polarity se connected ya short hai. Cause IDs batate hain ke kaun sa rule toota hai."
+      },
+      "causes": [
+        {
+          "en": "Total PV modules > 75 (ID1); modules per string > 25 (ID2); modules per string < 6 (ID3).",
+          "ur": "Total PV modules 75 se zyada (ID1); per string modules 25 se zyada (ID2); per string modules 6 se kam (ID3)."
+        },
+        {
+          "en": "Total PV strings > 2 (3.8/5/7.6 kW) or > 3 (9/10/11.4 kW) (ID4); module output reversely connected or short-circuited (ID5).",
+          "ur": "Total PV strings 2 se zyada (3.8/5/7.6 kW) ya 3 se zyada (9/10/11.4 kW) (ID4); module output ulti polarity se connected ya short (ID5)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, then count total modules, modules per string and number of strings against the Cause ID limits listed above.",
+          "ur": "Band karein, phir total modules, per string modules aur strings ki tadaad Cause ID limits ke mutabiq gin lein."
+        },
+        {
+          "en": "For ID5, wait for string current below 0.5 A, set DC SWITCH OFF, and correct polarity or the short before re-energising.",
+          "ur": "ID5 ke liye string current 0.5 A se neeche hone ka intezaar karein, DC SWITCH OFF karein, aur dobara energise karne se pehle polarity ya short theek karein."
+        },
+        {
+          "en": "ID1-ID4 are design errors: reconfigure the array, then clear the alarm manually in the app.",
+          "ur": "ID1-ID4 design errors hain: array dobara configure karein, phir app mein alarm manually clear karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(3.8KTL, 5KTL, 7.6KTL, 9KTL, 10KTL, 11.4KTL)-USL0 User Manual, Issue 02 (2018-08-30), Section 8.2 Table 8-2",
+        "retrieved": "2026-09-26",
+        "url": "https://shop.frankensolar.ca/content/documentation/Huawei/Manual_Huawei_SUN2000-3.8KTL-11.4KTL-USL0-User-Manual_%28frankensolar%29.pdf"
+      }
+    }
+  ]
+}

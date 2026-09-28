@@ -1,0 +1,981 @@
+{
+  "schemaVersion": 1,
+  "brandId": "huawei",
+  "series": {
+    "id": "huawei-luna2000-s1-alarm",
+    "name": "LUNA2000-S1 ESS (LUNA2000-5/7/10/12/14/15/17/19/21-S1, LUNA2000-7/14/21-S1) numbered alarm table",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*LUNA2000-5-S1*",
+      "*LUNA2000-7-S1*",
+      "*LUNA2000-10-S1*",
+      "*LUNA2000-12-S1*",
+      "*LUNA2000-14-S1*",
+      "*LUNA2000-15-S1*",
+      "*LUNA2000-17-S1*",
+      "*LUNA2000-19-S1*",
+      "*LUNA2000-21-S1*",
+      "*LUNA2000-10KW-C1*",
+      "*LUNA2000-7-E1*"
+    ],
+    "notes": "LUNA2000-S1 is the generation Huawei lists on the Pakistan site (LUNA2000-7/14/21-S1), so this is the most PK-relevant battery table. SEPARATE from SERIES 5 (S0) - same numeric codes, revised names and causes. Note the manual's own terminology mapping: 'battery power control module' = Energy Storage Control Unit, 'battery pack' = battery expansion module. Codes 3047 and 3071 are new in S1 (3047 is ABSENT from S1; 3071 is ABSENT from S0). Codes 3063-3066 and 3070 are new in S1."
+  },
+  "codes": [
+    {
+      "code": "3000",
+      "aliases": [
+        "3000",
+        "Low battery DC input bus voltage"
+      ],
+      "title": {
+        "en": "Low Battery DC Input Bus Voltage",
+        "ur": "Battery DC input bus voltage kam hai"
+      },
+      "meaning": {
+        "en": "The battery DC bus is too low. Unlike S0, this manual adds inverter-side causes to the list.",
+        "ur": "Battery DC bus bohat kam hai. S0 ke muqable mein is manual ne inverter side ki wajuhain bhi shamil ki hain."
+      },
+      "causes": [
+        {
+          "en": "The inverter is faulty and pulls down the bus voltage.",
+          "ur": "Inverter faulty hai aur bus voltage neeche kheench raha hai."
+        },
+        {
+          "en": "The DC bus voltage of the battery is low.",
+          "ur": "Battery ka DC bus voltage kam hai."
+        },
+        {
+          "en": "The battery DC switch is OFF, or the battery cables are not correctly connected.",
+          "ur": "Battery DC switch OFF hai, ya battery cables theek se connected nahi hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check for inverter fault alarms and clear them first - the manual lists a faulty inverter as cause 1.",
+          "ur": "Pehle inverter ke fault alarms check karke clear karein - manual ne faulty inverter ko pehli wajah bataya hai."
+        },
+        {
+          "en": "Turn off inverter AC output switch, inverter DC input switch and battery DC switch, then wait 5 minutes.",
+          "ur": "Inverter AC output switch, inverter DC input switch aur battery DC switch band karein, phir 5 minute intezaar karein."
+        },
+        {
+          "en": "Check the battery power cable connections on the [Battery-1/2/3/4] control unit against the quick installation guide, then power up in sequence.",
+          "ur": "[Battery-1/2/3/4] control unit par battery power cable connections ko quick installation guide se check karke sequence mein power up karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3001",
+      "aliases": [
+        "3001",
+        "Abnormal battery power control module",
+        "ESCU abnormal"
+      ],
+      "title": {
+        "en": "Abnormal Battery Power Control Module (ESCU)",
+        "ur": "Battery power control module (ESCU) abnormal hai"
+      },
+      "meaning": {
+        "en": "Major fault on the internal circuit of the Energy Storage Control Unit, or its internal communication is abnormal.",
+        "ur": "Energy Storage Control Unit ke internal circuit par major fault hai, ya uski internal communication abnormal hai."
+      },
+      "causes": [
+        {
+          "en": "A major fault has occurred on the internal circuit of the battery power control module.",
+          "ur": "Battery power control module ke internal circuit par major fault aaya hai."
+        },
+        {
+          "en": "The internal communication of the battery power control module is abnormal (new second cause in S1).",
+          "ur": "Battery power control module ki internal communication abnormal hai (S1 mein nayi doosri wajah)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off all three switches and wait 5 minutes, then power up starting with the battery DC switch.",
+          "ur": "Teeno switches band karke 5 minute intezaar karein, phir battery DC switch se power up karein."
+        },
+        {
+          "en": "Use the fault indicator state: the manual says a steady-on fault indicator on a specific module means the fault persists there.",
+          "ur": "Fault indicator ki state use karein: manual ke mutabiq kisi specific module par steady-on fault indicator ka matlab hai ke fault wahan bana hua hai."
+        },
+        {
+          "en": "If it persists on one named module, record the module number and contact your vendor or technical support.",
+          "ur": "Agar kisi ek module par bana rahe to module number note karke vendor ya technical support se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3002",
+      "aliases": [
+        "3002",
+        "Battery power control module overtemperature",
+        "ESCU overtemperature"
+      ],
+      "title": {
+        "en": "Battery Power Control Module Overtemperature",
+        "ur": "Battery power control module overtemperature (garm ho gaya)"
+      },
+      "meaning": {
+        "en": "The Energy Storage Control Unit is running hot - poor ventilation, excessive ambient, or a module fault.",
+        "ur": "Energy Storage Control Unit garm chal raha hai - ventilation kam, ambient zyada, ya module fault."
+      },
+      "causes": [
+        {
+          "en": "The installation position of the battery power control module is not well ventilated.",
+          "ur": "Battery power control module ki installation position well ventilated nahi hai."
+        },
+        {
+          "en": "The ambient temperature is excessively high.",
+          "ur": "Ambient temperature bohat zyada hai."
+        },
+        {
+          "en": "The battery power control module is abnormal.",
+          "ur": "Battery power control module abnormal hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the specific [Battery-1/2/3/4] control unit is properly ventilated and whether ambient exceeds the upper threshold.",
+          "ur": "Check karein ke mashoor [Battery-1/2/3/4] control unit well ventilated hai ya nahi aur ambient upper threshold se zyada to nahi hai."
+        },
+        {
+          "en": "Improve ventilation and heat dissipation before touching the module itself.",
+          "ur": "Module ko chhune se pehle ventilation aur heat dissipation behtar karein."
+        },
+        {
+          "en": "If ventilation and ambient both meet requirements, contact your dealer or technical support - it is a module fault.",
+          "ur": "Agar ventilation aur ambient dono requirements poore karte hain to dealer ya technical support se rabta karein - yeh module fault hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3003",
+      "aliases": [
+        "3003",
+        "Battery power control module fuse blown",
+        "ESCU fuse blown"
+      ],
+      "title": {
+        "en": "Battery Power Control Module Fuse Blown",
+        "ur": "Battery power control module ka fuse udd gaya"
+      },
+      "meaning": {
+        "en": "The fuse in the Energy Storage Control Unit has blown.",
+        "ur": "Energy Storage Control Unit ka fuse udd gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Battery power control module fuse blown.",
+          "ur": "Battery power control module ka fuse udd gaya hai."
+        },
+        {
+          "en": "An internal overcurrent or short inside the unit, which normally also damages the unit.",
+          "ur": "Unit ke andar overcurrent ya short, jo aam tor par unit ko bhi kharab kar deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off all three switches and wait 5 minutes.",
+          "ur": "Teeno switches band karke 5 minute intezaar karein."
+        },
+        {
+          "en": "Replace the fuse of the [Battery-1/2/3/4] control unit with the exact manual-specified rating.",
+          "ur": "[Battery-1/2/3/4] control unit ka fuse manual mein diye gaye exact rating se badal dein."
+        },
+        {
+          "en": "Power up in sequence; if the replacement fuse also blows, stop - the module is damaged and needs RMA.",
+          "ur": "Sequence mein power up karein; agar naya fuse bhi udd jaye to ruk dein - module kharab hai aur RMA chahiye."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3004",
+      "aliases": [
+        "3004",
+        "Battery power control module reversely connected",
+        "Reverse polarity"
+      ],
+      "title": {
+        "en": "Battery Power Control Module Reversely Connected",
+        "ur": "Battery power control module ulti polarity se connected hai"
+      },
+      "meaning": {
+        "en": "The Energy Storage Control Unit is connected to the inverter in reverse polarity.",
+        "ur": "Energy Storage Control Module inverter se reverse polarity mein connected hai."
+      },
+      "causes": [
+        {
+          "en": "The battery power control module is connected to the inverter in reverse polarity.",
+          "ur": "Battery power control module inverter se reverse polarity mein connected hai."
+        },
+        {
+          "en": "Polarity is reversed on the DC bus cable run rather than at the module terminals, so the fault presents at the module even though the module's own wiring is correct.",
+          "ur": "Polarity module terminals par nahi, DC bus cable run mein uli hui hai, is liye module apni wiring sahi hone ke bawajood fault dikhata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not power up. Isolate AC output switch, DC input switch and battery DC switch, then wait 5 minutes.",
+          "ur": "Power up na karein. AC output switch, DC input switch aur battery DC switch isolate karke 5 minute intezaar karein."
+        },
+        {
+          "en": "Check the battery cable connections on the [Battery-1/2/3/4] control unit against the quick installation guide.",
+          "ur": "[Battery-1/2/3/4] control unit par battery cable connections ko quick installation guide se check karein."
+        },
+        {
+          "en": "Verify polarity with a DC voltmeter before re-energising, then power up in the manual's sequence.",
+          "ur": "Dobara energise karne se pehle DC voltmeter se polarity verify karein, phir manual ke sequence se power up karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3005",
+      "aliases": [
+        "3005",
+        "Battery power control module DC switch OFF"
+      ],
+      "title": {
+        "en": "Battery Power Control Module DC Switch OFF",
+        "ur": "Battery power control module ka DC switch OFF hai"
+      },
+      "meaning": {
+        "en": "The unit's own DC switch is off, so the battery pack is isolated from the system.",
+        "ur": "Unit ka apna DC switch off hai, is liye battery pack system se isolate hai."
+      },
+      "causes": [
+        {
+          "en": "The DC switch of the battery power control module is OFF.",
+          "ur": "Battery power control module ka DC switch OFF hai."
+        },
+        {
+          "en": "The DC bus cable to the battery power control module is disconnected.",
+          "ur": "Battery power control module ka DC bus cable disconnect hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off all three switches and wait 5 minutes before touching the battery switch.",
+          "ur": "Battery switch chhune se pehle teeno switches band karke 5 minute intezaar karein."
+        },
+        {
+          "en": "Check the cable connections and the DC switch handle position on the named control unit.",
+          "ur": "Mashoor control unit par cable connections aur DC switch handle ki position check karein."
+        },
+        {
+          "en": "Power up in sequence and confirm the pack reports online in the app.",
+          "ur": "Sequence mein power up karke app par confirm karein ke pack online aa gayi hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3007",
+      "aliases": [
+        "3007",
+        "Battery expansion module cable disconnected"
+      ],
+      "title": {
+        "en": "Battery Expansion Module Cable Disconnected",
+        "ur": "Battery expansion module ka cable disconnect hai"
+      },
+      "meaning": {
+        "en": "The power cable to a battery expansion module is disconnected, so that pack drops out of the system.",
+        "ur": "Battery expansion module ka power cable disconnect hai, is liye woh pack system se gir jata hai."
+      },
+      "causes": [
+        {
+          "en": "The power cable to the battery expansion module is disconnected.",
+          "ur": "Battery expansion module ka power cable disconnect hai."
+        },
+        {
+          "en": "The battery expansion module is abnormal.",
+          "ur": "Battery expansion module abnormal hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off all three switches and wait 5 minutes.",
+          "ur": "Teeno switches band karke 5 minute intezaar karein."
+        },
+        {
+          "en": "Check whether the power cable terminal is securely connected to the [Battery-1/2/3/4 expansion module-1/2/3].",
+          "ur": "Check karein ke power cable terminal [Battery-1/2/3/4 expansion module-1/2/3] par securely connected hai ya nahi."
+        },
+        {
+          "en": "Torque-check the terminal and confirm the pack count in the app matches the physical stack after restart.",
+          "ur": "Terminal ka torque check karein aur restart ke baad app mein pack count physical stack se match karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3008",
+      "aliases": [
+        "3008",
+        "Battery expansion module overtemperature",
+        "Pack overtemperature"
+      ],
+      "title": {
+        "en": "Battery Expansion Module Overtemperature",
+        "ur": "Battery expansion module overtemperature (garm ho gaya)"
+      },
+      "meaning": {
+        "en": "A battery pack is running hot - poor ventilation of the pack position or excessive ambient.",
+        "ur": "Battery pack garm chal raha hai - pack ki position par ventilation kam ya ambient zyada."
+      },
+      "causes": [
+        {
+          "en": "The installation position of the battery expansion module is not well ventilated.",
+          "ur": "Battery expansion module ki installation position well ventilated nahi hai."
+        },
+        {
+          "en": "The ambient temperature is excessively high.",
+          "ur": "Ambient temperature bohat zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the named expansion module position is properly ventilated and whether ambient exceeds the upper threshold.",
+          "ur": "Check karein ke mashoor expansion module ki position properly ventilated hai ya nahi aur ambient upper threshold se zyada to nahi."
+        },
+        {
+          "en": "Improve ventilation and heat dissipation; verify the documented clearance on all sides is intact.",
+          "ur": "Ventilation aur heat dissipation behtar karein; check karein ke chaaron taraf documented clearance bani hui hai."
+        },
+        {
+          "en": "Measure the flagged pack's surface temperature and compare with its neighbours to isolate a single-bad-pack case.",
+          "ur": "Flagged pack ka surface temperature measure karke padosi packs se compare karein taake ek kharab pack ka case alag ho jaye."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3010",
+      "aliases": [
+        "3010",
+        "Battery expansion module short circuit"
+      ],
+      "title": {
+        "en": "Battery Expansion Module Short Circuit",
+        "ur": "Battery expansion module mein short circuit"
+      },
+      "meaning": {
+        "en": "A battery pack is short-circuited, or is abnormal. Fire-risk event - do not re-energise.",
+        "ur": "Battery pack short-circuited hai ya abnormal hai. Aag ka khatra - dobara power na dein."
+      },
+      "causes": [
+        {
+          "en": "The battery expansion module is short-circuited.",
+          "ur": "Battery expansion module short-circuited hai."
+        },
+        {
+          "en": "A battery expansion module is abnormal.",
+          "ur": "Battery expansion module abnormal hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off all three switches and wait 5 minutes before approaching the pack.",
+          "ur": "Pack ke paas jane se pehle teeno switches band karke 5 minute intezaar karein."
+        },
+        {
+          "en": "With DC isolated, measure each pack's terminal voltage and internal resistance to find the shorted pack.",
+          "ur": "DC isolate kar ke har pack ka terminal voltage aur internal resistance measure karke shorted pack dhoondein."
+        },
+        {
+          "en": "Quarantine the shorted pack and contact the vendor; never bypass a pack to keep the system running.",
+          "ur": "Shorted pack isolate karke vendor se rabta karein; system chalta rakhne ke liye pack bypass kabhi na karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3011",
+      "aliases": [
+        "3011",
+        "Battery expansion module undervoltage"
+      ],
+      "title": {
+        "en": "Battery Expansion Module Undervoltage",
+        "ur": "Battery expansion module undervoltage"
+      },
+      "meaning": {
+        "en": "A pack's voltage, or the pack input voltage, is too low to charge it. Recovery depends on available sunlight or permitted AC reverse charging.",
+        "ur": "Pack ka voltage ya pack input voltage charge karne ke liye bohat kam hai. Recovery sunlight ya ijazat ki AC reverse charging par depend karta hai."
+      },
+      "causes": [
+        {
+          "en": "The voltage of a battery expansion module is low.",
+          "ur": "Battery expansion module ka voltage kam hai."
+        },
+        {
+          "en": "The input voltage of a battery expansion module is low.",
+          "ur": "Battery expansion module ka input voltage kam hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm sunlight is sufficient or that AC reverse charging is allowed, as the manual conditions recovery on this.",
+          "ur": "Confirm karein ke sunlight kaafi hai ya AC reverse charging ki ijazat hai, jaisa manual recovery ki shart lagata hai."
+        },
+        {
+          "en": "Measure the DC bus voltage at the control unit to see whether the input side can charge the pack at all.",
+          "ur": "Control unit par DC bus voltage measure karein dekhne ke liye ke input side pack ko charge kar sakti hai ya nahi."
+        },
+        {
+          "en": "Do not force-charge a deeply discharged pack; use the documented hibernation then wake sequence instead.",
+          "ur": "Bohat discharge hua pack force-charge na karein; documented hibernation phir wake sequence use karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3012",
+      "aliases": [
+        "3012",
+        "Abnormal battery power control module parallel communication",
+        "Parallel ESCU comms"
+      ],
+      "title": {
+        "en": "Abnormal Parallel Communication Between Modules",
+        "ur": "Modules ke darmiyan parallel communication abnormal hai"
+      },
+      "meaning": {
+        "en": "The power control modules in a parallel system fail to communicate with each other.",
+        "ur": "Parallel system ke power control modules aapas mein communicate nahi kar pa rahe."
+      },
+      "causes": [
+        {
+          "en": "The battery power control modules of the parallel system fail to communicate with each other.",
+          "ur": "Parallel system ke battery power control modules aapas mein communicate nahi kar pa rahe."
+        },
+        {
+          "en": "The communications cable is not correctly connected between paralleled systems.",
+          "ur": "Parallel systems ke darmiyan communications cable theek se connected nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Issue a hibernation command on the app, then turn off inverter AC output switch, DC input switch and battery DC switch, and wait 5 minutes.",
+          "ur": "App par hibernation command bhejein, phir inverter AC output switch, DC input switch aur battery DC switch band karke 5 minute intezaar karein."
+        },
+        {
+          "en": "Check that the communications cable is correctly connected between the paralleled control units.",
+          "ur": "Check karein ke paralleled control units ke darmiyan communications cable theek se connected hai."
+        },
+        {
+          "en": "Confirm in the app that only supported parallel counts are configured; the PK spec page caps parallel operation at 4 systems and only certain inverter models allow 4.",
+          "ur": "App par confirm karein ke sirf supported parallel count configure hai; PK spec page parallel operation 4 systems tak limit karta hai aur sirf kuch inverter models 4 allow karte hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3013",
+      "aliases": [
+        "3013",
+        "Abnormal battery expansion module communication",
+        "PCU to pack comms"
+      ],
+      "title": {
+        "en": "Abnormal Communication With Battery Expansion Module",
+        "ur": "Battery expansion module ke saath communication abnormal hai"
+      },
+      "meaning": {
+        "en": "The power control module fails to communicate with the battery expansion modules.",
+        "ur": "Power control module battery expansion modules se communicate nahi kar pa raha."
+      },
+      "causes": [
+        {
+          "en": "The battery power control module fails to communicate with the battery expansion modules.",
+          "ur": "Battery power control module battery expansion modules se communicate nahi kar pa raha."
+        },
+        {
+          "en": "The communications cable terminal is loose or a pack is unpowered.",
+          "ur": "Communications cable terminal loose hai ya koi pack unpowered hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off all three switches and wait 5 minutes.",
+          "ur": "Teeno switches band karke 5 minute intezaar karein."
+        },
+        {
+          "en": "Check that the communications cable terminal is correctly connected to each [Battery-1/2/3/4 expansion module-1/2/3].",
+          "ur": "Check karein ke communications cable terminal har [Battery-1/2/3/4 expansion module-1/2/3] par correctly connected hai."
+        },
+        {
+          "en": "Reseat and torque the communication terminals, then confirm each pack reports in the app before re-energising.",
+          "ur": "Communication terminals dobara laga ke torque karein, phir dobara energise karne se pehle app par confirm karein ke har pack report kar rahi hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3049",
+      "aliases": [
+        "3049",
+        "Inconsistent Battery Power Control Module Versions",
+        "Firmware version mismatch (parallel)"
+      ],
+      "title": {
+        "en": "Inconsistent Module Firmware Versions",
+        "ur": "Modules ke firmware versions inconsistent hain"
+      },
+      "meaning": {
+        "en": "The power control modules in a parallel system are running different firmware versions.",
+        "ur": "Parallel system ke power control modules alag alag firmware versions par chal rahe hain."
+      },
+      "causes": [
+        {
+          "en": "The versions of the power control modules in the parallel system are inconsistent.",
+          "ur": "Parallel system ke power control modules ke versions inconsistent hain."
+        },
+        {
+          "en": "The update failed.",
+          "ur": "Update fail ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the app and read the firmware version of each control unit; note which one is behind.",
+          "ur": "App kholein aur har control unit ka firmware version padhein; note karein ke kaun sa peeche hai."
+        },
+        {
+          "en": "Update the out-of-date unit to match the others, following the app's upgrade sequence.",
+          "ur": "App ke upgrade sequence ke mutabiq peeche wale unit ko baqi ke barabar update karein."
+        },
+        {
+          "en": "If the update fails multiple times, contact your dealer or technical support rather than forcing it.",
+          "ur": "Agar update kai baar fail ho to zor se karne ke bajaye dealer ya technical support se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3051",
+      "aliases": [
+        "3051",
+        "ESS Version Mismatch",
+        "PCU to pack version mismatch"
+      ],
+      "title": {
+        "en": "ESS Version Mismatch (control unit vs pack)",
+        "ur": "ESS version mismatch (control unit aur pack ke darmiyan)"
+      },
+      "meaning": {
+        "en": "The power control module firmware version does not match the battery pack version, which affects normal operation.",
+        "ur": "Power control module ka firmware version battery pack ke version se match nahi karta, is se normal operation par asar padta hai."
+      },
+      "causes": [
+        {
+          "en": "The version of the battery power control modules does not match that of the battery packs, which affects the normal operation.",
+          "ur": "Battery power control modules ka version battery packs ke version se match nahi karta, is se normal operation asar pata hai."
+        },
+        {
+          "en": "The update failed.",
+          "ur": "Update fail ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read both the control unit and each pack firmware version in the app and identify the mismatch pair.",
+          "ur": "App par control unit aur har pack ka firmware version padhein aur mismatch jodi pehchan lein."
+        },
+        {
+          "en": "Run the app's ESS update so the control unit and packs converge on one version.",
+          "ur": "App ka ESS update chalayein taake control unit aur packs ek version par aa jayein."
+        },
+        {
+          "en": "If the update fails multiple times, contact your dealer or technical support; a forced version skip can brick the pack.",
+          "ur": "Agar update kai baar fail ho to dealer ya technical support se rabta karein; zor se version skip karne se pack brick ho sakta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3061",
+      "aliases": [
+        "3061",
+        "Battery Pack Lifespan Reached",
+        "End of life"
+      ],
+      "title": {
+        "en": "Battery Pack Lifespan Reached",
+        "ur": "Battery pack ki lifespan khatam ho gayi"
+      },
+      "meaning": {
+        "en": "The named battery expansion module has reached the end of its life. Recycling is required, not repair.",
+        "ur": "Mashoor battery expansion module ki zindagi khatam ho gayi. Recycling zaroori hai, maramm nahi."
+      },
+      "causes": [
+        {
+          "en": "The battery pack has reached the end of its lifespan through ageing and cycling.",
+          "ur": "Battery pack ageing aur cycling ke zariye apni lifespan ke end tak pohanch gaya hai."
+        },
+        {
+          "en": "No electrical or firmware fault is listed alongside it - this manual states ageing only, so it is a wear-out condition rather than a defect.",
+          "ur": "Iske saath koi electrical ya firmware fault listed nahi hai - yeh manual sirf ageing batata hai, is liye yeh defect nahi balki wear-out condition hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm which pack position has reached end of life in the app before ordering a replacement.",
+          "ur": "Replacement order karne se pehle app par confirm karein ke kaun si pack position ki lifespan khatam hui hai."
+        },
+        {
+          "en": "Check remaining usable capacity of the other packs; only one module may need replacing.",
+          "ur": "Baaki packs ki bachi hui usable capacity check karein; ho sakta hai sirf ek module badalna ho."
+        },
+        {
+          "en": "Recycle the end-of-life pack through a compliant local recycler and keep the disposal record for warranty audit.",
+          "ur": "End-of-life pack ko compliant local recycler se recycle karein aur warranty audit ke liye disposal record rakhein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3063",
+      "aliases": [
+        "3063",
+        "Battery Power Control Module Certificate Expired",
+        "ESCU certificate expired"
+      ],
+      "title": {
+        "en": "Control Unit Certificate Expired",
+        "ur": "Control unit ka certificate expire ho gaya"
+      },
+      "meaning": {
+        "en": "The control unit's certificate has expired, or the system time is set wrong so a valid certificate reads as expired.",
+        "ur": "Control unit ka certificate expire ho gaya hai, ya system time galat hai is liye valid certificate expired dikh raha hai."
+      },
+      "causes": [
+        {
+          "en": "The certificate has expired.",
+          "ur": "Certificate expire ho gaya hai."
+        },
+        {
+          "en": "The system time is incorrectly set.",
+          "ur": "System time galat set hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Apply for a new certificate for the specific [Battery-1/2/3/4] unit.",
+          "ur": "Mashoor [Battery-1/2/3/4] unit ke liye naya certificate apply karein."
+        },
+        {
+          "en": "Correct the system time of the unit, then reload the certificate.",
+          "ur": "Unit ka system time theek karein, phir certificate dobara load karein."
+        },
+        {
+          "en": "Sync time automatically where possible so a manual clock drift does not re-trigger this.",
+          "ur": "Jahan mumkin ho time automatically sync karein taake manual clock drift dobara yeh na chalaaye."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3066",
+      "aliases": [
+        "3066",
+        "Abnormal EN Signal on Battery Expansion Module",
+        "EN signal miswire"
+      ],
+      "title": {
+        "en": "Abnormal EN Signal on Battery Expansion Module",
+        "ur": "Battery expansion module ka EN signal abnormal hai"
+      },
+      "meaning": {
+        "en": "The EN (enable) cable of a battery expansion module is plugged into the wrong port.",
+        "ur": "Battery expansion module ka EN (enable) cable galat port mein laga hua hai."
+      },
+      "causes": [
+        {
+          "en": "The EN cable of the battery expansion module is connected to an incorrect port.",
+          "ur": "Battery expansion module ka EN cable galat port se connected hai."
+        },
+        {
+          "en": "The battery expansion module is abnormal.",
+          "ur": "Battery expansion module abnormal hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off all three switches and wait 5 minutes before touching the EN cable.",
+          "ur": "EN cable chhune se pehle teeno switches band karke 5 minute intezaar karein."
+        },
+        {
+          "en": "Check whether the EN cable terminal is correctly connected to the power control module of the named expansion module.",
+          "ur": "Check karein ke EN cable terminal mashoor expansion module ke power control module par correctly connected hai ya nahi."
+        },
+        {
+          "en": "Re-seat the EN cable in the labelled port only, and confirm the pack reports in the app afterwards.",
+          "ur": "EN cable sirf labelled port mein dobara laga dein, phir app par confirm karein ke pack report kar rahi hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3070",
+      "aliases": [
+        "3070",
+        "ESS Health Check Timeout"
+      ],
+      "title": {
+        "en": "ESS Health Check Timeout",
+        "ur": "ESS health check timeout ho gaya"
+      },
+      "meaning": {
+        "en": "The ESS has not received a health check for a long time, so battery health data is stale.",
+        "ur": "ESS ko bohat arse se health check nahi mila, is liye battery health data purana hai."
+      },
+      "causes": [
+        {
+          "en": "The ESS has not received a health check for a long time.",
+          "ur": "ESS ko bohat arse se health check nahi mila hai."
+        },
+        {
+          "en": "Long grid outage or extended no-PV period preventing the scheduled check from running.",
+          "ur": "Lamba grid outage ya lamba no-PV arse jo scheduled check chalne se rok raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Perform a battery health check manually, as the manual's only listed measure.",
+          "ur": "Manual ka sirf bataya hua ilaaj hai - battery health check manually karein."
+        },
+        {
+          "en": "Before the manual check, confirm the app can reach the ESS - this alarm often rides alongside a comms problem.",
+          "ur": "Manual check se pehle confirm karein ke app ESS tak pohanch sakta hai - yeh alarm aksar comms problem ke saath aata hai."
+        },
+        {
+          "en": "If manual checks keep timing out, log SOH trends in the app to see whether a pack has genuinely degraded.",
+          "ur": "Agar manual checks baar baar timeout hote hain to app par SOH trends log karein dekhne ke liye ke koi pack waqai degrade hua hai ya nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    },
+    {
+      "code": "3071",
+      "aliases": [
+        "3071",
+        "Battery Expansion Module Locked"
+      ],
+      "title": {
+        "en": "Battery Expansion Module Locked",
+        "ur": "Battery expansion module lock ho gaya"
+      },
+      "meaning": {
+        "en": "The expansion module is locked out, usually because of overheating or an internal major fault. The manual's listed action is vendor escalation.",
+        "ur": "Expansion module lock out ho gaya hai, aam tor par overheating ya internal major fault ki wajah se. Manual ka bataya hua ilaaj vendor ko batana hai."
+      },
+      "causes": [
+        {
+          "en": "The installation position of the battery expansion module is not well ventilated.",
+          "ur": "Battery expansion module ki installation position well ventilated nahi hai."
+        },
+        {
+          "en": "The ambient temperature is above the upper threshold.",
+          "ur": "Ambient temperature upper threshold se upar hai."
+        },
+        {
+          "en": "The battery expansion module is abnormal, or a major fault has occurred on it.",
+          "ur": "Battery expansion module abnormal hai, ya us par major fault aaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Correct the installation ventilation and ambient conditions first - these are listed causes, not guesses.",
+          "ur": "Pehle installation ki ventilation aur ambient conditions theek karein - yeh listed wajuhain hain, andaza nahi."
+        },
+        {
+          "en": "Do not attempt to force-unlock the module; power off and leave it isolated while you escalate.",
+          "ur": "Module ko force-unlock karne ki koshish na karein; band karke isolate chhod dein aur escalate karein."
+        },
+        {
+          "en": "Contact your vendor or technical support, quoting the alarm ID and the module position, as the manual directs.",
+          "ur": "Manual ke mutabiq vendor ya technical support se rabta karein, alarm ID aur module position batayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-S1 User Manual, Issue 06 (2025-09-30), Section 7.3 Table 7-2",
+        "retrieved": "2026-09-26",
+        "url": "https://solar.huawei.com/admin/asset/v1/pro/view/7fa828aede004fb1b1658929a49d6242.pdf"
+      }
+    }
+  ]
+}

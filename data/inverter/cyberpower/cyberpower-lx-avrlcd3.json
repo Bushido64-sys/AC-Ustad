@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "brandId": "cyberpower",
+  "series": {
+    "id": "cyberpower-lx-avrlcd3",
+    "name": "LX1100G3 / LX1325GU3 / LX1500GU3 and CP1350/1500AVRLCD3 (Intelligent LCD, line-interactive 1100-1500VA, newer FAULT list)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*LX1100G3*",
+      "*LX1325GU3*",
+      "*LX1500GU3*",
+      "*CP1350AVRLCD3*",
+      "*CP1500AVRLCD3*",
+      "*LX1*"
+    ],
+    "notes": "CONFLICT SOURCE - read notes. (a) The LX G3 manual uses the SHORT wording 'E21: Output Short' and 'E22: Overload' while the LX1 manual of the same platform (LX1100G3/LX1325GU3/LX1500GU3 family, items 6-8) says 'E21: Output Short (Check the status of equipment connected to the UPS and then turn on the UPS again.)' and 'E22: Overload (Unplug at least one piece of equipment from battery outlets and turn the UPS on again.)' - semantically identical to SERIES 1/2 but textually different. (b) The CP1500AVRLCD3 manual (same shortened wording as LX1) lists E02/E11/E21/E22 and DROPS E01 entirely, while the LX G3 manual and every earlier CP manual keep E01. So on these newer models the technician must expect 4 codes, not 5."
+  },
+  "codes": [
+    {
+      "code": "E01",
+      "aliases": [
+        "E01"
+      ],
+      "title": {
+        "en": "E01 Charger Fault - Overcharge",
+        "ur": "E01 Charger Fault - Overcharge (charger battery ko zyada charge kar raha)"
+      },
+      "meaning": {
+        "en": "The charger is pushing the battery bank above its safe voltage. Present on the LX G3 manual's FAULT list; note the CP1350/1500AVRLCD3 manual for the same shortened-wording platform omits E01.",
+        "ur": "Charger battery bank ko safe voltage se upar le raha hai. LX G3 manual ki FAULT list mein mojood hai; dhyan dein isi hi shortened-wording platform ke CP1350/1500AVRLCD3 manual mein E01 nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Charger over-voltage sensing or the charge IC has failed.",
+          "ur": "Charger over-voltage sensing ya charge IC kharab ho gaya hai."
+        },
+        {
+          "en": "Aged, overheated or swollen battery bank drags the charger into overcharge.",
+          "ur": "Purani, garmi se kharab ya phooli hui battery bank charger ko overcharge mein kheench leti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, unplug the mains cord and disconnect the internal battery quick-connect before opening the case.",
+          "ur": "Case kholne se pehle UPS off karein, mains cord nikaal dein aur internal battery quick-connect disconnect kar dein."
+        },
+        {
+          "en": "Measure each battery on DC volts; a healthy 12V cell reads 12.6-13.0V and should not exceed about 13.8V at rest.",
+          "ur": "Har battery DC volt par measure karein; healthy 12V cell 12.6-13.0V par hota hai aur aaram ke waqt 13.8V se upar na ho."
+        },
+        {
+          "en": "Swap the whole battery bank for the specified replacement, keeping matched cells in series.",
+          "ur": "Poori battery bank ko spec wali replacement se badal dein, series mein matched cells jor ke rakhein."
+        },
+        {
+          "en": "If readings are normal, the charger board is at fault - contact CyberPower Systems support for an RMA.",
+          "ur": "Agar readings normal hain to charger board kharab hai - CyberPower Systems support se RMA ke liye rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "LX1100G3/LX1325GU3/LX1500GU3 User Manual (CP1350/1500AVRLCD3 platform)",
+        "retrieved": "2026-09-26",
+        "url": "https://files.bbystatic.com/g%2BooEKfUCPwsH4KGBwd%2BeQ%3D%3D/User%2BManual"
+      }
+    },
+    {
+      "code": "E02",
+      "aliases": [
+        "E02"
+      ],
+      "title": {
+        "en": "E02 Charger Fault - No Charge",
+        "ur": "E02 Charger Fault - No Charge (charger battery charge hi nahi kar raha)"
+      },
+      "meaning": {
+        "en": "The charger is not charging the battery bank at all, so the UPS has no usable reserve and reports a fault.",
+        "ur": "Charger battery bank ko bilkul charge nahi kar raha, is liye UPS ke paas koi usable reserve nahi aur woh fault report karta hai."
+      },
+      "causes": [
+        {
+          "en": "Internal battery quick-connect is loose or the terminal is corroded.",
+          "ur": "Internal battery quick-connect dheela hai ya terminal zanga hai."
+        },
+        {
+          "en": "Battery pack is dead or has a failed cell in the series string.",
+          "ur": "Battery pack dead hai ya series string mein koi cell kharab hai."
+        },
+        {
+          "en": "Battery branch fuse or the charger output stage has failed open.",
+          "ur": "Battery branch fuse ya charger output stage open ho kar kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate first: switch off, unplug mains, disconnect the internal battery quick-connect.",
+          "ur": "Pehle isolate karein: off karein, mains nikaal dein, internal battery quick-connect disconnect kar dein."
+        },
+        {
+          "en": "Check battery DC voltage; a rested healthy 12V battery reads 12.4-12.7V and near 0V means the pack must be replaced.",
+          "ur": "Battery DC voltage check karein; aaram wali healthy 12V battery 12.4-12.7V par hoti hai aur 0V ke qareeb ho to pack badalna hai."
+        },
+        {
+          "en": "With mains reconnected, measure charge voltage at the battery terminals; 13.5-14V is healthy and near 0V means the charger or fuse failed.",
+          "ur": "Mains wapas lagane ke baad battery terminals par charge voltage measure karein; 13.5-14V healthy hai aur 0V ke qareeb charger ya fuse kharab."
+        },
+        {
+          "en": "Replace a dead pack with the specified battery; a persistent E02 on a new pack means the charger board has failed - escalate to support.",
+          "ur": "Dead pack ko spec wali battery se badal dein; nayi pack par bhi E02 jari rahe to charger board kharab hai - support tak pohanchayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "LX1100G3/LX1325GU3/LX1500GU3 User Manual (CP1350/1500AVRLCD3 platform)",
+        "retrieved": "2026-09-26",
+        "url": "https://files.bbystatic.com/g%2BooEKfUCPwsH4KGBwd%2BeQ%3D%3D/User%2BManual"
+      }
+    },
+    {
+      "code": "E11",
+      "aliases": [
+        "E11"
+      ],
+      "title": {
+        "en": "E11 Battery Overvoltage",
+        "ur": "E11 Battery Overvoltage (battery ka voltage safe limit se upar)"
+      },
+      "meaning": {
+        "en": "Battery voltage has risen above the safe limit and the UPS cuts inverter drive to protect the cells.",
+        "ur": "Battery voltage safe limit se upar chali gayi hai aur UPS cells bachane ke liye inverter drive band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Over-voltage protection relay or sensing line has failed so charging is never cut.",
+          "ur": "Over-voltage protection relay ya sensing line kharab ho gayi hai is liye charging kabhi band nahi hoti."
+        },
+        {
+          "en": "An extra cell in series has pushed the string above the charger set-point.",
+          "ur": "Series mein ek extra cell lag gaya hai jis se string charger set-point se upar chali gayi."
+        },
+        {
+          "en": "Swollen, internally shorted battery absorbing charge without taking it.",
+          "ur": "Phooli hui, andar se short battery charge le rahi hai lekin use nahi kar rahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off, unplug mains and disconnect the battery before any measurement.",
+          "ur": "Koi bhi measurement se pehle off karein, mains nikaal dein aur battery disconnect kar dein."
+        },
+        {
+          "en": "Count the cells in series and confirm they match the model's specified battery configuration.",
+          "ur": "Series mein cells gin lein aur confirm karein ke woh model ki battery configuration se match karte hain."
+        },
+        {
+          "en": "Measure each cell on DC range; above about 13.8V at rest means replace that battery and its pair together.",
+          "ur": "Har cell DC range par measure karein; aaram ke waqt 13.8V se upar ho to us battery ko aur us ki jodi ko saath badal dein."
+        },
+        {
+          "en": "If voltage is in range but E11 still shows, it is a sensing/relay failure - route the unit to CyberPower Systems support.",
+          "ur": "Agar voltage range mein ho phir bhi E11 aaye to sensing/relay failure hai - unit CyberPower Systems support ko bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "LX1100G3/LX1325GU3/LX1500GU3 User Manual (CP1350/1500AVRLCD3 platform)",
+        "retrieved": "2026-09-26",
+        "url": "https://files.bbystatic.com/g%2BooEKfUCPwsH4KGBwd%2BeQ%3D%3D/User%2BManual"
+      }
+    },
+    {
+      "code": "E21",
+      "aliases": [
+        "E21"
+      ],
+      "title": {
+        "en": "E21 Output Short",
+        "ur": "E21 Output Short (output short circuit ho gaya)"
+      },
+      "meaning": {
+        "en": "The output is shorted while the UPS is running. Newer wording on this platform is 'Output Short' and the manual's own remedy is to check the connected equipment first, then turn the UPS on again.",
+        "ur": "UPS chalte waqt output short ho gaya hai. Is platform par nayi wording 'Output Short' hai aur manual ka apna hal yeh hai ke pehle connected equipment check karein, phir UPS dobara on karein."
+      },
+      "causes": [
+        {
+          "en": "Connected equipment has a problem and one of them is shorting the output.",
+          "ur": "Connected equipment mein koi masla hai aur woh output short kar raha hai."
+        },
+        {
+          "en": "A power strip or extension lead has a crushed or cut live core.",
+          "ur": "Power strip ya extension lead ka live core kata ya daba hua hai."
+        },
+        {
+          "en": "Outlet terminals loose/bridged, or a cable pinched behind the unit.",
+          "ur": "Outlet terminals dheele/bridge hue hain, ya unit ke peeche koi cable pincha hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Apply the manual's own remedy: check the status of equipment connected to the UPS, then turn the UPS on again.",
+          "ur": "Manual ka apna hal lagayein: UPS se jude equipment ki haalat check karein, phir UPS dobara on karein."
+        },
+        {
+          "en": "Before powering up, unplug mains and disconnect the internal battery, then remove every load so the next power-up is a clean test.",
+          "ur": "Power up karne se pehle mains nikaal dein aur internal battery disconnect karein, phir saara load nikaal dein taake agla power-up saaf test ho."
+        },
+        {
+          "en": "With the unit isolated, use a multimeter on continuity/ohms from each outlet to neutral; near-zero ohms pinpoints the shorted socket.",
+          "ur": "Unit isolate karne ke baad multimeter continuity/ohms par har outlet ko neutral se check karein; zero ke qareeb ohms shorted socket ki taraf ishara karta hai."
+        },
+        {
+          "en": "If all outlets are clean and E21 returns, the inverter output stage has failed - send the unit to CyberPower Systems support.",
+          "ur": "Agar sab outlets clean hain phir bhi E21 aaye to inverter output stage kharab hai - unit CyberPower Systems support ko bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "LX1100G3/LX1325GU3/LX1500GU3 User Manual (CP1350/1500AVRLCD3 platform)",
+        "retrieved": "2026-09-26",
+        "url": "https://files.bbystatic.com/g%2BooEKfUCPwsH4KGBwd%2BeQ%3D%3D/User%2BManual"
+      }
+    },
+    {
+      "code": "E22",
+      "aliases": [
+        "E22"
+      ],
+      "title": {
+        "en": "E22 Overload",
+        "ur": "E22 Overload (load UPS ki capacity se zyada)"
+      },
+      "meaning": {
+        "en": "Load exceeds the unit rating. Newer wording on this platform is simply 'Overload'; the manual's remedy is to unplug at least one piece of equipment from the battery outlets and turn the UPS on again.",
+        "ur": "Load unit ki rating se zyada hai. Is platform par nayi wording sirf 'Overload' hai; manual ka hal yeh hai ke battery outlets se kam az kam ek equipment nikaal kar UPS dobara on karein."
+      },
+      "causes": [
+        {
+          "en": "Total connected load exceeds the unit's rating (e.g. 900W on LX1500GU3 / CP1500AVRLCD3).",
+          "ur": "Total connected load unit ki rating se zyada hai (jaise LX1500GU3 / CP1500AVRLCD3 par 900W)."
+        },
+        {
+          "en": "A high inrush device tripped the overload on transfer back to mains.",
+          "ur": "Bade inrush wale device ne mains par wapas transfer hote waqt overload kar diya."
+        },
+        {
+          "en": "A power strip feeding the load has a lower rating than the UPS output.",
+          "ur": "Load ko feed karne wali power strip ki rating UPS output se kam hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Follow the manual: unplug at least one piece of equipment from battery outlets and turn the UPS on again.",
+          "ur": "Manual ke mutabiq: battery outlets se kam az kam ek equipment nikaal dein aur UPS dobara on karein."
+        },
+        {
+          "en": "Add the removed equipment back one at a time and total the watts; keep the sum under the unit's rated watts.",
+          "ur": "Nikaali hui equipment ek-ek karke wapas lagayein aur watt total karein; total ko unit ki rated watts se kam rakhein."
+        },
+        {
+          "en": "Check the rear circuit breaker knob is fully in before restarting, and confirm no laser printer, shredder, copier, heater, vacuum or sump pump is on the battery outlets.",
+          "ur": "Restart se pehle check karein ke rear circuit breaker knob poori tarah andar hai, aur battery outlets par koi laser printer, shredder, copier, heater, vacuum ya sump pump nahi hai."
+        },
+        {
+          "en": "If a heavy appliance must stay connected, move it to mains directly or reconnect it after everything else so the UPS does not switch it on alone.",
+          "ur": "Agar bhaari appliance lagna hi hai to use seedha mains par lein ya sab kuch connect hone ke baad wapas lagayein taake UPS use akela on na kare."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "LX1100G3/LX1325GU3/LX1500GU3 User Manual (CP1350/1500AVRLCD3 platform)",
+        "retrieved": "2026-09-26",
+        "url": "https://files.bbystatic.com/g%2BooEKfUCPwsH4KGBwd%2BeQ%3D%3D/User%2BManual"
+      }
+    },
+    {
+      "code": "REPLACE BATTERY (icon)",
+      "aliases": [
+        "REPLACE BATTERY (icon)",
+        "REPLACE BATTERY"
+      ],
+      "title": {
+        "en": "REPLACE BATTERY icon (battery condition status)",
+        "ur": "REPLACE BATTERY icon (battery badalne ka waqt aa gaya hai)"
+      },
+      "meaning": {
+        "en": "This icon illuminates when the batteries are not connected well or the batteries were worn out - it is the manual's explicit battery-replacement trigger.",
+        "ur": "Yeh icon tab jalta hai jab batteries theek se nahi lagi hon ya purani ho chuki hon - manual ka saaf battery-badalne ka signal yahi hai."
+      },
+      "causes": [
+        {
+          "en": "Batteries are not connected well - loose or unplugged quick-connect.",
+          "ur": "Batteries theek se nahi lagi - quick-connect dheela ya nikaala hua."
+        },
+        {
+          "en": "Batteries are worn out after repeated deep discharge cycles.",
+          "ur": "Baar baar deep discharge ke baad batteries purani ho chuki hain."
+        },
+        {
+          "en": "Battery terminals are corroded, adding resistance and misleading the battery test.",
+          "ur": "Battery terminals zang lagay hain, jis se resistance barh kar battery test galat signal deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, unplug mains, then reseat the internal battery quick-connect firmly until it clicks.",
+          "ur": "UPS off karein, mains nikaal dein, phir internal battery quick-connect ko click hone tak mazbooti se baithayein."
+        },
+        {
+          "en": "Clean battery terminals with a stiff brush and a baking-soda-and-water solution, dry them fully, then reconnect.",
+          "ur": "Battery terminals ko sakht brush aur baking soda + pani ke solution se saaf karein, poori tarah khushk karein, phir wapas lagayein."
+        },
+        {
+          "en": "Measure the pack on DC volts and run a timed battery test; replace the pack when rested voltage is well below spec or runtime will not meet the load.",
+          "ur": "Pack DC volt par measure karein aur timed battery test chalayein; aaram wali voltage spec se kaafi neeche ho ya runtime load ke liye na mile to pack badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "LX1100G3/LX1325GU3/LX1500GU3 User Manual (CP1350/1500AVRLCD3 platform)",
+        "retrieved": "2026-09-26",
+        "url": "https://files.bbystatic.com/g%2BooEKfUCPwsH4KGBwd%2BeQ%3D%3D/User%2BManual"
+      }
+    }
+  ]
+}

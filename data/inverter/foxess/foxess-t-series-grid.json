@@ -1,0 +1,355 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-t-series-grid",
+    "name": "T-Series (single-phase grid-tie string) - grid and anti-islanding faults",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*T*-M*",
+      "*T*Series*"
+    ],
+    "notes": "T-Series is NOT a hybrid - the manual contains no battery port and zero occurrences of the word 'battery'. Models verified from the manual's own list: T3-M, T4-M, T5-M, T6-M, T8-M, T10-M, T10-M-B, T12-M, T8(Dual)-M, T10(Dual)-M, T12(Dual)-M, T15-M, T17-M, T20-M, T23-M, T25-M, T30-M. FORMAT WARNING: these are short lowercase strings with spaces - 'Grid volt fault', NOT 'Grid Volt Fault'. Do NOT merge with foxess-h1-ac1-g2-grid even though the physics is identical, because FoxESS's own remedy text differs: T says 'Wait for one minute, grid may go back to normal working state' and 'Make sure that grid voltage and frequency complies with standards', whereas the hybrids say 'System will reconnect if the utility is back to normal'. Confidence high: two independent official FoxESS copies (PK V1.0.1 and global V1.0.2) carry all 22 rows and every remedy string identically."
+  },
+  "codes": [
+    {
+      "code": "Grid lost fault",
+      "aliases": [
+        "Grid lost fault",
+        "Grid Lost Fault"
+      ],
+      "title": {
+        "en": "Grid supply lost (T-Series)",
+        "ur": "Grid supply chala gaya (T-Series)"
+      },
+      "meaning": {
+        "en": "The T-Series lost the grid reference and isolated itself. FoxESS's T remedy is a wiring/connection check, not a simple wait.",
+        "ur": "T-Series ne grid reference kho diya aur khud ko alag kar liya. FoxESS ka T hal wiring/connection check hai, sirf intezar nahi."
+      },
+      "causes": [
+        {
+          "en": "Main AC MCB tripped, or the AC output connector is loose at the inverter or at the board.",
+          "ur": "Main AC MCB trip hua, ya AC output connector inverter ya board par loose hai."
+        },
+        {
+          "en": "Genuine utility outage, or a grid-connection problem at the wires/interface as FoxESS names it.",
+          "ur": "Waqai utility outage, ya wires/interface par grid-connection ka masla jaise FoxESS kehta hai."
+        },
+        {
+          "en": "PV DC string open so the inverter has nothing to export and reports the grid-side symptom.",
+          "ur": "PV DC string khari hai is liye inverter ke paas export karne ko kuch nahi aur woh grid side ka symptom report karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the grid-connection - wires and interface - exactly as FoxESS instructs for this code, at the inverter and at the board.",
+          "ur": "Jaise FoxESS is code ke liye kahe grid-connection check karein - wires aur interface - inverter aur board dono par."
+        },
+        {
+          "en": "Check the grid usability with a multimeter on the AC output terminals to confirm whether the utility is actually present.",
+          "ur": "Multimeter se AC output terminals par grid usability check kar ke confirm karein ke utility waqai mojood hai ya nahi."
+        },
+        {
+          "en": "Measure the PV string open-circuit voltage; a zero-Voc string makes the inverter look grid-faulted when it is actually a DC-side open.",
+          "ur": "PV string ka open-circuit voltage napen; zero Voc wali string inverter ko grid-fault jaisa dikhaati hai jabke asal masla DC side ka open hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "FoxESS's T-Series remedy for this code is 'Checking grid usability' plus 'Or seek for help from us' - it does NOT say 'the system will reconnect' the way the hybrids do. That difference matters: on a T-Series a persistent Grid lost fault after the grid is confirmed good points at the inverter, not at supply.",
+        "ur": "FoxESS ka T-Series is code ka hal 'Checking grid usability' aur 'Or seek for help from us' hai - ye NAHI kehta ke system khud reconnect hoga jaise hybrids kehte hain. Yeh farq ahem hai: T-Series par grid theek hone ke baad bhi Grid lost fault qataar na ho to masla inverter ka hai, supply ka nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    },
+    {
+      "code": "Grid volt fault",
+      "aliases": [
+        "Grid volt fault",
+        "Grid Volt Fault"
+      ],
+      "title": {
+        "en": "Grid voltage out of range (T-Series)",
+        "ur": "Grid voltage range se bahar (T-Series)"
+      },
+      "meaning": {
+        "en": "Measured grid voltage is outside the permitted window so the T-Series refuses to connect. FoxESS pairs it with a frequency check and a one-minute wait.",
+        "ur": "Grid voltage ijazat window se bahar hai is liye T-Series connect nahi hota. FoxESS isay frequency check aur aik minute ke intezar ke saath deta hai."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage genuinely high during export, typical of a long line or a transformer tap set high.",
+          "ur": "Export ke waqt grid voltage waqai high - lambi line ya transformer ka tap zyada par hona aam wajah hai."
+        },
+        {
+          "en": "A dip from a large motor or generator starting on the same feeder.",
+          "ur": "Wahi feeder par bade motor ya generator ke chalne se grid voltage gir gaya."
+        },
+        {
+          "en": "Grid frequency also out of specification, which FoxESS explicitly asks you to check alongside voltage.",
+          "ur": "Grid frequency bhi spec se bahar hai, jise FoxESS voltage ke saath saath check karne ko kehta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for one minute, as FoxESS states - the grid may go back to normal working state on its own.",
+          "ur": "Jaise FoxESS kahe, aik minute intezar karein - grid khud normal working state par wapas aa sakta hai."
+        },
+        {
+          "en": "Make sure that grid voltage AND frequency comply with standards: measure both at the inverter's AC terminals, not at a convenience socket.",
+          "ur": "Confirm karein ke grid voltage AUR frequency standards ke mutabiq hain: dono inverter ke AC terminals par napen, kisi aasan socket par nahi."
+        },
+        {
+          "en": "If voltage is genuinely high, have the utility correct the substation tap before touching the inverter's protection settings.",
+          "ur": "Agar voltage waqai high hai to inverter ki protection settings chhune se pehle utility se substation tap theek karwayein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Same physical fault as the hybrids' 'Grid Volt Fault' but a different official remedy sentence. Keep the two apart so a T-Series owner is told to wait one minute and check frequency, and an H1 owner is told the system will reconnect.",
+        "ur": "Hybrids ke 'Grid Volt Fault' se wohi asal masla, lekin alag official remedy sentence. Alag rakhein taake T-Series owner ko aik minute intezar aur frequency check kiya jaye, aur H1 owner ko system khud reconnect hoga bataya jaye."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    },
+    {
+      "code": "Grid freq fault",
+      "aliases": [
+        "Grid freq fault",
+        "Grid Freq Fault"
+      ],
+      "title": {
+        "en": "Grid frequency out of range (T-Series)",
+        "ur": "Grid frequency range se bahar (T-Series)"
+      },
+      "meaning": {
+        "en": "Grid frequency is outside the permitted band, so the T-Series has disconnected. FoxESS's remedy is a compliance check, not a wait-and-hope.",
+        "ur": "Grid frequency ijazat range se bahar hai is liye T-Series disconnect ho gaya. FoxESS ka hal compliance check hai, intezar karne ka nahi."
+      },
+      "causes": [
+        {
+          "en": "Utility frequency excursion during load shedding or generator handover.",
+          "ur": "Load shedding ya generator handover ke waqt utility frequency excursion."
+        },
+        {
+          "en": "Grid frequency off specification persistently, which in Pakistan points at the feeder or a nearby generator.",
+          "ur": "Grid frequency mustaqal spec se bahar - Pakistan mein yeh aam tor par feeder ya kareeb ka koi generator ki wajah hota hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for one minute, grid may go back to normal working state, as FoxESS states.",
+          "ur": "Jaise FoxESS kahe, aik minute intezar karein, grid normal working state par wapas aa sakta hai."
+        },
+        {
+          "en": "Make sure that grid voltage and frequency complies with standards; measure frequency with a meter that reads Hz, not just volts.",
+          "ur": "Confirm karein ke grid voltage aur frequency standards ke mutabiq hain; Hz parhne wale meter se frequency napen, sirf volts nahi."
+        },
+        {
+          "en": "If a generator shares the feeder, have its governor checked - a poorly governed generator dragging frequency is a repeat cause.",
+          "ur": "Agar feeder par generator shamil hai to uska governor check karwayein - frequency ko neeche kheenchne wala kharaab governor baar baar ki wajah hota hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Pakistan's nominal supply is 230 V / 50 Hz. FoxESS's T table gives no numeric trip window, so do not quote one as a FoxESS figure.",
+        "ur": "Pakistan ki nominal supply 230 V / 50 Hz hai. FoxESS ki T table koi numeric trip window nahi deti, is liye isay FoxESS ka figure keh kar na batayein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    },
+    {
+      "code": "Grid10MinOVP",
+      "aliases": [
+        "Grid10MinOVP",
+        "Grid10Min OVP",
+        "Grid 10min OVP"
+      ],
+      "title": {
+        "en": "10-minute average grid over-voltage (T-Series)",
+        "ur": "10 minute ka average grid over-voltage (T-Series)"
+      },
+      "meaning": {
+        "en": "The rolling 10-minute average grid voltage has exceeded the permitted level, so the T-Series has disconnected from the grid.",
+        "ur": "Grid voltage ka chalta hua 10 minute ka average ijazat level se upar chala gaya, is liye T-Series grid se disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Sustained grid over-voltage, typically high PV export into an already-high feeder.",
+          "ur": "Grid ka mustaqil over-voltage - aam tor par already high feeder mein zyada PV export."
+        },
+        {
+          "en": "Substation transformer tap set high and left uncorrected.",
+          "ur": "Substation transformer ka tap high set hai aur theek nahi kiya gaya."
+        },
+        {
+          "en": "A protection threshold set tighter than the local grid legitimately runs.",
+          "ur": "Protection threshold aise set hai jo local grid ke waqai chalne se zyada sakht hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "The system will reconnect if the grid is back to normal - so first confirm with a meter that the 10-minute average has genuinely come down.",
+          "ur": "System grid normal hone par khud reconnect ho jayega - is liye pehle multimeter se confirm karein ke 10 minute ka average waqai gir gaya hai."
+        },
+        {
+          "en": "Read and record the actual grid voltage in the app before changing anything; FoxESS gives no setting path for this threshold in the T manual.",
+          "ur": "Kuch bhi badalne se pehle app mein actual grid voltage parh kar note karein; T manual is threshold ka koi setting path nahi deta."
+        },
+        {
+          "en": "If the average voltage is genuinely over limit, get the utility to correct the substation tap - that is the fix FoxESS's own wording points to ('Or seek for help from us').",
+          "ur": "Agar average voltage waqai limit se upar hai to utility se substation tap theek karwayein - yehi hal hai jis taraf FoxESS ka apna wording ishara karta hai ('Or seek for help from us')."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The hybrids call the same condition '10min Volt Fault' and the R-series expresses it as 1185 'Grid Startup Voltage Abnormal' territory. Three namespaces, one physics. Never cross-lookup a T-Series owner onto a hybrid code.",
+        "ur": "Hybrids isi halat ko '10min Volt Fault' kehte hain aur R-series isay 1185 'Grid Startup Voltage Abnormal' ke ilaaqe mein express karta hai. Aik hi physics, teen namespaces. T-Series owner ko kabhi hybrid code par nahi bhejein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    },
+    {
+      "code": "SPS fault",
+      "aliases": [
+        "SPS fault",
+        "SPS Fault"
+      ],
+      "title": {
+        "en": "Smart Power Supply / standby power supply fault",
+        "ur": "Smart Power Supply fault"
+      },
+      "meaning": {
+        "en": "The inverter's standby or auxiliary power supply has faulted, so the unit has shut down. FoxESS's only instruction is to turn off PV and grid and reconnect them.",
+        "ur": "Inverter ki standby ya auxiliary power supply kharab ho gayi, is liye unit band ho gaya. FoxESS ka sirf instruction hai PV aur grid off kar ke wapas lagayein."
+      },
+      "causes": [
+        {
+          "en": "The 12 V / 5 V auxiliary rail has failed - on the R-Series the equivalent internal rails are separately coded 1097 and 1098.",
+          "ur": "12 V / 5 V auxiliary rail kharab ho gayi - R-Series par isi tarah ke internal rails ke alag codes 1097 aur 1098 hain."
+        },
+        {
+          "en": "The auxiliary supply drops out during grid loss because the standby source cannot hold it up.",
+          "ur": "Grid jaane par auxiliary supply gir jati hai kyunke standby source isay sambhal nahi pata."
+        },
+        {
+          "en": "A failed DC-DC converter feeding the control board from the PV side.",
+          "ur": "Control board ko PV side se chalane wala DC-DC converter kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the PV and grid, reconnect them - this is FoxESS's entire instruction for this code; do it once and re-read.",
+          "ur": "PV aur grid off karein, phir wapas lagayein - is code ke liye yehi poora instruction hai FoxESS ka; aik baar karke code dobara dekhein."
+        },
+        {
+          "en": "If it returns immediately on every power-up, the auxiliary supply is failing and no external check will fix it - log the code and serial and raise a service claim.",
+          "ur": "Agar har power-up par foran wapas aaye to auxiliary supply kharab ho rahi hai aur koi bahri check isay theek nahi karega - code aur serial note karke service claim raise karein."
+        },
+        {
+          "en": "Before quoting a board, have a technician with the unit isolated measure the 12 V and 5 V auxiliary rails on the control board.",
+          "ur": "Board quote karne se pehle, unit isolate kar ke kisi technician se control board par 12 V aur 5 V auxiliary rails napwa lein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "SPS is NOT a solar-panel or 'solar power system' code that a Pakistani owner should read as 'check my panels'. FoxESS does not expand the letters in the T manual, so the expansion above is inference from behaviour, not a quoted definition - treat the code itself as authoritative and the expansion as unconfirmed.",
+        "ur": "SPS ko 'solar panel' ya 'solar power system' ka code na samjhein jis ka matlab ho 'mere panels check karo'. FoxESS T manual mein harf poori nahi karta, is liye upar wala matlab behaviour se andaaza hai, quote kiya hua definition nahi - code ko hi authoritative samjhein aur matlab ko unconfirmed."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    },
+    {
+      "code": "Inconsistency",
+      "aliases": [
+        "Inconsistency"
+      ],
+      "title": {
+        "en": "Self-check inconsistency on restart",
+        "ur": "Restart par self-check ka mismatch"
+      },
+      "meaning": {
+        "en": "The inverter's own internal self-check did not agree with itself during a start-up sequence, so it shut down rather than run on unverified values.",
+        "ur": "Inverter ka apna internal self-check start-up sequence mein khud se match nahi hua, is liye unverified values par chalne ke bajaye band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "A sampling channel has drifted so two internal references for the same measurement disagree.",
+          "ur": "Koi sampling channel drift ho gaya hai is liye aik hi measurement ke do internal references disagree kar rahe hain."
+        },
+        {
+          "en": "Brown-out during the previous shutdown left a setting half-written in non-volatile memory.",
+          "ur": "Pichli shutdown ke dauraan brown-out aaya aur koi setting non-volatile memory mein adhoori likh gayi."
+        },
+        {
+          "en": "The EEPROM holding configuration has become unreliable - the T table lists 'EEprom fault' as a separate code for exactly that.",
+          "ur": "Config rakhne wala EEPROM unreliable ho gaya - T table mein isi ke liye alag code 'EEprom fault' hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV (+) and PV (-) using the DC switch; after the LCD switches off, reconnect and check again, exactly as FoxESS instructs.",
+          "ur": "DC switch se PV (+) aur PV (-) disconnect karein; LCD band hone ke baad wapas lagayein aur dobara check karein, jaise FoxESS kahe."
+        },
+        {
+          "en": "Give the unit a full 60-second discharge with the DC switch open before reconnecting, so the control board completes a clean power-down.",
+          "ur": "DC switch khuli rakh kar poore 60 second discharge dein, phir wapas lagayein, taake control board saaf power-down complete kar le."
+        },
+        {
+          "en": "If Inconsistency recurs after a clean power cycle, look for the separate 'EEprom fault' code and raise a service claim - the configuration store is suspect.",
+          "ur": "Agar saaf power cycle ke baad bhi Inconsistency wapas aaye to alag code 'EEprom fault' dekhein aur service claim raise karein - configuration store mamool hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This code has no equivalent on the hybrid lines. The nearest hybrid concepts are the 'Cons Fault' family (master-vs-slave sample disagreement) and 'Sample fault' on the T table itself - all three are about disagreement between two references, but Inconsistency is the inverter disagreeing with ITSELF.",
+        "ur": "Is code ka hybrid lines par koi equivalent nahi. Sab se qareeb hybrid concept 'Cons Fault' family (master aur slave ke sample ki disagreement) aur T table ka apna 'Sample fault' - teenon do references ki disagreement ke baare mein hain, lekin Inconsistency inverter ka KHUD se disagreement hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-Series User Manual V1.0.1, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-T-Manual-V1.0.1.pdf"
+      }
+    }
+  ]
+}

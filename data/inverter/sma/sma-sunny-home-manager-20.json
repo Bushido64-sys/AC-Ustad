@@ -1,0 +1,325 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sma",
+  "series": {
+    "id": "sma-sunny-home-manager-20",
+    "name": "Sunny Home Manager 2.0",
+    "category": "inverter",
+    "unitType": "generic",
+    "modelPatterns": [
+      "HM-20",
+      "HM20",
+      "*Home Manager 2.0*",
+      "*Sunny Home Manager*"
+    ],
+    "notes": "Model scoping: doc HM-20-BE-en-22 v2.2. IMPORTANT FINDING — SMA publishes NO numeric fault-code table for the Sunny Home Manager 2.0. The manual's §18.1 'Error message on the Sunny Home Manager' is keyed by LED STATE, not by code, and the logbook messages use free text rather than numbers. The codes below are therefore LED-state identifiers, not manufacturer part numbers, and they are marked display: led_blink. This device is a controller/energy manager, not an inverter, so unit_type is generic. Codes here must never be matched against inverter numeric codes."
+  },
+  "codes": [
+    {
+      "code": "HM20-STATUS-LED-OFF",
+      "aliases": [
+        "HM20-STATUS-LED-OFF"
+      ],
+      "title": {
+        "en": "Status LED off — no supply voltage (HM20)",
+        "ur": "Status LED bujha — supply voltage nahi (HM20)"
+      },
+      "meaning": {
+        "en": "The Sunny Home Manager is not supplied with voltage. All its LEDs are dark, which SMA also describes as the signature of a missing supply in the registration troubleshooting section.",
+        "ur": "Sunny Home Manager ko voltage supply nahi mil raha. Us ke sabhi LEDs bujhe hain, aur SMA registration troubleshooting section mein bhi yehi missing supply ki nishani bataya hai."
+      },
+      "causes": [
+        {
+          "en": "No mains voltage at the device — upstream MCB, isolator or distribution fuse open.",
+          "ur": "Device par mains voltage nahi — upstream MCB, isolator ya distribution fuse khula hai."
+        },
+        {
+          "en": "Device not connected to the voltage supply at the site (never terminated).",
+          "ur": "Device site par voltage supply se juda hi nahi (terminate nahi hua)."
+        },
+        {
+          "en": "Internal PSU failure, so the device is dead although mains is present.",
+          "ur": "Internal PSU fail ho gaya, jis se mains maujood hone ke bawajood device dead hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC supply to the Home Manager first, then check the upstream MCB and isolator, and re-close them.",
+          "ur": "Home Manager ki AC supply pehle band karein, phir upstream MCB aur isolator check karke dobara close karein."
+        },
+        {
+          "en": "With the supply isolated, measure the mains voltage at the Home Manager terminals with a two-pole tester; expect full mains voltage, not zero.",
+          "ur": "Supply isolate kar ke two-pole tester se Home Manager terminals par mains voltage measure karein; poori mains voltage aani chahiye, zero nahi."
+        },
+        {
+          "en": "If mains voltage is present at the terminals and the LEDs stay off, SMA's own guidance is to contact Service — do not open the unit.",
+          "ur": "Agar terminals par mains voltage maujood hai phir bhi LEDs bujhe hain to SMA ka apna guidance hai ke Service se rabta karein — unit na kholein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "All LEDs off (Status LED, COM LED, Performance LED dark)",
+      "confidence": "high",
+      "notes": {
+        "en": "This is the only state where the manual says all LEDs remain off, which makes it distinguishable from a single-LED fault.",
+        "ur": "Yeh wohi halat hai jahan manual ke mutabiq sabhi LEDs bujhe rehte hain, jis se ise aik LED ke fault se alag pehchana ja sakta hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY HOME MANAGER 2.0 (HM-20-BE-en-22, Version 2.2), section 18.1 Error message on the Sunny Home Manager",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/HM-20-BE-en-22.pdf"
+      }
+    },
+    {
+      "code": "HM20-STATUS-LED-RED-BLINK",
+      "aliases": [
+        "HM20-STATUS-LED-RED-BLINK",
+        "no-connection-sunny-portal"
+      ],
+      "title": {
+        "en": "Status LED flashing red — no Sunny Portal link (HM20)",
+        "ur": "Status LED lal chamak raha — Sunny Portal link nahi (HM20)"
+      },
+      "meaning": {
+        "en": "The Sunny Home Manager cannot establish the connection to Sunny Portal automatically.",
+        "ur": "Sunny Home Manager khud ba khud Sunny Portal se connection nahi bana pata raha."
+      },
+      "causes": [
+        {
+          "en": "No Ethernet connection — the network cable is unplugged or the switch port is down.",
+          "ur": "Ethernet connection nahi — network cable nikal chuka ya switch port down hai."
+        },
+        {
+          "en": "DHCP not enabled on the site router, so the Home Manager gets no address.",
+          "ur": "Site router par DHCP enable nahi hai, jis se Home Manager ko koi address nahi milta."
+        },
+        {
+          "en": "A proxy server in the network blocking the outbound connection.",
+          "ur": "Network mein proxy server outbound connection rok raha hai."
+        },
+        {
+          "en": "Sunny Portal itself unreachable, or the site's firewall blocking the required ports.",
+          "ur": "Sunny Portal khud unreachable hai, ya site ka firewall zaroori ports rok raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the COM LED first: if it is off, the Ethernet link is physically down, so reseat the network cable at both the Home Manager and the switch or router.",
+          "ur": "Pehle COM LED dekhein: agar woh bujha hai to Ethernet link physically down hai, is liye network cable Home Manager aur switch ya router dono taraf se dobara baithayein."
+        },
+        {
+          "en": "Confirm DHCP is enabled on the router and that an address has actually been leased to the Home Manager's MAC, which is printed on the type label.",
+          "ur": "Confirm karein ke router par DHCP enable hai aur Home Manager ke MAC (jo type label par chhapa hai) ko address mila hai ya nahi."
+        },
+        {
+          "en": "Use the Sunny Home Manager Assistant to establish the connection manually, which is the manual's stated corrective measure for this LED state.",
+          "ur": "Connection manually banane ke liye Sunny Home Manager Assistant istemal karein — yehi is LED state ke liye manual ka bataya hua corrective measure hai."
+        },
+        {
+          "en": "If a proxy or firewall is present, allow outbound HTTPS to Sunny Portal, then retry rather than repeatedly power-cycling the device.",
+          "ur": "Agar proxy ya firewall maujood hai to Sunny Portal ki taraf outbound HTTPS ki ijazat dein, phir dobara koshish karein — device baar baar power cycle na karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Status LED flashing red, COM LED off or steady",
+      "confidence": "high",
+      "notes": {
+        "en": "Resembles a COM LED fault but is broader: the manual's registration section also lists this LED state for DHCP and proxy problems.",
+        "ur": "COM LED fault jaisa lagta hai magar yeh bara hai: manual ka registration section yeh LED state DHCP aur proxy maslon ke liye bhi batata hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY HOME MANAGER 2.0 (HM-20-BE-en-22, Version 2.2), section 18.1 Error message on the Sunny Home Manager",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/HM-20-BE-en-22.pdf"
+      }
+    },
+    {
+      "code": "HM20-PERF-LED-OFF",
+      "aliases": [
+        "HM20-PERF-LED-OFF"
+      ],
+      "title": {
+        "en": "Performance LED off — not yet registered (HM20)",
+        "ur": "Performance LED bujha — abhi register nahi hua (HM20)"
+      },
+      "meaning": {
+        "en": "The Sunny Home Manager has not been registered in Sunny Portal yet. This is normally a commissioning state, not a failure.",
+        "ur": "Sunny Home Manager abhi Sunny Portal mein register nahi hua hai. Yeh aam tor par commissioning ki halat hai, failure nahi."
+      },
+      "causes": [
+        {
+          "en": "Fresh installation where registration has not yet been done.",
+          "ur": "Nayi installation jahan abhi registration nahi hui."
+        },
+        {
+          "en": "Used as an energy meter only, in which case SMA states it need not be registered and the Performance LED never glows.",
+          "ur": "Sirf energy meter ki tarah istemal, jis case mein SMA kehti hai ke register karne ki zaroorat nahi aur Performance LED kabhi nahi jalega."
+        },
+        {
+          "en": "Device purchased second-hand and still assigned to the previous owner's Sunny Portal system.",
+          "ur": "Second-hand khareeda gaya device jo abhi bhi pichle malik ke Sunny Portal system se juda hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check how the device is being used before acting: if it is only an energy meter for export limiting, this LED state is expected and correct.",
+          "ur": "Kuch karne se pehle dekhein ke device kaise istemal ho raha hai: agar sirf export limiting ke liye energy meter hai to yeh LED state expected aur sahi hai."
+        },
+        {
+          "en": "If it should be registered, register it in Sunny Portal using the System Setup Assistant with its identification and registration ID.",
+          "ur": "Agar iska registered hona chahiye to System Setup Assistant ke zariye apni identification aur registration ID se Sunny Portal mein register karein."
+        },
+        {
+          "en": "If the device was bought second-hand, have the previous owner delete the Sunny Home Manager system in Sunny Portal before registering it, as the manual advises.",
+          "ur": "Agar device second-hand khareeda gaya hai to register karne se pehle pichle malik se Sunny Portal mein Sunny Home Manager system delete karwayein, jaise manual kehti hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Performance LED off, Status LED glowing green",
+      "confidence": "high",
+      "notes": {
+        "en": "Non-fault status row, but it is the single most common cause of a 'device not working' call, so it belongs in the table.",
+        "ur": "Non-fault status row hai, lekin yeh 'device kaam nahi kar raha' walay sab se aam call ki wajah hai, is liye table mein hona chahiye."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY HOME MANAGER 2.0 (HM-20-BE-en-22, Version 2.2), section 18.1 Error message on the Sunny Home Manager",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/HM-20-BE-en-22.pdf"
+      }
+    },
+    {
+      "code": "HM20-PERF-LED-RED",
+      "aliases": [
+        "HM20-PERF-LED-RED"
+      ],
+      "title": {
+        "en": "Performance LED solid red — unreported device fault (HM20)",
+        "ur": "Performance LED lal — device ka fault report nahi hua (HM20)"
+      },
+      "meaning": {
+        "en": "An error has occurred and has not yet been reported to Sunny Portal because the Home Manager cannot establish the connection automatically. One or more devices in the system may be in a fault state that could not be passed on.",
+        "ur": "Koi error aaya hai jo Sunny Portal tak report nahi hua kyunke Home Manager khud ba khud connection nahi bana pata raha. System ke aik ya zyada devices fault state mein ho sakte hain jo aage nahi barh saka."
+      },
+      "causes": [
+        {
+          "en": "A downstream device such as an inverter or battery is in a fault state.",
+          "ur": "Koi downstream device jaise inverter ya battery fault state mein hai."
+        },
+        {
+          "en": "The Home Manager cannot reach Sunny Portal, so the fault cannot be reported.",
+          "ur": "Home Manager Sunny Portal tak nahi pohanch sakta, jis se fault report nahi ho sakta."
+        },
+        {
+          "en": "A device in the system is misconfigured or not properly connected.",
+          "ur": "System ka koi device misconfigured ya theek se connected nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the fault locally rather than waiting for Sunny Portal: open the local interface and look at the device status area, which shows Error or Warning state per device.",
+          "ur": "Sunny Portal ka intezaar karne ke bajaye fault locally padhein: local interface kholein aur device status area dekhein, jo per device Error ya Warning state dikhata hai."
+        },
+        {
+          "en": "Check the connection and configuration of all devices in the system, which is the manual's stated first corrective measure.",
+          "ur": "System ke sabhi devices ki connection aur configuration check karein — yehi manual ka pehla bataya hua corrective measure hai."
+        },
+        {
+          "en": "Work device by device from the Home Manager: note which unit shows a fault, then open that unit's own interface and read its event number.",
+          "ur": "Home Manager se device ba device kaam karein: note karein ke kaun si unit fault dikha rahi hai, phir us unit ka apna interface khol kar uska event number padhein."
+        },
+        {
+          "en": "Once the connection to Sunny Portal is restored the red state should clear, confirming the fault was reported rather than resolved.",
+          "ur": "Sunny Portal se connection wapas establish hone ke baad lal halat clear ho jana chahiye, jo confirm karta hai ke fault report hua tha, resolve nahi hua tha."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Performance LED glowing red steadily",
+      "confidence": "high",
+      "notes": {
+        "en": "Note the contrast with flashing red in the same table: flashing means connection failure, solid red means an actual device fault that could not be reported.",
+        "ur": "Isi table mein flashing red se farq note karein: flashing ka matlab connection failure hai, solid red ka matlab asal device fault hai jo report nahi ho saka."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY HOME MANAGER 2.0 (HM-20-BE-en-22, Version 2.2), section 18.1 Error message on the Sunny Home Manager",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/HM-20-BE-en-22.pdf"
+      }
+    },
+    {
+      "code": "HM20-PERF-LED-RED-BLINK",
+      "aliases": [
+        "HM20-PERF-LED-RED-BLINK"
+      ],
+      "title": {
+        "en": "Performance LED flashing red — portal link down (HM20)",
+        "ur": "Performance LED lal chamak raha — portal link down (HM20)"
+      },
+      "meaning": {
+        "en": "The Sunny Home Manager cannot establish the connection to Sunny Portal automatically. Unlike the solid red state, the manual attributes this purely to the connection.",
+        "ur": "Sunny Home Manager khud ba khud Sunny Portal se connection nahi bana pata raha. Solid red state ke muqable mein, manual ise sirf connection ki wajah se mansa karta hai."
+      },
+      "causes": [
+        {
+          "en": "Home Manager not correctly connected to the router.",
+          "ur": "Home Manager router se theek se connected nahi hai."
+        },
+        {
+          "en": "Router changed or replaced, so the stored network configuration no longer matches.",
+          "ur": "Router badal gaya ya replace hua hai, jis se stored network configuration ab match nahi karti."
+        },
+        {
+          "en": "Internet uplink on the site is down, or DNS resolution is failing.",
+          "ur": "Site ka internet uplink down hai, ya DNS resolve nahi ho raha."
+        },
+        {
+          "en": "Firmware update interrupted, leaving the device unable to complete a normal boot and register.",
+          "ur": "Firmware update ke darmiyan ruka, jis se device normal boot aur register nahi kar paya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Ensure the Home Manager is correctly connected to the router, which the manual lists first for this LED state.",
+          "ur": "Confirm karein ke Home Manager router se theek se juda hai — yehi is LED state ke liye manual sab se pehle kehti hai."
+        },
+        {
+          "en": "Power-cycle the device once by disconnecting and reconnecting the voltage supply, then allow it up to a few minutes to register.",
+          "ur": "Voltage supply disconnect karke dobara jod kar device ko aik baar power cycle karein, phir use register hone ke liye chand minute dein."
+        },
+        {
+          "en": "Use the Sunny Home Manager Assistant in case of network problems, the manual's stated corrective measure for this exact state.",
+          "ur": "Network ki masla hal karne ke liye Sunny Home Manager Assistant istemal karein — yehi isi LED state ke liye manual ka bataya hua corrective measure hai."
+        },
+        {
+          "en": "Verify from another device on the same LAN that Sunny Portal is reachable, so you separate a site internet fault from a Home Manager configuration fault.",
+          "ur": "Usi LAN par maujood kisi doosre device se confirm karein ke Sunny Portal reachable hai, taake site ke internet fault aur Home Manager configuration fault mein farq ho sake."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Performance LED flashing red",
+      "confidence": "high",
+      "notes": {
+        "en": "Diagnostic shortcut: solid red = real device fault, flashing red = connectivity. Test the LAN from another device before touching the Home Manager.",
+        "ur": "Diagnostic shortcut: solid red = asal device fault, flashing red = connectivity. Home Manager ko chherne se pehle LAN ko doosre device se test karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "Operating Manual SUNNY HOME MANAGER 2.0 (HM-20-BE-en-22, Version 2.2), section 18.1 Error message on the Sunny Home Manager",
+        "retrieved": "2026-09-26",
+        "url": "https://files.sma.de/downloads/HM-20-BE-en-22.pdf"
+      }
+    }
+  ]
+}

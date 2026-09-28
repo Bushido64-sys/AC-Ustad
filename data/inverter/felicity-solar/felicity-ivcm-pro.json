@@ -1,0 +1,889 @@
+{
+  "schemaVersion": 1,
+  "brandId": "felicity-solar",
+  "series": {
+    "id": "felicity-ivcm-pro",
+    "name": "IVCM PRO Series 1kW~3kW hybrid inverter/charger",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "IVCM*PRO*",
+      "*IVCMPRO*"
+    ],
+    "notes": "12 V/24 V small hybrid inverter/charger. Warning = Fault LED flashing + buzzer beeping; fault = Fault LED solid. Several rows in the source table have NO extractable code number (the number column is vector-outlined in the CDR-derived PDF) and are therefore NOT transcribed here - see NEGATIVE. Sibling manual 358-010428-00 prints a similar table but its number column is ambiguous, so it was used only as a weak cross-check, not to assign codes."
+  },
+  "codes": [
+    {
+      "code": "Warning 04",
+      "aliases": [
+        "Warning 04",
+        "04",
+        "W04",
+        "PV temperature is too high"
+      ],
+      "title": {
+        "en": "Warning 04 PV temperature too high",
+        "ur": "Warning 04 PV temperature bohat zyada"
+      },
+      "meaning": {
+        "en": "The PV module temperature is too high; check airflow and ambient temperature.",
+        "ur": "PV module ka temperature bohat zyada hai; airflow aur ambient temperature check karein."
+      },
+      "causes": [
+        {
+          "en": "Unit installed in a closed room with no airflow",
+          "ur": "Unit band kamre mein lagi hai jahan airflow nahi hai"
+        },
+        {
+          "en": "Direct sun on the unit or the PV input",
+          "ur": "Unit ya PV input par seedhi dhoop lag rahi hai"
+        },
+        {
+          "en": "Internal fan failed so hot air is not expelled",
+          "ur": "Internal fan kharab hai jis se garm hawa nahi nikalti"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then clear dust from the vents and heat sink.",
+          "ur": "AC, PV aur battery isolate karke vents aur heat sink ki dhool saaf karein."
+        },
+        {
+          "en": "Measure ambient temperature at the unit; keep at least 20 cm clearance on all sides.",
+          "ur": "Unit par ambient temperature measure karein; charon taraf kam az kam 20 cm clearance rakhein."
+        },
+        {
+          "en": "Check the internal fan spins freely and its connector is seated on the board.",
+          "ur": "Check karein ke internal fan azaad ghoomta hai aur uska connector board par baitha hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Warning 05",
+      "aliases": [
+        "Warning 05",
+        "05",
+        "W05",
+        "High PV voltage"
+      ],
+      "title": {
+        "en": "Warning 05 High PV voltage",
+        "ur": "Warning 05 PV voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "PV panel voltage is above the limit (the manual says it should be less than 95 V).",
+        "ur": "PV panel ka voltage limit se upar hai (manual ke mutabiq yeh 95 V se kam hona chahiye)."
+      },
+      "causes": [
+        {
+          "en": "Too many small panels in series for a 12 V/24 V unit",
+          "ur": "12 V/24 V unit ke liye series mein chhote panels zyada lage hue hain"
+        },
+        {
+          "en": "Panel type setting in the setup not matching the fitted panels",
+          "ur": "Setup mein panel type setting fitted panels se match nahi karti"
+        },
+        {
+          "en": "Cold, clear morning with a high open-circuit voltage",
+          "ur": "Thande aur saaf subah mein open-circuit voltage zyada ho jata hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the panel open-circuit voltage with a meter; it must stay under 95 V for this unit.",
+          "ur": "Panel ka open-circuit voltage meter se measure karein; is unit ke liye woh 95 V se kam rehna chahiye."
+        },
+        {
+          "en": "Reduce the number of panels in series, or set the correct panel type in the setup.",
+          "ur": "Series mein panels ki kami karein, ya setup mein sahi panel type set karein."
+        },
+        {
+          "en": "If the measured voltage is already under 95 V, contact the installer as the manual instructs.",
+          "ur": "Agar measured voltage pehle se 95 V se kam hai to manual ke mutabiq installer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Warning 06",
+      "aliases": [
+        "Warning 06",
+        "06",
+        "W06",
+        "The PV relay voltage is abnormal"
+      ],
+      "title": {
+        "en": "Warning 06 PV relay voltage abnormal",
+        "ur": "Warning 06 PV relay ka voltage abnormal hai"
+      },
+      "meaning": {
+        "en": "The measured voltage across the PV relay is abnormal; an internal component has failed.",
+        "ur": "PV relay ke across measured voltage abnormal hai; internal component fail ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "PV relay contacts burnt or not closing fully",
+          "ur": "PV relay ke contacts jale ya poori tarah band nahi ho rahe"
+        },
+        {
+          "en": "Relay coil driver failed on the control board",
+          "ur": "Control board par relay coil driver kharab ho gaya"
+        },
+        {
+          "en": "Relay wiring or connector loose",
+          "ur": "Relay wiring ya connector dhila hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery before opening the unit.",
+          "ur": "Unit kholne se pehle AC, PV aur battery isolate karein."
+        },
+        {
+          "en": "Test the PV relay contacts for continuity; an open reading means replace the relay.",
+          "ur": "PV relay contacts ki continuity test karein; open reading aaye to relay replace karein."
+        },
+        {
+          "en": "Reseat the relay connector and re-tighten the relay wiring before replacing parts.",
+          "ur": "Relay connector dobara lagayein aur relay wiring dobara tighten karein, phir parts replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Warning 08",
+      "aliases": [
+        "Warning 08",
+        "08",
+        "W08",
+        "Fan 1 is locked"
+      ],
+      "title": {
+        "en": "Warning 08 Fan 1 locked",
+        "ur": "Warning 08 Fan 1 lock ho gaya"
+      },
+      "meaning": {
+        "en": "Fan 1 is locked; check the fan wiring and replace the fan if needed.",
+        "ur": "Fan 1 lock ho gaya hai; fan wiring check karein aur zaroorat ho to fan replace karein."
+      },
+      "causes": [
+        {
+          "en": "Fan 1 blade jammed by dust or an insect nest",
+          "ur": "Fan 1 ki blade dhool ya keede ke ghar mein phans gayi"
+        },
+        {
+          "en": "Fan 1 bearing seized",
+          "ur": "Fan 1 ka bearing jam ho gaya"
+        },
+        {
+          "en": "Fan 1 connector loose on the board",
+          "ur": "Board par fan 1 ka connector dhila hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then check that the fan wiring is connected well.",
+          "ur": "AC, PV aur battery isolate karke check karein ke fan wiring theek lagi hai."
+        },
+        {
+          "en": "Free the blade by hand and remove any dust or nest; do not force a seized fan.",
+          "ur": "Blade ko haath se azaad karein aur dhool ya ghar nikaalein; jamay fan par zor na dein."
+        },
+        {
+          "en": "Replace the fan with an identical 12 V DC fan of the same size.",
+          "ur": "Fan ko wahi 12 V DC fan, same size, se replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Warning 09",
+      "aliases": [
+        "Warning 09",
+        "09",
+        "W09",
+        "Fan 2 is locked"
+      ],
+      "title": {
+        "en": "Warning 09 Fan 2 locked",
+        "ur": "Warning 09 Fan 2 lock ho gaya"
+      },
+      "meaning": {
+        "en": "Fan 2 is locked; check the fan wiring and replace the fan if needed.",
+        "ur": "Fan 2 lock ho gaya hai; fan wiring check karein aur zaroorat ho to fan replace karein."
+      },
+      "causes": [
+        {
+          "en": "Fan 2 blade jammed by dust",
+          "ur": "Fan 2 ki blade dhool se phans gayi"
+        },
+        {
+          "en": "Fan 2 motor failed open circuit",
+          "ur": "Fan 2 ka motor open circuit ho gaya"
+        },
+        {
+          "en": "Fan 2 harness pinched during installation",
+          "ur": "Installation ke dauran fan 2 ka harness nichal gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reseat the fan 2 connector.",
+          "ur": "AC, PV aur battery isolate karke fan 2 ka connector dobara lagayein."
+        },
+        {
+          "en": "Test fan 2 for continuity and free spinning on the bench.",
+          "ur": "Bench par fan 2 ki continuity aur azaad ghoomne ka test karein."
+        },
+        {
+          "en": "Replace fan 2 with the same size and voltage if it is seized or open circuit.",
+          "ur": "Fan 2 jam ho ya open circuit ho to same size aur voltage se replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Warning 10",
+      "aliases": [
+        "Warning 10",
+        "10",
+        "W10",
+        "Overload"
+      ],
+      "title": {
+        "en": "Warning 10 Overload",
+        "ur": "Warning 10 Load overloaded"
+      },
+      "meaning": {
+        "en": "The unit is overloaded; reduce the loads. The Fault LED flashes and the buzzer beeps twice per second.",
+        "ur": "Unit overloaded hai; loads kam karein. Fault LED flash karega aur buzzer har second do baar beep karega."
+      },
+      "causes": [
+        {
+          "en": "Connected appliances exceed the unit's rated VA/W",
+          "ur": "Lagaye gaye appliances unit ki rated VA/W se zyada hain"
+        },
+        {
+          "en": "Motor starting surge on a 1-3 kW unit",
+          "ur": "1-3 kW unit par motor ka starting surge"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off appliances one at a time until the overload clears.",
+          "ur": "Appliances ko aik aik band karein jab tak overload na hat jaye."
+        },
+        {
+          "en": "Read the load percentage on the LCD and compare it with the unit's rating label.",
+          "ur": "LCD par load percentage padhein aur usay unit ke rating label se compare karein."
+        },
+        {
+          "en": "Stagger large motor starts or move them to a separate supply.",
+          "ur": "Bare motor starts stagger karein ya alag supply par move karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Warning 11",
+      "aliases": [
+        "Warning 11",
+        "11",
+        "W11",
+        "Low battery"
+      ],
+      "title": {
+        "en": "Warning 11 Low battery",
+        "ur": "Warning 11 Battery low"
+      },
+      "meaning": {
+        "en": "Battery voltage is too low and it should be charging. Buzzer beeps three times per second.",
+        "ur": "Battery ka voltage bohat kam hai aur use charge hona chahiye. Buzzer har second teen baar beep karta hai."
+      },
+      "causes": [
+        {
+          "en": "Battery deeply discharged during a long outage",
+          "ur": "Lambi outage mein battery gehri tarah discharge ho gayi"
+        },
+        {
+          "en": "PV not generating and grid unavailable",
+          "ur": "PV se power nahi aa raha aur grid bhi mojood nahi"
+        },
+        {
+          "en": "Battery not connected, or wrong battery type configured",
+          "ur": "Battery lagi hi nahi, ya ghalat battery type configure hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure battery voltage with a meter at the battery terminals.",
+          "ur": "Battery terminals par meter se battery voltage measure karein."
+        },
+        {
+          "en": "Check the PV DC isolator is closed and panels are clean and unshaded.",
+          "ur": "Check karein ke PV DC isolator band hai aur panels saaf hain aur unpar shadow nahi hai."
+        },
+        {
+          "en": "Verify the battery type setting in the LCD setup matches the fitted battery.",
+          "ur": "LCD setup mein battery type setting fitted battery se match karti hai ya nahi verify karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Warning 16",
+      "aliases": [
+        "Warning 16",
+        "16",
+        "W16",
+        "primary/secondary CPU communication faulty"
+      ],
+      "title": {
+        "en": "Warning 16 CPU communication faulty",
+        "ur": "Warning 16 CPU communication kharab"
+      },
+      "meaning": {
+        "en": "Communication between the primary and secondary CPUs is faulty; an internal component has failed.",
+        "ur": "Primary aur secondary CPU ke darmiyan communication kharab hai; internal component fail ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Communication track or connector between the two boards damaged",
+          "ur": "Dono boards ke darmiyan communication track ya connector kharab"
+        },
+        {
+          "en": "Supply rail to the secondary processor unstable",
+          "ur": "Secondary processor ki supply rail unstable hai"
+        },
+        {
+          "en": "Firmware versions on the two processors mismatched",
+          "ur": "Dono processors ke firmware versions mismatch hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reseat the inter-board communication connector.",
+          "ur": "AC, PV aur battery isolate karke boards ke darmiyan communication connector dobara lagayein."
+        },
+        {
+          "en": "Update the inverter firmware so both processor versions match.",
+          "ur": "Inverter firmware update karein taake dono processor versions match ho jayein."
+        },
+        {
+          "en": "If the fault stays, have the secondary processor board replaced at the service centre.",
+          "ur": "Fault bacha to secondary processor board service centre par replace karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Fault 29",
+      "aliases": [
+        "Fault 29",
+        "29",
+        "F29",
+        "The inverter current sensor is faulty"
+      ],
+      "title": {
+        "en": "Fault 29 Inverter current sensor faulty",
+        "ur": "Fault 29 Inverter current sensor kharab"
+      },
+      "meaning": {
+        "en": "The inverter current sensor is faulty; the manual says return it to the repair centre.",
+        "ur": "Inverter current sensor kharab hai; manual ke mutabiq unit repair centre wapas bhejein."
+      },
+      "causes": [
+        {
+          "en": "Current sensing element failed",
+          "ur": "Current sensing element kharab ho gaya"
+        },
+        {
+          "en": "Sense wiring disconnected or chafed",
+          "ur": "Sense wiring nikal gayi ya ragad gayi"
+        },
+        {
+          "en": "Sense amplifier on the board failed",
+          "ur": "Board par sense amplifier kharab ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery before opening the unit.",
+          "ur": "Unit kholne se pehle AC, PV aur battery isolate karein."
+        },
+        {
+          "en": "Compare the reported inverter current with a clamp meter; a fixed or zero reading confirms sensor failure.",
+          "ur": "Clamp meter se reported inverter current compare karein; jam hui ya zero reading sensor failure confirm karti hai."
+        },
+        {
+          "en": "Have the sensor and its amplifier replaced and the channel calibrated at the service centre.",
+          "ur": "Service centre par sensor aur uska amplifier replace karke channel calibrate karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Fault 30",
+      "aliases": [
+        "Fault 30",
+        "30",
+        "F30",
+        "Bus voltage is too low"
+      ],
+      "title": {
+        "en": "Fault 30 Bus voltage too low",
+        "ur": "Fault 30 Bus voltage bohat kam"
+      },
+      "meaning": {
+        "en": "The bus voltage is too low; an internal component has failed or the battery is too weak.",
+        "ur": "Bus voltage bohat kam hai; internal component fail hua hai ya battery bohat kamzor hai."
+      },
+      "causes": [
+        {
+          "en": "Battery too weak to charge the bus at startup",
+          "ur": "Battery itni kamzor hai ke startup par bus charge nahi kar pata"
+        },
+        {
+          "en": "Internal component failure in the bus charge path",
+          "ur": "Bus charge path mein internal component ki failure"
+        },
+        {
+          "en": "Battery connected with reversed polarity",
+          "ur": "Battery ulat polarity par lagi hui hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure battery voltage with a meter and confirm polarity at the same time.",
+          "ur": "Meter se battery voltage measure karein aur usi waqt polarity bhi check karein."
+        },
+        {
+          "en": "Isolate AC, PV and battery and inspect the bus pre-charge circuit and connectors.",
+          "ur": "AC, PV aur battery isolate karke bus pre-charge circuit aur connectors dekhein."
+        },
+        {
+          "en": "Charge the battery on a bench if it is below the minimum, then re-test the unit.",
+          "ur": "Battery minimum se neeche ho to bench par charge karke unit dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Fault 31",
+      "aliases": [
+        "Fault 31",
+        "31",
+        "F31",
+        "Bus voltage is too high"
+      ],
+      "title": {
+        "en": "Fault 31 Bus voltage too high",
+        "ur": "Fault 31 Bus voltage bohat zyada"
+      },
+      "meaning": {
+        "en": "AC surge or an internal component failure; bus voltage is too high.",
+        "ur": "AC surge ya internal component failure; bus voltage bohat zyada hai."
+      },
+      "causes": [
+        {
+          "en": "AC surge from the grid or from a switched load",
+          "ur": "Grid se ya switch hone wale load se AC surge"
+        },
+        {
+          "en": "Internal component failure in the bus discharge path",
+          "ur": "Bus discharge path mein internal component ki failure"
+        },
+        {
+          "en": "PV input voltage above the configured limit",
+          "ur": "PV input voltage configured limit se upar hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then measure PV input voltage at the DC terminals.",
+          "ur": "AC, PV aur battery isolate karke DC terminals par PV input voltage measure karein."
+        },
+        {
+          "en": "Restart once as the manual directs; if code 31 returns, do not keep restarting.",
+          "ur": "Manual ke mutabiq aik baar restart karein; code 31 wapas aaye to baar baar restart na karein."
+        },
+        {
+          "en": "Have the bus circuit and the AC surge path inspected at the service centre.",
+          "ur": "Service centre par bus circuit aur AC surge path ka muaina karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Fault 33",
+      "aliases": [
+        "Fault 33",
+        "33",
+        "F33",
+        "Bus soft start fail"
+      ],
+      "title": {
+        "en": "Fault 33 Bus soft start failed",
+        "ur": "Fault 33 Bus soft start fail"
+      },
+      "meaning": {
+        "en": "Internal component failure; the bus soft start did not complete.",
+        "ur": "Internal component fail hua hai; bus ka soft start mukammal nahi hua."
+      },
+      "causes": [
+        {
+          "en": "Bus pre-charge circuit open so the capacitors never charge",
+          "ur": "Bus pre-charge circuit khula hai, is liye capacitors charge nahi hote"
+        },
+        {
+          "en": "Internal component failure in the boost stage",
+          "ur": "Boost stage mein internal component ki failure"
+        },
+        {
+          "en": "Output load connected at switch-on",
+          "ur": "Switch on par output load lagi hui thi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect all output loads and restart once.",
+          "ur": "Saare output loads disconnect karke aik baar restart karein."
+        },
+        {
+          "en": "Isolate AC, PV and battery and have the pre-charge resistor and boost stage tested.",
+          "ur": "AC, PV aur battery isolate karke pre-charge resistor aur boost stage test karwayein."
+        },
+        {
+          "en": "Do not power-cycle repeatedly; it can damage the second bridge device.",
+          "ur": "Baar baar power-cycle na karein; is se doosra bridge device kharab ho sakta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Fault 34",
+      "aliases": [
+        "Fault 34",
+        "34",
+        "F34",
+        "Overtemperature occurs in radiator 1"
+      ],
+      "title": {
+        "en": "Fault 34 Radiator 1 over-temperature",
+        "ur": "Fault 34 Radiator 1 bohat garm"
+      },
+      "meaning": {
+        "en": "Over-temperature in radiator 1; check airflow and ambient temperature.",
+        "ur": "Radiator 1 mein temperature zyada hai; airflow aur ambient temperature check karein."
+      },
+      "causes": [
+        {
+          "en": "Heat sink blocked with dust",
+          "ur": "Heat sink dhool se block hai"
+        },
+        {
+          "en": "Ambient temperature above the unit's rating",
+          "ur": "Ambient temperature unit ki rating se zyada hai"
+        },
+        {
+          "en": "Fan 1 or Fan 2 locked",
+          "ur": "Fan 1 ya Fan 2 lock ho gaya hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then clean the heat sink with a soft dry brush.",
+          "ur": "AC, PV aur battery isolate karke heat sink ko soft dry brush se saaf karein."
+        },
+        {
+          "en": "Check whether the air flow of the unit is blocked or ambient temperature is too high, as the manual says.",
+          "ur": "Manual ke mutabiq check karein ke unit ka air flow block hai ya ambient temperature zyada hai."
+        },
+        {
+          "en": "Verify both fans spin freely and replace a seized one with the same size and voltage.",
+          "ur": "Dono fans azaad ghoomte hain ya nahi check karein aur jamay fan ko same size aur voltage se replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Fault 35",
+      "aliases": [
+        "Fault 35",
+        "35",
+        "F35",
+        "Overtemperature occurs in radiator 2"
+      ],
+      "title": {
+        "en": "Fault 35 Radiator 2 over-temperature",
+        "ur": "Fault 35 Radiator 2 bohat garm"
+      },
+      "meaning": {
+        "en": "Over-temperature in radiator 2; check airflow and ambient temperature.",
+        "ur": "Radiator 2 mein temperature zyada hai; airflow aur ambient temperature check karein."
+      },
+      "causes": [
+        {
+          "en": "Heat sink blocked with dust",
+          "ur": "Heat sink dhool se block hai"
+        },
+        {
+          "en": "Ambient temperature above the unit's rating",
+          "ur": "Ambient temperature unit ki rating se zyada hai"
+        },
+        {
+          "en": "Fan 2 locked",
+          "ur": "Fan 2 lock ho gaya hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then clean the heat sink and radiator 2 fins.",
+          "ur": "AC, PV aur battery isolate karke heat sink aur radiator 2 ki fins saaf karein."
+        },
+        {
+          "en": "Check whether the air flow of the unit is blocked or ambient temperature is too high.",
+          "ur": "Check karein ke unit ka air flow block hai ya ambient temperature zyada hai."
+        },
+        {
+          "en": "Replace a seized Fan 2 with the same size and voltage fan.",
+          "ur": "Jamay hue Fan 2 ko same size aur voltage ke fan se replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Fault 50",
+      "aliases": [
+        "Fault 50",
+        "50",
+        "F50",
+        "EEPROM fault"
+      ],
+      "title": {
+        "en": "Fault 50 EEPROM fault",
+        "ur": "Fault 50 EEPROM mein fault"
+      },
+      "meaning": {
+        "en": "EEPROM error; the manual says return the unit to the repair centre.",
+        "ur": "EEPROM error hai; manual ke mutabiq unit repair centre wapas bhejein."
+      },
+      "causes": [
+        {
+          "en": "Power cut while settings were being written",
+          "ur": "Settings likhte waqt power cut ho gaya"
+        },
+        {
+          "en": "EEPROM chip failed after surge or heat damage",
+          "ur": "Surge ya garmi ke baad EEPROM chip kharab ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Back up the settings from the app or LCD before any further work.",
+          "ur": "Aagey ke kaam se pehle app ya LCD se settings ka backup bana lein."
+        },
+        {
+          "en": "Isolate AC, PV and battery, then power-cycle once and check if code 50 clears.",
+          "ur": "AC, PV aur battery isolate karke aik baar power-cycle karein aur dekhein ke code 50 hatta ya nahi."
+        },
+        {
+          "en": "If it stays, have the EEPROM or control board replaced at the repair centre.",
+          "ur": "Fault bache to EEPROM ya control board repair centre par replace karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    },
+    {
+      "code": "Fault 90",
+      "aliases": [
+        "Fault 90",
+        "90",
+        "F90",
+        "DSP BootLoad is not written"
+      ],
+      "title": {
+        "en": "Fault 90 DSP bootloader not written",
+        "ur": "Fault 90 DSP bootloader likha nahi gaya"
+      },
+      "meaning": {
+        "en": "The DSP bootloader is missing; the manual says return the unit to the repair centre.",
+        "ur": "DSP bootloader mojood nahi; manual ke mutabiq unit repair centre wapas bhejein."
+      },
+      "causes": [
+        {
+          "en": "Incomplete firmware write during a failed update",
+          "ur": "Failed update ke dauran firmware adhoora likha gaya"
+        },
+        {
+          "en": "Power lost exactly during the bootloader flash",
+          "ur": "Bootloader flash ke waqt hi power chala gaya"
+        },
+        {
+          "en": "DSP or flash memory device failed",
+          "ur": "DSP ya flash memory device kharab ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not attempt to reflash a unit showing code 90; the manual directs return to the repair centre.",
+          "ur": "Code 90 dikhane wale unit ko dobara flash na karein; manual repair centre wapas bhejne ko kehta hai."
+        },
+        {
+          "en": "Isolate AC, PV and battery and record the fault code, firmware version and serial number for the service centre.",
+          "ur": "AC, PV aur battery isolate karke fault code, firmware version aur serial number likh lein service centre ke liye."
+        },
+        {
+          "en": "Have the bootloader re-imaged at the service centre and the unit fully load-tested afterwards.",
+          "ur": "Service centre par bootloader dobara likhwayein aur uske baad unit ka poora load test karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "IVCM PRO Series (1KW~3KW) Solar Inverter User Guide (358-010424-00)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/wp-content/uploads/2025/05/358-010424-00.pdf"
+      }
+    }
+  ]
+}

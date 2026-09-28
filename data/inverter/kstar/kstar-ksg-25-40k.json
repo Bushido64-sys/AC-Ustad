@@ -1,0 +1,1243 @@
+{
+  "schemaVersion": 1,
+  "brandId": "kstar",
+  "series": {
+    "id": "kstar-ksg-25-40k",
+    "name": "KSG 25-40K three-phase grid-tied PV inverter",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "KSG-25KT-M1*",
+      "KSG-30KT-M1*",
+      "KSG-33KT-M1*",
+      "KSG-36KT-M1*",
+      "KSG-40KT-M1*",
+      "KSG-30KT-M6*",
+      "KSG-33KT-M6*",
+      "KSG-36KT-M6*",
+      "KSG-40KT-M6*",
+      "KSG-*KT-M6*"
+    ],
+    "notes": "Commercial three-phase string inverter, 1100 V max DC. Table is Table 8.1 'Trouble shooting' in manual chapter 08. IMPORTANT per-series conflict: the M6 / Ver 2.0 manual gives F24 = 'Isolated island Fault' and F27 = N line-to-earth high, with F07 insulation threshold 50 KOhm. The earlier KSG-(25-40)KT Ver 1.0 manual (202201) for the same model numbers gives F24 = 'DSP Operation Fault' and no F27, with F07 threshold 500 KOhm. Never read F24 without knowing which manual revision the unit shipped with. F00-F03 and F04-F05 are printed as ranges in the manual; each individual code in those ranges carries the range's description."
+  },
+  "codes": [
+    {
+      "code": "F00",
+      "aliases": [
+        "F00",
+        "F00-F03"
+      ],
+      "title": {
+        "en": "AC voltage/frequency out of range (F00)",
+        "ur": "AC voltage ya frequency range se bahar (F00)"
+      },
+      "meaning": {
+        "en": "Mains voltage or frequency on the AC side is too high or too low, so the inverter cannot grid-connect.",
+        "ur": "AC side par mains voltage ya frequency bohat zyada ya bohat kam hai, is liye inverter grid se connect nahi ho sakta."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage or frequency outside the local safety standard for this region.",
+          "ur": "Grid voltage ya frequency is ilaake ke local safety standard se bahar hai."
+        },
+        {
+          "en": "AC output cable not properly connected, so the inverter reads the wrong mains value.",
+          "ur": "AC output cable theek se nahi lagi, is liye inverter galat mains value parh raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check mains voltage with a multimeter against the local safety standard.",
+          "ur": "Multimeter se local safety standard ke mutabiq mains voltage check karein."
+        },
+        {
+          "en": "Check the AC output line is properly connected and measure its output voltage.",
+          "ur": "Check karein ke AC output line theek se lagi hui hai aur uska output voltage check karein."
+        },
+        {
+          "en": "Disconnect PV input and restart the inverter to see if the code clears.",
+          "ur": "PV input disconnect karke inverter restart karein taake pata chale code chala ya nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Manual prints this row as the range F00-F03, so F00, F01, F02 and F03 all share this description.",
+        "ur": "Manual yeh row F00 se F03 ke range par likhta hai, is liye F00, F01, F02 aur F03 sab ka hal yehi hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F01",
+      "aliases": [
+        "F01"
+      ],
+      "title": {
+        "en": "AC voltage/frequency out of range (F01)",
+        "ur": "AC voltage ya frequency range se bahar (F01)"
+      },
+      "meaning": {
+        "en": "Second code in the F00-F03 mains out-of-range group.",
+        "ur": "F00 se F03 mains range ke group ka doosra code."
+      },
+      "causes": [
+        {
+          "en": "Mains voltage outside the local safety standard.",
+          "ur": "Mains voltage local safety standard se bahar hai."
+        },
+        {
+          "en": "AC output line impedance or loose terminal causing a bad reading.",
+          "ur": "AC output line ka impedance ya dheela terminal bure reading ki wajah se."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check mains voltage with a multimeter and confirm it is inside the accepted window.",
+          "ur": "Multimeter se mains voltage check karke confirm karein ke yeh accepted window ke andar hai."
+        },
+        {
+          "en": "Disconnect PV input and restart the inverter, then re-read the code.",
+          "ur": "PV input disconnect karke inverter restart karein aur code dobara parh lein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F02",
+      "aliases": [
+        "F02"
+      ],
+      "title": {
+        "en": "AC voltage/frequency out of range (F02)",
+        "ur": "AC voltage ya frequency range se bahar (F02)"
+      },
+      "meaning": {
+        "en": "Third code in the F00-F03 mains out-of-range group.",
+        "ur": "F00 se F03 mains range ke group ka teesra code."
+      },
+      "causes": [
+        {
+          "en": "Mains voltage or frequency outside the local safety standard.",
+          "ur": "Mains voltage ya frequency local safety standard se bahar hai."
+        },
+        {
+          "en": "Grid disturbance such as a large motor starting on the same feeder.",
+          "ur": "Grid par disturbance, jaise usi feeder par koi bada motor start hona."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check mains voltage and frequency with a multimeter and log them for a few minutes.",
+          "ur": "Multimeter se mains voltage aur frequency check karein aur kuch minute tak note karein."
+        },
+        {
+          "en": "Disconnect PV input and restart the inverter; if the grid is genuinely unstable, escalate to the utility.",
+          "ur": "PV input disconnect karke inverter restart karein; agar grid sach mein unstable hai to power company ko baat karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F03",
+      "aliases": [
+        "F03"
+      ],
+      "title": {
+        "en": "AC voltage/frequency out of range (F03)",
+        "ur": "AC voltage ya frequency range se bahar (F03)"
+      },
+      "meaning": {
+        "en": "Fourth code in the F00-F03 mains out-of-range group.",
+        "ur": "F00 se F03 mains range ke group ka chautha code."
+      },
+      "causes": [
+        {
+          "en": "Mains voltage or frequency outside the local safety standard.",
+          "ur": "Mains voltage ya frequency local safety standard se bahar hai."
+        },
+        {
+          "en": "AC output wiring not terminated properly at the inverter's AC terminal.",
+          "ur": "AC output wiring inverter ke AC terminal par theek se nahi lagi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power down and tighten all AC output terminals, checking for loose or burnt connections.",
+          "ur": "Power down karke saare AC output terminals kass lein aur dheele ya jale hue connections dekhein."
+        },
+        {
+          "en": "Disconnect PV input, restart the inverter and re-check.",
+          "ur": "PV input disconnect karein, inverter restart karke dobara check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F04",
+      "aliases": [
+        "F04",
+        "F04-F05"
+      ],
+      "title": {
+        "en": "Bus voltage too high (F04)",
+        "ur": "Bus voltage bohat zyada (F04)"
+      },
+      "meaning": {
+        "en": "The internal DC bus is above its allowed voltage. The manual prints F04-F05 as one 'too high or too low' row.",
+        "ur": "Internal DC bus apni ijazat se zyada voltage par hai. Manual F04 se F05 ko aik hi 'zyada ya kam' row mein likhta hai."
+      },
+      "causes": [
+        {
+          "en": "Input mode set wrong, so the bus is charged from an unsuitable source.",
+          "ur": "Input mode galat set hai, is liye bus aik aise source se charge ho raha hai jo theek nahi."
+        },
+        {
+          "en": "PV string voltage above the inverter's MPPT operating range.",
+          "ur": "PV string voltage inverter ke MPPT operating range se upar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the setting of input mode and correct it.",
+          "ur": "Input mode ki setting check karke theek karein."
+        },
+        {
+          "en": "Measure PV string open-circuit voltage with a multimeter and compare it with the 1100 V max DC input.",
+          "ur": "Multimeter se PV string ka open circuit voltage check karke 1100 V max DC input se compare karein."
+        },
+        {
+          "en": "Disconnect PV input and restart the inverter to see if the fault still exists.",
+          "ur": "PV input disconnect karke inverter restart karein taake pata chale fault ab bhi hai ya nahi."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F05",
+      "aliases": [
+        "F05"
+      ],
+      "title": {
+        "en": "Bus voltage too low (F05)",
+        "ur": "Bus voltage bohat kam (F05)"
+      },
+      "meaning": {
+        "en": "The internal DC bus is below its allowed voltage.",
+        "ur": "Internal DC bus apni ijazat se neeche voltage par hai."
+      },
+      "causes": [
+        {
+          "en": "Input mode setting is wrong so the bus is fed from the wrong source.",
+          "ur": "Input mode setting galat hai is liye bus galat source se chal raha hai."
+        },
+        {
+          "en": "PV irradiance too low for the bus to build up to operating voltage.",
+          "ur": "PV ki roshni itni kam hai ke bus operating voltage tak nahi chala."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the setting of input mode and correct it.",
+          "ur": "Input mode ki setting check karke theek karein."
+        },
+        {
+          "en": "Disconnect PV input and restart the inverter; test again in full daylight.",
+          "ur": "PV input disconnect karke inverter restart karein; poori dopahar mein dobara test karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F06",
+      "aliases": [
+        "F06"
+      ],
+      "title": {
+        "en": "Bus voltage unbalance (F06)",
+        "ur": "Bus voltage ka ghabrat (F06)"
+      },
+      "meaning": {
+        "en": "The DC bus is not balanced between phases or rails.",
+        "ur": "DC bus phases ya rails ke darmiyan balance nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Input mode setting incorrect, so the inverter is not sourcing the bus as designed.",
+          "ur": "Input mode setting galat hai, is liye inverter bus ko design ke mutabiq supply nahi kar raha."
+        },
+        {
+          "en": "Bus capacitor or balancing circuit has degraded with age.",
+          "ur": "Bus capacitor ya balancing circuit umar ke saath degrade ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the setting of input mode first and correct any mismatch.",
+          "ur": "Pehle input mode ki setting check karein aur koi bhi mismatch theek karein."
+        },
+        {
+          "en": "Disconnect PV input and restart the inverter to confirm the fault is not transient.",
+          "ur": "PV input disconnect karke inverter restart karein taake confirm ho ke fault momentary nahi tha."
+        },
+        {
+          "en": "If F06 returns on every boot, the bus capacitors need distributor replacement.",
+          "ur": "Agar F06 har boot par wapas aaye to bus capacitors distributor se badalne hain."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F07",
+      "aliases": [
+        "F07"
+      ],
+      "title": {
+        "en": "Insulation impedance fault (F07)",
+        "ur": "Insulation ka impedance fault (F07)"
+      },
+      "meaning": {
+        "en": "PV insulation to ground is too low, so the inverter will not connect to the grid. This is the code Kstar shows when an earth fault occurs.",
+        "ur": "PV ka ground se insulation bohat kam hai, is liye inverter grid se connect nahi hoga. Earth fault aane par Kstar yehi code dikhata hai."
+      },
+      "causes": [
+        {
+          "en": "Damp or damaged panel back sheet leaking to frame or ground.",
+          "ur": "Geeli ya kharab panel back sheet frame ya ground par leak kar rahi hai."
+        },
+        {
+          "en": "PV connector not fully mated, or cable insulation stripped onto the frame.",
+          "ur": "PV connector puri tarah nahi laga, ya cable ki insulation frame par utar chuki hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and restart the inverter to see if the fault still exists.",
+          "ur": "PV input disconnect karke inverter restart karein taake pata chale fault ab bhi hai ya nahi."
+        },
+        {
+          "en": "Measure the impedance of PV+ and PV- to ground; this manual says it must be over 50 KOhm.",
+          "ur": "PV+ aur PV- ka ground se impedance check karein; yeh manual kehta hai ke yeh 50 KOhm se upar hona chahiye."
+        },
+        {
+          "en": "If the reading is good but F07 stays, inspect every MC4 by disconnecting strings one at a time.",
+          "ur": "Agar reading theek hai magar F07 bana rahe to strings aik aik karke har MC4 check karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "THRESHOLD CONFLICT: the KSG manual specifies 50 KOhm, the BluE-S/BluE-G manuals specify 500 KOhm for the same code F07. See CONFLICTS.",
+        "ur": "THRESHOLD CONFLICT: KSG manual 50 KOhm kehta hai, BluE-S aur BluE-G manual 500 KOhm kehte hain aik hi code F07 ke liye. CONFLICTS dekhein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F08",
+      "aliases": [
+        "F08"
+      ],
+      "title": {
+        "en": "Input current high (F08)",
+        "ur": "Input current zyada (F08)"
+      },
+      "meaning": {
+        "en": "The inverter is drawing more input current than it is allowed to.",
+        "ur": "Inverter apni ijazat se zyada input current kheench raha hai."
+      },
+      "causes": [
+        {
+          "en": "Input mode setting wrong, causing the inverter to expect a lower limit.",
+          "ur": "Input mode setting galat hai, jis se inverter ko kam limit ka intezaar hai."
+        },
+        {
+          "en": "PV array over-sized for this inverter, e.g. array kW exceeds inverter kW ratio limits.",
+          "ur": "PV array is inverter ke liye bada hai, maslan array kW inverter kW ratio se zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the setting of input mode and correct it.",
+          "ur": "Input mode ki setting check karke theek karein."
+        },
+        {
+          "en": "Count the PV strings and measure each string's current against the per-MPPT limit in the spec table.",
+          "ur": "PV strings ginein aur har string ka current spec table ke per-MPPT limit se compare karein."
+        },
+        {
+          "en": "Disconnect PV input and restart the inverter to see if the fault still exists.",
+          "ur": "PV input disconnect karke inverter restart karein taake pata chale fault ab bhi hai ya nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F09",
+      "aliases": [
+        "F09"
+      ],
+      "title": {
+        "en": "Hardware current high (F09)",
+        "ur": "Hardware current zyada (F09)"
+      },
+      "meaning": {
+        "en": "A hardware-level overcurrent was detected inside the inverter.",
+        "ur": "Inverter ke andar hardware level par overcurrent detect hua."
+      },
+      "causes": [
+        {
+          "en": "Output short circuit or an abnormally heavy load on the AC side.",
+          "ur": "AC side par output short circuit ya bohat bada load."
+        },
+        {
+          "en": "Inverter hardware current sense has drifted out of tolerance.",
+          "ur": "Inverter ka hardware current sense tolerance se bahar chala gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and restart the inverter after a few minutes.",
+          "ur": "Kuch minute baad PV input disconnect karke inverter restart karein."
+        },
+        {
+          "en": "Switch off the AC output and confirm the inverter fault clears with no load connected.",
+          "ur": "AC output band karein aur confirm karein ke koi load na hone par inverter ka fault chala jata hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F10",
+      "aliases": [
+        "F10"
+      ],
+      "title": {
+        "en": "Inverter current high (F10)",
+        "ur": "Inverter current zyada (F10)"
+      },
+      "meaning": {
+        "en": "Inverter output current has gone above the set threshold.",
+        "ur": "Inverter ka output current set threshold se upar chala gaya."
+      },
+      "causes": [
+        {
+          "en": "AC output shorted or a very heavy load on the output terminals.",
+          "ur": "AC output short hai ya output terminals par bohat bada load."
+        },
+        {
+          "en": "Grid voltage collapse forcing the inverter to push more current.",
+          "ur": "Grid voltage gir gayi, jis se inverter ko zyada current push karna pada."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and restart the inverter after a few minutes.",
+          "ur": "Kuch minute baad PV input disconnect karke inverter restart karein."
+        },
+        {
+          "en": "Disconnect the AC output completely and retry to separate a load fault from an inverter fault.",
+          "ur": "AC output poori tarah disconnect karke dobara try karein taake load fault aur inverter fault mein farq ho sake."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F11",
+      "aliases": [
+        "F11"
+      ],
+      "title": {
+        "en": "Inverter DC current high (F11)",
+        "ur": "Inverter DC current zyada (F11)"
+      },
+      "meaning": {
+        "en": "The DC-side current inside the inverter is above the limit.",
+        "ur": "Inverter ke andar DC side current limit se upar hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter DC-DC stage or its current sensing has drifted.",
+          "ur": "Inverter ka DC-DC stage ya uska current sensing bigad gaya hai."
+        },
+        {
+          "en": "PV inrush at start-up on a cold morning.",
+          "ur": "Thande subah start-up par PV ka inrush."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and restart the inverter after a few minutes.",
+          "ur": "Kuch minute baad PV input disconnect karke inverter restart karein."
+        },
+        {
+          "en": "If F11 returns every boot, the DC stage needs distributor repair - not a field fix.",
+          "ur": "Agar F11 har boot par wapas aaye to DC stage ki distributor se marammat hogi - yeh field par hal nahi hota."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F12",
+      "aliases": [
+        "F12",
+        "Amb Temperature Over"
+      ],
+      "title": {
+        "en": "Ambient temperature over (F12)",
+        "ur": "Ambient temperature zyada (F12)"
+      },
+      "meaning": {
+        "en": "Ambient temperature around the inverter is above the working range.",
+        "ur": "Inverter ke aas paas ka ambient temperature working range se upar hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter in direct sun or inside a poorly ventilated enclosure.",
+          "ur": "Inverter seedhi dhoop mein ya kam hawa wali enclosure mein hai."
+        },
+        {
+          "en": "Ambient temperature genuinely above the specified operating range.",
+          "ur": "Ambient temperature waqai specified operating range se upar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and let the inverter cool down, then restart it.",
+          "ur": "PV input disconnect karke inverter thanda hone dein, phir restart karein."
+        },
+        {
+          "en": "Measure ambient temperature at the unit with a thermometer and compare to the manual's range.",
+          "ur": "Unit ke paas thermometer se ambient temperature check karke manual ke range se compare karein."
+        },
+        {
+          "en": "Install a sunshade and keep clearance around the unit as per the manual's location rules.",
+          "ur": "Sunshade lagayein aur manual ke location rules ke mutabiq unit ke aas paas saaf rakhay rakhein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The KSG manual spells this 'Amb Temperature Over'; the BluE manuals use 'Ambient Over Temp' for the same idea.",
+        "ur": "KSG manual isay 'Amb Temperature Over' likhta hai; BluE manual wahi cheez 'Ambient Over Temp' kehta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F13",
+      "aliases": [
+        "F13"
+      ],
+      "title": {
+        "en": "Heatsink temperature high (F13)",
+        "ur": "Heatsink temperature zyada (F13)"
+      },
+      "meaning": {
+        "en": "The inverter heatsink is too hot, so it has stopped to protect itself.",
+        "ur": "Inverter ka heatsink bohat garam hai, is liye usne apni hifazat ke liye ruk kar band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Cooling fan failed or blocked by dust and debris.",
+          "ur": "Cooling fan kharab hai ya dhool-mitti se block hai."
+        },
+        {
+          "en": "Ambient temperature outside the normal working range.",
+          "ur": "Ambient temperature normal working range se bahar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and let the inverter cool down, then restart it.",
+          "ur": "PV input disconnect karke inverter thanda hone dein, phir restart karein."
+        },
+        {
+          "en": "With power off, check the fan spins freely by hand and clean dust off the heatsink fins.",
+          "ur": "Power off kar ke dekhein ke fan haath se aazad ghoomta hai aur heatsink ki fins se dhool saaf karein."
+        },
+        {
+          "en": "Measure ambient temperature and confirm it is inside the manual's range.",
+          "ur": "Ambient temperature check karke confirm karein ke yeh manual ke range ke andar hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F14",
+      "aliases": [
+        "F14",
+        "AC Relay Fault"
+      ],
+      "title": {
+        "en": "AC relay fault (F14)",
+        "ur": "AC relay kharab (F14)"
+      },
+      "meaning": {
+        "en": "The AC output relay has failed, so the inverter cannot connect to or disconnect from the grid.",
+        "ur": "AC output relay kharab hai, is liye inverter grid se connect ya disconnect nahi ho sakta."
+      },
+      "causes": [
+        {
+          "en": "Relay coil, driver or contacts failed, often after a grid outage or lightning surge.",
+          "ur": "Relay coil, driver ya contacts kharab, aksar grid outage ya bijli ke surkh ke baad."
+        },
+        {
+          "en": "A phase line is missing at the grid side, which the manual calls out explicitly.",
+          "ur": "Grid side par koi phase line missing hai, jisay manual saaf likhta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and restart the inverter and check whether fault still exists.",
+          "ur": "PV input disconnect karke inverter restart karein aur dekhein ke fault ab bhi hai ya nahi."
+        },
+        {
+          "en": "Check whether a phase line is missing, such as R, S, T phase, using a multimeter on all three phases.",
+          "ur": "Multimeter se teenon phases par check karein ke koi phase line missing to nahi, jaise R, S, T."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F15",
+      "aliases": [
+        "F15"
+      ],
+      "title": {
+        "en": "PV input voltage low (F15)",
+        "ur": "PV input voltage kam (F15)"
+      },
+      "meaning": {
+        "en": "PV input voltage is too low for the inverter to run.",
+        "ur": "PV input voltage itna kam hai ke inverter nahi chal sakta."
+      },
+      "causes": [
+        {
+          "en": "One of the PV inputs is idle while the inverter is set to parallel mode.",
+          "ur": "Inverter parallel mode par set hai magar aik PV input idle hai."
+        },
+        {
+          "en": "Low irradiance, heavy cloud or shading on part of the array.",
+          "ur": "Low irradiance, bhaari baadal ya array ke kisi hisse par shading."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the configuration of PV input; one PV input is idle when the inverter is set on parallel mode.",
+          "ur": "PV input ki configuration check karein; parallel mode par aik PV input idle rehta hai."
+        },
+        {
+          "en": "Disconnect the PV input and restart the inverter and check whether fault still exists.",
+          "ur": "PV input disconnect karke inverter restart karein aur dekhein ke fault ab bhi hai ya nahi."
+        },
+        {
+          "en": "Measure each string's voltage with a multimeter and identify any string sitting at or below the 250 V start voltage.",
+          "ur": "Har string ka voltage multimeter se check karke woh string dhoondein jo 250 V start voltage par ya neeche ho."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F16",
+      "aliases": [
+        "F16",
+        "Remote Off"
+      ],
+      "title": {
+        "en": "Remote Off - inverter switched off remotely (F16)",
+        "ur": "Remote Off - inverter remote se band (F16)"
+      },
+      "meaning": {
+        "en": "The inverter was turned off by monitoring software. This is not a hardware failure - someone or some software switched it off.",
+        "ur": "Inverter monitoring software se band kiya gaya hai. Yeh hardware ki kharabi nahi - kisi ne ya kisi software ne band kiya."
+      },
+      "causes": [
+        {
+          "en": "The inverter is on remote OFF status; it can be turned on or off remotely by monitoring software.",
+          "ur": "Inverter remote OFF status par hai; isay monitoring software se on ya off kiya ja sakta hai."
+        },
+        {
+          "en": "A monitoring app scheduled shutdown, or the logger lost its cloud link and dropped the unit.",
+          "ur": "Monitoring app ne shutdown schedule kiya, ya logger ka cloud link toot kar unit drop kar gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the monitoring app or web portal and check whether a remote shutdown is scheduled.",
+          "ur": "Monitoring app ya web portal kholein aur dekhein ke koi remote shutdown set hai ya nahi."
+        },
+        {
+          "en": "Send a remote ON command from monitoring software and confirm the unit starts.",
+          "ur": "Monitoring software se remote ON bhejein aur confirm karein ke unit start ho gaya."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Listed in the KSG trouble shooting table but it is a state, not a fault - the inverter is fine and simply off.",
+        "ur": "KSG trouble shooting table mein likha hai magar yeh koi fault nahi - inverter theek hai aur bas band hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F18",
+      "aliases": [
+        "F18"
+      ],
+      "title": {
+        "en": "SPI communication fault (F18)",
+        "ur": "SPI link toota hua (F18)"
+      },
+      "meaning": {
+        "en": "Internal SPI link between the inverter's control boards has failed.",
+        "ur": "Inverter ke control boards ke darmiyan internal SPI link kharab ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Control board to DSP SPI link failed after a power surge.",
+          "ur": "Power surge ke baad control board se DSP ka SPI link kharab ho gaya."
+        },
+        {
+          "en": "Firmware version mismatch between ARM and DSP after an incomplete update.",
+          "ur": "Adhoora update ke baad ARM aur DSP ke firmware versions mein farq."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and restart the inverter and check whether fault still exists.",
+          "ur": "PV input disconnect karke inverter restart karein aur dekhein ke fault ab bhi hai ya nahi."
+        },
+        {
+          "en": "If the fault survives a clean restart, only the distributor can reflash or replace the board.",
+          "ur": "Agar fault clean restart ke baad bhi rahe to sirf distributor board reflash ya badal sakta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F20",
+      "aliases": [
+        "F20"
+      ],
+      "title": {
+        "en": "Leakage current high (F20)",
+        "ur": "Leakage current zyada (F20)"
+      },
+      "meaning": {
+        "en": "Insulation leakage current on the PV or AC side is too high.",
+        "ur": "PV ya AC side par insulation leakage current bohat zyada hai."
+      },
+      "causes": [
+        {
+          "en": "AC cable or PV input line has abnormal insulation.",
+          "ur": "AC cable ya PV input line ki insulation abnormal hai."
+        },
+        {
+          "en": "Moisture on connectors, or cable pinched by the enclosure metalwork.",
+          "ur": "Connectors par namak ya enclosure ki metal ke darmiyan cable pinch hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and restart the inverter and check whether fault still exists.",
+          "ur": "PV input disconnect karke inverter restart karein aur dekhein ke fault ab bhi hai ya nahi."
+        },
+        {
+          "en": "Check whether the AC cable and PV input line have abnormal insulation, especially at the outdoor glands.",
+          "ur": "Check karein ke AC cable aur PV input line ki insulation normal hai ya nahi, khaas kar outdoor glands par."
+        },
+        {
+          "en": "Test insulation resistance of the AC cable with a megohmmeter after full isolation.",
+          "ur": "Puri tarah isolate karne ke baad megohmmeter se AC cable ki insulation resistance test karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F21",
+      "aliases": [
+        "F21"
+      ],
+      "title": {
+        "en": "Leakage current self-check failure (F21)",
+        "ur": "Leakage current ka self-check fail (F21)"
+      },
+      "meaning": {
+        "en": "The inverter's own leakage current self-test did not pass.",
+        "ur": "Inverter ka apna leakage current self-test pass nahi hua."
+      },
+      "causes": [
+        {
+          "en": "Residual current sensor drift or the sensor's reference circuit has failed.",
+          "ur": "Residual current sensor drift ho gaya ya uska reference circuit kharab hai."
+        },
+        {
+          "en": "Persistent external leakage that never quite reaches the trip level.",
+          "ur": "Barafi bahar ka leakage jo kabhi trip level tak nahi pohanchta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and restart the inverter and check whether fault still exists.",
+          "ur": "PV input disconnect karke inverter restart karein aur dekhein ke fault ab bhi hai ya nahi."
+        },
+        {
+          "en": "If it returns, contact the local distributor - the self-check circuit is not field serviceable.",
+          "ur": "Agar wapas aaye to local distributor se rabta karein - self-check circuit field par repair nahi hota."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F22",
+      "aliases": [
+        "F22"
+      ],
+      "title": {
+        "en": "Consistency voltage fault (F22)",
+        "ur": "Voltage consistency ka fault (F22)"
+      },
+      "meaning": {
+        "en": "Voltage consistency between parallel units or between phases is outside limits.",
+        "ur": "Parallel units ya phases ke darmiyan voltage consistency limit se bahar hai."
+      },
+      "causes": [
+        {
+          "en": "In parallel operation, master and slave voltage references have drifted apart.",
+          "ur": "Parallel operation mein master aur slave ke voltage reference alag ho gaye hain."
+        },
+        {
+          "en": "AC phase sequence or neutral wiring incorrect at the grid end.",
+          "ur": "Grid end par AC phase sequence ya neutral wiring ghalti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and restart the inverter and check whether fault still exists.",
+          "ur": "PV input disconnect karke inverter restart karein aur dekhein ke fault ab bhi hai ya nahi."
+        },
+        {
+          "en": "On a parallel system, verify phase sequence and that all parallel communication cables are seated.",
+          "ur": "Parallel system mein phase sequence check karein aur saare parallel communication cables lagi hain ya nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F23",
+      "aliases": [
+        "F23"
+      ],
+      "title": {
+        "en": "Consistency frequency fault (F23)",
+        "ur": "Frequency consistency ka fault (F23)"
+      },
+      "meaning": {
+        "en": "Frequency consistency between parallel units is outside limits, so the units cannot share load.",
+        "ur": "Parallel units ke darmiyan frequency consistency limit se bahar hai, is liye units load share nahi kar sakte."
+      },
+      "causes": [
+        {
+          "en": "One parallel unit has lost its grid reference and is free-running.",
+          "ur": "Aik parallel unit ka grid reference chala gaya hai aur wo free-run kar raha hai."
+        },
+        {
+          "en": "Grid frequency unstable, so parallel units see different frequency.",
+          "ur": "Grid frequency unstable hai, is liye parallel units ko alag frequency mil rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and restart the inverter and check whether fault still exists.",
+          "ur": "PV input disconnect karke inverter restart karein aur dekhein ke fault ab bhi hai ya nahi."
+        },
+        {
+          "en": "Measure grid frequency with a multimeter; if the grid is stable, isolate parallel units one by one to find the odd one.",
+          "ur": "Multimeter se grid frequency check karein; agar grid stable hai to parallel units aik aik karke alag karke dhoondein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F24",
+      "aliases": [
+        "F24"
+      ],
+      "title": {
+        "en": "F24 - isolated island or DSP op fault (by revision)",
+        "ur": "F24 - island ya DSP fault (manual revision par munhasir)"
+      },
+      "meaning": {
+        "en": "M6 and Ver 2.0 manuals: the inverter detected it has become islanded from the grid. KT Ver 1.0 manual for the same models: the DSP has reported an operation fault.",
+        "ur": "M6 aur Ver 2.0 manual: inverter ne detect kiya ke wo grid se island ho gaya hai. KT Ver 1.0 manual unhi models ke liye: DSP ne operation fault report kiya hai."
+      },
+      "causes": [
+        {
+          "en": "Grid has gone down or opened; the inverter correctly refuses to stay connected.",
+          "ur": "Grid chala gaya ya khul gaya; inverter sahi tarah connected nahi rehna chahta hai."
+        },
+        {
+          "en": "Grid-side relay or anti-islanding detection circuit has drifted (the KT Ver 1.0 reading of this code).",
+          "ur": "Grid side relay ya anti-islanding detection circuit bigad gaya hai (yeh KT Ver 1.0 ka matlab hai is code ka)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and restart the inverter and check whether fault still exists.",
+          "ur": "PV input disconnect karke inverter restart karein aur dekhein ke fault ab bhi hai ya nahi."
+        },
+        {
+          "en": "Measure grid voltage and frequency; if the grid is healthy, treat the KT-version reading as a DSP fault and contact the local distributor.",
+          "ur": "Grid voltage aur frequency check karein; agar grid theek hai to KT version ka matlab DSP fault hai aur local distributor se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "MAJOR CONFLICT - two meanings for one code, same model numbers. M6/Ver 2.0 = 'Isolated island Fault'; KT Ver 1.0 (202201) = 'DSP Operation Fault'. See CONFLICTS.",
+        "ur": "BADA CONFLICT - aik code ke do matlab, wohi model numbers. M6/Ver 2.0 = 'Isolated island Fault'; KT Ver 1.0 (202201) = 'DSP Operation Fault'. CONFLICTS dekhein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F26",
+      "aliases": [
+        "F26",
+        "IGBT Fault"
+      ],
+      "title": {
+        "en": "IGBT fault (F26)",
+        "ur": "IGBT kharab (F26)"
+      },
+      "meaning": {
+        "en": "The inverter has detected a fault in its IGBT power stage.",
+        "ur": "Inverter ne apne IGBT power stage mein fault detect kiya hai."
+      },
+      "causes": [
+        {
+          "en": "IGBT has failed short or open, often from a surge or from running too hot.",
+          "ur": "IGBT short ya open ho gaya, aksar surge se ya zyada garam chalne se."
+        },
+        {
+          "en": "DC bus capacitor failed, forcing the IGBT to absorb the fault current.",
+          "ur": "DC bus capacitor kharab ho gaya, jis se IGBT ko fault current sahnana pada."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and restart the inverter and check whether fault still exists.",
+          "ur": "PV input disconnect karke inverter restart karein aur dekhein ke fault ab bhi hai ya nahi."
+        },
+        {
+          "en": "If the fault survives, contact the local distributor - IGBT replacement is a bench job.",
+          "ur": "Agar fault bacha rahe to local distributor se rabta karein - IGBT badalna bench ka kaam hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "F26 is ABSENT from the KSG-(25-40)KT Ver 1.0 and BluE-G 3000-6000D-M1 fault tables. See CONFLICTS.",
+        "ur": "F26 KSG-(25-40)KT Ver 1.0 aur BluE-G 3000-6000D-M1 ke fault tables mein maujood hi nahi. CONFLICTS dekhein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F27",
+      "aliases": [
+        "F27"
+      ],
+      "title": {
+        "en": "N line-to-earth voltage high (F27)",
+        "ur": "N line se zyada voltage (F27)"
+      },
+      "meaning": {
+        "en": "Neutral-to-earth voltage has risen above the protection value.",
+        "ur": "Neutral se earth ke darmiyan voltage protection value se upar chala gaya hai."
+      },
+      "causes": [
+        {
+          "en": "The machine's ground is not bonded to the power grid's ground.",
+          "ur": "Machine ka ground power grid ke ground se bonded nahi hai."
+        },
+        {
+          "en": "N conductor has opened or is badly connected, so neutral has floated.",
+          "ur": "N conductor khul gaya ya buri tarah laga hai, is liye neutral float kar gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the ground of the machine is connected to the ground of the power grid.",
+          "ur": "Check karein ke machine ka ground power grid ke ground se jura hua hai ya nahi."
+        },
+        {
+          "en": "Measure the N-to-ground voltage with a multimeter; it should be well below the protection value.",
+          "ur": "Multimeter se N se ground ka voltage check karein; yeh protection value se kaafi neeche hona chahiye."
+        },
+        {
+          "en": "Power down and tighten the AC neutral terminal, then re-test.",
+          "ur": "Power down karke AC neutral terminal kass lein aur dobara test karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "F27 exists ONLY in the KSG(25-40K-M6) / KSG(25-40K) Ver 2.0 tables. It is absent from KSG-(25-40)KT Ver 1.0 and from the whole BluE-G family. See CONFLICTS.",
+        "ur": "F27 sirf KSG(25-40K-M6) ya KSG(25-40K) Ver 2.0 tables mein hai. KSG-(25-40)KT Ver 1.0 aur poore BluE-G family mein yeh maujood hi nahi. CONFLICTS dekhein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    },
+    {
+      "code": "F32",
+      "aliases": [
+        "F32"
+      ],
+      "title": {
+        "en": "DSP communication lost (F32)",
+        "ur": "DSP ka link toot gaya (F32)"
+      },
+      "meaning": {
+        "en": "The inverter has lost communication with its DSP controller.",
+        "ur": "Inverter ne apne DSP controller se communication kho di hai."
+      },
+      "causes": [
+        {
+          "en": "Internal comms board or ribbon link between comms board and DSP has failed.",
+          "ur": "Internal comms board ya comms board se DSP ka ribbon link kharab ho gaya hai."
+        },
+        {
+          "en": "Control supply rail on the comms board has collapsed.",
+          "ur": "Comms board ka control supply rail gir gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV input and restart the inverter and check whether fault still exists.",
+          "ur": "PV input disconnect karke inverter restart karein aur dekhein ke fault ab bhi hai ya nahi."
+        },
+        {
+          "en": "If the fault returns on every boot, only the distributor can replace the comms or DSP board.",
+          "ur": "Agar fault har boot par wapas aaye to sirf distributor comms ya DSP board badal sakta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR User Manual KSG(25-40K-M6) EN Ver:1.0 (202505)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.kstarnewenergy.com/DOWNLOADS/User%20Manual_KSG(25-40K-M6)%20_EN_V1.0.pdf"
+      }
+    }
+  ]
+}

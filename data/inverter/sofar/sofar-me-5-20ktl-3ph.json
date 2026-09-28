@@ -1,0 +1,538 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sofar",
+  "series": {
+    "id": "sofar-me-5-20ktl-3ph",
+    "name": "ME 5K...20KTL-3PH (AC-coupled storage 5-20 kW, no PV input)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*ME*5KTL-3PH*",
+      "*ME*6KTL-3PH*",
+      "*ME*8KTL-3PH*",
+      "*ME*10KTL-3PH*",
+      "*ME*15KTL-3PH*",
+      "*ME*20KTL-3PH*"
+    ],
+    "notes": "Manual section 8.2 'Error list'. The ME is an AC-coupled bi-directional battery converter - an add-on for an existing PV system, not a PV inverter, so it has no PVOVP/ISO rows but does have EPS and BMS rows. Unique rows vs the HYD table: ID031 ConsistentDCI, ID037 HwAuxPowerFault, ID115 FreqLoading, ID117 VoltLoading, ID124 BatLowVoltageAlarm, ID132 unrecoverIpvUnbalance, ID148 RTCFault, ID149 CommEEPROMFault, ID150 FlashFault, ID155 SciCommLose(Fuse), ID161 ForceShutdown, ID165 RemoteDerating, ID166 LogicInterfaceDerating, ID167 AlarmAntiRefluxing, ID176 MeterCommLose, ID183-ID185 BMS version rows. Note ID166's manual text explicitly says 'This message is for information and is not an error'."
+  },
+  "codes": [
+    {
+      "code": "ID037",
+      "aliases": [
+        "ID037",
+        "HwAuxPowerFault",
+        "Auxiliary power error"
+      ],
+      "title": {
+        "en": "Auxiliary power error (ID037)",
+        "ur": "Auxiliary power error - andar ki auxiliary supply kharab (ID037)"
+      },
+      "meaning": {
+        "en": "The inverter's internal auxiliary supply rail has faulted. Manual class: internal fault - switch off, wait 5 minutes, switch on, then check.",
+        "ur": "Inverter ka apna auxiliary power rail kharab ho gaya. Manual ke mutabiq: internal fault - off karein, 5 minute wait, on karein, phir check karein."
+      },
+      "causes": [
+        {
+          "en": "Failed auxiliary PSU module feeding the control and relay boards.",
+          "ur": "Control aur relay boards ko chalane wala auxiliary PSU module fail."
+        },
+        {
+          "en": "Fuse blown in the auxiliary supply rail, or a bad solder joint on the aux rail.",
+          "ur": "Auxiliary supply rail ka fuse uthha, ya us rail par solder joint kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the inverter OFF, wait 5 minutes, then ON and check whether the fault is rectified.",
+          "ur": "Inverter OFF karein, 5 minute wait karein, phir ON karke dekhein ke fault theek hua ya nahi."
+        },
+        {
+          "en": "With power off, inspect the auxiliary fuse on the board and reseat any loose aux connector.",
+          "ur": "Power off karke board par ka auxiliary fuse dekhein aur koi loose aux connector dobara baithayein."
+        },
+        {
+          "en": "If it recurs, measure the aux rail voltage against the manual's schematic value and raise a service case if it is low.",
+          "ur": "Agar dobara aaye to manual ke schematic value ke mutabiq aux rail voltage measure karein aur kam ho to service case karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR ME 5K...20KTL-3PH User Manual, section 8.2 Error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240122/1705890638501025979.pdf"
+      }
+    },
+    {
+      "code": "ID045",
+      "aliases": [
+        "ID045",
+        "CT Disconnect",
+        "CTDisconnect",
+        "CT error"
+      ],
+      "title": {
+        "en": "CT disconnected / CT error (ID045)",
+        "ur": "CT disconnect ho gaya / CT error (ID045)"
+      },
+      "meaning": {
+        "en": "The current transformer signal is missing or out of range, so the inverter cannot measure export and stops. Manual action: check that the CT wiring is correct.",
+        "ur": "CT ka signal missing ya range se bahar hai, is liye inverter export nahi nikal sakta aur ruk jata hai. Manual ka action: check karein ke CT wiring sahi hai."
+      },
+      "causes": [
+        {
+          "en": "CT lead unplugged, or the CT clamp not closed around the conductor.",
+          "ur": "CT lead unplugged, ya CT clamp conductor ke gird band nahi hai."
+        },
+        {
+          "en": "CT installed on the wrong conductor or facing the wrong direction.",
+          "ur": "CT galat conductor par lagi ya ulti direction mein."
+        },
+        {
+          "en": "CT lead connected to the wrong CT port, or a 5 A/200 A CT selected where the other is fitted.",
+          "ur": "CT lead galat CT port par, ya 5 A/200 A ke darmiyan ghalat CT lagi hui."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC breaker and check the CT wiring as the manual instructs, including the port assignment.",
+          "ur": "AC breaker off karke manual ke mutabiq CT wiring check karein, port assignment samet."
+        },
+        {
+          "en": "Confirm the CT clamp arrow matches the grid current flow direction and that it sits on the single main feed conductor.",
+          "ur": "Confirm karein ke CT clamp ki arrow grid current flow ke direction se match karti hai aur wo ek hi main feed conductor par hai."
+        },
+        {
+          "en": "Check the inverter's CT type setting matches the fitted CT, then re-check the LCD current reading.",
+          "ur": "Inverter ki CT type setting fitted CT se match karwayein, phir LCD par current reading dobara dekhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR ME 5K...20KTL-3PH User Manual, section 8.2 Error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240122/1705890638501025979.pdf"
+      }
+    },
+    {
+      "code": "ID047",
+      "aliases": [
+        "ID047",
+        "Parallel Fault",
+        "ParallelFault",
+        "Master does not exist or is duplicate"
+      ],
+      "title": {
+        "en": "Parallel configuration fault (ID047)",
+        "ur": "Parallel configuration fault - parallel wiring ya setting ghalat (ID047)"
+      },
+      "meaning": {
+        "en": "In parallel operation the master does not exist, or two units are configured with the same address. Manual action: check the parallel mode settings and the wiring.",
+        "ur": "Parallel operation mein master mojood nahi hai, ya do units ka same address set hai. Manual ka action: parallel mode settings aur wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "A parallel unit was powered on before the master, so no master was found.",
+          "ur": "Parallel unit master se pehle on kiya gaya, is liye koi master nahi mila."
+        },
+        {
+          "en": "Two units left on the same modbus/parallel address by mistake.",
+          "ur": "Ghalti se do units ka modbus/parallel address same chhoda gaya."
+        },
+        {
+          "en": "Parallel comms cable missing, loose, or the enable/disable link not made.",
+          "ur": "Parallel comms cable missing, loose, ya enable/disable link nahi banaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the parallel mode settings on every unit and give each a unique address.",
+          "ur": "Har unit ki parallel mode settings check karke har ek ko unique address dein."
+        },
+        {
+          "en": "Check that the parallel cable is correctly wired between units as the manual's wiring diagram shows.",
+          "ur": "Check karein ke parallel cable units ke darmiyan manual ke wiring diagram ke mutabiq sahi hai."
+        },
+        {
+          "en": "Power the master on first, wait for it to normal, then power each slave on one at a time.",
+          "ur": "Pehle master on karein, us ke normal hone ka intezaar karein, phir har slave ko ek ek karke on karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR ME 5K...20KTL-3PH User Manual, section 8.2 Error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240122/1705890638501025979.pdf"
+      }
+    },
+    {
+      "code": "ID105",
+      "aliases": [
+        "ID105",
+        "MeterCommFault",
+        "Communication fault with meter unit"
+      ],
+      "title": {
+        "en": "Meter unit communication fault (ID105)",
+        "ur": "Meter unit communication fault - meter se baat nahi ho rahi (ID105)"
+      },
+      "meaning": {
+        "en": "The inverter cannot communicate with the meter unit. Manual action: check communication to meter.",
+        "ur": "Inverter meter unit se communicate nahi kar pa raha. Manual ka action: meter se communication check karein."
+      },
+      "causes": [
+        {
+          "en": "RS485 A/B swapped or the meter connector unseated.",
+          "ur": "RS485 A/B swap ya meter connector seat nahi hua."
+        },
+        {
+          "en": "Duplicate modbus address on the RS485 bus.",
+          "ur": "RS485 bus par duplicate modbus address."
+        },
+        {
+          "en": "Meter powered off or its supply fuse blown.",
+          "ur": "Meter power off ya us ke supply ka fuse uthha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and check meter RS485 A and B pairing at both ends of the run.",
+          "ur": "Power off karke run ke dono taraf meter RS485 A aur B ki pairing check karein."
+        },
+        {
+          "en": "Set a unique modbus address from the LCD and confirm the meter is powered and on the same bus.",
+          "ur": "LCD se unique modbus address set karein aur confirm karein ke meter powered hai aur usi bus par hai."
+        },
+        {
+          "en": "Confirm the meter shows online in the SOFAR monitoring app before changing further settings.",
+          "ur": "SOFAR monitoring app mein meter online dikh raha hai confirm karein, phir aage settings badlein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR ME 5K...20KTL-3PH User Manual, section 8.2 Error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240122/1705890638501025979.pdf"
+      }
+    },
+    {
+      "code": "ID124",
+      "aliases": [
+        "ID124",
+        "BatLowVoltageAlarm",
+        "Protection against battery undervoltage"
+      ],
+      "title": {
+        "en": "Battery undervoltage alarm (ID124)",
+        "ur": "Battery undervoltage alarm - battery voltage bohat kam (ID124)"
+      },
+      "meaning": {
+        "en": "The battery has dropped to the low-voltage warning level. Manual groups it as 'Protection against battery undervoltage' and asks whether the battery voltage is too low.",
+        "ur": "Battery low-voltage warning level tak gir gaya hai. Manual isay 'Protection against battery undervoltage' ke naam se likhta hai aur poochta hai ke battery voltage kam to nahi."
+      },
+      "causes": [
+        {
+          "en": "Battery discharged past the usable depth of discharge with insufficient solar surplus.",
+          "ur": "Battery solar surplus ke ghair kaafi depth of discharge se neeche discharge ho gaya."
+        },
+        {
+          "en": "Battery capacity degraded with age, so it reaches the low-voltage point much earlier.",
+          "ur": "Battery umar ke saath capacity kam ho gayi, is liye woh low-voltage point jaldi reach karti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the battery voltage and SOC on the LCD and confirm the pack voltage with a multimeter at the BAT terminals.",
+          "ur": "LCD par battery voltage aur SOC padhein aur BAT terminals par multimeter se pack voltage confirm karein."
+        },
+        {
+          "en": "Check whether the PV system is generating enough to cover load plus battery charging that day.",
+          "ur": "Check karein ke us din PV system load aur battery charging dono ko cover kar raha hai ya nahi."
+        },
+        {
+          "en": "If the pack is old, compare its measured capacity with nameplate - a pack below 80% capacity is end-of-life.",
+          "ur": "Agar pack purani hai to us ki measured capacity nameplate se compare karein - 80% se kam capacity end-of-life hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR ME 5K...20KTL-3PH User Manual, section 8.2 Error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240122/1705890638501025979.pdf"
+      }
+    },
+    {
+      "code": "ID133",
+      "aliases": [
+        "ID133",
+        "unrecoverEPSBatOCP",
+        "Permanent battery overcurrent error in EPS mode"
+      ],
+      "title": {
+        "en": "Permanent EPS battery overcurrent (ID133)",
+        "ur": "Permanent EPS battery overcurrent - backup mein battery ka overcurrent (ID133)"
+      },
+      "meaning": {
+        "en": "During EPS backup mode the battery overcurrent protection latched permanently. This row exists only on storage/hybrid ME and HYD tables.",
+        "ur": "EPS backup mode mein battery overcurrent protection permanently trigger ho gaya. Yeh row sirf storage/hybrid ME aur HYD tables par hai."
+      },
+      "causes": [
+        {
+          "en": "Backup load far above the inverter EPS rating, typically from a large motor or compressor start.",
+          "ur": "Backup load inverter EPS rating se bohat upar, aam tor par bade motor ya compressor start se."
+        },
+        {
+          "en": "Battery or BMS internal fault causing a short-like discharge current.",
+          "ur": "Battery ya BMS ki internal ghalti jis se short jaisa discharge current beh raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the backup panel and clamp-meter its total current before touching the inverter.",
+          "ur": "Inverter chhoone se pehle backup panel isolate karke clamp meter se us ka kul current check karein."
+        },
+        {
+          "en": "Compare the measured backup load with the datasheet EPS output rating and move oversized loads to the grid side.",
+          "ur": "Measured backup load ko datasheet EPS output rating se compare karein aur bade loads grid side mein shift karein."
+        },
+        {
+          "en": "Log the event and open a service case - a permanent fault will not clear on a simple restart.",
+          "ur": "Event note karke service case karein - permanent fault simple restart se hal nahi hota."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR ME 5K...20KTL-3PH User Manual, section 8.2 Error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240122/1705890638501025979.pdf"
+      }
+    },
+    {
+      "code": "ID155",
+      "aliases": [
+        "ID155",
+        "SciCommLose(Fuse)",
+        "SCI communication error (fuse)"
+      ],
+      "title": {
+        "en": "SCI communication error to the fuse board (ID155)",
+        "ur": "SCI communication error fuse board se (ID155)"
+      },
+      "meaning": {
+        "en": "The control board lost SCI serial communication with the fuse monitoring board. This fuse-specific row is unique to the ME table.",
+        "ur": "Control board ne fuse monitoring board se SCI serial communication kho di. Yeh fuse wali row sirf ME table par hai."
+      },
+      "causes": [
+        {
+          "en": "SCI harness unplugged or chafed between control board and fuse board.",
+          "ur": "Control board aur fuse board ke darmiyan SCI harness unplugged ya ghisat."
+        },
+        {
+          "en": "Fuse board itself failed, or its supply rail dead.",
+          "ur": "Fuse board khud fail, ya us ki supply rail dead."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off DC switch and AC breaker, then reseat the SCI connector at both boards.",
+          "ur": "DC switch aur AC breaker off karke dono boards par SCI connector dobara baithayein."
+        },
+        {
+          "en": "Inspect the SCI ribbon for damaged or folded pins and reseat until the latch clicks.",
+          "ur": "SCI ribbon ko tange ya mudde pins ke liye dekhein aur latch click hone tak dobara baithayein."
+        },
+        {
+          "en": "If the connection is sound, the fuse board needs replacement - log the fault for the warranty claim.",
+          "ur": "Agar connection theek hai to fuse board replace karna hoga - warranty claim ke liye fault note karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR ME 5K...20KTL-3PH User Manual, section 8.2 Error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240122/1705890638501025979.pdf"
+      }
+    },
+    {
+      "code": "ID166",
+      "aliases": [
+        "ID166",
+        "LogicInterfaceDerating",
+        "Logic interface derating"
+      ],
+      "title": {
+        "en": "Logic interface derating (ID166)",
+        "ur": "Logic interface derating - bahar se command par power kam (ID166)"
+      },
+      "meaning": {
+        "en": "The inverter reduced its power because a digital logic input on the communication board asserted. The manual states plainly: 'This message is for information and is not an error.'",
+        "ur": "Inverter ne apni power kam ki kyunke communication board ka koi digital logic input active hua. Manual saaf likhta hai: 'Ye message sirf information ke liye hai, error nahi hai.'"
+      },
+      "causes": [
+        {
+          "en": "A dispatch or demand-response signal sent by the utility or a load controller.",
+          "ur": "Utility ya load controller ka dispatch ya demand-response signal aa gaya."
+        },
+        {
+          "en": "A digital input left bridged or configured to the wrong function after installation.",
+          "ur": "Installation ke baad koi digital input bridged chhoda ya galat function par set kiya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed on the inverter itself - this is an intended external command, not a fault.",
+          "ur": "Inverter khud par koi action zaroori nahi - ye bahar ka intentional command hai, fault nahi."
+        },
+        {
+          "en": "Check the logic interface input wiring on the communication board and confirm which input is asserted.",
+          "ur": "Communication board par logic interface input wiring check karein aur confirm karein ke kaun sa input active hai."
+        },
+        {
+          "en": "If output is lower than expected, confirm with the dispatcher before adjusting anything in the inverter.",
+          "ur": "Agar output expected se kam hai to inverter mein kuch badalne se pehle dispatcher se confirm karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR ME 5K...20KTL-3PH User Manual, section 8.2 Error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240122/1705890638501025979.pdf"
+      }
+    },
+    {
+      "code": "ID176",
+      "aliases": [
+        "ID176",
+        "MeterCommLose"
+      ],
+      "title": {
+        "en": "Meter communication lost (ID176)",
+        "ur": "Meter communication lost - meter ka link toot gaya (ID176)"
+      },
+      "meaning": {
+        "en": "The inverter has lost the meter link. Note this is a DIFFERENT row from ID105 MeterCommFault on the same table - both exist with different IDs.",
+        "ur": "Inverter ne meter ka link kho diya. Note ye ID105 MeterCommFault se alag row hai - dono usi table par maujood hain alag IDs ke saath."
+      },
+      "causes": [
+        {
+          "en": "RS485 link dropped - cable pulled during maintenance, or a connector shaken loose.",
+          "ur": "RS485 link toot gaya - maintenance mein cable kheench kar nikal li gayi, ya connector hil gaya."
+        },
+        {
+          "en": "Meter rebooted or lost its address after a power interruption.",
+          "ur": "Meter reboot ho gaya ya power interruption ke baad us ka address kho gaya."
+        },
+        {
+          "en": "Surge or lightning event damaged the meter-side transceiver.",
+          "ur": "Surge ya lightning ne meter side ka transceiver kharab kar diya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and re-torque and re-seat the meter RS485 terminations, then power the meter first and the inverter second.",
+          "ur": "Power off karke meter RS485 terminations dobara tighten aur baithayein, phir meter pehle aur inverter baad mein power karein."
+        },
+        {
+          "en": "Re-enter the meter modbus address and confirm it appears online in the monitoring app.",
+          "ur": "Meter ka modbus address dobara daalein aur confirm karein ke monitoring app mein online dikhta hai."
+        },
+        {
+          "en": "If it drops only during storms, fit an SPD on the RS485 line - this points to surge damage.",
+          "ur": "Agar sirf baarish mein gire to RS485 line par SPD lagayein - ye surge damage ki taraf ishara karta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR ME 5K...20KTL-3PH User Manual, section 8.2 Error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240122/1705890638501025979.pdf"
+      }
+    },
+    {
+      "code": "ID183",
+      "aliases": [
+        "ID183",
+        "BMS VerFault",
+        "BMS version fault"
+      ],
+      "title": {
+        "en": "BMS version fault (ID183)",
+        "ur": "BMS version fault - battery ka firmware version ghalat (ID183)"
+      },
+      "meaning": {
+        "en": "The battery management system firmware version is not accepted by the inverter. Manual action: contact technical support. Related rows: ID184 BMS CAN VerFault and ID185 BMS CAN VerLow.",
+        "ur": "Battery management system ka firmware version inverter ke liye qabul nahi hai. Manual ka action: technical support se rabta karein. Related rows: ID184 BMS CAN VerFault aur ID185 BMS CAN VerLow."
+      },
+      "causes": [
+        {
+          "en": "Battery firmware older than the minimum version the inverter accepts.",
+          "ur": "Battery firmware us minimum version se purana hai jo inverter qubool karta hai."
+        },
+        {
+          "en": "Battery replaced with a different BMS type after the original commissioning.",
+          "ur": "Original commissioning ke baad battery alag BMS type se badal di gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the reported BMS version on the LCD and note it before doing anything else.",
+          "ur": "Pehle LCD par reported BMS version padhein aur note karein, phir koi bhi kaam karein."
+        },
+        {
+          "en": "Contact technical support and quote the exact BMS version so they can supply the matching battery firmware.",
+          "ur": "Technical support se rabta karein aur exact BMS version batayein takay woh matching battery firmware de sakein."
+        },
+        {
+          "en": "Do not force operation with a mismatched BMS - the inverter will not manage the battery safely.",
+          "ur": "Mismatched BMS ke saath zor se chalaane ki koshish na karein - inverter battery ko safely manage nahi kar sakta."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR ME 5K...20KTL-3PH User Manual, section 8.2 Error list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20240122/1705890638501025979.pdf"
+      }
+    }
+  ]
+}

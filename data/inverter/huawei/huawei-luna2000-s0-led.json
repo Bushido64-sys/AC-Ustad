@@ -1,0 +1,385 @@
+{
+  "schemaVersion": 1,
+  "brandId": "huawei",
+  "series": {
+    "id": "huawei-luna2000-s0-led",
+    "name": "LUNA2000-(5-30)-S0 running + battery system LED indicators (Table 7-2 LED indicators)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*LUNA2000-5-S0*",
+      "*LUNA2000-10-S0*",
+      "*LUNA2000-15-S0*",
+      "*LUNA2000-5KW-C0*",
+      "*LUNA2000-5-E0*"
+    ],
+    "notes": "LED table for the S0 generation, distinct from SERIES 8 (LUNA2000-S1 indicators, which use white/capsule-shaped LEDs instead of green). Codes are LED state strings. Table key: long intervals = on 1s/off 1s, short intervals = on 0.2s/off 0.2s."
+  },
+  "codes": [
+    {
+      "code": "Running LED1 Steady green + Running LED2 Steady green",
+      "aliases": [
+        "Running LED1 Steady green + Running LED2 Steady green",
+        "Operating mode"
+      ],
+      "title": {
+        "en": "Operating mode",
+        "ur": "Operating mode (battery charge/discharge ho rahi hai)"
+      },
+      "meaning": {
+        "en": "Both running LEDs solid green: the battery is charging from PV or discharging to the inverter.",
+        "ur": "Dono running LEDs solid green: battery PV se charge ho rahi hai ya inverter ko discharge kar rahi hai."
+      },
+      "causes": [
+        {
+          "en": "Normal charge or discharge operation.",
+          "ur": "Normal charge ya discharge chal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed; cross-check the current flow direction in the app if you suspect reverse power.",
+          "ur": "Koi action zaroori nahi; reverse power ka shak ho to app mein current flow direction cross-check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Table 7-2 LED indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "Running LED1 Off / LED2 Off",
+      "aliases": [
+        "Running LED1 Off / LED2 Off",
+        "Hibernation mode"
+      ],
+      "title": {
+        "en": "Hibernation mode",
+        "ur": "Hibernation mode (battery so rahi hai)"
+      },
+      "meaning": {
+        "en": "Both running LEDs off - the internal auxiliary supply and DC-DC converter are not working.",
+        "ur": "Dono running LEDs off - internal auxiliary supply aur DC-DC converter kaam nahi kar rahe."
+      },
+      "causes": [
+        {
+          "en": "Normal hibernation after a period with no PV and no load.",
+          "ur": "PV aur load ke ghanton baad normal hibernation."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Expect LEDs to come on when PV voltage returns above the wake threshold.",
+          "ur": "PV voltage wake threshold se upar aate hi LEDs on hone ki umeed karein."
+        },
+        {
+          "en": "If the pack should be operating and both LEDs stay off, check PV generation and the battery DC switch.",
+          "ur": "Agar pack ko chalna chahiye lekin dono LEDs off rahen to PV generation aur battery DC switch check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Table 7-2 LED indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "Running LED1 Blinking red fast",
+      "aliases": [
+        "Running LED1 Blinking red fast",
+        "Power control module environment alarm"
+      ],
+      "title": {
+        "en": "Power control module environment alarm",
+        "ur": "Power control module environment alarm (battery ke around ka masla)"
+      },
+      "meaning": {
+        "en": "Running LED1 blinking fast red marks an environmental alarm on the power control module - usually temperature or enclosure related.",
+        "ur": "Running LED1 fast red blink power control module ka environmental alarm batata hai - aam tor par temperature ya enclosure se related."
+      },
+      "causes": [
+        {
+          "en": "Module overtemperature or undertemperature alarm such as 3002 or 3009.",
+          "ur": "Module overtemperature ya undertemperature alarm, maslan 3002 ya 3009."
+        },
+        {
+          "en": "Enclosure moisture or condensation causing a module environmental trip.",
+          "ur": "Enclosure mein nami ya condensation se module environmental trip hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the numeric alarm in the app - fast red on the module LED maps to 3002/3008/3009 temperature alarms.",
+          "ur": "App mein numeric alarm padhein - module LED ka fast red 3002/3008/3009 temperature alarms se map hota hai."
+        },
+        {
+          "en": "Measure temperature at the module and check the cabinet for condensation or a blocked air path.",
+          "ur": "Module ka temperature measure karein aur cabinet mein condensation ya blocked air path check karein."
+        },
+        {
+          "en": "If temperature is normal, inspect for water ingress at gland entries and dry the enclosure before restart.",
+          "ur": "Agar temperature normal hai to gland entries par paani ka dakhil check karke enclosure sukha karein, phir restart karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Running LED1 blinking red fast (on 0.2s, off 0.2s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Table 7-2 LED indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "Running LED2 Blinking red fast",
+      "aliases": [
+        "Running LED2 Blinking red fast",
+        "Battery expansion module environment alarm"
+      ],
+      "title": {
+        "en": "Battery expansion module environment alarm",
+        "ur": "Battery expansion module environment alarm (pack ka masla)"
+      },
+      "meaning": {
+        "en": "Running LED2 blinking fast red marks an environmental alarm on the battery expansion module (pack).",
+        "ur": "Running LED2 fast red blink battery expansion module (pack) ka environmental alarm batata hai."
+      },
+      "causes": [
+        {
+          "en": "Expansion pack overtemperature or low temperature alarm such as 3008 or 3009.",
+          "ur": "Expansion pack overtemperature ya low temperature alarm, maslan 3008 ya 3009."
+        },
+        {
+          "en": "Pack installed in a spot with no airflow, or ambient outside the pack's operating window.",
+          "ur": "Pack aise jagah lagi jahan airflow nahi, ya ambient pack ke operating window se bahar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the numeric alarm in the app and note which pack position is flagged.",
+          "ur": "App mein numeric alarm padhein aur note karein ke kaun si pack position flag hai."
+        },
+        {
+          "en": "Measure that pack's surface temperature with a contact thermometer and compare to the other packs.",
+          "ur": "Us pack ka surface temperature contact thermometer se measure karke baaki packs se compare karein."
+        },
+        {
+          "en": "Improve ventilation and clearances; if only one pack runs hot, suspect that pack and escalate.",
+          "ur": "Ventilation aur clearance behtar karein; agar sirf ek pack garm ho to us pack par shak karke escalate karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Running LED2 blinking red fast (on 0.2s, off 0.2s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Table 7-2 LED indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "Running LED1 Steady red",
+      "aliases": [
+        "Running LED1 Steady red",
+        "Power control module faulty"
+      ],
+      "title": {
+        "en": "Power control module is faulty",
+        "ur": "Power control module faulty hai"
+      },
+      "meaning": {
+        "en": "Running LED1 solid red: the manual states the power control module is faulty.",
+        "ur": "Running LED1 solid red: manual ke mutabiq power control module faulty hai."
+      },
+      "causes": [
+        {
+          "en": "Internal circuit fault in the power control module, e.g. alarm 3001 Abnormal battery power control module.",
+          "ur": "Power control module ka internal circuit fault, maslan alarm 3001 Abnormal battery power control module."
+        },
+        {
+          "en": "Fuse blown in the module, e.g. alarm 3003.",
+          "ur": "Module ka fuse udd gaya, maslan alarm 3003."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Get the numeric alarm from the app; steady red is a symptom, the app gives the cause.",
+          "ur": "App se numeric alarm lein; steady red symptom hai, app wajah batata hai."
+        },
+        {
+          "en": "Power off in the manual sequence and wait 5 minutes before inspecting the module.",
+          "ur": "Manual sequence se band karein aur module inspect karne se pehle 5 minute intezaar karein."
+        },
+        {
+          "en": "If 3003 is shown, check the fuse rating before fitting a replacement; a wrong rating is a fire risk.",
+          "ur": "Agar 3003 aaye to replacement lagane se pehle fuse rating check karein; galat rating aag ka khatra hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Running LED1 steady red",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Table 7-2 LED indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "Running LED2 Steady red",
+      "aliases": [
+        "Running LED2 Steady red",
+        "Battery expansion module faulty"
+      ],
+      "title": {
+        "en": "Battery expansion module is faulty",
+        "ur": "Battery expansion module faulty hai"
+      },
+      "meaning": {
+        "en": "Running LED2 solid red: the manual states the battery expansion module is faulty.",
+        "ur": "Running LED2 solid red: manual ke mutabiq battery expansion module faulty hai."
+      },
+      "causes": [
+        {
+          "en": "Internal circuit fault in the expansion pack, e.g. alarm 3006 Abnormal battery expansion module.",
+          "ur": "Expansion pack ka internal circuit fault, maslan alarm 3006 Abnormal battery expansion module."
+        },
+        {
+          "en": "Expansion module cable disconnected, e.g. alarm 3007.",
+          "ur": "Expansion module ka cable disconnect hai, maslan alarm 3007."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the numeric alarm in the app and identify the faulty pack position.",
+          "ur": "App mein numeric alarm padhein aur faulty pack ki position pehchan lein."
+        },
+        {
+          "en": "With DC isolated, reseat every daisy-chain connector between the power control module and packs.",
+          "ur": "DC isolate kar ke power control module aur packs ke darmiyan har daisy-chain connector dobara laga dein."
+        },
+        {
+          "en": "If the alarm persists, isolate the suspect pack from the chain and escalate for module replacement.",
+          "ur": "Agar alarm bana rahe to shak ke paksh wali pack ko chain se isolate karke module replacement ke liye escalate karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Running LED2 steady red",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Table 7-2 LED indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "Battery system indicator Green",
+      "aliases": [
+        "Battery system indicator Green",
+        "SOC bars"
+      ],
+      "title": {
+        "en": "Battery level / SOC bars",
+        "ur": "Battery level / SOC bars (har bar 10%)"
+      },
+      "meaning": {
+        "en": "The green bars on the circular battery system indicator show state of charge; each bar is 10%.",
+        "ur": "Circular battery system indicator ke green bars state of charge dikhate hain; har bar 10% hai."
+      },
+      "causes": [
+        {
+          "en": "Normal SOC display; the count of lit bars equals the state of charge.",
+          "ur": "Normal SOC display; lit bars ki tadaad state of charge ke barabar hoti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read SOC from this indicator when the app is offline; treat 3 bars or fewer as a call to check load and shading.",
+          "ur": "App offline ho to is indicator se SOC padhein; 3 bars ya us se kam ko load aur shading check karne ka signal samajhein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Table 7-2 LED indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    },
+    {
+      "code": "Battery system indicator Steady red",
+      "aliases": [
+        "Battery system indicator Steady red",
+        "Faulty expansion module count"
+      ],
+      "title": {
+        "en": "Number of faulty expansion modules shown",
+        "ur": "Faulty expansion modules ki tadaad (pehle teen bars)"
+      },
+      "meaning": {
+        "en": "The first three bars are solid red, and the number of lit bars equals the number of faulty battery expansion modules.",
+        "ur": "Pehle teen bars solid red hain, aur lit bars ki tadaad faulty battery expansion modules ki tadaad ke barabar hai."
+      },
+      "causes": [
+        {
+          "en": "One or more battery expansion modules have faulted.",
+          "ur": "Ek ya zyada battery expansion modules fault ho gaye hain."
+        },
+        {
+          "en": "A pack is not communicating after a cable or connector fault.",
+          "ur": "Cable ya connector fault ke baad pack communicate nahi kar raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Count the red bars to know how many packs are affected, then match that to the app's pack list.",
+          "ur": "Red bars gin lein taake pata chale kitne packs affected hain, phir usay app ke pack list se match karein."
+        },
+        {
+          "en": "Isolate DC and reseat the daisy-chain connectors to clear a high-resistance comms fault.",
+          "ur": "DC isolate karke daisy-chain connectors dobara laga dein taake high-resistance comms fault clear ho."
+        },
+        {
+          "en": "If a count persists, that pack has failed internally - plan module replacement, not just a cable fix.",
+          "ur": "Agar count bana rahe to us pack mein internal failure hai - sirf cable fix nahi, module replacement plan karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Battery system indicator steady red on first three bars",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "LUNA2000-(5-30)-S0 User Manual, Issue 14 (2023-05-31), Table 7-2 LED indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://7sun.eu/wp-content/uploads/2025/08/User-manual-LUNA2000-5-E0-EN.pdf"
+      }
+    }
+  ]
+}

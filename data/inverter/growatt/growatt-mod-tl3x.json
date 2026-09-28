@@ -1,0 +1,1861 @@
+{
+  "schemaVersion": 1,
+  "brandId": "growatt",
+  "series": {
+    "id": "growatt-mod-tl3x",
+    "name": "MOD 3-15KTL3-X (three-phase string, 2 MPPT)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*MOD*TL3-X*",
+      "*3-15KTL3-X*",
+      "MOD*TL3-X"
+    ],
+    "notes": "Grey/white 2-MPPT three-phase string inverter. Manual section 13.3 'System error' lists Error 200-308 and 400-425. The SAME 3-digit code table is reused across the newer MOD/MID TL3-H bodies, but descriptions differ slightly (see SERIES 3 WIT) - treat digit meaning per-series. Codes 423/424/602/608 exist on other Growatt bodies but were NOT in this manual, so they are not claimed here."
+  },
+  "codes": [
+    {
+      "code": "Error 200",
+      "aliases": [
+        "Error 200",
+        "200",
+        "AFCI Fault"
+      ],
+      "title": {
+        "en": "AFCI fault (arc detected)",
+        "ur": "AFCI fault (arc detect hua)"
+      },
+      "meaning": {
+        "en": "The AFCI arc-fault detector has tripped on the DC side. A tripped AFCI can only be cleared manually.",
+        "ur": "DC side par AFCI ne arc detect kar ke apne aap band kar diya. Isay sirf manual tareeqe se reset karna hota hai."
+      },
+      "causes": [
+        {
+          "en": "A real arc at a PV connector, module or DC cable",
+          "ur": "PV connector, module ya DC cable par asal arc"
+        },
+        {
+          "en": "Loose or burnt MC4 connector, or damaged DC insulation",
+          "ur": "Loose ya burnt MC4 connector, ya DC insulation damaged"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC switch and wait 5 minutes before touching anything.",
+          "ur": "DC switch off karein aur 5 minute wait karein, phir haath lagayein."
+        },
+        {
+          "en": "With a multimeter, check the DC input voltage first (0 V expected).",
+          "ur": "Multimeter se pehle DC input voltage check karein (0 V aana chahiye)."
+        },
+        {
+          "en": "Inspect every MC4 pair and DC cable for heat marks, and re-crimp any loose connector.",
+          "ur": "Har MC4 pair aur DC cable par garmi ke nishaan dekhein, aur loose connector dobara crimp karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 201",
+      "aliases": [
+        "Error 201",
+        "201",
+        "Leakage current too high",
+        "Residual I High"
+      ],
+      "title": {
+        "en": "Leakage current too high",
+        "ur": "Leakage current bohat zyada hai"
+      },
+      "meaning": {
+        "en": "The residual-current device measured leakage current above the permitted limit.",
+        "ur": "Residual current device ne leakage current ki limit cross kar li."
+      },
+      "causes": [
+        {
+          "en": "Moisture in PV connectors or junction boxes",
+          "ur": "PV connectors ya junction boxes mein nam"
+        },
+        {
+          "en": "Damaged cable insulation to PE, or poor panel-frame earthing",
+          "ur": "PE ke taraf cable insulation damaged, ya panel frame earthing kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then measure PV+ to PE and PV- to PE insulation resistance with a megohmmeter.",
+          "ur": "AC aur PV isolate karein, phir megohmmeter se PV+ se PE aur PV- se PE ka insulation resistance measure karein."
+        },
+        {
+          "en": "Disconnect PV strings one by one to find the leaking string.",
+          "ur": "PV strings ko ek-ek karke disconnect karein taake leaking string pata chale."
+        },
+        {
+          "en": "Clean and dry the affected connectors, and re-torque the frame and PE earth lugs.",
+          "ur": "Affected connectors ko saaf aur khushk karein, aur frame aur PE earth lugs dobara torque karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 202",
+      "aliases": [
+        "Error 202",
+        "202",
+        "PV Voltage High"
+      ],
+      "title": {
+        "en": "DC input voltage over maximum",
+        "ur": "DC input voltage maximum se zyada"
+      },
+      "meaning": {
+        "en": "PV string open-circuit voltage has gone above the inverter's maximum tolerable DC voltage.",
+        "ur": "PV string ka open-circuit voltage inverter ke maximum DC voltage se upar chala gaya."
+      },
+      "causes": [
+        {
+          "en": "String designed too long for the ambient minimum temperature (Voc rises in cold weather)",
+          "ur": "String minimum temperature ke liye lambi banayi gayi hai, thand mein Voc barh jata hai"
+        },
+        {
+          "en": "Two strings paralleled by mistake, or wrong DC switch",
+          "ur": "Do strings galti se parallel, ya ghalat DC switch"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC switch immediately and measure string voltage on each MPPT.",
+          "ur": "DC switch foran band karein aur har MPPT par string voltage measure karein."
+        },
+        {
+          "en": "Compare measured Voc against the module datasheet Voc at the coldest expected temperature.",
+          "ur": "Module datasheet ka Voc (sab se thande temperature par) se measured Voc compare karein."
+        },
+        {
+          "en": "Reduce the number of modules per string, or move the inverter to a model rated for that voltage.",
+          "ur": "String mein modules ki sankhya kam karein, ya aisa inverter lagayein jo us voltage ke liye rated ho."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 203",
+      "aliases": [
+        "Error 203",
+        "203",
+        "PV ISO LOW",
+        "PV isolation Low"
+      ],
+      "title": {
+        "en": "PV isolation low (insulation fault)",
+        "ur": "PV isolation low - insulation fault aa gaya"
+      },
+      "meaning": {
+        "en": "Isolation resistance between the PV array and earth has fallen below the threshold.",
+        "ur": "PV array aur earth ke darmiyan isolation resistance limit se neeche aa gaya."
+      },
+      "causes": [
+        {
+          "en": "Wet panel backsheets or water inside the junction box / combiner",
+          "ur": "Geela panel backsheet ya junction box / combiner ke andar paani"
+        },
+        {
+          "en": "Chafed cable insulation touching the frame",
+          "ur": "Frame ko chhooti hui cable insulation"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not touch the equipment - treat as a live earth fault. Isolate PV and AC first.",
+          "ur": "Equipment ko haath na lagayein - zameen par live fault samajhein. Pehle PV aur AC isolate karein."
+        },
+        {
+          "en": "After shutdown, confirm the panel shell and mounting frame are reliably grounded.",
+          "ur": "Shutdown ke baad verify karein ke panel shell aur mounting frame achi tarah grounded hain."
+        },
+        {
+          "en": "Disconnect strings one at a time; the string that clears the alarm is the leaking one - then inspect it wet-side.",
+          "ur": "Strings ko ek-ek karke disconnect karein; jis string par alarm hat jaye wahi leaking hai - usay geeli taraf se dekhein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 300",
+      "aliases": [
+        "Error 300",
+        "300",
+        "AC V Outrange"
+      ],
+      "title": {
+        "en": "AC grid voltage out of range",
+        "ur": "AC grid voltage range se bahar"
+      },
+      "meaning": {
+        "en": "Measured grid voltage is outside the inverter's permissible window, so the unit will not connect.",
+        "ur": "Grid voltage inverter ke allowable range se bahar hai, is liye unit connect nahi hoga."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage sag/surge from load steps or a weak LT distribution",
+          "ur": "Load switching ya kamzor LT distribution se grid voltage ka sag/surge"
+        },
+        {
+          "en": "Wrong country grid-code selected, or AC voltage set-point misconfigured",
+          "ur": "Ghalat country grid-code select hua, ya AC voltage set-point ghalat hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure L-L and L-N voltage with a true-RMS multimeter at the inverter AC terminals.",
+          "ur": "Inverter ke AC terminals par true-RMS multimeter se L-L aur L-N voltage measure karein."
+        },
+        {
+          "en": "Check AC wiring, especially neutral and PE, and re-torque the terminals.",
+          "ur": "AC wiring check karein, khaas kar neutral aur PE, aur terminals dobara torque karein."
+        },
+        {
+          "en": "If grid voltage is inside the local standard, contact Growatt to confirm the grid-code setting.",
+          "ur": "Agar grid voltage local standard ke andar hai, to Growatt se grid-code setting confirm karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 301",
+      "aliases": [
+        "Error 301",
+        "301",
+        "AC terminals reversed"
+      ],
+      "title": {
+        "en": "AC terminals reversed",
+        "ur": "AC terminals ulat palt hain"
+      },
+      "meaning": {
+        "en": "Two AC line conductors are connected in the wrong phase order.",
+        "ur": "Do AC line conductors galat phase order mein lage hain."
+      },
+      "causes": [
+        {
+          "en": "Wiring error at the AC terminal block",
+          "ur": "AC terminal block par wiring galti"
+        },
+        {
+          "en": "Phase sequence of a three-phase supply swapped at the distribution board",
+          "ur": "Distribution board par three-phase supply ka sequence badal gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC and PV, then confirm the phase order of the supply.",
+          "ur": "AC aur PV band karein, phir supply ka phase order confirm karein."
+        },
+        {
+          "en": "Re-wire the AC terminals in the correct phase order and tighten to torque.",
+          "ur": "AC terminals ko sahi phase order mein dobara lagayein aur torque karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 302",
+      "aliases": [
+        "Error 302",
+        "302",
+        "No AC Connection"
+      ],
+      "title": {
+        "en": "No AC connection / grid power failure",
+        "ur": "AC connection nahi hai / grid power failure"
+      },
+      "meaning": {
+        "en": "The inverter sees no AC input, so it stays in off-grid or standby state.",
+        "ur": "Inverter ko koi AC input nahi mil raha, is liye woh off-grid ya standby mein rehta hai."
+      },
+      "causes": [
+        {
+          "en": "AC breaker open or AC isolator switched off",
+          "ur": "AC breaker open ya AC isolator band"
+        },
+        {
+          "en": "Upstream distribution fuse blown after a load change",
+          "ur": "Load change ke baad upstream distribution fuse uth gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "After shutdown, check AC wiring and the AC breaker's terminal tightness.",
+          "ur": "Shutdown ke baad AC wiring aur AC breaker ke terminal ki tightness check karein."
+        },
+        {
+          "en": "Verify grid presence at the AC terminal with a multimeter before restarting.",
+          "ur": "Restart se pehle multimeter se AC terminal par grid mojood check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 303",
+      "aliases": [
+        "Error 303",
+        "303",
+        "NE abnormal",
+        "PE abnormal"
+      ],
+      "title": {
+        "en": "NE abnormal (N-PE voltage high)",
+        "ur": "NE abnormal (N aur PE ka voltage zyada)"
+      },
+      "meaning": {
+        "en": "Voltage difference between neutral and protective earth is out of limit; the manual shows this same code for the earth-fault alarm.",
+        "ur": "Neutral aur protective earth ke darmiyan voltage difference limit se bahar hai; manual isi code ko earth-fault alarm ke liye bhi dikhata hai."
+      },
+      "causes": [
+        {
+          "en": "Broken or loose PE conductor between inverter and earth pit",
+          "ur": "Inverter aur earth pit ke darmiyan PE conductor toota ya loose"
+        },
+        {
+          "en": "Neutral and PE swapped at the AC terminal",
+          "ur": "AC terminal par neutral aur PE swap ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then measure the N-to-PE voltage; it must be near 0 V.",
+          "ur": "AC aur PV isolate karein, phir N se PE voltage measure karein; ye qareeb 0 V hona chahiye."
+        },
+        {
+          "en": "Check that the PE cable is solidly connected at the inverter lug and the earth pit.",
+          "ur": "Check karein ke PE cable inverter lug aur earth pit dono par mazboot se lagi ho."
+        },
+        {
+          "en": "If the earth fault alarm is active, do not touch the unit - have the array insulation tested.",
+          "ur": "Agar earth fault alarm active hai to unit ko haath na lagayein - array ka insulation test karwayein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 304",
+      "aliases": [
+        "Error 304",
+        "304",
+        "AC F Outrange"
+      ],
+      "title": {
+        "en": "AC grid frequency out of range",
+        "ur": "AC grid frequency range se bahar"
+      },
+      "meaning": {
+        "en": "Grid frequency is outside the inverter's permissible window, so grid connection is blocked.",
+        "ur": "Grid frequency inverter ke allowable range se bahar hai, is liye grid connection block hai."
+      },
+      "causes": [
+        {
+          "en": "Generator or weak grid pulling frequency outside limits",
+          "ur": "Generator ya kamzor grid frequency ko limit se bahar le raha hai"
+        },
+        {
+          "en": "Local grid standard differs from the configured setting",
+          "ur": "Local grid standard configured setting se alag hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid frequency with a multimeter or clamp meter.",
+          "ur": "Multimeter ya clamp meter se grid frequency measure karein."
+        },
+        {
+          "en": "Check AC wiring, especially neutral and ground wire, and re-torque.",
+          "ur": "AC wiring check karein, khaas kar neutral aur ground wire, aur dobara torque karein."
+        },
+        {
+          "en": "Restart once; if frequency is normal and the code returns, contact Growatt.",
+          "ur": "Ek baar restart karein; agar frequency normal hai aur code wapas aata hai to Growatt se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 305",
+      "aliases": [
+        "Error 305",
+        "305",
+        "Over Load Fault"
+      ],
+      "title": {
+        "en": "Over load fault",
+        "ur": "Load rated power se upar chala gaya"
+      },
+      "meaning": {
+        "en": "Output load exceeded the inverter's rated power, so it shut down.",
+        "ur": "Output load inverter ki rated power se zyada ho gaya, is liye unit band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Connected load exceeds the inverter kW rating",
+          "ur": "Connected load inverter ke kW rating se zyada hai"
+        },
+        {
+          "en": "Motor or compressor with high inrush current on the AC side",
+          "ur": "AC side par high inrush current wala motor ya compressor"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "List every load on the AC side and add up the running wattage.",
+          "ur": "AC side ki tamam loads list karein aur running wattage ka total nikalein."
+        },
+        {
+          "en": "Switch off the largest non-essential load and restart the inverter.",
+          "ur": "Sab se bada ghair-zaroori load band karein aur inverter restart karein."
+        },
+        {
+          "en": "Stagger large motor starts or move the load to a larger inverter.",
+          "ur": "Bade motors ki starting stagger karein ya load bade inverter par shift karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 306",
+      "aliases": [
+        "Error 306",
+        "306",
+        "CT LN Reversed"
+      ],
+      "title": {
+        "en": "CT L/N reversed",
+        "ur": "CT ka L aur N ulat palt hai"
+      },
+      "meaning": {
+        "en": "The current transformer L and N conductors are connected in reverse.",
+        "ur": "Current transformer ke L aur N conductors ulat se lage hain."
+      },
+      "causes": [
+        {
+          "en": "CT installed with L and N swapped at the CT terminal",
+          "ur": "CT terminal par L aur N swap karke CT lagaya gaya"
+        },
+        {
+          "en": "CT wired to the wrong phase after a wiring change",
+          "ur": "Wiring badalne ke baad CT galat phase se jorr diya gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC and PV, then check the SP-CT connection at the CT terminal.",
+          "ur": "AC aur PV band karein, phir CT terminal par SP-CT connection check karein."
+        },
+        {
+          "en": "Swap the CT L and N conductors and tighten the terminal screws.",
+          "ur": "CT ke L aur N conductors swap karein aur terminal screws kasa dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 307",
+      "aliases": [
+        "Error 307",
+        "307",
+        "M3 didn't receive SP-CT data"
+      ],
+      "title": {
+        "en": "M3 did not receive SP-CT data",
+        "ur": "M3 ko SP-CT ka data nahi mila"
+      },
+      "meaning": {
+        "en": "The communication board is not receiving data from the smart meter / CT module.",
+        "ur": "Communication board ko smart meter / CT module se data nahi mil raha."
+      },
+      "causes": [
+        {
+          "en": "RS485 cable loose, swapped A/B, or not shielded",
+          "ur": "RS485 cable loose, A/B swap, ya shield nahi"
+        },
+        {
+          "en": "Meter or CT module not powered",
+          "ur": "Meter ya CT module ko power nahi mil raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "After shutdown, reseat the RS485 cable at both the inverter and the meter ends.",
+          "ur": "Shutdown ke baad inverter aur meter dono taraf RS485 cable dobara baithayein."
+        },
+        {
+          "en": "Confirm A connects to A and B to B, then tighten both ends.",
+          "ur": "Confirm karein ke A se A aur B se B jora gaya hai, phir dono ends kasa dein."
+        },
+        {
+          "en": "Check the meter is powered and its address matches the inverter setting.",
+          "ur": "Check karein ke meter powered hai aur uska address inverter setting se match karta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 308",
+      "aliases": [
+        "Error 308",
+        "308",
+        "Pairing time too long"
+      ],
+      "title": {
+        "en": "Communication pairing time too long",
+        "ur": "Communication pairing ka waqt zyada ho gaya"
+      },
+      "meaning": {
+        "en": "The inverter could not finish pairing with the meter/logger within the allowed time.",
+        "ur": "Inverter meter/logger ke saath pairing allotted time mein complete nahi kar paya."
+      },
+      "causes": [
+        {
+          "en": "Smart meter not in pairing mode, or too far away",
+          "ur": "Smart meter pairing mode mein nahi, ya bohat door hai"
+        },
+        {
+          "en": "Other devices competing on the same RS485 bus",
+          "ur": "Ek hi RS485 bus par doosre devices mojood hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power-cycle the meter to put it back into pairing mode.",
+          "ur": "Meter ka power cycle karein taake woh dobara pairing mode mein aaye."
+        },
+        {
+          "en": "Bring the meter close to the inverter during pairing, then move it back.",
+          "ur": "Pairing ke waqt meter ko inverter ke paas laayein, phir wapas move karein."
+        },
+        {
+          "en": "Restart the inverter and start the pairing once only one meter is on the bus.",
+          "ur": "Bus par sirf ek meter hone ke baad inverter restart karke pairing karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 400",
+      "aliases": [
+        "Error 400",
+        "400",
+        "DCI bias abnormal"
+      ],
+      "title": {
+        "en": "DCI bias abnormal",
+        "ur": "DCI bias abnormal hai"
+      },
+      "meaning": {
+        "en": "The DC injection current detector has detected a bias outside its allowed window.",
+        "ur": "DC injection current detector ne allowed range se bahar bias detect kiya."
+      },
+      "causes": [
+        {
+          "en": "GFCI module or its zero-crossing reference has drifted",
+          "ur": "GFCI module ya uska zero-crossing reference bekar chala hai"
+        },
+        {
+          "en": "Noisy DC cable routing picking up interference",
+          "ur": "Noisy DC cable routing se interference aa raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and see if the code clears.",
+          "ur": "Inverter restart karein aur dekhein ke code hat jaata hai ya nahi."
+        },
+        {
+          "en": "If it returns, isolate the DC side and re-check PE and PV insulation resistance.",
+          "ur": "Agar wapas aaye to DC side isolate karke PE aur PV insulation resistance dobara check karein."
+        },
+        {
+          "en": "Keep the DC and AC runs separated in the conduit to reduce induced noise.",
+          "ur": "Conduit mein DC aur AC runs alag rakhein taake induced noise kam ho."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 401",
+      "aliases": [
+        "Error 401",
+        "401",
+        "DC Voltage High Fault"
+      ],
+      "title": {
+        "en": "DC voltage high fault",
+        "ur": "DC voltage high fault hai"
+      },
+      "meaning": {
+        "en": "Internal DC bus voltage is above the safe threshold during operation.",
+        "ur": "Chalta hua bus voltage safe threshold se upar hai."
+      },
+      "causes": [
+        {
+          "en": "Grid outage while PV keeps feeding a raised bus voltage",
+          "ur": "Grid chala gaya aur PV bus voltage barhata raha"
+        },
+        {
+          "en": "Grid-code voltage set-point set too high for local conditions",
+          "ur": "Grid-code voltage set-point local conditions ke liye bohat high set hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter once grid is stable.",
+          "ur": "Grid stable hone ke baad inverter ek baar restart karein."
+        },
+        {
+          "en": "Check the grid voltage set-point and country profile in the settings.",
+          "ur": "Settings mein grid voltage set-point aur country profile check karein."
+        },
+        {
+          "en": "If the code returns with normal grid, send the fault log to Growatt service.",
+          "ur": "Agar normal grid ke saath code wapas aaye to fault log Growatt service ko bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 402",
+      "aliases": [
+        "Error 402",
+        "402",
+        "Output High DCI"
+      ],
+      "title": {
+        "en": "Output DC current too high (DCI)",
+        "ur": "Output DC current zyada hai (DCI)"
+      },
+      "meaning": {
+        "en": "DC component injected into the AC output is above the permitted limit.",
+        "ur": "AC output mein inject hua DC component allowed limit se zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Leakage or a failing filter capacitor in the output stage",
+          "ur": "Output stage mein leakage ya filter capacitor kharab"
+        },
+        {
+          "en": "Grid-side EMI or a poor neutral connection",
+          "ur": "Grid side EMI ya neutral connection kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter; if the code returns, isolate AC and check the filter board.",
+          "ur": "Inverter restart karein; code wapas aaye to AC isolate karke filter board check karein."
+        },
+        {
+          "en": "Measure N-to-PE voltage and confirm PE is solid at the AC terminal.",
+          "ur": "N se PE voltage measure karein aur AC terminal par PE mazboot hai ya nahi confirm karein."
+        },
+        {
+          "en": "Escalate to Growatt service with the fault log - DCI faults usually need board-level repair.",
+          "ur": "Fault log ke saath Growatt service ko refer karein - DCI fault aam tor par board level repair maangte hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 403",
+      "aliases": [
+        "Error 403",
+        "403",
+        "Output current unbalance"
+      ],
+      "title": {
+        "en": "Output current unbalance",
+        "ur": "Output current unbalanced hai"
+      },
+      "meaning": {
+        "en": "The three phase output currents are not equal to each other.",
+        "ur": "Teen phase ke output currents aapas mein barabar nahi hain."
+      },
+      "causes": [
+        {
+          "en": "Single-phase load connected heavily on one phase",
+          "ur": "Kisi aik phase par single-phase load zyada lagi ho"
+        },
+        {
+          "en": "Loose or high-resistance terminal in one phase leg",
+          "ur": "Kisi aik phase leg ka terminal loose ya zyada resistance wala ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "After shutdown, check each phase current at the AC terminal with a clamp meter.",
+          "ur": "Shutdown ke baad clamp meter se AC terminal par har phase ka current check karein."
+        },
+        {
+          "en": "Re-torque all three phase terminals and check for a burnt contact.",
+          "ur": "Teenon phase terminals dobara torque karein aur burnt contact dekhein."
+        },
+        {
+          "en": "Rebalance the load across the three phases, then restart.",
+          "ur": "Load ko teenon phases mein balance karein, phir restart karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 404",
+      "aliases": [
+        "Error 404",
+        "404",
+        "bus sample fault"
+      ],
+      "title": {
+        "en": "Bus sample fault",
+        "ur": "Bus sample fault hai"
+      },
+      "meaning": {
+        "en": "The internal bus voltage sampling circuit is reporting an implausible value.",
+        "ur": "Internal bus voltage sampling circuit se unreasonable value aa raha hai."
+      },
+      "causes": [
+        {
+          "en": "Sampling feedback resistor or reference drifted on the control board",
+          "ur": "Control board par sampling feedback resistor ya reference bekar chala hai"
+        },
+        {
+          "en": "Loose ribbon cable between control board and sampling module",
+          "ur": "Control board aur sampling module ke darmiyan ribbon cable loose hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and note whether the code is repeatable.",
+          "ur": "Inverter restart karein aur note karein ke code dobara aata hai ya nahi."
+        },
+        {
+          "en": "If repeatable, isolate AC and PV, then reseat the control-board ribbon cables.",
+          "ur": "Agar baar baar aaye to AC aur PV isolate karke control board ke ribbon cables dobara baithayein."
+        },
+        {
+          "en": "Send the fault log to Growatt service for board-level diagnosis.",
+          "ur": "Board level diagnosis ke liye fault log Growatt service ko bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 405",
+      "aliases": [
+        "Error 405",
+        "405",
+        "Relay fault"
+      ],
+      "title": {
+        "en": "Relay fault",
+        "ur": "Relay fault hai"
+      },
+      "meaning": {
+        "en": "The grid connection relay is not switching or its feedback does not confirm the state.",
+        "ur": "Grid connection relay switch nahi ho raha ya uska feedback state confirm nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "Relay coil or contact burnt, often after an arc-fault trip",
+          "ur": "Relay coil ya contact burnt, aksar arc-fault trip ke baad"
+        },
+        {
+          "en": "Relay PCB driver transistor failed",
+          "ur": "Relay PCB ka driver transistor fail ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then listen for the relay click when the AC breaker is toggled.",
+          "ur": "AC aur PV isolate karein, phir AC breaker on/off karte waqt relay ki click check karein."
+        },
+        {
+          "en": "Restart the inverter once; a single click and code cleared means an interlock event.",
+          "ur": "Ek baar restart karein; sirf ek click aur code clear ho jaye to interlock event tha."
+        },
+        {
+          "en": "If the relay never clicks, the relay or its driver board must be replaced - log it for Growatt warranty.",
+          "ur": "Agar relay kabhi click na kare to relay ya uska driver board badalna parega - Growatt warranty ke liye note karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 406",
+      "aliases": [
+        "Error 406",
+        "406",
+        "Init model fault"
+      ],
+      "title": {
+        "en": "Init model fault (dip switch setting)",
+        "ur": "Init model fault - dip switch setting ghalat hai"
+      },
+      "meaning": {
+        "en": "The dip switches underneath the inverter do not match the fitted model, so initialisation fails.",
+        "ur": "Inverter ke neeche ke dip switches fitted model se match nahi karte, is liye initialisation fail hai."
+      },
+      "causes": [
+        {
+          "en": "Dip switch block moved during servicing or transport",
+          "ur": "Servicing ya transport ke doraan dip switch block hila diya gaya"
+        },
+        {
+          "en": "Control board replaced without re-setting the model",
+          "ur": "Control board badla gaya aur model setting dobara nahi ki gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then read the dip switch positions under the unit.",
+          "ur": "AC, PV aur battery isolate karein, phir unit ke neeche dip switch ki positions padhein."
+        },
+        {
+          "en": "Compare the reading with the model table in the manual and reset the block to match.",
+          "ur": "Reading ko manual ke model table se compare karein aur block ko usi ke mutabiq set karein."
+        },
+        {
+          "en": "Power the unit up again in reset mode; if the code returns the board model data is wrong.",
+          "ur": "Unit ko reset mode mein dobara power karein; code wapas aaye to board ka model data ghalat hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 407",
+      "aliases": [
+        "Error 407",
+        "407",
+        "AutoTest failure"
+      ],
+      "title": {
+        "en": "Auto test failure",
+        "ur": "Auto test fail ho gaya"
+      },
+      "meaning": {
+        "en": "The inverter's pre-connection self-test did not complete successfully.",
+        "ur": "Inverter ka connection se pehle ka self-test safai se complete nahi hua."
+      },
+      "causes": [
+        {
+          "en": "Grid parameters not yet stable during the self-test window",
+          "ur": "Self-test ke dauran grid parameters abhi stable nahi hue"
+        },
+        {
+          "en": "AFCI self-test loop or DC insulation failing the test",
+          "ur": "AFCI self-test loop ya DC insulation test fail kar raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter while the grid is healthy and stable.",
+          "ur": "Grid theek aur stable ho tab inverter restart karein."
+        },
+        {
+          "en": "Run the ARC reset button test for 3-5 seconds and re-run auto test.",
+          "ur": "ARC reset button ko 3-5 second tak dabayein aur auto test dobara chalayein."
+        },
+        {
+          "en": "If auto test keeps failing, check PV insulation and then raise a service request.",
+          "ur": "Agar auto test baar baar fail ho to PV insulation check karke service request karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 408",
+      "aliases": [
+        "Error 408",
+        "408",
+        "NTC Temperature too high"
+      ],
+      "title": {
+        "en": "NTC temperature too high",
+        "ur": "NTC temperature bohat zyada hai"
+      },
+      "meaning": {
+        "en": "The inverter has shut down on an over-temperature condition detected by the NTC sensor.",
+        "ur": "NTC sensor ne over-temperature detect kiya aur inverter band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Blocked airflow, dust build-up on the heatsink, or ambient temperature too high",
+          "ur": "Airflow block, heatsink par dhool, ya ambient temperature bohat zyada"
+        },
+        {
+          "en": "NTC sensor unplugged or reading falsely high",
+          "ur": "NTC sensor ka plug nahi hua ya reading ghalat high hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "After shutdown, check that the temperature sampling module is connected properly.",
+          "ur": "Shutdown ke baad check karein ke temperature sampling module theek se laga hua hai."
+        },
+        {
+          "en": "Measure the inverter temperature; if it is below 60 C the reading is likely a sensor problem.",
+          "ur": "Inverter ka temperature measure karein; agar 60 C se neeche hai to reading ghalat hai."
+        },
+        {
+          "en": "Clean the heatsink and restore clearance, then let it cool fully before restart.",
+          "ur": "Heatsink saaf karein aur clearance wapas karein, phir poori tarah thanda hone dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 409",
+      "aliases": [
+        "Error 409",
+        "409",
+        "Bus voltage abnormal"
+      ],
+      "title": {
+        "en": "Bus voltage abnormal",
+        "ur": "Bus voltage abnormal hai"
+      },
+      "meaning": {
+        "en": "The internal DC bus voltage is outside its normal operating window.",
+        "ur": "Internal DC bus voltage apne normal operating window se bahar hai."
+      },
+      "causes": [
+        {
+          "en": "Capacitor ageing or DC link ripple above tolerance",
+          "ur": "Capacitor aging ya DC link ripple tolerance se zyada"
+        },
+        {
+          "en": "Grid voltage step causing a hard bus excursion",
+          "ur": "Grid voltage step se bus mein sudden excursion"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and watch whether the code appears immediately at every start.",
+          "ur": "Inverter restart karein aur dekhein ke kya code har start par foran aata hai."
+        },
+        {
+          "en": "If immediate, isolate AC and PV and check the DC link capacitors for bulging or leakage.",
+          "ur": "Agar foran aaye to AC aur PV isolate karke DC link capacitors bulging ya leakage ke liye dekhein."
+        },
+        {
+          "en": "Send the fault log to Growatt service - frequent 409 usually points to the mainboard.",
+          "ur": "Fault log Growatt service ko bhejein - baar baar 409 aam tor par mainboard ki taraf ishara karta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 410",
+      "aliases": [
+        "Error 410",
+        "410",
+        "Communication board and control panel sampling battery voltage is inconsistent"
+      ],
+      "title": {
+        "en": "Comm board vs control panel battery sample mismatch",
+        "ur": "Comm board aur control panel ki battery sample mein farq hai"
+      },
+      "meaning": {
+        "en": "The communication board and the control panel are sampling the battery at different values.",
+        "ur": "Communication board aur control panel battery ko alag alag values par sample kar rahe hain."
+      },
+      "causes": [
+        {
+          "en": "Communication board M3 not seated correctly or faulty",
+          "ur": "Communication board M3 theek se baitha nahi ya faulty hai"
+        },
+        {
+          "en": "Battery voltage genuinely fluctuating between samples",
+          "ur": "Battery voltage samples ke darmiyan asal mein fluctuate kar rahi ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter once and note if the code is intermittent.",
+          "ur": "Inverter ek baar restart karein aur note karein ke code intermittent hai ya nahi."
+        },
+        {
+          "en": "Measure battery voltage at the terminals with a multimeter and compare it to the app reading.",
+          "ur": "Multimeter se terminals par battery voltage measure karke app reading se compare karein."
+        },
+        {
+          "en": "If the two readings never agree, reseat or replace the M3 board under Growatt warranty.",
+          "ur": "Agar dono readings kabhi match na hon to M3 board dobara baithayein ya Growatt warranty ke teht badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 411",
+      "aliases": [
+        "Error 411",
+        "411",
+        "Communication fault"
+      ],
+      "title": {
+        "en": "Communication board fault",
+        "ur": "Communication board fault hai"
+      },
+      "meaning": {
+        "en": "The DSP on the communication board is not communicating correctly with the control board.",
+        "ur": "Communication board ka DSP control board se theek se communicate nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "Loose communication-board wiring or ribbon cable",
+          "ur": "Communication board wiring ya ribbon cable loose"
+        },
+        {
+          "en": "DSP and M3 firmware versions do not match",
+          "ur": "DSP aur M3 firmware versions match nahi karte"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "After shutdown, check the communication board wiring and reseat every connector.",
+          "ur": "Shutdown ke baad communication board wiring check karein aur har connector dobara baithayein."
+        },
+        {
+          "en": "Read the DSP and M3 firmware versions and update both to the matched pair.",
+          "ur": "DSP aur M3 firmware versions padhein aur dono ko matched pair par update karein."
+        },
+        {
+          "en": "If the code survives an update, swap the M3 board and claim warranty.",
+          "ur": "Agar update ke baad bhi code rahe to M3 board badal kar warranty claim karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 412",
+      "aliases": [
+        "Error 412",
+        "412",
+        "Temperature sensor connection is abnormal"
+      ],
+      "title": {
+        "en": "Temperature sensor module not connected",
+        "ur": "Temperature sensor module nahi laga hua"
+      },
+      "meaning": {
+        "en": "The temperature sampling module is unplugged or its connection has failed.",
+        "ur": "Temperature sampling module ka plug nahi hua ya uska connection fail hai."
+      },
+      "causes": [
+        {
+          "en": "NTC sensor connector not seated after fan or board service",
+          "ur": "Fan ya board service ke baad NTC sensor connector baitha nahi"
+        },
+        {
+          "en": "Sensor cable pinched or cut during assembly",
+          "ur": "Assembly ke dauran sensor cable daba ya kata gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "After shutdown, check that the temperature sampling module is connected properly.",
+          "ur": "Shutdown ke baad check karein ke temperature sampling module theek se laga hua hai."
+        },
+        {
+          "en": "Reseat the NTC connector and inspect the cable for a break along its route.",
+          "ur": "NTC connector dobara baithayein aur cable mein toot ke nishaan dekhein."
+        },
+        {
+          "en": "Replace the NTC sensor if the reading stays high with a new one fitted.",
+          "ur": "Naya sensor lagane par bhi reading high rahe to NTC sensor badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 413",
+      "aliases": [
+        "Error 413",
+        "413",
+        "IGBT drive fault"
+      ],
+      "title": {
+        "en": "IGBT drive fault",
+        "ur": "IGBT drive fault hai"
+      },
+      "meaning": {
+        "en": "The gate drive to the power IGBT module has failed or the module has failed.",
+        "ur": "Power IGBT module ka gate drive fail hai ya module hi fail ho gaya."
+      },
+      "causes": [
+        {
+          "en": "IGBT module or its gate drive PCB has failed",
+          "ur": "IGBT module ya uska gate drive PCB fail hai"
+        },
+        {
+          "en": "DC bus over-voltage from an earlier fault damaging the module",
+          "ur": "Pehle ke kisi fault se DC bus over-voltage ne module kharab kiya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery completely before any inspection - never probe a live IGBT.",
+          "ur": "Check karne se pehle AC, PV aur battery poori tarah isolate karein - live IGBT par kabhi probe na karein."
+        },
+        {
+          "en": "Restart once; if the code returns, do not power-cycle repeatedly.",
+          "ur": "Ek baar restart karein; code wapas aaye to baar baar on/off na karein."
+        },
+        {
+          "en": "Send the fault log to Growatt for board replacement under warranty.",
+          "ur": "Warranty ke teht board badalwane ke liye fault log Growatt ko bhejein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 414",
+      "aliases": [
+        "Error 414",
+        "414",
+        "EEPROM fault",
+        "EEPROM error"
+      ],
+      "title": {
+        "en": "EEPROM fault",
+        "ur": "EEPROM fault hai"
+      },
+      "meaning": {
+        "en": "The control board cannot read or write the settings memory (EEPROM).",
+        "ur": "Control board settings memory (EEPROM) parh ya likh nahi sakta."
+      },
+      "causes": [
+        {
+          "en": "EEPROM chip or its I2C solder joint on the control board",
+          "ur": "Control board par EEPROM chip ya uska I2C solder joint"
+        },
+        {
+          "en": "Power loss during a settings write corrupting the memory",
+          "ur": "Settings write ke dauran power chala jane se memory corrupt"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then wait 5 minutes so bus capacitors discharge.",
+          "ur": "AC, PV aur battery isolate karke 5 minute wait karein taake bus capacitors discharge hon."
+        },
+        {
+          "en": "Restart the inverter; if the EEPROM error only appears in the morning it is usually a marginal chip.",
+          "ur": "Inverter restart karein; agar EEPROM error sirf subah aata hai to aam tor par marginal chip hota hai."
+        },
+        {
+          "en": "If the fault is sustained, the control board must be replaced - claim Growatt warranty.",
+          "ur": "Agar fault barqarar rahe to control board badalna parega - Growatt warranty claim karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 415",
+      "aliases": [
+        "Error 415",
+        "415",
+        "Internal power test fail (PV Power low)"
+      ],
+      "title": {
+        "en": "Internal power self-test fail (PV power low)",
+        "ur": "Internal power ka self-test fail - PV power kam tha"
+      },
+      "meaning": {
+        "en": "The inverter's internal power supply self-test failed because PV power was too low.",
+        "ur": "Inverter ka internal power supply self-test fail hua kyunke PV power kam thi."
+      },
+      "causes": [
+        {
+          "en": "PV power below the minimum needed to boot the control supply",
+          "ur": "PV power control supply boot karne ke liye minimum se neeche"
+        },
+        {
+          "en": "Very low or falling battery SOC on a hybrid unit",
+          "ur": "Hybrid unit par battery SOC bohat kam ya gir raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for clear midday sun and confirm PV power on the app before restarting.",
+          "ur": "Dopahar ke saaf dhoop ka intezaar karein aur restart se pehle app par PV power confirm karein."
+        },
+        {
+          "en": "Measure PV string voltage; it must be above the start voltage on the label.",
+          "ur": "PV string voltage measure karein; ye label par diye start voltage se upar hona chahiye."
+        },
+        {
+          "en": "If PV is healthy and the code persists, raise a service request for the auxiliary supply.",
+          "ur": "Agar PV theek hai aur code phir bhi hai to auxiliary supply ke liye service request karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 416",
+      "aliases": [
+        "Error 416",
+        "416",
+        "Over current protected by software"
+      ],
+      "title": {
+        "en": "Over-current caught by software protection",
+        "ur": "Software protection ne over-current rok diya"
+      },
+      "meaning": {
+        "en": "Firmware over-current protection tripped and the inverter shut down.",
+        "ur": "Firmware ka over-current protection trigger hua aur inverter band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Sustained overload or a shorted output stage",
+          "ur": "Lamba overload ya shorted output stage"
+        },
+        {
+          "en": "Grid fault such as a phase loss or very low grid voltage",
+          "ur": "Grid fault jaise phase loss ya bohat kam grid voltage"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then check for a short with a multimeter on the AC output.",
+          "ur": "AC aur PV isolate karein, phir AC output par multimeter se short check karein."
+        },
+        {
+          "en": "Restart once with the load disconnected to see if the code clears.",
+          "ur": "Load disconnect kar ke ek baar restart karein taake pata chale code clear hota hai ya nahi."
+        },
+        {
+          "en": "If the code returns with no load, send the log to Growatt for board-level service.",
+          "ur": "Agar load ke baghair code wapas aaye to log Growatt ko bhejein board level service ke liye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 417",
+      "aliases": [
+        "Error 417",
+        "417",
+        "sampling is inconsistent"
+      ],
+      "title": {
+        "en": "Grid voltage sampling inconsistent",
+        "ur": "Grid voltage sampling inconsistent hai"
+      },
+      "meaning": {
+        "en": "The two redundant grid-voltage samples do not agree with each other.",
+        "ur": "Do redundant grid-voltage samples aapas mein match nahi kar rahi."
+      },
+      "causes": [
+        {
+          "en": "One voltage sampling channel has drifted",
+          "ur": "Kisi aik voltage sampling channel ka reading bekar chala hai"
+        },
+        {
+          "en": "Intermittent contact in the sampling board connector",
+          "ur": "Sampling board connector mein contact kabhi kabhi nahi lagta"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the machine once and record the time of day the code appears.",
+          "ur": "Machine ek baar restart karein aur note karein ke code din ke kis waqt aata hai."
+        },
+        {
+          "en": "Isolate AC and reseat the sampling board connector, then check each phase voltage separately.",
+          "ur": "AC isolate karke sampling board connector dobara baithayein, phir har phase voltage alag measure karein."
+        },
+        {
+          "en": "If one channel still reads high, the sampling board needs replacing - claim warranty.",
+          "ur": "Agar ek channel phir bhi high de to sampling board badalna parega - warranty claim karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 418",
+      "aliases": [
+        "Error 418",
+        "418",
+        "DSP and COM firmware version unmatch"
+      ],
+      "title": {
+        "en": "DSP and COM firmware version mismatch",
+        "ur": "DSP aur COM firmware version mismatch hai"
+      },
+      "meaning": {
+        "en": "The DSP firmware and the communication board firmware are not the same release.",
+        "ur": "DSP firmware aur communication board firmware ek hi release ke nahi hain."
+      },
+      "causes": [
+        {
+          "en": "One board was updated or replaced without the other",
+          "ur": "Ek board update ya replace hua aur doosra nahi hua"
+        },
+        {
+          "en": "Firmware upload interrupted part way through",
+          "ur": "Firmware upload beech mein ruk gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read both firmware versions and note them before changing anything.",
+          "ur": "Kuch bhi badalne se pehle dono firmware versions padhein aur note kar lein."
+        },
+        {
+          "en": "Update the DSP and COM firmware as one matched pair from the Growatt download centre.",
+          "ur": "DSP aur COM firmware ko Growatt download centre se ek matched pair ke tor par update karein."
+        },
+        {
+          "en": "After updating, power-cycle and confirm the version pair matches on the app.",
+          "ur": "Update ke baad power-cycle karke app par confirm karein ke version pair match karta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 419",
+      "aliases": [
+        "Error 419",
+        "419",
+        "leakage current sampling"
+      ],
+      "title": {
+        "en": "Leakage current sampling inconsistent",
+        "ur": "Leakage current sampling inconsistent hai"
+      },
+      "meaning": {
+        "en": "The leakage current samples from the two channels disagree.",
+        "ur": "Dono channels ke leakage current samples aapas mein match nahi karte."
+      },
+      "causes": [
+        {
+          "en": "Current transformer on the leakage detection path has drifted",
+          "ur": "Leakage detection path ke current transformer ka reading bekar chala hai"
+        },
+        {
+          "en": "Sampling resistor or filter capacitor aged on the GFCI board",
+          "ur": "GFCI board par sampling resistor ya filter capacitor aging ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the machine once; an intermittent code points to a marginal sensor.",
+          "ur": "Machine ek baar restart karein; intermittent code marginal sensor ki taraf ishara karta hai."
+        },
+        {
+          "en": "Check PV insulation and earth continuity to rule out a real earth fault first.",
+          "ur": "Pehle asal earth fault hatane ke liye PV insulation aur earth continuity check karein."
+        },
+        {
+          "en": "If the code stays, the GFCI board must be replaced - claim Growatt warranty.",
+          "ur": "Agar code bacha rahe to GFCI board badalna parega - Growatt warranty claim karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 420",
+      "aliases": [
+        "Error 420",
+        "420",
+        "GFCI Module damage",
+        "GFCI fault"
+      ],
+      "title": {
+        "en": "GFCI module damaged",
+        "ur": "GFCI module kharab hai"
+      },
+      "meaning": {
+        "en": "The ground fault circuit interrupter module is physically damaged.",
+        "ur": "Ground fault circuit interrupter module physically kharab hai."
+      },
+      "causes": [
+        {
+          "en": "GFCI module damaged by a surge or repeated leakage trips",
+          "ur": "Surge ya baar baar leakage trips se GFCI module kharab"
+        },
+        {
+          "en": "Water ingress into the wiring box reaching the GFCI board",
+          "ur": "Wiring box mein paani aa kar GFCI board tak pahunchna"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then check the leakage current module for burn or water marks.",
+          "ur": "AC aur PV isolate karke leakage current module par burnt ya paani ke nishaan dekhein."
+        },
+        {
+          "en": "Measure the array insulation resistance to rule out a genuine earth fault.",
+          "ur": "Asal earth fault rule out karne ke liye array ka insulation resistance measure karein."
+        },
+        {
+          "en": "Replace the power/GFCI board if the module is damaged - claim Growatt warranty.",
+          "ur": "Agar module kharab ho to power/GFCI board badlein - Growatt warranty claim karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 421",
+      "aliases": [
+        "Error 421",
+        "421",
+        "CPLD is abnormal"
+      ],
+      "title": {
+        "en": "CPLD abnormal",
+        "ur": "CPLD abnormal hai"
+      },
+      "meaning": {
+        "en": "The complex programmable logic device on the control board is not operating normally.",
+        "ur": "Control board ka CPLD normal tarah se kaam nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "CPLD IC solder or device failure on the control board",
+          "ur": "Control board par CPLD IC solder ya device fail"
+        },
+        {
+          "en": "Auxiliary supply ripple upsetting the CPLD reference",
+          "ur": "Auxiliary supply ripple CPLD reference ko disturb kar raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then wait 5 minutes for the bus to discharge.",
+          "ur": "AC, PV aur battery isolate karke 5 minute wait karein taake bus discharge ho."
+        },
+        {
+          "en": "Restart the inverter; if the code returns immediately it is a board-level failure.",
+          "ur": "Inverter restart karein; code foran wapas aaye to board level failure hai."
+        },
+        {
+          "en": "Send the log to Growatt for control board replacement under warranty.",
+          "ur": "Warranty ke teht control board badalwane ke liye log Growatt ko bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 422",
+      "aliases": [
+        "Error 422",
+        "422"
+      ],
+      "title": {
+        "en": "Redundancy sampling inconsistent",
+        "ur": "Redundancy sampling inconsistent hai"
+      },
+      "meaning": {
+        "en": "The redundant sampling channels are returning different values.",
+        "ur": "Redundant sampling channels alag alag values de rahe hain."
+      },
+      "causes": [
+        {
+          "en": "One redundancy sampling channel drifted",
+          "ur": "Kisi aik redundancy sampling channel bekar chala hai"
+        },
+        {
+          "en": "Sampling reference supply out of tolerance",
+          "ur": "Sampling reference supply tolerance se bahar hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and check whether the fault is consistent or intermittent.",
+          "ur": "Inverter restart karke check karein ke fault consistent hai ya intermittent."
+        },
+        {
+          "en": "Isolate AC and reseat both sampling channels, then compare readings on the app.",
+          "ur": "AC isolate karke dono sampling channels dobara baithayein, phir app par readings compare karein."
+        },
+        {
+          "en": "If channels never agree, replace the control board under warranty.",
+          "ur": "Agar channels kabhi match na hon to warranty ke teht control board badlein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    },
+    {
+      "code": "Error 425",
+      "aliases": [
+        "Error 425",
+        "425",
+        "AFCI self-test fault",
+        "AFCI self-test failure"
+      ],
+      "title": {
+        "en": "AFCI self-test failure",
+        "ur": "AFCI self-test fail ho gaya"
+      },
+      "meaning": {
+        "en": "The AFCI failed its own internal self-test, so protection cannot be trusted.",
+        "ur": "AFCI ka apna internal self-test fail hua, is liye protection par bharosa nahi kiya ja sakta."
+      },
+      "causes": [
+        {
+          "en": "AFCI board fault or a self-test loop wiring problem",
+          "ur": "AFCI board fault ya self-test loop wiring ki masla"
+        },
+        {
+          "en": "Intermittent DC contact upsetting the self-test current",
+          "ur": "DC contact kabhi kabhi na lagne se self-test current disturb hota hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and let the AFCI self-test run again.",
+          "ur": "Inverter restart karein aur AFCI self-test dobara chalne dein."
+        },
+        {
+          "en": "Inspect and reseat the DC connectors, since a loose connector also fails self-test.",
+          "ur": "DC connectors check karke dobara baithayein, kyunke loose connector bhi self-test fail karata hai."
+        },
+        {
+          "en": "If self-test still fails, the AFCI board must be replaced - claim Growatt warranty.",
+          "ur": "Agar self-test phir bhi fail ho to AFCI board badalna parega - Growatt warranty claim karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MOD 3-15KTL3-X User Manual EN (GR-UM-212-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/2023/02/MOD-3-15KTL3-X-User-Manual-EN-202201.pdf"
+      }
+    }
+  ]
+}

@@ -1,0 +1,429 @@
+{
+  "schemaVersion": 1,
+  "brandId": "eaton",
+  "series": {
+    "id": "eaton-ellipse-pro",
+    "name": "Ellipse PRO 650/850/1200/1600 VA (line-interactive UPS, AVR)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*Ellipse*PRO*",
+      "ELP*",
+      "EL*IEC*",
+      "*Ellipse*"
+    ],
+    "notes": "Smallest UPS in the Eaton line. The manual publishes NO numeric fault codes at all - diagnosis is by numbered LCD icon (6 = ON/OFF button, 8 = ASR LED, 12 = Internal fault, 18 = Surge protection outlets, 19 = Battery backup outlets, 20 = Protection circuit breaker) plus the numbered Problem/Diagnostic/Solution table. The 'Internal fault' LCD icon 12 is the closest thing to a fault code. Do NOT merge with the 5P/5P Gen2 tables: those use different LED names and different wording. This manual is multi-language in one PDF; the entries below come from the ENGLISH section (pages 6-9)."
+  },
+  "codes": [
+    {
+      "code": "Battery mode - button 6 flashes green",
+      "aliases": [
+        "Battery mode - button 6 flashes green",
+        "Button 6 flashes green",
+        "Battery mode icon 11"
+      ],
+      "title": {
+        "en": "Battery mode (button 6 flashes green)",
+        "ur": "Battery mode (button 6 green flash karta hai)"
+      },
+      "meaning": {
+        "en": "AC power is disturbed or failed, so the UPS runs on battery. Audible alarm beeps every 10 s, then every 3 s near end of runtime.",
+        "ur": "AC power disturb ya fail hua hai, is liye UPS battery par chal raha hai. Audible alarm pehle har 10 second, phir runtime khatam hone par har 3 second beepta hai."
+      },
+      "causes": [
+        {
+          "en": "The mains supply has failed or dipped outside the AVR input window (165-285 V adjustable to 150-285 V).",
+          "ur": "Mains supply chala gaya hai ya AVR input window (165-285 V, 150-285 V tak adjustable) se bahar gir gaya hai."
+        },
+        {
+          "en": "The mains is present but of poor quality, so the UPS keeps transferring to battery.",
+          "ur": "Mains maujood hai magar quality kharab hai, is liye UPS baar baar battery par chala jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Save your work and shut down equipment before the end of backup time; the alarm speeds up to every 3 s as a warning.",
+          "ur": "Backup time khatam hone se pehle kaam bacha lein aur equipment band karein; warning ke taur par alarm 3 second par beepta hai."
+        },
+        {
+          "en": "If the outage lasts longer than the backup time the UPS shuts down by itself; it restarts automatically when power is restored.",
+          "ur": "Agar outage backup time se lamba rahe to UPS khud band ho jata hai; power wapas aane par khud restart ho jata hai."
+        },
+        {
+          "en": "On mains return, confirm the unit back on mains by pressing button 6, and give the battery 8 hours of charge before first use.",
+          "ur": "Mains wapas aane par button 6 dabayein taake unit mains par wapas aa jaye, aur pehli istemal se pehle battery ko 8 ghante charge dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "ON/OFF button 6 flashes green; 1 beep every 10 seconds then 1 beep every 3 seconds (silent mode: single beep on transfer to battery)",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton Ellipse PRO UPS 650/800/1200/1600 VA - Installation and user manual (multiple languages)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ellipse-pro-ups/Eaton%20Ellipse%20PRO%20UPS%20-%20650-800-1200-1600%20VA%20-%20Installation%20and%20user%20manual%20(multiple%20languages).pdf"
+      }
+    },
+    {
+      "code": "Problem 1",
+      "aliases": [
+        "Problem 1",
+        "Button 6 not lit",
+        "Battery backup outlets not powered"
+      ],
+      "title": {
+        "en": "Problem 1 - battery outlets not powered",
+        "ur": "Problem 1 - battery backup outlets power nahi de rahe"
+      },
+      "meaning": {
+        "en": "The battery-backed outlets are not being supplied. Diagnostic: the ON/OFF button 6 is not lit.",
+        "ur": "Battery backup outlets supply nahi ho rahe. Diagnostic: ON/OFF button 6 jal nahi raha."
+      },
+      "causes": [
+        {
+          "en": "The battery-backed outlets have simply been switched off at button 6.",
+          "ur": "Battery backup outlets button 6 se band kar diye gaye hain."
+        },
+        {
+          "en": "The UPS was shut down from the front panel and never restarted.",
+          "ur": "UPS ko front panel se band kiya gaya aur dobara start nahi kiya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Press button 6 and check that it turns green - that confirms the battery-backed outlets are switched on.",
+          "ur": "Button 6 dabayein aur check karein ke woh green ho jata hai - is ka matlab battery backup outlets on hain."
+        },
+        {
+          "en": "Read the LCD icons 9 (UPS ON) and 11 (Battery mode) to confirm the UPS itself is running.",
+          "ur": "LCD icons 9 (UPS ON) aur 11 (Battery mode) parhein taake confirm ho ke UPS khud chal raha hai."
+        },
+        {
+          "en": "If button 6 will not light at all, check the rear input protection circuit breaker 20 is in the reset (not pressed-in) position.",
+          "ur": "Agar button 6 bilkul na jale to check karein ke peeche wala input protection circuit breaker 20 reset position (dabba hua nahi) mein hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton Ellipse PRO UPS 650/800/1200/1600 VA - Installation and user manual (multiple languages)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ellipse-pro-ups/Eaton%20Ellipse%20PRO%20UPS%20-%20650-800-1200-1600%20VA%20-%20Installation%20and%20user%20manual%20(multiple%20languages).pdf"
+      }
+    },
+    {
+      "code": "Problem 2",
+      "aliases": [
+        "Problem 2",
+        "Devices not on battery outlets"
+      ],
+      "title": {
+        "en": "Problem 2 - devices not on battery outlets",
+        "ur": "Problem 2 - devices battery outlets par nahi lage"
+      },
+      "meaning": {
+        "en": "Connected devices are not supplied during an AC power failure because they are plugged into surge-only outlets, not battery-backed ones.",
+        "ur": "AC power failure par connected devices power nahi lete kyunke woh sirf surge protection wale outlets mein lage hain, battery backup wale mein nahi."
+      },
+      "causes": [
+        {
+          "en": "The device is plugged into a surge-protection-only outlet (icon 18) instead of a battery backup outlet (icon 19).",
+          "ur": "Device surge-protection-only outlet (icon 18) mein laga hai, battery backup outlet (icon 19) mein nahi."
+        },
+        {
+          "en": "The device is fed from a different outlet strip that is not backed by the UPS.",
+          "ur": "Device aisi alag outlet strip se chal raha hai jo UPS se backed nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the LCD and count which outlets are battery-backed (650/850 have 2 backup + 2 surge-only; 1200/1600 have 4 + 4).",
+          "ur": "LCD parhein aur count karein ke kaun se outlets battery-backed hain (650/850 mein 2 backup + 2 sirf surge; 1200/1600 mein 4 + 4)."
+        },
+        {
+          "en": "Move the device's plug into a battery backup outlet (icon 19) using a voltage tester to confirm it is live.",
+          "ur": "Device ka plug battery backup outlet (icon 19) mein daalein aur voltage tester se confirm karein ke woh live hai."
+        },
+        {
+          "en": "Re-test by switching mains off briefly and confirming the device stays up.",
+          "ur": "Mains thodi der ke liye band karke dobara test karein aur confirm karein ke device chalta rehta hai."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton Ellipse PRO UPS 650/800/1200/1600 VA - Installation and user manual (multiple languages)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ellipse-pro-ups/Eaton%20Ellipse%20PRO%20UPS%20-%20650-800-1200-1600%20VA%20-%20Installation%20and%20user%20manual%20(multiple%20languages).pdf"
+      }
+    },
+    {
+      "code": "Problem 3",
+      "aliases": [
+        "Problem 3",
+        "Breaker 20 tripped",
+        "On battery despite AC present"
+      ],
+      "title": {
+        "en": "Problem 3 - running on battery though mains is present",
+        "ur": "Problem 3 - mains maujood hai magar battery par chal raha hai"
+      },
+      "meaning": {
+        "en": "The UPS is on battery even though AC power is available, because the rear protection circuit breaker 20 has tripped on an output overload.",
+        "ur": "UPS battery par chal raha hai jabke AC power maujood hai, kyunke peeche wala protection circuit breaker 20 output overload par trip ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "The resettable input protection breaker (20) tripped on an overload.",
+          "ur": "Resettable input protection breaker (20) overload par trip ho gaya hai."
+        },
+        {
+          "en": "Too much equipment is connected to the UPS outlets in total.",
+          "ur": "UPS outlets par total bohat zyada equipment lagaya gaya hai."
+        },
+        {
+          "en": "A shorted load or a failed power strip tripped the breaker.",
+          "ur": "Koi short hua load ya kharab power strip breaker trip kar gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the unit off with button 6 and unplug the mains before touching the rear breaker.",
+          "ur": "Button 6 se unit band karein aur peeche wale breaker ko chhoone se pehle mains nikaal dein."
+        },
+        {
+          "en": "Disconnect excess equipment, then reset circuit breaker 20 by pressing the corresponding button back into its normal position.",
+          "ur": "Zyada equipment disconnect karein, phir circuit breaker 20 ko us ke button ko daba kar normal position mein reset karein."
+        },
+        {
+          "en": "Measure the load with a clamp meter or check the LCD load level icon 13; keep the load under the model's rated VA/W.",
+          "ur": "Clamp meter se load maarein ya LCD ke load level icon 13 dekhein; load ko model ki rated VA/W ke neeche rakhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton Ellipse PRO UPS 650/800/1200/1600 VA - Installation and user manual (multiple languages)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ellipse-pro-ups/Eaton%20Ellipse%20PRO%20UPS%20-%20650-800-1200-1600%20VA%20-%20Installation%20and%20user%20manual%20(multiple%20languages).pdf"
+      }
+    },
+    {
+      "code": "Problem 4",
+      "aliases": [
+        "Problem 4",
+        "Button 6 flashes + beep 3s",
+        "Battery outlets overloaded"
+      ],
+      "title": {
+        "en": "Problem 4 - battery outlets overloaded",
+        "ur": "Problem 4 - battery backup outlets overloaded"
+      },
+      "meaning": {
+        "en": "The green button 6 flashes and the audible alarm beeps every 3 seconds: the battery backup outlets 19 are overloaded.",
+        "ur": "Green button 6 flash karta hai aur audible alarm har 3 second beepta hai: battery backup outlets 19 overloaded hain."
+      },
+      "causes": [
+        {
+          "en": "The equipment on the battery-backed outlets exceeds their rated current (650/850: 3 A; 850: 3.6 A; 1200: 5.5 A; 1600: 7.3 A per backup bank).",
+          "ur": "Battery backup outlets par lagi equipment un ki rated current se zyada hai (650/850: 3 A; 850: 3.6 A; 1200: 5.5 A; 1600: 7.3 A per backup bank)."
+        },
+        {
+          "en": "A high-starting-current device such as a laser printer was switched on during discharge.",
+          "ur": "Discharge ke doran koi high starting current wala device jaise laser printer on kiya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect excess equipment connected to the battery backup outlets 19 immediately.",
+          "ur": "Battery backup outlets 19 se juri zyada equipment foran disconnect karein."
+        },
+        {
+          "en": "Measure the current drawn by each connected device with a clamp meter and total it against the outlet rating on the manual's specification table.",
+          "ur": "Clamp meter se har connected device ka current maarein aur manual ki specification table ki outlet rating se jama karein."
+        },
+        {
+          "en": "Move printers, monitors and other non-critical devices to the surge-only outlets (icon 18).",
+          "ur": "Printer, monitor aur doosre ghair zaroori devices sirf surge wale outlets (icon 18) par le jaayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "ON/OFF button 6 flashes green, 1 beep every 3 seconds",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton Ellipse PRO UPS 650/800/1200/1600 VA - Installation and user manual (multiple languages)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ellipse-pro-ups/Eaton%20Ellipse%20PRO%20UPS%20-%20650-800-1200-1600%20VA%20-%20Installation%20and%20user%20manual%20(multiple%20languages).pdf"
+      }
+    },
+    {
+      "code": "Fault sign 12",
+      "aliases": [
+        "Fault sign 12",
+        "Internal fault",
+        "LCD icon 12",
+        "Problem 5"
+      ],
+      "title": {
+        "en": "Fault sign 12 - internal fault",
+        "ur": "Fault sign 12 - internal fault (andar ki kharabi)"
+      },
+      "meaning": {
+        "en": "A fault has occurred inside the UPS. The battery backup outlets 19 are no longer supplied and the audible alarm beeps continuously.",
+        "ur": "UPS ke andar fault aa gaya hai. Battery backup outlets 19 ab supply nahi karte aur audible alarm continuous beepta hai."
+      },
+      "causes": [
+        {
+          "en": "Internal power stage or control failure inside the small UPS.",
+          "ur": "Chhote UPS ke andar power stage ya control ki kharabi."
+        },
+        {
+          "en": "Output short circuit or a deeply failed battery string dragging the DC rail out of range.",
+          "ur": "Output short circuit ya bohat kharab battery string DC rail ko range se bahar kheench rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Call after-sales support as the manual directs; this is not a user-repairable condition.",
+          "ur": "Manual ke mutabiq after-sales support ko call karein; ye user ke taur par theek karne wali halat nahi hai."
+        },
+        {
+          "en": "Record the model number, the LCD readings (icons 13 load level and 14 battery level) and what was running at the time of the fault.",
+          "ur": "Model number, LCD readings (icon 13 load level aur 14 battery level) aur fault ke waqt kya chal raha tha, sab likh lein."
+        },
+        {
+          "en": "Unplug the mains and move your equipment to a protected supply in the meantime; the battery backup outlets are dead on this condition.",
+          "ur": "Mains nikaal dein aur apna equipment abhi protected supply par le jaayein; is halat mein battery backup outlets marr chuke hain."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "LCD icon 12 (Internal fault) shown on panel, audible alarm beeps continuously",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton Ellipse PRO UPS 650/800/1200/1600 VA - Installation and user manual (multiple languages)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ellipse-pro-ups/Eaton%20Ellipse%20PRO%20UPS%20-%20650-800-1200-1600%20VA%20-%20Installation%20and%20user%20manual%20(multiple%20languages).pdf"
+      }
+    },
+    {
+      "code": "Problem 6",
+      "aliases": [
+        "Problem 6",
+        "ASR LED 8 off",
+        "Surge protection lost"
+      ],
+      "title": {
+        "en": "Problem 6 - surge protection gone (ASR LED off)",
+        "ur": "Problem 6 - surge protection chala gaya (ASR LED off)"
+      },
+      "meaning": {
+        "en": "The green LED 8 (ASR) is off while the filtered outlets 18 are still supplied, so the surge protection device has died.",
+        "ur": "Green LED 8 (ASR) off hai jabke filtered outlets 18 ab bhi supply ho rahe hain, is liye surge protection device mar chuka hai."
+      },
+      "causes": [
+        {
+          "en": "The MOV surge protection module has failed after absorbing a large surge.",
+          "ur": "MOV surge protection module ne bada surge absorb karne ke baad kharab ho gaya hai."
+        },
+        {
+          "en": "Repeated smaller surges have degraded the MOVs to the point of failure.",
+          "ur": "Baar baar chhote surges ne MOVs ko itna degrade kiya ke woh fail ho gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not plug any sensitive or expensive equipment into the filtered outlets while LED 8 is off.",
+          "ur": "LED 8 off hone par koi mehfoof ya mehnga equipment filtered outlets mein na lagayein."
+        },
+        {
+          "en": "Call after-sales support as the manual directs; the surge module is not user replaceable.",
+          "ur": "Manual ke mutabiq after-sales support ko call karein; surge module user ke taur par nahi badla ja sakta."
+        },
+        {
+          "en": "Inspect the mains earth and check for repeated voltage spikes on the incoming line with a DMM logger.",
+          "ur": "Mains earth dekh lein aur DMM logger se incoming line par baar baar voltage spikes check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton Ellipse PRO UPS 650/800/1200/1600 VA - Installation and user manual (multiple languages)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ellipse-pro-ups/Eaton%20Ellipse%20PRO%20UPS%20-%20650-800-1200-1600%20VA%20-%20Installation%20and%20user%20manual%20(multiple%20languages).pdf"
+      }
+    },
+    {
+      "code": "Problem 7",
+      "aliases": [
+        "Problem 7",
+        "EcoControl outlets stay on"
+      ],
+      "title": {
+        "en": "Problem 7 - EcoControl outlets stay powered",
+        "ur": "Problem 7 - EcoControl outlets power par qatam nahi hote"
+      },
+      "meaning": {
+        "en": "The EcoControl outlets keep supplying power after the main (Master) outlet is switched off, so peripherals are not being cut.",
+        "ur": "Main (Master) outlet band hone ke baad bhi EcoControl outlets power dete rahte hain, is liye peripherals band nahi ho rahe."
+      },
+      "causes": [
+        {
+          "en": "The EcoControl function is deactivated (it is off by default).",
+          "ur": "EcoControl function deactivated hai (ye default par band hota hai)."
+        },
+        {
+          "en": "EcoControl is active but the Master outlet has not been assigned correctly.",
+          "ur": "EcoControl active hai magar Master outlet theek se assign nahi kiya gaya."
+        },
+        {
+          "en": "The device connected to the Master outlet uses too little current to be detected as off.",
+          "ur": "Master outlet se jude device ka current itna kam hai ke off detect nahi hota."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Activate or set properly the EcoControl function using the software provided with the product (Eaton UPS Companion over USB).",
+          "ur": "Product ke saath diye gaye software (USB par Eaton UPS Companion) se EcoControl function activate ya theek set karein."
+        },
+        {
+          "en": "Confirm the Master outlet assignment in the configuration software matches the outlet your computer is on.",
+          "ur": "Configuration software mein Master outlet ki assignment check karein ke woh us outlet se match karti hai jahan computer laga hai."
+        },
+        {
+          "en": "Do not put a mains adapter with near-zero load on the Master outlet; use a device that draws measurable current.",
+          "ur": "Master outlet par aisa mains adapter na lagayein jis ka load qarebi zero ho; aisa device lagayein jo measurable current le."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton Ellipse PRO UPS 650/800/1200/1600 VA - Installation and user manual (multiple languages)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton-ellipse-pro-ups/Eaton%20Ellipse%20PRO%20UPS%20-%20650-800-1200-1600%20VA%20-%20Installation%20and%20user%20manual%20(multiple%20languages).pdf"
+      }
+    }
+  ]
+}

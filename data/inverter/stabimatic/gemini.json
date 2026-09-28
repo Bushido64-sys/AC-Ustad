@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "brandId": "stabimatic",
+  "series": {
+    "id": "gemini",
+    "name": "Gemini Series UPS (LED/LCD)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*GEMINI*"
+    ],
+    "notes": "Official Gemini datasheet INDICATORS + ALARM (PowerHouse Express CDN + brand Wayback image). Symbolic LED/beep IDs — 0 numeric codes."
+  },
+  "codes": [
+    {
+      "code": "LED_AC_MODE_GREEN",
+      "aliases": [
+        "LED_AC_MODE_GREEN"
+      ],
+      "title": {
+        "en": "AC mode",
+        "ur": "Mains (AC) mode"
+      },
+      "meaning": {
+        "en": "Green LED lit — UPS on mains/AC utility mode",
+        "ur": "harey LED roshan — UPS se chal raha hai"
+      },
+      "causes": [
+        {
+          "en": "normal status: utility present",
+          "ur": "Normal status — utility aa rahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "none — normal operation",
+          "ur": "Kuch nahi karna — normal chal raha hai"
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Stabimatic official datasheet (PowerHouse Express CDN)",
+        "url": "https://powerhouseexpress.com.pk/cdn/shop/files/stabimatic-gemini-650-gemini-series-ups.pdf",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "status, not fault",
+        "ur": "Yeh status hai, fault nahi"
+      },
+      "blinkPattern": "solid green"
+    },
+    {
+      "code": "BEEP_BATT_MODE_4S",
+      "aliases": [
+        "BEEP_BATT_MODE_4S"
+      ],
+      "title": {
+        "en": "Battery mode",
+        "ur": "battery mode"
+      },
+      "meaning": {
+        "en": "Running on battery; buzzer sounds every 4 seconds",
+        "ur": "battery par chal raha hai buzzer har 4 second"
+      },
+      "causes": [
+        {
+          "en": "mains failure / UPS in battery mode",
+          "ur": "Mains gayab ho gaye ya UPS battery par chal raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "restore mains; check input supply",
+          "ur": "Mains wapas layein aur input supply check karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "official Gemini datasheet ALARM",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "no separate LED row for \"battery mode\" beyond alarm; pair with yellow-LED only when low battery",
+        "ur": "Battery mode ke liye alarm ke ilawa koi alag LED row nahi hai; sirf low battery par hi peeli LED ke saath pair karein."
+      },
+      "blinkPattern": "beep every 4 s"
+    },
+    {
+      "code": "LED_LOW_BATT_BATT_MODE",
+      "aliases": [
+        "LED_LOW_BATT_BATT_MODE"
+      ],
+      "title": {
+        "en": "Low battery at battery mode",
+        "ur": "battery mode main kam battery"
+      },
+      "meaning": {
+        "en": "Yellow LED flashing every second + buzzer sounding every second",
+        "ur": "Peeli LED har second chamke aur buzzer har second bajta hai"
+      },
+      "causes": [
+        {
+          "en": "battery discharged / runtime expired",
+          "ur": "Battery discharge ho gayi ya backup khatam ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "reduce load, charge battery, check battery health",
+          "ur": "Load kam karein, battery charge karein aur battery health check karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "official Gemini datasheet INDICATORS + ALARM",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "distinct from \"Battery Weak at AC modes\"",
+        "ur": "Yeh alag cheez hai, \"Battery Weak at AC modes\" se"
+      },
+      "blinkPattern": "yellow flash 1 Hz + beep 1 Hz"
+    },
+    {
+      "code": "LED_OVERLOAD_RED_FLASH",
+      "aliases": [
+        "LED_OVERLOAD_RED_FLASH"
+      ],
+      "title": {
+        "en": "Overload",
+        "ur": "aoor load"
+      },
+      "meaning": {
+        "en": "Red LED flashing twice every second; LCD models also buzzer every second",
+        "ur": "Laal LED har second do baar chamke; LCD model par buzzer bhi har second bajta hai."
+      },
+      "causes": [
+        {
+          "en": "load > UPS rating",
+          "ur": "Load UPS ki rating se zyada hai"
+        },
+        {
+          "en": "More appliances added over time than the UPS can carry",
+          "ur": "Waqt ke saath zyada appliances lag gaye jo UPS carry nahi kar sakta"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the UPS and isolate the AC supply before checking the load wiring.",
+          "ur": "Load wiring check karne se pehle UPS band karke AC supply isolate karein."
+        },
+        {
+          "en": "Remove extra appliances so the total load stays below the UPS rating, then power on and watch the LED.",
+          "ur": "Zyada appliances utarein taake total load UPS rating se neeche rahe, phir on karke LED dekhein."
+        },
+        {
+          "en": "If the overload still shows on a light load, disconnect the load and have a technician check the output board and relay.",
+          "ur": "Halka load hone par bhi overload dikhe to load disconnect karke technician se output board aur relay check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "retailer_page",
+        "title": "official Gemini datasheet INDICATORS (short) + full 1250 PDF ALARM \"Over load: Sounding every second\" + electro.pk mirro",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "electro.pk omits overload beep row — see Conflicts",
+        "ur": "electro.pk par overload beep wali row nahi — Conflicts dekhein"
+      },
+      "blinkPattern": "red flash 2× per 1 s; beep 1 Hz (full datasheet)"
+    },
+    {
+      "code": "LED_BATT_WEAK_AC_MODE",
+      "aliases": [
+        "LED_BATT_WEAK_AC_MODE"
+      ],
+      "title": {
+        "en": "Battery weak at AC modes",
+        "ur": "AC mode par battery kamzor"
+      },
+      "meaning": {
+        "en": "Red LED flashing every 2 seconds for 30 seconds",
+        "ur": "Laal LED 2 second par chamke, 30 second tak."
+      },
+      "causes": [
+        {
+          "en": "weak/aging battery while on AC (pre-alarm)",
+          "ur": "AC par chalte waqt battery kamzor ya purani hai (pre-alarm)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "test/replace battery; verify charge voltage",
+          "ur": "Battery test karein ya badlein; charge voltage verify karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "official Gemini datasheet INDICATORS",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "transient (30 s) condition",
+        "ur": "Yeh waqti (30 second) condition hai"
+      },
+      "blinkPattern": "red flash every 2 s for 30 s"
+    },
+    {
+      "code": "LED_BATT_FAULT_AC_MODE",
+      "aliases": [
+        "LED_BATT_FAULT_AC_MODE"
+      ],
+      "title": {
+        "en": "Battery fault at AC modes",
+        "ur": "AC mode par battery kharab"
+      },
+      "meaning": {
+        "en": "Red LED lighting three times every 2 seconds",
+        "ur": "Laal LED har 2 second par teen baar roshan hoti hai."
+      },
+      "causes": [
+        {
+          "en": "battery open/short/reverse or charger cannot maintain battery",
+          "ur": "Battery open, short ya ulti hai ya charger battery ko theek se charge nahi kar pata"
+        },
+        {
+          "en": "Battery old and weak or its terminals corroded",
+          "ur": "Battery purani aur kamzor hai ya uske terminals par zang laga hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the UPS, isolate AC and disconnect the battery before any test.",
+          "ur": "Kisi bhi test se pehle UPS power off karke AC isolate karein aur battery disconnect karein."
+        },
+        {
+          "en": "Check battery terminals for loose, reversed or corroded connections, then fix the polarity and tighten them.",
+          "ur": "Battery terminals dhile, ulte ya zang lage hain check karein, phir polarity theek karke kassein."
+        },
+        {
+          "en": "Measure battery voltage with a multimeter and load-test it — a battery that fails is replaced, otherwise a technician checks the internal fuse and charger.",
+          "ur": "Multimeter se battery voltage naap kar load-test karein — battery fail ho to badlein, warna technician andar ka fuse aur charger check kare."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "Stabimatic official site via Wayback",
+        "url": "https://web.archive.org/web/*/stabimatic.com",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "not a numeric code",
+        "ur": "Yeh number wala code nahi hai"
+      },
+      "blinkPattern": "red 3 flashes every 2 s"
+    },
+    {
+      "code": "LED_FAULT_RED_SOLID",
+      "aliases": [
+        "LED_FAULT_RED_SOLID"
+      ],
+      "title": {
+        "en": "Fault",
+        "ur": "kharabi (fault)"
+      },
+      "meaning": {
+        "en": "Red LED solid/lit + buzzer continuously sounding",
+        "ur": "Laal LED musalsal roshan + buzzer musalsal bajta hai."
+      },
+      "causes": [
+        {
+          "en": "internal UPS fault (generic; datasheet does not subdivide)",
+          "ur": "UPS ke andar ka fault (generic; datasheet mein alag alag nahi bataya)"
+        },
+        {
+          "en": "Internal board or relay failure",
+          "ur": "Andar ka board ya relay fail ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the UPS, isolate AC and remove the load and battery before opening it.",
+          "ur": "UPS kholne se pehle power off karein, AC isolate karein aur load aur battery hata dein."
+        },
+        {
+          "en": "Power-cycle once with load and battery still disconnected: AC off, wait a few minutes, then AC on.",
+          "ur": "Jab tak load aur battery disconnect hain, ek baar power cycle karein: AC off, kuch minute intezaar, phir AC on."
+        },
+        {
+          "en": "If the solid red LED and the beep continue, do not keep restarting — the UPS goes to a service centre.",
+          "ur": "Agar laal LED aur beep jaari rahein to baar baar restart na karein - UPS ko service centre le jayein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "official Gemini datasheet INDICATORS + ALARM",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "no sub-codes published for \"Fault\"",
+        "ur": "Fault ke liye koi sub-code publish nahi hai"
+      },
+      "blinkPattern": "solid red + continuous beep"
+    }
+  ]
+}

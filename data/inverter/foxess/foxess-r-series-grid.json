@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-r-series-grid",
+    "name": "R-Series / R G2 (three-phase grid-tie string) - grid voltage, frequency and current faults",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*R75*",
+      "*R100*",
+      "*R110*",
+      "*R-G2*",
+      "*RG2*"
+    ],
+    "notes": "FORMAT WARNING: R-Series uses 4-DIGIT NUMERICS ONLY (1030, 1040, 1042 ...). There is no named-string namespace on this line - a Pakistani R/R G2 owner will never see 'Grid Volt Fault'. Models verified from the manual: R75, R100, R110, described by FoxESS as 'three-phase non-isolated grid-tied inverters' covering 75 kW to 110 kW, with 18 pairs of PV connectors on R75 and R100. R G2 V1.5 carries the identical table, which is what lifts this block to high confidence on two independent official sources. FoxESS's R remedies are longer and more procedural than the hybrid ones - they explicitly say to turn off AC and DC switches, WAIT 10 MINUTES, then turn them on in turn. That 10-minute wait appears nowhere in the hybrid manuals."
+  },
+  "codes": [
+    {
+      "code": "1030",
+      "aliases": [
+        "1030"
+      ],
+      "title": {
+        "en": "R: AC overcurrent",
+        "ur": "R: AC current zyada"
+      },
+      "meaning": {
+        "en": "The R-Series measured AC output current above its limit. It is a grid-side overcurrent, not a DC or PV fault.",
+        "ur": "R-Series ne AC output current apni limit se upar naapa. Yeh grid side ka overcurrent hai, DC ya PV ka fault nahi."
+      },
+      "causes": [
+        {
+          "en": "Grid-side fault or a short on the inverter's AC output terminals, on a 75-110 kW three-phase unit.",
+          "ur": "Grid side fault ya 75-110 kW teenon-phase unit ke AC output terminals par short."
+        },
+        {
+          "en": "The AC-side breaker or contactor not sized for the inverter's full rated current, or a cable run too small.",
+          "ur": "AC side breaker ya contactor inverter ki poori rated current ke liye sahi size ka nahi, ya cable bahut choti hai."
+        },
+        {
+          "en": "A heavy inrush from a large transformer or motor on the same AC bus.",
+          "ur": "Wahi AC bus par kisi bade transformer ya motor ka heavy inrush."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Let the inverter reconnect to the grid after the grid is restored, as FoxESS states, and confirm whether the code returns.",
+          "ur": "Jaise FoxESS kahe grid wapas aane par inverter ko khud reconnect hone dein, aur confirm karein ke code wapas aata hai ya nahi."
+        },
+        {
+          "en": "Isolate the AC side and inspect the AC output terminals and the AC-side breaker/contactor for scorching, loose lugs or a cable sized below the inverter's rated current.",
+          "ur": "AC side isolate kar ke, AC output terminals aur AC-side breaker/contactor par scorching, loose lugs ya inverter ki rated current se choti cable check karein."
+        },
+        {
+          "en": "If the fault recurs on a healthy AC installation, contact Fox ESS Customer Service with the code and serial number - the manual says exactly this and no more.",
+          "ur": "Agar theek AC install par fault wapas aaye to code aur serial number ke saath Fox ESS Customer Service se rabta karein - manual yehi kehta hai, is se zyada kuch nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "FoxESS gives 1030 a SHORT remedy - 'reconnect, and if it recurs contact customer service' - unlike most R codes which carry the 10-minute switch cycle. There is no field test in the manual for this code; do not invent one.",
+        "ur": "FoxESS 1030 ko CHHOTA remedy deta hai - 'wapas connect karein, aur wapas aaye to customer service se rabta karein' - zyada tar R codes ke muqable jahan 10 minute ka switch cycle hota hai. Manual mein is code ka koi field test nahi; wala be ghalat na banayein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 8.2 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    },
+    {
+      "code": "1040",
+      "aliases": [
+        "1040"
+      ],
+      "title": {
+        "en": "R: grid voltage imbalance",
+        "ur": "R: grid voltage ka imbalance"
+      },
+      "meaning": {
+        "en": "The three-phase grid voltage is unbalanced beyond what the inverter will accept, so it has disconnected from the grid.",
+        "ur": "Teenon-phase grid voltage itna unbalanced hai ke inverter use qubool nahi karta, is liye grid se disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Heavy single-phase load on one phase of a three-phase supply - the single most common cause on a Pakistani commercial feeder.",
+          "ur": "Teenon-phase supply ki aik phase par bhaari single-phase load - Pakistan ke commercial feeder par sab se aam wajah."
+        },
+        {
+          "en": "One phase conductor with a high-resistance or partly open joint, often an aluminium-to-copper joint done badly.",
+          "ur": "Aik phase conductor ka joint high-resistance ya aadha khari - aksar aluminium se copper ka behtareen joint."
+        },
+        {
+          "en": "Utility-side phase imbalance from uneven distribution across the transformer, or a generator running single-phase.",
+          "ur": "Transformer par distribution ke uneven hona se ya single-phase generator chalne se utility side phase imbalance."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "The inverter will reconnect to the grid after the grid is restored - so first confirm the imbalance has genuinely cleared.",
+          "ur": "Grid wapas aane par inverter grid se khud reconnect ho jayega - is liye pehle confirm karein ke imbalance waqai khatam hua hai."
+        },
+        {
+          "en": "Measure the line-to-line and line-to-neutral voltage on all three phases at the inverter's AC terminals and calculate the imbalance; do not judge on one phase.",
+          "ur": "Inverter ke AC terminals par teenon phases par line-to-line aur line-to-neutral voltage napen aur imbalance nikaalein; aik phase par faisla na karein."
+        },
+        {
+          "en": "If the imbalance persists, take the readings to the utility's local power company - FoxESS's own wording for the grid codes is to 'contact the local power company for solutions'.",
+          "ur": "Agar imbalance qataar na ho to readings utility ke local power company ko dein - FoxESS ka apna wording grid codes ke liye yehi hai ke 'local power company se hal ke liye rabta karein'."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "R G2 V1.5 carries 1040 with the identical single-sentence remedy. FoxESS does not publish an imbalance percentage threshold for this code, so do not quote one as a FoxESS figure.",
+        "ur": "R G2 V1.5 par 1040 wohi aik-sentence remedy ke saath hai. FoxESS is code ke liye imbalance percentage threshold dhoondhta nahi, is liye isay FoxESS ka figure keh kar na batayein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 8.2 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    },
+    {
+      "code": "1042",
+      "aliases": [
+        "1042"
+      ],
+      "title": {
+        "en": "R: grid high frequency",
+        "ur": "R: grid frequency zyada hai"
+      },
+      "meaning": {
+        "en": "Measured grid frequency is above the inverter's permitted band, so the R-Series has disconnected.",
+        "ur": "Grid frequency inverter ki ijazat band se upar hai, is liye R-Series disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Utility frequency excursion, common during load shedding or generator handover.",
+          "ur": "Utility frequency excursion - load shedding ya generator handover ke waqt aam hai."
+        },
+        {
+          "en": "A generator on the same bus governing frequency high, or anti-islanding interaction on a weak feeder.",
+          "ur": "Wahi bus par koi generator frequency high control kar raha hai, ya kamzor feeder par anti-islanding ka asar."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the protection parameter settings meet the requirements through the APP - FoxESS's step 1 for this code.",
+          "ur": "APP se check karein ke protection parameter settings requirements poori karti hain ya nahi - is code ke liye FoxESS ka step 1 yehi hai."
+        },
+        {
+          "en": "Measure the actual grid voltage and confirm the frequency of each phase meets the grid-tied requirements; record the reading before adjusting anything.",
+          "ur": "Actual grid voltage napen aur confirm karein ke har phase ki frequency grid-tied requirements poori karti hai; kuch bhi adjust karne se pehle reading note karein."
+        },
+        {
+          "en": "If the grid genuinely fails the requirement, contact the local power company for solutions, as FoxESS directs, rather than widening the inverter's window.",
+          "ur": "Agar grid waqai requirement poori nahi karta to jaise FoxESS kahe local power company se hal ke liye rabta karein, inverter ka window chauda karne ke bajaye."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "1042 and 1043 (Grid Low Frequency) are ONE paired row in the R table sharing a single remedy, as are 1044, 1045, 1046 and 1049. FoxESS prints them as separate codes but gives no differentiating field step, so a technician cannot distinguish them by procedure - only by the code number on screen.",
+        "ur": "1042 aur 1043 (Grid Low Frequency) R table mein aik joda row hain jinka aik hi remedy hai, jaise 1044, 1045, 1046 aur 1049 bhi. FoxESS inhein alag codes chhapati hai lekin koi mukhtalif field step nahi deta, is liye technician inhein tareeqe se nahi, sirf screen par dikhne wale code number se pehchan sakta hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 8.2 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    },
+    {
+      "code": "1043",
+      "aliases": [
+        "1043"
+      ],
+      "title": {
+        "en": "R: grid low frequency",
+        "ur": "R: grid frequency kam hai"
+      },
+      "meaning": {
+        "en": "Measured grid frequency is below the inverter's permitted band, so the R-Series has disconnected.",
+        "ur": "Grid frequency inverter ki ijazat band se neeche hai, is liye R-Series disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Under-frequency on a heavily loaded feeder, common in Pakistani summers when demand outstrips supply.",
+          "ur": "Bhari load wale feeder par under-frequency - Pakistan mein garmi mein demand aur supply ke darmiyan farq barhne par aam hai."
+        },
+        {
+          "en": "A generator alongside the grid dragging frequency down because its governor is set for a lower base.",
+          "ur": "Grid ke saath generator chal raha ho jiska governor neeche ki base frequency par set ho."
+        },
+        {
+          "en": "Protection window set tighter than the local grid legitimately runs.",
+          "ur": "Protection window aise set hai jo local grid ke waqai chalne se zyada sakht hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the protection parameter settings meet the requirements through the APP, as FoxESS's first step.",
+          "ur": "Jaise FoxESS ka pehla step hai, APP se check karein ke protection parameter settings requirements poori karti hain ya nahi."
+        },
+        {
+          "en": "Measure the actual grid voltage and confirm the frequency of each phase meets the grid-tied requirements, and record the value.",
+          "ur": "Actual grid voltage napen aur confirm karein ke har phase ki frequency grid-tied requirements poori karti hai, aur value note karein."
+        },
+        {
+          "en": "If the grid is genuinely out of requirement, contact the local power company for solutions instead of widening the inverter's protection window.",
+          "ur": "Agar grid waqai requirement se bahar hai to inverter ka protection window chauda karne ke bajaye local power company se hal ke liye rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Shares its row and remedy verbatim with 1042. Do not give a Pakistani R owner a different field procedure for 1043 than for 1042 - FoxESS publishes none.",
+        "ur": "Apni row aur remedy 1042 se bilkul wohi rakhta hai. Pakistan ke R owner ko 1043 ka mukhtalif field tareeqa 1042 se mat dein - FoxESS koi publish nahi karta."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 8.2 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    },
+    {
+      "code": "1051",
+      "aliases": [
+        "1051"
+      ],
+      "title": {
+        "en": "R: grid voltage absent",
+        "ur": "R: grid voltage mojood hi nahi"
+      },
+      "meaning": {
+        "en": "The inverter sees no grid voltage at all on one or more phases, so it has disconnected. This is a 'supply not there' code, distinct from 'out of range'.",
+        "ur": "Inverter ko aik ya zyada phases par bilkul grid voltage nazar nahi aata, is liye disconnect ho gaya. Yeh 'supply nahi hai' wala code hai, 'range se bahar' se mukhtalif."
+      },
+      "causes": [
+        {
+          "en": "A phase fuse or breaker blown in the AC distribution, so one phase of a three-phase supply is dead.",
+          "ur": "AC distribution mein kisi phase ka fuse ya breaker udd gaya, is liye teenon-phase supply ka aik phase murda hai."
+        },
+        {
+          "en": "An AC-side isolator or contactor with one pole failed to close on a 75-110 kW unit.",
+          "ur": "75-110 kW unit ke AC side isolator ya contactor ka aik pole close nahi hua."
+        },
+        {
+          "en": "Open or high-resistance conductor in one phase between the board and the inverter.",
+          "ur": "Board aur inverter ke darmiyan aik phase ka conductor khari ya high-resistance."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "The inverter will reconnect to the grid after the grid is restored - so confirm with a meter which phase is actually missing before restarting anything.",
+          "ur": "Grid wapas aane par inverter khud grid se reconnect ho jayega - is liye kuch bhi restart karne se pehle multimeter se confirm karein ke kaun sa phase waqai missing hai."
+        },
+        {
+          "en": "Measure the actual grid voltage on all three phases at the inverter's AC terminals, and record which phase reads zero.",
+          "ur": "Inverter ke AC terminals par teenon phases ka actual grid voltage napen, aur note karein ke kaun sa phase zero parh raha hai."
+        },
+        {
+          "en": "Check that the grid voltage and frequency of each phase meet the grid-tied requirements, and if the missing phase is a supply fault, contact the local power company for solutions.",
+          "ur": "Check karein ke har phase ka grid voltage aur frequency grid-tied requirements poori karti hai, aur agar missing phase supply ka fault hai to local power company se hal ke liye rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "1051 has a SHORTER remedy than 1042/1043/1108: it omits the APP protection-setting step. FoxESS goes straight to 'Measure the actual grid voltage'. Do not add the APP step for this code as if it were published.",
+        "ur": "1051 ka remedy 1042/1043/1108 se CHHOTA hai: isme APP protection-setting ka step nahi. FoxESS seedha 'Measure the actual grid voltage' par jata hai. Is code ke liye APP step aise na shamil karein jaise woh publish hua ho."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 8.2 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    },
+    {
+      "code": "1108",
+      "aliases": [
+        "1108"
+      ],
+      "title": {
+        "en": "R: grid frequency detection fault",
+        "ur": "R: grid frequency detect karne mein fault"
+      },
+      "meaning": {
+        "en": "The frequency-detection channel itself has faulted, rather than the grid frequency merely being out of range. A sensing fault, not a supply fault.",
+        "ur": "Frequency-detection channel khud kharab hai, sirf grid frequency range se bahar hone ki baat nahi. Yeh sensing fault hai, supply ka nahi."
+      },
+      "causes": [
+        {
+          "en": "The frequency sampling circuit or its conditioning has drifted or failed.",
+          "ur": "Frequency sampling circuit ya us ki conditioning drift ya kharab ho gayi."
+        },
+        {
+          "en": "A bad neutral or an unbalanced grid confusing the detection algorithm into declaring a channel fault.",
+          "ur": "Kharab neutral ya unbalanced grid detection algorithm ko ishaar karwa kar use channel fault declare karwa raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the protection parameter settings meet the requirements through the APP - FoxESS's step 1 for this code.",
+          "ur": "APP se check karein ke protection parameter settings requirements poori karti hain ya nahi - is code ke liye FoxESS ka step 1 yehi hai."
+        },
+        {
+          "en": "Measure the actual grid voltage and confirm that the frequency of each phase meets the grid-tied requirements, so you can rule the grid out before blaming the inverter.",
+          "ur": "Actual grid voltage napen aur confirm karein ke har phase ki frequency grid-tied requirements poori karti hai, taake inverter par blame karne se pehle grid ko rule out kar sakein."
+        },
+        {
+          "en": "If the grid measures fine and the code persists, contact Fox ESS Customer Service with the code and serial number - this is a detection-channel failure, not a wiring job.",
+          "ur": "Agar grid theek naapta hai aur code qataar nahi hota to code aur serial number ke saath Fox ESS Customer Service se rabta karein - ye detection-channel ki kharabi hai, wiring ka kaam nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "FoxESS publishes no distinguishing field step between 1108 and 1042/1043, so on the bench they are indistinguishable without the code number. Note the two failure directions: 1042/1043 mean the GRID frequency is wrong, 1108 means the DETECTION of frequency is wrong.",
+        "ur": "FoxESS 1108 aur 1042/1043 ke darmiyan koi mukhtalif field step publish nahi karta, is liye bench par bina code number ke ye alag nahi pehchane jate hain. Do failure direction note karein: 1042/1043 ka matlab GRID frequency ghalat hai, 1108 ka matlab frequency ka DETECTION ghalat hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "R-Series User Manual V1.4, section 8.2 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-EU-R-Series-User-Manual-Fox-V1.4.pdf"
+      }
+    }
+  ]
+}

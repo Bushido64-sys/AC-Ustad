@@ -1,0 +1,614 @@
+{
+  "schemaVersion": 1,
+  "brandId": "victron",
+  "series": {
+    "id": "victron-quattro2-multiplus2-vebus-230v",
+    "name": "Quattro-II / MultiPlus-II — VE.Bus fault table (230 V)",
+    "category": "inverter",
+    "unitType": "off_grid_inverter",
+    "modelPatterns": [
+      "*Quattro-II*",
+      "*MultiPlus-II*230*",
+      "*MultiPlus-II*GX*"
+    ],
+    "notes": "Taken from the combined MultiPlus-II / Quattro-II 230 V manual (Rev 05 - 07/2026), chapter 6 'Error Indications', 6.3.2. IMPORTANT SCOPING CAVEAT: this manual publishes ONE shared VE.Bus table for BOTH the Quattro-II and the MultiPlus-II, so Quattro-II and MultiPlus-II cannot be separated from the source text. This series is therefore a single joint series, NOT a merge across brands or across non-II models. Quattro-II covers 24/5000/120-50 and 48/5000/70-50. Code 16 is again ABSENT, matching MultiPlus 230 V rather than the 120 V Quattro."
+  },
+  "codes": [
+    {
+      "code": "1",
+      "aliases": [
+        "1",
+        "VE.Bus 1",
+        "VE.Bus error 1"
+      ],
+      "title": {
+        "en": "One phase switched off, this unit off too",
+        "ur": "Ek phase off ho gaya, yeh unit bhi off"
+      },
+      "meaning": {
+        "en": "The unit is switched off because another phase in the system has switched off.",
+        "ur": "Ye unit is liye off hai kyunke system ka koi doosra phase off ho chuka hai."
+      },
+      "causes": [
+        {
+          "en": "Another phase tripped on low battery, overload or over-temperature",
+          "ur": "Doosra phase low battery, overload ya zyada temperature par trip kar gaya"
+        },
+        {
+          "en": "A unit in the VE.Bus group lost power or communication",
+          "ur": "VE.Bus group ka koi unit power ya communication kho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the LEDs on all units; the failing phase is the one without code 1.",
+          "ur": "Sab units ke LED parhein; kaam kharab karne wala phase woh hai jis par code 1 nahi hai."
+        },
+        {
+          "en": "Resolve the low-battery / overload / temperature alarm on that phase first.",
+          "ur": "Pehle us phase ka low battery / overload / temperature alarm hal karein."
+        },
+        {
+          "en": "Check VE.Bus cable seating on every unit.",
+          "ur": "Har unit par VE.Bus cable ki fitting check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus-II / Quattro-II 230V Manual, Rev 05 - 07/2026 - 24/5000/120-50, 48/5000/70-50",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Quattro-II_230V/32424-MultiPlus-II___Quattro-II-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "3",
+      "aliases": [
+        "3",
+        "VE.Bus 3",
+        "VE.Bus error 3"
+      ],
+      "title": {
+        "en": "Wrong number of devices found on VE.Bus",
+        "ur": "VE.Bus par ghalat number devices mile"
+      },
+      "meaning": {
+        "en": "Not all, or more than, the expected devices were found in the system.",
+        "ur": "System par jitne devices hone chahiye thay un se kam ya zyada milay."
+      },
+      "causes": [
+        {
+          "en": "System not properly configured as one parallel / split / three-phase group",
+          "ur": "System theek se ek parallel / split / three-phase group ki tarah configure nahi"
+        },
+        {
+          "en": "Communication cable error between units",
+          "ur": "Units ke darmiyan communication cable ka error"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the communication cables, then switch all equipment off and on again.",
+          "ur": "Communication cables check karein, phir sab equipment off karke wapas on karein."
+        },
+        {
+          "en": "Replace hand-crimped RJ45 leads with factory-made patch leads.",
+          "ur": "Haath se banaye RJ45 leads ko factory patch leads se badal dein."
+        },
+        {
+          "en": "Reconfigure the system from VEConfigure / VE.Bus System Configurator.",
+          "ur": "VEConfigure / VE.Bus System Configurator se system dobara configure karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus-II / Quattro-II 230V Manual, Rev 05 - 07/2026 - 24/5000/120-50, 48/5000/70-50",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Quattro-II_230V/32424-MultiPlus-II___Quattro-II-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "4",
+      "aliases": [
+        "4",
+        "VE.Bus 4",
+        "VE.Bus error 4"
+      ],
+      "title": {
+        "en": "No other device detected on the bus",
+        "ur": "Bus par koi doosra device nahi mila"
+      },
+      "meaning": {
+        "en": "The master is configured for a multi-unit system but cannot find any other device.",
+        "ur": "Master multi-unit system ke liye configure hai lekin koi doosra device nahi dhoond sakta."
+      },
+      "causes": [
+        {
+          "en": "VE.Bus communication cable disconnected or faulty",
+          "ur": "VE.Bus communication cable disconnect ya kharab"
+        },
+        {
+          "en": "Other units unpowered and therefore not answering on the bus",
+          "ur": "Baqi units ko power nahi mil raha is liye woh bus par jawab nahi de rahe"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the VE.Bus communication cables end to end and reseat every RJ45 plug.",
+          "ur": "VE.Bus cables dono sifar se check karein aur har RJ45 plug dobara lagaayein."
+        },
+        {
+          "en": "Measure DC voltage at each unit's battery terminals.",
+          "ur": "Har unit ke battery terminals par DC voltage measure karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus-II / Quattro-II 230V Manual, Rev 05 - 07/2026 - 24/5000/120-50, 48/5000/70-50",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Quattro-II_230V/32424-MultiPlus-II___Quattro-II-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "5",
+      "aliases": [
+        "5",
+        "VE.Bus 5",
+        "VE.Bus error 5"
+      ],
+      "title": {
+        "en": "Overvoltage on AC-out",
+        "ur": "AC-out par overvoltage"
+      },
+      "meaning": {
+        "en": "The AC output voltage is too high.",
+        "ur": "AC output voltage bohat zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Slave unit AC wiring not connected properly, or not at all",
+          "ur": "Slave unit ki AC wiring theek se nahi, ya bilkul nahi hai"
+        },
+        {
+          "en": "Two AC sources back-feeding through the output",
+          "ur": "Do AC sources output ke zariye aapas mein back-feed kar rahe hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC first, then inspect every slave AC-out termination.",
+          "ur": "Pehle AC aur DC disconnect karein, phir har slave ka AC-out termination dekhein."
+        },
+        {
+          "en": "Check AC cables for phase sequence and lug tightness.",
+          "ur": "AC cables ki phase sequence aur lug tightness check karein."
+        },
+        {
+          "en": "Measure AC-out with a true RMS meter against the unit spec.",
+          "ur": "True RMS meter se AC-out measure kar ke unit spec se compare karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus-II / Quattro-II 230V Manual, Rev 05 - 07/2026 - 24/5000/120-50, 48/5000/70-50",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Quattro-II_230V/32424-MultiPlus-II___Quattro-II-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "10",
+      "aliases": [
+        "10",
+        "VE.Bus 10",
+        "VE.Bus error 10",
+        "System time sync problem"
+      ],
+      "title": {
+        "en": "System time synchronisation problem",
+        "ur": "System time synchronisation ka masla"
+      },
+      "meaning": {
+        "en": "The units could not synchronise their clocks.",
+        "ur": "Units apne clock sync nahi kar paye."
+      },
+      "causes": [
+        {
+          "en": "Transient during a system restart after another error",
+          "ur": "Dusre error ke baad restart ke dauran aata hai"
+        },
+        {
+          "en": "Communication cable fault on the VE.Bus network",
+          "ur": "VE.Bus network par communication cable ka fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch all units off one by one, then back on; it usually self-recovers.",
+          "ur": "Sab units ek ek kar ke off karein phir wapas on karein; khud resolve ho jata hai."
+        },
+        {
+          "en": "If it persists, inspect the VE.Bus communication cables.",
+          "ur": "Agar qataar rahe to VE.Bus communication cables check karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus-II / Quattro-II 230V Manual, Rev 05 - 07/2026 - 24/5000/120-50, 48/5000/70-50",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Quattro-II_230V/32424-MultiPlus-II___Quattro-II-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "14",
+      "aliases": [
+        "14",
+        "VE.Bus 14",
+        "VE.Bus error 14"
+      ],
+      "title": {
+        "en": "Device cannot transmit data",
+        "ur": "Device data transmit nahi kar sakta"
+      },
+      "meaning": {
+        "en": "The unit cannot transmit on the VE.Bus network; most likely a short in the communication cable.",
+        "ur": "Unit VE.Bus network par transmit nahi kar sakta; aam tor par communication cable mein short hai."
+      },
+      "causes": [
+        {
+          "en": "Short circuit in the VE.Bus communication cable",
+          "ur": "VE.Bus communication cable mein short circuit"
+        },
+        {
+          "en": "Damaged RJ45 plug or socket, or board component failure",
+          "ur": "Kharab RJ45 plug ya socket, ya board component ki failure"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power everything down, then check the communication cables for a short.",
+          "ur": "Sab kuch band karein, phir communication cables mein short check karein."
+        },
+        {
+          "en": "Swap in a known-good factory RJ45 lead between the affected units.",
+          "ur": "Mutasir units ke darmiyan aik jaani hui factory RJ45 lead lagayein."
+        },
+        {
+          "en": "Inspect and reseat the female RJ45 sockets on the units.",
+          "ur": "Units ke female RJ45 sockets check karke dobara lagaayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus-II / Quattro-II 230V Manual, Rev 05 - 07/2026 - 24/5000/120-50, 48/5000/70-50",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Quattro-II_230V/32424-MultiPlus-II___Quattro-II-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "17",
+      "aliases": [
+        "17",
+        "VE.Bus 17",
+        "VE.Bus error 17"
+      ],
+      "title": {
+        "en": "Unit took over 'master' role after master failed",
+        "ur": "Master fail hone ke baad unit ne 'master' role le liya"
+      },
+      "meaning": {
+        "en": "The original master failed, so another device assumed master status.",
+        "ur": "Original master fail ho gaya, is liye kisi doosre device ne master status le liya."
+      },
+      "causes": [
+        {
+          "en": "The original master unit has failed or lost power",
+          "ur": "Original master unit fail ho gaya ya power kho gaya"
+        },
+        {
+          "en": "Communication cable fault between units",
+          "ur": "Units ke darmiyan communication cable ka fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Identify which unit is acting as master and why the original failed.",
+          "ur": "Dhoondein ke kaun sa unit master hai aur original kyun fail hua."
+        },
+        {
+          "en": "Check the communication cables between all units.",
+          "ur": "Sab units ke darmiyan communication cables check karein."
+        },
+        {
+          "en": "Power down, reseat all RJ45 plugs, then power back up.",
+          "ur": "Power off karein, sab RJ45 plugs dobara lagaayein, phir on karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus-II / Quattro-II 230V Manual, Rev 05 - 07/2026 - 24/5000/120-50, 48/5000/70-50",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Quattro-II_230V/32424-MultiPlus-II___Quattro-II-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "18",
+      "aliases": [
+        "18",
+        "VE.Bus 18",
+        "VE.Bus error 18"
+      ],
+      "title": {
+        "en": "AC overvoltage on the output of a switched-off slave",
+        "ur": "Band slave ke output par AC overvoltage"
+      },
+      "meaning": {
+        "en": "Voltage is present on the AC output of a unit that should be off.",
+        "ur": "Aise unit ke AC output par voltage hai jo band hona chahiye."
+      },
+      "causes": [
+        {
+          "en": "AC wires accidentally swapped (L and N reversed)",
+          "ur": "AC wires galti se swap ho gaye (L aur N ulat gaye)"
+        },
+        {
+          "en": "Back-feed from another live AC source into the output",
+          "ur": "Kisi doosre live AC source se output mein back-feed"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and DC completely before touching any conductor.",
+          "ur": "Kisi bhi wire ko chhoone se pehle AC aur DC mukammal disconnect karein."
+        },
+        {
+          "en": "Verify L/N wiring at AC-out on every unit with a continuity tester.",
+          "ur": "Har unit ke AC-out par continuity tester se L/N wiring verify karein."
+        },
+        {
+          "en": "Re-tighten the AC-out terminals to the torque stated in the manual.",
+          "ur": "AC-out terminals ko manual di gayi torque par dobara tighten karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus-II / Quattro-II 230V Manual, Rev 05 - 07/2026 - 24/5000/120-50, 48/5000/70-50",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Quattro-II_230V/32424-MultiPlus-II___Quattro-II-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "22",
+      "aliases": [
+        "22",
+        "VE.Bus 22",
+        "VE.Bus error 22"
+      ],
+      "title": {
+        "en": "This unit cannot work as a slave",
+        "ur": "Ye unit slave ki tarah kaam nahi kar sakta"
+      },
+      "meaning": {
+        "en": "Obsolete or unsuitable model; it cannot function as a slave. Victron's stated remedy is replacement.",
+        "ur": "Purana ya unsuitable model; slave ki tarah kaam nahi kar sakta. Victron ka hal naya unit lagana hai."
+      },
+      "causes": [
+        {
+          "en": "Unit model is obsolete and unsupported as a VE.Bus slave",
+          "ur": "Unit ka model purana hai aur VE.Bus slave ke tor par support nahi"
+        },
+        {
+          "en": "Mismatched models mixed in one multi-unit group",
+          "ur": "Ek hi multi-unit group mein alag alag models milaye gaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the model number on every unit's nameplate in the group.",
+          "ur": "Group ke har unit ka nameplate par model number parhein."
+        },
+        {
+          "en": "Confirm all units share the same voltage, VA and VE.Bus variant.",
+          "ur": "Check karein ke sab units ka voltage, VA aur VE.Bus variant same hai."
+        },
+        {
+          "en": "Replace the obsolete unit with a matching current model, then reconfigure.",
+          "ur": "Purane unit ki jagah same current model lagayein, phir dobara configure karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus-II / Quattro-II 230V Manual, Rev 05 - 07/2026 - 24/5000/120-50, 48/5000/70-50",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Quattro-II_230V/32424-MultiPlus-II___Quattro-II-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "24",
+      "aliases": [
+        "24",
+        "VE.Bus 24",
+        "VE.Bus error 24",
+        "Switch-over system protection"
+      ],
+      "title": {
+        "en": "Switch-over system protection activated",
+        "ur": "Switch-over system protection trigger ho gaya"
+      },
+      "meaning": {
+        "en": "Transfer-switch protection has tripped so the unit will not switch over to AC input.",
+        "ur": "Transfer switch protection trip kar gaya hai is liye unit AC input par switch nahi karta."
+      },
+      "causes": [
+        {
+          "en": "Transfer switch or relay fault during switch-over",
+          "ur": "Switch-over ke dauran transfer switch ya relay ka fault"
+        },
+        {
+          "en": "AC input voltage sagging slowly, often on a generator supply",
+          "ur": "AC input voltage dheere dheere gir raha hai, aksar generator supply par"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch all equipment off, wait for capacitors to discharge, then power on again.",
+          "ur": "Sab equipment off karein, capacitor discharge tak intezaar karein, phir on karein."
+        },
+        {
+          "en": "Reduce heavy AC load that could hold the relay contacts closed.",
+          "ur": "Bhaari AC load kam karein jo relay contacts ko band rok sakti hai."
+        },
+        {
+          "en": "In VEConfigure raise the lower limit of AC input voltage to 210 VAC (factory default 180 VAC).",
+          "ur": "VEConfigure mein AC input voltage ka lower limit 210 VAC kar dein (factory default 180 VAC)."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus-II / Quattro-II 230V Manual, Rev 05 - 07/2026 - 24/5000/120-50, 48/5000/70-50",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Quattro-II_230V/32424-MultiPlus-II___Quattro-II-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "25",
+      "aliases": [
+        "25",
+        "VE.Bus 25",
+        "VE.Bus error 25",
+        "Firmware incompatibility"
+      ],
+      "title": {
+        "en": "Firmware incompatibility between units",
+        "ur": "Units ke darmiyan firmware incompatible hai"
+      },
+      "meaning": {
+        "en": "One connected device runs firmware too old to work with this device.",
+        "ur": "Kisi connected device ka firmware is device ke saath kaam karne ke liye bohat purana hai."
+      },
+      "causes": [
+        {
+          "en": "Mixed firmware revisions across the VE.Bus group",
+          "ur": "VE.Bus group ke units mein alag alag firmware revisions"
+        },
+        {
+          "en": "A unit missed a previous firmware update",
+          "ur": "Kisi unit ka pichla firmware update miss ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch all equipment off before touching anything.",
+          "ur": "Kuch bhi chhoone se pehle sab equipment off karein."
+        },
+        {
+          "en": "Switch on only the error unit, then add others one by one until the error reappears.",
+          "ur": "Sirf error wala unit on karein, phir baqi ek ek kar ke on karein jab tak error na aaye."
+        },
+        {
+          "en": "Update the firmware on the last unit switched on - that is the outdated one.",
+          "ur": "Aakhri on kiye gaye unit ka firmware update karein - wohi outdated hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus-II / Quattro-II 230V Manual, Rev 05 - 07/2026 - 24/5000/120-50, 48/5000/70-50",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Quattro-II_230V/32424-MultiPlus-II___Quattro-II-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "26",
+      "aliases": [
+        "26",
+        "VE.Bus 26",
+        "VE.Bus error 26",
+        "Internal error"
+      ],
+      "title": {
+        "en": "Internal error",
+        "ur": "Andar ki ghalti (internal error)"
+      },
+      "meaning": {
+        "en": "An unspecified internal fault that should not occur; a full power cycle normally clears it.",
+        "ur": "Ek unspecified internal fault jo hona nahi chahiye; poora power cycle saaf kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Internal firmware or processor state anomaly",
+          "ur": "Internal firmware ya processor state mein kami"
+        },
+        {
+          "en": "Transient glitch after an abnormal shutdown",
+          "ur": "Abnormal shutdown ke baad transient glitch"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch all equipment off and then on again to clear it.",
+          "ur": "Sab equipment off karke phir on karein, is se saaf ho jata hai."
+        },
+        {
+          "en": "Record the LED pattern before power-cycling for support.",
+          "ur": "Power cycle se pehle LED pattern note kar lein."
+        },
+        {
+          "en": "If it returns repeatedly, contact Victron Energy with serial and firmware version.",
+          "ur": "Baar baar aaye to serial aur firmware version ke saath Victron Energy se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MultiPlus-II / Quattro-II 230V Manual, Rev 05 - 07/2026 - 24/5000/120-50, 48/5000/70-50",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Quattro-II_230V/32424-MultiPlus-II___Quattro-II-pdf-en.pdf"
+      }
+    }
+  ]
+}

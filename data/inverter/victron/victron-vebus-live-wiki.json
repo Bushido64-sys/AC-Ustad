@@ -1,0 +1,577 @@
+{
+  "schemaVersion": 1,
+  "brandId": "victron",
+  "series": {
+    "id": "victron-vebus-live-wiki",
+    "name": "VE.Bus Error Codes — official live wiki table (current-gen Multi / MultiPlus-II / EasySolar-II)",
+    "category": "inverter",
+    "unitType": "off_grid_inverter",
+    "modelPatterns": [
+      "*MultiPlus-II*",
+      "*EasySolar-II*",
+      "*Quattro-II*",
+      "*Multi*"
+    ],
+    "notes": "This is Victron's own consolidated VE.Bus error table, published on the victronenergy.com 'live' wiki (permanent link .../live/ve.bus:ve.bus_error_codes, last content update 2020-08-25). It is a SEPARATE series from the per-product manual tables because it covers current-generation hardware and GX-reported errors. It contains SEVEN codes that appear in no product manual: 2, 6, 7, 8, 11, 12, 19. It also re-defines 16 and 17 more precisely and gives a full ohmmeter diagnostic for 24. Codes 2, 7, 9, 13, 15, 20, 21, 23 are not in this table either - only the codes listed below exist in the source."
+  },
+  "codes": [
+    {
+      "code": "2",
+      "aliases": [
+        "2",
+        "VE.Bus 2",
+        "VE.Bus error 2",
+        "MK2 mixed"
+      ],
+      "title": {
+        "en": "New and old type MK2 interfaces mixed",
+        "ur": "Purane aur naye MK2 interfaces aik saath lagaye hain"
+      },
+      "meaning": {
+        "en": "Two different generations of MK2 communication interface are present in the same system. Victron states this should never happen.",
+        "ur": "Ek hi system mein MK2 communication interface ke do alag generation mojood hain. Victron kehte hain ye kabhi nahi hona chahiye."
+      },
+      "causes": [
+        {
+          "en": "Old-generation and new-generation MK2 interface units mixed in one system",
+          "ur": "Ek hi system mein purane aur naye generation ke MK2 interface units milaye gaye"
+        },
+        {
+          "en": "A unit was swapped without reconfiguring the system",
+          "ur": "System dobara configure kiye baghair koi unit badal di gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power everything off and note every unit's model and interface generation.",
+          "ur": "Sab kuch band karein aur har unit ka model aur interface generation note karein."
+        },
+        {
+          "en": "Remove the older-generation unit from the VE.Bus group.",
+          "ur": "Purane generation wale unit ko VE.Bus group se nikaal dein."
+        },
+        {
+          "en": "Contact Victron service - Victron states this error should never occur.",
+          "ur": "Victron service se rabta karein - Victron ke mutabiq ye error kabhi nahi hona chahiye."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "VE.Bus Error Codes - Victron Energy live wiki (PDF export)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/live/ve.bus:ve.bus_error_codes?do=export_pdf&rev=1598366511"
+      }
+    },
+    {
+      "code": "6",
+      "aliases": [
+        "6",
+        "VE.Bus 6",
+        "VE.Bus error 6",
+        "DDC program error"
+      ],
+      "title": {
+        "en": "Error in DDC program (Assistant)",
+        "ur": "DDC program (Assistant) mein error"
+      },
+      "meaning": {
+        "en": "There is an error inside an Assistant (Victron's digital dual control configuration). It resolves by updating firmware and re-configuring.",
+        "ur": "Assistant (Victron ka digital dual control configuration) ke andar error hai. Firmware update aur dobara configure karne se hal hota hai."
+      },
+      "causes": [
+        {
+          "en": "Faulty or outdated Assistant loaded in the device",
+          "ur": "Device mein koi kharab ya purana Assistant load hai"
+        },
+        {
+          "en": "VE.Bus firmware older than the Assistant expects",
+          "ur": "VE.Bus firmware Assistant se purana hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Update the VE.Bus firmware in all devices to the latest firmware.",
+          "ur": "Sab devices ka VE.Bus firmware sab se naye version par update karein."
+        },
+        {
+          "en": "Download the latest VEConfigure and let it fetch all the latest Assistants.",
+          "ur": "Naya VEConfigure download karein aur use sab naye Assistants laane dein."
+        },
+        {
+          "en": "Re-configure the system from scratch in VEConfigure.",
+          "ur": "VEConfigure mein system shuru se dobara configure karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "VE.Bus Error Codes - Victron Energy live wiki (PDF export)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/live/ve.bus:ve.bus_error_codes?do=export_pdf&rev=1598366511"
+      }
+    },
+    {
+      "code": "7",
+      "aliases": [
+        "7",
+        "VE.Bus 7",
+        "VE.Bus error 7",
+        "VE.Bus BMS not configured"
+      ],
+      "title": {
+        "en": "VE.Bus BMS detected but not configured",
+        "ur": "VE.Bus BMS detect ho gaya magar configure nahi"
+      },
+      "meaning": {
+        "en": "A VE.Bus BMS is connected but no Assistant is loaded to handle it, so the BMS cannot control the inverter/charger.",
+        "ur": "VE.Bus BMS connected hai magar usay handle karne wala koi Assistant load nahi, is liye BMS inverter/charger ko control nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "VE.Bus BMS fitted but not declared in any Assistant",
+          "ur": "VE.Bus BMS laga hua hai magar kisi Assistant mein declare nahi kiya gaya"
+        },
+        {
+          "en": "Lithium battery system installed without updating the Assistant",
+          "ur": "Lithium battery system lagaya gaya magar Assistant update nahi kiya gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Connect the unit to VEConfigure and open the Assistant editor.",
+          "ur": "Unit ko VEConfigure se connect kar ke Assistant editor kholein."
+        },
+        {
+          "en": "Enable the 'VE.Bus BMS' option in one of the Assistants.",
+          "ur": "Kisi aik Assistant mein 'VE.Bus BMS' option on karein."
+        },
+        {
+          "en": "Send the settings and power-cycle the system.",
+          "ur": "Settings bhej kar system ka power cycle karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "VE.Bus Error Codes - Victron Energy live wiki (PDF export)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/live/ve.bus:ve.bus_error_codes?do=export_pdf&rev=1598366511"
+      }
+    },
+    {
+      "code": "8",
+      "aliases": [
+        "8",
+        "VE.Bus 8",
+        "VE.Bus error 8",
+        "Ground relay test failed"
+      ],
+      "title": {
+        "en": "Ground relay self-test failed",
+        "ur": "Ground relay ka self-test fail ho gaya"
+      },
+      "meaning": {
+        "en": "The automatic self-test of the backfeed / ground relay on MultiPlus-II or EasySolar-II relays failed. Victron directs you to the Error 11 procedure.",
+        "ur": "MultiPlus-II ya EasySolar-II ke backfeed / ground relay ka automatic self-test fail ho gaya. Victron aapko Error 11 ka tareeqa batata hai."
+      },
+      "causes": [
+        {
+          "en": "Installation or earth wiring problem",
+          "ur": "Installation ya earth wiring ka masla"
+        },
+        {
+          "en": "Ground relay is disabled or genuinely faulty",
+          "ur": "Ground relay disabled hai ya asal mein kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Follow the full Error 11 diagnostic steps, starting with the earth connection check.",
+          "ur": "Pura Error 11 diagnostic follow karein, earth connection check se shuru karein."
+        },
+        {
+          "en": "Verify AC-in earth is grounded to local rules; never bond earth to neutral inside the unit.",
+          "ur": "Check karein ke AC-in earth local rules ke mutabiq grounded hai; unit ke andar earth ko neutral se kabhi na jorein."
+        },
+        {
+          "en": "If the relay is enabled in VEConfigure and still fails, suspect the relay hardware.",
+          "ur": "Agar relay VEConfigure mein enabled hai magar phir bhi fail ho raha hai to relay hardware kharab shak karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "VE.Bus Error Codes - Victron Energy live wiki (PDF export)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/live/ve.bus:ve.bus_error_codes?do=export_pdf&rev=1598366511"
+      }
+    },
+    {
+      "code": "11",
+      "aliases": [
+        "11",
+        "VE.Bus 11",
+        "VE.Bus error 11",
+        "Relay test fault"
+      ],
+      "title": {
+        "en": "Relay test fault (wiring or relay failure)",
+        "ur": "Relay test fault (wiring ya relay ki failure)"
+      },
+      "meaning": {
+        "en": "The automatic self-test of the MultiPlus-II / EasySolar-II relay failed. Usually an installation or earth wiring issue; sometimes real relay hardware failure. Failsafe behaviour - the unit refuses to connect to mains.",
+        "ur": "MultiPlus-II / EasySolar-II relay ka automatic self-test fail ho gaya. Aam tor par installation ya earth wiring ka masla; kabhi kabhi relay ki asli hardware failure. Fail-safe behaviour - unit mains se connect nahi hota."
+      },
+      "causes": [
+        {
+          "en": "Earth connection on the unit AC input not made to local code",
+          "ur": "Unit ke AC input par earth connection local code ke mutabiq nahi hai"
+        },
+        {
+          "en": "AC-out Neutral wired to ground, or AC-in Neutral bridged to ground",
+          "ur": "AC-out Neutral ko ground se jora gaya, ya AC-in Neutral ko ground se jora gaya"
+        },
+        {
+          "en": "Line and Neutral input reversed (shows as 'Failing step: 8')",
+          "ur": "Line aur Neutral input ulat hue hain ('Failing step: 8' dikhta hai)"
+        },
+        {
+          "en": "Leakage between Neutral and ground from a broken load",
+          "ur": "Kisi kharab load ki wajah se Neutral aur ground ke darmiyan leakage"
+        },
+        {
+          "en": "Actual failure of the backfeed / ground relay",
+          "ur": "Backfeed ya ground relay ki asli failure"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Update the unit to the latest VE.Bus firmware first; many Error 11 issues are firmware-fixed.",
+          "ur": "Pehle unit ka VE.Bus firmware sab se naye version par update karein; bohat se Error 11 masle firmware se hal ho jate hain."
+        },
+        {
+          "en": "Verify the AC-in earth to local code. Do NOT connect earth to neutral inside the unit - it is a safety hazard and can stop RCDs working.",
+          "ur": "AC-in earth ko local code ke mutabiq check karein. Earth ko unit ke andar neutral se kabhi na jorein - ye safety hazard hai aur RCD kaam karne se rok sakta hai."
+        },
+        {
+          "en": "Disconnect L and N from AC-out on every unit; if the system then starts, a connected load is leaking.",
+          "ur": "Har unit ke AC-out se L aur N disconnect karein; agar system phir chalay to koi load leak kar rahi hai."
+        },
+        {
+          "en": "Check there is no external link between ACin-Neutral, ACout-Neutral and earth.",
+          "ur": "Check karein ke ACin-Neutral, ACout-Neutral aur earth ke darmiyan koi external link nahi."
+        },
+        {
+          "en": "If step 8 is the failing step, swap the Line and Neutral input wires and retry.",
+          "ur": "Agar failing step 8 hai to Line aur Neutral input wires aapas mein badal kar dobara try karein."
+        },
+        {
+          "en": "After any change, retest RCD operation with AC input both connected and disconnected.",
+          "ur": "Har badlav ke baad, AC input lagaye aur na lagaye dono suraton mein RCD kaam check karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "VE.Bus Error Codes - Victron Energy live wiki (PDF export)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/live/ve.bus:ve.bus_error_codes?do=export_pdf&rev=1598366511"
+      }
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12",
+        "VE.Bus 12",
+        "VE.Bus error 12",
+        "Config mismatch 2nd MCU"
+      ],
+      "title": {
+        "en": "Config mismatch with 2nd microcontroller",
+        "ur": "Doosre microcontroller ke saath config mismatch"
+      },
+      "meaning": {
+        "en": "Some Multi models (e.g. MultiPlus-II) have two microcontrollers. The settings stored in them have mismatched and could not be reconciled automatically.",
+        "ur": "Kuch Multi models (maslan MultiPlus-II) mein do microcontrollers hote hain. Un mein stored settings mismatch ho gaye aur ye khud se theek nahi ho sake."
+      },
+      "causes": [
+        {
+          "en": "Power interrupted part-way through a VEConfigure settings write",
+          "ur": "VEConfigure settings likhte waqt power chala gaya"
+        },
+        {
+          "en": "A very rare firmware condition where the mismatch is not auto-resolved",
+          "ur": "Ek bohat rare firmware condition jis mein mismatch khud resolve nahi hota"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Connect the device to VEConfigure 3 using an MK3-USB interface and RJ45 cable.",
+          "ur": "Device ko MK3-USB interface aur RJ45 cable se VEConfigure 3 se connect karein."
+        },
+        {
+          "en": "Verify or correct the settings, then press 'Send Settings'.",
+          "ur": "Settings verify ya theek karein, phir 'Send Settings' dabayein."
+        },
+        {
+          "en": "Select 'all settings' rather than 'modified settings' when sending.",
+          "ur": "Bhejte waqt 'modified settings' ke bajaye 'all settings' chunein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "VE.Bus Error Codes - Victron Energy live wiki (PDF export)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/live/ve.bus:ve.bus_error_codes?do=export_pdf&rev=1598366511"
+      }
+    },
+    {
+      "code": "19",
+      "aliases": [
+        "19",
+        "VE.Bus 19",
+        "VE.Bus error 19",
+        "Slave has no AC input"
+      ],
+      "title": {
+        "en": "Slave unit has no AC input connected",
+        "ur": "Slave unit ka AC input connected nahi hai"
+      },
+      "meaning": {
+        "en": "The system is set up with multiple synchronised inverter/chargers but AC input (e.g. from a generator) is only wired to one of them.",
+        "ur": "System kai synchronised inverter/chargers ka hai magar AC input (maslan generator se) sirf aik unit se juri hui hai."
+      },
+      "causes": [
+        {
+          "en": "AC input from generator or mains connected to only one unit",
+          "ur": "Generator ya mains ka AC input sirf aik unit se jury hai"
+        },
+        {
+          "en": "'Switch as Group' left enabled when units are not all fed",
+          "ur": "'Switch as Group' enabled chhor diya jab sab units feed nahi hotay"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Either connect the AC input to every unit in the system.",
+          "ur": "Ya system ke har unit par AC input connect karein."
+        },
+        {
+          "en": "Or open VE.Bus System Configurator (not VEConfigure) and disable 'Switch as Group'.",
+          "ur": "Ya VE.Bus System Configurator (VEConfigure nahi) kholein aur 'Switch as Group' disable karein."
+        },
+        {
+          "en": "Note that this setting cannot be changed inside an ESS system.",
+          "ur": "Yaad rakhein ke ye setting ESS system ke andar change nahi ho sakti."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "VE.Bus Error Codes - Victron Energy live wiki (PDF export)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/live/ve.bus:ve.bus_error_codes?do=export_pdf&rev=1598366511"
+      }
+    },
+    {
+      "code": "16",
+      "aliases": [
+        "16",
+        "VE.Bus 16",
+        "VE.Bus error 16",
+        "Dongle missing"
+      ],
+      "title": {
+        "en": "VE.Bus dongle is missing",
+        "ur": "VE.Bus dongle mojood nahi"
+      },
+      "meaning": {
+        "en": "The system needs a dongle but none is present. Victron's own remedy is now simply to update the firmware, because VE.Bus dongles are no longer necessary.",
+        "ur": "System ko dongle chahiye magar koi mojood nahi. Victron ka apna hal ab sirf firmware update hai, kyunke VE.Bus dongle ab zaroorat nahi rakhate."
+      },
+      "causes": [
+        {
+          "en": "Dongle not fitted on an extended 4+ unit VE.Bus system",
+          "ur": "Extended 4+ unit VE.Bus system par dongle nahi lagaya hua"
+        },
+        {
+          "en": "Old firmware that still requires the dongle",
+          "ur": "Purana firmware jo abhi bhi dongle maangta hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Connect the VE.Bus Smart Dongle to the VE.Bus port, then power-cycle the system.",
+          "ur": "VE.Bus Smart Dongle ko VE.Bus port se connect karein, phir system ka power cycle karein."
+        },
+        {
+          "en": "Preferred fix per Victron: update all devices to the latest firmware, dongles are then unnecessary.",
+          "ur": "Victron ke mutabiq behtareen hal: sab devices latest firmware par update karein, phir dongle ki zaroorat nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "VE.Bus Error Codes - Victron Energy live wiki (PDF export)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/live/ve.bus:ve.bus_error_codes?do=export_pdf&rev=1598366511"
+      }
+    },
+    {
+      "code": "17",
+      "aliases": [
+        "17",
+        "VE.Bus 17",
+        "VE.Bus error 17",
+        "Phase master missing"
+      ],
+      "title": {
+        "en": "Phase master missing (slave timed out)",
+        "ur": "Phase master missing (slave ka timeout)"
+      },
+      "meaning": {
+        "en": "Slaves only. Communication with the phase master timed out. This only occurs when there are multiple devices per phase, e.g. two or more in parallel on one phase.",
+        "ur": "Sirf slaves par. Phase master se communication timeout ho gayi. Ye sirf tab hota hai jab aik phase par kai devices hon, maslan parallel mein do ya zyada."
+      },
+      "causes": [
+        {
+          "en": "Cable-related communication issue on the VE.Bus network",
+          "ur": "VE.Bus network par cable se related communication masla"
+        },
+        {
+          "en": "Badly mounted RJ45 connectors preventing spring contact",
+          "ur": "Khulne se khanda RJ45 connectors jo spring contact nahi hone dete"
+        },
+        {
+          "en": "DC fuse blown in one or more units - system looks fine on mains but units drop off on loss of AC",
+          "ur": "Kisi aik ya kai units ka DC fuse ula hua - system par mains par theek lagta hai magar AC band hone par units nikal jate hain"
+        },
+        {
+          "en": "Outdated inverter/charger or GX device firmware",
+          "ur": "Purana inverter/charger ya GX device firmware"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If seen while using Remote VEConfigure to write settings, ignore it - the system self-recovers.",
+          "ur": "Agar Remote VEConfigure se settings likhte waqt aaye to ignore karein - system khud recover ho jata hai."
+        },
+        {
+          "en": "Check the network cable sockets first; then replace ALL network cables including the GX cable.",
+          "ur": "Pehle network cable sockets check karein; phir GX cable samet sab network cables badal dein."
+        },
+        {
+          "en": "Inspect the female RJ45 sockets, not just the cable - crimped plugs often block the contacts.",
+          "ur": "Female RJ45 sockets inspect karein, sirf cable nahi - crimped plugs aksar contacts rok dete hain."
+        },
+        {
+          "en": "Check the DC fuse in every unit and replace the blown one.",
+          "ur": "Har unit ka DC fuse check karein aur ula hua fuse badal dein."
+        },
+        {
+          "en": "Update the inverter/charger firmware, then the Assistants, then the GX device firmware.",
+          "ur": "Inverter/charger firmware update karein, phir Assistants, phir GX device firmware."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "VE.Bus Error Codes - Victron Energy live wiki (PDF export)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/live/ve.bus:ve.bus_error_codes?do=export_pdf&rev=1598366511"
+      }
+    },
+    {
+      "code": "24",
+      "aliases": [
+        "24",
+        "VE.Bus 24",
+        "VE.Bus error 24",
+        "Back-feed relay protection"
+      ],
+      "title": {
+        "en": "Switch-over protection / back-feed relay tripped",
+        "ur": "Switch-over protection / back-feed relay trigger ho gaya"
+      },
+      "meaning": {
+        "en": "One or more units report current flowing through a backfeed relay that should be open. Either the relay did not open, or the current-measuring circuit is faulty. A very rare error.",
+        "ur": "Kisi aik ya kai units report kar rahe hain ke backfeed relay se current beh raha hai jo band hona chahiye. Ya relay khula nahi, ya current measuring circuit kharab hai. Ye bohat rare error hai."
+      },
+      "causes": [
+        {
+          "en": "Too much AC load at the moment the relay needs to open, holding the contacts shut",
+          "ur": "Relay ko khulne ke waqt bohat zyada AC load, jis se contacts band reh gaye"
+        },
+        {
+          "en": "AC input voltage sagging slowly (typically generator) so current rises past relay rating",
+          "ur": "AC input voltage dheere dheere girna (aam tor par generator), is se current relay rating se upar chala gaya"
+        },
+        {
+          "en": "Backfeed relay hardware failure",
+          "ur": "Backfeed relay ki hardware failure"
+        },
+        {
+          "en": "Related current measurement circuit faulty",
+          "ur": "Mudiyda current measurement circuit kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Remove the excessive load; check the transfer switch capacity in the datasheet.",
+          "ur": "Bhaari load hata dein; datasheet mein transfer switch capacity check karein."
+        },
+        {
+          "en": "In VEConfigure 3 increase the lower limit of AC input voltage, e.g. to 210 VAC. Factory setting is 180 VAC.",
+          "ur": "VEConfigure 3 mein AC input voltage ka lower limit barhaayein, maslan 210 VAC. Factory setting 180 VAC hai."
+        },
+        {
+          "en": "If load and settings are ruled out, the relay or current sensing is faulty - replace the unit.",
+          "ur": "Agar load aur settings out of the picture hain to relay ya current sensing kharab hai - unit badal dein."
+        },
+        {
+          "en": "To find WHICH unit: film all units, then ohmmeter AC-in vs AC-out. A good unit shows no continuity in; a bad unit reads near zero ohms.",
+          "ur": "Kaunsa unit kharab hai ye dhoondne ke liye: sab units ki video banayein, phir AC-in aur AC-out ke darmiyan ohmmeter lagayein. Theek unit mein continuity nahi; kharab unit zero ke qareeb ohm dikhata hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "official_support",
+        "title": "VE.Bus Error Codes - Victron Energy live wiki (PDF export)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/live/ve.bus:ve.bus_error_codes?do=export_pdf&rev=1598366511"
+      }
+    }
+  ]
+}

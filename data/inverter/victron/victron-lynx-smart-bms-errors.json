@@ -1,0 +1,650 @@
+{
+  "schemaVersion": 1,
+  "brandId": "victron",
+  "series": {
+    "id": "victron-lynx-smart-bms-errors",
+    "name": "Lynx Smart BMS — error codes (VictronConnect / GX device)",
+    "category": "inverter",
+    "unitType": "generic",
+    "modelPatterns": [
+      "*Lynx Smart BMS*",
+      "LYN*"
+    ],
+    "notes": "Text codes of the form E-Bxx reported in VictronConnect, on a GX device and on VRM. Self-contained series because these are structured alphanumeric codes, not LED flash counts (see the Lynx Status-LED series for the panel-side reading). The 'B' in the code means the battery/BMS domain; the Lynx NG variants add D (Distributor) and C (cell) domains. Related warning (W-Bxx) and alarm (A-Bxx) codes are deliberately NOT in this series."
+  },
+  "codes": [
+    {
+      "code": "E-B01",
+      "aliases": [
+        "E-B01",
+        "Battery init failure"
+      ],
+      "title": {
+        "en": "Battery initialisation failed",
+        "ur": "Battery initialization fail ho gayi"
+      },
+      "meaning": {
+        "en": "The BMS could not initialise from the battery pack.",
+        "ur": "BMS battery pack se initialize nahi hua."
+      },
+      "causes": [
+        {
+          "en": "One or more batteries not properly connected",
+          "ur": "Koi aik ya zyada batteries theek se nahi jury"
+        },
+        {
+          "en": "Inter-battery communication link broken in the chain",
+          "ur": "Batteries ke darmiyan communication link toota hua hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC, then walk the battery chain and confirm every battery-to-battery lead is seated.",
+          "ur": "DC disconnect karein, phir battery chain check karein ke har battery-to-battery lead poori tarah lagi hui hai."
+        },
+        {
+          "en": "Measure continuity across each inter-battery link to find the open one.",
+          "ur": "Har inter-battery link ki continuity nikaal kar khuli wala dhoondein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "E-B02",
+      "aliases": [
+        "E-B02",
+        "No battery found"
+      ],
+      "title": {
+        "en": "No battery found",
+        "ur": "Koi battery nahi mili"
+      },
+      "meaning": {
+        "en": "The BMS has no battery connected to it.",
+        "ur": "BMS se koi battery jury nahi hai."
+      },
+      "causes": [
+        {
+          "en": "BMS cable loop is not closed",
+          "ur": "BMS cable loop band nahi hai"
+        },
+        {
+          "en": "No battery connected, or battery cables disconnected",
+          "ur": "Koi battery nahi jury, ya battery cables disconnect hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC, then verify the BMS cable loop is closed from end to end.",
+          "ur": "DC disconnect karein, phir BMS cable loop sifar se sifar band hai ya nahi check karein."
+        },
+        {
+          "en": "Measure the loop resistance and continuity; an open loop confirms the fault.",
+          "ur": "Loop ki resistance aur continuity nikaalein; khula loop fault confirm karta hai."
+        },
+        {
+          "en": "Reseat the last connector in the chain, which is the usual culprit.",
+          "ur": "Chain ka aakhri connector dobara lagaayein, jo aam tor par asal wajah hoti hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "E-B05",
+      "aliases": [
+        "E-B05",
+        "Invalid number of batteries"
+      ],
+      "title": {
+        "en": "Invalid number of batteries in the pack",
+        "ur": "Pack mein batteries ki ghalat tadaad hai"
+      },
+      "meaning": {
+        "en": "The BMS has detected a battery count that does not match its configuration.",
+        "ur": "BMS ne battery ki aik aisi tadaad dhoondi hai jo uski configuration se match nahi karti."
+      },
+      "causes": [
+        {
+          "en": "Not all batteries properly connected, so the BMS counts fewer than configured",
+          "ur": "Tamam batteries theek se nahi jury, is liye BMS configured se kam ginti karta hai"
+        },
+        {
+          "en": "Battery count setting wrong in VictronConnect",
+          "ur": "VictronConnect mein battery count setting ghalat hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC and count the actual batteries in the series string.",
+          "ur": "DC disconnect karein aur series string mein asal batteries gin lein."
+        },
+        {
+          "en": "Check the configured battery count in VictronConnect against that count.",
+          "ur": "VictronConnect mein configured battery count ko us gin se compare karein."
+        },
+        {
+          "en": "Fix any disconnected battery, then correct the count setting.",
+          "ur": "Koi bhi disconnect battery theek karein, phir count setting theek karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "E-B09",
+      "aliases": [
+        "E-B09",
+        "Battery voltage not allowed (error)"
+      ],
+      "title": {
+        "en": "Battery voltage not allowed",
+        "ur": "Battery voltage ki ijazat nahi hai"
+      },
+      "meaning": {
+        "en": "The battery voltage is too high or too low for the configured system. The manual notes this occurs when the voltage is outside all system voltage ranges.",
+        "ur": "Battery voltage configured system ke liye bohat zyada ya kam hai. Manual ke mutabiq ye tab hota hai jab voltage sab system voltage ranges se bahar ho."
+      },
+      "causes": [
+        {
+          "en": "Bank voltage outside the 12/24/48 V system threshold window",
+          "ur": "Bank voltage 12/24/48 V system ki threshold window se bahar"
+        },
+        {
+          "en": "Battery settings in VictronConnect set to the wrong system voltage",
+          "ur": "VictronConnect mein battery settings ghalat system voltage par hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual bank voltage with a multimeter.",
+          "ur": "Multimeter se asal bank voltage nikaalein."
+        },
+        {
+          "en": "Compare to the threshold table: 12 V = 9-15 V, 24 V = 16-30 V, 48 V = 32-60 V.",
+          "ur": "Threshold table se compare karein: 12 V = 9-15 V, 24 V = 16-30 V, 48 V = 32-60 V."
+        },
+        {
+          "en": "Correct the battery voltage setting in VictronConnect.",
+          "ur": "VictronConnect mein battery voltage setting theek karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "E-B11",
+      "aliases": [
+        "E-B11",
+        "Hardware error"
+      ],
+      "title": {
+        "en": "BMS hardware error",
+        "ur": "BMS hardware mein error"
+      },
+      "meaning": {
+        "en": "A hardware fault inside the BMS. Victron's stated remedy is dealer contact.",
+        "ur": "BMS ke andar hardware fault. Victron ka bataya hua hal dealer se rabta karna hai."
+      },
+      "causes": [
+        {
+          "en": "Internal board or processor failure",
+          "ur": "Internal board ya processor ki failure"
+        },
+        {
+          "en": "Component failure after surge, heat or water ingress",
+          "ur": "Surge, garmi ya paani ke ghusaav ke baad component failure"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC, then verify the installation and all cables are sound before assuming a board fault.",
+          "ur": "DC disconnect karein, phir board fault maan lene se pehle installation aur cables theek check karein."
+        },
+        {
+          "en": "Contact your Victron dealer and quote the exact code E-B11.",
+          "ur": "Victron dealer se rabta karein aur asal code E-B11 batayein."
+        },
+        {
+          "en": "Keep the BMS powered from a stable supply while the dealer assesses it.",
+          "ur": "Dealer dekh raha ho tab tak BMS ko stable supply se power dete rahein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "E-B25",
+      "aliases": [
+        "E-B25",
+        "Pre-charge error"
+      ],
+      "title": {
+        "en": "Pre-charge error - load resistance too low",
+        "ur": "Pre-charge error - load resistance bohat kam hai"
+      },
+      "meaning": {
+        "en": "The load resistance is too low for the BMS to pre-charge the loads.",
+        "ur": "Load resistance itni kam hai ke BMS loads ko pre-charge nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "One or more loads with very low resistance connected",
+          "ur": "Bohat kam resistance wala koi ya koi load jury hai"
+        },
+        {
+          "en": "Inverter/charger input capacitance too large for the pre-charge circuit",
+          "ur": "Inverter/charger ki input capacitance pre-charge circuit ke liye bohat badi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC, then disconnect or reduce some DC loads as the manual instructs.",
+          "ur": "DC disconnect karein, phir manual ke mutabiq kuch DC loads disconnect ya kam karein."
+        },
+        {
+          "en": "Measure the resistance across the load output to find the low-resistance path.",
+          "ur": "Load output par resistance nikaal kar kam resistance wala raasta dhoondein."
+        },
+        {
+          "en": "Reconnect loads one at a time until pre-charge succeeds on all of them.",
+          "ur": "Loads ek ek kar ke jurayein jab tak sab par pre-charge na ho jaye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "E-B26",
+      "aliases": [
+        "E-B26",
+        "Contactor error"
+      ],
+      "title": {
+        "en": "Contactor error",
+        "ur": "Contactor mein error"
+      },
+      "meaning": {
+        "en": "The safety contactor has not behaved correctly. Victron's stated remedy is dealer contact.",
+        "ur": "Safety contactor ne theek se kaam nahi kiya. Victron ka bataya hua hal dealer se rabta karna hai."
+      },
+      "causes": [
+        {
+          "en": "Contactor failed to close, or welded closed",
+          "ur": "Contactor band nahi hua, ya band hi reh gaya (welded)"
+        },
+        {
+          "en": "Contactor drive or control fault",
+          "ur": "Contactor drive ya control fault"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC, then measure the main contacts for continuity to see if they are welded.",
+          "ur": "DC disconnect karein, phir main contacts ki continuity nikaal kar dekhein ke weld to nahi hue."
+        },
+        {
+          "en": "Check the coil supply and connector seating at the contactor.",
+          "ur": "Coil supply aur contactor par connector ki fitting check karein."
+        },
+        {
+          "en": "Contact your Victron dealer quoting E-B26 before replacing the contactor yourself.",
+          "ur": "Apne aap contactor badalne se pehle Victron dealer se E-B26 batakar rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "E-B32",
+      "aliases": [
+        "E-B32",
+        "BMS cable error"
+      ],
+      "title": {
+        "en": "BMS cable error",
+        "ur": "BMS cable mein error"
+      },
+      "meaning": {
+        "en": "Fault in the M8 battery cabling that the BMS relies on.",
+        "ur": "BMS jis par depend karta hai us M8 battery cabling mein fault hai."
+      },
+      "causes": [
+        {
+          "en": "Loose or corroded M8 battery terminal",
+          "ur": "Dheela ya corroded M8 battery terminal"
+        },
+        {
+          "en": "M8 cable damaged, undersized or of wrong type",
+          "ur": "M8 cable kharab, chhoti ya galat type ki"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC, then check the battery M8 cabling as the manual instructs.",
+          "ur": "DC disconnect karein, phir manual ke mutabiq battery M8 cabling check karein."
+        },
+        {
+          "en": "Clean every M8 terminal with a wire brush and re-tighten to the specified torque.",
+          "ur": "Har M8 terminal ko wire brush se saaf karke specified torque par dobara tighten karein."
+        },
+        {
+          "en": "Measure the M8 connection resistance; it should be milliohms, not ohms.",
+          "ur": "M8 connection ki resistance nikaalein; ye milliohms honi chahiye, ohms nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "E-B34",
+      "aliases": [
+        "E-B34",
+        "Wrong system voltage"
+      ],
+      "title": {
+        "en": "Wrong system voltage configured",
+        "ur": "System voltage ghalat configure hai"
+      },
+      "meaning": {
+        "en": "The configured system voltage does not match the connected bank.",
+        "ur": "Configured system voltage jury bank se match nahi karti."
+      },
+      "causes": [
+        {
+          "en": "Battery voltage settings in VictronConnect set to 12/24/48 V incorrectly",
+          "ur": "VictronConnect mein battery voltage settings 12/24/48 V ki ghalat value par hain"
+        },
+        {
+          "en": "Bank replaced with a different nominal voltage",
+          "ur": "Bank ko kisi aur nominal voltage wale bank se badal diya gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the actual bank voltage with a multimeter.",
+          "ur": "Multimeter se asal bank voltage nikaalein."
+        },
+        {
+          "en": "Open the battery settings in VictronConnect and set the correct system voltage.",
+          "ur": "VictronConnect mein battery settings kholein aur sahi system voltage set karein."
+        },
+        {
+          "en": "Re-read the error after saving to confirm E-B34 has cleared.",
+          "ur": "Save karne ke baad error dobara parh kar confirm karein ke E-B34 saaf ho gaya."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "E-B35",
+      "aliases": [
+        "E-B35",
+        "Pre-charge timeout"
+      ],
+      "title": {
+        "en": "Pre-charge timed out",
+        "ur": "Pre-charge timeout ho gaya"
+      },
+      "meaning": {
+        "en": "The load capacity is too high for the BMS to finish pre-charging in time.",
+        "ur": "Load capacity itni zyada hai ke BMS waqt par pre-charge khatam nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Total connected load capacitance too large",
+          "ur": "Total connected load capacitance bohat badi hai"
+        },
+        {
+          "en": "Loads and chargers all switched in together during pre-charge",
+          "ur": "Pre-charge ke dauran loads aur chargers sab aik saath on kar diye gaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC, then disconnect some DC loads as the manual instructs.",
+          "ur": "DC disconnect karein, phir manual ke mutabiq kuch DC loads disconnect karein."
+        },
+        {
+          "en": "Stagger the loads: bring them on in stages rather than all together.",
+          "ur": "Loads ko stage mein laayein, sab aik saath nahi."
+        },
+        {
+          "en": "Reconnect and confirm the pre-charge completes within the BMS timeout.",
+          "ur": "Dobara jurayein aur confirm karein ke pre-charge BMS timeout ke andar complete hota hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "E-B36",
+      "aliases": [
+        "E-B36",
+        "ATC/ATD failure"
+      ],
+      "title": {
+        "en": "ATC/ATD auxiliary contact failure",
+        "ur": "ATC/ATD auxiliary contact mein failure"
+      },
+      "meaning": {
+        "en": "The auxiliary ATC or ATD contact is not being read correctly by the BMS.",
+        "ur": "BMS auxiliary ATC ya ATD contact ko theek se nahi parh raha."
+      },
+      "causes": [
+        {
+          "en": "ATC/ATD wiring fault or a loose auxiliary contact connector",
+          "ur": "ATC/ATD wiring fault ya auxiliary contact connector dheela"
+        },
+        {
+          "en": "Loads or chargers not actually controlled by the ATC or ATD",
+          "ur": "Loads ya chargers asal mein ATC ya ATD se control nahi ho rahe"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate DC, then check the ATC/ATD wiring at both the contactor and the BMS.",
+          "ur": "DC disconnect karein, phir contactor aur BMS dono par ATC/ATD wiring check karein."
+        },
+        {
+          "en": "Confirm every load and charger is genuinely wired to the ATC or ATD, per the manual.",
+          "ur": "Manual ke mutabiq confirm karein ke har load aur charger wakai ATC ya ATD se jury hai."
+        },
+        {
+          "en": "Measure the auxiliary contact state with a multimeter; it must switch cleanly on and off.",
+          "ur": "Multimeter se auxiliary contact ki state nikaalein; ye on aur off par saaf switch honi chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "E-B116",
+      "aliases": [
+        "E-B116",
+        "Calibration data lost (Lynx)"
+      ],
+      "title": {
+        "en": "Calibration data lost",
+        "ur": "Calibration data kho gaya"
+      },
+      "meaning": {
+        "en": "The BMS calibration data is lost and the unit needs dealer attention.",
+        "ur": "BMS ka calibration data kho gaya hai aur unit ko dealer ke dekhne ki zaroorat hai."
+      },
+      "causes": [
+        {
+          "en": "Calibration memory corrupted or lost",
+          "ur": "Calibration memory corrupt ya kho gaya"
+        },
+        {
+          "en": "Factory-fresh unit logging this once in history before first clear",
+          "ur": "Factory naya unit pehli clear se pehle aik baar history mein ye log kar raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether E-B116 is the ACTIVE error or only sits in the history log.",
+          "ur": "Check karein ke E-B116 ACTIVE error hai ya sirf history log mein hai."
+        },
+        {
+          "en": "If ACTIVE, contact your Victron dealer for a replacement.",
+          "ur": "Agar ACTIVE hai to Victron dealer se replacement ke liye rabta karein."
+        },
+        {
+          "en": "If history only and the BMS runs normally, no action is needed.",
+          "ur": "Agar sirf history mein hai aur BMS normal chalta hai to koi karam nahi."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    },
+    {
+      "code": "E-B119",
+      "aliases": [
+        "E-B119",
+        "Settings data lost (Lynx)"
+      ],
+      "title": {
+        "en": "Settings data corrupt",
+        "ur": "Settings data corrupt hai"
+      },
+      "meaning": {
+        "en": "Settings data is corrupt. The manual's remedy is to reset to defaults from the settings page.",
+        "ur": "Settings data corrupt hai. Manual ka hal hai settings page se defaults par reset karna."
+      },
+      "causes": [
+        {
+          "en": "Settings memory corrupted, often after an interrupted write or power cut",
+          "ur": "Settings memory corrupt, aksar interrupted write ya power cut ke baad"
+        },
+        {
+          "en": "Firmware update interrupted part-way",
+          "ur": "Firmware update beech mein ruk gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the settings page in VictronConnect and reset to defaults.",
+          "ur": "VictronConnect mein settings page kholein aur defaults par reset karein."
+        },
+        {
+          "en": "Power down the BMS fully, wait 3 minutes, then power up and reconfigure.",
+          "ur": "BMS ko mukammal band karein, 3 minute intezaar karein, phir on karke dobara configure karein."
+        },
+        {
+          "en": "Re-enter your battery type, capacity and system voltage after the reset.",
+          "ur": "Reset ke baad battery type, capacity aur system voltage dobara daalein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "Lynx Smart BMS Manual, rev 17 - 01/2026 - ch. 11.1 error codes",
+        "retrieved": "2026-09-26",
+        "url": "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx_Smart_BMS-pdf-en.pdf"
+      }
+    }
+  ]
+}

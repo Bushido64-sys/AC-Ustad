@@ -1,0 +1,1210 @@
+{
+  "schemaVersion": 1,
+  "brandId": "kstar",
+  "series": {
+    "id": "kstar-memopower-udc-one",
+    "name": "Memopower UDC One series online UPS (UDC9101S / UDC9101H tower, 1-3kVA)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "UDC9101S*",
+      "UDC9101H*",
+      "UDC9102S*",
+      "UDC9102H*",
+      "UDC9103S*",
+      "UDC9103H*",
+      "*UDC9100*",
+      "*Memopower UDC*"
+    ],
+    "notes": "THE UPS-CATEGORY LINE - this is the only Kstar UPS fault table that could actually be read, and it is the one Pakistani technicians are most likely to meet, because Kstar pushes small online UPS as an OEM to Pakistani importers (see BRAND RECON). RETRIEVAL CAVEAT: manualslib.com returns HTTP 403 to direct clients, so the table text below was captured through the search index's page scraper of the exact manualslib URLs, not through a direct fetch. Every row is quoted as the scraper returned it. Code 9 = Fan fault, 26 = Battery over voltage, 29 = Output short-circuit, 32 = Overload, 33 = No battery and 34 = Battery under voltage are each confirmed twice (reference table plus the chapter 4 Troubleshooting table, plus Kstar's own 4256-7228/4256-7232 UPS manual text which independently says code '9' is Fan fault and that '01,02,15,16,17,18' is a UPS internal fault). The LED/beeper columns of the reference table came through column-scrambled, so blinkPattern is only filled in for the six codes with an explicit verbatim LED sentence. CRITICAL: do NOT reuse this table for Memopower RT (UDC9101RTS), YDC9300, or the KSG/BluE PV lines - Kstar renumbers between product lines."
+  },
+  "codes": [
+    {
+      "code": "01",
+      "aliases": [
+        "01",
+        "1",
+        "02",
+        "2"
+      ],
+      "title": {
+        "en": "Inverter fault / inverter bridge shorted (01, 02)",
+        "ur": "Inverter fault ya inverter bridge short (01, 02)"
+      },
+      "meaning": {
+        "en": "Inverter stage fault, including a shorted inverter bridge. The manual groups 01 and 02 with 15,16,17,18 as a generic 'UPS internal fault'.",
+        "ur": "Inverter stage ka fault, jis mein shorted inverter bridge bhi shaamil hai. Manual 01 aur 02 ko 15,16,17,18 ke saath aik hi 'UPS internal fault' mein rakhta hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter IGBT or bridge has failed short or open.",
+          "ur": "Inverter ka IGBT ya bridge short ya open ho gaya hai."
+        },
+        {
+          "en": "Internal DC bus or drive supply fault inside the UPS.",
+          "ur": "UPS ke andar internal DC bus ya drive supply ka fault hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, then disconnect mains and remove the battery connector before touching anything.",
+          "ur": "UPS band karein, phir mains disconnect karke battery connector nikaalein, uske baad kuch na chhoonein."
+        },
+        {
+          "en": "Check the battery string voltage with a multimeter; a string far from the expected value points at the battery bank, not the inverter.",
+          "ur": "Battery string ka voltage multimeter se check karein; jo expected value se door ho woh battery bank ki taraf ishara hai, inverter ki nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "FAULT LED lit, continuous beep",
+      "confidence": "medium",
+      "notes": {
+        "en": "Manual offers no field fix beyond 'Contact your dealer'. Codes 01, 02, 15, 16, 17, 18 are one group in the manual's troubleshooting chapter.",
+        "ur": "Manual 'Contact your dealer' ke ilawa koi field fix nahi deta. Manual ke troubleshooting chapter mein codes 01, 02, 15, 16, 17, 18 aik hi group hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "09",
+      "aliases": [
+        "09",
+        "9"
+      ],
+      "title": {
+        "en": "Fan fault (09)",
+        "ur": "Fan kharab (09)"
+      },
+      "meaning": {
+        "en": "The UPS cooling fan has failed. Confirmed by the reference table and by the troubleshooting chapter, and independently by Kstar's own 4256-7228/4256-7232 UPS manual.",
+        "ur": "UPS ka cooling fan kharab ho gaya hai. Reference table aur troubleshooting chapter dono confirm karte hain, aur Kstar ke apne 4256-7228/4256-7232 UPS manual bhi isay alag se confirm karta hai."
+      },
+      "causes": [
+        {
+          "en": "Fan motor seized or its bearing has worn out.",
+          "ur": "Fan motor jam ho gaya ya uska bearing kharab ho gaya hai."
+        },
+        {
+          "en": "Fan cable loose, or the fan is blocked by dust packed into the heatsink.",
+          "ur": "Fan ka cable dheela hai, ya fan dust se block hai jo heatsink mein ghusa hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the UPS, disconnect mains and unplug the battery before removing the fan.",
+          "ur": "Fan nikaalne se pehle UPS band karein, mains disconnect karein aur battery nikaal dein."
+        },
+        {
+          "en": "Spin the fan blade by hand; it must turn freely with no scraping. Replace the fan if it is stiff or noisy.",
+          "ur": "Fan blade ko haath se ghumayein; yeh bina charchahat ke aazad ghoomna chahiye. Agar sakht ya shor wala ho to fan badal dein."
+        },
+        {
+          "en": "Clear dust from the heatsink and the fan duct with a soft brush, then re-test on mains.",
+          "ur": "Heatsink aur fan duct se soft brush se dhool saaf karein, phir mains par dobara test karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "FAULT LED lit, continuous beep",
+      "confidence": "high",
+      "notes": {
+        "en": "Three independent Kstar sources give code 9 = Fan fault. Manual says 'Contact your dealer' for the fan itself.",
+        "ur": "Teen alag Kstar sources code 9 ko Fan fault kehte hain. Manual fan ke liye kehta hai 'Contact your dealer'."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "12",
+      "aliases": [
+        "12"
+      ],
+      "title": {
+        "en": "Self-test fault (12)",
+        "ur": "Self test fail hua (12)"
+      },
+      "meaning": {
+        "en": "The UPS start-up self-test did not complete. The word 'Selftest fault' appears in the Kstar reference table but the scraped column order makes the exact pairing uncertain.",
+        "ur": "UPS ka start-up self-test complete nahi hua. Kstar reference table mein 'Selftest fault' likha hai magar column order ke kaaran exact pairing mushkil hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter soft-start did not complete within the self-test window.",
+          "ur": "Inverter ka soft-start self-test window ke andar complete nahi hua."
+        },
+        {
+          "en": "Battery string voltage out of range at the moment of the self-test.",
+          "ur": "Self-test ke waqt battery string voltage range se bahar tha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, disconnect mains, remove the battery, and re-seat all battery connectors firmly.",
+          "ur": "UPS off karein, mains disconnect karein, battery nikaalein aur saare battery connectors mazbooti se lagayein."
+        },
+        {
+          "en": "Measure battery voltage with a multimeter; it must sit near the float value for the configured battery count.",
+          "ur": "Battery voltage multimeter se check karein; yeh configured battery count ke float value ke qareeb hona chahiye."
+        },
+        {
+          "en": "Reconnect and power on; if the self-test still fails, send the unit to the dealer.",
+          "ur": "Wapas lagakar power on karein; agar self-test phir fail ho to unit dealer ko bhej dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "notes": {
+        "en": "LOW CONFIDENCE on the pairing only. The string 'Selftest fault' is present verbatim in the Kstar UDC9101S One reference table, but the extracted code column reads 1, 2, 9, 12, 13, 15... while the description column interleaves differently, so 12 could be the selftest row or the row above it. Code 9 = Fan fault and 13 = Battery Charger fault are the neighbours that are independently confirmed, which makes 12 = Selftest fault the most likely reading, but treat it as unverified on the panel and read the actual code off the UPS.",
+        "ur": "Sirf pairing par LOW CONFIDENCE. 'Selftest fault' string Kstar UDC9101S One reference table mein verbatim maujood hai, magar nikaala gaya code column 1, 2, 9, 12, 13, 15... parhta hai jabke description column alag taraf se interleave hota hai, is liye 12 selftest row ho bhi sakta hai ya us se upar wala row. Code 9 = Fan fault aur 13 = Battery Charger fault wo padosi hain jo alag se confirm hain, is liye 12 = Selftest fault sab se sambhavit parwah hai, magar panel par ise unverified samjhein aur asal code UPS se parh lein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "13",
+      "aliases": [
+        "13"
+      ],
+      "title": {
+        "en": "Battery charger fault (13)",
+        "ur": "Battery charger kharab (13)"
+      },
+      "meaning": {
+        "en": "The battery charger circuit inside the UPS has failed.",
+        "ur": "UPS ke andar battery charger circuit kharab ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Charger IGBT, transformer or rectifier failed.",
+          "ur": "Charger ka IGBT, transformer ya rectifier kharab ho gaya."
+        },
+        {
+          "en": "Battery so deeply discharged or reversed that the charger cannot recover it.",
+          "ur": "Battery itni gehri tarah discharge ya reverse ho gaya ke charger use theek nahi kar sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, disconnect mains, then remove the battery string before any inspection.",
+          "ur": "UPS off karein, mains disconnect karein, phir koi bhi dekhne se pehle battery string nikaal dein."
+        },
+        {
+          "en": "Measure battery string voltage with a multimeter and check polarity; correct any reversed terminal immediately.",
+          "ur": "Battery string ka voltage multimeter se check karke polarity bhi dekhein; koi bhi ulta terminal foran theek karein."
+        },
+        {
+          "en": "Reconnect the battery, leave the UPS on mains for 6-8 hours, then re-measure to see if the float voltage rises.",
+          "ur": "Battery wapas lagayein, UPS ko mains par 6-8 ghante dein, phir dobara check karein ke float voltage barhta hai ya nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "notes": {
+        "en": "Kstar's official UPS manual gives only 'Contact your dealer' for the charger fault. No field procedure is documented.",
+        "ur": "Kstar ke official UPS manual charger fault ke liye sirf 'Contact your dealer' kehta hai. Koi field tareeqa documented nahi hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "15",
+      "aliases": [
+        "15"
+      ],
+      "title": {
+        "en": "DC bus overvoltage (15)",
+        "ur": "DC bus voltage zyada (15)"
+      },
+      "meaning": {
+        "en": "The internal DC bus voltage has risen above its limit. Grouped with 01,02,16,17,18 as a UPS internal fault.",
+        "ur": "Internal DC bus voltage apni limit se upar chala gaya hai. Yeh 01,02,16,17,18 ke saath UPS internal fault group mein hai."
+      },
+      "causes": [
+        {
+          "en": "Battery charger overcharging, driving the bus up.",
+          "ur": "Battery charger overcharge kar raha hai, jis se bus upar chala raha hai."
+        },
+        {
+          "en": "Bus voltage sense circuit has drifted high.",
+          "ur": "Bus voltage sense circuit high ki taraf bigad gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off and disconnect mains before touching the battery.",
+          "ur": "Battery ko chhune se pehle UPS off karein aur mains disconnect karein."
+        },
+        {
+          "en": "Measure the battery string voltage with a multimeter; if it is over the float value, the charger is the cause.",
+          "ur": "Battery string ka voltage multimeter se check karein; agar wo float value se upar hai to charger hi wajah hai."
+        },
+        {
+          "en": "Check the battery is not connected backwards before reconnecting anything.",
+          "ur": "Kuch bhi wapas lagane se pehle check karein ke battery ulti to nahi lagi."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "FAULT LED lit, continuous beep",
+      "confidence": "medium",
+      "notes": {
+        "en": "Kstar's official 4256-7228/4256-7232 UPS manual groups '01,02,15,16,17,18' as 'A UPS internal fault has occurred.'",
+        "ur": "Kstar ke official 4256-7228/4256-7232 UPS manual '01,02,15,16,17,18' ko 'A UPS internal fault has occurred.' ke tor par group karta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "16",
+      "aliases": [
+        "16"
+      ],
+      "title": {
+        "en": "DC bus below voltage (16)",
+        "ur": "DC bus voltage kam (16)"
+      },
+      "meaning": {
+        "en": "The internal DC bus voltage has dropped below its limit.",
+        "ur": "Internal DC bus voltage apni limit se neeche gir gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Battery deeply discharged during a long outage and the charger cannot recover it.",
+          "ur": "Lambi outage mein battery gehri tarah discharge ho gayi aur charger use theek nahi kar pa raha."
+        },
+        {
+          "en": "One cell in the string has failed short, dragging the whole bus down.",
+          "ur": "String mein koi aik cell short ho gaya, jis se poora bus neeche gir gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, disconnect mains and remove the battery string.",
+          "ur": "UPS off karein, mains disconnect karein aur battery string nikaal dein."
+        },
+        {
+          "en": "Measure each cell in the string with a multimeter; a cell far below the others is the failed one.",
+          "ur": "String mein har cell ko multimeter se check karein; jo cell baqi se kaafi neeche ho wohi kharab hai."
+        },
+        {
+          "en": "Charge the battery for at least 5 hours on mains as the manual instructs, then re-check.",
+          "ur": "Manual ki hidayat ke mutabiq battery ko mains par kam az kam 5 ghante charge karein, phir dobara check karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "FAULT LED lit, continuous beep",
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "17",
+      "aliases": [
+        "17"
+      ],
+      "title": {
+        "en": "DC bus unbalance (17)",
+        "ur": "DC bus ka ghabrat (17)"
+      },
+      "meaning": {
+        "en": "The two halves of the DC bus are at different voltages.",
+        "ur": "DC bus ke do halves ka voltage aik doosre se alag hai."
+      },
+      "causes": [
+        {
+          "en": "One bus capacitor failed or gone leaky.",
+          "ur": "Aik bus capacitor kharab ho gaya ya leakage ho gaya."
+        },
+        {
+          "en": "Bus bleeder or balance circuit has failed.",
+          "ur": "Bus bleeder ya balance circuit kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect mains and remove the battery before opening the UPS chassis.",
+          "ur": "UPS ka chassis kholne se pehle mains disconnect karein aur battery nikaal dein."
+        },
+        {
+          "en": "With a multimeter on DC volts, compare the voltage across each bus capacitor pair; a large mismatch indicates a failed capacitor.",
+          "ur": "Multimeter DC volts par, har bus capacitor jorre ke aamne wala voltage compare karein; bada farq kharab capacitor ka ishara hai."
+        },
+        {
+          "en": "Leave the UPS off and send it to the dealer; this is not a field-replaceable item.",
+          "ur": "UPS band hi rakhein aur dealer ko bhejein; yeh field par badalne wali cheez nahi hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "FAULT LED lit, continuous beep",
+      "confidence": "medium",
+      "notes": {
+        "en": "Kstar documents no remedy beyond dealer contact for bus faults.",
+        "ur": "Kstar bus faults ke liye dealer contact ke ilawa koi hal nahi deta."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "18",
+      "aliases": [
+        "18"
+      ],
+      "title": {
+        "en": "Soft start failed (18)",
+        "ur": "Soft start fail hua (18)"
+      },
+      "meaning": {
+        "en": "The inverter soft-start routine did not complete.",
+        "ur": "Inverter ka soft-start routine complete nahi hua."
+      },
+      "causes": [
+        {
+          "en": "DC bus did not reach the soft-start threshold in the allotted time.",
+          "ur": "DC bus allotted time mein soft-start threshold tak nahi pohanchha."
+        },
+        {
+          "en": "Output is overloaded or shorted, so soft-start aborts.",
+          "ur": "Output overloaded ya short hai, is liye soft-start ruk gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the UPS, disconnect mains, and unplug all loads from the output sockets.",
+          "ur": "UPS off karein, mains disconnect karein aur output sockets se saare loads nikaal dein."
+        },
+        {
+          "en": "Reconnect with no load and power on; if 18 clears, the load was the problem.",
+          "ur": "Bina load ke wapas lagakar power on karein; agar 18 chala jaye to load hi masla tha."
+        },
+        {
+          "en": "Measure battery string voltage with a multimeter; a flat battery cannot support soft-start.",
+          "ur": "Battery string ka voltage multimeter se check karein; khuli battery soft-start support nahi kar sakti."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "FAULT LED lit, continuous beep",
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "19",
+      "aliases": [
+        "19",
+        "UPS Inside Over Temperature"
+      ],
+      "title": {
+        "en": "UPS inside over temperature (19)",
+        "ur": "UPS andar se zyada temperature (19)"
+      },
+      "meaning": {
+        "en": "Internal temperature sensor has tripped, meaning the inside of the UPS is too hot.",
+        "ur": "Internal temperature sensor ne trigger kiya hai, matlab UPS ke andar bohat garam hai."
+      },
+      "causes": [
+        {
+          "en": "UPS installed in a closed cupboard with no airflow.",
+          "ur": "UPS band almari mein lage hai jahan hawa nahi chalti."
+        },
+        {
+          "en": "Fan failed, so the internal temperature rises until code 19.",
+          "ur": "Fan kharab ho gaya, is liye andar ka temperature code 19 tak chala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Move the UPS into open air, well away from heat sources and walls.",
+          "ur": "UPS ko khulay hawa mein le jayein, garmi ke se aur deewaron se door."
+        },
+        {
+          "en": "Power off, then clear dust from the fan and heatsink and confirm the fan turns freely.",
+          "ur": "Power off karke fan aur heatsink se dhool saaf karein aur confirm karein ke fan aazad ghoomta hai."
+        },
+        {
+          "en": "Check the load; a UPS at its limit runs hot by design.",
+          "ur": "Load check karein; limit par chal raha UPS by design garam hota hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "20",
+      "aliases": [
+        "20",
+        "Heatsink Over Temperature"
+      ],
+      "title": {
+        "en": "Heatsink over temperature (20)",
+        "ur": "Heatsink zyada temperature (20)"
+      },
+      "meaning": {
+        "en": "The heatsink temperature has exceeded its limit, so the inverter has shut down.",
+        "ur": "Heatsink ki temperature limit se upar chali gayi hai, is liye inverter ne band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Heatsink fan has failed.",
+          "ur": "Heatsink ka fan kharab ho gaya hai."
+        },
+        {
+          "en": "Ventilation openings blocked, often by wall placement or a covered top.",
+          "ur": "Ventilation openings band hui hain, aksar deewar lagane se ya upar se dhakkan lagane se."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, disconnect mains and pull it out so all sides have clearance as the manual specifies.",
+          "ur": "UPS off karein, mains disconnect karein aur use bahar nikaalein taake manual ke mutabiq chaaron taraf saaf rasta ho."
+        },
+        {
+          "en": "Clean dust off the heatsink fins and test the fan by hand with power disconnected.",
+          "ur": "Power ke baghair fan ko haath se test karte hue heatsink ki fins se dhool saaf karein."
+        },
+        {
+          "en": "Measure the load; if it is near the UPS rating, split the load across two units.",
+          "ur": "Load measure karein; agar wo UPS rating ke qareeb hai to load do units mein baant dein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "26",
+      "aliases": [
+        "26"
+      ],
+      "title": {
+        "en": "Battery overvoltage (26)",
+        "ur": "Battery voltage zyada (26)"
+      },
+      "meaning": {
+        "en": "Battery string voltage is too high or the charger has failed. Confirmed twice in the manual: reference table plus troubleshooting chapter.",
+        "ur": "Battery string voltage bohat zyada hai ya charger kharab ho gaya hai. Manual mein do baar confirm hai: reference table aur troubleshooting chapter."
+      },
+      "causes": [
+        {
+          "en": "Charger overcharging the battery string.",
+          "ur": "Charger battery string ko overcharge kar raha hai."
+        },
+        {
+          "en": "Wrong battery type or wrong float voltage set in the menu for the fitted battery.",
+          "ur": "Menu mein battery type ya float voltage lagay huay battery ke khilaf galat set hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, disconnect mains and remove the battery string before touching it.",
+          "ur": "Battery ko chhune se pehle UPS off karein, mains disconnect karein aur battery string nikaal dein."
+        },
+        {
+          "en": "Measure the string voltage with a multimeter; a 12 V string should read about 13.6-13.8 V per cell when floated.",
+          "ur": "String ka voltage multimeter se check karein; 12 V string par float hone par har cell ke liye taqreeban 13.6-13.8 V padhna chahiye."
+        },
+        {
+          "en": "Check the battery type setting in the UPS menu matches the fitted battery, then correct and re-test.",
+          "ur": "UPS menu mein battery type setting lagay huay battery se match karein, phir theek karke dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Battery LED blinking",
+      "confidence": "high",
+      "notes": {
+        "en": "Manual remedy: 'Contact your dealer.' Field-observable cause is usually a battery type / float voltage mismatch, which is worth checking before blaming the charger.",
+        "ur": "Manual ka hal: 'Contact your dealer.' Field mein dekhne wala ajzab aksar battery type ya float voltage ka mismatch hota hai, jise charger par blame karne se pehle check karna chahiye."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "29",
+      "aliases": [
+        "29"
+      ],
+      "title": {
+        "en": "Output short-circuit (29)",
+        "ur": "Output mein short circuit (29)"
+      },
+      "meaning": {
+        "en": "A short exists on the UPS output, so the UPS has shut itself down to protect the inverter.",
+        "ur": "UPS output par short hai, is liye UPS ne apni hifazat ke liye khud band kar diya."
+      },
+      "causes": [
+        {
+          "en": "A connected device has an internal short, e.g. a motor or a failed SMPS.",
+          "ur": "Lagaya hua koi device andar se short hai, maslan motor ya kharab SMPS."
+        },
+        {
+          "en": "Output wiring or socket wiring has a short or a blown socket pin bridging L to N.",
+          "ur": "Output wiring ya socket wiring mein short hai ya socket ka pin L se N par jala chala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Unplug every load from the UPS output, starting with the multi-power extension board.",
+          "ur": "UPS output se saare loads nikaal dein, pehle multi-power extension board se shuru karein."
+        },
+        {
+          "en": "Test each load one at a time on continuity/ohms with a multimeter to find the shorted item.",
+          "ur": "Har load ko aik aik karke multimeter par continuity/ohms par test karke short wala cheez dhoondein."
+        },
+        {
+          "en": "Reconnect the confirmed-good loads, then power up the UPS and confirm 29 clears.",
+          "ur": "Confirmed theek loads wapas lagayein, phir UPS on karke confirm karein ke 29 chala gaya."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "FAULT LED lit, continuous beep",
+      "confidence": "high",
+      "notes": {
+        "en": "CONFLICT on the LED: the UDC9101S One troubleshooting chapter says code 29 shows 'FAULT led light', while Kstar's 4256-7228/4256-7232 UPS manual also says 'FAULT led light' - but the UDC9101RTS reference table (same code) maps 29 to a blinking Fault LED. Treat as 'FAULT LED active', not a specific blink count.",
+        "ur": "LED par CONFLICT: UDC9101S One troubleshooting chapter kehta hai ke code 29 par 'FAULT led light' hai, Kstar ka 4256-7228/4256-7232 UPS manual bhi 'FAULT led light' kehta hai - magar UDC9101RTS reference table (aik hi code) 29 ko blinking Fault LED map karta hai. Ise 'FAULT LED active' samjhein, koi khaas blink count nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "30",
+      "aliases": [
+        "30",
+        "Input current limit"
+      ],
+      "title": {
+        "en": "Input current limit (30)",
+        "ur": "Input current limit par (30)"
+      },
+      "meaning": {
+        "en": "The UPS input current has hit its limit, so it can no longer draw from the mains.",
+        "ur": "UPS ka input current apni limit par pohanch gaya hai, is liye wo mains se aur current nahi kheench sakta."
+      },
+      "causes": [
+        {
+          "en": "Output load exceeds the UPS rating, so the input current is dragged up.",
+          "ur": "Output load UPS rating se zyada hai, is liye input current upar kheench gaya."
+        },
+        {
+          "en": "Input rectifier or PFC stage has degraded, drawing excess current.",
+          "ur": "Input rectifier ya PFC stage bigad gaya hai, zyada current kheench raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the UPS, disconnect mains, and remove the load before any internal check.",
+          "ur": "UPS off karein, mains disconnect karein aur koi bhi andar dekho se pehle load hata dein."
+        },
+        {
+          "en": "Measure total connected load watts and compare to the UPS nameplate; below the limit means a hardware fault.",
+          "ur": "Kul connected load watts naappein aur UPS nameplate se compare karein; limit se kam hai to hardware fault hai."
+        },
+        {
+          "en": "Check the input cable and wall socket for high contact resistance, which drags input current.",
+          "ur": "Input cable aur wall socket par high contact resistance check karein, jo input current barhata hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "31",
+      "aliases": [
+        "31",
+        "Bypass over current"
+      ],
+      "title": {
+        "en": "Bypass overcurrent (31)",
+        "ur": "Bypass current zyada (31)"
+      },
+      "meaning": {
+        "en": "Current through the static bypass path has exceeded its limit.",
+        "ur": "Static bypass path se guzarne wala current apni limit se zyada ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Load is on bypass and exceeds what the bypass path is rated for.",
+          "ur": "Load bypass par hai aur bypass path ki rating se zyada hai."
+        },
+        {
+          "en": "Bypass SCR or its current sense has failed.",
+          "ur": "Bypass SCR ya uska current sense kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the UPS off, disconnect mains and remove the battery before opening the unit.",
+          "ur": "Unit kholne se pehle UPS off karein, mains disconnect karein aur battery nikaal dein."
+        },
+        {
+          "en": "Check the bypass rating on the nameplate against the connected load.",
+          "ur": "Nameplate par likhi bypass rating ko connected load se compare karein."
+        },
+        {
+          "en": "Power up and use the panel to read the actual code again, since 30 and 31 are easy to swap on a scrambled LED.",
+          "ur": "Power up karke panel se asal code dobara parh lein, kyun ke 30 aur 31 bhari hui LED par aapas mein badal sakte hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "BPS LED blinking",
+      "confidence": "medium",
+      "notes": {
+        "en": "Medium confidence: the code-to-description row is clear, but the LED column in the scraped reference table did not preserve its original row alignment, so the BPS LED attribution is inferred from the LED column sequence position and should be read off the panel.",
+        "ur": "Medium confidence: code se description ka row saaf hai, magar scraped reference table ki LED column ne apni asli row alignment nahi rakhi, is liye BPS LED ka assignment LED column ki position se guess kiya gaya hai aur panel se parhna chahiye."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "32",
+      "aliases": [
+        "32",
+        "Overload"
+      ],
+      "title": {
+        "en": "Overload (32)",
+        "ur": "Overload ho gaya (32)"
+      },
+      "meaning": {
+        "en": "The UPS is overloaded. Confirmed twice in the manual; the remedy is simply 'Remove excess loads from UPS output.'",
+        "ur": "UPS overloaded hai. Manual mein do baar confirm hai; hal sirf yehi hai: 'Remove excess loads from UPS output.'"
+      },
+      "causes": [
+        {
+          "en": "More appliances connected than the UPS is rated for.",
+          "ur": "UPS ki rating se zyada appliances lagaye gaye hain."
+        },
+        {
+          "en": "A single large motor or compressor with high inrush on start-up.",
+          "ur": "Aik bada motor ya compressor jiska start-up inrush bohat zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Remove excess loads from the UPS output as the manual instructs.",
+          "ur": "Manual ki hidayat ke mutabiq UPS output se extra loads nikaal dein."
+        },
+        {
+          "en": "Add up the nameplate watts of everything connected and compare to the UPS rating; stay under 80 percent.",
+          "ur": "Lagaye hue har cheez ke nameplate watts jama karke UPS rating se compare karein; 80 percent se neeche rakhein."
+        },
+        {
+          "en": "Start the biggest load (AC, pump, geyser) first, then the rest, so inrush does not trip the UPS.",
+          "ur": "Sab se bada load (AC, pump, geyser) pehle start karein, phir baqi, taake inrush UPS na trip kare."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "INV or BYPASS LED blinking",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "33",
+      "aliases": [
+        "33",
+        "No battery"
+      ],
+      "title": {
+        "en": "No battery (33)",
+        "ur": "Battery nahi lagi (33)"
+      },
+      "meaning": {
+        "en": "No battery is connected or the battery wiring is wrong. The manual's cause text is 'The external or internal battery is incorrectly connected.'",
+        "ur": "Ya to koi battery connected nahi, ya battery wiring ghalti hai. Manual ka cause text hai: 'The external or internal battery is incorrectly connected.'"
+      },
+      "causes": [
+        {
+          "en": "The external or internal battery is incorrectly connected.",
+          "ur": "External ya internal battery galat tarah se connected hai."
+        },
+        {
+          "en": "A battery terminal is loose, corroded or not fully pushed onto the connector.",
+          "ur": "Battery terminal dheela, zang lage ya connector par puri tarah nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if all batteries are connected well, as the manual's remedy states.",
+          "ur": "Manual ke hal ke mutabiq check karein ke saare batteries theek se connected hain."
+        },
+        {
+          "en": "Switch off the UPS, disconnect mains, then re-seat every battery connector firmly.",
+          "ur": "UPS off karein, mains disconnect karein, phir har battery connector mazbooti se dobara lagayein."
+        },
+        {
+          "en": "Measure the string voltage with a multimeter; a valid pack reads about 12.6-13.4 V open circuit.",
+          "ur": "String ka voltage multimeter se check karein; theek pack open circuit par taqreeban 12.6-13.4 V padhta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Battery LED blinking",
+      "confidence": "high",
+      "notes": {
+        "en": "This is the single most common Kstar UPS complaint in the field: battery not seated, or a battery box fuse removed.",
+        "ur": "Yeh field mein Kstar UPS ki sab se aam shikayat hai: battery theek se nahi lagi, ya battery box ka fuse nikal liya gaya."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "34",
+      "aliases": [
+        "34",
+        "Battery under voltage"
+      ],
+      "title": {
+        "en": "Battery undervoltage (34)",
+        "ur": "Battery voltage kam (34)"
+      },
+      "meaning": {
+        "en": "Battery voltage is too low, or the charger has failed. Confirmed twice in the manual.",
+        "ur": "Battery voltage bohat kam hai, ya charger kharab ho gaya hai. Manual mein do baar confirm hai."
+      },
+      "causes": [
+        {
+          "en": "Battery voltage is too low or the charger is fault.",
+          "ur": "Battery voltage bohat kam hai ya charger kharab hai."
+        },
+        {
+          "en": "Battery left flat for weeks in a power cut and lost its capacity permanently.",
+          "ur": "Power cut mein battery hafton tak khaali chhod di gayi aur apni capacity hamesha ke liye kho gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Contact your dealer is the manual's stated remedy, but first do the safe checks.",
+          "ur": "Manual ka bataya hua hal 'Contact your dealer' hai, magar pehle safe checks kar lein."
+        },
+        {
+          "en": "Turn the UPS off, disconnect mains, and measure the battery string voltage with a multimeter.",
+          "ur": "UPS off karein, mains disconnect karein aur multimeter se battery string ka voltage check karein."
+        },
+        {
+          "en": "Charge the batteries for at least 5 hours as the manual instructs, then re-measure and re-test on battery power.",
+          "ur": "Manual ki hidayat ke mutabiq batteries ko kam az kam 5 ghante charge karein, phir dobara check karke battery power par test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Battery LED blinking",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "35",
+      "aliases": [
+        "35",
+        "Battery low pre-warning"
+      ],
+      "title": {
+        "en": "Battery low pre-warning (35)",
+        "ur": "Battery low ki warning (35)"
+      },
+      "meaning": {
+        "en": "Battery discharge is nearing its end point, so backup time is about to run out.",
+        "ur": "Battery discharge apne end point ke qareeb hai, is liye backup time khatam hone wala hai."
+      },
+      "causes": [
+        {
+          "en": "Long power cut is draining the battery to its low-voltage cut-off.",
+          "ur": "Lambi power cut battery ko uski low voltage cut-off tak drain kar rahi hai."
+        },
+        {
+          "en": "Battery capacity has aged down, so it reaches the warning level much earlier than new.",
+          "ur": "Battery ki capacity umar ke saath gir gayi hai, is liye nayi battery ke muqable mein warning bohat jaldi aa jati hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "This is a warning, not a fault - shut down computers and equipment cleanly before the UPS cuts out.",
+          "ur": "Yeh warning hai fault nahi - UPS cut hone se pehle computer aur equipment orderly band karein."
+        },
+        {
+          "en": "Once mains returns, charge for at least 5 hours and check the backup time with a timed discharge test.",
+          "ur": "Mains wapas aaye to kam az kam 5 ghante charge karein aur backup time ko timed discharge test se check karein."
+        },
+        {
+          "en": "If backup time is still short after a full charge, the battery bank has aged out and needs replacement.",
+          "ur": "Agar poori charge ke baad bhi backup time kam ho to battery bank ki umar khatam ho gayi aur badalni hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Battery LED blinking",
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "36",
+      "aliases": [
+        "36",
+        "Over load time out"
+      ],
+      "title": {
+        "en": "Overload timeout (36)",
+        "ur": "Overload timeout ho gaya (36)"
+      },
+      "meaning": {
+        "en": "The UPS has been overloaded for longer than its allowed time and is shutting down.",
+        "ur": "UPS apni ijazat se zyada der se overloaded hai aur band ho raha hai."
+      },
+      "causes": [
+        {
+          "en": "Load above the UPS rating sustained past the overload delay.",
+          "ur": "UPS rating se upar ka load overload delay se zyada der tak tikka raha."
+        },
+        {
+          "en": "A motor or AC compressor stuck inrush, drawing current continuously.",
+          "ur": "Motor ya AC compressor ka inrush atak gaya hai aur wo lagatar current kheech raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Remove excess loads from the UPS output immediately, as for code 32.",
+          "ur": "Code 32 ki tarah foran UPS output se extra loads nikaal dein."
+        },
+        {
+          "en": "Add up connected watts versus nameplate rating and rebalance across outlets or a second UPS.",
+          "ur": "Connected watts jama karke nameplate rating se compare karein aur outlets ya doosre UPS par dobara baant dein."
+        },
+        {
+          "en": "Test suspect loads on mains one at a time; a load that draws heavily on mains too needs repair.",
+          "ur": "Mashkool loads ko aik aik karke mains par test karein; jo load mains par bhi bohat current le woh bhi marammat ke mutalik hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "37",
+      "aliases": [
+        "37",
+        "DC component over limit"
+      ],
+      "title": {
+        "en": "DC component over limit (37)",
+        "ur": "DC component limit se bahar (37)"
+      },
+      "meaning": {
+        "en": "The inverter is producing excessive DC offset on the AC output.",
+        "ur": "Inverter AC output par zyada DC offset bana raha hai."
+      },
+      "causes": [
+        {
+          "en": "Output filter capacitor has failed, letting DC through.",
+          "ur": "Output filter capacitor kharab ho gaya hai, jis se DC pass ho raha hai."
+        },
+        {
+          "en": "Inverter voltage feedback has drifted.",
+          "ur": "Inverter ka voltage feedback bigad gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the UPS, disconnect mains and remove the battery before any internal work.",
+          "ur": "Koi bhi andar ka kaam karne se pehle UPS off karein, mains disconnect karein aur battery nikaal dein."
+        },
+        {
+          "en": "Disconnect all sensitive loads first, because DC offset can damage them.",
+          "ur": "Pehle saare sensitive loads disconnect karein, kyun ke DC offset unhe kharab kar sakta hai."
+        },
+        {
+          "en": "Send the unit to the dealer; Kstar documents no field remedy for this code.",
+          "ur": "Unit dealer ko bhejein; Kstar is code ke liye koi field hal nahi deta."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "notes": {
+        "en": "Do not run sensitive electronics on a UPS showing code 37 until the unit is repaired - DC offset harms them.",
+        "ur": "Code 37 dikhane wala UPS jis par sensitive devices chalein, marammat se pehle na chalayein - DC offset unhe nuksan deta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "39",
+      "aliases": [
+        "39",
+        "Mains volt. Abnormal"
+      ],
+      "title": {
+        "en": "Mains voltage abnormal (39)",
+        "ur": "Aane wala voltage ghalat (39)"
+      },
+      "meaning": {
+        "en": "Incoming mains voltage is outside the acceptable window, so the bypass is not allowed.",
+        "ur": "Aane wala mains voltage ijazat ke window se bahar hai, is liye bypass allow nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Local supply voltage is high or low, common during load shedding and peak periods.",
+          "ur": "Local supply voltage zyada ya kam hai, load shedding aur peak hours mein aam baat hai."
+        },
+        {
+          "en": "Bypass input terminal not connected or not tightened.",
+          "ur": "Bypass input terminal nahi lagi ya kassi nahi hui."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure mains voltage with a multimeter against the UPS accepted input window printed on its nameplate.",
+          "ur": "Multimeter se mains voltage check karke UPS ke nameplate par likhe accepted input window se compare karein."
+        },
+        {
+          "en": "Power down and tighten all AC input and bypass terminals, then re-power and read the code again.",
+          "ur": "Power down karke saare AC input aur bypass terminals kass lein, phir power karke code dobara parh lein."
+        },
+        {
+          "en": "If the grid is genuinely out of range, leave the UPS on battery and let it discharge to a clean shutdown.",
+          "ur": "Agar grid waqai range se bahar hai to UPS ko battery par chhor dein aur wo saaf se shutdown hone dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "BPS LED blinking",
+      "confidence": "medium",
+      "notes": {
+        "en": "Very common in Pakistan during feeder problems; the UPS is protecting the load, so this is normally not a repair job.",
+        "ur": "Pakistan mein feeder ki problem par yeh bohat aam hai; UPS load ki hifazat kar raha hai, is liye aam tor par yeh marammat ka kaam nahi hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "40",
+      "aliases": [
+        "40",
+        "Mains freq. abnormal"
+      ],
+      "title": {
+        "en": "Mains frequency abnormal (40)",
+        "ur": "Mains freq. abnormal (40)"
+      },
+      "meaning": {
+        "en": "Incoming mains frequency is outside the acceptable window, so bypass is not allowed.",
+        "ur": "Aane wala mains frequency ijazat ke window se bahar hai, is liye bypass allow nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Utility frequency excursion, or a generator on site running off-nominal speed.",
+          "ur": "Power company ka frequency hat gaya hai, ya site ka generator nominal speed se door chal raha hai."
+        },
+        {
+          "en": "Generator governor not holding 50 Hz under changing load.",
+          "ur": "Generator ka governor badalne wale load par 50 Hz hold nahi kar raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure mains frequency with a multimeter; Pakistan supply is 50 Hz.",
+          "ur": "Multimeter se mains frequency check karein; Pakistan ki supply 50 Hz hai."
+        },
+        {
+          "en": "On a generator, adjust the governor until frequency sits in the UPS accepted window, then re-power.",
+          "ur": "Generator par governor adjust karein jab tak frequency UPS ke accepted window mein na aaye, phir dobara power karein."
+        },
+        {
+          "en": "Check the UPS frequency setting matches the local supply before assuming a fault.",
+          "ur": "Fault samajhne se pehle check karein ke UPS ki frequency setting local supply se match karti hai ya nahi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "medium",
+      "notes": {
+        "en": "isFault is false: this is a grid condition the UPS is reacting to, not a component failure.",
+        "ur": "isFault false hai: yeh grid ki halat hai jis par UPS react kar raha hai, koi component failure nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    },
+    {
+      "code": "41",
+      "aliases": [
+        "41",
+        "Bypass Not Available"
+      ],
+      "title": {
+        "en": "Bypass not available (41)",
+        "ur": "Bypass available nahi (41)"
+      },
+      "meaning": {
+        "en": "The bypass path cannot be used, so the UPS will not hand the load over to raw mains.",
+        "ur": "Bypass path use nahi ho sakta, is liye UPS load ko seedhe mains par nahi de sakta."
+      },
+      "causes": [
+        {
+          "en": "Bypass input voltage outside the window, so the static switch stays open.",
+          "ur": "Bypass input voltage window se bahar hai, is liye static switch khula rehta hai."
+        },
+        {
+          "en": "Bypass input not wired, or the maintenance bypass switch is open.",
+          "ur": "Bypass input wired nahi, ya maintenance bypass switch khula hai."
+        },
+        {
+          "en": "Bypass SCR or its drive has failed.",
+          "ur": "Bypass SCR ya uska drive kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the bypass input voltage with a multimeter at the bypass terminal block.",
+          "ur": "Bypass terminal block par multimeter se bypass input voltage check karein."
+        },
+        {
+          "en": "Confirm the maintenance bypass switch is correctly set for normal operation, not service mode.",
+          "ur": "Confirm karein ke maintenance bypass switch normal operation ke liye theek set hai, service mode mein nahi."
+        },
+        {
+          "en": "If input is good and the code persists, the bypass SCR needs dealer replacement.",
+          "ur": "Agar input theek hai aur phir bhi code bana rahe to bypass SCR dealer se badalna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR UDC9101S One User Manual (Memopower udc one series), section 3-5 Alarm or Fault reference code, p.18",
+        "retrieved": "2026-09-26",
+        "url": "https://www.manualslib.com/manual/1452930/Kstar-Udc9101s-One.html?page=18"
+      }
+    }
+  ]
+}

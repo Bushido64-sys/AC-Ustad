@@ -1,0 +1,433 @@
+{
+  "schemaVersion": 1,
+  "brandId": "cyberpower",
+  "series": {
+    "id": "cyberpower-cp-avr-led",
+    "name": "CP850/1000/1350/1500AVRL (Intelligent UPS, AVR, line-interactive 850-1500VA, 4-LED + fault LEDs, no LCD)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*CP850AVRL*",
+      "*CP1000AVRL*",
+      "*CP1350AVRL*",
+      "*CP1500AVRL*"
+    ],
+    "notes": "SCOPE WARNING: this is the LED-only sibling of SERIES 2. It has NO numeric fault codes whatsoever - the manual's 'DEFINITIONS FOR ILLUMINATED LED INDICATORS' table gives conditions with LED states and alarm sounds. 'UPS Fault' and 'Charger Fault' here are deliberately unnamed by CyberPower, so they must NOT be mapped onto the E-codes of SERIES 2. The manual also documents a Sensitivity Setup using which LED flashes (1 = Low, red = Low, red+yellow = Medium, green+yellow+red = High)."
+  },
+  "codes": [
+    {
+      "code": "Normal",
+      "aliases": [
+        "Normal",
+        "On Line steady"
+      ],
+      "title": {
+        "en": "Normal (On Line steady)",
+        "ur": "Normal - sab kuch theek, mains par steady chalta hai"
+      },
+      "meaning": {
+        "en": "Healthy state: utility power is present, the UPS outlets are supplying clean surge- and spike-protected power, and the battery is charging.",
+        "ur": "Healthy state: mains maujood hai, UPS outlets saaf surge aur spike protected power de rahe hain, aur battery charge ho rahi hai."
+      },
+      "causes": [
+        {
+          "en": "Utility supply is within range and the inverter is passing power through.",
+          "ur": "Mains range ke andar hai aur inverter power pass kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed; leave the unit on mains so the battery stays charged.",
+          "ur": "Koi action zaruri nahi; unit mains par chhor dein taake battery charged rahe."
+        },
+        {
+          "en": "Leave the UPS plugged into an AC outlet at all times, which the manual recommends to maintain optimal battery charge.",
+          "ur": "Manual ke mutabiq optimal battery charge ke liye UPS ko hamesha AC outlet mein plug mein rakhein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "On Line LED steady ON, all other LEDs OFF, no alarm",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1500AVRL User's Manual K01-0000860-00",
+        "retrieved": "2026-09-26",
+        "url": "http://images.salsify.com/image/upload/s--aD1RPedL--/13013e8df8f184a6c81003c002fffefe07c07e92.pdf"
+      }
+    },
+    {
+      "code": "Utility Failure",
+      "aliases": [
+        "Utility Failure",
+        "On Battery, beep twice every 30 seconds"
+      ],
+      "title": {
+        "en": "Utility Failure (on battery, 2 beeps / 30s)",
+        "ur": "Utility Failure (battery par, 2 beeps / 30s)"
+      },
+      "meaning": {
+        "en": "Mains has failed and the UPS is supplying the battery-protected outlets from its internal battery. Not a fault - a normal backup state.",
+        "ur": "Mains chali gayi hai aur UPS battery-protected outlets ko apni internal battery se feed kar raha hai. Fault nahi - normal backup state."
+      },
+      "causes": [
+        {
+          "en": "Utility supply has failed or dropped below the transfer threshold.",
+          "ur": "Mains chali gayi hai ya transfer threshold se neeche gir gayi hai."
+        },
+        {
+          "en": "Input plug is not fully seated, or a supply breaker/isolator is open.",
+          "ur": "Input plug poori tarah nahi lagi, ya supply breaker/isolator khula hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No repair needed; keep working and shut down cleanly if the outage lasts.",
+          "ur": "Koi marammat zaruri nahi; kaam jari rakhein aur outage lamba ho to saaf shutdown karein."
+        },
+        {
+          "en": "Recharge after the outage by leaving the unit plugged in; the manual specifies about 8 hours from total discharge under 100% load.",
+          "ur": "Outage ke baad unit plug mein chhor kar recharge karayein; manual ke mutabiq 100% load par total discharge se aam tor par 8 ghante."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "On Battery LED flashing while beeping, beep twice every 30 seconds",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1500AVRL User's Manual K01-0000860-00",
+        "retrieved": "2026-09-26",
+        "url": "http://images.salsify.com/image/upload/s--aD1RPedL--/13013e8df8f184a6c81003c002fffefe07c07e92.pdf"
+      }
+    },
+    {
+      "code": "Utility Failure (rapid beeping)",
+      "aliases": [
+        "Utility Failure (rapid beeping)",
+        "Low battery warning"
+      ],
+      "title": {
+        "en": "Utility Failure - battery about to run out",
+        "ur": "Utility Failure - battery khatam hone wali hai"
+      },
+      "meaning": {
+        "en": "The UPS is still on battery but the rapid beeping tells you the unit will run out of power shortly. Shut down now.",
+        "ur": "UPS abhi bhi battery par hai magar rapid beeping bata raha hai ke unit jaldi power khatam kar dega. Abhi band karein."
+      },
+      "causes": [
+        {
+          "en": "The outage has lasted long enough to flatten the battery bank.",
+          "ur": "Outage itni der raha ke battery bank flat ho gaya hai."
+        },
+        {
+          "en": "The battery bank is worn out and can no longer deliver a useful charge.",
+          "ur": "Battery bank purani ho chuki hai aur ab useful charge de hi nahi sakti."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shut down your equipment immediately to protect it from abrupt data loss.",
+          "ur": "Apna equipment foran band karein taake achanak data loss na ho."
+        },
+        {
+          "en": "After mains returns, recharge for the full recommended time and record the outage length; repeat short runtimes mean the battery needs replacing.",
+          "ur": "Mains wapas aane ke baad poori recommended recharge time dein aur outage ki lambai likh lein; baar baar choti runtime ka matlab hai ke battery badalni hai."
+        },
+        {
+          "en": "Measure the pack on DC volts to decide: a rested healthy 12V cell reads 12.4-13.0V.",
+          "ur": "Faisla karne ke liye pack DC volt par measure karein: aaram wali healthy 12V cell 12.4-13.0V par hoti hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "On Battery LED flashing while beeping, rapid beeping every 1/2 second",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1500AVRL User's Manual K01-0000860-00",
+        "retrieved": "2026-09-26",
+        "url": "http://images.salsify.com/image/upload/s--aD1RPedL--/13013e8df8f184a6c81003c002fffefe07c07e92.pdf"
+      }
+    },
+    {
+      "code": "Overload Fault",
+      "aliases": [
+        "Overload Fault",
+        "Overload LED ON"
+      ],
+      "title": {
+        "en": "Overload Fault (Overload LED on, constant tone)",
+        "ur": "Overload Fault - Overload LED jal raha, constant tone"
+      },
+      "meaning": {
+        "en": "Connected equipment exceeds the listed capacity of the UPS. Overload LED lights and the alarm goes to a constant tone.",
+        "ur": "Connected equipment UPS ki listed capacity se zyada hai. Overload LED jalta hai aur alarm constant tone par chala jata hai."
+      },
+      "causes": [
+        {
+          "en": "Connected equipment exceeds the listed capacity of the UPS (the manual's stated cause).",
+          "ur": "Connected equipment UPS ki listed capacity se zyada hai (manual ki tay shuda wajah)."
+        },
+        {
+          "en": "A high inrush device (laser printer, shredder, copier, space heater, vacuum, sump pump) was plugged into the battery-backed outlets - the manual explicitly warns against this.",
+          "ur": "Bade inrush wala device (laser printer, shredder, copier, space heater, vacuum, sump pump) battery-backed outlets mein laga - manual iske khilaf saaf warn karta hai."
+        },
+        {
+          "en": "The rear circuit breaker tripped on the overload and is projecting from the case.",
+          "ur": "Rear circuit breaker overload par trip ho kar case se bahar nikal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Follow the manual: turn the UPS off, unplug at least one piece of equipment from battery outlets, wait 10 seconds, reset the circuit breaker by depressing the button, then turn the unit on.",
+          "ur": "Manual ke mutabiq: UPS off karein, battery outlets se kam az kam ek equipment nikaal dein, 10 second rukein, circuit breaker button daba kar reset karein, phir unit on karein."
+        },
+        {
+          "en": "Make sure the circuit breaker knob is fully depressed before restarting, as the manual's BASIC OPERATION step requires.",
+          "ur": "Restart se pehle confirm karein ke circuit breaker knob poori tarah neeche dabba hua hai, jaise manual ka BASIC OPERATION step kehta hai."
+        },
+        {
+          "en": "Never plug a laser printer, paper shredder, copier, space heater, vacuum, sump pump or similar large electrical device into the battery and surge protected outlets - move them to mains.",
+          "ur": "Laser printer, paper shredder, copier, space heater, vacuum, sump pump ya isi tarah ke bade electrical device battery aur surge protected outlets mein kabhi na lagayein - use mains par lein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Overload LED ON, constant tone, On Line and On Battery LEDs alternate",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1500AVRL User's Manual K01-0000860-00",
+        "retrieved": "2026-09-26",
+        "url": "http://images.salsify.com/image/upload/s--aD1RPedL--/13013e8df8f184a6c81003c002fffefe07c07e92.pdf"
+      }
+    },
+    {
+      "code": "Short Fault",
+      "aliases": [
+        "Short Fault",
+        "Short"
+      ],
+      "title": {
+        "en": "Short Fault (constant tone, no overload LED)",
+        "ur": "Short Fault (constant tone, overload LED off)"
+      },
+      "meaning": {
+        "en": "The output is shorted. Distinguished from Overload Fault by the Overload LED staying OFF while the constant tone sounds.",
+        "ur": "Output short ho gaya hai. Overload Fault se moazart yeh ke constant tone ke saath Overload LED OFF rehti hai."
+      },
+      "causes": [
+        {
+          "en": "A connected device has short-circuited or has a failed internal PSU.",
+          "ur": "Koi connected device short ho gaya hai ya us ka internal PSU kharab hai."
+        },
+        {
+          "en": "A power strip or extension lead has a cut or crushed live conductor.",
+          "ur": "Power strip ya extension lead ka live conductor kata ya daba hua hai."
+        },
+        {
+          "en": "Outlet board terminals loose/bridged, or a cable pinched behind the unit.",
+          "ur": "Outlet board ke terminals dheele/bridge hain, ya unit ke peeche koi cable pincha hua hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Follow the manual: unplug at least one piece of equipment from battery outlets and turn the UPS on again.",
+          "ur": "Manual ke mutabiq: battery outlets se kam az kam ek equipment nikaal dein aur UPS dobara on karein."
+        },
+        {
+          "en": "For safe testing, unplug the mains cord and disconnect the internal battery before inspecting any cable or socket.",
+          "ur": "Safe test ke liye mains cord nikaal dein aur koi bhi cable ya socket dekhne se pehle internal battery disconnect karein."
+        },
+        {
+          "en": "Use a multimeter on continuity/ohms from each output socket to neutral; near-zero ohms pinpoints the shorted socket.",
+          "ur": "Multimeter continuity/ohms par har output socket ko neutral se check karein; zero ke qareeb ohms shorted socket ki taraf ishara karta hai."
+        },
+        {
+          "en": "Reconnect devices one at a time; the one that restores Short Fault is the short and must be removed and repaired.",
+          "ur": "Devices ek-ek karke wapas lagayein; jis se Short Fault wapas aaye wohi short hai aur use nikaal kar repair karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "On Line and On Battery LEDs alternate, Overload LED OFF, constant tone",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1500AVRL User's Manual K01-0000860-00",
+        "retrieved": "2026-09-26",
+        "url": "http://images.salsify.com/image/upload/s--aD1RPedL--/13013e8df8f184a6c81003c002fffefe07c07e92.pdf"
+      }
+    },
+    {
+      "code": "UPS Fault",
+      "aliases": [
+        "UPS Fault"
+      ],
+      "title": {
+        "en": "UPS Fault (constant tone, generic)",
+        "ur": "UPS Fault (constant tone, aam)"
+      },
+      "meaning": {
+        "en": "A general internal UPS fault. CyberPower deliberately does not name a cause and its only stated remedy is to contact their support.",
+        "ur": "UPS ka aam internal fault. CyberPower jaan boojh kar wajah nahi batata aur sirf yahi kehta hai ke support se rabta karein."
+      },
+      "causes": [
+        {
+          "en": "Any internal fault that is not specifically a short or an overload - relay, SCR, inverter stage or control board failure.",
+          "ur": "Koi bhi internal fault jo khaas tor par short ya overload na ho - relay, SCR, inverter stage ya control board ki khami."
+        },
+        {
+          "en": "This label is deliberately generic in the manual - it covers any internal fault that is not specifically a short or an overload.",
+          "ur": "Yeh label manual mein jaan boojh kar aam rakha gaya hai - yeh har us internal fault ko cover karta hai jo khaas tor par short ya overload na ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do a full power-off isolation first: turn the UPS off, unplug mains, disconnect the internal battery, and let it sit to discharge.",
+          "ur": "Pehle poora isolation karein: UPS off karein, mains nikaal dein, internal battery disconnect karein, aur discharge hone ke liye ruka rahein."
+        },
+        {
+          "en": "After discharging, reconnect mains and try one power cycle; if the condition clears, log the event and monitor the unit.",
+          "ur": "Discharge ke baad mains wapas lagayein aur aik power cycle karein; agar hal ho jaye to event note karein aur unit par nazar rakhein."
+        },
+        {
+          "en": "If it returns with the battery disconnected, the control or inverter board has failed, not the battery or the load.",
+          "ur": "Agar battery disconnect kar ke bhi wapas aaye to control ya inverter board kharab hai, battery ya load nahi."
+        },
+        {
+          "en": "Contact CyberPower Systems for support, which is the manual's stated and only remedy for this condition.",
+          "ur": "CyberPower Systems se support lein - is condition ke liye yehi manual ka tay shuda aur aakhri hal hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "On Line and On Battery LEDs alternate, Overload LED OFF, constant tone",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1500AVRL User's Manual K01-0000860-00",
+        "retrieved": "2026-09-26",
+        "url": "http://images.salsify.com/image/upload/s--aD1RPedL--/13013e8df8f184a6c81003c002fffefe07c07e92.pdf"
+      }
+    },
+    {
+      "code": "Charger Fault",
+      "aliases": [
+        "Charger Fault"
+      ],
+      "title": {
+        "en": "Charger Fault (beep every 2 seconds)",
+        "ur": "Charger Fault (har 2 second beep)"
+      },
+      "meaning": {
+        "en": "The internal battery charger has failed. Distinguished from other faults by a periodic beep every two seconds instead of a constant tone. Manual remedy: contact CyberPower support.",
+        "ur": "Internal battery charger kharab ho gaya hai. Doosre faults se moazart ke liye isme constant tone ke bajaye har do second beep aata hai. Manual ka hal: CyberPower support se rabta."
+      },
+      "causes": [
+        {
+          "en": "Charger IC, MOSFET or charge-sense circuit has failed.",
+          "ur": "Charger IC, MOSFET ya charge-sense circuit kharab ho gaya hai."
+        },
+        {
+          "en": "Battery bank dead, deep-discharged or of the wrong type, pulling the charger into a fault state.",
+          "ur": "Battery bank dead, gehri tarah discharged ya galat type, charger ko fault state mein kheench raha hai."
+        },
+        {
+          "en": "Internal overheating from a blocked vent or failed fan has destroyed the charger section.",
+          "ur": "Blocked vent ya kharab fan se internal overheating ne charger section tabah kar diya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate before anything else: turn off, unplug mains and disconnect the internal battery quick-connect.",
+          "ur": "Sab se pehle isolate karein: off karein, mains nikaal dein aur internal battery quick-connect disconnect kar dein."
+        },
+        {
+          "en": "Measure the battery pack on DC volts; a rested healthy 12V cell reads 12.4-13.0V and near 0V means the pack is dead.",
+          "ur": "Battery pack DC volt par measure karein; aaram wali healthy 12V cell 12.4-13.0V par hoti hai aur 0V ke qareeb ho to pack dead hai."
+        },
+        {
+          "en": "With mains reconnected, read charge voltage at the battery terminals: 13.5-14V is healthy, near 0V means the charger output has failed.",
+          "ur": "Mains wapas lagane ke baad battery terminals par charge voltage dekhein: 13.5-14V healthy, 0V ke qareeb charger output kharab."
+        },
+        {
+          "en": "Contact CyberPower Systems for support as the manual directs - there is no user-replaceable charger module.",
+          "ur": "Jaise manual kehta hai CyberPower Systems se support lein - charger module ka koi user-replaceable part nahi hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "On Line and On Battery LEDs alternate, Overload LED OFF, beep every 2 seconds",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1500AVRL User's Manual K01-0000860-00",
+        "retrieved": "2026-09-26",
+        "url": "http://images.salsify.com/image/upload/s--aD1RPedL--/13013e8df8f184a6c81003c002fffefe07c07e92.pdf"
+      }
+    },
+    {
+      "code": "Wiring Fault Indicator (red LED)",
+      "aliases": [
+        "Wiring Fault Indicator (red LED)",
+        "WIRING FAULT"
+      ],
+      "title": {
+        "en": "Wiring Fault Indicator (red LED) lit",
+        "ur": "Wiring Fault Indicator (red LED) jal raha hai"
+      },
+      "meaning": {
+        "en": "A separate red LED on the rear warns that the wall outlet wiring is bad - bad ground, missing ground or reversed wiring - and the UPS will not provide surge protection in that state.",
+        "ur": "Peeche ka alag red LED warn karta hai ke wall outlet wiring kharab hai - beech ground, missing ground ya reversed wiring - aur us state mein UPS surge protection nahi dega."
+      },
+      "causes": [
+        {
+          "en": "Wall outlet has no earth/ground connection, or the earth wire is loose.",
+          "ur": "Wall outlet mein earth/ground connection nahi hai, ya earth wire dheeli hai."
+        },
+        {
+          "en": "Live and neutral are reversed in the socket or supply wiring.",
+          "ur": "Socket ya supply wiring mein live aur neutral aapas mein ulat gaye hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect all electrical equipment from the outlet and have an electrician verify the outlet is properly wired, exactly as the manual says.",
+          "ur": "Jaise manual kehta hai, outlet se saari electrical equipment disconnect karein aur electrician se verify karwayein ke outlet theek se wired hai."
+        },
+        {
+          "en": "Unplug the UPS first and do not handle the socket with the UPS connected.",
+          "ur": "Pehle UPS nikaal dein aur UPS lagi hui halat mein socket ko haath na lagayein."
+        },
+        {
+          "en": "Test the outlet with an outlet tester pen or a multimeter for live-neutral-earth continuity; earth should show continuity to building ground.",
+          "ur": "Outlet ko tester pen ya multimeter se live-neutral-earth continuity ke liye check karein; earth ki building ground se continuity honi chahiye."
+        },
+        {
+          "en": "Do not DIY the mains wiring - have a qualified electrician restore proper grounding, and only then re-plug the UPS.",
+          "ur": "Mains wiring khud mat badlein - kaamayeda electrician se proper earth karwayein, aur tabhi UPS dobara lagayein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Rear red WIRING FAULT LED steady on",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "CP1500AVRL User's Manual K01-0000860-00",
+        "retrieved": "2026-09-26",
+        "url": "http://images.salsify.com/image/upload/s--aD1RPedL--/13013e8df8f184a6c81003c002fffefe07c07e92.pdf"
+      }
+    }
+  ]
+}

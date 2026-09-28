@@ -1,0 +1,471 @@
+{
+  "schemaVersion": 1,
+  "brandId": "huawei",
+  "series": {
+    "id": "huawei-sun2000-m2-mg-panel-led",
+    "name": "SUN2000-(100KTL, 110KTL, 115KTL)-M2 / (50K, 75K, 80K, 150K)-MG panel indicator status (PV / grid / comms / alarm-maintenance)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*SUN2000-100KTL-M2*",
+      "*SUN2000-110KTL-M2*",
+      "*SUN2000-115KTL-M2*",
+      "*SUN2000-75KTL-M1*",
+      "*SUN2000-150K-MG0*",
+      "*SUN2000-50K-MG0*",
+      "*SUN2000-75K-MG0*",
+      "*SUN2000-80K-MG0*",
+      "*SUN2000-30K-MC0*",
+      "*SUN2000-40K-MC0*"
+    ],
+    "notes": "C&I/utility panel LED table, distinct from the residential LED tables in SERIES 2 and SERIES 4. M2 and MG share the same 4-indicator scheme; the MG manual wording differs slightly ('is generated' vs 'was generated', and 'Off' has no meaning text for PV). Table key: Blinking Fast = on 0.2s/off 0.2s, Blinking Slowly = on 1s/off 1s. Codes are LED state strings, not numeric alarm IDs. NOTE: neither the MG nor the MC0 manual contains a numeric alarm table - both point to a separate 'Inverter Alarm Reference' document (see NEGATIVE), so this table is the only in-manual diagnostic content for those models."
+  },
+  "codes": [
+    {
+      "code": "PV connection indicator Blinking green fast",
+      "aliases": [
+        "PV connection indicator Blinking green fast",
+        "DC environmental fault indication"
+      ],
+      "title": {
+        "en": "DC environmental fault",
+        "ur": "DC environmental fault (PV side ka masla)"
+      },
+      "meaning": {
+        "en": "PV connection LED blinking fast green, with the alarm/maintenance LED red, indicates an environmental fault on the DC side.",
+        "ur": "PV connection LED fast green blink aur alarm/maintenance LED red ka matlab DC side ka environmental fault hai."
+      },
+      "causes": [
+        {
+          "en": "Environmental fault at the DC side: string voltage, polarity, isolation or AFCI related.",
+          "ur": "DC side ka environmental fault: string voltage, polarity, isolation ya AFCI se related."
+        },
+        {
+          "en": "Combos/whitesmoke, soiling or debris on the module glass reducing string voltage.",
+          "ur": "Module glass par combos/whitesmoke, ghisav ya mairaaj girane se string voltage kam hota hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the app and read the DC-environmental alarm; the manual says to troubleshoot DC faults there as instructed by the app.",
+          "ur": "App kholein ke DC-environmental alarm padhein; manual ke mutabiq wahi app ke mutabiq troubleshooting karein."
+        },
+        {
+          "en": "Measure per-string Voc and current with a clamp meter in full sun and compare the MPPT strings against each other.",
+          "ur": "Poori dhoop mein clamp meter se har string ka Voc aur current measure karke MPPT strings ka aapas comparison karein."
+        },
+        {
+          "en": "Clean modules and check string fuses/combiner before suspecting the inverter; DC environmental faults are usually external.",
+          "ur": "Inverter par shak karne se pehle modules saaf karein aur string fuses/combiner check karein; DC environmental faults aam tor par bahari hote hain."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "PV connection indicator blinking green fast (on 0.2s, off 0.2s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(100KTL, 110KTL, 115KTL)-M2 User Manual, Issue 13 (2024-01-12), Section 2.4.2 Indicator Status",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/productdata/SUN2000-M2/02_Manuals/User%20Manual_SUN2000-100KTL-115KTL-M2_V13_2024-01-12_EN.pdf"
+      }
+    },
+    {
+      "code": "PV connection indicator Steady red",
+      "aliases": [
+        "PV connection indicator Steady red",
+        "DC internal fault indication"
+      ],
+      "title": {
+        "en": "DC internal fault",
+        "ur": "DC internal fault (inverter ki andar ki kharabi)"
+      },
+      "meaning": {
+        "en": "PV connection LED solid red with the alarm/maintenance LED red indicates an internal fault on the DC side of the inverter.",
+        "ur": "PV connection LED solid red aur alarm/maintenance LED red ka matlab inverter ke DC side ka internal fault hai."
+      },
+      "causes": [
+        {
+          "en": "Internal DC-side circuit fault inside the inverter (PV connection LED preferentially shows environmental faults, so solid red means internal).",
+          "ur": "Inverter ke andar DC side ka internal circuit fault (PV connection LED pehle environmental faults dikhata hai, is liye solid red ka matlab internal hai)."
+        },
+        {
+          "en": "The DC switches may already have auto-tripped on that internal fault, so the strings read as dead and the fault is misdiagnosed as a string problem.",
+          "ur": "Us internal fault par DC switches khud trip ho chuke ho sakte hain, is liye strings dead nazar aati hain aur fault string ka masla samajh liya jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the numeric alarm in the app before touching the DC side - this red state is an internal fault, not a wiring fault.",
+          "ur": "DC side chhune se pehle app par numeric alarm padhein - yeh red state internal fault hai, wiring fault nahi."
+        },
+        {
+          "en": "Power off per the manual: AC switch, then all DC switches; this model needs 15 minutes to discharge to a safe voltage.",
+          "ur": "Manual ke mutabiq band karein: AC switch, phir saare DC switches; is model ko safe voltage tak discharge hone mein 15 minute lagte hain."
+        },
+        {
+          "en": "If the internal fault persists after a documented restart, raise a case with the alarm ID - internal DC faults are not field-repairable.",
+          "ur": "Documented restart ke baad bhi internal fault bana rahe to alarm ID ke saath case raise karein - internal DC faults field par repair nahi hote."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "PV connection indicator steady red",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(100KTL, 110KTL, 115KTL)-M2 User Manual, Issue 13 (2024-01-12), Section 2.4.2 Indicator Status",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/productdata/SUN2000-M2/02_Manuals/User%20Manual_SUN2000-100KTL-115KTL-M2_V13_2024-01-12_EN.pdf"
+      }
+    },
+    {
+      "code": "Grid connection indicator Blinking green fast",
+      "aliases": [
+        "Grid connection indicator Blinking green fast",
+        "AC environmental fault indication"
+      ],
+      "title": {
+        "en": "AC environmental fault",
+        "ur": "AC environmental fault (grid ka masla)"
+      },
+      "meaning": {
+        "en": "Grid connection LED blinking fast green with the alarm/maintenance LED red indicates an environmental fault on the AC side.",
+        "ur": "Grid connection LED fast green blink aur alarm/maintenance LED red ka matlab AC side ka environmental fault hai."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage, frequency or phase imbalance outside the allowed window.",
+          "ur": "Grid voltage, frequency ya phase imbalance allowed window se bahar hai."
+        },
+        {
+          "en": "AC switch open or an upstream breaker has tripped.",
+          "ur": "AC switch khula hai ya upstream breaker trip ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage and frequency at the AC terminals before assuming the inverter is faulty.",
+          "ur": "Inverter ko faulty maan lene se pehle AC terminals par grid voltage aur frequency measure karein."
+        },
+        {
+          "en": "Check the AC switch and all upstream breakers, including whether the utility has an outage on that feeder.",
+          "ur": "AC switch aur saare upstream breakers check karein, is baat par bhi ke us feeder par utility ka outage hai ya nahi."
+        },
+        {
+          "en": "Read the numeric grid alarm in the app; persistent trips with healthy readings mean an internal problem.",
+          "ur": "App par numeric grid alarm padhein; readings theek hone par bhi trips bana rahe to masla internal hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Grid connection indicator blinking green fast (on 0.2s, off 0.2s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(100KTL, 110KTL, 115KTL)-M2 User Manual, Issue 13 (2024-01-12), Section 2.4.2 Indicator Status",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/productdata/SUN2000-M2/02_Manuals/User%20Manual_SUN2000-100KTL-115KTL-M2_V13_2024-01-12_EN.pdf"
+      }
+    },
+    {
+      "code": "Grid connection indicator Steady red",
+      "aliases": [
+        "Grid connection indicator Steady red",
+        "AC internal fault indication"
+      ],
+      "title": {
+        "en": "AC internal fault",
+        "ur": "AC internal fault hai"
+      },
+      "meaning": {
+        "en": "Grid connection LED solid red with the alarm/maintenance LED red indicates an internal fault on the AC side of the inverter.",
+        "ur": "Grid connection LED solid red aur alarm/maintenance LED red ka matlab inverter ke AC side ka internal fault hai."
+      },
+      "causes": [
+        {
+          "en": "Internal AC-side circuit fault, e.g. relay, filter or current sensing failure.",
+          "ur": "AC side ka internal circuit fault, maslan relay, filter ya current sensing ki kharabi."
+        },
+        {
+          "en": "Internal fault on the AC side of the solar inverter.",
+          "ur": "Solar inverter ke AC side ka internal fault."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Get the numeric alarm in the app first; this state is not an external grid problem.",
+          "ur": "Pehle app par numeric alarm lein; yeh state external grid ka masla nahi hai."
+        },
+        {
+          "en": "Power off in the documented order and wait the full 15 minutes discharge time before opening the AC compartment.",
+          "ur": "Documented order se band karke AC compartment kholne se pehle poori 15 minute discharge time ka intezaar karein."
+        },
+        {
+          "en": "If it returns, check the AC cable and lugs once for a burned joint, then escalate with the alarm ID.",
+          "ur": "Agar wapas aaye to AC cable aur lugs ko jhilm se kharaab joint ke liye ek baar check karein, phir alarm ID ke saath escalate karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Grid connection indicator steady red",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(100KTL, 110KTL, 115KTL)-M2 User Manual, Issue 13 (2024-01-12), Section 2.4.2 Indicator Status",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/productdata/SUN2000-M2/02_Manuals/User%20Manual_SUN2000-100KTL-115KTL-M2_V13_2024-01-12_EN.pdf"
+      }
+    },
+    {
+      "code": "Alarm/Maintenance indicator Steady red",
+      "aliases": [
+        "Alarm/Maintenance indicator Steady red",
+        "Major alarm"
+      ],
+      "title": {
+        "en": "Major alarm",
+        "ur": "Major alarm (production band)"
+      },
+      "meaning": {
+        "en": "The alarm/maintenance LED is solid red: a major alarm has been generated.",
+        "ur": "Alarm/maintenance LED solid red: major alarm generate hua hai."
+      },
+      "causes": [
+        {
+          "en": "A major alarm has been generated on the inverter.",
+          "ur": "Inverter par major alarm generate hua hai."
+        },
+        {
+          "en": "If the PV or grid connection indicator is blinking green fast, the manual directs you to troubleshoot DC or AC environmental faults in the app.",
+          "ur": "Agar PV ya grid connection indicator fast green blink kar raha hai to manual ke mutabiq app par DC ya AC environmental fault troubleshoot karein."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If the PV/grid LEDs are blinking green fast, follow the app's DC or AC environmental fault guidance.",
+          "ur": "Agar PV/grid LEDs fast green blink kar rahe hain to app ka DC ya AC environmental fault guidance follow karein."
+        },
+        {
+          "en": "If neither PV nor grid LED is blinking green fast, the manual says to replace components or the inverter as instructed by the app.",
+          "ur": "Agar na PV na grid LED fast green blink kar raha hai to manual ke mutabiq app ke instructions ke mutabiq components ya inverter replace karein."
+        },
+        {
+          "en": "Record the alarm ID and Cause ID from the app before any restart, as the app's instructions depend on them.",
+          "ur": "Kisi bhi restart se pehle app se alarm ID aur Cause ID note karein, kyunke app ke instructions inhi par based hote hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Alarm/Maintenance indicator steady red",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(100KTL, 110KTL, 115KTL)-M2 User Manual, Issue 13 (2024-01-12), Section 2.4.2 Indicator Status",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/productdata/SUN2000-M2/02_Manuals/User%20Manual_SUN2000-100KTL-115KTL-M2_V13_2024-01-12_EN.pdf"
+      }
+    },
+    {
+      "code": "Alarm/Maintenance indicator Blinking red fast",
+      "aliases": [
+        "Alarm/Maintenance indicator Blinking red fast",
+        "Minor alarm"
+      ],
+      "title": {
+        "en": "Minor alarm",
+        "ur": "Minor alarm (production kam, unit chal raha hai)"
+      },
+      "meaning": {
+        "en": "The alarm/maintenance LED blinking red fast: a minor alarm has been generated.",
+        "ur": "Alarm/maintenance LED fast red blink: minor alarm generate hua hai."
+      },
+      "causes": [
+        {
+          "en": "A minor alarm has been generated; some components are faulty but the unit can still feed the grid.",
+          "ur": "Minor alarm generate hua hai; kuch components kharab hain lekin unit ab bhi grid mehenay de sakta hai."
+        },
+        {
+          "en": "A component is degraded rather than failed - the manual's own definition of a minor alarm is a component fault that does not stop grid feeding, so the usual culprits are fan, sensor or filter degradation.",
+          "ur": "Component fail nahi balki degrade hua hai - manual ka apna minor alarm definition hai component fault jo grid mehenay nahi rokta, is liye aam culprits fan, sensor ya filter ki degradation hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the alarm in the app; minor alarms are exactly the ones that are safe to fix while the unit keeps running.",
+          "ur": "App par alarm padhein; minor alarms wahi hain jinhein unit chalte hue theek kiya ja sakta hai."
+        },
+        {
+          "en": "Prioritise derating-type causes: fan degradation, high temperature, or partial shading on one MPPT.",
+          "ur": "Derating wali wajuhain pehle dekhein: fan ki degradation, high temperature, ya ek MPPT par partial shading."
+        },
+        {
+          "en": "Do not ignore a minor alarm that keeps returning - it usually precedes a major one on this platform.",
+          "ur": "Baar baar aane wala minor alarm ignore na karein - is platform par aam tor par iske baad major aata hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Alarm/Maintenance indicator blinking red fast (on 0.2s, off 0.2s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(100KTL, 110KTL, 115KTL)-M2 User Manual, Issue 13 (2024-01-12), Section 2.4.2 Indicator Status",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/productdata/SUN2000-M2/02_Manuals/User%20Manual_SUN2000-100KTL-115KTL-M2_V13_2024-01-12_EN.pdf"
+      }
+    },
+    {
+      "code": "Alarm/Maintenance indicator Blinking red slowly",
+      "aliases": [
+        "Alarm/Maintenance indicator Blinking red slowly",
+        "Warning alarm"
+      ],
+      "title": {
+        "en": "Warning alarm",
+        "ur": "Warning alarm (output power kam)"
+      },
+      "meaning": {
+        "en": "The alarm/maintenance LED blinking red slowly: a warning alarm has been generated, usually an output derate.",
+        "ur": "Alarm/maintenance LED slow red blink: warning alarm generate hua hai, aam tor par output derate."
+      },
+      "causes": [
+        {
+          "en": "A warning alarm has been generated; the unit works but output power is reduced by external factors.",
+          "ur": "Warning alarm generate hua hai; unit chalta hai lekin external factors se output power kam hai."
+        },
+        {
+          "en": "Power limit or export limitation enabled by the utility or site settings.",
+          "ur": "Power limit ya export limitation utility ya site settings se on ki gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether an export/power limit has been enabled in the app or by the utility - this is the most common warning cause.",
+          "ur": "Check karein ke app ya utility ne export/power limit on ki hai ya nahi - yeh sab se aam warning ki wajah hai."
+        },
+        {
+          "en": "Compare the actual output against the expected kW for the irradiance; a persistent gap points to soiling or shading.",
+          "ur": "Actual output ko irradiance ke mutabiq expected kW se compare karein; persistent gap par soiling ya shading ka shak karein."
+        },
+        {
+          "en": "Verify the grid code settings match the local requirement; a wrong grid code silently derates the unit.",
+          "ur": "Grid code settings local requirement se match karte hain ya nahi check karein; galat grid code unit ko chupke se derate kar deta hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Alarm/Maintenance indicator blinking red slowly (on 1s, off 1s)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(100KTL, 110KTL, 115KTL)-M2 User Manual, Issue 13 (2024-01-12), Section 2.4.2 Indicator Status",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/productdata/SUN2000-M2/02_Manuals/User%20Manual_SUN2000-100KTL-115KTL-M2_V13_2024-01-12_EN.pdf"
+      }
+    },
+    {
+      "code": "Alarm/Maintenance indicator Blinking green slowly or steady green",
+      "aliases": [
+        "Alarm/Maintenance indicator Blinking green slowly or steady green",
+        "Local maintenance status"
+      ],
+      "title": {
+        "en": "Local maintenance in progress",
+        "ur": "Local maintenance chal raha hai (USB/WLAN/Bluetooth session)"
+      },
+      "meaning": {
+        "en": "Steady green = local maintenance succeeded; blinking green = local maintenance failed; blinking green slowly = in local maintenance or shut down by command.",
+        "ur": "Steady green = local maintenance successful; blinking green = local maintenance fail; slow green blink = local maintenance mein ya command se shutdown."
+      },
+      "causes": [
+        {
+          "en": "A USB flash drive, WLAN module, Bluetooth module or USB data cable is inserted into the USB port for local maintenance.",
+          "ur": "Local maintenance ke liye USB port mein USB flash drive, WLAN module, Bluetooth module ya USB data cable lagaya gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If the LED blinks green slowly, the maintenance session is still running - wait for it to finish before pulling the device.",
+          "ur": "Agar LED slow green blink kare to maintenance session chal raha hai - device nikalne se pehle uska intezaar karein."
+        },
+        {
+          "en": "If the LED blinks green fast, the operation failed; remove the USB device and retry, checking that the upgrade package was not modified.",
+          "ur": "Agar LED fast green blink kare to operation fail hua; USB device nikaal ke dohra karein aur check karein ke upgrade package modify nahi kiya gaya."
+        },
+        {
+          "en": "After removing the device, the indicator shows the true alarm state - the manual warns maintenance state is shown first.",
+          "ur": "Device nikalne ke baad indicator asal alarm state dikhata hai - manual warn karta hai ke pehle maintenance state dikhta hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Alarm/Maintenance indicator steady green, or blinking green fast (failed), or blinking green slowly (in maintenance)",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(100KTL, 110KTL, 115KTL)-M2 User Manual, Issue 13 (2024-01-12), Section 2.4.2 Indicator Status",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/productdata/SUN2000-M2/02_Manuals/User%20Manual_SUN2000-100KTL-115KTL-M2_V13_2024-01-12_EN.pdf"
+      }
+    },
+    {
+      "code": "PV connection indicator Off",
+      "aliases": [
+        "PV connection indicator Off",
+        "Not in grid-tied mode (PV off)"
+      ],
+      "title": {
+        "en": "Disconnected from all PV strings",
+        "ur": "Saare PV strings se disconnect hai"
+      },
+      "meaning": {
+        "en": "PV connection LED off: the inverter is disconnected from all PV strings, or the DC input voltage of all MPPT circuits is below 200 V.",
+        "ur": "PV connection LED off: inverter saare PV strings se disconnect hai, ya saare MPPT circuits ka DC input voltage 200 V se kam hai."
+      },
+      "causes": [
+        {
+          "en": "All DC switches off, or all MPPT inputs below the 200 V minimum.",
+          "ur": "Saare DC switches off, ya saare MPPT inputs 200 V minimum se neeche hain."
+        },
+        {
+          "en": "Night with no PV generation.",
+          "ur": "Raat mein PV generation nahi ho rahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "At night this is normal; re-check after sunrise.",
+          "ur": "Raat mein yeh normal hai; sunrise ke baad dobara check karein."
+        },
+        {
+          "en": "In daylight, measure the DC bus at the PV terminals with a 1100 V-rated meter; below 200 V points to an open string circuit.",
+          "ur": "Din mein 1100 V rated meter se PV terminals par DC bus measure karein; 200 V se kam hai to open string circuit ki nishani hai."
+        },
+        {
+          "en": "Check every DC switch position and string fuse; the MC0 manual notes DC switches can auto-trip on an internal fault.",
+          "ur": "Har DC switch ki position aur string fuse check karein; MC0 manual ke mutabiq DC switches internal fault par khud trip kar sakte hain."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "PV connection indicator off",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SUN2000-(100KTL, 110KTL, 115KTL)-M2 User Manual, Issue 13 (2024-01-12), Section 2.4.2 Indicator Status",
+        "retrieved": "2026-09-26",
+        "url": "https://ske-solar.com/productdata/SUN2000-M2/02_Manuals/User%20Manual_SUN2000-100KTL-115KTL-M2_V13_2024-01-12_EN.pdf"
+      }
+    }
+  ]
+}

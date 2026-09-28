@@ -1,0 +1,509 @@
+{
+  "schemaVersion": 1,
+  "brandId": "eaton",
+  "series": {
+    "id": "eaton-93e",
+    "name": "93E 15-80 kVA (3-phase online UPS, 380/400/415 V)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*93E*"
+    ],
+    "notes": "The 93E 15-80 kVA manual publishes NO numeric A/F fault codes. It documents the MIMIC status-indicator LED table (Table 6-1), the system-event horn behaviour (para 6.2.2) and the typical status messages (Table 6-5). Actual per-alarm text lives in the Events/History log on the LCD and in the network card's alarm log, neither of which is published as a static table in this manual - see NEGATIVE. Do NOT assume the 9E A/F codes apply to a 93E. Same Table 6-1 wording is repeated in the Eaton 93E 300-500 kVA manual (https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/au-products/eaton-93e/93E_300-500kVA_user_manual_EN.pdf), so it is treated as one family here. The same MIMIC panel is used across 93E / 93PM / 93PS, but only 93E is in scope for this KB."
+  },
+  "codes": [
+    {
+      "code": "Normal mode (Green On)",
+      "aliases": [
+        "Normal mode (Green On)",
+        "Green LED On",
+        "Normal indicator"
+      ],
+      "title": {
+        "en": "Normal mode (Green indicator On)",
+        "ur": "Normal mode - Green indicator chala hua"
+      },
+      "meaning": {
+        "en": "The UPS is in Normal mode and the power module is supplying power to the critical load.",
+        "ur": "UPS Normal mode mein hai aur power module critical load ko power de raha hai."
+      },
+      "causes": [
+        {
+          "en": "Normal operation - the inverter/rectifier is carrying the load at full protection.",
+          "ur": "Normal chalta hua - inverter/rectifier poori protection ke saath load carry kar raha hai."
+        },
+        {
+          "en": "The unit was started in High-Efficiency (HE) normal mode, which is the documented default and still lights the Normal indicator.",
+          "ur": "Unit ko High-Efficiency (HE) normal mode mein start kiya gaya, jo manual ka default hai aur phir bhi Normal indicator jalata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed; record the load percent and battery runtime from the MIMIC screen for your log.",
+          "ur": "Koi karam nahi; apni log ke liye MIMIC screen se load percent aur battery runtime likh lein."
+        },
+        {
+          "en": "If you plan maintenance, use the Controls menu to transfer to Bypass first rather than pulling a breaker.",
+          "ur": "Agar maintenance ka plan hai to Controls menu se pehle Bypass par transfer karein, breaker kheenchne ke bajaye."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "Green status indicator solid On",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 93E UPS 15-80 kVA (380/400/415 V) Installation and Operation Manual 614-01975-00",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/au-products/eaton-93e/Eaton_93E_15_80_kVA_Manual_Rev_1_0.pdf"
+      }
+    },
+    {
+      "code": "UPS turned off (Green Off)",
+      "aliases": [
+        "UPS turned off (Green Off)",
+        "Green LED Off"
+      ],
+      "title": {
+        "en": "UPS turned off (Green indicator Off)",
+        "ur": "UPS band hai (Green indicator Off)"
+      },
+      "meaning": {
+        "en": "The UPS is turned off; no status is being reported by the MIMIC panel.",
+        "ur": "UPS band hai; MIMIC panel koi status nahi bata raha."
+      },
+      "causes": [
+        {
+          "en": "The UPS was deliberately shut down by an operator for maintenance or a planned stop.",
+          "ur": "UPS ko operator ne jaanbujhkar maintenance ya planned stop ke liye band kiya."
+        },
+        {
+          "en": "The UPS lost control power and shut itself down after an EPO or REPO event.",
+          "ur": "UPS ka control power chala gaya aur EPO ya REPO event ke baad khud band ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the History log and the REPO/EPO switch positions before assuming the unit is healthy.",
+          "ur": "Unit healthy maan lene se pehle History log aur REPO/EPO switch ki position check karein."
+        },
+        {
+          "en": "If an EPO/REPO event caused it, find the reason before re-energising; the switch must be returned to normal.",
+          "ur": "Agar EPO/REPO event ne kiya hai to dobara energize karne se pehle wajah dhoondein; switch normal par wapas hona chahiye."
+        },
+        {
+          "en": "Restart with the Controls menu (UPS -> LOAD OFF NORMAL), not by forcing the breakers, after normal mode is confirmed safe.",
+          "ur": "Normal mode mehfoof hai ye confirm karne ke baad Controls menu se (UPS -> LOAD OFF NORMAL) restart karein, breakers zabardasti band na karayein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "All four status indicators Off",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 93E UPS 15-80 kVA (380/400/415 V) Installation and Operation Manual 614-01975-00",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/au-products/eaton-93e/Eaton_93E_15_80_kVA_Manual_Rev_1_0.pdf"
+      }
+    },
+    {
+      "code": "Battery mode (Yellow On, Normal stays On)",
+      "aliases": [
+        "Battery mode (Yellow On, Normal stays On)",
+        "Battery mode MIMIC"
+      ],
+      "title": {
+        "en": "Battery mode (Yellow On, Green also On)",
+        "ur": "Battery mode (Yellow On, Green bhi On)"
+      },
+      "meaning": {
+        "en": "The UPS is on battery. Because battery mode is a normal condition, the Normal indicator also stays illuminated - this is not a fault.",
+        "ur": "UPS battery par hai. Kyunke battery mode aam halat hai, Normal indicator bhi jalta rehta hai - ye fault nahi hai."
+      },
+      "causes": [
+        {
+          "en": "The utility supply has failed and the UPS is discharging the battery string.",
+          "ur": "Utility supply chala gaya hai aur UPS battery string discharge kar raha hai."
+        },
+        {
+          "en": "The input is out of tolerance so the UPS has transferred to battery by design.",
+          "ur": "Input tolerance se bahar hai is liye UPS apni taraf se battery par chala gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the battery runtime from the MIMIC screen and plan the load shutdown before time runs out.",
+          "ur": "MIMIC screen se battery runtime parhein aur waqt khatam hone se pehle load shutdown ka plan banayein."
+        },
+        {
+          "en": "Check the upstream input breaker and the utility supply before assuming the battery is at fault.",
+          "ur": "Battery ko fault samajhne se pehle upstream input breaker aur utility supply check karein."
+        },
+        {
+          "en": "On return of mains, confirm the unit returns to Normal mode and the charger restarts, then run a battery test.",
+          "ur": "Mains wapas aane par confirm karein ke unit Normal mode wapas aa gaya aur charger chal pada, phir battery test chalayein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "Yellow Battery indicator On together with Green Normal indicator On; event horn cycles at a half-second rate",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 93E UPS 15-80 kVA (380/400/415 V) Installation and Operation Manual 614-01975-00",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/au-products/eaton-93e/Eaton_93E_15_80_kVA_Manual_Rev_1_0.pdf"
+      }
+    },
+    {
+      "code": "Bypass mode (Yellow On, Green Off)",
+      "aliases": [
+        "Bypass mode (Yellow On, Green Off)",
+        "Bypass mode MIMIC"
+      ],
+      "title": {
+        "en": "Bypass mode (Yellow On, Green Off)",
+        "ur": "Bypass mode - Yellow On, Green band"
+      },
+      "meaning": {
+        "en": "The UPS is in Bypass mode and the critical load is supported by the bypass source, so the load is not protected by the UPS.",
+        "ur": "UPS Bypass mode mein hai aur critical load bypass source se chal raha hai, is liye load UPS se protected nahi hai."
+      },
+      "causes": [
+        {
+          "en": "An operator transferred the UPS to Bypass mode from the Controls menu.",
+          "ur": "Operator ne Controls menu se UPS ko Bypass mode par transfer kiya."
+        },
+        {
+          "en": "A fault or an overload forced the static switch into bypass to keep the load alive.",
+          "ur": "Koi fault ya overload static switch ko bypass par le gaya taake load zinda rahe."
+        },
+        {
+          "en": "The bypass input is out of tolerance, so the unit cannot return to Normal.",
+          "ur": "Bypass input tolerance se bahar hai, is liye unit Normal par wapas nahi aa sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the History log and the Events screen to find the alarm or command that put the unit into bypass.",
+          "ur": "History log aur Events screen parhein taake pata chale kaunsa alarm ya command unit ko bypass par le gaya."
+        },
+        {
+          "en": "Measure the bypass input voltage and frequency at the bypass breaker with a DMM; both must be inside tolerance.",
+          "ur": "DMM se bypass breaker par bypass input voltage aur frequency maarein; dono tolerance ke andar hone chahiye."
+        },
+        {
+          "en": "Transfer the load back to Normal via the Controls menu (Bypass -> Normal) and confirm the Green indicator returns.",
+          "ur": "Controls menu se (Bypass -> Normal) load wapas Normal par transfer karein aur confirm karein ke Green indicator wapas aa gaya."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "Yellow Bypass indicator On, Green Normal indicator not illuminated",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 93E UPS 15-80 kVA (380/400/415 V) Installation and Operation Manual 614-01975-00",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/au-products/eaton-93e/Eaton_93E_15_80_kVA_Manual_Rev_1_0.pdf"
+      }
+    },
+    {
+      "code": "Active alarm (Yellow On + horn)",
+      "aliases": [
+        "Active alarm (Yellow On + horn)",
+        "Alarm indicator On",
+        "Yellow Alarm On"
+      ],
+      "title": {
+        "en": "Active alarm (Yellow On + horn)",
+        "ur": "Active alarm - Yellow On aur horn"
+      },
+      "meaning": {
+        "en": "The UPS has an active alarm needing immediate attention. The LCD shows the highest-priority active alarms and the horn sounds.",
+        "ur": "UPS par active alarm hai jis par foren tawajjo chahiye. LCD sabse pehle priority wale active alarm dikhata hai aur horn bajta hai."
+      },
+      "causes": [
+        {
+          "en": "Any alarm, notice or command category event recorded in the Events log.",
+          "ur": "Events log mein likha gaya koi bhi alarm, notice ya command category event."
+        },
+        {
+          "en": "The Alarm indicator may be illuminated along with the Normal, Battery or Bypass indicator, so read the LCD text too.",
+          "ur": "Alarm indicator Normal, Battery ya Bypass indicator ke saath bhi jal sakta hai, is liye LCD text bhi parhein."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Press any control panel pushbutton once to silence the horn, then read the alarm text in the LCD status area.",
+          "ur": "Horn band karne ke liye control panel ka koi bhi pushbutton aik baar dabayein, phir LCD status area mein alarm text parhein."
+        },
+        {
+          "en": "Go to the Events screen and note every active alarm; the LCD shows the highest priority one only.",
+          "ur": "Events screen par jaayein aur har active alarm likh lein; LCD sirf sabse badi priority wala dikhata hai."
+        },
+        {
+          "en": "Check the History log to see whether the alarm is clearing, recurring or escalating, before deciding on repair.",
+          "ur": "Faisla karne se pehle History log parhein ke alarm clear ho raha hai, dobara aa raha hai ya barh raha hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "Yellow Alarm indicator On (may light together with other indicators) plus audible horn; horn cycles at a half-second rate; press any control panel pushbutton once to silence",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 93E UPS 15-80 kVA (380/400/415 V) Installation and Operation Manual 614-01975-00",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/au-products/eaton-93e/Eaton_93E_15_80_kVA_Manual_Rev_1_0.pdf"
+      }
+    },
+    {
+      "code": "New alarm (Red Flashing)",
+      "aliases": [
+        "New alarm (Red Flashing)",
+        "Red flashing alarm",
+        "Unacknowledged alarm"
+      ],
+      "title": {
+        "en": "New alarm (Red indicator flashing)",
+        "ur": "Naya alarm (Red indicator flashing)"
+      },
+      "meaning": {
+        "en": "There is a new, not-yet-acknowledged UPS alarm condition. The indicator keeps flashing until an operator acknowledges it.",
+        "ur": "UPS mein naya alarm hai jise abhi tak kisi operator ne acknowledge nahi kiya. Indicator tab tak flash karta rahega jab tak koi operator acknowledge na kare."
+      },
+      "causes": [
+        {
+          "en": "A new alarm has just been raised and nobody has yet pressed a pushbutton to acknowledge it.",
+          "ur": "Naya alarm abhi uth hai aur abhi tak kisi ne acknowledge karne ke liye pushbutton nahi dabaya."
+        },
+        {
+          "en": "A previously acknowledged alarm changed category and was re-raised as new.",
+          "ur": "Pehle acknowledge kiya hua alarm category badal kar naye roop mein dobara uth hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Press any control panel pushbutton once to acknowledge the alarm and stop the flashing.",
+          "ur": "Flashing band karne ke liye control panel ka koi bhi pushbutton aik baar dabayein."
+        },
+        {
+          "en": "Immediately read the alarm text and the Events screen, because acknowledging hides the flashing but not the alarm.",
+          "ur": "Foran alarm text aur Events screen parhein, kyunke acknowledge karne par flashing band hoti hai magar alarm nahi."
+        },
+        {
+          "en": "Do not clear the fault list until the root cause is found; clear it only after the repair is verified.",
+          "ur": "Wajah dhoondne tak fault list clear na karein; sirf tabdeeli verify hone ke baad clear karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "Red Alarm indicator flashing continuously until acknowledged by pressing any control panel pushbutton once",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 93E UPS 15-80 kVA (380/400/415 V) Installation and Operation Manual 614-01975-00",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/au-products/eaton-93e/Eaton_93E_15_80_kVA_Manual_Rev_1_0.pdf"
+      }
+    },
+    {
+      "code": "Alarm: Output AC Under Voltage",
+      "aliases": [
+        "Alarm: Output AC Under Voltage",
+        "Output AC Under Voltage"
+      ],
+      "title": {
+        "en": "Output AC under voltage (MIMIC alarm text)",
+        "ur": "Output AC kam hai (MIMIC alarm text)"
+      },
+      "meaning": {
+        "en": "Example MIMIC alarm text published in the manual: the output AC voltage is below the acceptable window, so the load is at risk.",
+        "ur": "Manual mein diya gaya MIMIC alarm text ka misaal: output AC voltage ijazat se neeche hai, is liye load par khatra hai."
+      },
+      "causes": [
+        {
+          "en": "The output voltage has dropped below the transfer window, e.g. after a load step or a bypass supply dip.",
+          "ur": "Output voltage transfer window se neeche gir gaya hai, maslan load step ya bypass supply dip ke baad."
+        },
+        {
+          "en": "The critical load is drawing more current than the inverter can sustain at that voltage.",
+          "ur": "Critical load itna current kheench raha hai jitna inverter us voltage par bhar nahi sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Acknowledge the alarm by pressing any control panel pushbutton once, then leave the load running if it is stable.",
+          "ur": "Control panel ka koi bhi pushbutton aik baar dabayein taake alarm acknowledge ho, phir load chalta rahe dein agar stable hai."
+        },
+        {
+          "en": "Measure the output voltage and frequency at the output breaker with a DMM and compare with the LCD readings.",
+          "ur": "DMM se output breaker par output voltage aur frequency maarein aur LCD readings se tulna karein."
+        },
+        {
+          "en": "Measure the output current per phase with a clamp meter; if it is at the limit, reduce non-critical load.",
+          "ur": "Clamp meter se har phase ka output current maarein; agar limit par ho to non-critical load kam kar dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "Alarm text appears in the LCD status area (top line blinks while scrolling); Red Alarm indicator flashes until acknowledged",
+      "confidence": "medium",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 93E UPS 15-80 kVA (380/400/415 V) Installation and Operation Manual 614-01975-00",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/au-products/eaton-93e/Eaton_93E_15_80_kVA_Manual_Rev_1_0.pdf"
+      }
+    },
+    {
+      "code": "UPS: Load Off / Bypass / Online, HE",
+      "aliases": [
+        "UPS: Load Off / Bypass / Online, HE",
+        "Status: Load Off",
+        "Status: Bypass",
+        "Status: Online, HE"
+      ],
+      "title": {
+        "en": "UPS status: Load Off / Bypass / Online, HE",
+        "ur": "UPS ki halat: Load Off / Bypass / Online HE"
+      },
+      "meaning": {
+        "en": "The System Control screen's UPS status line. 'Load Off' de-energises the load, 'Bypass' feeds the load from bypass, 'Online, HE' means double conversion in high-efficiency mode.",
+        "ur": "System Control screen ka UPS status line. 'Load Off' load ko de-energize kar deta hai, 'Bypass' load ko bypass se chalata hai, 'Online, HE' ka matlab high-efficiency mode mein double conversion."
+      },
+      "causes": [
+        {
+          "en": "Normal operating states selected from the System Control screen, not faults.",
+          "ur": "System Control screen se chune gaye normal operating states, faults nahi."
+        },
+        {
+          "en": "An operator ran a command such as LOAD OFF NORMAL, Bypass Mode or High-Efficiency (HE) Mode, which set the status text.",
+          "ur": "Operator ne LOAD OFF NORMAL, Bypass Mode ya High-Efficiency (HE) Mode jaisa command chalaya, jis se ye status text set hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Use the arrow pushbutton and RETURN to highlight and execute the command, entering the Level 1 password when prompted (default 1111).",
+          "ur": "Command ko highlight aur execute karne ke liye arrow pushbutton aur RETURN use karein, prompt aane par Level 1 password dein (default 1111)."
+        },
+        {
+          "en": "Confirm the result on the status indicators: Green alone for Online, Yellow for Bypass, all Off for Load Off.",
+          "ur": "Status indicators se confirm karein: sirf Green Online ke liye, Yellow Bypass ke liye, sab Off Load Off ke liye."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 93E UPS 15-80 kVA (380/400/415 V) Installation and Operation Manual 614-01975-00",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/au-products/eaton-93e/Eaton_93E_15_80_kVA_Manual_Rev_1_0.pdf"
+      }
+    },
+    {
+      "code": "Bypass: Off / On / Available",
+      "aliases": [
+        "Bypass: Off / On / Available",
+        "Bypass Off",
+        "Bypass On",
+        "Bypass Available"
+      ],
+      "title": {
+        "en": "Bypass status: Off / On / Available",
+        "ur": "Bypass ki halat: Off / On / Available"
+      },
+      "meaning": {
+        "en": "Bypass breaker/contact state shown on the System Control screen. 'Available' means the bypass path is ready to transfer to.",
+        "ur": "System Control screen par bypass breaker/contact ki halat. 'Available' ka matlab hai ke bypass ka raasta transfer ke liye tayyar hai."
+      },
+      "causes": [
+        {
+          "en": "Normal bypass path state; not a fault condition.",
+          "ur": "Bypass ka normal path state; ye fault condition nahi hai."
+        },
+        {
+          "en": "The bypass feeder breaker was left open or closed by a previous maintenance job and has not been returned.",
+          "ur": "Bypass feeder breaker pichli maintenance mein chhoda ya band kiya gaya tha aur wapas nahi kiya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If the unit will not transfer to Normal, verify the bypass input voltage/frequency is within the manual's tolerance at the bypass breaker.",
+          "ur": "Agar unit Normal par transfer nahi hota to check karein ke bypass breaker par bypass input voltage/frequency manual ki tolerance mein hai."
+        },
+        {
+          "en": "Read the alarm text before attempting a forced transfer; do not close the bypass breaker on a live UPS.",
+          "ur": "Zabardasti transfer karne se pehle alarm text parhein; live UPS par bypass breaker band na karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 93E UPS 15-80 kVA (380/400/415 V) Installation and Operation Manual 614-01975-00",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/au-products/eaton-93e/Eaton_93E_15_80_kVA_Manual_Rev_1_0.pdf"
+      }
+    },
+    {
+      "code": "Charger: Charger Resting / Charger",
+      "aliases": [
+        "Charger: Charger Resting / Charger",
+        "Charger resting",
+        "Charger running"
+      ],
+      "title": {
+        "en": "Charger state: Resting / Charger",
+        "ur": "Charger halat: Resting / Charger"
+      },
+      "meaning": {
+        "en": "Battery charger state on the System Control screen. 'Charger Resting' means the charger is off (field for rest), 'Charger' means it is charging.",
+        "ur": "System Control screen par battery charger ki halat. 'Charger Resting' ka matlab charger band hai, 'Charger' ka matlab woh charge kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "The charger was switched off deliberately, or the UPS is on battery so charging is not possible.",
+          "ur": "Charger jaanbujhkar band kiya gaya, ya UPS battery par hai is liye charging mumkin nahi."
+        },
+        {
+          "en": "The charger has been switched off automatically because the battery is already at its float voltage.",
+          "ur": "Battery pehle se hi float voltage par hai, is liye charger khud ba khud band kar diya gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Use Battery Control Commands > Charger to turn the charger on and Resting to turn it off, then confirm the state on screen.",
+          "ur": "Charger on karne ke liye Battery Control Commands > Charger aur off karne ke liye Resting use karein, phir screen par state confirm karein."
+        },
+        {
+          "en": "If the charger will not start, check the charger input supply and read the active alarm text on the Events screen.",
+          "ur": "Agar charger start na ho to charger input supply check karein aur Events screen par active alarm text parhein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 93E UPS 15-80 kVA (380/400/415 V) Installation and Operation Manual 614-01975-00",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/au-products/eaton-93e/Eaton_93E_15_80_kVA_Manual_Rev_1_0.pdf"
+      }
+    }
+  ]
+}

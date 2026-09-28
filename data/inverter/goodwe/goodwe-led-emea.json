@@ -1,0 +1,260 @@
+{
+  "schemaVersion": 1,
+  "brandId": "goodwe",
+  "series": {
+    "id": "goodwe-led-emea",
+    "name": "EMEA ESS LED indicator legend (ET / ET PLUS+ / BT)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*ET*",
+      "*BT*",
+      "GW*ET*",
+      "GW*BT*"
+    ],
+    "notes": "LED indicator legend, not a fault table - every row is isFault: false unless noted. ET / ET PLUS+ / BT Series only; the ES/SBP G2 legend is different and lives in SERIES 11. Rows are scoped to the physical LED, so the same blink code always means the same thing on this line, unlike the numeric code schemes."
+  },
+  "codes": [
+    {
+      "code": "BATTERY BLINK 2",
+      "aliases": [
+        "BATTERY BLINK 2"
+      ],
+      "title": {
+        "en": "BATTERY LED blink 2 - battery low / SOC low",
+        "ur": "BATTERY LED blink 2 - battery / SOC kam"
+      },
+      "meaning": {
+        "en": "The battery state of charge has dropped to a low level; the pack is close to its discharge cut-off.",
+        "ur": "Battery ka state of charge low level par gir gaya hai, pack apni discharge cut-off ke qareeb hai."
+      },
+      "causes": [
+        {
+          "en": "Normal battery discharge with insufficient PV recharge.",
+          "ur": "PV recharge kam hone ki wajah se normal battery discharge."
+        },
+        {
+          "en": "Back-up load drawing more than the array can supply.",
+          "ur": "Back-up load array ke supply se zyada kha raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the live SOC in the app and check PV production is running normally.",
+          "ur": "App se live SOC parhein aur check karein ke PV production theek chal rahi hai ya nahi."
+        },
+        {
+          "en": "Confirm the SOC lower limit and I-DOD are set as intended before the battery stops.",
+          "ur": "Battery rukne se pehle confirm karein ke SOC lower limit aur I-DOD aap ke mutabiq set hain."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "BATTERY LED double blink",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 03 Troubleshooting of the System (Via LED indicators on the Inverter)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "COM BLINK 1",
+      "aliases": [
+        "COM BLINK 1"
+      ],
+      "title": {
+        "en": "COM LED blink 1 - BMS comms fail, meter OK",
+        "ur": "COM LED blink 1 - BMS comms fail, meter theek hai"
+      },
+      "meaning": {
+        "en": "The inverter has lost communication with the battery BMS while the smart meter communication is still working.",
+        "ur": "Inverter ne battery BMS se communication kho di hai jabke smart meter ki communication abhi theek chal rahi hai."
+      },
+      "causes": [
+        {
+          "en": "BMS CAN cable loose, wrong pinout or damaged.",
+          "ur": "BMS CAN cable dhili, ghalat pinout wali ya damaged hai."
+        },
+        {
+          "en": "Battery switched off or BMS not powered.",
+          "ur": "Battery off hai ya BMS ko power nahi mil rahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the battery is switched on and its status LEDs are healthy.",
+          "ur": "Confirm karein ke battery on hai aur us ke status LEDs healthy hain."
+        },
+        {
+          "en": "With power off, re-seat both ends of the BMS CAN cable and verify the pinout.",
+          "ur": "Power off karke BMS CAN cable ke dono ends dobara lagayein aur pinout verify karein."
+        },
+        {
+          "en": "Connect to SolarGo and read the BMS status; if it says NG, correct the wiring and settings.",
+          "ur": "SolarGo se connect karke BMS status parhein, agar NG aaye to wiring aur settings theek karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "COM LED single blink",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 03 Troubleshooting of the System (Via LED indicators on the Inverter)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "COM BLINK 2",
+      "aliases": [
+        "COM BLINK 2"
+      ],
+      "title": {
+        "en": "COM LED blink 2 - BMS OK, meter comms fail",
+        "ur": "COM LED blink 2 - BMS theek hai, meter comms fail"
+      },
+      "meaning": {
+        "en": "Battery BMS communication is fine but the smart meter communication has failed, so export limiting and load detection are blind.",
+        "ur": "Battery BMS communication theek hai lekin smart meter ki communication fail ho gayi hai, is liye export limiting aur load detection kaam nahi kar rahe."
+      },
+      "causes": [
+        {
+          "en": "Meter communication cable loose, damaged or wrong pinout.",
+          "ur": "Meter communication cable dhili, damaged ya ghalat pinout wali hai."
+        },
+        {
+          "en": "No supply to the meter, or meter failed.",
+          "ur": "Meter ko supply nahi ya meter kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the meter has supply on the same phase as the inverter and its COM LED is blinking.",
+          "ur": "Check karein ke meter ko supply usi phase par hai jis par inverter hai aur us ka COM LED blink kar raha hai."
+        },
+        {
+          "en": "Replace the meter cable with a correctly pinned-out cable, ensuring it uses only the required 2 pins.",
+          "ur": "Meter cable sahi pinout wale se replace karein, aur ye check karein ke sirf required 2 pins use ho rahe hain."
+        },
+        {
+          "en": "Run the meter test in the app once communication is restored.",
+          "ur": "Communication aane ke baad app mein meter test chalayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "COM LED double blink",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 03 Troubleshooting of the System (Via LED indicators on the Inverter)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "COM OFF",
+      "aliases": [
+        "COM OFF"
+      ],
+      "title": {
+        "en": "COM LED off - BMS and meter comms both fail",
+        "ur": "COM LED off - BMS aur meter dono comms fail"
+      },
+      "meaning": {
+        "en": "Neither the battery BMS nor the smart meter is communicating with the inverter.",
+        "ur": "Battery BMS aur smart meter koi bhi inverter se communicate nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "Both the BMS cable and the meter cable are disconnected or damaged.",
+          "ur": "BMS cable aur meter cable dono disconnect ya damaged hain."
+        },
+        {
+          "en": "Both devices have no supply.",
+          "ur": "Dono devices ko supply nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check supply at the meter and at the battery, then re-seat both communication cables.",
+          "ur": "Meter aur battery par supply check karein, phir dono communication cables dobara lagayein."
+        },
+        {
+          "en": "Unplug the BMS cable; if meter communication returns, the two are sharing pins incorrectly.",
+          "ur": "BMS cable nikaal dein, agar meter communication aa jaye to dono galat pins share kar rahe hain."
+        },
+        {
+          "en": "Reboot the battery, then the inverter, and confirm the COM LED settles to a known state.",
+          "ur": "Battery phir inverter reboot karein aur confirm karein ke COM LED kisi jaan boojh wali state par aa jata hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "COM LED off",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 03 Troubleshooting of the System (Via LED indicators on the Inverter)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    },
+    {
+      "code": "FAULT BLINK 1",
+      "aliases": [
+        "FAULT BLINK 1"
+      ],
+      "title": {
+        "en": "FAULT LED blink 1 - back-up overload",
+        "ur": "FAULT LED blink 1 - back-up par load zyada"
+      },
+      "meaning": {
+        "en": "The back-up output is overloaded; the LED blink is GoodWe's own direct instruction to reduce the load.",
+        "ur": "Back-up output overloaded hai, ye LED blink GoodWe ka apna direct instruction hai ke load kam karein."
+      },
+      "causes": [
+        {
+          "en": "Total back-up load above the inverter's back-up rating.",
+          "ur": "Back-up ka total load inverter ki back-up rating se zyada hai."
+        },
+        {
+          "en": "Inductive load starting spike on the back-up circuit.",
+          "ur": "Back-up circuit par inductive load ka starting spike."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the largest back-up loads until the LED stops blinking.",
+          "ur": "Sabse bade back-up loads band karein jab tak LED blink karna na chhore."
+        },
+        {
+          "en": "Sum the running watts of connected appliances and compare with the back-up rated power.",
+          "ur": "Lagaye hue appliances ka chalne wala wattage jama kar ke back-up rated power se compare karein."
+        },
+        {
+          "en": "Give motors and pumps a soft starter, or move them to the grid side.",
+          "ur": "Motors aur pumps ko soft starter dein ya grid side shift karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "FAULT LED single blink",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ESS Troubleshooting Guide EMEA EN, section 03 Troubleshooting of the System (Via LED indicators on the Inverter)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.pl/goodwe_download/GW_ESS%20Troubleshooting%20Guide-EMEA_EN.pdf"
+      }
+    }
+  ]
+}

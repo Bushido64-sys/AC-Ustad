@@ -1,0 +1,1551 @@
+{
+  "schemaVersion": 1,
+  "brandId": "inverex",
+  "series": {
+    "id": "nitrox-hybrid",
+    "name": "NitroX Hybrid SP-5G class (3.6–12KW) — confirmed F-set",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*HYB*",
+      "*SP-5G*",
+      "*Nitrox*"
+    ],
+    "notes": "Inverex Nitrox hybrid (Deye SUN SG04/SG05 LP3 OEM twin). Confirmed rows from SolarNevs PK chart + Deye hybrid manuals + partial Scribd PK sheet. Unknown whether remaining F02–F06 style string codes exist on Inverex hybrid (Deye chart sparse) — absence ≠ no such code. PLATFORM-SPLIT: F13/F56/F58 meanings differ from 3Ph string — always identify hybrid vs string first. F45/F46 low confidence (Scribd snippet vs OEM conflict). Yukon II / Veyron II manuals have Fault Reference sections but rows not extracted — open gaps."
+  },
+  "codes": [
+    {
+      "code": "F01",
+      "aliases": [
+        "F01"
+      ],
+      "title": {
+        "en": "PV input polarity reversed",
+        "ur": "PV input polarity ulti"
+      },
+      "meaning": {
+        "en": "PV DC input polarity reversed.",
+        "ur": "PV DC input polarity ulti."
+      },
+      "causes": [
+        {
+          "en": "PV +/− swapped",
+          "ur": "PV +/− ulte"
+        },
+        {
+          "en": "PV string wired reverse at terminals",
+          "ur": "PV string terminals par ulti lagi"
+        },
+        {
+          "en": "Service wiring mistake on DC side",
+          "ur": "Service ke waqt DC wiring mein ghalati"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Correct polarity; isolate first",
+          "ur": "Polarity theek karein; pehle isolate"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "distributor_page",
+        "title": "SolarNevs — Inverex Nitrox hybrid fault chart (PK-focused)",
+        "url": "https://solarnevs.com/errors/inverex",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F02",
+      "aliases": [
+        "F02"
+      ],
+      "title": {
+        "en": "DC insulation failure",
+        "ur": "DC insulation mein kharabi"
+      },
+      "meaning": {
+        "en": "DC insulation resistance below limit.",
+        "ur": "DC insulation resistance limit se neeche."
+      },
+      "causes": [
+        {
+          "en": "Moisture/damaged cable",
+          "ur": "Moisture/kharab cable"
+        },
+        {
+          "en": "Moisture inside DC cable or connector",
+          "ur": "DC cable ya connector ke andar nami"
+        },
+        {
+          "en": "Cracked or aged PV cable insulation",
+          "ur": "PV cable ki insulation phati ya purani ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "forum",
+        "title": "Scribd — Inverex Inverter Fault Codes List (PK cheat sheet, partial snippets)",
+        "url": "https://www.scribd.com/document/718750700",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F24"
+      ]
+    },
+    {
+      "code": "F03",
+      "aliases": [
+        "F03"
+      ],
+      "title": {
+        "en": "GFDI failure",
+        "ur": "GFDI mein kharabi"
+      },
+      "meaning": {
+        "en": "Ground-fault detector failure on hybrid platform.",
+        "ur": "Hybrid platform par ground-fault detector fail."
+      },
+      "causes": [
+        {
+          "en": "GFDI module",
+          "ur": "GFDI module kharab ho jana"
+        },
+        {
+          "en": "GFDI module internal failure",
+          "ur": "GFDI module ke andar hi kharabi"
+        },
+        {
+          "en": "Loose GFDI wiring or connector",
+          "ur": "GFDI ki wiring ya connector dhila"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "forum",
+        "title": "Scribd — Inverex Inverter Fault Codes List (PK cheat sheet, partial snippets)",
+        "url": "https://www.scribd.com/document/718750700",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F08"
+      ]
+    },
+    {
+      "code": "F07",
+      "aliases": [
+        "F07"
+      ],
+      "title": {
+        "en": "DC start failure — BUS voltage will not build",
+        "ur": "DC start fail — BUS voltage nahi banti"
+      },
+      "meaning": {
+        "en": "Inverter cannot build DC bus voltage at start.",
+        "ur": "Start par inverter DC bus voltage nahi bana pa raha."
+      },
+      "causes": [
+        {
+          "en": "Open DC breaker/string",
+          "ur": "DC breaker/string khula"
+        },
+        {
+          "en": "Low PV/battery",
+          "ur": "PV/battery kam"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F56"
+      ]
+    },
+    {
+      "code": "F08",
+      "aliases": [
+        "F08"
+      ],
+      "title": {
+        "en": "GFDI relay failure",
+        "ur": "GFDI relay ki kharabi"
+      },
+      "meaning": {
+        "en": "Earth-fault protection relay path failed.",
+        "ur": "Earth-fault protection relay path fail."
+      },
+      "causes": [
+        {
+          "en": "GFDI relay/module",
+          "ur": "GFDI relay ya module kharab"
+        },
+        {
+          "en": "Relay coil open or contacts burnt",
+          "ur": "Relay coil khula ho ya contacts jal gaye"
+        },
+        {
+          "en": "Loose earth-path control wiring",
+          "ur": "Earth path ki control wiring dhili"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "distributor_page",
+        "title": "SolarNevs — Inverex Nitrox hybrid fault chart (PK-focused)",
+        "url": "https://solarnevs.com/errors/inverex",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F03",
+        "F04"
+      ]
+    },
+    {
+      "code": "F13",
+      "aliases": [
+        "F13"
+      ],
+      "title": {
+        "en": "Working-mode change (grid/frequency/battery mode)",
+        "ur": "Working-mode change (grid/frequency/battery)"
+      },
+      "meaning": {
+        "en": "Mode transition raised F13 — usually self-clears after the mode change settles (string table calls F13 Reserved — platform-split).",
+        "ur": "Mode transition ne F13 raise ki — aam tor par mode badalne ke baad khud clear ho jata hai (string table mein F13 Reserved — platform-split)."
+      },
+      "causes": [
+        {
+          "en": "Grid type/frequency setting changed",
+          "ur": "Grid type/frequency setting badli"
+        },
+        {
+          "en": "Battery mode change",
+          "ur": "Battery mode badalna"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "If persists after stable mode: power cycle; if still → technician",
+          "ur": "Stable mode ke baad rahe to power cycle; phir bhi rahe to technician"
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "distributor_page",
+        "title": "SolarNevs — Inverex Nitrox hybrid fault chart (PK-focused)",
+        "url": "https://solarnevs.com/errors/inverex",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F35"
+      ],
+      "notes": {
+        "en": "Do NOT apply this meaning to a 3Ph Nitrox string unit (there F13 is Reserved).",
+        "ur": "Is meaning ko 3Ph Nitrox string unit par na lagayein (wahan F13 Reserved hai)."
+      }
+    },
+    {
+      "code": "F15",
+      "aliases": [
+        "F15"
+      ],
+      "title": {
+        "en": "AC over-current (software) — backup load over range",
+        "ur": "AC over-current (software) — backup load range se bahar"
+      },
+      "meaning": {
+        "en": "Software AC over-current on backup/load side.",
+        "ur": "Backup/load side par software AC over-current."
+      },
+      "causes": [
+        {
+          "en": "Too much backup load",
+          "ur": "Backup load zyada"
+        },
+        {
+          "en": "Heavy motor or AC start on backup",
+          "ur": "Backup par motor/AC ka bhaari start"
+        },
+        {
+          "en": "Backup current limit set too low",
+          "ur": "Backup current limit bohat kam set hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "Shed load under rating",
+          "ur": "Rating ke under load utarein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F34"
+      ]
+    },
+    {
+      "code": "F16",
+      "aliases": [
+        "F16"
+      ],
+      "title": {
+        "en": "AC leakage / residual current fault",
+        "ur": "AC leakage ya residual current ka masla"
+      },
+      "meaning": {
+        "en": "Residual current fault on AC side.",
+        "ur": "AC side par residual current fault."
+      },
+      "causes": [
+        {
+          "en": "Load earth leakage",
+          "ur": "Load ki taraf earth leakage"
+        },
+        {
+          "en": "Wet or damaged load appliance",
+          "ur": "Load ka appliance gila ya kharab"
+        },
+        {
+          "en": "Moisture in AC wiring or earth path",
+          "ur": "AC wiring ya earth path mein nami"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F23"
+      ]
+    },
+    {
+      "code": "F18",
+      "aliases": [
+        "F18"
+      ],
+      "title": {
+        "en": "AC over-current (hardware)",
+        "ur": "AC over-current — hardware trip"
+      },
+      "meaning": {
+        "en": "Hardware AC over-current trip.",
+        "ur": "Hardware ne AC current zyada hone par trip diya."
+      },
+      "causes": [
+        {
+          "en": "Short/heavy load",
+          "ur": "Short circuit ya bohat zyada load"
+        },
+        {
+          "en": "Short circuit on AC output",
+          "ur": "AC output par short circuit"
+        },
+        {
+          "en": "Current sensor or PCB sense error",
+          "ur": "Current sensor ya PCB mein ghalati"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F15"
+      ]
+    },
+    {
+      "code": "F20",
+      "aliases": [
+        "F20"
+      ],
+      "title": {
+        "en": "DC over-current (hardware) — off-grid inrush",
+        "ur": "DC over-current (hardware) — off-grid par inrush"
+      },
+      "meaning": {
+        "en": "Hardware DC over-current; motor/pump inrush on off-grid can trip it.",
+        "ur": "Hardware DC over-current; off-grid par motor/pump inrush trip kara sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Motor/pump start surge",
+          "ur": "Motor/pump start ka surge"
+        },
+        {
+          "en": "Battery could not supply the surge",
+          "ur": "Battery surge provide nahi kar saki"
+        },
+        {
+          "en": "DC link or CT sensing fault",
+          "ur": "DC link ya CT sensing mein kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Reduce motor start load / VFD soft-start",
+          "ur": "Motor start load kam karein / VFD soft-start"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "distributor_page",
+        "title": "SolarNevs — Inverex Nitrox hybrid fault chart (PK-focused)",
+        "url": "https://solarnevs.com/errors/inverex",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F21"
+      ]
+    },
+    {
+      "code": "F21",
+      "aliases": [
+        "F21"
+      ],
+      "title": {
+        "en": "Internal BUS over-current (PV/battery current setting)",
+        "ur": "Andaruni BUS over-current — PV/battery current setting ki wajah"
+      },
+      "meaning": {
+        "en": "BUS over-current related to PV/battery current limits.",
+        "ur": "PV/battery current limits se judi BUS over-current."
+      },
+      "causes": [
+        {
+          "en": "Current limit setting too low/high",
+          "ur": "Current limit setting ghalat"
+        },
+        {
+          "en": "Actual PV/battery current above the limit",
+          "ur": "Asal PV/battery current limit se zyada"
+        },
+        {
+          "en": "PV/battery wiring or connector fault",
+          "ur": "PV/battery wiring ya connector mein kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the unit OFF and turn the DC and AC breakers off; wait for the DC bus to discharge before touching any terminal",
+          "ur": "Unit OFF karein aur DC/AC breakers band karein; kisi terminal ko chhoone se pehle DC bus ka discharge hone dein"
+        },
+        {
+          "en": "Check the PV/battery current limit values in settings against the battery and array rating and put them back to the recommended values if they were changed",
+          "ur": "Setting mein PV/battery current limit ko battery aur array rating se milayein; agar badli gayi ho to recommended values par wapas rakhein"
+        },
+        {
+          "en": "If the limits are correct but the trip returns, have a technician check the DC wiring, current sensor and power PCB for the real over-current",
+          "ur": "Limit theek hone par bhi trip wapas aaye to technician se DC wiring, current sensor aur power PCB check karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F20"
+      ]
+    },
+    {
+      "code": "F22",
+      "aliases": [
+        "F22"
+      ],
+      "title": {
+        "en": "Remote emergency stop (DRM/remote-off)",
+        "ur": "Remote se emergency stop (DRM/remote-off)"
+      },
+      "meaning": {
+        "en": "Unit stopped by remote/DRM demand-response command.",
+        "ur": "Unit ne remote/DRM command se stop kiya."
+      },
+      "causes": [
+        {
+          "en": "Remote-off / DRM0 command",
+          "ur": "Remote-off ya DRM0 command"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "Clear remote-off / app command",
+          "ur": "Remote-off / app command hatayein"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F62"
+      ]
+    },
+    {
+      "code": "F23",
+      "aliases": [
+        "F23"
+      ],
+      "title": {
+        "en": "Leakage transient over-current (GFCI)",
+        "ur": "Leakage ki wajah se transient over-current (GFCI)"
+      },
+      "meaning": {
+        "en": "Transient leakage above GFCI threshold.",
+        "ur": "GFCI threshold se upar transient leakage."
+      },
+      "causes": [
+        {
+          "en": "Momentary leakage",
+          "ur": "Lamha bhar ki leakage"
+        },
+        {
+          "en": "Moisture or dust on PV connectors",
+          "ur": "PV connectors par nami ya dhool"
+        },
+        {
+          "en": "Capacitive inrush when AC load starts",
+          "ur": "AC load start hone par capacitive inrush"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F16"
+      ]
+    },
+    {
+      "code": "F24",
+      "aliases": [
+        "F24"
+      ],
+      "title": {
+        "en": "PV insulation / isolation resistance too low",
+        "ur": "PV insulation / isolation resistance bohat kam"
+      },
+      "meaning": {
+        "en": "PV isolation resistance below limit.",
+        "ur": "PV isolation resistance limit se neeche."
+      },
+      "causes": [
+        {
+          "en": "Wet/damaged array",
+          "ur": "Gila/kharab array"
+        },
+        {
+          "en": "Rain water inside PV junction box",
+          "ur": "PV junction box mein paani ghus gaya"
+        },
+        {
+          "en": "Cracked module glass or cable insulation",
+          "ur": "Module ka glass ya cable insulation phata"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "distributor_page",
+        "title": "SolarNevs — Inverex Nitrox hybrid fault chart (PK-focused)",
+        "url": "https://solarnevs.com/errors/inverex",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F02"
+      ]
+    },
+    {
+      "code": "F26",
+      "aliases": [
+        "F26"
+      ],
+      "title": {
+        "en": "DC busbar unbalanced",
+        "ur": "DC busbar balance se bahir"
+      },
+      "meaning": {
+        "en": "DC bus unbalanced from uneven 3-phase load or DC leakage.",
+        "ur": "Uneven 3-phase load ya DC leakage se DC bus unbalanced."
+      },
+      "causes": [
+        {
+          "en": "Load imbalance / DC leakage",
+          "ur": "Load barabar na hona ya DC leakage"
+        },
+        {
+          "en": "Three-phase load not shared evenly",
+          "ur": "Teen phase par load barabar nahi baanta"
+        },
+        {
+          "en": "Leakage in DC capacitors or wiring",
+          "ur": "DC capacitor ya wiring mein leakage"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate AC and DC supplies; wait for the DC bus capacitors to discharge before opening the unit",
+          "ur": "Power off karke AC aur DC supply isolate karein; unit kholne se pehle DC bus capacitor ka discharge hone dein"
+        },
+        {
+          "en": "After isolating, measure the DC bus half-voltages with a meter and check the three-phase load is shared evenly and there is no DC leakage or loose link",
+          "ur": "Isolate karke meter se DC bus ke half-voltage napein aur check karein ke teen phase par load barabar ho aur koi DC leakage ya dhila link na ho"
+        },
+        {
+          "en": "If the bank stays unbalanced, have a technician test the DC capacitor bank and discharge path and replace the faulty part",
+          "ur": "Bank phir bhi barabar na chale to technician se DC capacitor bank aur discharge path test karwa kar kharab part badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F29",
+      "aliases": [
+        "F29"
+      ],
+      "title": {
+        "en": "Parallel CAN-bus fault",
+        "ur": "Parallel CAN-bus ka masla"
+      },
+      "meaning": {
+        "en": "Parallel units CAN link fault — often self-clears when all units are ON (OEM).",
+        "ur": "Parallel units ka CAN link fault — aam tor par jab sab units ON hon to khud clear (OEM)."
+      },
+      "causes": [
+        {
+          "en": "One parallel unit off / CAN cable",
+          "ur": "Ek parallel unit band ho ya CAN cable dhili ho"
+        },
+        {
+          "en": "One unit switched off or in fault",
+          "ur": "Ek unit band ho ya fault mein ho"
+        },
+        {
+          "en": "Loose or damaged CAN cable between units",
+          "ur": "Units ke darmiyan CAN cable dhili ya kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "Power all parallel units ON together",
+          "ur": "Sab parallel units ek saath ON karein"
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F41"
+      ]
+    },
+    {
+      "code": "F34",
+      "aliases": [
+        "F34"
+      ],
+      "title": {
+        "en": "AC over-current — backup load exceeds rating",
+        "ur": "AC over-current — backup load rating se zyada"
+      },
+      "meaning": {
+        "en": "Backup/load over-current above rating.",
+        "ur": "Backup/load rating se zyada over-current."
+      },
+      "causes": [
+        {
+          "en": "Backup overload",
+          "ur": "Backup load zyada (overload)"
+        },
+        {
+          "en": "Load above inverter rating",
+          "ur": "Load inverter rating se zyada"
+        },
+        {
+          "en": "Heavy motor or AC start current",
+          "ur": "Motor/AC start ka bhaari current"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Shed loads",
+          "ur": "Load utarein"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F15",
+        "F07"
+      ]
+    },
+    {
+      "code": "F35",
+      "aliases": [
+        "F35"
+      ],
+      "title": {
+        "en": "No AC grid / no utility",
+        "ur": "AC grid / utility nahi"
+      },
+      "meaning": {
+        "en": "No utility grid detected.",
+        "ur": "Utility grid detect nahi hui."
+      },
+      "causes": [
+        {
+          "en": "Load-shed / outage",
+          "ur": "Load-shed ya bijli band"
+        },
+        {
+          "en": "Utility breaker open or grid feed loose",
+          "ur": "Utility breaker khula ho ya grid feed dhili"
+        },
+        {
+          "en": "Load-shedding or grid supply failed",
+          "ur": "Load-shedding ho rahi ho ya grid supply band"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "distributor_page",
+        "title": "SolarNevs — Inverex Nitrox hybrid fault chart (PK-focused)",
+        "url": "https://solarnevs.com/errors/inverex",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F42"
+      ]
+    },
+    {
+      "code": "F41",
+      "aliases": [
+        "F41"
+      ],
+      "title": {
+        "en": "Parallel system stop (one unit down)",
+        "ur": "Parallel system stop — ek unit band hai"
+      },
+      "meaning": {
+        "en": "One parallel unit stopped so all report F41 (OEM).",
+        "ur": "Ek parallel unit ruki isliye sab F41 report karte hain (OEM)."
+      },
+      "causes": [
+        {
+          "en": "Failed parallel module",
+          "ur": "Parallel module fail"
+        },
+        {
+          "en": "One parallel unit OFF or tripped",
+          "ur": "Ek parallel unit OFF ya trip ho gaya"
+        },
+        {
+          "en": "CAN link error between parallel units",
+          "ur": "Parallel units ke darmiyan CAN link ka masla"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not keep restarting; switch every parallel unit OFF and isolate AC and DC before checking the wiring between units",
+          "ur": "Baar baar restart na karein; har parallel unit OFF karke AC/DC isolate karein, uske baad units ke darmiyan wiring check karein"
+        },
+        {
+          "en": "Confirm each parallel unit is powered ON and shows no fault of its own — F41 usually clears once all units are ON (OEM)",
+          "ur": "Confirm karein ke har parallel unit ON ho aur us par khud fault na ho — sab units ON hote hi F41 aksar khud clear ho jata hai (OEM)"
+        },
+        {
+          "en": "Inspect the CAN/parallel cable for looseness or damage and reseat it; if one parallel module has failed, replace it",
+          "ur": "CAN/parallel cable ka dhila ya kharab hona dekhein aur theek se lagayein; koi parallel module kharab ho to use badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F29"
+      ]
+    },
+    {
+      "code": "F42",
+      "aliases": [
+        "F42"
+      ],
+      "title": {
+        "en": "AC line under-voltage (grid low)",
+        "ur": "AC line under-voltage (grid kam)"
+      },
+      "meaning": {
+        "en": "Grid/AC line voltage low.",
+        "ur": "Grid/AC line voltage kam."
+      },
+      "causes": [
+        {
+          "en": "Grid sag",
+          "ur": "Grid voltage kam hona (sag)"
+        },
+        {
+          "en": "Long feeder cable or weak utility supply",
+          "ur": "Lambi feeder cable ya kamzor utility supply"
+        },
+        {
+          "en": "Lost phase or loose grid connection",
+          "ur": "Phase gayab ho ya grid connection dhila ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "distributor_page",
+        "title": "SolarNevs — Inverex Nitrox hybrid fault chart (PK-focused)",
+        "url": "https://solarnevs.com/errors/inverex",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F35"
+      ]
+    },
+    {
+      "code": "F45",
+      "aliases": [
+        "F45"
+      ],
+      "title": {
+        "en": "AC UV over-voltage (PK sheet wording)",
+        "ur": "AC UV over-voltage (PK sheet ke alfaz)"
+      },
+      "meaning": {
+        "en": "PK cheat sheet lists F45 as AC UV over-voltage; Deye hybrid extract has no F45 — treat medium/low until Inverex hybrid chart obtained.",
+        "ur": "PK cheat sheet F45 ko AC UV over-voltage batati hai; Deye hybrid extract mein F45 nahi — Inverex hybrid chart milne tak medium/low rakhein."
+      },
+      "causes": [
+        {
+          "en": "Row alignment / firmware variant possible",
+          "ur": "Row alignment ya firmware variant mumkin hai"
+        },
+        {
+          "en": "Row alignment on PK cheat sheet may be off",
+          "ur": "PK sheet mein row alignment ghalat ho sakta hai"
+        },
+        {
+          "en": "Firmware variant numbering may differ",
+          "ur": "Firmware variant ki numbering alag ho sakti hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "source": {
+        "type": "forum",
+        "title": "Scribd — Inverex Inverter Fault Codes List (PK cheat sheet, partial snippets)",
+        "url": "https://www.scribd.com/document/718750700",
+        "retrieved": "2026-09-23"
+      },
+      "notes": {
+        "en": "Single partial source (Scribd snippet) — conflict with OEM gap logged.",
+        "ur": "Single partial source (Scribd snippet) — OEM ke saath conflict logged."
+      }
+    },
+    {
+      "code": "F46",
+      "aliases": [
+        "F46"
+      ],
+      "title": {
+        "en": "Backup battery fault (OEM) vs AC UV under-voltage (PK sheet)",
+        "ur": "Backup battery fault (OEM) ya AC UV under-voltage (PK sheet)"
+      },
+      "meaning": {
+        "en": "CONFLICT: Deye hybrid OEM = backup battery bank fault; PK Scribd sheet = AC UV under-voltage. Prefer OEM until Inverex chart obtained.",
+        "ur": "CONFLICT: Deye hybrid OEM = backup battery bank fault; PK Scribd sheet = AC UV under-voltage. Inverex chart milne tak OEM prefer karein."
+      },
+      "causes": [
+        {
+          "en": "Battery bank inconsistency OR grid UV — unresolved",
+          "ur": "Battery bank inconsistency YA grid UV — unresolved"
+        },
+        {
+          "en": "Battery bank voltage or links inconsistent",
+          "ur": "Battery bank voltage ya links mein farq"
+        },
+        {
+          "en": "Grid under-voltage as per PK sheet",
+          "ur": "PK sheet ke mutabiq grid voltage kam"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Check battery SOC/health AND grid volts; technician confirms chart",
+          "ur": "Battery SOC/health AUR grid volts dekhein; technician chart confirm kare"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "source": {
+        "type": "forum",
+        "title": "Scribd — Inverex Inverter Fault Codes List (PK cheat sheet, partial snippets)",
+        "url": "https://www.scribd.com/document/718750700",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F56"
+      ],
+      "notes": {
+        "en": "Confidence low: two credible sources disagree on meaning — app must badge verify on your model.",
+        "ur": "Confidence low: do credible sources meaning par disagree — app par verify on your model badge zaroori."
+      }
+    },
+    {
+      "code": "F47",
+      "aliases": [
+        "F47"
+      ],
+      "title": {
+        "en": "AC over-frequency",
+        "ur": "AC frequency zyada"
+      },
+      "meaning": {
+        "en": "Grid/AC frequency above window.",
+        "ur": "Grid/AC frequency window se upar."
+      },
+      "causes": [
+        {
+          "en": "Weak grid",
+          "ur": "Grid kamzor (weak grid)"
+        },
+        {
+          "en": "Grid frequency outside allowed window",
+          "ur": "Grid frequency allowed window se bahir"
+        },
+        {
+          "en": "Generator or high-frequency supply running",
+          "ur": "Generator ya high-frequency supply chal rahi ho"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F48"
+      ]
+    },
+    {
+      "code": "F48",
+      "aliases": [
+        "F48"
+      ],
+      "title": {
+        "en": "AC under-frequency",
+        "ur": "AC frequency kam"
+      },
+      "meaning": {
+        "en": "Grid/AC frequency below window.",
+        "ur": "Grid/AC frequency window se neeche."
+      },
+      "causes": [
+        {
+          "en": "Load-shed frequency dip",
+          "ur": "Load-shed se frequency gir jana"
+        },
+        {
+          "en": "Load-shedding dropped the grid frequency",
+          "ur": "Load-shedding se grid frequency giri"
+        },
+        {
+          "en": "Weak or overloaded utility supply",
+          "ur": "Kamzor ya overloaded utility supply"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check meters/app: grid voltage/frequency, PV Voc within label, battery SOC",
+          "ur": "Meters/app check karein: grid voltage/frequency, PV Voc label mutabiq, battery SOC"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F47"
+      ]
+    },
+    {
+      "code": "F55",
+      "aliases": [
+        "F55"
+      ],
+      "title": {
+        "en": "DC busbar voltage too high",
+        "ur": "DC busbar voltage zyada"
+      },
+      "meaning": {
+        "en": "DC bus high — battery high SOC or PV out of range.",
+        "ur": "DC bus zyada — battery high SOC ya PV range se bahar."
+      },
+      "causes": [
+        {
+          "en": "Battery over-charge / PV Voc",
+          "ur": "Battery zyada charge ya PV Voc zyada"
+        },
+        {
+          "en": "Battery SOC very high or full",
+          "ur": "Battery SOC bohat zyada ya full"
+        },
+        {
+          "en": "PV Voc above allowed range",
+          "ur": "PV Voc allowed range se zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Stop charging and switch the unit off if the battery is hot or swollen; keep away until it cools down",
+          "ur": "Charge rok dein aur battery garam ya phooli ho to unit OFF karein; thanda hone tak door rahein"
+        },
+        {
+          "en": "Measure battery voltage and SOC and check the PV open-circuit voltage against the battery and inverter limits; charge via grid if safe",
+          "ur": "Battery voltage aur SOC napein aur PV open-circuit voltage ko battery/inverter limits se milayein; safe ho to grid se charge karein"
+        },
+        {
+          "en": "If PV Voc is above range, reduce the series modules; if the bus stays high, have a technician check the charge setting and DC path",
+          "ur": "Voc range se zyada ho to series modules kam karein; bus phir bhi zyada rahe to technician se charge setting aur DC path check karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F56"
+      ]
+    },
+    {
+      "code": "F56",
+      "aliases": [
+        "F56"
+      ],
+      "title": {
+        "en": "DC busbar voltage too low → battery low",
+        "ur": "DC busbar voltage kam → battery low"
+      },
+      "meaning": {
+        "en": "DC bus low — typically battery empty; charge via PV/grid.",
+        "ur": "DC bus kam — aam tor par battery khaali; PV/grid se charge karein."
+      },
+      "causes": [
+        {
+          "en": "Battery depleted",
+          "ur": "Battery khaali"
+        },
+        {
+          "en": "Low PV charge",
+          "ur": "PV charge kam"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the battery for heat, leakage or swelling before charging; never charge a damaged bank",
+          "ur": "Charge se pehle battery ki garmi, leakage ya phoolna dekhein; kharab battery kabhi charge na karein"
+        },
+        {
+          "en": "Charge the battery from PV or grid if the state is safe and confirm in the app that the SOC rises",
+          "ur": "Halat safe ho to battery PV/grid se charge karein aur app mein confirm karein ke SOC barh raha hai"
+        },
+        {
+          "en": "If the SOC does not rise, check battery links, breakers and fuses and have a technician test the weak bank",
+          "ur": "SOC na barhe to battery link, breaker aur fuse check karein aur technician se kamzor bank test karwayein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "distributor_page",
+        "title": "SolarNevs — Inverex Nitrox hybrid fault chart (PK-focused)",
+        "url": "https://solarnevs.com/errors/inverex",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F55",
+        "F07"
+      ],
+      "notes": {
+        "en": "Platform-split: string F56 = PV/bus energy low, not battery-specific — confirm model.",
+        "ur": "Platform-split: string F56 = PV/bus energy low, battery-specific nahi — model confirm karein."
+      }
+    },
+    {
+      "code": "F58",
+      "aliases": [
+        "F58"
+      ],
+      "title": {
+        "en": "BMS communication lost",
+        "ur": "BMS communication kat gayi"
+      },
+      "meaning": {
+        "en": "Battery BMS data link lost while BMS_Err-Stop active (HYBRID meaning — string F58 is phase-U OC).",
+        "ur": "Jab BMS_Err-Stop active ho to battery BMS data link gayab (HYBRID meaning — string F58 phase-U OC hai)."
+      },
+      "causes": [
+        {
+          "en": "BMS CAN/RS485 cable loose",
+          "ur": "BMS CAN/RS485 cable dhili"
+        },
+        {
+          "en": "BMS powered off / incompatible",
+          "ur": "BMS off / incompatible"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate before re-seating any battery communication wiring",
+          "ur": "Battery ki communication wiring dobara lagane se pehle power off karke isolate karein"
+        },
+        {
+          "en": "Check the BMS CAN/RS485 cable at both ends, confirm the BMS itself is powered, then power cycle the battery and the inverter",
+          "ur": "BMS CAN/RS485 cable ke dono sar check karein, BMS ka khud power confirm karein, phir battery aur inverter ka power cycle karein"
+        },
+        {
+          "en": "If the link still fails, have a technician verify the BMS protocol/baud setting and replace the damaged cable",
+          "ur": "Link phir bhi fail ho to technician se BMS protocol/baud setting check karwa kar kharab cable badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "distributor_page",
+        "title": "SolarNevs — Inverex Nitrox hybrid fault chart (PK-focused)",
+        "url": "https://solarnevs.com/errors/inverex",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F56"
+      ],
+      "notes": {
+        "en": "Platform-split HIGH RISK: string F58 = grid phase U over-current — confirm Nitrox hybrid vs 3Ph string first.",
+        "ur": "Platform-split KHATRA: string F58 = grid phase U over-current — pehle Nitrox hybrid vs 3Ph string confirm karein."
+      }
+    },
+    {
+      "code": "F62",
+      "aliases": [
+        "F62"
+      ],
+      "title": {
+        "en": "DRM0 demand-response stop",
+        "ur": "DRM0 demand-response se stop"
+      },
+      "meaning": {
+        "en": "Utility/DRM0 demand-response forced stop.",
+        "ur": "Utility/DRM0 demand-response ki wajah se zabardasti stop ho gaya."
+      },
+      "causes": [
+        {
+          "en": "DRM0 grid command",
+          "ur": "DRM0 grid ki taraf se command"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power cycle: switch unit OFF → wait 2–5 min (DC and AC breakers off) → ON",
+          "ur": "Power cycle: unit OFF → 2–5 minute wait (DC aur AC breakers OFF) → ON"
+        },
+        {
+          "en": "Disable DRM0 if not required",
+          "ur": "Zarurat na ho to DRM0 disable karein"
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "F22"
+      ]
+    },
+    {
+      "code": "F63",
+      "aliases": [
+        "F63"
+      ],
+      "title": {
+        "en": "DC arc fault",
+        "ur": "DC arc (chingari) fault"
+      },
+      "meaning": {
+        "en": "DC arc detected on PV/battery DC path.",
+        "ur": "PV/battery DC path par arc detect hui."
+      },
+      "causes": [
+        {
+          "en": "Loose DC connection",
+          "ur": "DC connection dhili"
+        },
+        {
+          "en": "Loose MC4 or DC terminal sparking",
+          "ur": "MC4 ya DC terminal dhila ho aur chingari aaye"
+        },
+        {
+          "en": "Corroded or burnt DC connector",
+          "ur": "DC connector corode ho gaya ya jal gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat all DC and AC terminals as live — lethal voltages present even with breakers off",
+          "ur": "Tamam DC aur AC terminals ko live samajhein — breakers off hone par bhi jaanleva voltage maujood"
+        },
+        {
+          "en": "Power off; do not keep restarting — qualified technician diagnosis required",
+          "ur": "Power off; baar baar restart na karein — qualified technician diagnosis zaroori"
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Deye SUN SG04LP3/SG05LP3 hybrid (OEM twin) fault tables pp.45–48",
+        "url": "https://deyeinverters.net/en/error-codes/sun-sg04lp3-sg05lp3-hybrid",
+        "retrieved": "2026-09-23"
+      }
+    },
+    {
+      "code": "F64",
+      "aliases": [
+        "F64"
+      ],
+      "title": {
+        "en": "Heat-sink high temperature",
+        "ur": "Heat-sink temperature zyada"
+      },
+      "meaning": {
+        "en": "Heatsink over-temperature (Inverex notes derate above ≈45°C ambient).",
+        "ur": "Heatsink over-temperature (Inverex ≈45°C ambient se upar derate batati hai)."
+      },
+      "causes": [
+        {
+          "en": "Dust/blocked fans",
+          "ur": "Dust/fans block"
+        },
+        {
+          "en": "High ambient",
+          "ur": "Ambient zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the unit off and let it cool; do not restart until the temperature has dropped",
+          "ur": "Unit OFF karein aur thanda hone dein; temperature kam hone tak restart na karein"
+        },
+        {
+          "en": "Clean the fans and heatsink fins, blow out the dust and confirm the fans really spin while the unit runs",
+          "ur": "Fans aur heatsink ki fins saaf karein, dhool nikalein aur unit chalte waqt fans sach much ghoomne par nazar rakhein"
+        },
+        {
+          "en": "Keep ambient air within the rating and the vents unblocked; if a fan does not run, replace it",
+          "ur": "Aas paas ka hawa rating ke andar rakhein aur vent block na hon; koi fan na chale to use badlein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "distributor_page",
+        "title": "SolarNevs — Inverex Nitrox hybrid fault chart (PK-focused)",
+        "url": "https://solarnevs.com/errors/inverex",
+        "retrieved": "2026-09-23"
+      },
+      "relatedCodes": [
+        "W13"
+      ]
+    }
+  ]
+}

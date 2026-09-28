@@ -1,0 +1,1012 @@
+{
+  "schemaVersion": 1,
+  "brandId": "growatt",
+  "series": {
+    "id": "growatt-wit-50-100k",
+    "name": "WIT 50-100K Storage/Hybrid Inverter (three-phase C&I)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*WIT*50*K*",
+      "*WIT*63*K*",
+      "*WIT*75*K*",
+      "*WIT*100*K*",
+      "WIT*-*K-A"
+    ],
+    "notes": "Three-phase commercial/industrial storage-hybrid unit, GR-UM-299-A-02. Manual splits codes into Table 9.1 Warning (200-609, output derating) and Table 9.2 Error (200-606, damage or misconfiguration). Digit meanings here match the WIT manual only - several same-digit codes read differently on the TL3 string bodies (e.g. WIT Error 200 = AFCI Fault, WIT Error 303 = NE Abnormal, WIT Error 400 = DCI bias abnormal). Common in PK commercial installs."
+  },
+  "codes": [
+    {
+      "code": "Error 200",
+      "aliases": [
+        "Error 200",
+        "200",
+        "AFCI Fault"
+      ],
+      "title": {
+        "en": "AFCI fault (arc detected)",
+        "ur": "AFCI fault (arc detect hua)"
+      },
+      "meaning": {
+        "en": "An arc fault has been detected on a PV string and the AFCI has interrupted it.",
+        "ur": "PV string par arc fault detect hua aur AFCI ne use interrupt kar diya."
+      },
+      "causes": [
+        {
+          "en": "Arcing at a PV connector, module lead or DC cable",
+          "ur": "PV connector, module lead ya DC cable par arcing"
+        },
+        {
+          "en": "Loose or burnt DC terminal creating an intermittent arc",
+          "ur": "Loose ya burnt DC terminal se intermittent arc banta hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC switch and wait before opening the wiring box.",
+          "ur": "DC switch band karein aur wiring box kholne se pehle wait karein."
+        },
+        {
+          "en": "After shutdown, check the connection of the PV string at every DC terminal.",
+          "ur": "Shutdown ke baad har DC terminal par PV string ka connection check karein."
+        },
+        {
+          "en": "Restart the inverter; if the message persists, contact Growatt support.",
+          "ur": "Inverter restart karein; message bacha rahe to Growatt support se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 201",
+      "aliases": [
+        "Error 201",
+        "201",
+        "GFCI High"
+      ],
+      "title": {
+        "en": "GFCI high (leakage current too high)",
+        "ur": "GFCI high (leakage current bohat zyada)"
+      },
+      "meaning": {
+        "en": "An excessively high leakage current has been detected and the inverter has stopped.",
+        "ur": "Bohat zyada leakage current detect hua aur inverter ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Insulation breakdown in PV wiring or a wet connector",
+          "ur": "PV wiring mein insulation failure ya geela connector"
+        },
+        {
+          "en": "Damaged SPD or filter capacitor leaking to earth",
+          "ur": "Damaged SPD ya filter capacitor ka earth par leakage"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate PV and AC, then measure array insulation resistance with a megohmmeter.",
+          "ur": "PV aur AC isolate karke megohmmeter se array ka insulation resistance measure karein."
+        },
+        {
+          "en": "Disconnect strings one by one to isolate the leaking string.",
+          "ur": "Strings ko ek-ek karke disconnect karke leaking string dhoondein."
+        },
+        {
+          "en": "Restart the inverter; if the message persists, contact Growatt support.",
+          "ur": "Inverter restart karein; message bacha rahe to Growatt support se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 202",
+      "aliases": [
+        "Error 202",
+        "202",
+        "PV Voltage High"
+      ],
+      "title": {
+        "en": "PV voltage high",
+        "ur": "PV voltage zyada hai"
+      },
+      "meaning": {
+        "en": "DC input voltage has exceeded the upper threshold the inverter will accept.",
+        "ur": "DC input voltage inverter ki maani jane wali upper threshold se upar chala gaya."
+      },
+      "causes": [
+        {
+          "en": "String Voc above the inverter maximum in cold conditions",
+          "ur": "Thande mausam mein string ka Voc inverter maximum se upar"
+        },
+        {
+          "en": "Too many modules per string for this model",
+          "ur": "Is model ke liye string mein modules zyada hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the DC switch immediately and measure the DC voltage.",
+          "ur": "DC switch foran disconnect karke DC voltage measure karein."
+        },
+        {
+          "en": "If the DC input voltage is within the permissible range and the message persists, contact Growatt support.",
+          "ur": "Agar DC input voltage permissible range mein hai aur message bacha rahe to Growatt support se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 203",
+      "aliases": [
+        "Error 203",
+        "203",
+        "PV Isolation Low"
+      ],
+      "title": {
+        "en": "PV isolation low",
+        "ur": "PV isolation low hai"
+      },
+      "meaning": {
+        "en": "The PV panels have low insulation resistance to earth. Growatt's manual carries an explicit DANGER not to touch the equipment in this state.",
+        "ur": "PV panels ka earth ke taraf insulation resistance kam hai. Growatt ke manual mein is state mein equipment ko haath na lagane ki saaf DAGER warning hai."
+      },
+      "causes": [
+        {
+          "en": "Damaged module backsheet or water in the junction box",
+          "ur": "Damaged module backsheet ya junction box mein paani"
+        },
+        {
+          "en": "Cable chafe against the mounting structure",
+          "ur": "Mounting structure ke sath cable ka rub jana"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not touch the unit. Isolate AC and PV first, always.",
+          "ur": "Unit ko haath na lagayein. Pehle AC aur PV isolate karein, hamesha."
+        },
+        {
+          "en": "After shutdown, check if the PV panels are properly grounded.",
+          "ur": "Shutdown ke baad check karein ke PV panels theek se grounded hain."
+        },
+        {
+          "en": "Use a megohmmeter to find the string with low insulation, then replace the damaged component.",
+          "ur": "Megohmmeter se dhoondein kaun si string ki insulation kam hai, phir damaged component badlein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 300",
+      "aliases": [
+        "Error 300",
+        "300",
+        "AC V Outrange"
+      ],
+      "title": {
+        "en": "Grid voltage beyond permissible range",
+        "ur": "Grid voltage permissible range se bahar hai"
+      },
+      "meaning": {
+        "en": "Grid voltage is outside the range the inverter is allowed to connect to.",
+        "ur": "Grid voltage us range se bahar hai jis mein inverter connect ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage sag or surge from a large load step",
+          "ur": "Bade load step se grid voltage ka sag ya surge"
+        },
+        {
+          "en": "Transformer tap position wrong for the local supply",
+          "ur": "Transformer ka tap position local supply ke liye ghalat"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the grid voltage with a true-RMS meter at the AC terminals.",
+          "ur": "AC terminals par true-RMS meter se grid voltage check karein."
+        },
+        {
+          "en": "If the grid voltage is within the permissible range and the message persists, contact Growatt support.",
+          "ur": "Agar grid voltage permissible range mein hai aur message bacha rahe to Growatt support se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 302",
+      "aliases": [
+        "Error 302",
+        "302",
+        "No AC"
+      ],
+      "title": {
+        "en": "No AC / utility grid power failure",
+        "ur": "AC nahi hai / utility grid power failure"
+      },
+      "meaning": {
+        "en": "No utility grid is present, so the inverter has gone to off-grid or standby.",
+        "ur": "Utility grid mojood nahi, is liye inverter off-grid ya standby par chala gaya."
+      },
+      "causes": [
+        {
+          "en": "Upstream grid breaker or fuse open",
+          "ur": "Upstream grid breaker ya fuse open hai"
+        },
+        {
+          "en": "AC wiring broken at the inverter terminals",
+          "ur": "Inverter terminals par AC wiring tooti hui hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "After shutdown, check the AC wiring at the inverter terminals.",
+          "ur": "Shutdown ke baad inverter terminals par AC wiring check karein."
+        },
+        {
+          "en": "Verify grid voltage is actually reaching the AC terminal with a multimeter.",
+          "ur": "Multimeter se confirm karein ke grid voltage AC terminal tak pohanch raha hai ya nahi."
+        },
+        {
+          "en": "Close the upstream breaker once wiring is confirmed sound, then restart.",
+          "ur": "Wiring theek confirm hone ke baad upstream breaker band karke restart karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 303",
+      "aliases": [
+        "Error 303",
+        "303",
+        "NE Abnormal"
+      ],
+      "title": {
+        "en": "NE abnormal (N-PE voltage abnormal)",
+        "ur": "NE abnormal (N aur PE ka voltage abnormal)"
+      },
+      "meaning": {
+        "en": "The voltage difference between the N line and the PE cable is abnormal.",
+        "ur": "N line aur PE cable ke darmiyan voltage difference abnormal hai."
+      },
+      "causes": [
+        {
+          "en": "PE conductor not reliably connected between inverter and earth",
+          "ur": "Inverter aur earth ke darmiyan PE conductor mazboot se nahi lagi"
+        },
+        {
+          "en": "N and PE swapped at the AC terminal",
+          "ur": "AC terminal par N aur PE swap ho gaye hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "After shutdown, check that the ground cable is reliably connected.",
+          "ur": "Shutdown ke baad check karein ke ground cable mazboot se lagi hai."
+        },
+        {
+          "en": "Measure N-to-PE voltage; it should be near 0 V on a healthy system.",
+          "ur": "N se PE voltage measure karein; theek system mein ye qareeb 0 V hona chahiye."
+        },
+        {
+          "en": "Re-torque the PE lug and re-check; if it persists, contact Growatt support.",
+          "ur": "PE lug dobara torque karke dobara check karein; phir bhi rahe to Growatt support se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 309",
+      "aliases": [
+        "Error 309",
+        "309",
+        "AC F Outrange / ROCOF"
+      ],
+      "title": {
+        "en": "Grid frequency / ROCOF abnormal",
+        "ur": "Grid frequency / ROCOF abnormal hai"
+      },
+      "meaning": {
+        "en": "Grid frequency is out of range, or the rate of change of frequency is abnormal.",
+        "ur": "Grid frequency range se bahar hai, ya frequency badalne ki rate abnormal hai."
+      },
+      "causes": [
+        {
+          "en": "Generator or weak supply with a fast frequency swing",
+          "ur": "Generator ya kamzor supply jismein frequency tez badal rahi ho"
+        },
+        {
+          "en": "Grid-code ROCOF limit set too tight for a weak local grid",
+          "ur": "Grid-code ROCOF limit kamzor local grid ke liye bohat sakht set hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the grid frequency and restart the inverter.",
+          "ur": "Grid frequency check karke inverter restart karein."
+        },
+        {
+          "en": "If the frequency is normal, log the times it happens to see if it matches load switching.",
+          "ur": "Agar frequency normal hai to hone ke waqt note karein taake pata chale load switching se match karta hai ya nahi."
+        },
+        {
+          "en": "If the message persists, contact Growatt support.",
+          "ur": "Agar message bacha rahe to Growatt support se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 311",
+      "aliases": [
+        "Error 311",
+        "311",
+        "Export limitation fail-safe"
+      ],
+      "title": {
+        "en": "Export limitation fail-safe",
+        "ur": "Export limitation fail-safe trigger hua"
+      },
+      "meaning": {
+        "en": "The anti-export / zero-export limit function has tripped into its fail-safe state.",
+        "ur": "Anti-export / zero-export limit function apne fail-safe state mein chala gaya hai."
+      },
+      "causes": [
+        {
+          "en": "CT and meter wiring wrong, or meter not communicating",
+          "ur": "CT aur meter wiring ghalat, ya meter communicate nahi kar raha"
+        },
+        {
+          "en": "Export limit percentage set too low for the site",
+          "ur": "Site ke liye export limit percentage bohat kam set hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "After shutdown, check the connection of the CT and the meter at both ends.",
+          "ur": "Shutdown ke baad CT aur meter ke connection ko dono taraf check karein."
+        },
+        {
+          "en": "Verify the CT arrow points toward the load and the CT ratio matches the meter setting.",
+          "ur": "Confirm karein ke CT ka arrow load ki taraf hai aur CT ratio meter setting se match karta hai."
+        },
+        {
+          "en": "If the message persists, contact Growatt support.",
+          "ur": "Agar message bacha rahe to Growatt support se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 405",
+      "aliases": [
+        "Error 405",
+        "405",
+        "Relay fault"
+      ],
+      "title": {
+        "en": "Relay fault",
+        "ur": "Relay fault hai"
+      },
+      "meaning": {
+        "en": "The internal relay or its control has failed to operate or report back correctly.",
+        "ur": "Internal relay ya uska control operate ya report theek se nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "Relay coil or contacts burnt, often after an arc trip",
+          "ur": "Relay coil ya contacts burnt, aksar arc trip ke baad"
+        },
+        {
+          "en": "Relay driver on the control board failed",
+          "ur": "Control board par relay driver fail ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then listen for the relay click on start attempt.",
+          "ur": "AC, PV aur battery isolate karke start karte waqt relay ki click check karein."
+        },
+        {
+          "en": "Restart the inverter; a single click and a cleared code means an interlock event, not a failed relay.",
+          "ur": "Inverter restart karein; sirf ek click aur code clear ho jaye to interlock event hai, relay kharab nahi."
+        },
+        {
+          "en": "If the relay never operates, the relay/board must be replaced - claim Growatt warranty.",
+          "ur": "Agar relay kabhi operate na ho to relay/board badalna parega - Growatt warranty claim karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 413",
+      "aliases": [
+        "Error 413",
+        "413",
+        "IGBT drive fault"
+      ],
+      "title": {
+        "en": "IGBT drive fault",
+        "ur": "IGBT drive fault hai"
+      },
+      "meaning": {
+        "en": "The gate drive to the power IGBT module has failed.",
+        "ur": "Power IGBT module ka gate drive fail ho gaya."
+      },
+      "causes": [
+        {
+          "en": "IGBT module or its gate drive PCB has failed",
+          "ur": "IGBT module ya uska gate drive PCB fail hai"
+        },
+        {
+          "en": "Over-voltage event that destroyed the module",
+          "ur": "Over-voltage event jisne module kharab kar diya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery completely and wait for the bus to discharge before opening.",
+          "ur": "AC, PV aur battery poori tarah isolate karke bus discharge hone tak wait karein."
+        },
+        {
+          "en": "Restart once; do not power-cycle repeatedly on an IGBT fault.",
+          "ur": "Ek baar restart karein; IGBT fault par baar baar on/off na karein."
+        },
+        {
+          "en": "Contact Growatt support for board replacement under warranty.",
+          "ur": "Warranty ke teht board badalwane ke liye Growatt support se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 414",
+      "aliases": [
+        "Error 414",
+        "414",
+        "EEPROM error",
+        "Memory exception"
+      ],
+      "title": {
+        "en": "EEPROM / memory error",
+        "ur": "EEPROM / memory error hai"
+      },
+      "meaning": {
+        "en": "The control board cannot read or write its settings memory.",
+        "ur": "Control board apni settings memory parh ya likh nahi sakta."
+      },
+      "causes": [
+        {
+          "en": "EEPROM chip or I2C solder joint failure on the control board",
+          "ur": "Control board par EEPROM chip ya I2C solder joint fail"
+        },
+        {
+          "en": "Power interruption during a settings write",
+          "ur": "Settings write ke dauran power chala jana"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate all energy sources, wait 5 minutes, then restart the inverter.",
+          "ur": "Tamam energy sources isolate karke 5 minute wait karein, phir inverter restart karein."
+        },
+        {
+          "en": "Note whether the error only appears in the morning - that points to a marginal chip.",
+          "ur": "Note karein ke error sirf subah aata hai ya nahi - ye marginal chip ki taraf ishara karta hai."
+        },
+        {
+          "en": "If the fault is sustained, the control board must be replaced - claim Growatt support.",
+          "ur": "Agar fault barqarar rahe to control board badalna parega - Growatt support se claim karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 418",
+      "aliases": [
+        "Error 418",
+        "418",
+        "DSP and COM firmware version mismatch"
+      ],
+      "title": {
+        "en": "DSP and COM firmware version mismatch",
+        "ur": "DSP aur COM firmware version mismatch hai"
+      },
+      "meaning": {
+        "en": "The DSP firmware and the communication board firmware versions do not match.",
+        "ur": "DSP firmware aur communication board firmware versions match nahi karte."
+      },
+      "causes": [
+        {
+          "en": "One board updated or replaced without the other",
+          "ur": "Ek board update ya replace hua aur doosra nahi hua"
+        },
+        {
+          "en": "Firmware upload interrupted part way",
+          "ur": "Firmware upload beech mein ruk gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read and record both firmware versions before changing anything.",
+          "ur": "Kuch badalne se pehle dono firmware versions padh kar note karein."
+        },
+        {
+          "en": "Update both boards to a matched firmware pair from the Growatt download centre.",
+          "ur": "Dono boards ko Growatt download centre se matched firmware pair par update karein."
+        },
+        {
+          "en": "Power-cycle and confirm the version pair matches on the display or app.",
+          "ur": "Power-cycle karke display ya app par confirm karein ke version pair match karta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 500",
+      "aliases": [
+        "Error 500",
+        "500",
+        "BMS COM Fault",
+        "BMS failed to communicate"
+      ],
+      "title": {
+        "en": "BMS failed to communicate with inverter",
+        "ur": "BMS inverter se communicate nahi kar paya"
+      },
+      "meaning": {
+        "en": "The battery management system and the inverter cannot talk over RS485/CAN.",
+        "ur": "Battery management system aur inverter RS485/CAN par baat nahi kar pa rahe."
+      },
+      "causes": [
+        {
+          "en": "RS485 cable between inverter and battery loose, reversed or cut",
+          "ur": "Inverter aur battery ke darmiyan RS485 cable loose, reversed ya cut"
+        },
+        {
+          "en": "Battery in sleep mode, so it is not answering the bus",
+          "ur": "Battery sleep mode mein hai, is liye bus ka jawab nahi de rahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the connection of the RS485 cable between the inverter and the battery at both ends.",
+          "ur": "Inverter aur battery ke darmiyan RS485 cable ka connection dono taraf check karein."
+        },
+        {
+          "en": "Check if the battery is in sleep mode; wake it and confirm it answers before restarting.",
+          "ur": "Check karein ke battery sleep mode mein hai ya nahi; use jaagayein aur jawab dene ki tasdeeq karein."
+        },
+        {
+          "en": "Confirm the battery type / BMS protocol setting matches the installed battery.",
+          "ur": "Confirm karein ke battery type / BMS protocol setting installed battery se match karti hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 503",
+      "aliases": [
+        "Error 503",
+        "503",
+        "Bat Voltage High"
+      ],
+      "title": {
+        "en": "Battery voltage above upper threshold",
+        "ur": "Battery voltage upper threshold se upar hai"
+      },
+      "meaning": {
+        "en": "Battery voltage has risen above the safe upper threshold, so charging is stopped.",
+        "ur": "Battery voltage safe upper threshold se upar chala gaya, is liye charging band kar di gayi."
+      },
+      "causes": [
+        {
+          "en": "Battery actually overcharged because the BMS has not opened",
+          "ur": "Battery asal mein overcharge ho gayi kyunke BMS ne open nahi kiya"
+        },
+        {
+          "en": "Battery voltage sense circuit reading high on a healthy pack",
+          "ur": "Theek battery par voltage sense circuit high reading de raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the battery voltage with a multimeter at the battery terminals.",
+          "ur": "Multimeter se battery terminals par battery voltage check karein."
+        },
+        {
+          "en": "If it is within the permissible range, restart the inverter; if not, replace the battery.",
+          "ur": "Agar permissible range mein hai to inverter restart karein; agar nahi to battery badal dein."
+        },
+        {
+          "en": "If the message persists, contact Growatt support.",
+          "ur": "Agar message bacha rahe to Growatt support se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 601",
+      "aliases": [
+        "Error 601",
+        "601",
+        "EPS Output Short",
+        "Off-grid BUS Volt Low"
+      ],
+      "title": {
+        "en": "Off-grid output short / off-grid bus voltage low",
+        "ur": "Off-grid output short / off-grid bus voltage kam hai"
+      },
+      "meaning": {
+        "en": "On the EPS / off-grid port either a short circuit or an abnormally low bus voltage has been detected.",
+        "ur": "EPS / off-grid port par ya short circuit ya abnormal kam bus voltage detect hua."
+      },
+      "causes": [
+        {
+          "en": "Load connected to the EPS output has shorted",
+          "ur": "EPS output se jura load short ho gaya"
+        },
+        {
+          "en": "Battery voltage too low or a weak battery bank",
+          "ur": "Battery voltage bohat kam ya battery bank kamzor"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the EPS output, then check for a short with a multimeter.",
+          "ur": "EPS output isolate karke multimeter se short check karein."
+        },
+        {
+          "en": "Check whether the battery is working properly or has suffered capacity loss.",
+          "ur": "Check karein ke battery theek chal rahi hai ya uski capacity gir gayi hai."
+        },
+        {
+          "en": "If the message persists, contact Growatt support.",
+          "ur": "Agar message bacha rahe to Growatt support se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Error 605",
+      "aliases": [
+        "Error 605",
+        "605",
+        "Balanced circuit self-test failed"
+      ],
+      "title": {
+        "en": "Balanced circuit self-test failed",
+        "ur": "Balanced circuit self-test fail ho gaya"
+      },
+      "meaning": {
+        "en": "The internal balanced-circuit self-test did not pass, so the inverter will not run.",
+        "ur": "Internal balanced-circuit self-test pass nahi hua, is liye inverter nahi chalega."
+      },
+      "causes": [
+        {
+          "en": "Current sensing hardware out of tolerance on the control board",
+          "ur": "Control board par current sensing hardware tolerance se bahar"
+        },
+        {
+          "en": "Sampling reference or the redundant sampling channel has drifted",
+          "ur": "Sampling reference ya redundant sampling channel bekar chala hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and let the self-test run again.",
+          "ur": "Inverter restart karke self-test dobara chalne dein."
+        },
+        {
+          "en": "If repeatable, isolate the unit and have Growatt check the current sensing board.",
+          "ur": "Agar baar baar ho to unit isolate karke Growatt se current sensing board check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Warning 400",
+      "aliases": [
+        "Warning 400",
+        "400",
+        "W400",
+        "Fan failure"
+      ],
+      "title": {
+        "en": "Fan failure (warning 400)",
+        "ur": "Fan chal nahi raha (warning 400)"
+      },
+      "meaning": {
+        "en": "The inverter reports a fan problem and will derate rather than stop.",
+        "ur": "Inverter fan ki masla report karta hai aur band hone ke bajaye power kam kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Fan connector not seated after service or transport",
+          "ur": "Service ya transport ke baad fan connector baitha nahi hua"
+        },
+        {
+          "en": "Fan bearing failed or blades blocked by dust",
+          "ur": "Fan bearing fail ya blades dhool se block"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "After shutdown, check if the fan is properly connected.",
+          "ur": "Shutdown ke baad check karein ke fan theek se laga hai ya nahi."
+        },
+        {
+          "en": "Reseat the fan connector and confirm the fan spins freely by hand.",
+          "ur": "Fan connector dobara baithayein aur haath se confirm karein ke fan azaad ghoomta hai."
+        },
+        {
+          "en": "Clean or replace the fan if it is noisy or seized.",
+          "ur": "Fan shor karta ho ya jam ho to use saaf karein ya badal dein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Warning 310",
+      "aliases": [
+        "Warning 310",
+        "310",
+        "W310"
+      ],
+      "title": {
+        "en": "N-PE voltage abnormal (warning 310)",
+        "ur": "N-PE voltage abnormal hai (warning 310)"
+      },
+      "meaning": {
+        "en": "The voltage difference between neutral and PE is outside its permitted band, so output is derated.",
+        "ur": "Neutral aur PE ke darmiyan voltage difference permitted band se bahar hai, is liye output derate ho gaya."
+      },
+      "causes": [
+        {
+          "en": "PE cable not reliably connected after shutdown",
+          "ur": "PE cable shutdown ke baad mazboot se nahi lagi"
+        },
+        {
+          "en": "Neutral-to-earth rise in the distribution board",
+          "ur": "Distribution board par neutral se earth tak voltage barh gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "After shutdown, check that the PE cable is reliably connected.",
+          "ur": "Shutdown ke baad check karein ke PE cable mazboot se lagi hai."
+        },
+        {
+          "en": "Measure N-to-PE at the inverter and at the board to find where the rise is.",
+          "ur": "Inverter aur board dono par N se PE voltage measure karke dekhein voltage kahan barh raha hai."
+        },
+        {
+          "en": "If the message persists, contact Growatt support.",
+          "ur": "Agar message bacha rahe to Growatt support se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    },
+    {
+      "code": "Warning 209",
+      "aliases": [
+        "Warning 209",
+        "209",
+        "W209"
+      ],
+      "title": {
+        "en": "DC input voltage above threshold (warning 209)",
+        "ur": "DC input voltage threshold se upar (warning 209)"
+      },
+      "meaning": {
+        "en": "PV DC input voltage is above the set upper threshold; output is limited until it falls.",
+        "ur": "PV DC input voltage set upper threshold se upar hai; girne tak output limited rahega."
+      },
+      "causes": [
+        {
+          "en": "String Voc high because of cold weather",
+          "ur": "Thande mausam ki wajah se string ka Voc zyada hai"
+        },
+        {
+          "en": "Upper DC voltage threshold set too low for the string",
+          "ur": "Upper DC voltage threshold string ke liye bohat kam set hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the DC switch immediately and check the DC voltage.",
+          "ur": "DC switch foran band karke DC voltage check karein."
+        },
+        {
+          "en": "Measure the string Voc and compare it with the module datasheet at the coldest expected temperature.",
+          "ur": "String ka Voc measure karke sab se thande expected temperature par module datasheet se compare karein."
+        },
+        {
+          "en": "If voltage is normal and the message persists, contact Growatt support.",
+          "ur": "Agar voltage normal hai aur message bacha rahe to Growatt support se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "WIT 50-100K Storage/Hybrid Inverter User Manual (GR-UM-299-A-02)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.pl/wp-content/uploads/2023/11/Instrukcja-obslugi.pdf"
+      }
+    }
+  ]
+}

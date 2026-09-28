@@ -1,0 +1,470 @@
+{
+  "schemaVersion": 1,
+  "brandId": "growatt",
+  "series": {
+    "id": "growatt-legacy-tl-gen1-grey",
+    "name": "Legacy TL-series grey-body inverters (Gen 1, 1xx error codes)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*TL*S*",
+      "*100MTL*",
+      "*5000MTL*",
+      "*10000TL*",
+      "*20000TL*"
+    ],
+    "notes": "Older grey-cased single/two/three-phase TL bodies (e.g. 5000MTL, 10000TL, 20000TL3-HE) that predate the 2xx/3xx/4xx scheme. Source is Growatt's own Troubleshooting Guide issued by Growatt New Energy Australia Pty Ltd (ausupport@ginverter.com, Silverwater NSW). Codes here are 1xx ONLY and mean DIFFERENT things from every other series - e.g. 116 = EEPROM, 117 = Relay, 118 = Init model, 122 = Bus voltage, whereas on MOD/WIT 116-122 are not published at all. Still very common on net-metered installs in Pakistan."
+  },
+  "codes": [
+    {
+      "code": "Error 100",
+      "aliases": [
+        "Error 100",
+        "100",
+        "Internal reference voltage fault"
+      ],
+      "title": {
+        "en": "Internal reference voltage fault",
+        "ur": "Internal reference voltage fault hai"
+      },
+      "meaning": {
+        "en": "The inverter's internal voltage reference has drifted, so measurements are untrustworthy.",
+        "ur": "Inverter ka internal voltage reference bekar chala hai, is liye readings par bharosa nahi."
+      },
+      "causes": [
+        {
+          "en": "Reference voltage circuit on the control board has drifted",
+          "ur": "Control board ka reference voltage circuit bekar chala hai"
+        },
+        {
+          "en": "Auxiliary supply out of tolerance feeding the reference",
+          "ur": "Reference ko chalane wali auxiliary supply tolerance se bahar"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, wait for the DC bus to discharge, then reboot the inverter.",
+          "ur": "AC aur PV isolate karke DC bus discharge hone tak wait karein, phir inverter reboot karein."
+        },
+        {
+          "en": "Measure the auxiliary supply rails against the board's own markings before assuming a board fault.",
+          "ur": "Board fault maan ne se pehle board ke apne markings ke against auxiliary supply rails measure karein."
+        },
+        {
+          "en": "If the code survives a reboot, contact Growatt to claim warranty - Growatt's own guide treats it as a warranty item.",
+          "ur": "Agar code reboot ke baad bhi rahe to Growatt se rabta karke warranty claim karein - Growatt ka apna guide isay warranty item kehta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Troubleshooting Guide for Growatt Inverters (Growatt New Energy Australia Pty Ltd)",
+        "retrieved": "2026-09-26",
+        "url": "https://baikaltesla.com/wp-content/uploads/2022/07/TROUBLE-SHOOTING-GUIDE.pdf"
+      }
+    },
+    {
+      "code": "Error 101",
+      "aliases": [
+        "Error 101",
+        "101",
+        "Communication error"
+      ],
+      "title": {
+        "en": "Communication error (101 / 102 / 121)",
+        "ur": "Processor aapas mein baat nahi kar rahe (101 / 102 / 121)"
+      },
+      "meaning": {
+        "en": "The master processor cannot receive data from the slave processor - Growatt groups 101, 102 and 121 as one communication fault.",
+        "ur": "Master processor slave processor se data nahi le sakta - Growatt 101, 102 aur 121 ko aik hi communication fault ke tor par group karta hai."
+      },
+      "causes": [
+        {
+          "en": "Control board internal processor bus fault",
+          "ur": "Control board ka internal processor bus fault"
+        },
+        {
+          "en": "Internal harness or processor solder joint failure",
+          "ur": "Internal harness ya processor solder joint fail"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reboot the inverter once.",
+          "ur": "AC, PV aur battery isolate karke inverter ek baar reboot karein."
+        },
+        {
+          "en": "If it returns, follow Growatt's guide: reboot then claim warranty through Growatt service.",
+          "ur": "Agar wapas aaye to Growatt ke guide ke mutabiq karein: reboot karke Growatt service se warranty claim karein."
+        },
+        {
+          "en": "Before claiming, note the exact time the code appears - recurring codes on a cold morning point to a marginal processor.",
+          "ur": "Claim karne se pehle note karein ke code kab aata hai - subah ke waqt baar baar aane wala code marginal processor ki taraf ishara karta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Troubleshooting Guide for Growatt Inverters (Growatt New Energy Australia Pty Ltd)",
+        "retrieved": "2026-09-26",
+        "url": "https://baikaltesla.com/wp-content/uploads/2022/07/TROUBLE-SHOOTING-GUIDE.pdf"
+      }
+    },
+    {
+      "code": "Error 111",
+      "aliases": [
+        "Error 111",
+        "111",
+        "Neutral line charged"
+      ],
+      "title": {
+        "en": "Neutral line charged",
+        "ur": "Neutral line charged hai"
+      },
+      "meaning": {
+        "en": "The neutral conductor is carrying voltage, which points to a reversed or damaged connection.",
+        "ur": "Neutral conductor par voltage aa raha hai, jo ulatay ya damaged connection ki taraf ishara karta hai."
+      },
+      "causes": [
+        {
+          "en": "N and L conductors connected in reverse at the inverter",
+          "ur": "Inverter par N aur L conductors ulat se lage hain"
+        },
+        {
+          "en": "Inverter terminal block damaged, or neutral conductor open upstream",
+          "ur": "Inverter terminal block damaged, ya neutral conductor upstream se khul gaya hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC breaker and isolate, then test the N line and the L line for reversal.",
+          "ur": "AC breaker band karke isolate karein, phir N line aur L line ka reversal test karein."
+        },
+        {
+          "en": "Check the inverter terminals for damage, and measure N-to-PE voltage with a multimeter.",
+          "ur": "Inverter terminals par damage check karein, aur multimeter se N se PE voltage measure karein."
+        },
+        {
+          "en": "If a damaged spot is found, contact Growatt for a warranty replacement of the terminal block.",
+          "ur": "Agar damaged spot mil jaye to terminal block ki warranty replacement ke liye Growatt se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Troubleshooting Guide for Growatt Inverters (Growatt New Energy Australia Pty Ltd)",
+        "retrieved": "2026-09-26",
+        "url": "https://baikaltesla.com/wp-content/uploads/2022/07/TROUBLE-SHOOTING-GUIDE.pdf"
+      }
+    },
+    {
+      "code": "Error 116",
+      "aliases": [
+        "Error 116",
+        "116",
+        "EEPROM fault"
+      ],
+      "title": {
+        "en": "EEPROM fault",
+        "ur": "EEPROM fault hai"
+      },
+      "meaning": {
+        "en": "Failure reading or writing the EEPROM settings memory.",
+        "ur": "EEPROM settings memory parhne ya likhne mein failure."
+      },
+      "causes": [
+        {
+          "en": "EEPROM chip or its solder joint on the control board",
+          "ur": "Control board par EEPROM chip ya uska solder joint"
+        },
+        {
+          "en": "Power interruption during a settings write",
+          "ur": "Settings write ke dauran power chala jana"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reboot the inverter after disconnecting AC and PV.",
+          "ur": "AC aur PV disconnect kar ke inverter reboot karein."
+        },
+        {
+          "en": "Note whether the fault only appears in the morning - a marginal EEPROM chip does exactly that.",
+          "ur": "Note karein ke fault sirf subah aata hai ya nahi - marginal EEPROM chip aise hi karta hai."
+        },
+        {
+          "en": "If sustained after reboot, contact Growatt to claim warranty.",
+          "ur": "Reboot ke baad bhi barqarar rahe to Growatt se rabta karke warranty claim karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Troubleshooting Guide for Growatt Inverters (Growatt New Energy Australia Pty Ltd)",
+        "retrieved": "2026-09-26",
+        "url": "https://baikaltesla.com/wp-content/uploads/2022/07/TROUBLE-SHOOTING-GUIDE.pdf"
+      }
+    },
+    {
+      "code": "Error 117",
+      "aliases": [
+        "Error 117",
+        "117",
+        "Relay fault"
+      ],
+      "title": {
+        "en": "Relay fault",
+        "ur": "Relay fault hai"
+      },
+      "meaning": {
+        "en": "The grid connection relay circuit is not operating correctly.",
+        "ur": "Grid connection relay circuit theek se operate nahi ho raha."
+      },
+      "causes": [
+        {
+          "en": "Relay coil, contacts or its driver circuit faulty",
+          "ur": "Relay coil, contacts ya uska driver circuit faulty"
+        },
+        {
+          "en": "Relay failed after an arc or over-voltage event",
+          "ur": "Arc ya over-voltage event ke baad relay fail"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then listen for the relay click when the AC breaker is toggled.",
+          "ur": "AC aur PV isolate karke AC breaker toggle karte waqt relay ki click check karein."
+        },
+        {
+          "en": "Reboot the inverter once; a single click with a cleared code means an interlock event.",
+          "ur": "Inverter ek baar reboot karein; sirf ek click aur code clear ho jaye to interlock event hai."
+        },
+        {
+          "en": "If the relay never clicks, contact Growatt to claim warranty.",
+          "ur": "Agar relay kabhi click na kare to Growatt se rabta karke warranty claim karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Troubleshooting Guide for Growatt Inverters (Growatt New Energy Australia Pty Ltd)",
+        "retrieved": "2026-09-26",
+        "url": "https://baikaltesla.com/wp-content/uploads/2022/07/TROUBLE-SHOOTING-GUIDE.pdf"
+      }
+    },
+    {
+      "code": "Error 118",
+      "aliases": [
+        "Error 118",
+        "118",
+        "Init model fault"
+      ],
+      "title": {
+        "en": "Init model fault (dip switches)",
+        "ur": "Init model fault - dip switches ghalat hain"
+      },
+      "meaning": {
+        "en": "The dip switches underneath the inverter do not match the model, so initialisation fails.",
+        "ur": "Inverter ke neeche ke dip switches model se match nahi karte, is liye initialisation fail hai."
+      },
+      "causes": [
+        {
+          "en": "Dip switch block moved during service or transport",
+          "ur": "Service ya transport ke doraan dip switch block hila diya gaya"
+        },
+        {
+          "en": "Wrong dip switch combination fitted for the installed model",
+          "ur": "Installed model ke liye ghalat dip switch combination laga hua"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then read the dip switches underneath the inverter.",
+          "ur": "AC aur PV isolate karke inverter ke neeche dip switches padhein."
+        },
+        {
+          "en": "Set the dip switches per section 1.2.1 of Growatt's own guide, and re-check each position.",
+          "ur": "Growatt ke apne guide ke section 1.2.1 ke mutabiq dip switches set karein, aur har position dobara check karein."
+        },
+        {
+          "en": "If the code persists with correct switches, contact Growatt to claim warranty.",
+          "ur": "Sahi switches ke saath bhi code rahe to Growatt se rabta karke warranty claim karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Troubleshooting Guide for Growatt Inverters (Growatt New Energy Australia Pty Ltd)",
+        "retrieved": "2026-09-26",
+        "url": "https://baikaltesla.com/wp-content/uploads/2022/07/TROUBLE-SHOOTING-GUIDE.pdf"
+      }
+    },
+    {
+      "code": "Error 119",
+      "aliases": [
+        "Error 119",
+        "119",
+        "GFCI Device Damage"
+      ],
+      "title": {
+        "en": "GFCI device damage",
+        "ur": "GFCI device damage ho gaya hai"
+      },
+      "meaning": {
+        "en": "The ground fault detection device is damaged.",
+        "ur": "Ground fault detection device kharab ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "GFCI board damaged by surge or repeated leakage trips",
+          "ur": "Surge ya baar baar leakage trips se GFCI board kharab"
+        },
+        {
+          "en": "Undetected earth fault in the array still energising the device",
+          "ur": "Array mein abhi bhi undetected earth fault mojood hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then measure array insulation resistance before assuming a board fault.",
+          "ur": "AC aur PV isolate karke board fault maan ne se pehle array ki insulation resistance measure karein."
+        },
+        {
+          "en": "Inspect the GFCI board for scorch marks or a burnt smell.",
+          "ur": "GFCI board par burnt nishaan ya burnt smell dekhein."
+        },
+        {
+          "en": "Reboot the inverter; if the fault remains, contact Growatt to claim warranty.",
+          "ur": "Inverter reboot karein; fault bacha rahe to Growatt se rabta karke warranty claim karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Troubleshooting Guide for Growatt Inverters (Growatt New Energy Australia Pty Ltd)",
+        "retrieved": "2026-09-26",
+        "url": "https://baikaltesla.com/wp-content/uploads/2022/07/TROUBLE-SHOOTING-GUIDE.pdf"
+      }
+    },
+    {
+      "code": "Error 120",
+      "aliases": [
+        "Error 120",
+        "120",
+        "HCT fault"
+      ],
+      "title": {
+        "en": "HCT fault (hall current transformer)",
+        "ur": "HCT fault - hall current transformer ka masla"
+      },
+      "meaning": {
+        "en": "The hall-effect current transformer or its circuit is reporting a fault.",
+        "ur": "Hall-effect current transformer ya uska circuit fault report kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Hall current sensor failed or its connector loose",
+          "ur": "Hall current sensor fail ya uska connector loose"
+        },
+        {
+          "en": "Sensor wiring harness damaged near the fan or heatsink",
+          "ur": "Sensor wiring harness fan ya heatsink ke paas damaged"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then reseat the HCT connector at the control board.",
+          "ur": "AC aur PV isolate karke control board par HCT connector dobara baithayein."
+        },
+        {
+          "en": "Compare current readings with a clamp meter; a HCT reading far from clamp-meter truth means the sensor is dead.",
+          "ur": "Clamp meter se current readings compare karein; agar HCT reading clamp meter se bohat door ho to sensor dead hai."
+        },
+        {
+          "en": "Reboot the inverter; if the fault persists, contact Growatt to claim warranty.",
+          "ur": "Inverter reboot karein; fault bacha rahe to Growatt se rabta karke warranty claim karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Troubleshooting Guide for Growatt Inverters (Growatt New Energy Australia Pty Ltd)",
+        "retrieved": "2026-09-26",
+        "url": "https://baikaltesla.com/wp-content/uploads/2022/07/TROUBLE-SHOOTING-GUIDE.pdf"
+      }
+    },
+    {
+      "code": "Error 122",
+      "aliases": [
+        "Error 122",
+        "122",
+        "Bus voltage fault"
+      ],
+      "title": {
+        "en": "Bus voltage fault",
+        "ur": "Bus voltage fault hai"
+      },
+      "meaning": {
+        "en": "The internal DC bus voltage is abnormal, commonly from ageing capacitors or a failing power circuit.",
+        "ur": "Internal DC bus voltage abnormal hai, aksar aging capacitors ya failing power circuit ki wajah se."
+      },
+      "causes": [
+        {
+          "en": "DC bus capacitors ageing, giving excessive ripple",
+          "ur": "DC bus capacitors aging ho kar bohat zyada ripple de rahe hain"
+        },
+        {
+          "en": "Failure in the power circuit that charges the bus",
+          "ur": "Bus ko charge karne wali power circuit mein failure"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then wait 5 minutes for the bus to discharge safely.",
+          "ur": "AC, PV aur battery isolate karke 5 minute wait karein taake bus mehfooz taur par discharge ho."
+        },
+        {
+          "en": "Reboot the inverter and watch whether the code returns at every start or only under load.",
+          "ur": "Inverter reboot karke dekhein ke code har start par aata hai ya sirf load ke saath."
+        },
+        {
+          "en": "If it returns immediately, contact Growatt to claim warranty - Growatt's guide routes all 1xx codes to warranty.",
+          "ur": "Agar foran wapas aaye to Growatt se rabta karke warranty claim karein - Growatt ka guide tamam 1xx codes ko warranty par bhejta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Troubleshooting Guide for Growatt Inverters (Growatt New Energy Australia Pty Ltd)",
+        "retrieved": "2026-09-26",
+        "url": "https://baikaltesla.com/wp-content/uploads/2022/07/TROUBLE-SHOOTING-GUIDE.pdf"
+      }
+    }
+  ]
+}

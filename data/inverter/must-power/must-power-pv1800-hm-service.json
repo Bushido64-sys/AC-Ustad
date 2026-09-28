@@ -1,0 +1,627 @@
+{
+  "schemaVersion": 1,
+  "brandId": "must-power",
+  "series": {
+    "id": "must-power-pv1800-hm-service",
+    "name": "PV1800 2K/3K HM (service manual fault-to-main-board mapping)",
+    "category": "inverter",
+    "unitType": "off_grid_inverter",
+    "modelPatterns": [
+      "*PV1800*HM*",
+      "*PV18*HM*",
+      "*PV1800*2K*HM*",
+      "*PV1800*3K*HM*"
+    ],
+    "notes": "CRITICAL SEMANTIC DIFFERENCE: in this service manual the same numbers do NOT name a user-visible symptom - each number points at a main-board repair section. E.g. 01 here means 'replace fan, else check fan drive circuit (3.9)', whereas 01 in SERIES 1 means 'fan locked when inverter is off'. Never present these mappings to a customer as the code's meaning. Codes present here: 01, 02, 03, 06, 08, 09, 52, 56, 57, 58, 72, plus the no-LCD symptom."
+  },
+  "codes": [
+    {
+      "code": "No LCD",
+      "aliases": [
+        "No LCD",
+        "No LCD display when inverter turns on"
+      ],
+      "title": {
+        "en": "No LCD display on power up",
+        "ur": "Power up par LCD display nahi"
+      },
+      "meaning": {
+        "en": "The unit powers on but the LCD stays dead, so the service manual starts diagnosis at the battery voltage.",
+        "ur": "Unit power ho jata hai lekin LCD bilkul dead rehta hai jis se service manual battery voltage se diagnosis shuru karta hai."
+      },
+      "causes": [
+        {
+          "en": "Battery voltage is outside the 44 V to 52 V service window.",
+          "ur": "Battery voltage 44 V se 52 V service window se bahar hai."
+        },
+        {
+          "en": "The battery switch-on power supply circuit has failed.",
+          "ur": "Battery switch-on power supply circuit kharab ho gaya hai."
+        },
+        {
+          "en": "Control board or display board has failed and needs replacing.",
+          "ur": "Control board ya display board kharab ho gaya aur replace karna hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then test battery voltage; the manual states the range is 44v-52v.",
+          "ur": "AC, PV aur battery disconnect karke battery voltage test karein, manual kehta hai range 44v-52v hai."
+        },
+        {
+          "en": "If the voltage is in range, power the unit on and see whether it starts at all.",
+          "ur": "Agar voltage range mein hai to unit power on karke dekhein ke woh start hota hai ya nahi."
+        },
+        {
+          "en": "If it does not run, disconnect all connections, open the surface panel, take out the main board, and check and repair per section 3.7.",
+          "ur": "Agar na chale to saare connections disconnect karke surface panel kholein, main board nikaalein, aur 3.7 ke mutabiq check aur repair karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Service Manual PV18-2K/3K HM Inverter/Charger (PV1800 2K/3K HM)",
+        "retrieved": "2026-09-26",
+        "url": "https://usersmanualguide.com/must/inverter/pv1800-2k-hm/user-manual/qllq"
+      }
+    },
+    {
+      "code": "01",
+      "aliases": [
+        "01",
+        "Fault 01 (HM service mapping)"
+      ],
+      "title": {
+        "en": "HM board path: fan replacement then 3.9",
+        "ur": "HM board hal: fan badalna phir 3.9"
+      },
+      "meaning": {
+        "en": "On the HM service manual, 01 routes the technician to fan replacement first, then main board section 3.9.",
+        "ur": "HM service manual mein 01 technician ko pehle fan replacement phir main board section 3.9 par le jata hai."
+      },
+      "causes": [
+        {
+          "en": "Fan is faulty.",
+          "ur": "Fan kharab hai."
+        },
+        {
+          "en": "Fan drive circuit on the main board is faulty if a new fan does not clear it.",
+          "ur": "Naya fan se clear na ho to main board ka fan drive circuit kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "First to replace the fan, to check whether it is okay; if NG, please inspect the main board and repair according to 3.9.",
+          "ur": "Pehle fan replace karke check karein ke theek hai ya nahi; NG nikle to main board inspect karke 3.9 ke mutabiq repair karein."
+        },
+        {
+          "en": "Measure the fan drive circuit components listed in section 3.9 (R319/R329, R321/R325/R326/R331, R320/R330, D62/D65, Q34/Q35) with a multimeter.",
+          "ur": "Section 3.9 mein diye gaye fan drive circuit ke components (R319/R329, R321/R325/R326/R331, R320/R330, D62/D65, Q34/Q35) multimeter se check karein."
+        },
+        {
+          "en": "After any repair, follow the manual's Test Guidance after Repairing before returning the unit to the customer.",
+          "ur": "Har repair ke baad customer ko dene se pehle manual ka Test Guidance after Repairing follow karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Service Manual PV18-2K/3K HM Inverter/Charger (PV1800 2K/3K HM)",
+        "retrieved": "2026-09-26",
+        "url": "https://usersmanualguide.com/must/inverter/pv1800-2k-hm/user-manual/qllq"
+      }
+    },
+    {
+      "code": "02",
+      "aliases": [
+        "02",
+        "Fault 02 (HM service mapping)"
+      ],
+      "title": {
+        "en": "HM board path: NTC circuit check 3.8",
+        "ur": "HM board hal: NTC circuit check 3.8"
+      },
+      "meaning": {
+        "en": "On the HM service manual, 02 routes the technician to the NTC circuit, section 3.8.",
+        "ur": "HM service manual mein 02 technician ko NTC circuit section 3.8 par le jata hai."
+      },
+      "causes": [
+        {
+          "en": "One of the three NTC thermistors is short-circuited or open.",
+          "ur": "Teen NTC thermistors mein koi aik short-circuited ya open hai."
+        },
+        {
+          "en": "NTC in position HS3 plugs into SW1 on the main board, so a wrong or loose plug can trigger 02.",
+          "ur": "HS3 position ka NTC main board par SW1 mein plug hota hai, is liye galat ya loose plug 02 kara sakta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Please to check the main board and repair according to 3.8 - the manual's exact wording for 02.",
+          "ur": "Manual ka 02 ke liye exact alfaz: 'Please to check the main board and repair according to 3.8'."
+        },
+        {
+          "en": "Check each NTC with a multimeter; the manual gives reference values such as 5.7k ohm for NTC4 and 15k for the HS4 NTC.",
+          "ur": "Har NTC multimeter se check karein, manual NTC4 ke liye 5.7k ohm aur HS4 NTC ke liye 15k jaisi reference values deta hai."
+        },
+        {
+          "en": "If a function test is impossible, short the NTC and retest; if the fault disappears the NTC was the cause.",
+          "ur": "Agar function test mumkin na ho to NTC short karke dobara test karein, agar fault hat jaye to NTC hi wajah thi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Service Manual PV18-2K/3K HM Inverter/Charger (PV1800 2K/3K HM)",
+        "retrieved": "2026-09-26",
+        "url": "https://usersmanualguide.com/must/inverter/pv1800-2k-hm/user-manual/qllq"
+      }
+    },
+    {
+      "code": "03",
+      "aliases": [
+        "03",
+        "Fault 03 (HM service mapping)"
+      ],
+      "title": {
+        "en": "HM board path: sections 3.1, 3.6, 3.7",
+        "ur": "HM board hal: sections 3.1, 3.6, 3.7"
+      },
+      "meaning": {
+        "en": "On the HM service manual, 03 routes the technician to the DC fuse/capacitance, rectifier and MOSFET protection sections.",
+        "ur": "HM service manual mein 03 technician ko DC fuse/capacitance, rectifier aur MOSFET protection sections par le jata hai."
+      },
+      "causes": [
+        {
+          "en": "DC fuse or bulk capacitors on the main board are faulty (section 3.1).",
+          "ur": "Main board ka DC fuse ya bulk capacitors kharab hain (section 3.1)."
+        },
+        {
+          "en": "Rectifier diode or AC charging circuit is faulty (sections 3.6).",
+          "ur": "Rectifier diode ya AC charging circuit kharab hai (sections 3.6)."
+        },
+        {
+          "en": "MOSFETs on the DC terminal are short-circuited (section 3.7).",
+          "ur": "DC terminal ke MOSFET short-circuited hain (section 3.7)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Please to check first and then to repair the main board according to 3.1, 3.6 and 3.7 - the manual's exact wording for 03.",
+          "ur": "Manual ke 03 ke exact alfaz: 'Please to check first and then to repair the main board according to 3.1, 3.6 and 3.7'."
+        },
+        {
+          "en": "Per section 3.7, measure PV to BAT- with a multimeter; the manual states anything above 10k is a short and the MOSFETs must be replaced.",
+          "ur": "Section 3.7 ke mutabiq PV se BAT- multimeter se check karein, manual kehta hai 10k se upar short hai aur MOSFETs replace karne hain."
+        },
+        {
+          "en": "If one or more MOSFETs are short-circuited, replace them, then follow the manual's Test Guidance after Repairing.",
+          "ur": "Aik ya zyada MOSFET short ho to unhein replace karein, phir manual ka Test Guidance after Repairing follow karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Service Manual PV18-2K/3K HM Inverter/Charger (PV1800 2K/3K HM)",
+        "retrieved": "2026-09-26",
+        "url": "https://usersmanualguide.com/must/inverter/pv1800-2k-hm/user-manual/qllq"
+      }
+    },
+    {
+      "code": "06",
+      "aliases": [
+        "06",
+        "Fault 06 (HM service mapping)"
+      ],
+      "title": {
+        "en": "HM board path: BUS module check 3.3",
+        "ur": "HM board hal: BUS module check 3.3"
+      },
+      "meaning": {
+        "en": "On the HM service manual, 06 routes the technician to the BUS module, section 3.3.",
+        "ur": "HM service manual mein 06 technician ko BUS module section 3.3 par le jata hai."
+      },
+      "causes": [
+        {
+          "en": "BUS module rectifier diode or bus capacitor on the main board is faulty.",
+          "ur": "Main board ka BUS module rectifier diode ya bus capacitor kharab hai."
+        },
+        {
+          "en": "BUS soft-start circuit is faulty.",
+          "ur": "BUS soft-start circuit kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "First to start up the inverter by only connecting battery, if the fault is still on, please inspect the main board following 3.3.",
+          "ur": "Sirf battery connect karke inverter chala kar dekhein, fault phir bhi aaye to 3.3 ke mutabiq main board inspect karein."
+        },
+        {
+          "en": "Measure the BUS module devices listed in section 3.3 with a multimeter, checking diode forward drop and bus capacitor value.",
+          "ur": "Section 3.3 mein diye gaye BUS module devices multimeter se check karein, diode forward drop aur bus capacitor value dekh kar."
+        },
+        {
+          "en": "If more than one device in the BUS module is damaged, the manual advises replacing them all rather than guessing.",
+          "ur": "Agar BUS module mein ek se zyada devices damage hon to manual unhein tamam replace karne ki salah deta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Service Manual PV18-2K/3K HM Inverter/Charger (PV1800 2K/3K HM)",
+        "retrieved": "2026-09-26",
+        "url": "https://usersmanualguide.com/must/inverter/pv1800-2k-hm/user-manual/qllq"
+      }
+    },
+    {
+      "code": "08",
+      "aliases": [
+        "08",
+        "Fault 08 (HM service mapping)"
+      ],
+      "title": {
+        "en": "HM board path: control board replacement",
+        "ur": "HM board hal: control board replacement"
+      },
+      "meaning": {
+        "en": "On the HM service manual, 08 says restart and check for repeat, and if it repeats the control boards must be replaced.",
+        "ur": "HM service manual mein 08 kehta hai restart karke dobara check karein, aur dohrae to control boards replace karne hain."
+      },
+      "causes": [
+        {
+          "en": "Control board has failed, causing a repeat fault on every restart.",
+          "ur": "Control board kharab ho gaya hai jis se har restart par fault dohra raha hai."
+        },
+        {
+          "en": "A repeat fault after restart means the fault is not external wiring.",
+          "ur": "Restart ke baad fault dohrana is baat ka nishan hai ke masla external wiring ka nahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "To restart the inverter, to check whether the fault repeats - the manual's exact first step for 08.",
+          "ur": "Manual ka 08 ka pehla step: 'To restart the inverter, to check whether the fault repeats'."
+        },
+        {
+          "en": "If yes, it requires to replace the control boards.",
+          "ur": "Agar haan, to control boards replace karne hain."
+        },
+        {
+          "en": "Before replacing, isolate AC, PV and battery and confirm the external wiring and battery are sound, so you do not swap a good board.",
+          "ur": "Replace karne se pehle AC, PV aur battery disconnect karke external wiring aur battery theek check karein taake khurd board na badal dein."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Service Manual PV18-2K/3K HM Inverter/Charger (PV1800 2K/3K HM)",
+        "retrieved": "2026-09-26",
+        "url": "https://usersmanualguide.com/must/inverter/pv1800-2k-hm/user-manual/qllq"
+      }
+    },
+    {
+      "code": "09",
+      "aliases": [
+        "09",
+        "Fault 09 (HM service mapping)"
+      ],
+      "title": {
+        "en": "HM board path: 3.1.2, 3.2.1, 3.4.1, 3.5",
+        "ur": "HM board hal: 3.1.2, 3.2.1, 3.4.1, 3.5"
+      },
+      "meaning": {
+        "en": "On the HM service manual, 09 routes the technician to four main-board sections covering the boost module, BUS, inverter bridge and soft start.",
+        "ur": "HM service manual mein 09 technician ko chaar main-board sections par le jata hai: boost module, BUS, inverter bridge aur soft start."
+      },
+      "causes": [
+        {
+          "en": "DC/DC boost module section 3.1.2 fault.",
+          "ur": "DC/DC boost module section 3.1.2 ka fault."
+        },
+        {
+          "en": "BUS module section 3.2.1 fault.",
+          "ur": "BUS module section 3.2.1 ka fault."
+        },
+        {
+          "en": "Invert full bridge section 3.4.1 fault.",
+          "ur": "Invert full bridge section 3.4.1 ka fault."
+        },
+        {
+          "en": "BUS soft start circuit section 3.5 fault.",
+          "ur": "BUS soft start circuit section 3.5 ka fault."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "To check the main board following 3.1.2, 3.2.1, 3.4.1 and 3.5 and to repair accordingly.",
+          "ur": "3.1.2, 3.2.1, 3.4.1 aur 3.5 ke mutabiq main board check karke repair karein."
+        },
+        {
+          "en": "Measure the power devices in each section with a multimeter; the manual lists diode and IGBT reference values per position.",
+          "ur": "Har section ke power devices multimeter se check karein, manual har position ke liye diode aur IGBT reference values deta hai."
+        },
+        {
+          "en": "Per the manual's own note, if you cannot be sure which component broke, replace them all rather than leave a guess in the unit.",
+          "ur": "Manual ke apne note ke mutabiq, agar sure na ho ke kaun sa component toota, to tamam replace karein, unit mein andaza na chhod dein."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Service Manual PV18-2K/3K HM Inverter/Charger (PV1800 2K/3K HM)",
+        "retrieved": "2026-09-26",
+        "url": "https://usersmanualguide.com/must/inverter/pv1800-2k-hm/user-manual/qllq"
+      }
+    },
+    {
+      "code": "52",
+      "aliases": [
+        "52",
+        "Fault 52 (HM service mapping)"
+      ],
+      "title": {
+        "en": "HM board path: 3.1.2 and 3.4",
+        "ur": "HM board hal: 3.1.2 aur 3.4"
+      },
+      "meaning": {
+        "en": "On the HM service manual, 52 says restart on battery only, and if it continues check the main board at 3.1.2 and 3.4.",
+        "ur": "HM service manual mein 52 kehta hai sirf battery par restart karein, phir bhi rahe to 3.1.2 aur 3.4 main board check karein."
+      },
+      "causes": [
+        {
+          "en": "DC/DC boost module section 3.1.2 is faulty.",
+          "ur": "DC/DC boost module section 3.1.2 kharab hai."
+        },
+        {
+          "en": "Invert full bridge section 3.4 is faulty.",
+          "ur": "Invert full bridge section 3.4 kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "First to restart inverter by only connecting to battery, if fault continues, then to check the main board according to 3.1.2 and 3.4.",
+          "ur": "Sirf battery connect karke inverter pehle restart karein, fault rahe to 3.1.2 aur 3.4 ke mutabiq main board check karein."
+        },
+        {
+          "en": "Measure the boost module MOSFETs and the full-bridge IGBTs listed in those sections with a multimeter.",
+          "ur": "Un sections mein diye gaye boost module MOSFETs aur full-bridge IGBTs multimeter se check karein."
+        },
+        {
+          "en": "The manual states that if one or more IGBTs are broken, all IGBT components should be replaced.",
+          "ur": "Manual kehta hai ke aik ya zyada IGBT toot jayein to tamam IGBT components replace karne chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Service Manual PV18-2K/3K HM Inverter/Charger (PV1800 2K/3K HM)",
+        "retrieved": "2026-09-26",
+        "url": "https://usersmanualguide.com/must/inverter/pv1800-2k-hm/user-manual/qllq"
+      }
+    },
+    {
+      "code": "56",
+      "aliases": [
+        "56",
+        "Fault 56 (HM service mapping)"
+      ],
+      "title": {
+        "en": "HM board path: 3.1.1 and 3.1.2",
+        "ur": "HM board hal: 3.1.1 aur 3.1.2"
+      },
+      "meaning": {
+        "en": "On the HM service manual, 56 says check the battery cable connection first, and if good then check and repair the main board at 3.1.1 and 3.1.2.",
+        "ur": "HM service manual mein 56 kehta hai pehle battery cable connection check karein, phir theek ho to 3.1.1 aur 3.1.2 main board check aur repair karein."
+      },
+      "causes": [
+        {
+          "en": "Battery cable connection is poor, loose or has a high-resistance joint.",
+          "ur": "Battery cable connection kh-poor, loose ya high-resistance joint wala hai."
+        },
+        {
+          "en": "DC fuse section 3.1.1 is burnt.",
+          "ur": "DC fuse section 3.1.1 jal chuka hai."
+        },
+        {
+          "en": "DC/DC boost module section 3.1.2 is faulty.",
+          "ur": "DC/DC boost module section 3.1.2 kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "First to check the connection of battery cable, if good connection, then please to check and repair the main board following 3.1.1 and 3.1.2 accordingly.",
+          "ur": "Pehle battery cable connection check karein, connection theek ho to 3.1.1 aur 3.1.2 ke mutabiq main board check aur repair karein."
+        },
+        {
+          "en": "Per section 3.1.1, test F1-F6 fuses (F40A/32VDC) with a multimeter continuity test; reference value 0 ohm, failure status open.",
+          "ur": "Section 3.1.1 ke mutabiq F1-F6 fuses (F40A/32VDC) multimeter continuity test se check karein, reference value 0 ohm, failure status open."
+        },
+        {
+          "en": "Check the bulk capacitors C19/C20/C39/C40 (4200uF 35V) for bulging or leakage, and replace any that have vented.",
+          "ur": "Bulk capacitors C19/C20/C39/C40 (4200uF 35V) phoolay ya leak hone ke liye check karein, aur jo vent ho jaye use replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Service Manual PV18-2K/3K HM Inverter/Charger (PV1800 2K/3K HM)",
+        "retrieved": "2026-09-26",
+        "url": "https://usersmanualguide.com/must/inverter/pv1800-2k-hm/user-manual/qllq"
+      }
+    },
+    {
+      "code": "57",
+      "aliases": [
+        "57",
+        "Fault 57 (HM service mapping)"
+      ],
+      "title": {
+        "en": "HM board path: control board replacement",
+        "ur": "HM board hal: control board replacement"
+      },
+      "meaning": {
+        "en": "On the HM service manual, 57 is answered with a direct control board replacement.",
+        "ur": "HM service manual mein 57 ka jawab seedha control board replacement hai."
+      },
+      "causes": [
+        {
+          "en": "Control board current sensing or logic has failed.",
+          "ur": "Control board ka current sensing ya logic kharab ho gaya hai."
+        },
+        {
+          "en": "The sensing connector on the control board is loose or its solder joint has cracked, so the board behaves as failed.",
+          "ur": "Control board par sensing connector loose hai ya uska solder joint crack ho gaya hai jis se board kharab behaves kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "To replace the control board - the manual's exact instruction for 57.",
+          "ur": "Manual ka 57 ke liye exact instruction: 'To replace the control board'."
+        },
+        {
+          "en": "Isolate AC, PV and battery and confirm the fault repeats after a battery-only restart before swapping the board.",
+          "ur": "Board badalne se pehle AC, PV aur battery disconnect karke sirf battery par restart ke baad fault dohrane ki tasdeeq karein."
+        },
+        {
+          "en": "After board replacement, follow the manual's Test Guidance after Repairing before returning the unit.",
+          "ur": "Board replace karne ke baad unit wapas dene se pehle manual ka Test Guidance after Repairing follow karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Service Manual PV18-2K/3K HM Inverter/Charger (PV1800 2K/3K HM)",
+        "retrieved": "2026-09-26",
+        "url": "https://usersmanualguide.com/must/inverter/pv1800-2k-hm/user-manual/qllq"
+      }
+    },
+    {
+      "code": "58",
+      "aliases": [
+        "58",
+        "Fault 58 (HM service mapping)"
+      ],
+      "title": {
+        "en": "HM board path: two-step 3.1.2, 3.2.1, 3.4.1",
+        "ur": "HM board hal: do step 3.1.2, 3.2.1, 3.4.1"
+      },
+      "meaning": {
+        "en": "On the HM service manual, 58 has a two-step test: battery-only restart, then battery plus utility with the switch off to see if it charges.",
+        "ur": "HM service manual mein 58 ka do-step test hai: pehle sirf battery par restart, phir battery plus utility switch band karke charge hone ka check."
+      },
+      "causes": [
+        {
+          "en": "DC/DC boost module section 3.1.2 fault, so the bus cannot be built from battery.",
+          "ur": "DC/DC boost module section 3.1.2 ka fault jis se battery se bus nahi banta."
+        },
+        {
+          "en": "BUS module section 3.2.1 or inverter bridge section 3.4.1 fault.",
+          "ur": "BUS module section 3.2.1 ya inverter bridge section 3.4.1 ka fault."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "First to restart inverter by connecting battery only, to check whether it is good.",
+          "ur": "Sirf battery connect karke inverter restart karke check karein ke theek hai ya nahi."
+        },
+        {
+          "en": "Second to connect battery and Utility but to keep switch off, checking whether inverter charges battery.",
+          "ur": "Doosra step battery aur Utility connect karein lekin switch band rakhein, aur check karein ke inverter battery charge karta hai ya nahi."
+        },
+        {
+          "en": "Otherwise, to check and repair main board according to 3.1.2, 3.2.1 and 3.4.1 accordingly.",
+          "ur": "Warna 3.1.2, 3.2.1 aur 3.4.1 ke mutabiq main board check aur repair karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Service Manual PV18-2K/3K HM Inverter/Charger (PV1800 2K/3K HM)",
+        "retrieved": "2026-09-26",
+        "url": "https://usersmanualguide.com/must/inverter/pv1800-2k-hm/user-manual/qllq"
+      }
+    },
+    {
+      "code": "72",
+      "aliases": [
+        "72",
+        "Fault 72 (HM service mapping)"
+      ],
+      "title": {
+        "en": "HM board path: control board replacement",
+        "ur": "HM board hal: control board replacement"
+      },
+      "meaning": {
+        "en": "On the HM service manual, 72 - a solar-charger warning code in the user manual - is escalated straight to control board replacement.",
+        "ur": "HM service manual mein 72 - jo user manual mein solar-charger warning code hai - seedha control board replacement par le jata hai."
+      },
+      "causes": [
+        {
+          "en": "Control board is not switching the solar charger off at the low battery threshold, so the charger control circuit has failed.",
+          "ur": "Control board low battery threshold par solar charger band nahi kar raha jis se charger control circuit kharab hai."
+        },
+        {
+          "en": "The low battery detection input on the control board has drifted, so the threshold is never actually reached in software.",
+          "ur": "Control board par low battery detection input bigad gaya hai jis se software mein threshold kabhi actually reach hi nahi hota."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "To replace the control board - the manual's exact instruction for 72.",
+          "ur": "Manual ka 72 ke liye exact instruction: 'To replace the control board'."
+        },
+        {
+          "en": "Before replacing, confirm at night that the charger really is still drawing from PV at a low battery, so you separate a PV wiring fault from a board fault.",
+          "ur": "Replace karne se pehle raat ko confirm karein ke low battery par bhi charger PV se le raha hai, taake PV wiring fault aur board fault alag ho sakein."
+        },
+        {
+          "en": "After replacement, follow the manual's Test Guidance after Repairing.",
+          "ur": "Replacement ke baad manual ka Test Guidance after Repairing follow karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Service Manual PV18-2K/3K HM Inverter/Charger (PV1800 2K/3K HM)",
+        "retrieved": "2026-09-26",
+        "url": "https://usersmanualguide.com/must/inverter/pv1800-2k-hm/user-manual/qllq"
+      }
+    }
+  ]
+}

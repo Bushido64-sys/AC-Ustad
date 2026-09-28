@@ -1,0 +1,3683 @@
+{
+  "schemaVersion": 1,
+  "brandId": "felicity-solar",
+  "series": {
+    "id": "felicity-t-rex-3phase",
+    "name": "T-REX 25/30/40/50 KHP3G01 three-phase hybrid inverter",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "T-REX-25KHP3G01",
+      "T-REX-29K9HP3G01",
+      "T-REX-30KHP3G01",
+      "T-REX-40KHP3G01",
+      "T-REX-50KHP3G01",
+      "*KHP3G01*"
+    ],
+    "notes": "Three-phase commercial hybrid. Warning table = codes 01-22 (17 not used), unit keeps running. Fault table = codes 01-94, output is cut. Codes 80-86, 89, 90, 95 are not present in the printed table. Parallel CAN comms codes (87/88) and BMS comms codes (92/93) only appear on units fitted with the parallel/BMS option. Do NOT merge with Series 8 (T-REX-10KLP3G01) - different table, different numbering."
+  },
+  "codes": [
+    {
+      "code": "Warning 01",
+      "aliases": [
+        "Warning 01",
+        "Battery 1 overvoltage alarm",
+        "W01"
+      ],
+      "title": {
+        "en": "Warning 01 Battery 1 overvoltage",
+        "ur": "Warning 01 Battery 1 over voltage"
+      },
+      "meaning": {
+        "en": "Battery 1 pack voltage is above the BMS cut-off point. Inverter keeps running but the battery should be discharged.",
+        "ur": "Battery 1 ka voltage BMS cut-off se upar hai. Inverter chalta rahega lekin battery discharge karni chahiye."
+      },
+      "causes": [
+        {
+          "en": "Battery SOC too high after a long float charge with PV input",
+          "ur": "PV se lambi float charging ke baad battery ka SOC bohat zyada ho gaya"
+        },
+        {
+          "en": "Battery 1 BMS calibration value out of date on firmware",
+          "ur": "Battery 1 ki BMS calibration value firmware mein purani hai"
+        },
+        {
+          "en": "Battery 1 module cell imbalance",
+          "ur": "Battery 1 module ke cells mein imbalance hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read battery 1 voltage on the LCD BMS page and compare with the module datasheet max charge voltage.",
+          "ur": "LCD ke BMS page par battery 1 ka voltage dekhein aur module datasheet ke max charge voltage se compare karein."
+        },
+        {
+          "en": "Stop PV charging and let the battery discharge to about 80% SOC before restarting.",
+          "ur": "PV charging band karein aur battery ko 80% SOC tak discharge hone dein, phir restart karein."
+        },
+        {
+          "en": "If the code returns with PV off, update the inverter and BMS firmware, then re-commission the battery type in the app.",
+          "ur": "PV band karne par bhi code aaye to inverter aur BMS firmware update karein, phir app mein battery type dobara configure karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 02",
+      "aliases": [
+        "Warning 02",
+        "Battery 2 overvoltage alarm",
+        "W02"
+      ],
+      "title": {
+        "en": "Warning 02 Battery 2 overvoltage",
+        "ur": "Warning 02 Battery 2 over voltage"
+      },
+      "meaning": {
+        "en": "Battery 2 pack voltage is too high; the battery should be discharged.",
+        "ur": "Battery 2 ka voltage bohat zyada hai, battery ko discharge karna chahiye."
+      },
+      "causes": [
+        {
+          "en": "Battery 2 SOC high while PV is still charging",
+          "ur": "PV charging chal rahi hai aur Battery 2 ka SOC already high hai"
+        },
+        {
+          "en": "Battery 2 relay welded so the pack cannot be isolated",
+          "ur": "Battery 2 ka relay weld ho gaya hai, pack isolate nahi ho raha"
+        },
+        {
+          "en": "Wrong battery chemistry selected (lead-acid configured for a lithium pack)",
+          "ur": "Galat battery chemistry set hai (lithium pack par lead-acid configure kiya gaya)"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check battery 2 voltage on the LCD BMS page against the pack maximum charge voltage.",
+          "ur": "LCD BMS page par battery 2 ka voltage aur pack ke max charge voltage ko compare karein."
+        },
+        {
+          "en": "Switch off PV input at the DC isolator and let battery 2 discharge before switching back on.",
+          "ur": "DC isolator se PV input band karein aur battery 2 ko discharge hone dein, phir wapas on karein."
+        },
+        {
+          "en": "Verify battery type in the app/lCD setup; set it to match the actual lithium pack.",
+          "ur": "App ya LCD setup mein battery type check karein aur usay actual lithium pack ke mutabiq set karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 03",
+      "aliases": [
+        "Warning 03",
+        "Battery 1 undervoltage alarm",
+        "W03"
+      ],
+      "title": {
+        "en": "Warning 03 Battery 1 undervoltage",
+        "ur": "Warning 03 Battery 1 low voltage"
+      },
+      "meaning": {
+        "en": "Battery 1 voltage is too low; the battery should be charged.",
+        "ur": "Battery 1 ka voltage bohat kam hai, battery ko charge karna chahiye."
+      },
+      "causes": [
+        {
+          "en": "Battery deeply discharged after a long load-shedding outage",
+          "ur": "Load shedding lambi rahegi to battery gehri tarah discharge ho gaya"
+        },
+        {
+          "en": "PV array not producing (dust, shading, wrong MPPT voltage)",
+          "ur": "PV se power nahi aa rahi (dhool, shadow, MPPT voltage galat)"
+        },
+        {
+          "en": "Battery 1 pre-charge relay or fuse open",
+          "ur": "Battery 1 ka pre-charge relay ya fuse khula hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check battery 1 pack voltage with a multimeter at the DC terminals; confirm it is above the BMS wake-up threshold.",
+          "ur": "DC terminals par multimeter se battery 1 ka voltage check karein aur dekhein ke woh BMS wake-up threshold se upar hai."
+        },
+        {
+          "en": "Measure PV open-circuit voltage and MPPT current; clean panels and remove shading if generation is low.",
+          "ur": "PV ka open-circuit voltage aur MPPT current measure karein; generation kam ho to panels saaf karein aur shadow hatayein."
+        },
+        {
+          "en": "Inspect the battery 1 fuse and pre-charge relay, then restart the inverter once the pack voltage recovers.",
+          "ur": "Battery 1 ka fuse aur pre-charge relay check karein, phir voltage recover hone par inverter restart karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 04",
+      "aliases": [
+        "Warning 04",
+        "Battery 2 undervoltage alarm",
+        "W04"
+      ],
+      "title": {
+        "en": "Warning 04 Battery 2 undervoltage",
+        "ur": "Warning 04 Battery 2 low voltage"
+      },
+      "meaning": {
+        "en": "Battery 2 voltage is too low; the battery should be charged.",
+        "ur": "Battery 2 ka voltage bohat kam hai, battery ko charge karna chahiye."
+      },
+      "causes": [
+        {
+          "en": "Battery 2 idle while battery 1 carries the whole house load",
+          "ur": "Battery 2 idle hai aur poora load Battery 1 par chal raha hai"
+        },
+        {
+          "en": "Imbalance between the two battery parallel circuits",
+          "ur": "Dono battery parallel circuits mein imbalance hai"
+        },
+        {
+          "en": "Battery 2 fuse open or BMS of pack 2 in sleep",
+          "ur": "Battery 2 ka fuse khula hai ya pack 2 ka BMS sleep mein hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure battery 2 voltage at its own DC terminals and compare with battery 1.",
+          "ur": "Battery 2 ke apne DC terminals par voltage measure karke battery 1 se compare karein."
+        },
+        {
+          "en": "Check battery 2 fuse rating and the pack 2 BMS wake signal; reseat the pack communication cable.",
+          "ur": "Battery 2 ka fuse rating aur pack 2 ka BMS wake signal check karein; pack communication cable dobara lagaein."
+        },
+        {
+          "en": "Confirm both packs are the same model and same SOC before putting them back in parallel.",
+          "ur": "Parallel mein wapas lagane se pehle dono packs same model aur same SOC ke hon ka check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 05",
+      "aliases": [
+        "Warning 05",
+        "Battery 1 SOC low alarm",
+        "W05"
+      ],
+      "title": {
+        "en": "Warning 05 Battery 1 SOC low",
+        "ur": "Warning 05 Battery 1 ka SOC low"
+      },
+      "meaning": {
+        "en": "Battery 1 state of charge is too low; the battery should be charged.",
+        "ur": "Battery 1 ka SOC bohat kam hai, battery ko charge karna chahiye."
+      },
+      "causes": [
+        {
+          "en": "Sustained backup discharge with no grid and no solar",
+          "ur": "Grid aur solar dono na hone par lamba backup discharge chal raha hai"
+        },
+        {
+          "en": "Battery capacity faded so usable SOC window is small",
+          "ur": "Battery ki capacity degrade ho gayi, usable SOC window kam ho gaya"
+        },
+        {
+          "en": "SOC calibration drift after a partial charge/discharge cycle",
+          "ur": "Partial charge/discharge ke baad SOC calibration drift ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read SOC on the LCD and compare with the measured pack voltage; a mismatch means SOC needs recalibrating.",
+          "ur": "LCD par SOC dekhein aur pack voltage se compare karein; mismatch ho to SOC dobara calibrate karna hoga."
+        },
+        {
+          "en": "Give the pack one full uninterrupted charge from PV or grid until charge stage is complete.",
+          "ur": "PV ya grid se pack ko ek poora uninterrupted charge dein jab tak charge stage complete na ho."
+        },
+        {
+          "en": "If SOC reads low immediately after a full charge, test battery capacity with a load tester.",
+          "ur": "Poori charging ke foran baad SOC low dikhe to battery capacity ko load tester se test karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 06",
+      "aliases": [
+        "Warning 06",
+        "Battery 2 SOC low alarm",
+        "W06"
+      ],
+      "title": {
+        "en": "Warning 06 Battery 2 SOC low",
+        "ur": "Warning 06 Battery 2 ka SOC low"
+      },
+      "meaning": {
+        "en": "Battery 2 state of charge is too low; the battery should be charged.",
+        "ur": "Battery 2 ka SOC bohat kam hai, battery ko charge karna chahiye."
+      },
+      "causes": [
+        {
+          "en": "Battery 2 not taking charge because its BMS is in sleep",
+          "ur": "Battery 2 charge nahi le raha kyunke uska BMS sleep mein hai"
+        },
+        {
+          "en": "Charge current set to 0 A for battery 2",
+          "ur": "Battery 2 ke liye charge current 0 A par set hai"
+        },
+        {
+          "en": "Battery 2 pack communication intermittent",
+          "ur": "Battery 2 ka pack communication intermittent hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check battery 2 charge current limit in the LCD setup and raise it to the pack maximum.",
+          "ur": "LCD setup mein battery 2 ka charge current limit check karke pack ke maximum tak barha dein."
+        },
+        {
+          "en": "Reseat and re-terminate the battery 2 CAN communication cable at both ends.",
+          "ur": "Battery 2 ke CAN communication cable ko dono sifar se nikal kar dobara tight karein."
+        },
+        {
+          "en": "Power-cycle the pack 2 breaker, then confirm the inverter shows the pack 2 SOC on the BMS page.",
+          "ur": "Pack 2 ka breaker off/on karein, phir dekhein ke inverter BMS page par pack 2 ka SOC dikha raha hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 07",
+      "aliases": [
+        "Warning 07",
+        "High voltage ride through alarm",
+        "W07"
+      ],
+      "title": {
+        "en": "Warning 07 High voltage ride-through",
+        "ur": "Warning 07 High voltage ride-through chal raha hai"
+      },
+      "meaning": {
+        "en": "Grid voltage dip handling: the inverter sends reactive power to the grid instead of tripping.",
+        "ur": "Grid voltage girne par inverter trip hone ke bajaye grid ko reactive power bhejta hai."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage dipped inside the HVRT curve during a motor start",
+          "ur": "Motor start hote waqt grid voltage HVRT curve ke andar gir gaya"
+        },
+        {
+          "en": "Long AC cable from grid to inverter raising voltage drop",
+          "ur": "Grid se inverter tak lamba AC cable hone ki wajah se voltage gir raha hai"
+        },
+        {
+          "en": "Grid transformer tap on a high position",
+          "ur": "Grid ka transformer tap high position par hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "This is a normal ride-through behaviour; confirm the inverter returns to normal after the dip.",
+          "ur": "Yeh normal ride-through behaviour hai; confirm karein ke dip ke baad inverter normal par aa jata hai."
+        },
+        {
+          "en": "Log grid voltage with a clamp meter during the event to see how deep the dip goes.",
+          "ur": "Clamp meter se event ke dauran grid voltage log karein ke dip kitna gehra hai."
+        },
+        {
+          "en": "If trips follow, check grid voltage at the inverter terminals, not at the utility meter.",
+          "ur": "Agar uske baad trip ho to grid voltage inverter terminals par check karein, utility meter par nahi."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 08",
+      "aliases": [
+        "Warning 08",
+        "Low voltage ride through alarm",
+        "W08"
+      ],
+      "title": {
+        "en": "Warning 08 Low voltage ride-through",
+        "ur": "Warning 08 Low voltage ride-through chal raha hai"
+      },
+      "meaning": {
+        "en": "Grid voltage swell handling: the inverter absorbs reactive power from the grid rather than tripping.",
+        "ur": "Grid voltage barhne par inverter trip ke bajaye grid se reactive power le leta hai."
+      },
+      "causes": [
+        {
+          "en": "Grid over-voltage event from a large local load being shed",
+          "ur": "Bohat bara local load drop hone se grid par over-voltage event"
+        },
+        {
+          "en": "Weak grid with high fault level and long feeder",
+          "ur": "Kamzor grid, high fault level aur lamba feeder"
+        },
+        {
+          "en": "Grid standard set to a country with a wider ride-through window",
+          "ur": "Grid standard aise desh ka set hai jiski ride-through window barhi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the unit returns to normal once grid voltage is back in range.",
+          "ur": "Confirm karein ke grid voltage range mein aate hi unit normal par aa jata hai."
+        },
+        {
+          "en": "Check the grid standard selection in setup; pick the standard that matches the local DISCO/NEPRA feeder.",
+          "ur": "Setup mein grid standard check karein aur woh chune jo local feeder ke mutabiq ho."
+        },
+        {
+          "en": "Verify the smart meter and CT direction if the unit keeps bouncing between states.",
+          "ur": "Agar unit states ke darmiyan oscillate karta rahe to smart meter aur CT ki direction check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 09",
+      "aliases": [
+        "Warning 09",
+        "Under-frequency derating alarm",
+        "W09"
+      ],
+      "title": {
+        "en": "Warning 09 Under-frequency derating",
+        "ur": "Warning 09 Low frequency derating"
+      },
+      "meaning": {
+        "en": "Grid frequency is too low, so the inverter reduces its output power.",
+        "ur": "Grid frequency bohat kam hai, is liye inverter apni output power kam kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Large generator or weak grid pulling frequency down",
+          "ur": "Bara generator ya kamzor grid frequency neeche kheench raha hai"
+        },
+        {
+          "en": "Oversized PV array on a weak single-phase feeder",
+          "ur": "Kamzor single-phase feeder par bara PV array lagaya gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid frequency with a clamp meter; it should sit near 50 Hz in Pakistan.",
+          "ur": "Clamp meter se grid frequency measure karein; Pakistan mein yeh 50 Hz ke qareeb hona chahiye."
+        },
+        {
+          "en": "Reduce PV array size or add energy limiting so the inverter stops pushing power onto a weak grid.",
+          "ur": "PV array ka size kam karein ya energy limiting lagayein taake kamzor grid par inverter zyada power na de."
+        },
+        {
+          "en": "Check generator governor settings if the site runs on a generator.",
+          "ur": "Agar site generator par chalti hai to generator ke governor settings check karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 10",
+      "aliases": [
+        "Warning 10",
+        "Over-frequency derating alarm",
+        "W10"
+      ],
+      "title": {
+        "en": "Warning 10 Over-frequency derating",
+        "ur": "Warning 10 High frequency derating"
+      },
+      "meaning": {
+        "en": "Grid frequency is too high, so the inverter reduces its output power.",
+        "ur": "Grid frequency bohat zyada hai, is liye inverter apni output power kam kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Oversized generator running at light load",
+          "ur": "Bara generator halki load par chal raha hai"
+        },
+        {
+          "en": "Frequency-based load shedding setting in the app",
+          "ur": "App mein frequency based load shedding ka setting"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid frequency; on a generator, set the generator governor to 50 Hz.",
+          "ur": "Grid frequency measure karein; generator par governor ko 50 Hz par set karein."
+        },
+        {
+          "en": "Switch off non-essential loads so the generator is not running far below its rated output.",
+          "ur": "Ghair zaroori loads band karein taake generator rated output se bohat neeche na chale."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 11",
+      "aliases": [
+        "Warning 11",
+        "Under frequency and rated alarm",
+        "W11"
+      ],
+      "title": {
+        "en": "Warning 11 Under-frequency raise power",
+        "ur": "Warning 11 Low frequency par power barhana"
+      },
+      "meaning": {
+        "en": "Grid frequency is low, so the inverter increases its output to support the grid.",
+        "ur": "Grid frequency kam hai, is liye inverter grid ki madad ke liye output barhata hai."
+      },
+      "causes": [
+        {
+          "en": "Weak grid dragging frequency down",
+          "ur": "Kamzor grid frequency neeche kheench rahi hai"
+        },
+        {
+          "en": "Frequency support function enabled on a grid that cannot take it",
+          "ur": "Aise grid par frequency support function on hai jo isko handle nahi kar sakta"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the unit is on grid (not EPS) and frequency support is intentionally enabled.",
+          "ur": "Confirm karein ke unit grid par hai (EPS par nahi) aur frequency support jaanbujh kar on hai."
+        },
+        {
+          "en": "Log frequency with a clamp meter; if it stays below 49.5 Hz the feeder is overloaded.",
+          "ur": "Clamp meter se frequency log karein; agar 49.5 Hz se neeche rehta hai to feeder overloaded hai."
+        },
+        {
+          "en": "Reduce PV export limit or stagger large motor loads if frequency support trips the unit.",
+          "ur": "Agar frequency support unit ko trip kar raha hai to PV export limit kam karein ya bare motor loads stagger karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 12",
+      "aliases": [
+        "Warning 12",
+        "Load Overload Alarm",
+        "W12"
+      ],
+      "title": {
+        "en": "Warning 12 Load overload",
+        "ur": "Warning 12 Load par overload"
+      },
+      "meaning": {
+        "en": "Output load is above the inverter rating; the load should be reduced.",
+        "ur": "Output load inverter ki rating se zyada hai, load kam karna chahiye."
+      },
+      "causes": [
+        {
+          "en": "Air conditioner or water pump compressor starting while other loads run",
+          "ur": "Doosre loads chalte waqt AC ya water pump ka compressor start hona"
+        },
+        {
+          "en": "Motor surge current on starting (3-7x rated)",
+          "ur": "Motor ka starting surge current rated ka 3-7 guna"
+        },
+        {
+          "en": "Load steps not configured, so the inverter cannot shed them",
+          "ur": "Load steps configure nahi hain, is liye inverter unhein shed nahi kar sakta"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the load percentage on the LCD and list the connected loads to find the biggest consumer.",
+          "ur": "LCD par load percentage dekhein aur sab loads list karke sabse bara consumer dhoondein."
+        },
+        {
+          "en": "Stagger motor starts using the load-step / stagger function in the app so peaks do not overlap.",
+          "ur": "App mein load-step ya stagger function on karein taake motor starts aik ke baad aik na hon."
+        },
+        {
+          "en": "Size the inverter for the largest motor's surge current, not just its running wattage.",
+          "ur": "Inverter ko sirf motor ki running wattage se nahi, balki uske surge current se size karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 13",
+      "aliases": [
+        "Warning 13",
+        "DC lightning protection alarm",
+        "W13"
+      ],
+      "title": {
+        "en": "Warning 13 DC lightning protection",
+        "ur": "Warning 13 DC lightning protection trigger"
+      },
+      "meaning": {
+        "en": "The DC-side lightning protector has tripped; the inverter keeps working but the PV side is unprotected.",
+        "ur": "DC side ka lightning protector trigger ho gaya hai; inverter chalta hai lekin PV side ab protected nahi."
+      },
+      "causes": [
+        {
+          "en": "Direct or induced lightning strike on the PV array or DC cable",
+          "ur": "PV array ya DC cable par direct ya induced lightning strike"
+        },
+        {
+          "en": "DC SPD spent its life after repeated small surges",
+          "ur": "Baar baar chhote surges ke baad DC SPD ki life khatam ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the DC SPD status window on the LCD and inspect the module for a blown fuse element.",
+          "ur": "LCD par DC SPD status window dekhein aur module mein fuse element toota ya nahi check karein."
+        },
+        {
+          "en": "Disconnect PV at the DC isolator, then replace the DC SPD module with the same type and voltage rating.",
+          "ur": "DC isolator se PV disconnect karein, phir DC SPD module ko wahi type aur rating wali se replace karein."
+        },
+        {
+          "en": "Earth the PV array frame and the SPD earth lead properly; a floating earth makes the SPD useless.",
+          "ur": "PV array frame aur SPD ki earth lead ko theek se earth karein; earth floating ho to SPD bekaar hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 14",
+      "aliases": [
+        "Warning 14",
+        "AC lightning protection alarm",
+        "W14"
+      ],
+      "title": {
+        "en": "Warning 14 AC lightning protection",
+        "ur": "Warning 14 AC lightning protection trigger"
+      },
+      "meaning": {
+        "en": "The AC-side lightning protector has tripped; check the protector itself.",
+        "ur": "AC side ka lightning protector trigger ho gaya hai; protector khud check karein."
+      },
+      "causes": [
+        {
+          "en": "Surge coming from the grid side during a storm",
+          "ur": "Storm ke dauran grid side se surge aana"
+        },
+        {
+          "en": "AC SPD at end of life",
+          "ur": "AC SPD ki life khatam ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Inspect the AC SPD indicator window and confirm the AC SPD earth cable is tight to the busbar.",
+          "ur": "AC SPD indicator window dekhein aur AC SPD ki earth cable busbar par tight hai ya nahi confirm karein."
+        },
+        {
+          "en": "Isolate AC at the main breaker, then replace the AC SPD cartridge.",
+          "ur": "Main breaker se AC isolate karein, phir AC SPD cartridge replace karein."
+        },
+        {
+          "en": "Add surge protection on the grid incoming breaker as well, not only at the inverter.",
+          "ur": "Sirf inverter par nahi, grid incoming breaker par bhi surge protection lagayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 15",
+      "aliases": [
+        "Warning 15",
+        "Radiator overtemperature derating alarm",
+        "W15"
+      ],
+      "title": {
+        "en": "Warning 15 Radiator over-temperature derating",
+        "ur": "Warning 15 Radiator over heat derating"
+      },
+      "meaning": {
+        "en": "Radiator (heat sink) temperature is too high, so the inverter reduces its output power.",
+        "ur": "Radiator ka temperature bohat zyada hai, is liye inverter output power kam kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Dust packed on the heat sink fins blocking airflow",
+          "ur": "Heat sink ki fins par dhool ki tabaal se airflow ruki hui hai"
+        },
+        {
+          "en": "Ambient temperature above 45 C in a shaded but unventilated store room",
+          "ur": "Bina ventilation wale kamre mein ambient temperature 45 C se upar"
+        },
+        {
+          "en": "Fan failed or running slow",
+          "ur": "Fan kharab ho gaya ya dheere chal raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, let the unit cool, then clean the heat sink with a soft dry brush and a vacuum.",
+          "ur": "Unit off karein, thanda hone dein, phir heat sink ko soft dry brush aur vacuum se saaf karein."
+        },
+        {
+          "en": "Check the fan spins freely by hand and confirm its connector is seated on the board.",
+          "ur": "Check karein ke fan haath se azaad ghoomta hai aur uska connector board par baitha hua hai."
+        },
+        {
+          "en": "Ensure at least the manufacturer's clearance around the unit and keep the intake free of wall dust and paint.",
+          "ur": "Manufacturer ki clearance unit ke aarpaar rakhein aur intake ko deewar ki dhool se paak rakhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 16",
+      "aliases": [
+        "Warning 16",
+        "Ambient overtemperature derating alarm",
+        "W16"
+      ],
+      "title": {
+        "en": "Warning 16 Ambient over-temperature derating",
+        "ur": "Warning 16 Ambient over heat derating"
+      },
+      "meaning": {
+        "en": "Ambient air temperature is too high, so the inverter reduces its output power.",
+        "ur": "Hawa ka temperature bohat zyada hai, is liye inverter output power kam kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Direct afternoon sun on the inverter cabinet",
+          "ur": "Inverter cabinet par seedha dopahar ki dhoop lag rahi hai"
+        },
+        {
+          "en": "Unit installed inside a closed room with no cross ventilation",
+          "ur": "Unit band kamre mein lagi hai jahan cross ventilation nahi hai"
+        },
+        {
+          "en": "Hot air from an adjacent generator or battery room recirculating",
+          "ur": "Paas ke generator ya battery room se garm hawa wapas aa rahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure ambient temperature at the unit vents with a thermometer; it must be within the datasheet range.",
+          "ur": "Thermometer se unit ke vents par ambient temperature measure karein; woh datasheet ke range mein hona chahiye."
+        },
+        {
+          "en": "Install a sun shade above the unit and keep at least 30 cm clear on all sides.",
+          "ur": "Unit ke upar dhoop ki chhaan lagayein aur charon taraf kam az kam 30 cm saaf rakhein."
+        },
+        {
+          "en": "Add forced ventilation or move the unit out of the closed room if temperature stays high.",
+          "ur": "Temperature high rehta hai to forced ventilation lagayein ya unit ko band kamre se bahar nikaalein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 18",
+      "aliases": [
+        "Warning 18",
+        "Fan 1 alarm",
+        "W18"
+      ],
+      "title": {
+        "en": "Warning 18 Fan 1 stopped",
+        "ur": "Warning 18 Fan 1 ruk gaya"
+      },
+      "meaning": {
+        "en": "Fan 1 has stopped working; check the fan wiring.",
+        "ur": "Fan 1 kaam nahi kar raha; fan wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "Fan connector loose on the control board",
+          "ur": "Control board par fan connector dhila hai"
+        },
+        {
+          "en": "Fan bearing seized after dust and heat",
+          "ur": "Dhool aur garmi se fan ka bearing jam ho gaya"
+        },
+        {
+          "en": "Fan 12 V supply rail low",
+          "ur": "Fan ki 12 V supply rail kam ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reseat the fan connector on the board.",
+          "ur": "AC, PV aur battery isolate karein, phir board par fan connector dobara baitha dein."
+        },
+        {
+          "en": "Spin the fan by hand; if it is stiff or scrapes, replace the fan with the same size and voltage.",
+          "ur": "Fan ko haath se ghumayein; agar sakht ho ya sarkh raha ho to wahi size aur voltage ka fan lagayein."
+        },
+        {
+          "en": "Measure 12 V at the fan header while the unit is running; below 11 V means the auxiliary supply is weak.",
+          "ur": "Unit chalte waqt fan header par 12 V measure karein; 11 V se kam ho to auxiliary supply kamzor hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 19",
+      "aliases": [
+        "Warning 19",
+        "Fan 2 alarm",
+        "W19"
+      ],
+      "title": {
+        "en": "Warning 19 Fan 2 stopped",
+        "ur": "Warning 19 Fan 2 ruk gaya"
+      },
+      "meaning": {
+        "en": "Fan 2 has stopped working; check the fan wiring.",
+        "ur": "Fan 2 kaam nahi kar raha; fan wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "Fan 2 connector loose or fan 2 bearing seized",
+          "ur": "Fan 2 ka connector dhila hai ya bearing jam ho gayi"
+        },
+        {
+          "en": "Fan 2 cable pinched during installation",
+          "ur": "Installation ke dauran fan 2 ka cable nichal gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the unit safely and reseat the fan 2 connector.",
+          "ur": "Unit ko mehfooz tareeqe se kholein aur fan 2 ka connector dobara laga dein."
+        },
+        {
+          "en": "Replace fan 2 if it does not spin freely on the bench.",
+          "ur": "Bench par fan 2 azaad na ghoome to use replace kar dein."
+        },
+        {
+          "en": "Check the fan 2 cable for pinching along its route and free it.",
+          "ur": "Fan 2 ki cable ke poore raste par pinching check karke azaad karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 20",
+      "aliases": [
+        "Warning 20",
+        "Fan 3 alarm",
+        "W20"
+      ],
+      "title": {
+        "en": "Warning 20 Fan 3 stopped",
+        "ur": "Warning 20 Fan 3 ruk gaya"
+      },
+      "meaning": {
+        "en": "Fan 3 has stopped working; check the fan wiring.",
+        "ur": "Fan 3 kaam nahi kar raha; fan wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "Fan 3 cable disconnected during a previous fan replacement",
+          "ur": "Pichli fan replacement ke dauran fan 3 ka cable nikal diya gaya"
+        },
+        {
+          "en": "Fan 3 motor open circuit",
+          "ur": "Fan 3 ka motor open circuit ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Continuity-check the fan 3 winding with a multimeter; an open reading means the fan is dead.",
+          "ur": "Multimeter se fan 3 ki winding ka continuity check karein; open reading aaye to fan kharab hai."
+        },
+        {
+          "en": "Reseat the fan 3 plug and confirm fan 3 spins when the inverter commands cooling.",
+          "ur": "Fan 3 ka plug dohara laga dein aur cooling command par fan 3 ghoomta hai ya nahi confirm karein."
+        },
+        {
+          "en": "Replace fan 3 with an identical 12 V DC fan of the same frame size.",
+          "ur": "Fan 3 ko wahi 12 V DC fan, same frame size, se replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 21",
+      "aliases": [
+        "Warning 21",
+        "Fan 4 alarm",
+        "W21"
+      ],
+      "title": {
+        "en": "Warning 21 Fan 4 stopped",
+        "ur": "Warning 21 Fan 4 ruk gaya"
+      },
+      "meaning": {
+        "en": "Fan 4 has stopped working; check the fan wiring.",
+        "ur": "Fan 4 kaam nahi kar raha; fan wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "Fan 4 connector loose",
+          "ur": "Fan 4 ka connector dhila hai"
+        },
+        {
+          "en": "Fan 4 blade fouled by packing material left after installation",
+          "ur": "Installation ke baad packing material fan 4 ki blade mein phansi hui hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Remove any packing material or cable tie touching the fan 4 blade.",
+          "ur": "Fan 4 ki blade ko chhu raha koi packing material ya cable tie nikaal dein."
+        },
+        {
+          "en": "Test fan 4 for continuity and free spinning, then reseat its connector.",
+          "ur": "Fan 4 ki continuity aur azaad ghoomne ka test karein, phir connector dobara lagayein."
+        },
+        {
+          "en": "Replace fan 4 if the motor is open.",
+          "ur": "Motor open ho to fan 4 replace kar dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Warning 22",
+      "aliases": [
+        "Warning 22",
+        "Internal fan alarm",
+        "W22"
+      ],
+      "title": {
+        "en": "Warning 22 Internal fan stopped",
+        "ur": "Warning 22 Internal fan ruk gaya"
+      },
+      "meaning": {
+        "en": "The internal fan has stopped working; check the internal fan wiring.",
+        "ur": "Internal fan kaam nahi kar raha; internal fan wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "Internal fan blocked by dust inside the cabinet",
+          "ur": "Cabinet ke andar dhool se internal fan block ho gaya"
+        },
+        {
+          "en": "Internal fan harness chafed against a heatsink edge",
+          "ur": "Internal fan ka harness heatsink ke kinare se ragad gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Vacuum the inside of the cabinet and free the internal fan impeller.",
+          "ur": "Cabinet ke andar vacuum karein aur internal fan ki impeller azaad karein."
+        },
+        {
+          "en": "Inspect the internal fan harness for chafing and re-route it away from sharp edges.",
+          "ur": "Internal fan ke harness mein ragad ki nishaniyan dekhein aur use sharp edges se door re-route karein."
+        },
+        {
+          "en": "Replace the internal fan with the same voltage and size if it is open circuit.",
+          "ur": "Internal fan open circuit ho to wahi voltage aur size ka fan lagayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 01",
+      "aliases": [
+        "Fault 01",
+        "PV1 overvoltage fault",
+        "F01"
+      ],
+      "title": {
+        "en": "Fault 01 PV1 overvoltage",
+        "ur": "Fault 01 PV1 over voltage"
+      },
+      "meaning": {
+        "en": "PV1 string voltage is above the MPPT window; output is cut.",
+        "ur": "PV1 string ka voltage MPPT window se upar hai; output band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Too many modules in series for the ambient temperature",
+          "ur": "Ambient temperature ke liye series mein modules zyada hain"
+        },
+        {
+          "en": "Grid code set to a higher max PV voltage than the array",
+          "ur": "Grid code array se zyada max PV voltage par set hai"
+        },
+        {
+          "en": "Very cold morning with clear sky and no load on the inverter",
+          "ur": "Bard subah, saaf aasman aur inverter par load nahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure PV1 open-circuit voltage with a meter and compare it with the MPPT upper limit in the manual.",
+          "ur": "Meter se PV1 ka open-circuit voltage measure karke manual ke MPPT upper limit se compare karein."
+        },
+        {
+          "en": "Remove one module from the string, or enable soft limit for PV voltage in the setup.",
+          "ur": "String se ek module nikaalein, ya setup mein PV voltage ka soft limit on karein."
+        },
+        {
+          "en": "Check that no MPPT is configured for a string that is not connected.",
+          "ur": "Check karein ke koi MPPT aise string par set na ho jo connected hi nahi hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 05",
+      "aliases": [
+        "Fault 05",
+        "PV1 overcurrent fault",
+        "F05"
+      ],
+      "title": {
+        "en": "Fault 05 PV1 overcurrent",
+        "ur": "Fault 05 PV1 over current"
+      },
+      "meaning": {
+        "en": "PV1 string current is too large; check the string current.",
+        "ur": "PV1 string ka current bohat zyada hai; string current check karein."
+      },
+      "causes": [
+        {
+          "en": "Strings with different module ratings paralleled on one MPPT",
+          "ur": "Ek MPPT par alag ratings ke modules ke strings parallel hue hain"
+        },
+        {
+          "en": "Module degradation causing current mismatch between parallel strings",
+          "ur": "Module degrade hone se parallel strings ke darmiyan current mismatch"
+        },
+        {
+          "en": "Insulation fault on the string creating a leakage path",
+          "ur": "String par insulation fault jo leakage path bana raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Use a clamp meter on the PV1 string and compare it with the module Isc and the inverter max input current.",
+          "ur": "PV1 string par clamp meter lagayein aur use module ke Isc aur inverter ke max input current se compare karein."
+        },
+        {
+          "en": "Disconnect the parallel strings one at a time and measure each separately to find the odd string.",
+          "ur": "Parallel strings ko aik aik kar ke disconnect karke har ko alag alag measure karein taake galat string mil jaye."
+        },
+        {
+          "en": "Check PV string insulation to earth with a megohmmeter at the inverter's own test voltage.",
+          "ur": "Inverter ke apne test voltage par megohmmeter se PV string ki earth insulation check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 09",
+      "aliases": [
+        "Fault 09",
+        "PV1 reverse connection fault",
+        "F09"
+      ],
+      "title": {
+        "en": "Fault 09 PV1 polarity reversed",
+        "ur": "Fault 09 PV1 polarity ulat di hui"
+      },
+      "meaning": {
+        "en": "PV1 string positive and negative are swapped; check the string wiring.",
+        "ur": "PV1 string ke positive aur negative aik doosre ke sath badal diye hain; string wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "String connector wired in reverse during installation",
+          "ur": "Installation ke dauran string connector ulat kar lagaya gaya"
+        },
+        {
+          "en": "Module ribbon reconnected backwards on one module",
+          "ur": "Ek module par ribbon ulat kar dobara lagaya gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate PV at the DC isolator, then confirm polarity with a DC voltmeter across the string before reconnecting.",
+          "ur": "DC isolator se PV isolate karein, phir dobara lagane se pehle DC voltmeter se string ke across polarity confirm karein."
+        },
+        {
+          "en": "Trace the string from the last module back to the isolator and correct the reversed connector.",
+          "ur": "String ko aakhri module se DC isolator tak trace karke ulat hua connector theek karein."
+        },
+        {
+          "en": "Re-check polarity with the meter after the fix; only then close the DC isolator.",
+          "ur": "Theek karne ke baad dobara meter se polarity check karein; tabhi DC isolator band karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 14",
+      "aliases": [
+        "Fault 14",
+        "Battery 1 software overvoltage fault",
+        "F14"
+      ],
+      "title": {
+        "en": "Fault 14 Battery 1 software overvoltage",
+        "ur": "Fault 14 Battery 1 software over voltage"
+      },
+      "meaning": {
+        "en": "Battery 1 voltage is too high; the battery should be discharged.",
+        "ur": "Battery 1 ka voltage bohat zyada hai; battery discharge karni chahiye."
+      },
+      "causes": [
+        {
+          "en": "BMS cut-off voltage set lower than the inverter charge limit",
+          "ur": "BMS ka cut-off voltage inverter ke charge limit se neeche set hai"
+        },
+        {
+          "en": "Charge current too high for the pack so terminal voltage overshoots",
+          "ur": "Pack ke liye charge current zyada hai, terminal voltage over shoot kar gayi"
+        },
+        {
+          "en": "Battery 1 cell imbalance in a multi-module pack",
+          "ur": "Multi-module pack mein battery 1 ke cells mein imbalance"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Compare the BMS over-voltage cut-off with the inverter battery charge voltage in the setup and align them.",
+          "ur": "BMS ka over-voltage cut-off inverter setup ke battery charge voltage se compare karke aik jaisa karein."
+        },
+        {
+          "en": "Measure battery 1 terminal voltage with a meter; if it is above the pack limit, stop charging at the DC isolator.",
+          "ur": "Meter se battery 1 ka terminal voltage measure karein; pack limit se upar ho to DC isolator se charging rok dein."
+        },
+        {
+          "en": "Check the cell-level BMS report for a weak cell and rebalance before returning the pack to service.",
+          "ur": "BMS ke cell-level report mein kamzor cell dekhein aur pack wapas chalane se pehle balance karayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 16",
+      "aliases": [
+        "Fault 16",
+        "Battery 1 Overvoltage fault",
+        "F16"
+      ],
+      "title": {
+        "en": "Fault 16 Battery 1 overvoltage",
+        "ur": "Fault 16 Battery 1 over voltage"
+      },
+      "meaning": {
+        "en": "Battery 1 voltage is too high; the battery should be discharged.",
+        "ur": "Battery 1 ka voltage bohat zyada hai; battery discharge karni chahiye."
+      },
+      "causes": [
+        {
+          "en": "Grid charging with the battery already at full SOC",
+          "ur": "Battery pehle se hi full SOC par ho aur grid se charging chal rahi hai"
+        },
+        {
+          "en": "Battery temperature sensor reading low so the charger does not step down",
+          "ur": "Battery temperature sensor kam dikha raha hai is liye charger power kam nahi karta"
+        },
+        {
+          "en": "Two battery strings connected with different cell counts",
+          "ur": "Do battery strings alag alag cell count ke saath lagi hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the battery, measure its open-circuit voltage and compare with the pack's maximum charge voltage.",
+          "ur": "Battery isolate karke uska open-circuit voltage measure karein aur pack ke max charge voltage se compare karein."
+        },
+        {
+          "en": "Verify the battery temperature sensor reading against a contact thermometer at the pack.",
+          "ur": "Pack par contact thermometer lagakar battery temperature sensor ki reading verify karein."
+        },
+        {
+          "en": "Confirm both battery strings have the same model, same cell count and same SOC before re-paralleling.",
+          "ur": "Dobara parallel karne se pehle confirm karein ke dono battery strings ka model, cell count aur SOC aik jaisa hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 18",
+      "aliases": [
+        "Fault 18",
+        "Battery 1 Undervoltage fault",
+        "F18"
+      ],
+      "title": {
+        "en": "Fault 18 Battery 1 undervoltage",
+        "ur": "Fault 18 Battery 1 low voltage"
+      },
+      "meaning": {
+        "en": "Battery 1 voltage is too low; the battery should be charged.",
+        "ur": "Battery 1 ka voltage bohat kam hai; battery charge karni chahiye."
+      },
+      "causes": [
+        {
+          "en": "Battery deeply discharged and PV/grid not available to recharge",
+          "ur": "Battery gehri tarah discharge ho gayi aur PV/grid recharge ke liye available nahi"
+        },
+        {
+          "en": "Cell imbalance in the pack so the weakest cell pulls the string down",
+          "ur": "Pack mein cell imbalance, sabse kamzor cell string ko neeche kheench leta hai"
+        },
+        {
+          "en": "Battery 1 pre-charge resistor or relay open",
+          "ur": "Battery 1 ka pre-charge resistor ya relay khula hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate everything and measure battery 1 open-circuit voltage; below the BMS minimum the pack needs bench charging.",
+          "ur": "Sab isolate karke battery 1 ka open-circuit voltage measure karein; BMS minimum se kam ho to pack ko bench par charge karein."
+        },
+        {
+          "en": "Check the pre-charge relay and fuse on the battery 1 branch with a continuity meter.",
+          "ur": "Battery 1 branch ke pre-charge relay aur fuse ko continuity meter se check karein."
+        },
+        {
+          "en": "Read the cell voltages from the BMS app to find the weak cell before reinstalling the pack.",
+          "ur": "BMS app se cell voltages padhein aur pack dobara lagane se pehle kamzor cell dhoondein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 22",
+      "aliases": [
+        "Fault 22",
+        "Battery 1 overcurrent fault",
+        "F22"
+      ],
+      "title": {
+        "en": "Fault 22 Battery 1 overcurrent",
+        "ur": "Fault 22 Battery 1 over current"
+      },
+      "meaning": {
+        "en": "Battery 1 current is too large; check the battery charge and discharge power.",
+        "ur": "Battery 1 ka current bohat zyada hai; battery ki charge aur discharge power check karein."
+      },
+      "causes": [
+        {
+          "en": "Battery charge/discharge current limit set above the pack rating",
+          "ur": "Battery charge/discharge current limit pack rating se zyada set hai"
+        },
+        {
+          "en": "Short circuit in the battery cable or a wrongly wired auxiliary supply",
+          "ur": "Battery cable mein short ya ghalat tareeqe se wire ki hui auxiliary supply"
+        },
+        {
+          "en": "Load surge on the EPS output while the battery is already at max current",
+          "ur": "Battery pehle se max current par ho aur EPS output par load surge"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Set the battery charge and discharge current in the setup to the pack's rated maximum or below.",
+          "ur": "Setup mein battery charge aur discharge current ko pack ke rated maximum ya us se kam par set karein."
+        },
+        {
+          "en": "Isolate the battery and megohmmeter-test the cable insulation to earth before reconnecting anything.",
+          "ur": "Battery isolate karke cable ki earth insulation megohmmeter se test karein, kuch bhi wapas lagane se pehle."
+        },
+        {
+          "en": "Measure the actual current with a clamp meter and compare it with the inverter's battery rated current.",
+          "ur": "Clamp meter se actual current measure karke inverter ke battery rated current se compare karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 24",
+      "aliases": [
+        "Fault 24",
+        "Battery 1 reverse connection fault",
+        "F24"
+      ],
+      "title": {
+        "en": "Fault 24 Battery 1 polarity reversed",
+        "ur": "Fault 24 Battery 1 polarity ulat di hui"
+      },
+      "meaning": {
+        "en": "Battery 1 positive and negative poles are reversed; check the battery wiring.",
+        "ur": "Battery 1 ke positive aur negative pole aik doosre ke sath badal diye hain; battery wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "Battery cable connected backwards on the inverter side",
+          "ur": "Inverter side par battery cable ulat kar lagaya gaya"
+        },
+        {
+          "en": "Pack 1 and pack 2 cables crossed during parallel wiring",
+          "ur": "Parallel wiring ke dauran pack 1 aur pack 2 ke cables aik doosre ke saath cross ho gaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the battery isolator and confirm polarity with a DC voltmeter across the inverter battery terminals.",
+          "ur": "Battery isolator kholein aur inverter ke battery terminals ke across DC voltmeter se polarity confirm karein."
+        },
+        {
+          "en": "Swap the two battery cables and re-tighten with the correct torque.",
+          "ur": "Do battery cables aik doosre se badal dein aur sahi torque par dobara tighten karein."
+        },
+        {
+          "en": "Check the whole parallel bank for crossed cables before closing the isolator again.",
+          "ur": "Isolator dobara band karne se pehle poore parallel bank mein crossed cables check karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 26",
+      "aliases": [
+        "Fault 26",
+        "Battery 1 relay open circuit fault",
+        "F26"
+      ],
+      "title": {
+        "en": "Fault 26 Battery 1 relay open circuit",
+        "ur": "Fault 26 Battery 1 ka relay open circuit"
+      },
+      "meaning": {
+        "en": "Battery 1 relay is not closing properly, causing an open circuit; shut down and restart.",
+        "ur": "Battery 1 ka relay theek se close nahi ho raha, open circuit ho raha hai; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Battery relay coil or contacts burnt",
+          "ur": "Battery relay ki coil ya contacts jal gaye"
+        },
+        {
+          "en": "Relay control voltage missing because of a blown drive on the board",
+          "ur": "Board par drive jalne se relay control voltage nahi mil raha"
+        },
+        {
+          "en": "Relay mechanically jammed by foreign matter",
+          "ur": "Relay meinforeign matter ghus kar mechanically jam ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then open the unit and visually inspect the battery 1 relay.",
+          "ur": "AC, PV aur battery isolate karein, phir unit kholkar battery 1 ka relay aankh se dekhein."
+        },
+        {
+          "en": "Measure continuity across the relay contacts; a permanently open reading means replace the relay.",
+          "ur": "Relay contacts ke across continuity measure karein; hamesha open reading aaye to relay replace karein."
+        },
+        {
+          "en": "Replace the relay with the exact part number and rating from the Felicity service spares list.",
+          "ur": "Relay ko Felicity service spares list wale exact part number aur rating se replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 28",
+      "aliases": [
+        "Fault 28",
+        "Battery 1 relay short circuit fault",
+        "F28"
+      ],
+      "title": {
+        "en": "Fault 28 Battery 1 relay shorted",
+        "ur": "Fault 28 Battery 1 relay short"
+      },
+      "meaning": {
+        "en": "Battery 1 relay is not opening properly, causing a short circuit; shut down and restart.",
+        "ur": "Battery 1 ka relay theek se open nahi ho raha, short circuit ho raha hai; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Relay contacts welded shut from an overcurrent event",
+          "ur": "Overcurrent event se relay ke contacts weld ho kar band ho gaye"
+        },
+        {
+          "en": "Fuse rating too high so the relay took the full short-circuit current",
+          "ur": "Fuse rating zyada hai, is liye relay ne poora short-circuit current jhela"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery first, then confirm the battery 1 relay is open with a meter.",
+          "ur": "Pehle AC, PV aur battery isolate karein, phir meter se confirm karein ke battery 1 ka relay open hai."
+        },
+        {
+          "en": "Replace the welded relay and the branch fuse together, using the specified fuse rating.",
+          "ur": "Weld ho chuke relay aur branch fuse dono saath replace karein, wahi rating use karte hue."
+        },
+        {
+          "en": "Find the root cause (battery polarity or insulation) before re-energising, or the new relay will weld too.",
+          "ur": "Wapas chalu karne se pehle asal wajah (battery polarity ya insulation) dhoondein, warna naya relay bhi weld ho jayega."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 30",
+      "aliases": [
+        "Fault 30",
+        "Battery 1 soft start fault",
+        "F30"
+      ],
+      "title": {
+        "en": "Fault 30 Battery 1 soft start failed",
+        "ur": "Fault 30 Battery 1 soft start fail"
+      },
+      "meaning": {
+        "en": "Battery 1 fails to raise its input voltage normally at startup; shut down and restart.",
+        "ur": "Battery 1 startup par apna input voltage normally nahi barha pata; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Battery 1 voltage below the DC-DC soft-start threshold",
+          "ur": "Battery 1 ka voltage DC-DC soft-start threshold se neeche hai"
+        },
+        {
+          "en": "DC-DC pre-charge capacitor not charging",
+          "ur": "DC-DC ka pre-charge capacitor charge nahi ho raha"
+        },
+        {
+          "en": "Heavy output load connected before the soft-start finishes",
+          "ur": "Soft start khatam hone se pehle he(output load laga diya gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the output load off completely, then restart the inverter with no load attached.",
+          "ur": "Output load poori tarah band karein, phir koi load na hone par inverter restart karein."
+        },
+        {
+          "en": "Measure battery 1 voltage and confirm it is above the soft-start threshold in the manual.",
+          "ur": "Battery 1 ka voltage measure karke confirm karein ke woh manual ke soft-start threshold se upar hai."
+        },
+        {
+          "en": "If the code returns with no load, have the DC-DC stage and its pre-charge circuit checked at the service centre.",
+          "ur": "Bina load ke bhi code aaye to DC-DC stage aur uski pre-charge circuit service centre par check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 32",
+      "aliases": [
+        "Fault 32",
+        "Battery 1 SOC Low fault",
+        "F32"
+      ],
+      "title": {
+        "en": "Fault 32 Battery 1 SOC low",
+        "ur": "Fault 32 Battery 1 ka SOC low"
+      },
+      "meaning": {
+        "en": "Battery 1 SOC is too low; the battery should be charged.",
+        "ur": "Battery 1 ka SOC bohat kam hai; battery ko charge karna chahiye."
+      },
+      "causes": [
+        {
+          "en": "Extended backup discharge with no PV and no grid",
+          "ur": "Bina PV aur bina grid ke lamba backup discharge"
+        },
+        {
+          "en": "PV not generating because of shading or a blown PV fuse",
+          "ur": "Shadow ya phootay hue PV fuse ki wajah se PV se power nahi aa raha"
+        },
+        {
+          "en": "Battery capacity degraded so it reaches the SOC floor early",
+          "ur": "Battery ki capacity degrade ho gayi, is liye SOC floor jaldi aa jata hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the SOC and battery voltage on the LCD BMS page, then check grid availability and PV breaker state.",
+          "ur": "LCD BMS page par SOC aur battery voltage dekhein, phir grid availability aur PV breaker ka status check karein."
+        },
+        {
+          "en": "Restore charging: close the PV DC isolator and charge from grid or PV until SOC is above 30%.",
+          "ur": "Charging wapas karein: PV DC isolator band karein aur grid ya PV se SOC 30% se upar aane tak charge karein."
+        },
+        {
+          "en": "If SOC jumps back up but the battery dies quickly, test pack capacity with a load tester and check cell balance.",
+          "ur": "SOC wapas upar aa jaye lekin battery jaldi khatam ho jaye to pack capacity load tester se test karein aur cell balance dekhein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 35",
+      "aliases": [
+        "Fault 35",
+        "Bus software overvoltage fault",
+        "F35"
+      ],
+      "title": {
+        "en": "Fault 35 Bus software overvoltage",
+        "ur": "Fault 35 Bus software over voltage"
+      },
+      "meaning": {
+        "en": "The DC bus voltage is too high; shut down and restart.",
+        "ur": "DC bus ka voltage bohat zyada hai; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Bus voltage spike during grid outage while PV is still feeding the unit",
+          "ur": "Grid jaane ke waqt PV unit ko feed kar raha tha aur bus par spike aaya"
+        },
+        {
+          "en": "Feedback from an AC surge through the anti-islanding path",
+          "ur": "Anti-islanding path ke zariye AC surge se feedback"
+        },
+        {
+          "en": "Bus voltage sensing circuit fault reporting a false high",
+          "ur": "Bus voltage sensing circuit ki kharabi se jhooti high reading"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do one clean restart as the manual instructs, then watch whether code 35 comes back.",
+          "ur": "Manual ke mutabiq aik saaf restart karein, phir dekhein ke code 35 dobara aata hai ya nahi."
+        },
+        {
+          "en": "Check the PV input voltage at the DC terminals; an over-voltage string drives the bus high.",
+          "ur": "DC terminals par PV input voltage check karein; over-voltage string bus ko high le jati hai."
+        },
+        {
+          "en": "If code 35 returns repeatedly, check the AC SPD and the anti-islanding relay wiring.",
+          "ur": "Code 35 baar baar aaye to AC SPD aur anti-islanding relay ki wiring check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 36",
+      "aliases": [
+        "Fault 36",
+        "Bus overvoltage fault",
+        "F36"
+      ],
+      "title": {
+        "en": "Fault 36 Bus overvoltage",
+        "ur": "Fault 36 Bus over voltage"
+      },
+      "meaning": {
+        "en": "Bus voltage is too high; shut down and restart.",
+        "ur": "Bus ka voltage bohat zyada hai; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "AC surge or internal component failure",
+          "ur": "AC surge ya internal component ki failure"
+        },
+        {
+          "en": "Grid voltage well above the configured limit during an outage",
+          "ur": "Grid outage ke dauran voltage configured limit se kaafi upar"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart once as the manual says; if it returns, isolate AC, PV and battery before opening the unit.",
+          "ur": "Manual ke mutabiq aik baar restart karein; wapas aaye to unit kholne se pehle AC, PV aur battery isolate karein."
+        },
+        {
+          "en": "Measure grid voltage at the inverter AC terminals with a meter during the event.",
+          "ur": "Event ke dauran meter se inverter ke AC terminals par grid voltage measure karein."
+        },
+        {
+          "en": "Check the AC SPD condition and the anti-islanding relay contacts for pitting.",
+          "ur": "AC SPD ki halat aur anti-islanding relay ke contacts ki pitting check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 37",
+      "aliases": [
+        "Fault 37",
+        "Bus undervoltage fault",
+        "F37"
+      ],
+      "title": {
+        "en": "Fault 37 Bus undervoltage",
+        "ur": "Fault 37 Bus low voltage"
+      },
+      "meaning": {
+        "en": "Bus voltage is too low; shut down and restart.",
+        "ur": "Bus ka voltage bohat kam hai; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Battery too weak to charge the bus at startup",
+          "ur": "Battery itni kamzor hai ke startup par bus charge nahi kar pata"
+        },
+        {
+          "en": "Bus voltage sensing fault giving a false low reading",
+          "ur": "Bus voltage sensing ki kharabi se jhooti low reading"
+        },
+        {
+          "en": "Internal component failure in the bus circuit",
+          "ur": "Bus circuit mein internal component ki failure"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm battery SOC and voltage on the LCD before restarting; charge the battery if SOC is very low.",
+          "ur": "Restart se pehle LCD par battery ka SOC aur voltage confirm karein; SOC bohat kam ho to battery charge karein."
+        },
+        {
+          "en": "Measure battery voltage under load with a clamp meter and a meter; a big drop points to a weak pack or long thin cable.",
+          "ur": "Clamp meter aur meter se load ke under battery voltage measure karein; bara girna kamzor pack ya lamba patla cable batata hai."
+        },
+        {
+          "en": "Inspect battery cable terminals for corrosion and re-torque them to the specified value.",
+          "ur": "Battery cable terminals mein corrosion dekhein aur unhein specified value par dobara torque karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 38",
+      "aliases": [
+        "Fault 38",
+        "Positive and negative bus imbalance fault",
+        "F38"
+      ],
+      "title": {
+        "en": "Fault 38 Positive/negative bus imbalance",
+        "ur": "Fault 38 Positive aur negative bus ka imbalance"
+      },
+      "meaning": {
+        "en": "Positive bus voltage does not match the negative bus voltage; shut down and restart.",
+        "ur": "Positive bus voltage negative bus voltage ke barabar nahi hai; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Half-bridge device failure on the inverter board",
+          "ur": "Inverter board par half-bridge device ki failure"
+        },
+        {
+          "en": "Bus voltage sensing on one rail drifted out of calibration",
+          "ur": "Aik rail ka bus voltage sensing calibration se bahar chala gaya"
+        },
+        {
+          "en": "Damaged snubber capacitor letting DC ripple through",
+          "ur": "Kharab snubber capacitor DC ripple chalne de raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then inspect the board for burnt components or bulging capacitors.",
+          "ur": "AC, PV aur battery isolate karein, phir board par jalay huay components ya phoolay capacitors dekhein."
+        },
+        {
+          "en": "Return the unit to the authorised service centre for bus rail voltage measurement and calibration.",
+          "ur": "Bus rail voltage measurement aur calibration ke liye unit authorised service centre wapas karein."
+        },
+        {
+          "en": "Do not power the unit repeatedly; repeated attempts can damage the second bridge.",
+          "ur": "Unit ko baar baar chalu na karein; repeated se doosra bridge kharab ho sakta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 39",
+      "aliases": [
+        "Fault 39",
+        "Bus soft start fault",
+        "F39"
+      ],
+      "title": {
+        "en": "Fault 39 Bus soft start failed",
+        "ur": "Fault 39 Bus soft start fail"
+      },
+      "meaning": {
+        "en": "Bus voltage fails to rise normally at startup; shut down and restart.",
+        "ur": "Startup par bus voltage normally nahi barh raha; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Bus pre-charge circuit open so the capacitors never charge",
+          "ur": "Bus pre-charge circuit khula hai, is liye capacitors charge hi nahi hote"
+        },
+        {
+          "en": "DC input or battery voltage too low to start the boost stage",
+          "ur": "DC input ya battery voltage boost stage start karne ke liye bohat kam hai"
+        },
+        {
+          "en": "Grid-relay contact failure leaving the bus tied to grid",
+          "ur": "Grid relay contact ki failure jis se bus grid seAttached reh jata hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure PV and battery voltage first; both must be above the inverter's minimum start voltage.",
+          "ur": "Pehle PV aur battery voltage measure karein; dono inverter ke minimum start voltage se upar hone chahiye."
+        },
+        {
+          "en": "Isolate the unit and have the pre-charge resistor and the grid relay contacts tested.",
+          "ur": "Unit isolate karke pre-charge resistor aur grid relay ke contacts test karwayein."
+        },
+        {
+          "en": "If the pre-charge path is healthy, the boost stage is likely faulty and needs board-level service.",
+          "ur": "Pre-charge path theek ho to boost stage kharab hone ki zyada himmat hai aur board-level service chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 40",
+      "aliases": [
+        "Fault 40",
+        "Bus short circuit fault",
+        "F40"
+      ],
+      "title": {
+        "en": "Fault 40 Bus short circuit",
+        "ur": "Fault 40 Bus mein short circuit"
+      },
+      "meaning": {
+        "en": "Bus short circuit; shut down and restart.",
+        "ur": "Bus mein short circuit hai; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Inverter power stage device failed short",
+          "ur": "Inverter power stage ka device short ho kar kharab ho gaya"
+        },
+        {
+          "en": "Capacitor on the bus failed short",
+          "ur": "Bus ka capacitor short ho kar kharab ho gaya"
+        },
+        {
+          "en": "Insulation breakdown from moisture ingress",
+          "ur": "Nami aane se insulation breakdown"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery immediately and do not power the unit again.",
+          "ur": "AC, PV aur battery foran isolate karein aur unit dobara chalu na karein."
+        },
+        {
+          "en": "At the service centre, megohmmeter-test the DC bus to earth before energising anything.",
+          "ur": "Service centre par kuch bhi chalu karne se pehle DC bus ki earth insulation megohmmeter se test karein."
+        },
+        {
+          "en": "Replace the failed device or capacitor bank, then recalibrate and test under load.",
+          "ur": "Kharab device ya capacitor bank replace karein, phir calibrate karke load ke under test karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 44",
+      "aliases": [
+        "Fault 44",
+        "Inverter soft start fault",
+        "F44"
+      ],
+      "title": {
+        "en": "Fault 44 Inverter soft start failed",
+        "ur": "Fault 44 Inverter soft start fail"
+      },
+      "meaning": {
+        "en": "Inverter voltage fails to rise normally at startup; shut down and restart.",
+        "ur": "Inverter ka voltage startup par normally nahi barh raha; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Output overloaded or short circuited at switch-on",
+          "ur": "Switch on karte waqt output overloaded ya short circuited"
+        },
+        {
+          "en": "Anti-islanding relay or grid relay not switching cleanly",
+          "ur": "Anti-islanding relay ya grid relay saaf switch nahi ho raha"
+        },
+        {
+          "en": "Inverter bridge device degraded",
+          "ur": "Inverter ka bridge device degrade ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect all output loads and restart; this is the first check every time.",
+          "ur": "Saare output loads disconnect karke restart karein; yeh har baar ka pehla check hai."
+        },
+        {
+          "en": "With loads off, measure the AC output voltage; a missing or distorted waveform points to the bridge.",
+          "ur": "Load hatane ke baad AC output voltage measure karein; waveform missing ya bigda hua ho to bridge kharab hai."
+        },
+        {
+          "en": "If it fails with no load, book the unit for inverter stage repair at the service centre.",
+          "ur": "Bina load ke bhi fail ho to unit ko service centre par inverter stage repair ke liye bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 46",
+      "aliases": [
+        "Fault 46",
+        "Inverter software overcurrent fault",
+        "F46"
+      ],
+      "title": {
+        "en": "Fault 46 Inverter software overcurrent",
+        "ur": "Fault 46 Inverter software over current"
+      },
+      "meaning": {
+        "en": "Inverter current is too high; check the supplied power and load size.",
+        "ur": "Inverter ka current bohat zyada hai; di gayi power aur load size check karein."
+      },
+      "causes": [
+        {
+          "en": "Load surge beyond the inverter rating on the EPS output",
+          "ur": "EPS output par inverter rating se zyada load surge"
+        },
+        {
+          "en": "Load step configuration causing several large loads to start together",
+          "ur": "Load step configuration ki wajah se kai bare loads aik saath start ho rahe hain"
+        },
+        {
+          "en": "Inverter current sensor reading high, giving a false trip",
+          "ur": "Inverter current sensor zyada reading kar raha hai, jis se jhooti trip ho rahi hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load one circuit at a time and note which circuit causes the trip.",
+          "ur": "Connected load ko aik aik circuit karke kam karein aur note karein ke kaunsa circuit trip karata hai."
+        },
+        {
+          "en": "Set load steps in the app so heavy loads start in sequence, not simultaneously.",
+          "ur": "App mein load steps set karein taake bare loads aik saath nahi, sequence mein start hon."
+        },
+        {
+          "en": "Check the inverter current sensor reading against a clamp meter; a mismatch means sensor calibration.",
+          "ur": "Clamp meter se inverter current sensor ki reading compare karein; mismatch ho to sensor calibration karni hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 48",
+      "aliases": [
+        "Fault 48",
+        "Inverter short circuit fault",
+        "F48"
+      ],
+      "title": {
+        "en": "Fault 48 Inverter output short circuit",
+        "ur": "Fault 48 Inverter output short"
+      },
+      "meaning": {
+        "en": "Short circuit at the inverter output; shut down and restart.",
+        "ur": "Inverter output par short circuit hai; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Damaged appliance or cable insulation on the backup/EPS distribution board",
+          "ur": "Backup ya EPS distribution board par koi appliance ya cable ki insulation kharab"
+        },
+        {
+          "en": "Water ingress into an outdoor socket or junction box",
+          "ur": "Outdoor socket ya junction box mein paani chal aaya"
+        },
+        {
+          "en": "Inverter bridge device failed short",
+          "ur": "Inverter ka bridge device short ho kar kharab ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then disconnect the backup distribution board output one circuit at a time.",
+          "ur": "AC, PV aur battery isolate karein, phir backup distribution board ka output aik aik circuit karke disconnect karein."
+        },
+        {
+          "en": "With the inverter isolated, test each circuit for continuity to earth to find the shorted cable.",
+          "ur": "Inverter isolate karke har circuit ki earth ke saath continuity test karke short wala cable dhoondein."
+        },
+        {
+          "en": "Inspect outdoor sockets and junction boxes for water and replace any with a cracked faceplate.",
+          "ur": "Outdoor sockets aur junction boxes mein paani dekhein aur cracked faceplate wale replace karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 50",
+      "aliases": [
+        "Fault 50",
+        "Inverter current DC component fault",
+        "F50"
+      ],
+      "title": {
+        "en": "Fault 50 Inverter current DC component high",
+        "ur": "Fault 50 Inverter current DC component zyada"
+      },
+      "meaning": {
+        "en": "The DC component of the inverter current is too high; shut down and restart.",
+        "ur": "Inverter current ka DC component bohat zyada hai; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Output capacitor on the inverter stage degraded",
+          "ur": "Inverter stage ka output capacitor degrade ho gaya"
+        },
+        {
+          "en": "Grid voltage waveform heavily distorted by large non-linear loads",
+          "ur": "Bare non-linear loads se grid voltage waveform kaafi bigad gaya"
+        },
+        {
+          "en": "Current sensing drift after a surge event",
+          "ur": "Surge event ke baad current sensing drift ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the AC output waveform with a power meter or oscilloscope and check the DC offset.",
+          "ur": "Power meter ya oscilloscope se AC output waveform measure karke DC offset check karein."
+        },
+        {
+          "en": "Move large non-linear loads (air conditioners, welders) onto a separate supply and retest.",
+          "ur": "Bare non-linear loads (AC, welding machine) alag supply par move karke dobara test karein."
+        },
+        {
+          "en": "Have the output capacitors and current sensor calibration checked at the service centre.",
+          "ur": "Service centre par output capacitors aur current sensor calibration check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 51",
+      "aliases": [
+        "Fault 51",
+        "Grid Overvoltage Fault",
+        "F51"
+      ],
+      "title": {
+        "en": "Fault 51 Grid overvoltage",
+        "ur": "Fault 51 Grid over voltage"
+      },
+      "meaning": {
+        "en": "Grid voltage is above the permitted window; check that grid voltage is normal.",
+        "ur": "Grid voltage allowed range se upar hai; check karein ke grid voltage normal hai."
+      },
+      "causes": [
+        {
+          "en": "Utility supply voltage high, common on a lightly loaded long feeder",
+          "ur": "Utility supply ka voltage high, halki load wale lamba feeder par aam baat hai"
+        },
+        {
+          "en": "Grid code window set wider than the local utility tolerance",
+          "ur": "Grid code ka window local utility tolerance se barhi set hai"
+        },
+        {
+          "en": "Generator in voltage boost mode supplying the inverter",
+          "ur": "Generator voltage boost mode mein chal raha hai aur inverter ko supply kar raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage at the inverter terminals, not at the utility meter, and log it for 10 minutes.",
+          "ur": "Inverter terminals par (utility meter par nahi) grid voltage measure karke 10 minute log karein."
+        },
+        {
+          "en": "Select the correct grid standard in the setup so the window matches the local feeder.",
+          "ur": "Setup mein sahi grid standard chunein taake window local feeder ke mutabiq ho."
+        },
+        {
+          "en": "If running on a generator, disable voltage boost or reduce generator size to match the load.",
+          "ur": "Generator par chal rahe hon to voltage boost band karein ya generator ka size load ke mutabiq kam karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 52",
+      "aliases": [
+        "Fault 52",
+        "Grid Undervoltage Fault",
+        "F52"
+      ],
+      "title": {
+        "en": "Fault 52 Grid undervoltage",
+        "ur": "Fault 52 Grid low voltage"
+      },
+      "meaning": {
+        "en": "Grid voltage is below the permitted window; check that grid voltage is normal.",
+        "ur": "Grid voltage allowed range se neeche hai; check karein ke grid voltage normal hai."
+      },
+      "causes": [
+        {
+          "en": "Long, thin AC cable from grid to inverter causing voltage drop",
+          "ur": "Grid se inverter tak lamba aur patla AC cable jis se voltage girta hai"
+        },
+        {
+          "en": "Loose AC terminal heating up and adding resistance",
+          "ur": "AC terminal dhila ho kar garam ho raha hai aur resistance barh gaya"
+        },
+        {
+          "en": "Weak utility supply during a high-demand period",
+          "ur": "Bari demand ke waqt utility supply kamzor"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage at the breaker and again at the inverter terminals; the difference is cable drop.",
+          "ur": "Breaker par aur phir inverter terminals par grid voltage measure karein; farq cable drop hai."
+        },
+        {
+          "en": "Re-torque all AC grid terminals and check for heat discolouration on the terminal block.",
+          "ur": "Saare AC grid terminals dobara torque karein aur terminal block par garmi ke rang dekhein."
+        },
+        {
+          "en": "Use a thicker AC cable or shorten the run if the measured drop is more than about 5 percent.",
+          "ur": "Measured drop 5 percent se zyada ho to thicker AC cable lagayein ya run chhota karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 55",
+      "aliases": [
+        "Fault 55",
+        "Grid Reverse Sequence Fault",
+        "F55"
+      ],
+      "title": {
+        "en": "Fault 55 Grid phase sequence reversed",
+        "ur": "Fault 55 Grid phase sequence ulat hui"
+      },
+      "meaning": {
+        "en": "Grid phase sequence is reversed; check the phase sequence wiring.",
+        "ur": "Grid ka phase sequence ulat hua hai; phase sequence wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "Two phases swapped in the grid connection at the inverter end",
+          "ur": "Inverter ke sath grid connection mein do phases aik doosre ki jagah lage hain"
+        },
+        {
+          "en": "Phase sequence wrong at the utility supply itself",
+          "ur": "Utility supply par hi phase sequence ghalat hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the grid connection and confirm phase sequence with a phase sequence meter.",
+          "ur": "Grid connection isolate karke phase sequence meter se sequence confirm karein."
+        },
+        {
+          "en": "Swap the two incorrect phases at the inverter AC terminal and retighten to torque.",
+          "ur": "Inverter AC terminal par do ghalat phases badal dein aur torque par dobara tighten karein."
+        },
+        {
+          "en": "Verify the phase sequence at the utility incoming point if the inverter still reports code 55.",
+          "ur": "Inverter phir bhi code 55 de to utility incoming point par phase sequence verify karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 57",
+      "aliases": [
+        "Fault 57",
+        "Active Islanding Fault",
+        "F57"
+      ],
+      "title": {
+        "en": "Fault 57 Active islanding",
+        "ur": "Fault 57 Active islanding shuru"
+      },
+      "meaning": {
+        "en": "The inverter has detected it is islanded and shut down to protect itself and the repair crew.",
+        "ur": "Inverter ne detect kar liya ke woh island par chal raha hai aur apni protection ke liye band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Grid outage while the inverter was running",
+          "ur": "Inverter chalte waqt grid chala gaya"
+        },
+        {
+          "en": "Grid breaker opened upstream by the utility",
+          "ur": "Utility ne upstream grid breaker khol diya"
+        },
+        {
+          "en": "Anti-islanding relay false detection on a weak grid",
+          "ur": "Kamzor grid par anti-islanding relay ka jhoota detect"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the utility supply; when grid returns the inverter should reconnect automatically.",
+          "ur": "Utility supply check karein; grid aate hi inverter khud reconnect ho jata hai."
+        },
+        {
+          "en": "If grid is present and stable, inspect the anti-islanding relay contacts and the voltage sensing wiring.",
+          "ur": "Grid mojood aur stable ho to anti-islanding relay ke contacts aur voltage sensing wiring dekhein."
+        },
+        {
+          "en": "Do not bridge or defeat the anti-islanding function; it is a safety requirement.",
+          "ur": "Anti-islanding function ko bypass ya disable na karein; yeh safety requirement hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 58",
+      "aliases": [
+        "Fault 58",
+        "Grid Imbalance Fault",
+        "F58"
+      ],
+      "title": {
+        "en": "Fault 58 Grid three-phase imbalance",
+        "ur": "Fault 58 Grid three-phase ka imbalance"
+      },
+      "meaning": {
+        "en": "The three-phase grid voltage is unbalanced; check the three-phase voltage.",
+        "ur": "Three-phase grid voltage unbalanced hai; three-phase voltage check karein."
+      },
+      "causes": [
+        {
+          "en": "Single-phase loads heavily concentrated on one phase",
+          "ur": "Aik phase par single-phase loads ka bohat zyada load"
+        },
+        {
+          "en": "One phase conductor loose, high resistance or damaged",
+          "ur": "Aik phase ka conductor dhila, high resistance ya kharab"
+        },
+        {
+          "en": "Utility supply with poor phase balance",
+          "ur": "Phase balance kharab wali utility supply"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure all three phase voltages and currents with a clamp meter and note the imbalance.",
+          "ur": "Clamp meter se teenon phase ke voltage aur current measure karke imbalance note karein."
+        },
+        {
+          "en": "Re-balance the household load across L1, L2 and L3 so no phase carries more than about a third.",
+          "ur": "Ghar ka load L1, L2, L3 par aik se teesai se zyada na ho, is tarah balance karein."
+        },
+        {
+          "en": "Torque and megger-test all three phase conductors; a loose neutral makes imbalance look worse.",
+          "ur": "Teenon phase conductors torque karein aur megger se test karein; neutral dhila ho to imbalance barh dikhta hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 60",
+      "aliases": [
+        "Fault 60",
+        "Load overload 110% Fault",
+        "F60"
+      ],
+      "title": {
+        "en": "Fault 60 Load overload 110 percent",
+        "ur": "Fault 60 Load 110 percent tak overload"
+      },
+      "meaning": {
+        "en": "Load exceeds 110 percent of rated output; the load should be reduced.",
+        "ur": "Load rated output ke 110 percent se zyada hai; load kam karna chahiye."
+      },
+      "causes": [
+        {
+          "en": "Air conditioner compressors plus water pump running together at peak",
+          "ur": "Peak par air conditioner ke compressors aur water pump aik saath chal rahe hain"
+        },
+        {
+          "en": "Load steps not configured",
+          "ur": "Load steps configure nahi hain"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the load percentage on the LCD and shed one large circuit.",
+          "ur": "LCD par load percentage dekhein aur aik bara circuit band karein."
+        },
+        {
+          "en": "Configure load steps in the app to shed low-priority circuits automatically.",
+          "ur": "App mein load steps configure karein taake low-priority circuits khud-ba-khud shed hon."
+        },
+        {
+          "en": "Size the inverter for the measured peak demand, not the sum of nameplate ratings.",
+          "ur": "Inverter ko nameplate ke jamaat ke bajaye measured peak demand ke mutabiq size karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 61",
+      "aliases": [
+        "Fault 61",
+        "Load overload 150% Fault",
+        "F61"
+      ],
+      "title": {
+        "en": "Fault 61 Load overload 150 percent",
+        "ur": "Fault 61 Load 150 percent tak overload"
+      },
+      "meaning": {
+        "en": "Load exceeds 150 percent of rated output; the load should be reduced.",
+        "ur": "Load rated output ke 150 percent se zyada hai; load kam karna chahiye."
+      },
+      "causes": [
+        {
+          "en": "Motor starting surge far above the inverter rating",
+          "ur": "Motor ka starting surge inverter rating se kaafi upar"
+        },
+        {
+          "en": "Inverter deliberately oversized load already tolerated once, now added more",
+          "ur": "Inverter ne pehle bohat zyada load tolerate kiya tha, ab aur load lag gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the biggest load and restart.",
+          "ur": "Sabse bara load disconnect karke restart karein."
+        },
+        {
+          "en": "Use a soft starter or frequency drive on large motors to cut starting current.",
+          "ur": "Bare motors par soft starter ya frequency drive lagayein taake starting current kam ho."
+        },
+        {
+          "en": "Upgrade to a larger inverter if the measured demand genuinely exceeds this model.",
+          "ur": "Agar measured demand sach mein is model se zyada hai to bara inverter lagayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 63",
+      "aliases": [
+        "Fault 63",
+        "EPO Fault",
+        "F63"
+      ],
+      "title": {
+        "en": "Fault 63 EPO emergency shutdown",
+        "ur": "Fault 63 EPO se emergency shutdown"
+      },
+      "meaning": {
+        "en": "The emergency power-off input has been triggered; the inverter has shut down.",
+        "ur": "Emergency power-off input trigger ho gaya hai; inverter band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "EPO push-button pressed",
+          "ur": "EPO push button daba diya gaya"
+        },
+        {
+          "en": "EPO wiring broken so the inverter reads the loop as open",
+          "ur": "EPO wiring toot gayi, is liye inverter loop ko open padhta hai"
+        },
+        {
+          "en": "EPO dry contact stuck closed from a burnt relay",
+          "ur": "Jalay huay relay ki wajah se EPO dry contact stuck closed"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reset the EPO push-button and confirm the EPO LED on the inverter turns off.",
+          "ur": "EPO push button reset karein aur confirm karein ke inverter ka EPO LED band ho gaya."
+        },
+        {
+          "en": "Measure the EPO loop continuity with the button released; the loop should be closed.",
+          "ur": "Button chhod kar EPO loop ki continuity measure karein; loop band hona chahiye."
+        },
+        {
+          "en": "Re-terminate loose EPO wiring and re-check before restarting the inverter.",
+          "ur": "Dhili EPO wiring dobara laga dein aur inverter restart karne se pehle dobara check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 64",
+      "aliases": [
+        "Fault 64",
+        "IGBT over-temperature fault",
+        "F64"
+      ],
+      "title": {
+        "en": "Fault 64 IGBT over-temperature",
+        "ur": "Fault 64 IGBT over heat"
+      },
+      "meaning": {
+        "en": "The inverter's IGBT device temperature is too high; output is cut.",
+        "ur": "Inverter ke IGBT ka temperature bohat zyada hai; output band ho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Heat sink and fans clogged with dust",
+          "ur": "Heat sink aur fans dhool se block hue hain"
+        },
+        {
+          "en": "Unit installed with no clearance on the cooling side",
+          "ur": "Cooling side par clearance na hone wala installation"
+        },
+        {
+          "en": "Overloading for long hours so the junction temperature keeps climbing",
+          "ur": "Bohat ghanton overloading, is liye junction temperature barhti rehti hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then clean the heat sink and all fans thoroughly.",
+          "ur": "AC, PV aur battery isolate karke heat sink aur saare fans poori tarah saaf karein."
+        },
+        {
+          "en": "Check the NTC sensor on the heat sink with a meter; a drifted sensor gives wrong temperature.",
+          "ur": "Meter se heat sink ka NTC sensor check karein; drift ho gayi sensor galat temperature deta hai."
+        },
+        {
+          "en": "Restore the manufacturer's clearance around the unit and reduce the load if the site is undersized.",
+          "ur": "Manufacturer ki clearance wapas karein aur site chhoti ho to load kam karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 66",
+      "aliases": [
+        "Fault 66",
+        "Fan 1 Fault",
+        "F66"
+      ],
+      "title": {
+        "en": "Fault 66 Fan 1 failed",
+        "ur": "Fault 66 Fan 1 kharab"
+      },
+      "meaning": {
+        "en": "Fan 1 is faulty; check whether the fan is running normally.",
+        "ur": "Fan 1 kharab hai; check karein ke fan normally chal raha hai ya nahi."
+      },
+      "causes": [
+        {
+          "en": "Fan 1 motor failed open circuit",
+          "ur": "Fan 1 ka motor open circuit ho gaya"
+        },
+        {
+          "en": "Fan 1 connector not seated after a service visit",
+          "ur": "Service ke baad Fan 1 ka connector baitha nahi hua"
+        },
+        {
+          "en": "Fan 1 tach output not detected by the control board",
+          "ur": "Control board fan 1 ka tach output detect nahi kar raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then check fan 1 spins freely and its connector is seated.",
+          "ur": "AC, PV aur battery isolate karke check karein ke fan 1 azaad ghoomta hai aur connector baitha hai."
+        },
+        {
+          "en": "Replace fan 1 with an identical 12 V DC fan of the same frame size.",
+          "ur": "Fan 1 ko wahi 12 V DC fan, same frame size, se replace karein."
+        },
+        {
+          "en": "If the new fan still trips code 66, have the board's fan drive and tach input checked.",
+          "ur": "Naya fan lagane par bhi code 66 aaye to board ka fan drive aur tach input check karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 70",
+      "aliases": [
+        "Fault 70",
+        "Internal fan fault",
+        "F70"
+      ],
+      "title": {
+        "en": "Fault 70 Internal fan failed",
+        "ur": "Fault 70 Internal fan kharab"
+      },
+      "meaning": {
+        "en": "The internal fan is faulty; check whether it is normal.",
+        "ur": "Internal fan kharab hai; check karein ke yeh normal hai ya nahi."
+      },
+      "causes": [
+        {
+          "en": "Internal fan packed with dust inside the cabinet",
+          "ur": "Cabinet ke andar dhool se internal fan pack ho gaya"
+        },
+        {
+          "en": "Internal fan motor bearing worn",
+          "ur": "Internal fan motor ka bearing ghis gaya"
+        },
+        {
+          "en": "Internal fan cable disconnected",
+          "ur": "Internal fan ka cable nikal gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery before opening the cabinet.",
+          "ur": "Cabinet kholne se pehle AC, PV aur battery isolate karein."
+        },
+        {
+          "en": "Vacuum the internal fan and confirm it spins freely in both directions.",
+          "ur": "Internal fan ko vacuum karein aur confirm karein ke dono taraf azaad ghoomta hai."
+        },
+        {
+          "en": "Replace the internal fan with the same part number if it does not spin or its cable is damaged.",
+          "ur": "Internal fan na ghoome ya cable kharab ho to wahi part number ka fan lagayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 71",
+      "aliases": [
+        "Fault 71",
+        "EEPROM Fault",
+        "F71"
+      ],
+      "title": {
+        "en": "Fault 71 EEPROM write error",
+        "ur": "Fault 71 EEPROM likhne mein masla"
+      },
+      "meaning": {
+        "en": "There was an error writing to the EEPROM, so settings may be lost.",
+        "ur": "EEPROM mein likhte waqt error aaya hai, is liye settings kho sakti hain."
+      },
+      "causes": [
+        {
+          "en": "Power cut exactly while settings were being saved",
+          "ur": "Settings save hote waqt hi power cut ho gaya"
+        },
+        {
+          "en": "EEPROM chip failed after surge damage",
+          "ur": "Surge damage ke baad EEPROM chip kharab ho gaya"
+        },
+        {
+          "en": "Brown-out supply writing corrupted values",
+          "ur": "Brown-out supply se corrupt values likh diye gaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Back up the current settings from the app before doing anything else.",
+          "ur": "Kuch bhi karne se pehle app se current settings ka backup bana lein."
+        },
+        {
+          "en": "Disconnect the battery, PV and grid, then power-cycle once and check if code 71 clears.",
+          "ur": "Battery, PV aur grid disconnect karke aik baar power-cycle karein aur dekhein ke code 71 hatta ya nahi."
+        },
+        {
+          "en": "If code 71 stays, the EEPROM or the board must be replaced at the service centre.",
+          "ur": "Code 71 bache to EEPROM ya board service centre par replace karna hoga."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do not accept the unit back to the customer until settings survive a power cycle, otherwise the customer loses configuration every outage.",
+        "ur": "Settings power cycle ke baad bhi na bache to customer ko unit wapas na dein, warna har outage par configuration chali jayegi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 72",
+      "aliases": [
+        "Fault 72",
+        "12V auxiliary power supply fault",
+        "F72"
+      ],
+      "title": {
+        "en": "Fault 72 12 V auxiliary supply failed",
+        "ur": "Fault 72 12 V auxiliary supply kharab"
+      },
+      "meaning": {
+        "en": "The 12 V auxiliary power supply has failed, so the control board is not powered correctly.",
+        "ur": "12 V auxiliary power supply kharab ho gayi hai, is liye control board theek se power nahi le raha."
+      },
+      "causes": [
+        {
+          "en": "Auxiliary transformer or SMPS failed",
+          "ur": "Auxiliary transformer ya SMPS kharab ho gaya"
+        },
+        {
+          "en": "12 V auxiliary fuse blown",
+          "ur": "12 V auxiliary fuse phoot gaya"
+        },
+        {
+          "en": "Relay coil or contactor shorting the 12 V rail",
+          "ur": "Relay coil ya contactor 12 V rail ko short kar raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then measure the 12 V rail on the control board with a meter.",
+          "ur": "AC, PV aur battery isolate karke meter se control board par 12 V rail measure karein."
+        },
+        {
+          "en": "Check and replace the 12 V auxiliary fuse with the exact rating specified by Felicity.",
+          "ur": "12 V auxiliary fuse check karke Felicity ki di hui exact rating se replace karein."
+        },
+        {
+          "en": "If the fuse keeps blowing, disconnect the relay coils one by one to find the shorted device.",
+          "ur": "Fuse baar baar phoote to relay coils ko aik aik karke disconnect karke short wala device dhoondein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 73",
+      "aliases": [
+        "Fault 73",
+        "CT or Hall open circuit fault",
+        "F73"
+      ],
+      "title": {
+        "en": "Fault 73 CT or Hall sensor open circuit",
+        "ur": "Fault 73 CT ya Hall sensor open circuit"
+      },
+      "meaning": {
+        "en": "The current sensing device is faulty; check the CT or Hall element connections.",
+        "ur": "Current sensing device kharab hai; CT ya Hall element ke connections check karein."
+      },
+      "causes": [
+        {
+          "en": "CT or Hall sensor connector unplugged during installation",
+          "ur": "Installation ke dauran CT ya Hall sensor ka connector nikal gaya"
+        },
+        {
+          "en": "Hall current sensor failed",
+          "ur": "Hall current sensor kharab ho gaya"
+        },
+        {
+          "en": "Smart meter CT not clipped fully onto the conductor",
+          "ur": "Smart meter ka CT conductor par poora clip nahi hua"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check that the CT or Hall connector is fully seated at both the sensor and the inverter end.",
+          "ur": "Confirm karein ke CT ya Hall connector sensor aur inverter dono taraf poori tarah baitha hai."
+        },
+        {
+          "en": "Re-clip the CT so it closes fully around the single conductor, with the arrow pointing at the grid direction.",
+          "ur": "CT ko dobara clip karein ke woh aik hi conductor ke gird poori tarah band ho, arrow grid ki taraf ho."
+        },
+        {
+          "en": "Compare the inverter's grid CT reading with a clamp meter; a zero reading with real export means replace the sensor.",
+          "ur": "Clamp meter se inverter ke grid CT ki reading compare karein; export hote hue bhi zero aaye to sensor replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 74",
+      "aliases": [
+        "Fault 74",
+        "Main and auxiliary DSP communication fault",
+        "F74"
+      ],
+      "title": {
+        "en": "Fault 74 DSP communication error",
+        "ur": "Fault 74 DSP ka communication error"
+      },
+      "meaning": {
+        "en": "There is an error in the DSP communication; the manual says to upgrade the software.",
+        "ur": "DSP communication mein error hai; manual ke mutabiq software update karein."
+      },
+      "causes": [
+        {
+          "en": "Firmware version mismatch after a partial update",
+          "ur": "Adhoora update hone se firmware version mismatch"
+        },
+        {
+          "en": "DSP ribbon cable or connector loose",
+          "ur": "DSP ka ribbon cable ya connector dhila hai"
+        },
+        {
+          "en": "Interference from a badly earthed motor or welding machine",
+          "ur": "Bade motor ya welding machine ki behti earth se interference"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Update both the inverter and the BMS firmware to the same version using the app.",
+          "ur": "App se inverter aur BMS dono ka firmware aik hi version par update karein."
+        },
+        {
+          "en": "Isolate AC, PV and battery, then reseat the DSP ribbon cable on the control board.",
+          "ur": "AC, PV aur battery isolate karke control board par DSP ribbon cable dobara laga dein."
+        },
+        {
+          "en": "Separate earth the welding machine and noisy motors; a noisy earth corrupts the DSP link.",
+          "ur": "Welding machine aur noisy motors ki alag earth karayein; shor wali earth DSP link kharab karti hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 75",
+      "aliases": [
+        "Fault 75",
+        "MCU Communication Fault",
+        "F75"
+      ],
+      "title": {
+        "en": "Fault 75 MCU communication error",
+        "ur": "Fault 75 MCU ka communication error"
+      },
+      "meaning": {
+        "en": "There is an error in the MCU communication; the manual says to upgrade the software.",
+        "ur": "MCU communication mein error hai; manual ke mutabiq software update karein."
+      },
+      "causes": [
+        {
+          "en": "Firmware version mismatch between parallel units",
+          "ur": "Parallel units ke darmiyan firmware version mismatch"
+        },
+        {
+          "en": "MCU reset loop from a noisy DC supply",
+          "ur": "Noisy DC supply se MCU reset loop mein chala gaya"
+        },
+        {
+          "en": "Control board MCU soldering failure",
+          "ur": "Control board ke MCU ki soldering fail ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Compare firmware versions of all units on the LCD and update every unit to the same version.",
+          "ur": "LCD par sabhi units ke firmware versions compare karke sab ko aik hi version par update karein."
+        },
+        {
+          "en": "Check the 12 V auxiliary rail for ripple; excessive ripple resets the MCU.",
+          "ur": "12 V auxiliary rail par ripple check karein; zyada ripple MCU ko reset karta hai."
+        },
+        {
+          "en": "If a firmware update does not clear it, have the control board replaced at the service centre.",
+          "ur": "Firmware update se hal na ho to service centre par control board replace karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 76",
+      "aliases": [
+        "Fault 76",
+        "Leakage current fault",
+        "F76"
+      ],
+      "title": {
+        "en": "Fault 76 Leakage current too high",
+        "ur": "Fault 76 Leakage current bohat zyada"
+      },
+      "meaning": {
+        "en": "The inverter's leakage current is too large; check the inverter wiring.",
+        "ur": "Inverter ka leakage current bohat zyada hai; inverter wiring check karein."
+      },
+      "causes": [
+        {
+          "en": "PV array insulation degraded through moisture or panel backsheet damage",
+          "ur": "Nami ya panel backsheet damage se PV array ki insulation kharab"
+        },
+        {
+          "en": "Cable insulation damaged by UV, heat or rodent bite",
+          "ur": "UV, garmi ya chuha ke kaatne se cable insulation kharab"
+        },
+        {
+          "en": "Leakage current sensor itself faulty",
+          "ur": "Leakage current sensor khud kharab hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate PV at the DC isolator, then measure each string's insulation to earth with a megohmmeter.",
+          "ur": "DC isolator se PV isolate karke megohmmeter se har string ki earth insulation measure karein."
+        },
+        {
+          "en": "Split the array in halves and re-test to find which half leaks, then check those cables and connectors in the shade.",
+          "ur": "Array ko do hisson mein baant kar dobara test karein taake pata chale kaunsa hissa leak kar raha hai."
+        },
+        {
+          "en": "Replace damaged cables, MC4 connectors or the affected panels; never tape over an insulation fault.",
+          "ur": "Kharab cable, MC4 connector ya panel replace karein; insulation fault par tape mat lagayein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 77",
+      "aliases": [
+        "Fault 77",
+        "PV Insulation Impedance fault",
+        "F77"
+      ],
+      "title": {
+        "en": "Fault 77 PV insulation impedance low",
+        "ur": "Fault 77 PV insulation impedance kam"
+      },
+      "meaning": {
+        "en": "The insulation of the PV string is abnormal; there is a leakage path to earth.",
+        "ur": "PV string ki insulation theek nahi hai; earth tak leakage path hai."
+      },
+      "causes": [
+        {
+          "en": "PV string shorted to the array frame through a damaged backsheet",
+          "ur": "Kharab backsheet se PV string array frame se short ho gaya"
+        },
+        {
+          "en": "Water inside a junction box or on a DC cable",
+          "ur": "Junction box ya DC cable par paani aa gaya"
+        },
+        {
+          "en": "Module laminate breakdown from a manufacturing defect",
+          "ur": "Manufacturing defect se module ka laminate break ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate PV at the DC isolator before any test; do not probe a live array.",
+          "ur": "Koi bhi test karne se pehle DC isolator se PV isolate karein; live array par probe na karein."
+        },
+        {
+          "en": "Megohmmeter-test each string to earth, string by string, to find the leaking one.",
+          "ur": "Megohmmeter se har string ko earth ke khilaf aik aik karke test karke leak wala dhoondein."
+        },
+        {
+          "en": "Open and dry the junction boxes, then re-test; replace any module whose insulation is still low.",
+          "ur": "Junction boxes khol ke sukha dein, phir dobara test karein; ab bhi insulation kam ho to module replace karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 78",
+      "aliases": [
+        "Fault 78",
+        "BAT1 Insulation Impedance fault",
+        "F78"
+      ],
+      "title": {
+        "en": "Fault 78 Battery 1 insulation impedance low",
+        "ur": "Fault 78 Battery 1 insulation impedance kam"
+      },
+      "meaning": {
+        "en": "Battery 1 insulation is abnormal; there is a leakage path from the battery.",
+        "ur": "Battery 1 ki insulation theek nahi hai; battery se leakage path hai."
+      },
+      "causes": [
+        {
+          "en": "Battery pack electrolyte leakage or condensation inside the pack",
+          "ur": "Battery pack mein electrolyte leakage ya condensation"
+        },
+        {
+          "en": "Battery cable chafed against the metal enclosure",
+          "ur": "Battery cable metal enclosure se ragad gaya"
+        },
+        {
+          "en": "BMS earth connection loose so the pack floats",
+          "ur": "BMS ki earth connection dhili hai, is liye pack float kar raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then megohmmeter-test the battery terminals to the pack chassis.",
+          "ur": "AC, PV aur battery isolate karke megohmmeter se battery terminals ki pack chassis ke khilaf insulation test karein."
+        },
+        {
+          "en": "Inspect the battery cables along their whole route for chafing and move them away from metal edges.",
+          "ur": "Battery cables ko poore raste par chafing ke liye dekhein aur metal edges se door rakhein."
+        },
+        {
+          "en": "Check the pack earth bolt torque; a loose pack earth makes the reading meaningless.",
+          "ur": "Pack earth bolt ka torque check karein; dhili pack earth ki wajah se reading bekaar ho jati hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 83",
+      "aliases": [
+        "Fault 83",
+        "Inverter relay open circuit fault",
+        "F83"
+      ],
+      "title": {
+        "en": "Fault 83 Inverter relay open circuit",
+        "ur": "Fault 83 Inverter ka relay open circuit"
+      },
+      "meaning": {
+        "en": "The inverter relay is not closing properly, causing an open circuit; shut down and restart.",
+        "ur": "Inverter relay theek se close nahi ho raha, open circuit ho raha hai; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Grid relay contacts burnt or pitted",
+          "ur": "Grid relay ke contacts jalay ya pitted hue hain"
+        },
+        {
+          "en": "Relay coil driver failed on the control board",
+          "ur": "Control board par relay coil driver kharab ho gaya"
+        },
+        {
+          "en": "Relay mechanical jam from dust or insect nest",
+          "ur": "Dhool ya keede ke ghar se relay mechanically jam ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then inspect the grid relay for pitting and burnt contacts.",
+          "ur": "AC, PV aur battery isolate karke grid relay ke pitting aur jale contacts dekhein."
+        },
+        {
+          "en": "Replace the relay with the exact Felicity part number, including its DC coil voltage.",
+          "ur": "Relay ko exact Felicity part number se replace karein, DC coil voltage bhi same rakh kar."
+        },
+        {
+          "en": "Clean out any insect nest or dust and check the relay arm is free to move after fitting the new relay.",
+          "ur": "Keede ke ghar ya dhool saaf karein aur naya relay lagane ke baad relay arm azaad chalta hai ya nahi check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 84",
+      "aliases": [
+        "Fault 84",
+        "Short circuit fault of inverter relay",
+        "F84"
+      ],
+      "title": {
+        "en": "Fault 84 Inverter relay shorted",
+        "ur": "Fault 84 Inverter relay short"
+      },
+      "meaning": {
+        "en": "The inverter relay is not disconnecting properly, causing a short circuit; shut down and restart.",
+        "ur": "Inverter relay theek se disconnect nahi ho raha, short circuit ho raha hai; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Grid relay contacts welded after an overcurrent event",
+          "ur": "Overcurrent event ke baad grid relay ke contacts weld ho gaye"
+        },
+        {
+          "en": "Relay assembly contaminated by dust that bridges the contacts",
+          "ur": "Relay assembly par dhool ki wajah se contacts ke darmiyan bridge ban gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then confirm the relay is open and check for welded contacts.",
+          "ur": "AC, PV aur battery isolate karke confirm karein ke relay open hai aur welded contacts dekhein."
+        },
+        {
+          "en": "Replace the relay and clean the relay board area before fitting the new one.",
+          "ur": "Relay replace karein aur naya lagane se pehle relay board ka area saaf karein."
+        },
+        {
+          "en": "Find why the relay saw an overcurrent (oversized load or output short) before re-energising.",
+          "ur": "Dobara chalu karne se pehle dhoondein ke relay par overcurrent kyun aaya (bara load ya output short)."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 87",
+      "aliases": [
+        "Fault 87",
+        "Parallel CAN communication fault",
+        "F87"
+      ],
+      "title": {
+        "en": "Fault 87 Parallel CAN communication",
+        "ur": "Fault 87 Parallel CAN communication mein masla"
+      },
+      "meaning": {
+        "en": "The inverter is connected to abnormal parallel communication.",
+        "ur": "Inverter ka parallel communication abnormal hai."
+      },
+      "causes": [
+        {
+          "en": "Parallel CAN cable loose, not terminated with the supplied resistors",
+          "ur": "Parallel CAN cable dhili hai ya supplied resistors ke saath terminate nahi ki"
+        },
+        {
+          "en": "Different firmware versions on the parallel units",
+          "ur": "Parallel units par firmware versions alag hain"
+        },
+        {
+          "en": "CAN cable run alongside AC power cables without separation",
+          "ur": "CAN cable AC power cables ke saath bina alag ke chal raha hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With power off, reseat every parallel CAN connector and confirm the termination resistors are fitted as per the manual.",
+          "ur": "Power off karke saare parallel CAN connectors dobara laga dein aur confirm karein ke termination resistors manual ke mutabiq lage hain."
+        },
+        {
+          "en": "Update all units in the parallel bank to the same firmware version.",
+          "ur": "Parallel bank ke saare units ko aik hi firmware version par update karein."
+        },
+        {
+          "en": "Keep CAN cables away from AC power runs or route them in a separate conduit to reject noise.",
+          "ur": "CAN cables ko AC power runs se door rakhein ya alag conduit mein se guzarein taake noise reject ho."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 88",
+      "aliases": [
+        "Fault 88",
+        "Parallel host loss fault",
+        "F88"
+      ],
+      "title": {
+        "en": "Fault 88 Parallel host lost",
+        "ur": "Fault 88 Parallel host kho gaya"
+      },
+      "meaning": {
+        "en": "The parallel host has disconnected from the system; check whether the host is normal.",
+        "ur": "Parallel host system se disconnect ho gaya; check karein ke host normal hai ya nahi."
+      },
+      "causes": [
+        {
+          "en": "Host unit switched off or lost its own AC supply",
+          "ur": "Host unit band ho gaya ya uska apna AC supply chala gaya"
+        },
+        {
+          "en": "Host unit itself reporting a different fault",
+          "ur": "Host unit khud koi doosra fault de raha hai"
+        },
+        {
+          "en": "CAN link between host and this unit intermittent",
+          "ur": "Host aur is unit ke darmiyan CAN link intermittent hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Walk the parallel bank and read each unit's own fault code; fix the master error first.",
+          "ur": "Parallel bank mein jaan kar har unit ka apna fault code padhein; pehle master ka error theek karein."
+        },
+        {
+          "en": "Confirm the host unit's AC supply and its ON/OFF switch are healthy.",
+          "ur": "Host unit ki AC supply aur uska ON/OFF switch theek hai ya nahi confirm karein."
+        },
+        {
+          "en": "Reseat the CAN cable at both ends of the host link, then power-cycle the bank once.",
+          "ur": "Host link ke dono sifar par CAN cable dobara laga dein, phir bank ko aik baar power-cycle karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 91",
+      "aliases": [
+        "Fault 91",
+        "PV hardware overcurrent fault",
+        "F91"
+      ],
+      "title": {
+        "en": "Fault 91 PV hardware overcurrent",
+        "ur": "Fault 91 PV hardware over current"
+      },
+      "meaning": {
+        "en": "PV current is too high; check the string current.",
+        "ur": "PV ka current bohat zyada hai; string current check karein."
+      },
+      "causes": [
+        {
+          "en": "More strings on an MPPT than the hardware channel is rated for",
+          "ur": "MPPT par us se zyada strings lagi hain jo hardware channel ke rated se upar hai"
+        },
+        {
+          "en": "Current sensor hardware fault reporting a false high",
+          "ur": "Current sensor ki hardware kharabi se jhooti high reading"
+        },
+        {
+          "en": "Mismatched parallel strings causing circulating current",
+          "ur": "Alag alag parallel strings ki wajah se circulating current"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clamp-meter each string and confirm no string exceeds the inverter's max input current.",
+          "ur": "Har string par clamp meter lagayein aur confirm karein ke koi string inverter ke max input current se zyada nahi."
+        },
+        {
+          "en": "Reconfigure the MPPT string assignment in the app so each channel carries the correct string count.",
+          "ur": "App mein MPPT string assignment dobara set karein taake har channel par sahi number ki strings hon."
+        },
+        {
+          "en": "If the current is genuinely within limits, have the PV current sensing hardware tested.",
+          "ur": "Agar current waqai limit ke andar ho to PV current sensing hardware test karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 92",
+      "aliases": [
+        "Fault 92",
+        "BMS1 communication failure",
+        "F92"
+      ],
+      "title": {
+        "en": "Fault 92 BMS 1 communication failure",
+        "ur": "Fault 92 BMS 1 communication fail"
+      },
+      "meaning": {
+        "en": "BMS 1 is not communicating; check the BMS 1 communication cable.",
+        "ur": "BMS 1 communicate nahi kar raha; BMS 1 communication cable check karein."
+      },
+      "causes": [
+        {
+          "en": "BMS 1 CAN cable unplugged at the inverter or the pack",
+          "ur": "BMS 1 ka CAN cable inverter ya pack se nikal gaya"
+        },
+        {
+          "en": "Battery type set to lead-acid so the inverter never opens the BMS link",
+          "ur": "Battery type lead-acid set hai, is liye inverter BMS link kabhi nahi kholta"
+        },
+        {
+          "en": "Pack 1 BMS in sleep because it was never woken",
+          "ur": "Pack 1 ka BMS sleep mein hai kyunke use wake nahi kiya gaya"
+        },
+        {
+          "en": "Pack 1 power not present, so its BMS cannot answer",
+          "ur": "Pack 1 ki power mojood nahi, is liye uska BMS jawab nahi de sakta"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reseat the BMS CAN cable at both the inverter port and the pack COMM port.",
+          "ur": "AC, PV aur battery isolate karke BMS CAN cable inverter port aur pack COMM port dono par dobara laga dein."
+        },
+        {
+          "en": "Switch the battery type to lithium in the LCD/app and confirm a 'C' communication icon appears on the LCD.",
+          "ur": "LCD/app mein battery type lithium par switch karein aur confirm karein ke LCD par 'C' communication icon aa gaya."
+        },
+        {
+          "en": "Confirm the pack 1 breaker is closed and its own SOC LED is lit before troubleshooting further.",
+          "ur": "Aagey ke liye confirm karein ke pack 1 ka breaker band hai aur uska apna SOC LED jal raha hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    },
+    {
+      "code": "Fault 94",
+      "aliases": [
+        "Fault 94",
+        "PV side busbar rapid overvoltage",
+        "F94"
+      ],
+      "title": {
+        "en": "Fault 94 PV busbar rapid overvoltage",
+        "ur": "Fault 94 PV busbar tez over voltage"
+      },
+      "meaning": {
+        "en": "Bus voltage rose too fast and too high; shut down and restart.",
+        "ur": "Bus voltage bohat tez aur zyada barh gaya; band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "PV string voltage far above the inverter's PV input limit at cold start",
+          "ur": "Cold start par PV string voltage inverter ki PV input limit se kaafi upar"
+        },
+        {
+          "en": "Grid loss while PV was already at full output",
+          "ur": "Grid chala jab ke PV pehle se full output par tha"
+        },
+        {
+          "en": "PV input voltage monitoring fault",
+          "ur": "PV input voltage monitoring ki kharabi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure PV open-circuit voltage at the DC isolator and compare it with the max PV input voltage.",
+          "ur": "DC isolator par PV ka open-circuit voltage measure karke max PV input voltage se compare karein."
+        },
+        {
+          "en": "Reduce the number of modules in series so the cold-start voltage stays under the limit.",
+          "ur": "Series mein modules ki kami karein taake cold-start voltage limit ke neeche rahe."
+        },
+        {
+          "en": "If the measured voltage is normal, have the PV input surge suppression circuit inspected.",
+          "ur": "Measured voltage normal ho to PV input surge suppression circuit ka muaina karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-25-50KHP3G01 Hybrid Inverter User Guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicityess.com/wp-content/uploads/2024/06/T-REX-50KHP3G01-Inverter-User-Guide.pdf"
+      }
+    }
+  ]
+}

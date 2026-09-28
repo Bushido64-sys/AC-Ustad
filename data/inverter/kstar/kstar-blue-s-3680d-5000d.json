@@ -1,0 +1,2226 @@
+{
+  "schemaVersion": 1,
+  "brandId": "kstar",
+  "series": {
+    "id": "kstar-blue-s-3680d-5000d",
+    "name": "BluE-S 5000D / 3680D hybrid inverter (BluE-H5/H3 ESS)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "BluE-S 5000D*",
+      "BluE-S 3680D*",
+      "*BluE-H5*",
+      "*BluE-H3*",
+      "*BluE-PACK*"
+    ],
+    "notes": "Residential all-in-one ESS. The inverter is the hybrid core; fault and alarm codes live in manual chapter 8 (8.1 Alarm code = W00-W25, 8.2 Error code = F00-F20/F32) and solutions in chapter 9. F-codes are hard faults that block the inverter; W-codes are warnings. W14-W25 are BMS codes coming from the BluE-PACK battery, not the inverter, and the manual only says 'contact the distributor' for them. Codes below are from manual version 202203 Ver:3.0; a later ESS manual (E3.68KS-D22 / E5KS-D22 / E6KS-D22) renumbers several of these - see CONFLICTS."
+  },
+  "codes": [
+    {
+      "code": "F00",
+      "aliases": [
+        "F00"
+      ],
+      "title": {
+        "en": "Soft Time Out (F00)",
+        "ur": "Soft start time out ho gaya (F00)"
+      },
+      "meaning": {
+        "en": "Soft-start did not finish within the allowed window, so the inverter stayed off.",
+        "ur": "Soft start apne time ke andar complete nahi hua, is liye inverter on nahi hua."
+      },
+      "causes": [
+        {
+          "en": "DC bus or control supply did not come up in time after switching on.",
+          "ur": "On karne ke baad DC bus ya control supply time par nahi aayi."
+        },
+        {
+          "en": "Battery or PV input was not connected when the soft-start was attempted.",
+          "ur": "Soft start ke waqt battery ya PV input connected nahi tha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the inverter off, wait 5 minutes, then restart it and watch the LCD.",
+          "ur": "Inverter off karein, 5 minute intezaar karein, phir on karke LCD dekh lein."
+        },
+        {
+          "en": "Confirm the battery and PV connectors are fully seated at both ends.",
+          "ur": "Check karein ke battery aur PV connectors dono taraf se puri tarah band hain."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Manual solution is only 'restart the inverter and wait until it functions normally'.",
+        "ur": "Manual ka hal hi 'restart the inverter and wait until it functions normally' hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F01",
+      "aliases": [
+        "F01"
+      ],
+      "title": {
+        "en": "INV Volt Short - inverter output shorted (F01)",
+        "ur": "INV Volt Short - inverter output short (F01)"
+      },
+      "meaning": {
+        "en": "The inverter output is short circuited. The manual tells you to drop the load first, because a shorted load looks identical to a shorted inverter.",
+        "ur": "Inverter output short circuit hai. Load pehle disconnect karein, kyun ke short wala load aur short wala inverter dono aise hi lagte hain."
+      },
+      "causes": [
+        {
+          "en": "A connected load has a shorted winding or a failed power supply inside.",
+          "ur": "Load ka koi winding ya andar ka power supply short ho gaya."
+        },
+        {
+          "en": "Output cable crushed, pinched or damaged at a junction.",
+          "ur": "Output cable kahin pinch, dab ya junction par kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect all power sources, shut down the inverter and the battery packs.",
+          "ur": "Saari power sources disconnect karein, inverter aur battery packs band karein."
+        },
+        {
+          "en": "Disconnect the load, then power on and restart the inverter and battery packs.",
+          "ur": "Load disconnect karein, phir inverter aur battery packs on karke restart karein."
+        },
+        {
+          "en": "If the code is gone the load was shorted - test each load branch with a multimeter on continuity.",
+          "ur": "Agar code chala gaya to load short tha - har load branch ko multimeter se continuity par test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F02",
+      "aliases": [
+        "F02"
+      ],
+      "title": {
+        "en": "GFCI Sensor Fault (F02)",
+        "ur": "GFCI sensor kharab (F02)"
+      },
+      "meaning": {
+        "en": "The residual-current sensor inside the inverter has failed. This is a hardware fault, not a real earth leakage.",
+        "ur": "Inverter ka residual current sensor kharab hai. Yeh asli earth leakage nahi, sensor ka hardware fault hai."
+      },
+      "causes": [
+        {
+          "en": "The GFCI / leakage current sensing circuit has failed.",
+          "ur": "GFCI ya leakage current sensing circuit kharab ho gaya."
+        },
+        {
+          "en": "Water ingress or corrosion around the sensing board after outdoor installation.",
+          "ur": "Outdoor install ke baad sensing board ke aas paas paani ya zang."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect all power sources first.",
+          "ur": "Pehle saari power sources disconnect karein."
+        },
+        {
+          "en": "Restart the inverter and wait until it runs correctly.",
+          "ur": "Inverter restart karein aur theek chalne tak intezaar karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "If it returns immediately the GFCI board needs replacement by the distributor.",
+        "ur": "Agar foran wapas aa jaye to GFCI board distributor se badalwana hoga."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F04",
+      "aliases": [
+        "F04",
+        "F04-F05"
+      ],
+      "title": {
+        "en": "Bus Volt Low (F04)",
+        "ur": "Bus voltage kam (F04)"
+      },
+      "meaning": {
+        "en": "The internal DC bus voltage dropped below the allowed value.",
+        "ur": "Internal DC bus voltage allowed value se neeche gir gaya."
+      },
+      "causes": [
+        {
+          "en": "Input mode is set wrong in the menu, so the inverter expects a source it is not getting.",
+          "ur": "Menu mein input mode galat set hai, is liye inverter ko aik aisa source mil raha hai jo nahi hai."
+        },
+        {
+          "en": "Battery is deeply discharged, so the bus cannot be charged up.",
+          "ur": "Battery gehri tarah discharge ho chuki hai, bus charge nahi ho pa raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the settings of the input mode and correct them.",
+          "ur": "Input mode ki setting check karke theek karein."
+        },
+        {
+          "en": "Restart the inverter and wait until it runs correctly.",
+          "ur": "Inverter restart karein aur theek chalne tak intezaar karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F05",
+      "aliases": [
+        "F05"
+      ],
+      "title": {
+        "en": "Bus Volt High (F05)",
+        "ur": "Bus voltage zyada (F05)"
+      },
+      "meaning": {
+        "en": "The internal DC bus voltage rose above the allowed value.",
+        "ur": "Internal DC bus voltage allowed value se upar chala gaya."
+      },
+      "causes": [
+        {
+          "en": "Input mode setting is wrong, so the bus is charged from the wrong source.",
+          "ur": "Input mode setting galat hai, bus galat source se charge ho raha hai."
+        },
+        {
+          "en": "Battery pack over-voltage or a failed charge circuit pushing the bus up.",
+          "ur": "Battery pack over-voltage ya charge circuit kharab hone se bus upar gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the settings of the input mode and correct them.",
+          "ur": "Input mode ki setting check karke theek karein."
+        },
+        {
+          "en": "Restart the inverter and wait until it runs correctly.",
+          "ur": "Inverter restart karein aur theek chalne tak intezaar karein."
+        },
+        {
+          "en": "Measure battery pack DC voltage with a multimeter; it should sit near 51-53 V, not above 57.5 V.",
+          "ur": "Multimeter se battery pack DC voltage check karein; yeh 51-53 V ke qareeb hona chahiye, 57.5 V se upar nahi."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F06",
+      "aliases": [
+        "F06"
+      ],
+      "title": {
+        "en": "Bus Short Circuit (F06)",
+        "ur": "Bus mein short ho gaya (F06)"
+      },
+      "meaning": {
+        "en": "The internal DC bus is shorted. Almost always a damaged power stage.",
+        "ur": "Internal DC bus short ho gaya hai. Aam tor par power stage kharab hota hai."
+      },
+      "causes": [
+        {
+          "en": "IGBT or MOSFET in the inverter shorted, often after a surge or a fan failure.",
+          "ur": "Inverter ka IGBT ya MOSFET short ho gaya, aksar surge ya fan failure ke baad."
+        },
+        {
+          "en": "Internal DC bus capacitor failed short.",
+          "ur": "Internal DC bus capacitor short ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the inverter off and leave it off for at least 5 minutes to discharge the bus.",
+          "ur": "Inverter band karein aur bus discharge hone ke liye kam az kam 5 minute band rakhein."
+        },
+        {
+          "en": "Restart the inverter and wait until it runs correctly.",
+          "ur": "Inverter restart karein aur theek chalne tak intezaar karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "If F06 comes back after every restart the power board is damaged and needs distributor service.",
+        "ur": "Agar har restart ke baad F06 wapas aaye to power board kharab hai aur distributor se service chahiye."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F07",
+      "aliases": [
+        "F07"
+      ],
+      "title": {
+        "en": "PV ISO Under Fault - PV insulation low (F07)",
+        "ur": "PV ISO Under Fault - PV insulation kam (F07)"
+      },
+      "meaning": {
+        "en": "Insulation resistance of the PV array is too low, so the inverter refuses to connect to grid.",
+        "ur": "PV array ka insulation resistance bohat kam hai, is liye inverter grid se connect nahi ho raha."
+      },
+      "causes": [
+        {
+          "en": "A PV string or panel has a damp, cracked or contaminated back sheet leaking to frame/ground.",
+          "ur": "PV string ya panel ki back sheet geeli, phuti ya gandi ho ke frame/ground par leak ho raha hai."
+        },
+        {
+          "en": "A MC4 connector is not fully clicked, or its cable is stripped and touching the frame.",
+          "ur": "MC4 connector puri tarah click nahi hua, ya uska cable utar ke frame ko chhu raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the ground connection of the PV array and frame.",
+          "ur": "PV array aur frame ka ground connection check karein."
+        },
+        {
+          "en": "Measure the earth resistance of PV+ and PV- with a megohmmeter: below 2 MOhm means a real ground fault.",
+          "ur": "Megohmmeter se PV+ aur PV- ki earth resistance check karein: 2 MOhm se neeche aik asli ground fault hai."
+        },
+        {
+          "en": "Isolate strings one at a time to find the leaking string, then inspect that string's connectors.",
+          "ur": "Strings ko ek-ek karke isolate karein taake leaking string mil jaye, phir us ke connectors dekhein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The manual tells you to contact customer service if resistance is above 2 MOhm but the code stays.",
+        "ur": "Manual kehta hai ke agar resistance 2 MOhm se upar ho aur phir bhi code aaye to customer service se rabta karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F08",
+      "aliases": [
+        "F08"
+      ],
+      "title": {
+        "en": "PV Input Short Circuit (F08)",
+        "ur": "PV input short ho gaya (F08)"
+      },
+      "meaning": {
+        "en": "Short circuit seen on the PV input side of the inverter.",
+        "ur": "Inverter ke PV input side par short circuit hai."
+      },
+      "causes": [
+        {
+          "en": "Input mode is set to parallel while one PV input is idle, confusing the detection.",
+          "ur": "Input mode parallel par set hai jabke aik PV input idle hai, is liye detection confuse ho raha hai."
+        },
+        {
+          "en": "PV string shorted, or MC4 leads touching each other.",
+          "ur": "PV string short hai, ya MC4 leads aapas mein chhu rahi hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the input mode setting is correct.",
+          "ur": "Check karein ke input mode setting theek hai."
+        },
+        {
+          "en": "Disconnect the PV input, restart the inverter and wait until it runs correctly.",
+          "ur": "PV input disconnect karein, inverter restart karke theek chalne tak intezaar karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F09",
+      "aliases": [
+        "F09"
+      ],
+      "title": {
+        "en": "Bypass Relay Fault (F09)",
+        "ur": "Bypass relay kharab (F09)"
+      },
+      "meaning": {
+        "en": "The bypass relay inside the inverter has failed to switch.",
+        "ur": "Inverter ka bypass relay switch nahi ho raha."
+      },
+      "causes": [
+        {
+          "en": "Bypass relay coil, driver or its contacts have failed.",
+          "ur": "Bypass relay ki coil, driver ya contacts kharab hain."
+        },
+        {
+          "en": "Relay has stuck welded because of a shock during grid switching.",
+          "ur": "Grid switching ke waqt shock ki wajah se relay weld ho ke atak gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the PV input.",
+          "ur": "PV input disconnect karein."
+        },
+        {
+          "en": "Restart the inverter and wait until it runs correctly.",
+          "ur": "Inverter restart karein aur theek chalne tak intezaar karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The manual only says 'contact customer service' for this one - the relay is not user serviceable.",
+        "ur": "Manual sirf kehta hai 'customer service se rabta karein' - relay user level par repair nahi hota."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F10",
+      "aliases": [
+        "F10"
+      ],
+      "title": {
+        "en": "INV Curr Over - inverter output overcurrent (F10)",
+        "ur": "INV Curr Over - inverter output current zyada (F10)"
+      },
+      "meaning": {
+        "en": "Inverter output current exceeded the threshold. Usually the backup load is too big.",
+        "ur": "Inverter ka output current threshold se zyada ho gaya. Aam tor par backup load bohat bada hai."
+      },
+      "causes": [
+        {
+          "en": "EPS / backup load exceeds the rated output power of the inverter.",
+          "ur": "EPS ya backup load inverter ki rated output power se zyada hai."
+        },
+        {
+          "en": "A load is inrush-cycling (for example a fridge or AC compressor) on battery.",
+          "ur": "Battery pe chalte waqt koi load inrush cycle kar raha hai, jaise fridge ya AC compressor."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait five minutes for the inverter to restart automatically.",
+          "ur": "Inverter ke khud restart hone ke liye paanch minute intezaar karein."
+        },
+        {
+          "en": "Check the EPS loads; if the load exceeds rated output, disconnect some load.",
+          "ur": "EPS load check karein; agar load rated output se zyada hai to kuch load disconnect karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F11",
+      "aliases": [
+        "F11"
+      ],
+      "title": {
+        "en": "INV DC Over - inverter DC component overcurrent (F11)",
+        "ur": "INV DC Over - inverter DC component zyada current (F11)"
+      },
+      "meaning": {
+        "en": "The DC-side current inside the inverter is too high.",
+        "ur": "Inverter ke andar DC side current bohat zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter DC-DC stage or its current sensing has drifted.",
+          "ur": "Inverter ka DC-DC stage ya uska current sensing bigad gaya hai."
+        },
+        {
+          "en": "Battery or PV input transient at power-on.",
+          "ur": "Power on hote waqt battery ya PV input ka transient."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and wait until it runs correctly.",
+          "ur": "Inverter restart karein aur theek chalne tak intezaar karein."
+        },
+        {
+          "en": "Measure PV open-circuit voltage with a multimeter in daylight and check it against the inverter's MPPT start voltage before blaming the unit.",
+          "ur": "Dopahar mein multimeter se PV ka open circuit voltage check karke inverter ke MPPT start voltage se compare karein, unit par blame lagane se pehle."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Manual gives only 'restart and contact customer service'. This is a distributor-level fault.",
+        "ur": "Manual sirf 'restart karke customer service se rabta karein' kehta hai. Yeh distributor level ka fault hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F12",
+      "aliases": [
+        "F12"
+      ],
+      "title": {
+        "en": "Ambient Over Temp (F12)",
+        "ur": "Aas paas ka temperature zyada (F12)"
+      },
+      "meaning": {
+        "en": "Ambient temperature around the inverter is too high.",
+        "ur": "Inverter ke aas paas ka ambient temperature bohat zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter installed in direct sun or inside a closed, unventilated enclosure.",
+          "ur": "Inverter seedhi dhoop mein ya band, hawa na chalne wali box mein laga hai."
+        },
+        {
+          "en": "Airflow blocked or a neighbouring heat source too close.",
+          "ur": "Airflow band hai ya koi doosra heat source bahut qareeb hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter, let it cool for a few minutes, then restart it.",
+          "ur": "Inverter restart karein, kuch minute thanda hone dein, phir dobara restart karein."
+        },
+        {
+          "en": "Measure ambient temperature at the unit; keep the unit shaded and clear of all obstructions.",
+          "ur": "Unit ke paas ambient temperature check karein; unit ko shade mein aur har cheez se saaf rakhein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F13",
+      "aliases": [
+        "F13"
+      ],
+      "title": {
+        "en": "Sink Over Temp - heatsink over temperature (F13)",
+        "ur": "Sink Over Temp - heatsink temperature zyada (F13)"
+      },
+      "meaning": {
+        "en": "The inverter heatsink is too hot. The fan or the heatsink path is not doing its job.",
+        "ur": "Inverter ka heatsink bohat garam hai. Ya to fan kharab hai ya heatsink ka rasta band hai."
+      },
+      "causes": [
+        {
+          "en": "Cooling fan failed or is blocked by dust and insects.",
+          "ur": "Cooling fan kharab hai ya dhool aur keedon se block hai."
+        },
+        {
+          "en": "Ambient temperature above the specified -25 C to 60 C range.",
+          "ur": "Ambient temperature specified -25 C se 60 C range se upar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, then clean the heatsink and fan with a soft brush and clear dust from the vents.",
+          "ur": "Power off karein, phir heatsink aur fan ko soft brush se saaf karein aur vents se dhool nikaalein."
+        },
+        {
+          "en": "Confirm the fan spins freely by hand after cleaning.",
+          "ur": "Saaf karne ke baad haath se check karein ke fan aazad ghoomta hai."
+        },
+        {
+          "en": "Restart the inverter and confirm ambient temperature is inside -25 C to 60 C.",
+          "ur": "Inverter restart karein aur confirm karein ke ambient temperature -25 C se 60 C ke andar hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F14",
+      "aliases": [
+        "F14"
+      ],
+      "title": {
+        "en": "Grid Relay Fault (F14)",
+        "ur": "Grid relay kharab (F14)"
+      },
+      "meaning": {
+        "en": "The relay that connects the inverter to the grid failed.",
+        "ur": "Inverter ko grid se jorne wala relay kharab ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Grid relay coil or contact failed, often after a grid outage or surge.",
+          "ur": "Grid relay ki coil ya contact kharab, aksar grid outage ya surge ke baad."
+        },
+        {
+          "en": "Supply voltage to the relay driver out of range.",
+          "ur": "Relay driver ko milne wali supply voltage range se bahar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the PV input, restart the inverter and check whether the fault still exists.",
+          "ur": "PV input disconnect karein, inverter restart karke dekhein ke fault ab bhi hai ya nahi."
+        },
+        {
+          "en": "Check the grid-side relay wiring and tighten the AC output terminals.",
+          "ur": "Grid side relay wiring check karein aur AC output terminals kass lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F15",
+      "aliases": [
+        "F15"
+      ],
+      "title": {
+        "en": "DisChg Curr Over - discharge overcurrent (F15)",
+        "ur": "DisChg Curr Over - discharge current zyada (F15)"
+      },
+      "meaning": {
+        "en": "Battery is being discharged with too much current.",
+        "ur": "Battery bohat zyada current se discharge ho rahi hai."
+      },
+      "causes": [
+        {
+          "en": "EPS load exceeds the rated output power of the inverter.",
+          "ur": "EPS load inverter ki rated output power se zyada hai."
+        },
+        {
+          "en": "Battery pack internal resistance high or cells shorted, pulling excess current.",
+          "ur": "Battery pack ka internal resistance zyada hai ya cells short hain, zyada current kheench rahe hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait one minute for the inverter to restart.",
+          "ur": "Inverter ke restart hone ke liye aik minute intezaar karein."
+        },
+        {
+          "en": "Check whether the load is in compliance with the specification and shed excess load.",
+          "ur": "Check karein ke load specification ke mutabiq hai ya nahi aur extra load hata dein."
+        },
+        {
+          "en": "Measure each battery pack's terminal voltage; any pack much lower than the others is suspect.",
+          "ur": "Har battery pack ka terminal voltage check karein; jo pack doosron se kaafi neeche ho wohi kharab hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F16",
+      "aliases": [
+        "F16"
+      ],
+      "title": {
+        "en": "Chg Curr Over - charge overcurrent (F16)",
+        "ur": "Chg Curr Over - charge current zyada (F16)"
+      },
+      "meaning": {
+        "en": "Battery charging current exceeded the limit.",
+        "ur": "Battery ka charging current limit se zyada ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Battery wiring port is short circuited.",
+          "ur": "Battery wiring port short circuit hai."
+        },
+        {
+          "en": "Charging current is set in the menu above the battery's rating.",
+          "ur": "Menu mein charging current battery ki rating se zyada set hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if the battery wiring port is short circuited; inspect the connector and cable for exposed copper.",
+          "ur": "Check karein ke battery wiring port short circuit to nahi; connector aur cable mein khula copper dekhein."
+        },
+        {
+          "en": "Check if charging current is in compliance with the presetting and lower it to the pack rating.",
+          "ur": "Check karein ke charging current presetting ke mutabiq hai ya nahi aur use pack rating par kam karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F17",
+      "aliases": [
+        "F17"
+      ],
+      "title": {
+        "en": "Current Sensor Fault (F17)",
+        "ur": "Current sensor kharab (F17)"
+      },
+      "meaning": {
+        "en": "A current sensor inside the inverter has failed, so the inverter cannot trust its own current reading.",
+        "ur": "Inverter ka koi current sensor kharab hai, is liye inverter apna current reading sahi nahi samajhta."
+      },
+      "causes": [
+        {
+          "en": "Current sensing circuit or its hall sensor has failed.",
+          "ur": "Current sensing circuit ya uska hall sensor kharab ho gaya."
+        },
+        {
+          "en": "Sensing wiring harness loose or corroded at the connector.",
+          "ur": "Sensing wiring harness ka connector dheela ya zang lage hue hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and wait until it runs correctly.",
+          "ur": "Inverter restart karein aur theek chalne tak intezaar karein."
+        },
+        {
+          "en": "With mains and battery disconnected, check the current-sensor harness connector is fully seated and free of corrosion.",
+          "ur": "Mains aur battery disconnect kar ke check karein ke current sensor harness ka connector puri tarah laga hua hai aur us par zang nahi hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Immediate return of F17 means a failed sensor board - distributor replacement only.",
+        "ur": "Agar F17 foran wapas aaye to matlab sensor board kharab hai - sirf distributor badal sakta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F18",
+      "aliases": [
+        "F18"
+      ],
+      "title": {
+        "en": "INV Abnormal - inverter output abnormal (F18)",
+        "ur": "Inverter output abnormal (F18)"
+      },
+      "meaning": {
+        "en": "Inverter output voltage or frequency is abnormal. The manual sends this straight to the distributor.",
+        "ur": "Inverter ka output voltage ya frequency abnormal hai. Manual isay seedha distributor ko bhejta hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter output stage or its sensing has drifted out of tolerance.",
+          "ur": "Inverter output stage ya uska sensing tolerance se bahar chala gaya."
+        },
+        {
+          "en": "Grid voltage or frequency outside the accepted window at the time of the fault.",
+          "ur": "Fault ke waqt grid voltage ya frequency accepted window se bahar tha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the grid voltage and frequency with a multimeter before touching the unit.",
+          "ur": "Unit chhune se pehle multimeter se grid voltage aur frequency check karein."
+        },
+        {
+          "en": "Turn off the EPS output switches and restart the inverter to see if the code clears.",
+          "ur": "EPS output switches band karein aur inverter restart karke dekhein ke code chala ya nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Manual solution is literally '(1) Please contact the distributor.'",
+        "ur": "Manual ka hal bilkul yehi hai: distributor se rabta karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F19",
+      "aliases": [
+        "F19"
+      ],
+      "title": {
+        "en": "EPS Relay Fault (F19)",
+        "ur": "EPS relay kharab (F19)"
+      },
+      "meaning": {
+        "en": "The EPS (emergency power supply / backup) relay failed to switch the load over.",
+        "ur": "EPS relay load ko transfer karne mein nakaam raha."
+      },
+      "causes": [
+        {
+          "en": "EPS relay coil, driver or contacts failed.",
+          "ur": "EPS relay ki coil, driver ya contacts kharab hain."
+        },
+        {
+          "en": "EPS load side short or overload that welded the relay closed.",
+          "ur": "EPS load side par short ya overload jis ne relay ko weld kar diya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off all the switches on the EPS load end, then restart the inverter.",
+          "ur": "EPS load end ke tamam switches band karein, phir inverter restart karein."
+        },
+        {
+          "en": "Reconnect the load one item at a time to find the item that trips the relay.",
+          "ur": "Load ko aik aik karke wapas lagayein taake pata chale ke kaun sa item relay trip kar raha hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Manual: 'If the code is still shown, contact Customer Service.'",
+        "ur": "Manual ke mutabiq: agar code phir bhi aa raha ho to Customer Service se rabta karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F20",
+      "aliases": [
+        "F20"
+      ],
+      "title": {
+        "en": "Alway Over Load - always overload (F20)",
+        "ur": "Alway Over Load - hamesha overload (F20)"
+      },
+      "meaning": {
+        "en": "The EPS load permanently exceeds the rated output power of the system, so the inverter keeps stopping.",
+        "ur": "EPS load hamesha system ki rated output power se zyada hai, is liye inverter baar baar ruk raha hai."
+      },
+      "causes": [
+        {
+          "en": "Connected backup load is larger than the inverter's continuous rating.",
+          "ur": "Lagaya hua backup load inverter ki continuous rating se bada hai."
+        },
+        {
+          "en": "Load was increased after installation without resizing the inverter.",
+          "ur": "Install ke baad load barha diya gaya bina inverter resize kiye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the EPS load, measure the total connected watts, and compare to the inverter's rated output.",
+          "ur": "EPS load band karein, kul connected watts naappein, aur inverter ki rated output se compare karein."
+        },
+        {
+          "en": "Remove or reschedule the largest loads (AC, geyser, pump) so the inverter runs below 80 percent.",
+          "ur": "Bade loads (AC, geyser, pump) hata dein ya shift karein taake inverter 80 percent se neeche chale."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "F32",
+      "aliases": [
+        "F32"
+      ],
+      "title": {
+        "en": "SCI Fault - communication fault (F32)",
+        "ur": "SCI communication fault aa gaya (F32)"
+      },
+      "meaning": {
+        "en": "Internal communication between the inverter's two controllers has failed.",
+        "ur": "Inverter ke do controllers ke darmiyan internal communication nahi chal rahi."
+      },
+      "causes": [
+        {
+          "en": "Internal control board to control board communication link failed.",
+          "ur": "Internal control board se control board ka link kharab ho gaya."
+        },
+        {
+          "en": "Erratic supply to the control boards after a mains failure.",
+          "ur": "Mains failure ke baad control boards ko erratic supply mila."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the inverter fully, wait 5 minutes, then power it back on.",
+          "ur": "Inverter poori tarah band karein, 5 minute intezaar karein, phir wapas on karein."
+        },
+        {
+          "en": "Check the communication cable between inverter and battery pack is seated and undamaged.",
+          "ur": "Check karein ke inverter aur battery pack ke darmiyan communication cable puri tarah lagi hui hai aur kharab nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W00",
+      "aliases": [
+        "W00",
+        "W00-W03"
+      ],
+      "title": {
+        "en": "Grid Volt Low (W00)",
+        "ur": "Grid voltage kam (W00)"
+      },
+      "meaning": {
+        "en": "Incoming grid voltage is low. The inverter keeps working but warns the user.",
+        "ur": "Aane wala grid voltage kam hai. Inverter chal raha hai magar warning de raha hai."
+      },
+      "causes": [
+        {
+          "en": "Area supply voltage is low, common on long feeder lines in local load shedding.",
+          "ur": "Area ka supply voltage kam hai, lambi feeder line par aam baat hai."
+        },
+        {
+          "en": "Heavy load on the same line pulling the voltage down.",
+          "ur": "Usi line par bohat load lag raha hai aur voltage gir gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage and frequency with a multimeter and compare to the inverter spec.",
+          "ur": "Multimeter se grid voltage aur frequency check karke inverter spec se compare karein."
+        },
+        {
+          "en": "If within range, wait two minutes; if the grid is genuinely out of range, report it to the utility.",
+          "ur": "Agar range mein hai to do minute intezaar karein; agar grid asal mein range se bahar hai to power company ko report karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "This is one of the most common Kstar complaints in Pakistan - low incoming voltage.",
+        "ur": "Yeh Pakistan mein Kstar ki sab se aam shikayat hai - aane wala voltage kam hona."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W01",
+      "aliases": [
+        "W01"
+      ],
+      "title": {
+        "en": "Grid Volt High (W01)",
+        "ur": "Grid voltage zyada (W01)"
+      },
+      "meaning": {
+        "en": "Incoming grid voltage is above the accepted window.",
+        "ur": "Aane wala grid voltage allowed window se upar hai."
+      },
+      "causes": [
+        {
+          "en": "Utility supply voltage high, often at the end of a lightly loaded feeder.",
+          "ur": "Power company ka voltage high hai, aksar kam load wali feeder ke aakhir par."
+        },
+        {
+          "en": "Stabiliser or transformer in the supply chain is set to boost.",
+          "ur": "Supply chain mein stabiliser ya transformer boost par set hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage with a multimeter and check it against the inverter's accepted grid window.",
+          "ur": "Multimeter se grid voltage check karein aur inverter ke grid window se compare karein."
+        },
+        {
+          "en": "Check any stabiliser or transformer in the path and set it to the correct tap.",
+          "ur": "Raste mein koi bhi stabiliser ya transformer check karke usay theek tap par set karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W02",
+      "aliases": [
+        "W02"
+      ],
+      "title": {
+        "en": "Grid Frequency Low (W02)",
+        "ur": "Grid frequency kam (W02)"
+      },
+      "meaning": {
+        "en": "Grid frequency is below normal. Typical during generator changeover.",
+        "ur": "Grid frequency normal se kam hai. Generator changeover ke waqt aam baat hai."
+      },
+      "causes": [
+        {
+          "en": "Utility frequency dip, or the site is running on a generator that is not at speed.",
+          "ur": "Power company ka frequency gir gaya, ya site generator par hai jo speed par nahi."
+        },
+        {
+          "en": "Generator governor is not holding 50 Hz.",
+          "ur": "Generator ka governor 50 Hz par hold nahi kar raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check grid frequency with a multimeter; it should be 50 Hz or 60 Hz depending on local supply.",
+          "ur": "Multimeter se grid frequency check karein; yeh local supply ke mutabiq 50 Hz ya 60 Hz hona chahiye."
+        },
+        {
+          "en": "On a generator site, adjust the generator governor until frequency is back in range.",
+          "ur": "Generator site par governor adjust karein jab tak frequency range mein na aa jaye."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W03",
+      "aliases": [
+        "W03"
+      ],
+      "title": {
+        "en": "Grid Frequency High (W03)",
+        "ur": "Grid frequency zyada (W03)"
+      },
+      "meaning": {
+        "en": "Grid frequency is above normal.",
+        "ur": "Grid frequency normal se zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Generator running fast with a light load.",
+          "ur": "Kam load par generator tez chal raha hai."
+        },
+        {
+          "en": "Utility frequency excursion.",
+          "ur": "Power company ka frequency hat gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure frequency with a multimeter and wait two minutes for it to settle.",
+          "ur": "Multimeter se frequency check karein aur do minute settle hone dein."
+        },
+        {
+          "en": "Reduce generator load or adjust the governor before restarting the inverter.",
+          "ur": "Generator ka load kam karein ya governor theek karein, phir inverter restart karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W04",
+      "aliases": [
+        "W04"
+      ],
+      "title": {
+        "en": "Solar Loss (W04)",
+        "ur": "Solar production ruk gayi (W04)"
+      },
+      "meaning": {
+        "en": "No PV panels producing, or PV input voltage is too low.",
+        "ur": "Ya to koi PV panel produce nahi kar raha, ya PV input voltage bohat kam hai."
+      },
+      "causes": [
+        {
+          "en": "PV is not connected at all.",
+          "ur": "PV bilkul connected nahi hai."
+        },
+        {
+          "en": "Heavy cloud, dust or night-time, so panel voltage sits below the start threshold.",
+          "ur": "Bhaari baadal, dhool ya raat ka waqt, jis se panel voltage start threshold se neeche gir jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the PV connection and the MC4 plugs at both the panel and the inverter.",
+          "ur": "PV connection aur MC4 plugs panel aur inverter dono taraf check karein."
+        },
+        {
+          "en": "Measure open-circuit PV voltage with a multimeter in daylight; compare it with the inverter MPPT start voltage.",
+          "ur": "Dopahar mein multimeter se PV ka open circuit voltage check karein; usay inverter ke MPPT start voltage se compare karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W05",
+      "aliases": [
+        "W05"
+      ],
+      "title": {
+        "en": "Bat Loss (W05)",
+        "ur": "Battery connect nahi ya voltage kam (W05)"
+      },
+      "meaning": {
+        "en": "No battery pack is connected, or the battery voltage is too low.",
+        "ur": "Ya to koi battery pack connected nahi, ya battery voltage bohat kam hai."
+      },
+      "causes": [
+        {
+          "en": "Battery pack not connected, or the BMS to inverter cable is loose.",
+          "ur": "Battery pack connected nahi, ya BMS se inverter ka cable dheela hai."
+        },
+        {
+          "en": "Battery pack deeply discharged below the inverter's minimum input voltage.",
+          "ur": "Battery pack inverter ki minimum input voltage se neeche gehri tarah discharge ho gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if the battery wiring port is short circuited and reseat all battery connectors firmly.",
+          "ur": "Check karein ke battery wiring port short circuit to nahi, aur saare battery connectors mazbooti se lagayein."
+        },
+        {
+          "en": "Measure battery DC voltage with a multimeter; a healthy BluE-PACK pack reads about 51-53 V.",
+          "ur": "Multimeter se battery DC voltage check karein; theek BluE-PACK 51-53 V par hota hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W06",
+      "aliases": [
+        "W06"
+      ],
+      "title": {
+        "en": "Bat Under Volt (W06)",
+        "ur": "Battery ka under voltage (W06)"
+      },
+      "meaning": {
+        "en": "Under-voltage has occurred in the battery.",
+        "ur": "Battery mein under-voltage aa gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Battery discharged too deep during a long power cut.",
+          "ur": "Lambi power cut mein battery bohat gehri tarah discharge ho gayi."
+        },
+        {
+          "en": "Charge current set too low, so the pack cannot recover in time.",
+          "ur": "Charge current bohat kam set hai, is liye pack waqt par charge nahi hota."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the battery packs for their availability and physical condition.",
+          "ur": "Battery packs ki availability aur physical condition check karein."
+        },
+        {
+          "en": "If battery voltage is below the inverter minimum, charge the battery until it reaches the accepted input voltage.",
+          "ur": "Agar battery voltage inverter minimum se neeche hai to battery ko charge karein jab tak accepted input voltage na aa jaye."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W07",
+      "aliases": [
+        "W07"
+      ],
+      "title": {
+        "en": "Bat Volt Low (W07)",
+        "ur": "Battery voltage kam (W07)"
+      },
+      "meaning": {
+        "en": "Battery voltage is low, so backup time is being reduced.",
+        "ur": "Battery voltage kam hai, is liye backup time kam ho raha hai."
+      },
+      "causes": [
+        {
+          "en": "Battery not fully charged, or grid is not available long enough to charge it.",
+          "ur": "Battery poori tarah charge nahi, ya charging ke liye grid itni der nahi chala."
+        },
+        {
+          "en": "One battery pack in a parallel set is weak and dragging the string down.",
+          "ur": "Parallel set mein aik battery pack kamzor hai aur poora string neeche kheench raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure each pack's voltage separately; the weak pack will read clearly lower than the rest.",
+          "ur": "Har pack ka voltage alag alag check karein; kamzor pack baqi se saaf neeche padhega."
+        },
+        {
+          "en": "Give the system 6-8 hours of mains supply and re-measure before assuming a battery fault.",
+          "ur": "System ko 6-8 ghante mains dein aur battery fault samajhne se pehle dobara voltage check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W08",
+      "aliases": [
+        "W08"
+      ],
+      "title": {
+        "en": "Bat Volt High (W08)",
+        "ur": "Battery voltage zyada (W08)"
+      },
+      "meaning": {
+        "en": "Battery voltage is above the setting and the pack has shut charging to protect itself.",
+        "ur": "Battery voltage setting se upar hai aur pack ne apni hifazat ke liye charging band kar di."
+      },
+      "causes": [
+        {
+          "en": "Battery chemistry or voltage set-point in the menu does not match the fitted pack.",
+          "ur": "Menu mein battery chemistry ya voltage set-point lagay huay pack se match nahi karti."
+        },
+        {
+          "en": "Ambient temperature is above 45 C, which pushes charge voltage up.",
+          "ur": "Ambient temperature 45 C se upar hai, jis se charge voltage upar chala jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if the battery is in line with the presetting in the menu.",
+          "ur": "Check karein ke menu ki presetting ke mutabiq battery hai ya nahi."
+        },
+        {
+          "en": "If it does match, power off and restart the inverter.",
+          "ur": "Agar match karti hai to power off karke inverter restart karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W09",
+      "aliases": [
+        "W09"
+      ],
+      "title": {
+        "en": "Over Load (W09)",
+        "ur": "Load rating se zyada (W09)"
+      },
+      "meaning": {
+        "en": "Connected load exceeds the rated power of the inverter.",
+        "ur": "Lagaya hua load inverter ki rated power se zyada hai."
+      },
+      "causes": [
+        {
+          "en": "More appliances connected than the inverter was sized for.",
+          "ur": "Inverter ki capacity se zyada appliances lagaye gaye hain."
+        },
+        {
+          "en": "An appliance drawing large inrush, such as an AC or water pump.",
+          "ur": "Koi aik appliance bohat bara inrush le raha hai, jaise AC ya water pump."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait one minute for the inverter to restart.",
+          "ur": "Inverter ke restart ke liye aik minute intezaar karein."
+        },
+        {
+          "en": "Check whether the load is in compliance with the specification and unplug the excess.",
+          "ur": "Check karein ke load specification ke mutabiq hai ya nahi aur extra load nikaal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W10",
+      "aliases": [
+        "W10",
+        "CFCI Over"
+      ],
+      "title": {
+        "en": "GFCI Over - leakage current high (W10)",
+        "ur": "GFCI Over - leakage current zyada (W10)"
+      },
+      "meaning": {
+        "en": "High leakage current detected. The manual table prints this row as 'CFCI Over', the code list prints it as 'GFCI Over'.",
+        "ur": "Bohat zyada leakage current mila hai. Manual ki table isay 'CFCI Over' likhti hai, code list 'GFCI Over'."
+      },
+      "causes": [
+        {
+          "en": "PV string has direct or indirect grounding.",
+          "ur": "PV string mein direct ya indirect grounding ho gayi hai."
+        },
+        {
+          "en": "An appliance on the AC side has a leakage current fault, e.g. a wet heater or filter.",
+          "ur": "AC side par kisi appliance mein leakage current fault hai, jaise geela heater ya filter."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check PV string for direct or indirect grounding and correct it.",
+          "ur": "PV string par direct ya indirect grounding check karke theek karein."
+        },
+        {
+          "en": "Check the peripherals of the machine for current leakage and rectify anything you find.",
+          "ur": "Machine ke aas paas ke devices mein current leakage check karke jo mila use theek karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "notes": {
+        "en": "Manual spells the meaning 'CFCI Over' in the diagnosis table but 'GFCI Over' in the code list - same code, inconsistent spelling.",
+        "ur": "Manual diagnosis table mein 'CFCI Over' likha hai magar code list mein 'GFCI Over' - aik hi code, spelling alag."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W11",
+      "aliases": [
+        "W11",
+        "LN Reverse"
+      ],
+      "title": {
+        "en": "LN Reverse - line/neutral reversed (W11)",
+        "ur": "LN Reverse - line aur neutral ulat (W11)"
+      },
+      "meaning": {
+        "en": "Live and neutral are connected the wrong way round at the AC input.",
+        "ur": "AC input par live aur neutral aik doosre ki jagah lagi hui hain."
+      },
+      "causes": [
+        {
+          "en": "Installation did not follow the instructions, or a junction was re-wired by a local electrician.",
+          "ur": "Install instructions ke mutabiq nahi hua, ya kisi junction ko local electrician ne dobara wire kiya."
+        },
+        {
+          "en": "Supply leads swapped when the unit was shifted or re-mounted.",
+          "ur": "Unit hatane ya dobara lagane par supply leads aik doosre ki jagah ho gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC supply and the inverter, then confirm L and N with a multimeter or a socket tester.",
+          "ur": "AC supply aur inverter band karein, phir multimeter ya socket tester se L aur N confirm karein."
+        },
+        {
+          "en": "Re-terminate the AC input so live goes to L and neutral to N, then earth the chassis properly.",
+          "ur": "AC input dobara terminate karein: live L par, neutral N par, aur chassis ko zaroor earth karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Manual solution: '(1) Check whether the installation follows the instructions; (2) Contact customer service if error warning continues.'",
+        "ur": "Manual ka hal: '(1) Check whether the installation follows the instructions; (2) Contact customer service if error warning continues.'"
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W12",
+      "aliases": [
+        "W12"
+      ],
+      "title": {
+        "en": "Fan Fault (W12)",
+        "ur": "Fan kharab ho gaya (W12)"
+      },
+      "meaning": {
+        "en": "The inverter cooling fan has malfunctioned. If you ignore it you will get F12 or F13 next.",
+        "ur": "Inverter ka cooling fan kharab ho gaya hai. Isay ignore kiya to baad mein F12 ya F13 aa jayega."
+      },
+      "causes": [
+        {
+          "en": "Fan motor has seized or its brushless bearing has worn out.",
+          "ur": "Fan motor jam ho gaya ya uska brushless bearing kharab ho gaya."
+        },
+        {
+          "en": "Fan cable loose or the fan connector not seated.",
+          "ur": "Fan ka cable dheela hai ya fan connector puri tarah nahi laga."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off, then check that the fan blades spin freely by hand with power disconnected.",
+          "ur": "Power off karein, phir power ke baghair fan blades ko haath se aazad ghoomne ka test karein."
+        },
+        {
+          "en": "Check the fan connector is fully seated and the fan cable has no break.",
+          "ur": "Check karein ke fan connector puri tarah laga hua hai aur fan cable mein toota hua hissa nahi."
+        },
+        {
+          "en": "Clear dust from the fan hub and heatsink before reassembling.",
+          "ur": "Dobara lagane se pehle fan hub aur heatsink se dhool saaf karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W13",
+      "aliases": [
+        "W13",
+        "BAT Power Down"
+      ],
+      "title": {
+        "en": "BAT Power Down - battery shut down on low SOC (W13)",
+        "ur": "BAT Power Down - battery ne low SOC par band ki (W13)"
+      },
+      "meaning": {
+        "en": "The battery has shut down because its state of charge dropped too low.",
+        "ur": "Battery ne apna band kar diya kyunke uska SOC bohat neeche gir gaya."
+      },
+      "causes": [
+        {
+          "en": "Long power outage drained the pack below the DoD limit.",
+          "ur": "Lambi power outage ne pack ko DoD limit se neeche drain kar diya."
+        },
+        {
+          "en": "DoD set too deep in the menu for the actual pack size.",
+          "ur": "Menu mein DoD actual pack size ke liye bohat zyada set hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the SOC on the display and compare it with the set DoD.",
+          "ur": "Display par SOC check karke set ki gayi DoD se compare karein."
+        },
+        {
+          "en": "Restore mains supply and let the pack recharge fully before switching loads back on.",
+          "ur": "Mains supply wapas karein aur load on karne se pehle pack ko poori tarah charge hone dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W14",
+      "aliases": [
+        "W14",
+        "BMS Discharge Over Current",
+        "W14~W25"
+      ],
+      "title": {
+        "en": "BMS Discharge Over Current (W14)",
+        "ur": "BMS ne discharge current zyada bataya (W14)"
+      },
+      "meaning": {
+        "en": "Battery management system reports a discharge overcurrent from the pack. Codes W14-W25 are all BMS-reported.",
+        "ur": "Battery management system pack se discharge overcurrent bata raha hai. Codes W14 se W25 tak sab BMS ke hain."
+      },
+      "causes": [
+        {
+          "en": "A short circuit or an oversized load on the battery / EPS side.",
+          "ur": "Battery ya EPS side par short circuit ya bohat bada load."
+        },
+        {
+          "en": "A cell inside the pack has internally shorted.",
+          "ur": "Pack ke andar koi cell internally short ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn off the EPS load and the inverter, then measure each pack's terminal voltage.",
+          "ur": "EPS load aur inverter band karke har pack ka terminal voltage check karein."
+        },
+        {
+          "en": "Reseat the BMS communication cable between inverter and pack, then power up again.",
+          "ur": "BMS communication cable dobara mazbooti se lagayein, phir power up karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The manual groups W14-W25 under 'BMS Fault' with the single solution 'Please contact the distributor.' Codes are listed here individually from the 8.1 table, solutions are technician practice.",
+        "ur": "Manual ka hal bilkul yehi hai: distributor se rabta karein (1)."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W15",
+      "aliases": [
+        "W15",
+        "BMS charge Over Current"
+      ],
+      "title": {
+        "en": "BMS Charge Over Current (W15)",
+        "ur": "BMS ne charge current zyada bataya (W15)"
+      },
+      "meaning": {
+        "en": "Battery management system reports a charge overcurrent on the pack.",
+        "ur": "Battery management system pack par charge overcurrent bata raha hai."
+      },
+      "causes": [
+        {
+          "en": "Charge current setting is above the pack's permitted limit.",
+          "ur": "Charge current setting pack ki ijazat se zyada hai."
+        },
+        {
+          "en": "A cell internally shorted inside the pack, so charging current spikes.",
+          "ur": "Pack ke andar koi cell internally short hai, is liye charging current spike karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the charge current in the menu to the pack's rated 0.5C value.",
+          "ur": "Menu mein charge current pack ke rated 0.5C par kam karein."
+        },
+        {
+          "en": "Measure each pack's terminal voltage; the pack that is hot or low is the faulty one.",
+          "ur": "Har pack ka terminal voltage check karein; jo pack garam ya kam voltage wala hai wohi kharab hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Grouped under 'BMS Fault' in the manual diagnosis table.",
+        "ur": "Manual diagnosis table mein yeh 'BMS Fault' ke andar hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W16",
+      "aliases": [
+        "W16",
+        "BMS Over Volt"
+      ],
+      "title": {
+        "en": "BMS Over Volt (W16)",
+        "ur": "BMS ne over voltage bataya (W16)"
+      },
+      "meaning": {
+        "en": "BMS reports pack over-voltage and has stopped charging.",
+        "ur": "BMS pack over-voltage bata raha hai aur charging band kar chuka hai."
+      },
+      "causes": [
+        {
+          "en": "Pack cell imbalance; one cell has drifted high.",
+          "ur": "Pack ke cells mein imbalance hai; aik cell zyada upar chala gaya."
+        },
+        {
+          "en": "Grid voltage high, pushing the charge voltage past the pack limit.",
+          "ur": "Grid voltage high hai, jis se charge voltage pack limit se upar chala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage and the pack's total DC voltage with a multimeter.",
+          "ur": "Multimeter se grid voltage aur pack ka kul DC voltage check karein."
+        },
+        {
+          "en": "Run a full charge-and-absorb cycle and re-measure; a cell that stays high is a bad cell.",
+          "ur": "Poora charge aur absorb cycle chalayein aur dobara check karein; jo cell hamesha upar rahe woh kharab cell hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Grouped under 'BMS Fault' in the manual diagnosis table.",
+        "ur": "Manual diagnosis table mein yeh 'BMS Fault' ke andar hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W17",
+      "aliases": [
+        "W17",
+        "BMS Over Temp"
+      ],
+      "title": {
+        "en": "BMS Over Temp (W17)",
+        "ur": "BMS ne temperature zyada bataya (W17)"
+      },
+      "meaning": {
+        "en": "BMS reports the pack is over temperature.",
+        "ur": "BMS bata raha hai ke pack temperature se upar chala gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Pack is in direct sun or inside a poorly ventilated battery room.",
+          "ur": "Pack seedhi dhoop mein hai ya kam hawa wale battery room mein."
+        },
+        {
+          "en": "Battery room ambient above the operating range of 0 to 50 C for charging.",
+          "ur": "Battery room ka ambient charging ke liye 0 se 50 C operating range se upar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure ambient temperature at the pack; move it to shade if above 45 C.",
+          "ur": "Pack ke paas ambient temperature check karein; 45 C se upar ho to use shade mein le jayein."
+        },
+        {
+          "en": "Check the pack fan and vents are clear of dust so the BMS can self-cool.",
+          "ur": "Pack ka fan aur vents dhool se saaf hain ya nahi check karein taake BMS khud thanda ho sake."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Grouped under 'BMS Fault' in the manual diagnosis table.",
+        "ur": "Manual diagnosis table mein yeh 'BMS Fault' ke andar hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W18",
+      "aliases": [
+        "W18",
+        "BMS Discharge Low Temp"
+      ],
+      "title": {
+        "en": "BMS Discharge Low Temp (W18)",
+        "ur": "BMS ne discharge temperature kam bataya (W18)"
+      },
+      "meaning": {
+        "en": "Too cold to discharge the pack; the BMS has blocked discharge.",
+        "ur": "Pack itna thanda hai ke discharge nahi ho sakta; BMS ne discharge block kar diya."
+      },
+      "causes": [
+        {
+          "en": "Pack temperature below the low-temperature discharge limit (BMS cuts out around -18 C on later Kstar models).",
+          "ur": "Pack temperature low temperature discharge limit se neeche hai (BMS naye Kstar models par aazman -18 C par band karta hai)."
+        },
+        {
+          "en": "Pack installed outdoors in a cold wave with no shelter.",
+          "ur": "Pack kisi shelter ke baghair outdoors cold wave mein lage hue hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the pack temperature on the inverter inquiry screen.",
+          "ur": "Inverter inquiry screen par pack ka temperature parh lein."
+        },
+        {
+          "en": "Let the pack warm up naturally; do not use a heat gun or open flame on the battery.",
+          "ur": "Pack ko khud garam hone dein; battery par heat gun ya shola na lagayein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Grouped under 'BMS Fault' in the manual diagnosis table.",
+        "ur": "Manual diagnosis table mein yeh 'BMS Fault' ke andar hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W19",
+      "aliases": [
+        "W19",
+        "Bms Volt Imbalance"
+      ],
+      "title": {
+        "en": "BMS Volt Imbalance - cell voltage imbalance (W19)",
+        "ur": "BMS Volt Imbalance - cell voltage ghabrat (W19)"
+      },
+      "meaning": {
+        "en": "Voltage imbalance has occurred among the cells in the battery.",
+        "ur": "Battery ke cells ke darmiyan voltage ka ghabrat aa gaya hai."
+      },
+      "causes": [
+        {
+          "en": "One or more cells have aged differently, so the pack never balances.",
+          "ur": "Aik ya zyada cells alag umar ke hain, is liye pack balance nahi hota."
+        },
+        {
+          "en": "A cell with high internal resistance, often after deep discharge.",
+          "ur": "Aik cell jiski internal resistance zyada hai, aksar gehri discharge ke baad."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Run one full charge-and-absorb cycle and read the cell voltages again.",
+          "ur": "Aik poora charge aur absorb cycle chalayein aur cell voltages dobara parh lein."
+        },
+        {
+          "en": "On a serviceable pack, equalise only as the battery manufacturer instructs; otherwise replace the pack.",
+          "ur": "Serviceable pack par sirf battery manufacturer ki hidayat ke mutabiq equalise karein; warna pack badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Manual gives only 'Contact Customer Service' for BMS Volt Imbalance.",
+        "ur": "Manual BMS Volt Imbalance ke liye sirf 'Contact Customer Service' kehta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W20",
+      "aliases": [
+        "W20",
+        "Bms Communicate Fault"
+      ],
+      "title": {
+        "en": "BMS Communicate Fault - pack comms failed (W20)",
+        "ur": "BMS Communicate Fault - pack ka communication fail (W20)"
+      },
+      "meaning": {
+        "en": "The BMS cannot talk to the inverter, so the inverter has no idea of the pack state.",
+        "ur": "BMS inverter se baat nahi kar pa raha, is liye inverter ko pack ki halat ki koi information nahi."
+      },
+      "causes": [
+        {
+          "en": "CAN/RS-485 communication cable loose, cut or not seated at either end.",
+          "ur": "CAN/RS-485 communication cable dheeli, kaati ya kisi bhi taraf se nahi lagi."
+        },
+        {
+          "en": "Pack address dialed the same as another pack, so two packs answer on one address.",
+          "ur": "Pack ka address doosre pack jaisa set hai, is liye do pack aik hi address par jawab de rahe hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Make sure the COM cable between the inverter and the battery pack is in good condition and connected correctly.",
+          "ur": "Check karein ke inverter aur battery pack ke darmiyan COM cable theek hai aur sahi tarah lagi hui hai."
+        },
+        {
+          "en": "Check the pack address dial: the first pack is address 1, then 2, 3 and so on, with no duplicates.",
+          "ur": "Pack address dial check karein: pehla pack address 1, phir 2, 3 aise, aur koi duplicate na ho."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Manual solution is exactly the cable/address check, so this code is fully actionable in the field.",
+        "ur": "Manual ka hal yehi cable aur address check hai, is liye yeh code field mein poori tarah hal kiya ja sakta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W21",
+      "aliases": [
+        "W21",
+        "BMS Under Volt"
+      ],
+      "title": {
+        "en": "BMS Under Volt (W21)",
+        "ur": "BMS ne under voltage bataya (W21)"
+      },
+      "meaning": {
+        "en": "BMS reports pack under-voltage. W14-W18 and W21-W24 are all BMS ALARM warnings per the manual.",
+        "ur": "BMS pack under-voltage bata raha hai. Manual ke mutabiq W14 se W18 aur W21 se W24 sab BMS ALARM warnings hain."
+      },
+      "causes": [
+        {
+          "en": "Pack discharged below its lowest acceptable cell voltage.",
+          "ur": "Pack apni sab se kam qubool cell voltage se neeche discharge ho gaya."
+        },
+        {
+          "en": "Cell imbalance means one cell drops early and drags the pack reading down.",
+          "ur": "Cell imbalance ki wajah se aik cell jaldi girta hai aur pack reading neeche kheenchta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the pack terminal voltage with a multimeter before recharging.",
+          "ur": "Recharge se pehle multimeter se pack ka terminal voltage check karein."
+        },
+        {
+          "en": "Give the pack a full charge and re-read; if the under-voltage warning persists the pack is at end of life.",
+          "ur": "Pack ko poori tarah charge karke dobara parh lein; agar under voltage warning bachi rahe to pack ki umar khatam ho gayi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Manual directs W14-W18 and W21-W24 to 'see BMS ALARM Warnings'; the BMS table is in chapter 9 of a later manual.",
+        "ur": "Manual W14 se W18 aur W21 se W24 ko 'BMS ALARM Warnings' dekne ko kehta hai; BMS table naye manual ke chapter 9 mein hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W22",
+      "aliases": [
+        "W22",
+        "Bms Chg Temp Low"
+      ],
+      "title": {
+        "en": "BMS Chg Temp Low - charge temperature too low (W22)",
+        "ur": "BMS Chg Temp Low - charge temperature bohat kam (W22)"
+      },
+      "meaning": {
+        "en": "The pack is too cold to charge, so the BMS has blocked charging.",
+        "ur": "Pack itna thanda hai ke charge nahi ho sakta, BMS ne charging block kar di."
+      },
+      "causes": [
+        {
+          "en": "Pack temperature below the low charge-temperature threshold (about 2 C on later Kstar BMS).",
+          "ur": "Pack temperature low charge temperature threshold se neeche hai (naye Kstar BMS par taqreeban 2 C)."
+        },
+        {
+          "en": "Charging attempted in very early morning or winter in northern Pakistan.",
+          "ur": "Bohat subah ya north Pakistan mein sard moausam mein charging ki koshish ki gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the pack temperature on the inverter inquiry screen before forcing a charge.",
+          "ur": "Charge par majboor karne se pehle inverter inquiry screen par pack temperature parh lein."
+        },
+        {
+          "en": "Charge in the warmer part of the day; the BMS will release charging on its own once warm.",
+          "ur": "Din ke garam hisse mein charge karein; garam hote hi BMS apne aap charging chhor dega."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Grouped under 'BMS Fault' in the manual diagnosis table.",
+        "ur": "Manual diagnosis table mein yeh 'BMS Fault' ke andar hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W23",
+      "aliases": [
+        "W23",
+        "BMS Severe Over Volt"
+      ],
+      "title": {
+        "en": "BMS Severe Over Volt (W23)",
+        "ur": "BMS ne shiddid over voltage bataya (W23)"
+      },
+      "meaning": {
+        "en": "BMS reports a severe pack over-voltage, above the normal W16 over-voltage warning.",
+        "ur": "BMS pack ke shiddid over-voltage ki report kar raha hai, jo normal W16 warning se upar hai."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage high while charging, pushing pack voltage past its hard limit.",
+          "ur": "Charging ke waqt grid voltage high hai, jis se pack voltage hard limit se upar chala gaya."
+        },
+        {
+          "en": "A cell has failed short or open, so the BMS sees an extreme pack reading.",
+          "ur": "Aik cell short ya open ho gaya, is liye BMS ko extreme pack reading dikh rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect PV and stop charging; measure grid voltage and pack DC voltage with a multimeter.",
+          "ur": "PV disconnect karke charging band karein; multimeter se grid voltage aur pack DC voltage check karein."
+        },
+        {
+          "en": "Read the pack's BMS fault code from the PACK INFO screen on the inverter.",
+          "ur": "Inverter ke PACK INFO screen se pack ka BMS fault code parh lein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "notes": {
+        "en": "Listed in the 8.1 alarm code table with no individual solution row; the diagnosis table only says 'contact the distributor'.",
+        "ur": "8.1 alarm code table mein likha hai magar iska koi alag hal nahi; diagnosis table sirf kehti hai 'contact the distributor'."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W24",
+      "aliases": [
+        "W24",
+        "BMS Severe Over Temp"
+      ],
+      "title": {
+        "en": "BMS Severe Over Temp (W24)",
+        "ur": "BMS ne shiddid over temperature bataya (W24)"
+      },
+      "meaning": {
+        "en": "BMS reports severe pack over-temperature, above the normal W17 over-temperature warning.",
+        "ur": "BMS pack ke shiddid over-temperature ki report kar raha hai, jo normal W17 warning se upar hai."
+      },
+      "causes": [
+        {
+          "en": "Cell temperature has passed the point where the BMS must cut charge and discharge MOS.",
+          "ur": "Cell temperature us se guzar chuki hai jahan BMS ko charge aur discharge MOS band karne padte hain."
+        },
+        {
+          "en": "Pack cooling fan failed, so temperature climbed unchecked.",
+          "ur": "Pack ka cooling fan kharab ho gaya, is liye temperature bina check ke chadhti rahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Stop the system and let it cool; do not open the pack while it is hot.",
+          "ur": "System band karke thanda hone dein; garam haalat mein pack na kholein."
+        },
+        {
+          "en": "Check the pack fan and cooling vents are running and free of dust.",
+          "ur": "Check karein ke pack ka fan aur cooling vents chal rahe hain aur dhool se saaf hain."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "notes": {
+        "en": "Listed in the 8.1 alarm code table with no individual solution row.",
+        "ur": "8.1 alarm code table mein likha hai magar iska koi alag hal nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    },
+    {
+      "code": "W25",
+      "aliases": [
+        "W25",
+        "CT Reverse"
+      ],
+      "title": {
+        "en": "CT Reverse - current transformer direction wrong (W25)",
+        "ur": "CT Reverse - current transformer ki direction galat (W25)"
+      },
+      "meaning": {
+        "en": "The current transformer is installed backwards, so export and import read swapped. This is an installation error, not a pack fault.",
+        "ur": "Current transformer ulta lagaya gaya hai, is liye export aur import aik doosre ki jagah parh rahe hain. Yeh install ghalti hai, pack ka fault nahi."
+      },
+      "causes": [
+        {
+          "en": "CT arrow points to the inverter instead of towards the load.",
+          "ur": "CT ka arrow inverter ki taraf hai, load ki taraf nahi."
+        },
+        {
+          "en": "CT clamped on the wrong conductor (L and N swapped, or on the wrong phase).",
+          "ur": "CT galat conductor par laga hai (L aur N aik doosre ki jagah, ya galat phase par)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power down, then unclamp the CT and re-clamp it with the arrow pointing towards the load as the manual requires.",
+          "ur": "Power down karein, phir CT kholkar dobara lagein jis ka arrow load ki taraf ho, jaise manual kehta hai."
+        },
+        {
+          "en": "Check the inverter shows positive power when consuming and negative when feeding the grid.",
+          "ur": "Check karein ke inverter consume karte waqt positive aur grid ko power bhejte waqt negative dikhata hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "Note the manual groups W25 with BMS faults in the diagnosis table, but the 8.1 code list clearly defines W25 as 'CT Reverse' - an installation alarm, not a battery fault.",
+        "ur": "Dhyan dein manual isay diagnosis table mein BMS faults ke saath rakhta hai, magar 8.1 code list saaf likhta hai W25 = 'CT Reverse' - yeh install alarm hai, battery fault nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "KSTAR BluE-H5/H3 Energy Storage System - Installation, Operation & Maintenance Manual (202203 Ver:3.0), hybrid inverter BluE-S 5000D/3680D",
+        "retrieved": "2026-09-26",
+        "url": "https://media.adeo.com/media/3393641/media.pdf"
+      }
+    }
+  ]
+}

@@ -1,0 +1,855 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sofar",
+  "series": {
+    "id": "sofar-ktlx-g3p-15-25",
+    "name": "KTLX-G3P (three-phase 15-25 kW, on-grid)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*15KTLX-G3P*",
+      "*17KTLX-G3P*",
+      "*20KTLX2-G3P*",
+      "*23KTLX-G3P*",
+      "*25KTLX-G3P*"
+    ],
+    "notes": "Three-phase C&I string inverter. Manual note: 'The models you purchased may only contain some of the fault information listed therein.' Codes here are the KTLX-G3P table ONLY; the near-identical ID0xx numbers on 100-125KTLX-G4, HYD and ME carry different names/solutions and are kept in their own series. Not merged."
+  },
+  "codes": [
+    {
+      "code": "ID001",
+      "aliases": [
+        "ID001",
+        "GridOVP"
+      ],
+      "title": {
+        "en": "Grid overvoltage (ID001)",
+        "ur": "Grid over voltage - zyada (ID001)"
+      },
+      "meaning": {
+        "en": "Measured grid voltage is above the inverter's over-voltage trip window. Usually self-clears when the grid settles.",
+        "ur": "Grid voltage inverter ki over-voltage limit se upar hai. Aam tor par grid theek hone par khud clear ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "DISCO/grid voltage surge or a badly timed neighbour transformer tap.",
+          "ur": "DISCO ya grid ka voltage surge, ya kisi transformer ka tap setting kharab."
+        },
+        {
+          "en": "AC contactor or breaker not fully closed / contact resistance too high.",
+          "ur": "AC contactor ya breaker poora close nahi hua, ya contact resistance zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage with a multimeter at the inverter AC terminal; expect it inside the local DISCO window.",
+          "ur": "Multimeter se inverter ke AC terminal par grid voltage check karein; reading local DISCO window ke andar honi chahiye."
+        },
+        {
+          "en": "Switch off DC switch and AC breaker, then check AC input cable, breaker and earth continuity.",
+          "ur": "DC switch aur AC breaker off karein, phir AC cable, breaker aur earth continuity check karein."
+        },
+        {
+          "en": "If readings are correct but the alarm repeats, log the event and raise with DISCO - do not change protection setpoints yourself.",
+          "ur": "Agar reading theek hai phir bhi alarm repeat ho, event log karke DISCO ko report karein - protection setpoint khud na badlein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID002",
+      "aliases": [
+        "ID002",
+        "GridUVP"
+      ],
+      "title": {
+        "en": "Grid undervoltage (ID002)",
+        "ur": "Grid under voltage - kam (ID002)"
+      },
+      "meaning": {
+        "en": "Grid voltage is below the under-voltage trip window, so the inverter disconnects from the grid.",
+        "ur": "Grid voltage under-voltage limit se neeche gir gaya, is liye inverter grid se disconnect ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Long distribution feeder with heavy load - voltage sags under AC motor start.",
+          "ur": "Lambi distribution line par heavy load - AC motor start par voltage sag."
+        },
+        {
+          "en": "AC wiring loose or undersized, high contact drop on breaker.",
+          "ur": "AC wiring loose ya choti, breaker par contact drop zyada."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage with a multimeter at the AC terminal under load; check the sag.",
+          "ur": "Load ke saath AC terminal par multimeter se grid voltage check karein; sag dekhein."
+        },
+        {
+          "en": "Power off the DC switch and AC breaker, then re-torque all AC connections.",
+          "ur": "DC switch aur AC breaker power off karein, phir sab AC connections dobara tighten karein."
+        },
+        {
+          "en": "If voltage at the meter is also low, this is a supply problem - escalate to DISCO, inverter is fine.",
+          "ur": "Agar meter par bhi voltage kam hai to yeh supply ka masla hai - DISCO ko batayein, inverter theek hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID003",
+      "aliases": [
+        "ID003",
+        "GridOFP"
+      ],
+      "title": {
+        "en": "Grid overfrequency (ID003)",
+        "ur": "Grid over frequency - zyada (ID003)"
+      },
+      "meaning": {
+        "en": "Grid frequency is above the permitted window, so the inverter reduces or stops output.",
+        "ur": "Grid frequency allowed range se upar hai, is liye inverter output kam kar deta hai ya band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Utility frequency excursion - common during load shedding restoration on a weak feeder.",
+          "ur": "Utility ka frequency excursion - kamzor feeder par load shedding ke baad aksar hota hai."
+        },
+        {
+          "en": "Generator/ESS on the same bus pushing frequency up while grid-tied.",
+          "ur": "Same bus par generator ya ESS grid se jude hote hue frequency upar push kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check grid frequency with a multimeter or frequency meter at the AC terminal; expect 50 Hz +/- allowed band.",
+          "ur": "AC terminal par multimeter ya frequency meter se grid frequency check karein; 50 Hz +/- allowed band hona chahiye."
+        },
+        {
+          "en": "Confirm the AC breaker is not chattering and the grid connection is clean.",
+          "ur": "Yeh confirm karein ke AC breaker chatter nahi kar raha aur grid connection saaf hai."
+        },
+        {
+          "en": "If a generator is running, check its governor/frequency setting before blaming the inverter.",
+          "ur": "Agar generator chal raha hai, to inverter par blame lagane se pehle uska governor aur frequency setting check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID004",
+      "aliases": [
+        "ID004",
+        "GridUFP"
+      ],
+      "title": {
+        "en": "Grid underfrequency (ID004)",
+        "ur": "Grid under frequency - kam (ID004)"
+      },
+      "meaning": {
+        "en": "Grid frequency is below the permitted window; the inverter stops exporting to the grid.",
+        "ur": "Grid frequency allowed range se neeche hai; inverter grid mein export karna band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Weak feeder / long cable run with heavy inductive load causing frequency droop.",
+          "ur": "Kamzor feeder ya lambi cable par heavy inductive load, jis se frequency gir jata hai."
+        },
+        {
+          "en": "Oversized solar export on a small local grid pushing frequency down.",
+          "ur": "Chhote local grid par zyada solar export, jis se frequency neeche chala jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure frequency at the AC terminal with a frequency meter; log the value and time.",
+          "ur": "AC terminal par frequency meter se frequency measure karein; value aur time note karein."
+        },
+        {
+          "en": "Reduce PV array size or use export limiting if the site regularly drags frequency down.",
+          "ur": "Agar site par baar baar frequency girta hai to PV array size kam karein ya export limiting lagayein."
+        },
+        {
+          "en": "Raise the under-frequency protection point only with written approval from the grid operator.",
+          "ur": "Under-frequency protection point sirf grid operator ki written approval se hi badlein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID005",
+      "aliases": [
+        "ID005",
+        "GFCI",
+        "Charge Leakage Fault"
+      ],
+      "title": {
+        "en": "Ground/leakage current fault (ID005)",
+        "ur": "Ground / leakage current fault (ID005)"
+      },
+      "meaning": {
+        "en": "The residual-current sensor measured leakage above the allowed level, so the inverter shut down. This is the main earth-fault code on this model.",
+        "ur": "Residual current sensor ne allowed level se zyada leakage measure kiya, is liye inverter band ho gaya. Is model ka main earth-fault code yehi hai."
+      },
+      "causes": [
+        {
+          "en": "PV array insulation breakdown from moisture, soiling or a damaged module / cable.",
+          "ur": "PV array ki insulation moisture, ghar ya kisi damaged module/cable ki wajah se kharab ho gayi."
+        },
+        {
+          "en": "Damaged or pinched DC cable, or a junction box with moisture inside.",
+          "ur": "Damaged ya pinch hua DC cable, ya andar geela hua junction box."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC switch and AC breaker and wait 5 minutes before touching any DC wiring.",
+          "ur": "DC switch aur AC breaker open karein aur DC wiring chhoone se pehle 5 minute intezaar karein."
+        },
+        {
+          "en": "Measure insulation resistance of each PV string to earth with a 1000 V megger; expect megaohms, not low readings.",
+          "ur": "Har PV string ka earth ke saath insulation resistance 1000 V megger se check karein; reading megaohm honi chahiye, kam nahi."
+        },
+        {
+          "en": "Isolate strings one by one to find the offending string, then inspect connectors, MC4 and the module backs for water ingress.",
+          "ur": "Strings ko ek ek karke isolate karein takay galti wali string mil jaye, phir connectors, MC4 aur module ke peeche paani ki dhalai dekhhein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID008",
+      "aliases": [
+        "ID008",
+        "IslandFault"
+      ],
+      "title": {
+        "en": "Island protection error (ID008)",
+        "ur": "Island protection error - grid chala gaya (ID008)"
+      },
+      "meaning": {
+        "en": "The inverter detected that the grid is no longer present while it was still exporting, and correctly locked out. Do not defeat this protection.",
+        "ur": "Inverter ne dekha ke grid chala gaya hai magar woh abhi bhi export kar raha tha, is liye khud band ho gaya. Yeh protection kabhi bypass na karein."
+      },
+      "causes": [
+        {
+          "en": "Genuine outage - grid breaker tripped, transformer fuse blown, or local fault.",
+          "ur": "Asli outage - grid breaker trip hua, transformer ka fuse uthha, ya local fault hua."
+        },
+        {
+          "en": "Brief AC contact dropout from a loose breaker or chattering supply.",
+          "ur": "Loose breaker ya supply chatter ki wajah se AC contact ka chhota gap."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the outage at the utility breaker and at the site AC isolator before touching the inverter.",
+          "ur": "Inverter chhoone se pehle utility breaker aur site AC isolator par outage confirm karein."
+        },
+        {
+          "en": "Once grid is stable, switch AC breaker then DC switch on and watch the LCD restart sequence.",
+          "ur": "Grid stable hone ke baad AC breaker aur phir DC switch on karein aur LCD ka restart sequence dekhein."
+        },
+        {
+          "en": "If islanding trips repeatedly with a healthy grid, inspect AC wiring and CT/meter setup with the installer.",
+          "ur": "Grid theek hone par bhi islanding baar baar trip ho to AC wiring aur CT/meter setup installer se check karwayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID009",
+      "aliases": [
+        "ID009",
+        "GridOVPInstant1"
+      ],
+      "title": {
+        "en": "Transient grid overvoltage 1 (ID009)",
+        "ur": "Grid ka transient overvoltage 1 (ID009)"
+      },
+      "meaning": {
+        "en": "A short, fast grid voltage spike was caught by the ride-through logic; the inverter survives and self-recovers.",
+        "ur": "Grid mein chhota aur tez voltage spike ride-through logic ne pakra; inverter bach jata hai aur khud recover ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Switching of large capacitor banks or transformers on the local feeder.",
+          "ur": "Local feeder par bade capacitor bank ya transformer ka on/off hona."
+        },
+        {
+          "en": "Energising the grid breaker with the inverter already connected.",
+          "ur": "Inverter pehle se jude hote hue grid breaker energise karna."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Note the timestamp; a single event with no load impact is normal ride-through behaviour.",
+          "ur": "Timestamp note karein; agar ek baar hua aur load par asar nahi, to ye normal ride-through behaviour hai."
+        },
+        {
+          "en": "If events cluster at a specific time, correlate with feeder switching by the utility.",
+          "ur": "Agar events ek khaas time par repeat hote hain to utility se feeder switching se compare karein."
+        },
+        {
+          "en": "Check the AC SPD / surge protection status and replace the module if the MOV has gone.",
+          "ur": "AC SPD / surge protection ki status check karein aur MOV kharab ho to module replace karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID011",
+      "aliases": [
+        "ID011",
+        "VGridLineFault"
+      ],
+      "title": {
+        "en": "Grid line voltage error (ID011)",
+        "ur": "Grid line voltage error - grid line ka voltage galat (ID011)"
+      },
+      "meaning": {
+        "en": "The inverter could not read a usable grid line voltage on all three phases and shut down to stay safe.",
+        "ur": "Inverter teeno phase par proper grid line voltage nahi parh saka aur safety ke liye band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "One phase missing or a blown fuse in the inverter AC input board.",
+          "ur": "Ek phase missing ya inverter ke AC input board par koi fuse uthha hua."
+        },
+        {
+          "en": "Loose L1/L2/L3 lug, or a tripped AC breaker on one pole only.",
+          "ur": "L1/L2/L3 lug loose, ya sirf ek pole ka AC breaker trip hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off DC switch and AC breaker, then check all three phase fuses and the AC busbar connections.",
+          "ur": "DC switch aur AC breaker off karein, phir teeno phase ke fuse aur AC busbar connections check karein."
+        },
+        {
+          "en": "Measure each phase to neutral with a multimeter; expect three balanced readings.",
+          "ur": "Multimeter se har phase ka neutral ke saath reading lein; teen balanced readings aani chahiye."
+        },
+        {
+          "en": "If one phase reads zero, replace that fuse - do not jumper it, and never work on the live busbar.",
+          "ur": "Agar ek phase ki reading zero hai to woh fuse replace karein - jumper na lagayein, aur live busbar par kabhi kaam na karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID013",
+      "aliases": [
+        "ID013",
+        "RefluxFault"
+      ],
+      "title": {
+        "en": "Feed-in limitation / anti-reflux fault (ID013)",
+        "ur": "Feed-in limitation / anti-reflux fault - grid mein power wapas ja raha hai (ID013)"
+      },
+      "meaning": {
+        "en": "The zero-export / feed-in limitation function is not working, so the inverter has stopped to avoid pushing power back to the grid.",
+        "ur": "Zero-export / feed-in limitation function kaam nahi kar raha, is liye inverter grid mein power wapas bhejne se bachne ke liye ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Smart meter or CT not communicating, so export limit is not measured.",
+          "ur": "Smart meter ya CT communicate nahi kar raha, is liye export limit measure nahi hoti."
+        },
+        {
+          "en": "Zero-export threshold set to 0 W with a CT that is not installed or not oriented correctly.",
+          "ur": "Zero-export threshold 0 W par set hai magar CT lagi hui nahi ya ghalat direction mein hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the monitoring platform for the meter/CT online status; a red offline flag points straight at this code.",
+          "ur": "Monitoring platform par meter/CT ki online status dekhein; laal offline flag is code ki taraf ishara karta hai."
+        },
+        {
+          "en": "Power off and verify the CT clamp direction arrow matches the grid flow direction, and that the CT lead is in the CT port.",
+          "ur": "Power off karke CT clamp ki arrow grid flow ke direction se match karwayein, aur CT lead CT port mein honi chahiye."
+        },
+        {
+          "en": "If a smart meter is used instead, re-enter the meter modbus address and confirm the meter is on the same RS485 bus.",
+          "ur": "Agar smart meter use ho raha hai to meter ka modbus address dobara daal kar confirm karein ke meter usi RS485 bus par hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID041",
+      "aliases": [
+        "ID041",
+        "RelayFail"
+      ],
+      "title": {
+        "en": "Grid relay self-test failure (ID041)",
+        "ur": "Grid relay ka self-test fail (ID041)"
+      },
+      "meaning": {
+        "en": "The inverter's internal self-test of the output relay failed at startup, so it refuses to connect to the grid.",
+        "ur": "Inverter ne startup par apne output relay ka internal self-test fail kiya, is liye grid se connect nahi hota."
+      },
+      "causes": [
+        {
+          "en": "Output relay contacts welded or coil damaged from a previous overcurrent event.",
+          "ur": "Pehle ke overcurrent event se output relay ke contacts juce hue ya coil kharab."
+        },
+        {
+          "en": "Relay PCB driver or the relay detection circuit faulty.",
+          "ur": "Relay PCB driver ya relay detection circuit kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off DC switch and AC breaker and wait 5 minutes, then do one clean restart to rule out a false trip.",
+          "ur": "DC switch aur AC breaker off karein, 5 minute wait karein, phir ek baar saaf restart karke dekh lein ke false trip to nahi."
+        },
+        {
+          "en": "With power off, check the relay connector is fully seated on the board - reseat it if loose.",
+          "ur": "Power off karke dekhein ke relay connector board par poora baitha hai - loose ho to dobara lagayein."
+        },
+        {
+          "en": "If the relay truly fails self-test on every restart, the relay module needs replacement by a SOFAR service centre.",
+          "ur": "Agar har restart par relay self-test fail ho to relay module SOFAR service centre se replace karwana hoga."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID042",
+      "aliases": [
+        "ID042",
+        "IsoFault"
+      ],
+      "title": {
+        "en": "PV insulation too low / earth fault (ID042)",
+        "ur": "PV insulation kam / earth fault (ID042)"
+      },
+      "meaning": {
+        "en": "Insulation between the PV array and earth measured too low, so the inverter locked out. Treat as a live earth-fault until proven otherwise.",
+        "ur": "PV array aur earth ke darmiyan insulation bahut kam nikla, is liye inverter lock out ho gaya. Jab tak sabit na ho, isay zinda earth-fault samajhein."
+      },
+      "causes": [
+        {
+          "en": "PV array insulation breakdown from moisture - common after monsoon, roof seepage or heavy dew.",
+          "ur": "PV array ki insulation moisture se kharab - monsoon, chhat se paani ya bhaari oos ke baad aam hai."
+        },
+        {
+          "en": "Cable pinched under a mounting rail, or a rodent-chewed cable.",
+          "ur": "Mounting rail ke neeche pinch hua cable, ya chuha ka kuchha hua cable."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open DC switch and AC breaker, wait 5 minutes, then megger each PV string to earth at 1000 V.",
+          "ur": "DC switch aur AC breaker open karein, 5 minute wait karke har PV string ka earth ke saath 1000 V par megger lagayein."
+        },
+        {
+          "en": "Split the array and test half at a time to pinpoint the faulty string.",
+          "ur": "Array ko do hisson mein baant kar aadha aadha test karein takay galti wali string mil jaye."
+        },
+        {
+          "en": "Replace the damaged cable or module and re-test; never re-energise with a low insulation reading.",
+          "ur": "Damaged cable ya module replace karke dobara test karein; kam insulation reading par dobara current na dein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Fault LED red, 1 flash",
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID043",
+      "aliases": [
+        "ID043",
+        "PEConnectFault"
+      ],
+      "title": {
+        "en": "PE / earth conductor fault (ID043)",
+        "ur": "PE / earth conductor fault - earth wiring kharab (ID043)"
+      },
+      "meaning": {
+        "en": "The protective earth conductor check did not pass, so the inverter shut down. Manual action: check the AC output PE wire for grounding.",
+        "ur": "Protective earth conductor ka check pass nahi hua, is liye inverter band ho gaya. Manual ka action: AC output PE wire ki grounding check karein."
+      },
+      "causes": [
+        {
+          "en": "PE conductor disconnected or loose at the inverter earth terminal.",
+          "ur": "PE conductor inverter ke earth terminal se disconnect ya loose ho gaya."
+        },
+        {
+          "en": "Earth bar not bonded, or the installer used the neutral instead of earth.",
+          "ur": "Earth bar bond nahi hai, ya installer ne earth ke bajaye neutral istemal kar diya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off DC and AC, then inspect the PE stud, its ring lug and the cable for corrosion or a loose bolt.",
+          "ur": "DC aur AC off karke PE stud, uska ring lug aur cable ko corrosion ya loose bolt ke liye dekhein."
+        },
+        {
+          "en": "Measure earth continuity from the inverter PE terminal to the site earth bar with a low-ohm meter; expect near zero.",
+          "ur": "Low-ohm meter se inverter ke PE terminal se site earth bar tak earth continuity measure karein; reading zero ke qareeb honi chahiye."
+        },
+        {
+          "en": "If the ring lug is burnt or the bolt will not torque, replace the lug - do not just tighten a burnt connection.",
+          "ur": "Agar ring lug jali hui ho ya bolt tight na ho to lug replace karein - jali hui connection sirf tighten na karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID044",
+      "aliases": [
+        "ID044",
+        "ConfigError"
+      ],
+      "title": {
+        "en": "Input mode setting error (ID044)",
+        "ur": "Input mode setting error - MPPT mode ghalat (ID044)"
+      },
+      "meaning": {
+        "en": "The MPPT input mode is set wrong for the installed array, so the inverter refuses to run.",
+        "ur": "MPPT input mode installed array ke mutabiq ghalat set hai, is liye inverter chalne se inkaar kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Two MPPT inputs wired as parallel but the unit is set to independent mode (or vice versa).",
+          "ur": "Do MPPT inputs parallel se jure hain magar unit independent mode par set hai (ya ulta)."
+        },
+        {
+          "en": "Input mode setting lost after a firmware update or safety-parameter import.",
+          "ur": "Firmware update ya safety-parameter import ke baad input mode setting khoj gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Count how many PV strings are physically connected to each MPPT port before changing any setting.",
+          "ur": "Koi bhi setting badalne se pehle gino ke har MPPT port par kitni PV strings lagi hain."
+        },
+        {
+          "en": "If both MPPTs have strings, set the mode to parallel; if only one MPPT has strings, set it to independent.",
+          "ur": "Agar dono MPPT par strings hain to parallel set karein; agar sirf ek MPPT par strings hain to independent set karein."
+        },
+        {
+          "en": "Re-check the mode after every firmware update or country-code import and confirm production resumes.",
+          "ur": "Har firmware update ya country-code import ke baad mode dobara check karein aur production shuru hone ki tasdeeq karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID113",
+      "aliases": [
+        "ID113",
+        "OverTempDerating"
+      ],
+      "title": {
+        "en": "Over-temperature derating (ID113)",
+        "ur": "Over temperature derating (ID113)"
+      },
+      "meaning": {
+        "en": "Internal temperature is too high so the inverter has throttled its output. Not a hard fault - it produces less until it cools.",
+        "ur": "Internal temperature zyada hai is liye inverter ne output kam kar diya hai. Ye hard fault nahi - thandi hone tak power kam rahegi."
+      },
+      "causes": [
+        {
+          "en": "Direct sunlight on the inverter - common on a rooftop install in summer.",
+          "ur": "Inverter par direct sunlight - summer mein rooftop install par aam hai."
+        },
+        {
+          "en": "Heat sink blocked by dust, or fans failed and not spinning.",
+          "ur": "Heat sink par dhool ki parat, ya fans chalu nahi ho rahe."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the heat sink and fan vents are clear of dust, cobwebs or stored items.",
+          "ur": "Dekhein ke heat sink aur fan vents par dhool, makdiya ya rakhi hui cheezein to nahi hain."
+        },
+        {
+          "en": "Measure the heat sink surface with an IR thermometer; compare with the LCD temperature reading.",
+          "ur": "IR thermometer se heat sink ki surface temperature check karein; LCD reading se compare karein."
+        },
+        {
+          "en": "If the unit is in direct sun, add a shade hood and increase clearance; check fan ID169 next.",
+          "ur": "Agar unit direct sun mein hai to shade hood lagayein aur clearance barhayein; agla fan code ID169 dekhein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID129",
+      "aliases": [
+        "ID129",
+        "unrecoverHwAcOCP"
+      ],
+      "title": {
+        "en": "Unrecoverable AC output overcurrent (ID129)",
+        "ur": "Permanent AC output overcurrent (ID129)"
+      },
+      "meaning": {
+        "en": "The AC output hardware overcurrent protection latched into an unrecoverable state - the manual's name says 'permanent failure'. Inverter will not restart on its own.",
+        "ur": "AC output hardware overcurrent protection permanent state mein chala gaya - manual ke naam ke mutabiq 'permanent failure'. Inverter khud restart nahi hoga."
+      },
+      "causes": [
+        {
+          "en": "Severe or repeated AC overload - load far beyond inverter rating, or a shorted load.",
+          "ur": "Bara ya baar baar AC overload - load inverter rating se kaafi upar, ya short circuit wala load."
+        },
+        {
+          "en": "Damaged current sensing circuit or the inverter internal output stage.",
+          "ur": "Current sensing circuit ya inverter ka internal output stage kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open AC breaker and confirm the connected load is within rated output power before re-energising anything.",
+          "ur": "AC breaker open karein aur kuch bhi dobara on karne se pehle confirm karein ke connected load rated output power ke andar hai."
+        },
+        {
+          "en": "Measure each phase current with a clamp meter and compare against the datasheet maximum; find and unplug the offending load.",
+          "ur": "Clamp meter se har phase ka current measure karein aur datasheet maximum se compare karein; galti wala load dhoondh kar nikalein."
+        },
+        {
+          "en": "If load is within rating and the code returns, the internal output stage is damaged - raise a warranty case with the SOFAR service centre.",
+          "ur": "Agar load rating ke andar hai phir bhi code aaye to internal output stage kharab hai - SOFAR service centre ke saath warranty case karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID145",
+      "aliases": [
+        "ID145",
+        "USBFault"
+      ],
+      "title": {
+        "en": "USB port fault (ID145)",
+        "ur": "USB port fault - USB kaam nahi kar raha (ID145)"
+      },
+      "meaning": {
+        "en": "The inverter's USB port or the inserted drive is not working - typically raised during a firmware update attempt. Manual action: check the USB port.",
+        "ur": "Inverter ka USB port ya us mein lagi drive kaam nahi kar rahi - aam tor par firmware update ki koshish par aata hai. Manual ka action: USB port check karein."
+      },
+      "causes": [
+        {
+          "en": "USB drive formatted wrong (not FAT32) or a drive with a marginal connector.",
+          "ur": "USB drive galat format ki hui hai (FAT32 nahi) ya connector wala drive."
+        },
+        {
+          "en": "Firmware file copied outside the required 'firmware' subfolder.",
+          "ur": "Firmware file gharah folder ke bahar copy ki gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the DC switch, then re-seat and inspect the USB port and drive for bent pins or debris.",
+          "ur": "DC switch off karke USB port aur drive ko dobara baithayein aur tange pins ya gaddon ke liye dekhein."
+        },
+        {
+          "en": "Reformat the drive as FAT32 and place the update file inside the folder named firmware, as the manual requires.",
+          "ur": "Drive ko FAT32 mein dobara format karein aur update file manual ke mutabiq firmware naam ke folder ke andar rakhein."
+        },
+        {
+          "en": "Never update firmware with AC live or PV connected - switch both off first.",
+          "ur": "AC live ya PV connected hone par firmware kabhi update na karein - dono pehle off karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    },
+    {
+      "code": "ID169",
+      "aliases": [
+        "ID169",
+        "FanFault1"
+      ],
+      "title": {
+        "en": "Cooling fan 1 fault (ID169)",
+        "ur": "Cooling fan 1 fault - fan chalu nahi (ID169)"
+      },
+      "meaning": {
+        "en": "Fan 1 is not spinning or its tach feedback is missing, so the inverter has lost that cooling path. This model numbers fans individually: ID169-ID175.",
+        "ur": "Fan 1 ghoch nahi raha ya us ka feedback nahi aa raha, is liye inverter ne woh cooling chala diya. Is model mein fans alag alag number hote hain: ID169-ID175."
+      },
+      "causes": [
+        {
+          "en": "Dust-packed fan blades or a fan obstructed by a cable or insect nest.",
+          "ur": "Fan blades par dhool ki parat ya cable/keeda ke ghere se fan ruka hua."
+        },
+        {
+          "en": "Failed fan motor bearing, or the fan cable connector has come out of the fan baseboard.",
+          "ur": "Fan motor ka bearing kharab, ya fan cable connector fan baseboard se nikal gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the inverter fully, then hold a tissue strip at the vent to confirm zero airflow.",
+          "ur": "Inverter ko poori tarah power off karke vent par tissue rakh kar zero airflow ki tasdeeq karein."
+        },
+        {
+          "en": "Open the fan baseboard, unplug the fan connector and clean the blades with a soft brush as the manual describes.",
+          "ur": "Fan baseboard kholein, fan connector nikaal kar blades ko soft brush se saaf karein jaise manual mein bataya gaya hai."
+        },
+        {
+          "en": "If the fan does not spin freely after cleaning, replace it - a stopped fan will escalate into ID113 derating.",
+          "ur": "Agar saaf karne ke baad bhi fan freely na ghoome to replace karein - ruka hua fan ID113 derating tak le jayega."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SOFAR 15-25KTLX-G3P User Manual, section 10 'TROUBLESHOOTING AND MAINTENANCE' - Event list",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20251104/1762243911541013797.pdf"
+      }
+    }
+  ]
+}

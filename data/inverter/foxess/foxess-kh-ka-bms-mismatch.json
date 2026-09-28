@@ -1,0 +1,345 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-kh-ka-bms-mismatch",
+    "name": "KH/KA (single-phase hybrid) - battery pack mismatch and pack hardware faults",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*KH*",
+      "*KA*"
+    ],
+    "notes": "FoxESS's own remedy for every row in this block is the same single sentence, and on KH/KA it is worded differently from the hybrids: KH/KA prints 'Please contact our service department.' (verified 21 times in the KH/KA table, and the phrase 'contact battery supplier' appears ZERO times in either KH/KA copy) whereas H1 V1.6 and H3 V1.0.4 print 'Please contact battery supplier.' for the identical rows. So the KH/KA escalation route is FoxESS service, not the battery vendor - a real model-line difference, see CONFLICTS. The blocks below pair that instruction with the checks a technician CAN actually do at the pack before making that call. The 'Unmatch' family is the highest-incident group on Pakistani installs because packs are commonly bought in mixed batches over time. Verified on two independent official KH/KA copies. The CODE STRINGS are identical to the H1 V1.6 and H3 V1.0.4 tables but the REMEDY WORDING is not - see the note above and CONFLICTS item 15. The 12 Bms Volt/ChgCur/DchgCur/Temp/Relay/Sensor rows and the 'Bms Lost / Bms Ext Fault / Bms Int Fault' comms rows of the same table are covered under foxess-h1-ac1-g2-bms-comms and are NOT duplicated here."
+  },
+  "codes": [
+    {
+      "code": "Bms Type Unmatch",
+      "aliases": [
+        "Bms Type Unmatch"
+      ],
+      "title": {
+        "en": "Battery pack capacity/type mismatch",
+        "ur": "Battery pack ki capacity/type mismatch hai"
+      },
+      "meaning": {
+        "en": "Packs of different capacity or type are paralleled in the same system, so the BMSes cannot be balanced by the inverter.",
+        "ur": "Aik hi system mein alag alag capacity ya type ke packs parallel lage hain, is liye BMSes ko inverter balance nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "A second pack of a different capacity or a different model added to an existing install, which is the normal cause in Pakistan.",
+          "ur": "Maujooda install mein alag capacity ya alag model ka doosra pack shamil kiya gaya - Pakistan mein yehi aam wajah hai."
+        },
+        {
+          "en": "A failed pack was replaced with a different type and the old one was not removed from the parallel chain.",
+          "ur": "Kharab pack ki jagah alag type ka lagaya gaya aur purana pack parallel chain se nahi nikala gaya."
+        },
+        {
+          "en": "Mixed chemistry packs paralleled, which the BMS cannot manage even at the same nominal capacity.",
+          "ur": "Alag chemistry ke packs parallel lage, jinhein BMS wahi nominal capacity par bhi manage nahi kar sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read every pack's model and rated capacity in FoxCloud and list them; KH/KA's instruction is 'Please contact our service department', so have this list ready for that call.",
+          "ur": "FoxCloud mein har pack ka model aur rated capacity likhein; KH/KA ka instruction hai 'Please contact our service department', is liye yeh list us call ke liye tayyar rakhein."
+        },
+        {
+          "en": "Isolate the battery and remove packs one at a time, powering up the remainder to prove which pack is the odd one out.",
+          "ur": "Battery isolate kar ke packs aik-ik kar ke nikalein, baqi ko power up kar ke sabit karein ke kaun sa pack mukhtalif hai."
+        },
+        {
+          "en": "Run the system only on packs of identical model and capacity until the mismatched pack is replaced - do not mix capacities to gain headroom.",
+          "ur": "Mukhtalif pack badalne tak system ko sirf bilkul aik jaise model aur capacity wale packs par chalayein - capacity jorr kar headroom lene ki koshish na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This is one of the most common real battery complaints on KH/KA in Pakistan and it is 100% a purchasing/install problem, not a fault of the inverter. The manual offers no field test at all for it.",
+        "ur": "Yeh KH/KA par Pakistan mein sab se aam asal battery shikayat hai aur yeh 100% khareed ya install ka masla hai, inverter ka fault bilkul nahi. Manual is ke liye koi field test deta hi nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "KH/KA Series User Manual (AU, 2025-10-21), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-KHKA-User-Manua-AU-20251021.pdf"
+      }
+    },
+    {
+      "code": "Bms Ver Unmatch",
+      "aliases": [
+        "Bms Ver Unmatch"
+      ],
+      "title": {
+        "en": "Battery pack software versions differ",
+        "ur": "Battery packs ke software versions alag hain"
+      },
+      "meaning": {
+        "en": "The slave packs in the parallel chain are running different BMS firmware versions from each other.",
+        "ur": "Parallel chain ke slave packs aik doosre se alag alag BMS firmware versions par chal rahe hain."
+      },
+      "causes": [
+        {
+          "en": "A pack was added later and shipped with a newer BMS firmware than the packs already installed.",
+          "ur": "Baad mein pack shamil kiya gaya aur us ka BMS firmware maujooda packs se naya tha."
+        },
+        {
+          "en": "A pack's firmware update was interrupted, leaving it on a different version from its siblings.",
+          "ur": "Kisi pack ka firmware update adhoora reh gaya, is liye woh apne bhaiyon se alag version par hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read each pack's BMS firmware version in FoxCloud and write down every pack that differs from the majority.",
+          "ur": "FoxCloud mein har pack ka BMS firmware version padhein aur aksariyat se alag har pack note kar lein."
+        },
+        {
+          "en": "Update the differing pack's BMS firmware through the app or the supplier's update tool, one pack at a time with the rest of the chain isolated.",
+          "ur": "Alag pack ka BMS firmware app ya supplier ke update tool se update karein, aik pack aik waqt, baqi chain isolate kar ke."
+        },
+        {
+          "en": "Do not parallel packs with mixed versions to 'see if it works' - if it does work the packs will be permanently unbalanced, so get the versions matched first.",
+          "ur": "Mixed versions wale packs parallel kar ke 'dekhte hain chalta hai ya nahi' na karein - agar chal jaye to packs hamesha ke liye unbalanced rahein ge, is liye pehle versions match karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Distinct from 'Bms M&S Unmatch' on the same table, which is the MASTER-versus-SLAVE version mismatch. Both are version problems but they are different comparisons and both must be cleared.",
+        "ur": "Yehi table ke 'Bms M&S Unmatch' se mukhtalif hai, jo MASTER aur SLAVE ke darmiyan version mismatch hai. Dono version ke masle hain lekin alag alag comparison hain, aur dono clear karne zaroori hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "KH/KA Series User Manual (AU, 2025-10-21), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-KHKA-User-Manua-AU-20251021.pdf"
+      }
+    },
+    {
+      "code": "Bms Mfg Unmatch",
+      "aliases": [
+        "Bms Mfg Unmatch"
+      ],
+      "title": {
+        "en": "Battery cells from different manufacturers",
+        "ur": "Battery cells alag alag manufacturers ke hain"
+      },
+      "meaning": {
+        "en": "The cells inside the paralleled packs were made by different manufacturers, so their cell characteristics cannot be balanced.",
+        "ur": "Parallel lage packs ke andar ke cells alag alag manufacturers ke banaye gaye hain, is liye un ki cell characteristics balance nahi ho saktin."
+      },
+      "causes": [
+        {
+          "en": "Packs sourced from different production batches or suppliers with different cell makers - common when packs are bought over time.",
+          "ur": "Alag alag batches ya suppliers se liye packs jin ke cell makers alag hain - waqt ke saath packs khareedne par yeh aam hai."
+        },
+        {
+          "en": "An aftermarket or re-potted pack mixed in with genuine FoxESS ECS packs.",
+          "ur": "Asli FoxESS ECS packs ke saath koi aftermarket ya dobara pot kiya hua pack mila diya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the cell manufacturer printed on each pack's label and list them; do not rely on the inverter to identify which pack is at fault.",
+          "ur": "Har pack ke label par likha cell manufacturer check kar ke list banayein; ye mat samjhein ke inverter khud identify kar lega ke kaun sa pack kharab hai."
+        },
+        {
+          "en": "Separate the packs by manufacturer and run only same-manufacturer packs until the mixed pack is removed or replaced.",
+          "ur": "Packs ko manufacturer ke hisaab se alag karein aur sirf aik hi manufacturer ke packs chalayein jab tak mixed pack nahi nikal jaata ya badal nahi jaata."
+        },
+        {
+          "en": "If the packs cannot be identified by label, have the supplier open and read the cell date codes and maker codes rather than guessing from behaviour.",
+          "ur": "Agar label se packs pehchan na aa jayen to supplier se kholwa kar cell date codes aur maker codes parwayein, behaviour se andaza lagane ke bajaye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This is the 'hidden' one for Pakistani installers because all four packs look identical from the outside. The inverter will report this before any cell damage occurs, so treat it as a stop-and-quarantine condition, not a nuisance.",
+        "ur": "Yeh Pakistan ke installer ke liye 'chhupi hui' masla hai kyunke chaaron packs bahar se bilkul aik jaise lagte hain. Koi cell nuqsaan hone se pehle inverter yeh report kar deta hai, is liye isay nuisance nahi, rok kar alag karne ki halat samjhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "KH/KA Series User Manual (AU, 2025-10-21), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-KHKA-User-Manua-AU-20251021.pdf"
+      }
+    },
+    {
+      "code": "BmsCellImbalance",
+      "aliases": [
+        "BmsCellImbalance"
+      ],
+      "title": {
+        "en": "Battery cell capacities differ",
+        "ur": "Battery cell ki capacities alag hain"
+      },
+      "meaning": {
+        "en": "Cells inside the pack have unequal capacities, so the pack cannot deliver a balanced pack voltage and the BMS limits the pack.",
+        "ur": "Pack ke andar cells ki capacities barabar nahi hain, is liye pack balanced pack voltage nahi de sakta aur BMS pack ko limit kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Normal end-of-life divergence between cells after many charge cycles, the most common real cause.",
+          "ur": "Bohat se charge cycles ke baad cells mein aam taur par umar ke aakhir ka farq - sab se aam asal wajah."
+        },
+        {
+          "en": "One or more cells with high internal resistance from a past deep discharge or heat event.",
+          "ur": "Pichle gehle discharge ya garmi ke baad kuch cells ka internal resistance barh gaya."
+        },
+        {
+          "en": "Pack stored at low SOC for months before installation, so cells have drifted apart before first use.",
+          "ur": "Pack install hone se pehle mahinon tak low SOC par raha, is liye pehle use se hi cells alag ho chuke hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Follow the KH/KA instruction and contact FoxESS service - the manual offers no balancing routine for this code at all.",
+          "ur": "KH/KA ka instruction follow karke FoxESS service se rabta karein - manual is code ke liye bilkul koi balancing tareeqa nahi deta."
+        },
+        {
+          "en": "Before the call, leave the pack on float charge with PV generating until SOC reaches 100% and stays there, then re-read the code; a pack that recovers was only out of balance.",
+          "ur": "Call se pehle, PV generate karte hue pack ko float charge par chhodein jab tak SOC 100% tak pohanch kar wahan theek na rahe, phir code dobara dekhein; jis pack ka theek hua woh sirf imbalance tha."
+        },
+        {
+          "en": "If the imbalance returns after a full charge, the pack has a failed cell - do not keep cycling it, as that drives the good cells into over-voltage.",
+          "ur": "Agar poori charge ke baad imbalance wapas aaye to pack mein koi cell kharab hai - baar baar use na chalayein, us se acche cells over-voltage mein chale jate hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Dangerous in a Pakistani summer context: continuing to cycle an imbalanced pack over-cooks the good cells and can lead to thermal runaway. Treat a repeat code as a stop condition.",
+        "ur": "Pakistan ke garmi ke maujhaam mein yeh khatarnaak hai: imbalance wali pack ko chalate rehne se acche cells garm ho kar over-heat karte hain aur thermal runaway ho sakta hai. Baar baar aane wale code ko rokne ki halat samjhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "KH/KA Series User Manual (AU, 2025-10-21), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-KHKA-User-Manua-AU-20251021.pdf"
+      }
+    },
+    {
+      "code": "Bms HW Protect",
+      "aliases": [
+        "Bms HW Protect"
+      ],
+      "title": {
+        "en": "Battery hardware under protection",
+        "ur": "Battery hardware protection mein hai"
+      },
+      "meaning": {
+        "en": "The pack's own BMS has latched a hardware-level protection - this is the pack protecting itself, and the inverter is only relaying the message.",
+        "ur": "Pack ka apna BMS hardware-level protection par latch ho gaya hai - yeh pack khud apni hifazat kar raha hai, inverter sirf message pohanch raha hai."
+      },
+      "causes": [
+        {
+          "en": "Pack contactor or internal relay has welded or failed, so the BMS cut the pack out.",
+          "ur": "Pack ka contactor ya internal relay weld ya kharab ho gaya, is liye BMS ne pack kaat diya."
+        },
+        {
+          "en": "A fuse inside the pack has blown on an over-current event.",
+          "ur": "Kisi over-current event par pack ke andar ka fuse udd gaya."
+        },
+        {
+          "en": "A sensing channel has failed, so the BMS cannot trust its own measurements and latches protectively.",
+          "ur": "Koi sensing channel kharab ho gaya, is liye BMS apne par readings par bharosa nahi karke protectively latch kar deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Contact FoxESS service, exactly as the KH/KA table instructs ('Please contact our service department') - this code is explicitly an escalation item, not a field fix.",
+          "ur": "KH/KA table jaise kahe ('Please contact our service department') FoxESS service se rabta karein - is code ko saaf-saaf escalation ka maal kaha gaya hai, field ka hal nahi."
+        },
+        {
+          "en": "Open the battery isolator and, if FoxESS service asks, confirm which protection is latched by reading the pack's own BMS history in FoxCloud.",
+          "ur": "Battery isolator kholein, aur FoxESS service ke poochne par FoxCloud mein pack ka apna BMS history parh kar confirm karein ke kaun si protection latch hai."
+        },
+        {
+          "en": "Do not repeatedly force-charge or deep-discharge the pack to 'clear' a hardware protection; with a welded contactor that is how packs are destroyed.",
+          "ur": "Hardware protection 'clear' karne ke liye baar baar force-charge ya deep-discharge na karein; weld hua contactor ho to us tarah packs tabah hote hain."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Distinct from 'Bms HW Protect' being confused with the inverter's own 'HW Bat Cur Fault' or 'HW Bus Vol Fault'. This code is on the BATTERY side. The inverter-side hardware codes are in foxess-h1-ac1-g2-current and mean something completely different.",
+        "ur": "'Bms HW Protect' ko inverter ke apne 'HW Bat Cur Fault' ya 'HW Bus Vol Fault' se confuse na karein. Yeh code BATTERY side ka hai. Inverter side ke hardware codes foxess-h1-ac1-g2-current mein hain aur bilkul alag baat hain."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "KH/KA Series User Manual (AU, 2025-10-21), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-KHKA-User-Manua-AU-20251021.pdf"
+      }
+    },
+    {
+      "code": "Bms Insul Fault",
+      "aliases": [
+        "Bms Insul Fault"
+      ],
+      "title": {
+        "en": "Battery pack insulation fault",
+        "ur": "Battery pack ki insulation kharabi"
+      },
+      "meaning": {
+        "en": "The pack's BMS detected an insulation fault inside the battery pack itself, not in the PV array or the AC wiring.",
+        "ur": "Pack ke BMS ne battery pack ke andar insulation fault detect kiya, PV array ya AC wiring mein nahi."
+      },
+      "causes": [
+        {
+          "en": "Moisture or electrolyte ingress inside the pack from a leak, a cracked cell or a failed seal.",
+          "ur": "Pack ke andar kisi leak, toote cell ya failed seal se nami ya electrolyte ka dakhil."
+        },
+        {
+          "en": "Cell internal short to the case, usually after deep discharge damage or an impact.",
+          "ur": "Cell ka case ke sath internal short - aam tor par gehle discharge ke nuqsaan ya kisi impact ke baad."
+        },
+        {
+          "en": "Damage to the pack's internal wiring or busbar insulation from a rough installation.",
+          "ur": "Rough installation se pack ki internal wiring ya busbar insulation ka nuqsaan."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the battery isolator and leave it open; this is a live-safety condition, not a nuisance alarm, and the pack should not be reconnected.",
+          "ur": "Battery isolator kholein aur khuli chhor dein; yeh live-safety ki halat hai, nuisance alarm nahi, aur pack dobara nahi jona chahiye."
+        },
+        {
+          "en": "Contact FoxESS service, as the KH/KA table instructs - the phrase is 'Please contact our service department', not the battery supplier wording used on H1/H3.",
+          "ur": "KH/KA table jaise kahe FoxESS service se rabta karein - wording hai 'Please contact our service department', woh nahi jo H1/H3 par battery supplier ka hai."
+        },
+        {
+          "en": "Do not attempt an insulation test on the pack yourself; the pack must be opened or returned by someone qualified, and opening a battery pack is hazardous.",
+          "ur": "Pack par khud insulation test na karein; pack kisi qualified ke zariye kholwana ya wapas karna hoga, aur battery pack kholna khatarnaak kaam hai."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "DO NOT confuse with the inverter's own 'Iso Fault' (foxess-h1-ac1-g2-insulation) or the T-series 'ISO fault'. Those are PV/AC insulation measured by the INVERTER. Bms Insul Fault is inside the BATTERY. A technician who applies the inverter insulation procedure to this code will get a wrong and unsafe answer.",
+        "ur": "Inverter ke apne 'Iso Fault' (foxess-h1-ac1-g2-insulation) ya T-series ke 'ISO fault' se confuse na karein. Woh PV/AC insulation hai jo INVERTER naapta hai. Bms Insul Fault BATTERY ke andar hai. Jo technician is code par inverter wala insulation tareeqa lagaye ga uska jawab ghalat aur khatarnaak hoga."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "KH/KA Series User Manual (AU, 2025-10-21), section 9.1 Alarm List",
+        "retrieved": "2026-09-26",
+        "url": "https://www.fox-ess.com/Public/Uploads/uploadfile/files/Download/EN-KHKA-User-Manua-AU-20251021.pdf"
+      }
+    }
+  ]
+}

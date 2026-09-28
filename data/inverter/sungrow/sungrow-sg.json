@@ -1,0 +1,3106 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sungrow",
+  "series": {
+    "id": "sungrow-sg",
+    "name": "SG2-8K G2 Premium (single-phase residential string 2-8kW)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*SG2-8K*",
+      "*SG2.0RG*",
+      "*SG2.5RG*",
+      "*SG3.0RG*",
+      "*SG3.6RG*",
+      "*SG4.0RG*",
+      "*SG5.0RG*",
+      "*SG6.0RG*",
+      "*SG8.0RG*",
+      "*G2*Premium*"
+    ],
+    "notes": "Codes are bare 3-digit integers on LCD/App, not E###. This is the older G2 Premium platform - it is the ONLY Sungrow line in this research that uses per-stage grid codes (002/015 = stage I/II over-voltage). Do NOT merge with sungrow-sg-rs (RS platform) or sungrow-sh: 002 means 'Grid over-voltage stage I' here but is grouped as a generic 'Grid Overvoltage' on RS/SH. 089 is a configuration warning, not a fault. Codes 501-514 are warning-class."
+  },
+  "codes": [
+    {
+      "code": "002",
+      "aliases": [
+        "002",
+        "E002",
+        "Error 002"
+      ],
+      "title": {
+        "en": "Grid over-voltage (stage I) (002)",
+        "ur": "Grid voltage zyada (stage I) (002)"
+      },
+      "meaning": {
+        "en": "Grid voltage is above the inverter's first-level over-voltage trip point. The inverter stops exporting to protect itself and reconnects when the grid returns inside the window.",
+        "ur": "Grid voltage inverter ke pehle over-voltage level se upar hai. Inverter apni himmat bachane ke liye band ho jata hai aur grid theek hone par dobara chalu hota hai."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage higher than the protective setting (heavy load on the feeder or high-tension line).",
+          "ur": "Grid voltage protective setting se zyada hai (feeder par load zyada ya HT line)."
+        },
+        {
+          "en": "Grid voltage inside range but AC cable/connection loose, causing a bad measurement.",
+          "ur": "Grid voltage range mein hai lekin AC cable ya connection loose hai, is liye reading kharab aa rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage with a multimeter at the inverter AC terminals and compare with the set over-voltage limit in iSolarCloud.",
+          "ur": "Multimeter se inverter ke AC terminal par grid voltage check karein aur iSolarCloud ke set over-voltage limit se compare karein."
+        },
+        {
+          "en": "If the grid really is high, report it to the DISCO/grid company - do not change the protection setting yourself.",
+          "ur": "Agar grid sach mein high hai to DISCO/grid company ko report karein - protection setting khud change na karein."
+        },
+        {
+          "en": "If grid voltage is normal, switch off the AC breaker, re-torque the AC terminal and re-check.",
+          "ur": "Agar grid voltage normal hai to AC breaker off karke AC terminal dobara tighten karein aur check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "003",
+      "aliases": [
+        "003",
+        "E003"
+      ],
+      "title": {
+        "en": "Transient over-voltage (003)",
+        "ur": "Temporary over-voltage (003)"
+      },
+      "meaning": {
+        "en": "A short grid spike pushed voltage above the inverter upper limit briefly. Usually clears by itself once the spike is gone.",
+        "ur": "Grid mein short voltage spike aaya aur inverter limit se upar chala gaya. Zyada tar spike khatam hote hi khud clear ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Large motor or transformer switched on nearby in the grid.",
+          "ur": "Grid par kareeb koi bada motor ya transformer chalu hua."
+        },
+        {
+          "en": "Weak/unstable feeder causing rapid voltage swings.",
+          "ur": "Feeder kamzor ya unstable hai jis se voltage tezi se upar neeche ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait a few minutes for the inverter to recover on its own before touching anything.",
+          "ur": "Kuch der intezaar karein, inverter apne aap theek ho jata hai, uske baad kuch mat chhune."
+        },
+        {
+          "en": "If it keeps repeating, log the grid voltage and peak time, then report to the utility company.",
+          "ur": "Agar baar baar ho raha hai to grid voltage aur waqt note karke utility company ko bata dein."
+        },
+        {
+          "en": "Check the AC main breaker and contactor for arcing, which can cause repeated spikes.",
+          "ur": "AC main breaker aur contactor mein arcing to nahi, is liye unhein check karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "004",
+      "aliases": [
+        "004",
+        "E004"
+      ],
+      "title": {
+        "en": "Grid under-voltage (stage I) (004)",
+        "ur": "Grid voltage kam (stage I) (004)"
+      },
+      "meaning": {
+        "en": "Grid voltage dropped below the first-level under-voltage threshold. The inverter disconnects and waits for the grid to come back.",
+        "ur": "Grid voltage pehle under-voltage level se neeche gir gaya. Inverter disconnect ho jata hai aur grid aane ka intezaar karta hai."
+      },
+      "causes": [
+        {
+          "en": "Long AC cable run causing voltage drop, especially on a lightly loaded feeder.",
+          "ur": "AC cable lambi hone se voltage drop, khaas kar jab feeder par load kam ho."
+        },
+        {
+          "en": "Loose AC terminal or breaker not fully engaged.",
+          "ur": "AC terminal loose hai ya breaker poori tarah engage nahi hua."
+        },
+        {
+          "en": "Grid outage or a very heavy local load dragging the voltage down.",
+          "ur": "Grid outage ya koi bohat bara local load voltage gira raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid voltage at the inverter terminals and at the distribution board, compare the two readings.",
+          "ur": "Inverter terminal aur distribution board dono par grid voltage check karke dono readings compare karein."
+        },
+        {
+          "en": "Switch off the AC breaker and re-torque the AC terminal; check the breaker is fully snapped in.",
+          "ur": "AC breaker off karke AC terminal tighten karein; check karein breaker poori tarah baith gaya hai."
+        },
+        {
+          "en": "If the feeder is genuinely weak, report it to the utility company rather than raising the trip value.",
+          "ur": "Agar feeder sach mein kamzor hai to trip value barhane ke bajaye utility company ko report karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "005",
+      "aliases": [
+        "005",
+        "E005"
+      ],
+      "title": {
+        "en": "Grid under-voltage (stage II) (005)",
+        "ur": "Grid voltage bahut kam (stage II) (005)"
+      },
+      "meaning": {
+        "en": "A second, lower under-voltage threshold tripped - a deeper sag than code 004. Means the grid is well below normal for longer.",
+        "ur": "Dusra aur neeche ka under-voltage level trigger hua - code 004 se zyada gehra voltage drop. Matlab grid ka voltage lambi der se normal se neeche hai."
+      },
+      "causes": [
+        {
+          "en": "Sustained low voltage from an overloaded local transformer.",
+          "ur": "Local transformer overload hone se sustained low voltage."
+        },
+        {
+          "en": "Poor AC connection adding extra voltage drop.",
+          "ur": "AC connection kharab hone se extra voltage drop."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the grid to recover; this fault is designed to clear automatically.",
+          "ur": "Grid theek hone ka intezaar karein, ye fault khud ba khud clear hota hai."
+        },
+        {
+          "en": "Measure grid voltage; if it is within range, inspect and re-torque all AC terminals.",
+          "ur": "Grid voltage check karein; range mein hai to tamam AC terminals check karke tighten karein."
+        },
+        {
+          "en": "If the fault persists after the grid is stable, contact Sungrow Service Dept.",
+          "ur": "Grid theek hone ke baad bhi fault rahe to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "006",
+      "aliases": [
+        "006",
+        "E006"
+      ],
+      "title": {
+        "en": "AC over-current (006)",
+        "ur": "AC current zyada (006)"
+      },
+      "meaning": {
+        "en": "AC output current exceeded the inverter's upper protection limit. The inverter restarts once current drops back into range.",
+        "ur": "AC output current inverter ke protection limit se upar chala gaya. Current wapas normal hone par inverter restart ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Parallel AC circuits with too much load on this one inverter.",
+          "ur": "Is ek inverter par bohat zyada load aur multiple parallel AC circuits."
+        },
+        {
+          "en": "Partial paralleling of two inverters without correct communication settings.",
+          "ur": "Do inverters bina sahi communication setting ke parallel kiye gaye."
+        },
+        {
+          "en": "Inverter internal current sensor or power stage degrading.",
+          "ur": "Inverter ka current sensor ya power stage kharab ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm total connected AC load matches the inverter rating; reduce parallel load if over-subscribed.",
+          "ur": "Check karein ke total AC load inverter ke rating ke mutabiq hai; zyada ho to parallel load kam karein."
+        },
+        {
+          "en": "Open the AC breaker, check the cable size, breaker rating and all AC connections.",
+          "ur": "AC breaker khol kar cable size, breaker rating aur tamam AC connections check karein."
+        },
+        {
+          "en": "If load and connections are correct, let it retry; if it keeps happening, contact Sungrow Service Dept.",
+          "ur": "Load aur connections sahi hain to dobara try karne dein; baar baar ho to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "007",
+      "aliases": [
+        "007",
+        "E007"
+      ],
+      "title": {
+        "en": "Transient AC overcurrent (007)",
+        "ur": "Temporary AC over-current (007)"
+      },
+      "meaning": {
+        "en": "A brief AC current spike; the inverter self-recovers after several seconds without any action.",
+        "ur": "AC current mein chhoti si tez spike. Inverter kuch second baad khud recover ho jata hai, koi action ki zarurat nahi."
+      },
+      "causes": [
+        {
+          "en": "Inrush current from a large appliance starting on the same circuit.",
+          "ur": "Usi circuit par kisi bare appliance ka inrush current."
+        },
+        {
+          "en": "Loose AC terminal momentarily arcing.",
+          "ur": "AC terminal loose hone se moment mein arcing."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait several seconds for automatic recovery - no reset needed.",
+          "ur": "Kuch second wait karein, khud recover ho jayega - reset ki zarurat nahi."
+        },
+        {
+          "en": "If repeated, isolate large motor/AC loads and start them one at a time to find the trigger.",
+          "ur": "Baar baar ho to bare motor/AC load alag karke ek ek karke on karein taake trigger pata chale."
+        },
+        {
+          "en": "Check and re-torque all AC terminals if the code appears at random times.",
+          "ur": "Agar code bina wajah aata hai to tamam AC terminals check karke tighten karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "008",
+      "aliases": [
+        "008",
+        "E008"
+      ],
+      "title": {
+        "en": "Grid over-frequency (stage I) (008)",
+        "ur": "Grid frequency zyada (stage I) (008)"
+      },
+      "meaning": {
+        "en": "Grid frequency rose above the first-level over-frequency trip value, so the inverter stopped exporting.",
+        "ur": "Grid frequency pehle over-frequency level se upar chali gayi, is liye inverter ne export band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency genuinely above the permitted band (generator-backed supply or overloaded genset).",
+          "ur": "Grid frequency asal mein permitted range se upar hai (generator par supply ya overloaded genset)."
+        },
+        {
+          "en": "Frequency protection parameter set too tight for local conditions.",
+          "ur": "Frequency protection parameter local conditions ke liye bohat tight rakha gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the actual grid frequency; 50 Hz nominal with a small allowed band.",
+          "ur": "Asli grid frequency check karein; nominal 50 Hz hai aur thoda hi tolerance hota hai."
+        },
+        {
+          "en": "If frequency is out of band, ask the utility/genset owner to correct it.",
+          "ur": "Agar frequency range se bahar hai to utility ya genset owner se theek karwane ka request karein."
+        },
+        {
+          "en": "If frequency is in band, contact Sungrow Service Dept rather than loosening protection.",
+          "ur": "Agar frequency range mein hai to protection loosen karne ke bajaye Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "009",
+      "aliases": [
+        "009",
+        "E009"
+      ],
+      "title": {
+        "en": "Grid under-frequency (stage I) (009)",
+        "ur": "Grid frequency kam (stage I) (009)"
+      },
+      "meaning": {
+        "en": "Grid frequency fell below the first-level under-frequency trip value; the inverter waited for the grid to stabilise.",
+        "ur": "Grid frequency pehle under-frequency level se neeche gir gayi; inverter ne grid theek hone ka intezaar kiya."
+      },
+      "causes": [
+        {
+          "en": "Small overloaded diesel generator unable to hold 50 Hz.",
+          "ur": "Chhota overloaded diesel generator 50 Hz par nahi tikka."
+        },
+        {
+          "en": "Large motor starting on the grid pulling frequency down.",
+          "ur": "Grid par koi bada motor start hokar frequency gira raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure grid frequency with a multimeter or clamp meter and log the value.",
+          "ur": "Multimeter ya clamp meter se grid frequency check karke value note karein."
+        },
+        {
+          "en": "If a generator is involved, reduce its load or let the generator governor settle, then restart.",
+          "ur": "Agar generator involved hai to uska load kam karein ya governor ko settle hone dein, phir restart karein."
+        },
+        {
+          "en": "If frequency is inside the range, contact Sungrow Service Dept.",
+          "ur": "Agar frequency range mein hai to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "010",
+      "aliases": [
+        "010",
+        "E010"
+      ],
+      "title": {
+        "en": "Grid failure / islanding (010)",
+        "ur": "Grid failure ya islanding (010)"
+      },
+      "meaning": {
+        "en": "The inverter lost the reference from the grid and stopped to avoid back-feeding a dead line. This is also the normal anti-islanding trip during a grid outage.",
+        "ur": "Inverter ne grid ka reference kho diya aur dead line mein power wapas bhejne se bachne ke liye band ho gaya. Grid outage ke waqt ye normal anti-islanding trip hai."
+      },
+      "causes": [
+        {
+          "en": "Actual grid outage or the AC circuit breaker has tripped.",
+          "ur": "Asli grid outage ya AC circuit breaker trip ho gaya."
+        },
+        {
+          "en": "AC cables loose or not fully seated in the terminal block.",
+          "ur": "AC cables loose hain ya terminal block mein poori tarah baithi nahi."
+        },
+        {
+          "en": "Grid is not in service for maintenance.",
+          "ur": "Grid maintenance ke liye service mein hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the AC circuit breaker has tripped and reset it if the grid is live.",
+          "ur": "Check karein AC circuit breaker trip to nahi hua; grid live ho to reset karein."
+        },
+        {
+          "en": "Switch the AC breaker off, confirm every AC cable terminal is tight, then switch back on.",
+          "ur": "AC breaker off karein, har AC cable terminal tight check karein, phir wapas on karein."
+        },
+        {
+          "en": "If all connections are fine and the LCD still shows 010, ask the utility to confirm supply status.",
+          "ur": "Agar connections sab sahi hain aur LCD par ab bhi 010 hai to utility se supply status confirm karwane ko kahen."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "011",
+      "aliases": [
+        "011",
+        "E011"
+      ],
+      "title": {
+        "en": "DC injection over-current (011)",
+        "ur": "DC injection current zyada (011)"
+      },
+      "meaning": {
+        "en": "DC current being injected onto the AC side exceeded the upper limit. The inverter stops export to protect the grid.",
+        "ur": "AC side par DC current ka injection upper limit se upar chala gaya. Inverter ne grid bachane ke liye export band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Unusual equipment on the same AC circuit injecting DC (bad charger, welder, LED driver).",
+          "ur": "Usi AC circuit par DC inject karne wala koi ajeeb equipment (kharab charger, welder, LED driver)."
+        },
+        {
+          "en": "Internal inverter measurement or switching stage fault.",
+          "ur": "Inverter ka apna measurement ya switching stage fault."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait a moment for the inverter to recover on its own.",
+          "ur": "Inverter ke khud recover hone ka thoda intezaar karein."
+        },
+        {
+          "en": "If repeated, isolate other AC loads one by one to find the equipment injecting DC.",
+          "ur": "Baar baar ho to doosre AC load ek ek karke alag karein taake DC inject karne wala equipment pakde."
+        },
+        {
+          "en": "Contact Sungrow Service Dept if the fault occurs repeatedly with no external cause.",
+          "ur": "Agar baar baar ho aur bahar se koi waja nahi to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "012",
+      "aliases": [
+        "012",
+        "E012"
+      ],
+      "title": {
+        "en": "Leakage current over-current (012)",
+        "ur": "Leakage current zyada (012)"
+      },
+      "meaning": {
+        "en": "Insulation leakage current from the PV strings or AC side exceeded the inverter limit, so it shut down to avoid electric shock.",
+        "ur": "PV strings ya AC side se leakage current inverter ke limit se upar chala gaya, is liye electric shock se bachne ke liye band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Moisture on PV modules, connectors or DC cables after rain, fog or heavy dew.",
+          "ur": "Baarish, dhund ya oos par PV module, connector ya DC cable geela ho jana."
+        },
+        {
+          "en": "Damaged module insulation or a chafed DC cable touching the frame.",
+          "ur": "Module ki insulation kharab ya DC cable par layer ukhad kar frame ko chhu raha hai."
+        },
+        {
+          "en": "Water ingress into the AC terminal box or conduit.",
+          "ur": "AC terminal box ya conduit mein paas jaana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC switch, then test each string to earth with a megohmmeter/insulation tester while PV is fully off.",
+          "ur": "DC switch off karein, phir PV poori tarah band kar ke har string ko earth ke khilaf insulation tester se test karein."
+        },
+        {
+          "en": "Dry the connectors and cables, re-terminate any wet MC4 pair, and re-test.",
+          "ur": "Connector aur cable sukha lein, geele MC4 pair dobara baithayein, phir dobara test karein."
+        },
+        {
+          "en": "Inspect module backs for cracks or water ingress and replace the affected module or DC cable.",
+          "ur": "Module ke peeche crack ya paas jaana check karein aur woh module ya DC cable badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "014",
+      "aliases": [
+        "014",
+        "E014"
+      ],
+      "title": {
+        "en": "10-minute average grid over-voltage (014)",
+        "ur": "10 minute ka average grid voltage zyada (014)"
+      },
+      "meaning": {
+        "en": "The average grid voltage over 10 minutes stayed above the permitted range, so the inverter locked out to protect the grid.",
+        "ur": "10 minute ka average grid voltage permitted range se upar raha, is liye inverter ne grid bachane ke liye lock out kar diya."
+      },
+      "causes": [
+        {
+          "en": "Sustained high grid voltage from a heavily loaded daytime feeder.",
+          "ur": "Din mein feeder zyada load hone se sustained high grid voltage."
+        },
+        {
+          "en": "Wrong country/grid code selected, so the protection window is wrong for Pakistan.",
+          "ur": "Galat country ya grid code select hua hai, is liye Pakistan ke liye protection window ghalat hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the country code selected in the inverter matches the actual country of installation.",
+          "ur": "Check karein inverter ka country code installation ke asli mulk ke mutabiq hai."
+        },
+        {
+          "en": "Wait a moment; the inverter will retry once the 10-minute average returns in range.",
+          "ur": "Thoda intezaar karein; 10 minute ka average range mein aate hi inverter dobara try karega."
+        },
+        {
+          "en": "If the average is genuinely high, report to the utility company - do not widen the window yourself.",
+          "ur": "Agar average sach mein high hai to utility company ko bata dein - window khud bara na karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "015",
+      "aliases": [
+        "015",
+        "E015"
+      ],
+      "title": {
+        "en": "Grid over-voltage (stage II) (015)",
+        "ur": "Grid voltage zyada (stage II) (015)"
+      },
+      "meaning": {
+        "en": "The second, higher over-voltage threshold tripped - a worse excursion than code 002. A deliberate safety lockout.",
+        "ur": "Dusra aur zyada high over-voltage level trigger hua - code 002 se zyada sakht violation. Ye jaan boojh kar lagaya hua safety lockout hai."
+      },
+      "causes": [
+        {
+          "en": "AC cable undersized for the distance, so its voltage drop is being read as a high grid voltage.",
+          "ur": "AC cable distance ke liye chhoti hai, is liye uska voltage drop high grid voltage ki tarah read hota hai."
+        },
+        {
+          "en": "Grid voltage genuinely beyond the permissible range (stage II limit).",
+          "ur": "Grid voltage asal mein permissible range se bahar hai (stage II limit)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the AC cable model/size is appropriate for the run length; upgrade undersized AC cable.",
+          "ur": "Check karein AC cable ka size run length ke liye sahi hai; chhoti AC cable barhi badal dein."
+        },
+        {
+          "en": "Wait for the inverter to recover once the grid settles.",
+          "ur": "Grid theek hone par inverter ko recover hone dein."
+        },
+        {
+          "en": "If the grid is beyond the permissible range, ask the utility grid company to fix it.",
+          "ur": "Agar grid permissible range se bahar hai to utility grid company se theek karwane ko kahen."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "016",
+      "aliases": [
+        "016",
+        "E016"
+      ],
+      "title": {
+        "en": "Bus voltage or power high (016)",
+        "ur": "Bus voltage ya power zyada (016)"
+      },
+      "meaning": {
+        "en": "The internal DC bus voltage or bus power reached the high limit. The inverter stops to protect the boost stage.",
+        "ur": "Internal DC bus voltage ya bus power high limit tak pohanch gaya. Inverter ne boost stage bachane ke liye band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "AC grid loss while PV keeps feeding, so power piles up in the bus.",
+          "ur": "AC grid chala gaya lekin PV power deta raha, is liye bus mein power jama ho gaya."
+        },
+        {
+          "en": "Bus voltage sensing drift or an over-voltage in the internal DC link.",
+          "ur": "Bus voltage sensing mein ghalti ya internal DC link mein over-voltage."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait a moment for the inverter to recover on its own.",
+          "ur": "Inverter ke apne aap theek hone ka thoda intezaar karein."
+        },
+        {
+          "en": "Check grid stability and AC connection; a flapping grid is the usual trigger.",
+          "ur": "Grid stability aur AC connection check karein; grid ka chalna-phirna hi asal wajah hai."
+        },
+        {
+          "en": "If the fault occurs repeatedly, contact Sungrow Service Dept.",
+          "ur": "Agar baar baar ho raha hai to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "019",
+      "aliases": [
+        "019",
+        "E019"
+      ],
+      "title": {
+        "en": "Bus transient over-voltage (019)",
+        "ur": "Bus ka temporary over-voltage (019)"
+      },
+      "meaning": {
+        "en": "A short spike pushed the internal bus voltage above the allowable upper limit. Normally clears itself.",
+        "ur": "Ek chhota spike ne internal bus voltage allowable limit se upar le gaya. Aam tor par khud clear hota hai."
+      },
+      "causes": [
+        {
+          "en": "Grid switching transient passing through to the DC bus.",
+          "ur": "Grid switching ka transient DC bus tak chala gaya."
+        },
+        {
+          "en": "Weak PV string connection causing intermittent current steps.",
+          "ur": "PV string ka connection kamzor, is liye current baar baar badal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for automatic recovery before intervening.",
+          "ur": "Kuch nahi chhune, khud recover hone dein."
+        },
+        {
+          "en": "Inspect and tighten all DC string terminals and MC4 connectors.",
+          "ur": "Tamam DC string terminals aur MC4 connectors check karke tighten karein."
+        },
+        {
+          "en": "Contact Sungrow Service Dept if the fault occurs repeatedly.",
+          "ur": "Agar baar baar ho to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "020",
+      "aliases": [
+        "020",
+        "E020"
+      ],
+      "title": {
+        "en": "Bus over-voltage (020)",
+        "ur": "Bus par voltage zyada (020)"
+      },
+      "meaning": {
+        "en": "The internal DC bus voltage exceeded the protective value, so the inverter shut down the power stage.",
+        "ur": "Internal DC bus voltage protective value se upar chala gaya, is liye inverter ne power stage band kar di."
+      },
+      "causes": [
+        {
+          "en": "Grid disconnected while the inverter is back-feeding into the bus.",
+          "ur": "Grid disconnect ho gaya jab inverter bus mein power back-feed kar raha tha."
+        },
+        {
+          "en": "Inverter internal boost circuit or bus voltage feedback fault.",
+          "ur": "Inverter ka internal boost circuit ya bus voltage feedback fault."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait a moment for the inverter to recover; the bus needs to discharge first.",
+          "ur": "Inverter ke recover hone ka intezaar karein; pehle bus discharge hona zaruri hai."
+        },
+        {
+          "en": "Check the AC breaker, anti-islanding relay and grid supply stability.",
+          "ur": "AC breaker, anti-islanding relay aur grid supply stability check karein."
+        },
+        {
+          "en": "Contact Sungrow Service Dept if the fault occurs repeatedly.",
+          "ur": "Agar baar baar ho to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "021",
+      "aliases": [
+        "021",
+        "E021"
+      ],
+      "title": {
+        "en": "PV1 input over-current (021)",
+        "ur": "PV1 input current zyada (021)"
+      },
+      "meaning": {
+        "en": "Over-current detected on the PV1 MPPT input. Inspect the layout and wiring of that input.",
+        "ur": "PV1 MPPT input par over-current detect hua. Us input ki wiring aur layout check karein."
+      },
+      "causes": [
+        {
+          "en": "String current above the MPPT input rating - too many modules in parallel on that MPPT.",
+          "ur": "String current MPPT input rating se upar hai - us MPPT par bohat zyada modules parallel hain."
+        },
+        {
+          "en": "PV cable pinched, crushed or shorted to earth.",
+          "ur": "PV cable dab gai, kuchal gayi ya earth se short ho gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the DC switch OFF, wait 10 minutes, then recount the modules on PV1 against the manual's per-MPPT string limit.",
+          "ur": "DC switch OFF karein, 10 minute wait karein, phir PV1 ke modules dohrayein aur manual ki per-MPPT string limit se compare karein."
+        },
+        {
+          "en": "Measure PV1 string open-circuit voltage and short-circuit current and compare with the datasheet.",
+          "ur": "PV1 string ka open-circuit voltage aur short-circuit current naalein aur datasheet se compare karein."
+        },
+        {
+          "en": "Re-inspect PV1 cable routing for chafing or a crushed conduit and replace the damaged cable.",
+          "ur": "PV1 cable ki routing dobara dekhein, kuchal ya damage ho to cable badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "022",
+      "aliases": [
+        "022",
+        "E022"
+      ],
+      "title": {
+        "en": "PV2 input over-current (022)",
+        "ur": "PV2 input current zyada (022)"
+      },
+      "meaning": {
+        "en": "Over-current detected on the PV2 MPPT input. Inspect the layout and wiring of that input.",
+        "ur": "PV2 MPPT input par over-current detect hua. Us input ki wiring aur layout check karein."
+      },
+      "causes": [
+        {
+          "en": "String current above the PV2 MPPT input rating.",
+          "ur": "String current PV2 MPPT input rating se upar hai."
+        },
+        {
+          "en": "PV2 cable crushed, chafed or shorted to earth.",
+          "ur": "PV2 cable dab gai, kuchal gayi ya earth se short ho gayi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the DC switch OFF, wait 10 minutes, then verify the PV2 string current against the datasheet.",
+          "ur": "DC switch OFF karein, 10 minute wait karein, phir PV2 string current datasheet se verify karein."
+        },
+        {
+          "en": "Check PV2 string polarity, MC4 seating and the DC fuse in that string.",
+          "ur": "PV2 string polarity, MC4 ki seating aur us string ka DC fuse check karein."
+        },
+        {
+          "en": "Replace any PV2 cable with damaged insulation and re-test.",
+          "ur": "PV2 ki kharab insulation wali cable badal ke dobara test karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "028",
+      "aliases": [
+        "028",
+        "E028"
+      ],
+      "title": {
+        "en": "PV1 reverse connection (028)",
+        "ur": "PV1 ka polarity ulta (028)"
+      },
+      "meaning": {
+        "en": "PV1 string is connected in reverse polarity. Do not work on it while current is flowing.",
+        "ur": "PV1 string ulta polarity se lagi hai. Current flowing hone ke dauraan is par kaam na karein."
+      },
+      "causes": [
+        {
+          "en": "MC4 connector on the PV1 string was crimped backwards.",
+          "ur": "PV1 string ka MC4 connector ulta crimp ho gaya."
+        },
+        {
+          "en": "Installer swapped the string cables at the inverter DC input.",
+          "ur": "Installer ne inverter DC input par string cables aapas mein badal diye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Rotate the DC switch to OFF, wait at least 10 minutes, and confirm PV current has dropped below 0.5 A.",
+          "ur": "DC switch OFF karein, kam az kam 10 minute wait karein, aur confirm karein PV current 0.5 A se neeche aa gaya hai."
+        },
+        {
+          "en": "Check the cable connections of PV1 and re-terminate the connector in the correct polarity.",
+          "ur": "PV1 ke cable connections check karein aur connector sahi polarity mein dobara baithayein."
+        },
+        {
+          "en": "Verify PV1 string voltage with a meter after reconnecting, then re-enable the DC switch.",
+          "ur": "Dobara jodne ke baad meter se PV1 string voltage verify karein, phir DC switch wapas on karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "029",
+      "aliases": [
+        "029",
+        "E029"
+      ],
+      "title": {
+        "en": "PV2 reverse connection (029)",
+        "ur": "PV2 ka polarity ulta (029)"
+      },
+      "meaning": {
+        "en": "PV2 string is connected in reverse polarity. Do not work on it while current is flowing.",
+        "ur": "PV2 string ulta polarity se lagi hai. Current flowing hone ke dauraan is par kaam na karein."
+      },
+      "causes": [
+        {
+          "en": "MC4 connector on the PV2 string was crimped backwards.",
+          "ur": "PV2 string ka MC4 connector ulta crimp ho gaya."
+        },
+        {
+          "en": "Installer swapped the string cables at the inverter DC input.",
+          "ur": "Installer ne inverter DC input par string cables aapas mein badal diye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Rotate the DC switch to OFF, wait at least 10 minutes, and confirm PV current has dropped below 0.5 A.",
+          "ur": "DC switch OFF karein, kam az kam 10 minute wait karein, aur confirm karein PV current 0.5 A se neeche aa gaya hai."
+        },
+        {
+          "en": "Check the cable connections of PV2 and re-terminate the connector in the correct polarity.",
+          "ur": "PV2 ke cable connections check karein aur connector sahi polarity mein dobara baithayein."
+        },
+        {
+          "en": "Verify PV2 string voltage with a meter after reconnecting, then re-enable the DC switch.",
+          "ur": "Dobara jodne ke baad meter se PV2 string voltage verify karein, phir DC switch wapas on karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "036",
+      "aliases": [
+        "036",
+        "E036"
+      ],
+      "title": {
+        "en": "Radiator temperature too high (036)",
+        "ur": "Radiator ka temperature zyada (036)"
+      },
+      "meaning": {
+        "en": "The heatsink (radiator) temperature reached the high limit, so the inverter derated or stopped to protect the power devices.",
+        "ur": "Heatsink (radiator) ka temperature high limit tak pohanch gaya, is liye inverter ne power device bachane ke liye power kam ki ya band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Very high ambient temperature at the install location.",
+          "ur": "Install jagah ka ambient temperature bohat zyada hai."
+        },
+        {
+          "en": "No airflow around the unit - mounted inside a closed cabinet or tight roof void.",
+          "ur": "Unit ke aas paas airflow nahi - band cabinet ya ghar ke andar laga hai."
+        },
+        {
+          "en": "Direct sunlight on the heatsink.",
+          "ur": "Heatsink par seedhi dhoop aa rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the ambient temperature shown on the screen and wait for it to fall below the trip value.",
+          "ur": "Screen par dikhne wala ambient temperature parhein aur use trip value se neeche girne dein."
+        },
+        {
+          "en": "Clear at least the manufacturer's clearance around the unit for convection and clean the air inlets.",
+          "ur": "Unit ke aas paas manufacturer ki maangi hui jagah saaf karein taake convection ho sake, aur air inlets saaf karein."
+        },
+        {
+          "en": "Install a shade over the unit if it is in direct sunlight.",
+          "ur": "Agar unit seedhi dhoop mein hai to us ke upar shade lagayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "037",
+      "aliases": [
+        "037",
+        "E037"
+      ],
+      "title": {
+        "en": "Internal temperature too high (037)",
+        "ur": "Internal temperature zyada (037)"
+      },
+      "meaning": {
+        "en": "Inverter internal temperature exceeded the limit. Usually a ventilation or fan problem rather than a sensor problem.",
+        "ur": "Inverter ka internal temperature limit se upar chala gaya. Aam tor par ye sensor nahi, ventilation ya fan ki kami hoti hai."
+      },
+      "causes": [
+        {
+          "en": "Cooling fan stopped, seized or clogged with dust.",
+          "ur": "Cooling fan band, jam ya dhool se block ho gaya."
+        },
+        {
+          "en": "No convective space around the cabinet in a hot enclosed room.",
+          "ur": "Garam band kamre mein cabinet ke aas paas convection ki jagah nahi."
+        },
+        {
+          "en": "Direct sunlight heating the enclosure beyond its rating.",
+          "ur": "Seedhi dhoop se enclosure rating se zyada garam ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the ambient temperature on screen, then confirm there is enough space for convection around the unit.",
+          "ur": "Screen par ambient temperature dekhein, phir confirm karein unit ke aas paas convection ke liye jagah hai."
+        },
+        {
+          "en": "Check whether the inverter is in direct sunlight and shield it with a proper sunshade if so.",
+          "ur": "Check karein unit seedhi dhoop mein hai ya nahi; ho to proper sunshade lagayein."
+        },
+        {
+          "en": "Check the fan is spinning; clean the air inlets and replace the fan if it is not turning.",
+          "ur": "Check karein fan ghoom raha hai; air inlets saaf karein aur fan na ghoome to badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "038",
+      "aliases": [
+        "038",
+        "E038"
+      ],
+      "title": {
+        "en": "Relay fault on grid side (038)",
+        "ur": "Grid side relay fault (038)"
+      },
+      "meaning": {
+        "en": "The grid-side relay failed to switch as commanded, so the inverter cannot safely connect or disconnect.",
+        "ur": "Grid side relay ne command ke mutabiq switch nahi kiya, is liye inverter mehfooz taur par connect ya disconnect nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Relay contacts welded or burnt from repeated switching or a surge.",
+          "ur": "Baar baar switching ya surge se relay ke contact jale ya chipak gaye."
+        },
+        {
+          "en": "Relay coil or its 24 V control supply failed.",
+          "ur": "Relay coil ya uska 24 V control supply kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait a moment for the inverter to retry the relay operation.",
+          "ur": "Inverter ko relay operation dobara karne ka thoda intezaar karein."
+        },
+        {
+          "en": "Isolate AC and PV first, then have a technician check the relay and the 24 V coil supply with a multimeter.",
+          "ur": "Pehle AC aur PV isolate karein, phir technician relay aur 24 V coil supply ko multimeter se check kare."
+        },
+        {
+          "en": "If the fault occurs repeatedly, contact Sungrow Service Dept for a service exchange.",
+          "ur": "Agar baar baar ho to Sungrow Service Dept se rabta karein taake service exchange ho sake."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "039",
+      "aliases": [
+        "039",
+        "E039",
+        "ISO-flt"
+      ],
+      "title": {
+        "en": "PV to earth insulation low (ISO-flt) (039)",
+        "ur": "PV se earth ki insulation kam (ISO-flt) (039)"
+      },
+      "meaning": {
+        "en": "Insulation resistance between the PV array and earth fell too low, so the inverter stopped to avoid shock.",
+        "ur": "PV array aur earth ke darmiyan insulation resistance bohat kam ho gaya, is liye shock se bachne ke liye inverter band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "One PV string shorted to earth, often through a damaged or wet module.",
+          "ur": "Ek PV string earth se short ho gaya, aksar kharab ya geele module ke zariye."
+        },
+        {
+          "en": "No reliable inverter grounding line, so Riso reads low by mistake.",
+          "ur": "Inverter ki grounding line reliable nahi, is liye Riso ghalat low reading deta hai."
+        },
+        {
+          "en": "DC cable chafed against the mounting frame or a sharp roof edge.",
+          "ur": "DC cable mounting frame ya roof ke sharp corner par kuchal gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm there is a reliable inverter grounding line to earth first; a weak earth causes false 039.",
+          "ur": "Pehle confirm karein inverter ki earth line reliable hai; kamzor earth se jhalat 039 aata hai."
+        },
+        {
+          "en": "Turn the DC switch OFF, wait 10 minutes, then find the faulty string with an insulation tester, string by string.",
+          "ur": "DC switch OFF karein, 10 minute wait karein, phir insulation tester se ek ek string test kar ke kharab string dhoondein."
+        },
+        {
+          "en": "Replace the damaged module or DC cable section, or re-seal the connector, then clear the fault from the App.",
+          "ur": "Kharab module ya DC cable ka hissa badal dein ya connector dobara seal karein, phir App se fault clear karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "041",
+      "aliases": [
+        "041",
+        "E041"
+      ],
+      "title": {
+        "en": "Leakage current sampling fault (041)",
+        "ur": "Leakage current sensing mein fault (041)"
+      },
+      "meaning": {
+        "en": "The leakage current sensor circuit inside the inverter reported a fault, so the safety function is no longer trusted.",
+        "ur": "Inverter ke andar ka leakage current sensor circuit fault batata hai, is liye safety function par bharosa nahi."
+      },
+      "causes": [
+        {
+          "en": "Internal leakage sensor or its wiring harness loose or damaged.",
+          "ur": "Internal leakage sensor ya uski wiring harness loose ya kharab."
+        },
+        {
+          "en": "Moisture or condensation on the internal sensing board.",
+          "ur": "Internal sensing board par namki ya condensation."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait a moment for the inverter to recover on its own before any physical check.",
+          "ur": "Koi physical check karne se pehle thoda intezaar karein, inverter khud recover ho sakta hai."
+        },
+        {
+          "en": "Isolate AC and PV, open the unit only if trained, and check the internal harness connectors are seated.",
+          "ur": "AC aur PV isolate karein, sirf trained person unit khole, aur internal harness connectors baithay huay check karein."
+        },
+        {
+          "en": "If the fault occurs repeatedly, contact Sungrow Service Dept for a unit exchange.",
+          "ur": "Agar baar baar ho to Sungrow Service Dept se unit exchange ke liye rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "043",
+      "aliases": [
+        "043",
+        "E043"
+      ],
+      "title": {
+        "en": "Inner under-temperature (043)",
+        "ur": "Internal temperature bohat kam (043)"
+      },
+      "meaning": {
+        "en": "Ambient temperature inside the inverter fell below the low limit. The inverter restarts by itself once it warms up past -25 degC.",
+        "ur": "Inverter ke andar ka ambient temperature low limit se neeche gir gaya. -25 degC se upar hone par inverter khud restart ho jata hai."
+      },
+      "causes": [
+        {
+          "en": "Night-time or winter ambient temperature below the operating range (Pakistan winter nights).",
+          "ur": "Raat ya sarmay ka ambient temperature operating range se neeche (Pakistan ki sarmay ki raatein)."
+        },
+        {
+          "en": "Unit installed in an unheated store room or exposed lobby overnight.",
+          "ur": "Unit bina heating ke store room ya khule lobby mein lage hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed - the inverter recovers once the ambient temperature rises above -25 degC.",
+          "ur": "Koi action nahi chahiye - ambient temperature -25 degC se upar hote hi inverter recover ho jata hai."
+        },
+        {
+          "en": "If the site regularly goes below the limit, note it and advise the customer or move the unit to a warmer, enclosed spot.",
+          "ur": "Agar site par baar baar limit se neeche jata hai to customer ko bata dein ya unit ko garm jagah move kar dein."
+        },
+        {
+          "en": "Avoid placing heaters directly against the unit to warm it - this can trip the over-temperature fault 037.",
+          "ur": "Garm karne ke liye heater ko seedha unit ke saath mat lagayein - is se 037 over-temperature fault aa sakta hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "044",
+      "aliases": [
+        "044",
+        "E044"
+      ],
+      "title": {
+        "en": "Inverter self-test fault (044)",
+        "ur": "Inverter self-test mein fault (044)"
+      },
+      "meaning": {
+        "en": "The inverter's internal power-on self-test did not complete successfully.",
+        "ur": "Inverter ka power-on self-test safaltay se mukammal nahi hua."
+      },
+      "causes": [
+        {
+          "en": "Unstable AC or DC supply during power-up, or brown-out on the grid.",
+          "ur": "Power-on ke waqt AC ya DC supply unstable, ya grid par brown-out."
+        },
+        {
+          "en": "Internal control board or firmware boot problem.",
+          "ur": "Internal control board ya firmware boot mein masla."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, wait the full 10 minutes for capacitors to discharge, then power up once on clean supplies.",
+          "ur": "AC aur PV isolate karein, capacitors discharge hone ke liye poore 10 minute wait karein, phir saaf supply par ek baar power up karein."
+        },
+        {
+          "en": "Check the DC switch and AC breaker are fully engaged and not tripping during start-up.",
+          "ur": "Check karein DC switch aur AC breaker poori tarah lage hain aur start-up par trip nahi ho rahe."
+        },
+        {
+          "en": "Contact Sungrow Service Dept if the self-test fault survives a clean restart.",
+          "ur": "Agar saaf restart ke baad bhi self-test fault rahe to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "045",
+      "aliases": [
+        "045",
+        "E045"
+      ],
+      "title": {
+        "en": "PV1 boost circuit fault (045)",
+        "ur": "PV1 boost circuit kharab (045)"
+      },
+      "meaning": {
+        "en": "The boost converter stage connected to PV1 reported a fault.",
+        "ur": "PV1 se juda boost converter stage ne fault report kiya."
+      },
+      "causes": [
+        {
+          "en": "PV1 string over-voltage or a switching device in the boost stage failed.",
+          "ur": "PV1 string par over-voltage ya boost stage ka switching device kharab."
+        },
+        {
+          "en": "Severe earlier surge or overheating damage in the boost stage.",
+          "ur": "Pehle koi sakht surge ya over-garmi se boost stage nuksan ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait a moment for the inverter to recover before touching the DC side.",
+          "ur": "DC side chhune se pehle thoda intezaar karein, inverter recover ho sakta hai."
+        },
+        {
+          "en": "Turn the DC switch OFF, wait 10 minutes, and measure PV1 open-circuit voltage against the maximum input rating.",
+          "ur": "DC switch OFF karein, 10 minute wait karein, aur PV1 ka open-circuit voltage maximum input rating se compare karein."
+        },
+        {
+          "en": "If the fault occurs repeatedly, contact Sungrow Service Dept - the boost stage is a service item.",
+          "ur": "Agar baar baar ho to Sungrow Service Dept se rabta karein - boost stage service item hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "046",
+      "aliases": [
+        "046",
+        "E046"
+      ],
+      "title": {
+        "en": "PV2 boost circuit fault (046)",
+        "ur": "PV2 boost circuit kharab (046)"
+      },
+      "meaning": {
+        "en": "The boost converter stage connected to PV2 reported a fault.",
+        "ur": "PV2 se juda boost converter stage ne fault report kiya."
+      },
+      "causes": [
+        {
+          "en": "PV2 string over-voltage or a switching device in the boost stage failed.",
+          "ur": "PV2 string par over-voltage ya boost stage ka switching device kharab."
+        },
+        {
+          "en": "Severe earlier surge or overheating damage in the boost stage.",
+          "ur": "Pehle koi sakht surge ya over-garmi se boost stage nuksan ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait a moment for the inverter to recover before touching the DC side.",
+          "ur": "DC side chhune se pehle thoda intezaar karein, inverter recover ho sakta hai."
+        },
+        {
+          "en": "Turn the DC switch OFF, wait 10 minutes, and measure PV2 open-circuit voltage against the maximum input rating.",
+          "ur": "DC switch OFF karein, 10 minute wait karein, aur PV2 ka open-circuit voltage maximum input rating se compare karein."
+        },
+        {
+          "en": "If the fault occurs repeatedly, contact Sungrow Service Dept - the boost stage is a service item.",
+          "ur": "Agar baar baar ho to Sungrow Service Dept se rabta karein - boost stage service item hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "048",
+      "aliases": [
+        "048",
+        "E048"
+      ],
+      "title": {
+        "en": "Phase current sampling fault (048)",
+        "ur": "Phase current sensing mein fault (048)"
+      },
+      "meaning": {
+        "en": "The inverter's phase current sensing channel reported an inconsistent or failed reading.",
+        "ur": "Inverter ka phase current sensing channel galat ya failed reading de raha hai."
+      },
+      "causes": [
+        {
+          "en": "Current sensor or its hall-effect device damaged, often by heat or a surge.",
+          "ur": "Current sensor ya uska hall-effect device garmi ya surge se kharab."
+        },
+        {
+          "en": "Sensor harness connector loose inside the inverter.",
+          "ur": "Sensor ka harness connector inverter ke andar loose."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait a moment for the inverter to recover - the check will reset the sampling channel.",
+          "ur": "Inverter ke recover hone ka intezaar karein - check sampling channel reset kar deta hai."
+        },
+        {
+          "en": "Cross-check the reported power against the iSolarCloud data and a clamp meter on the AC output.",
+          "ur": "iSolarCloud data aur AC output par clamp meter se reported power ki cross-check karein."
+        },
+        {
+          "en": "Contact Sungrow Service Dept if the fault repeats; a bad current sensor is not a field-repairable part.",
+          "ur": "Agar fault dobara aaye to Sungrow Service Dept se rabta karein; kharab current sensor field mein theek nahi hota."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "053",
+      "aliases": [
+        "053",
+        "E053"
+      ],
+      "title": {
+        "en": "Slave DSP detects grid over-voltage (053)",
+        "ur": "Slave DSP ne grid over-voltage detect kiya (053)"
+      },
+      "meaning": {
+        "en": "The secondary (slave) DSP controller saw a grid voltage above the allowable limit - the two control boards disagreed with the main reading.",
+        "ur": "Secondary (slave) DSP controller ne grid voltage limit se upar dekhi - dono control boards ki main reading se ikhtiyalaf tha."
+      },
+      "causes": [
+        {
+          "en": "Genuine grid voltage above the inverter allowable upper limit.",
+          "ur": "Grid voltage asal mein inverter ke upper limit se upar hai."
+        },
+        {
+          "en": "Measurement disagreement between the two DSPs caused by a drifting sensing board.",
+          "ur": "Sensing board ke ghalat hone se dono DSP ki measurement mein ikhtiyalaf."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the grid voltage; if it is above the permissible range, ask the utility grid company for a solution.",
+          "ur": "Grid voltage check karein; permissible range se upar ho to utility grid company se hal manga dein."
+        },
+        {
+          "en": "If the grid voltage is within the permissible range, contact Sungrow Service Dept.",
+          "ur": "Agar grid voltage permissible range mein hai to Sungrow Service Dept se rabta karein."
+        },
+        {
+          "en": "Re-seat and check the AC connection while isolated, as a loose terminal can make the two boards read differently.",
+          "ur": "Isolate karte hue AC connection dobara check aur tighten karein, kyun ke loose terminal se dono boards ka read alag hota hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "054",
+      "aliases": [
+        "054",
+        "E054"
+      ],
+      "title": {
+        "en": "Slave DSP detects grid over-frequency (054)",
+        "ur": "Slave DSP ne grid over-frequency detect kiya (054)"
+      },
+      "meaning": {
+        "en": "The secondary DSP controller saw a grid frequency above the allowable limit.",
+        "ur": "Secondary DSP controller ne grid frequency allowable limit se upar dekhi."
+      },
+      "causes": [
+        {
+          "en": "Genuine grid frequency above the inverter allowable upper limit.",
+          "ur": "Grid frequency asal mein inverter ke allowable upper limit se upar hai."
+        },
+        {
+          "en": "Frequency reference or sensing drift in the slave control board.",
+          "ur": "Slave control board mein frequency reference ya sensing ki ghalti."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the grid frequency; if it is above the permissible range, ask the utility grid company for a solution.",
+          "ur": "Grid frequency check karein; permissible range se upar ho to utility grid company se hal manga dein."
+        },
+        {
+          "en": "If the grid frequency is within the permissible range, contact Sungrow Service Dept.",
+          "ur": "Agar grid frequency permissible range mein hai to Sungrow Service Dept se rabta karein."
+        },
+        {
+          "en": "Check the frequency protection settings in iSolarCloud match the local grid standard.",
+          "ur": "iSolarCloud mein frequency protection settings local grid standard ke mutabiq hain ya nahi check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "056",
+      "aliases": [
+        "056",
+        "E056"
+      ],
+      "title": {
+        "en": "Slave DSP detects leakage over-current (056)",
+        "ur": "Slave DSP ne leakage current zyada detect kiya (056)"
+      },
+      "meaning": {
+        "en": "The secondary DSP saw leakage current above the inverter's allowable upper limit, usually a real PV ground fault.",
+        "ur": "Secondary DSP ne leakage current inverter ke upper limit se upar dekha, aam tor par ye asal mein PV ka ground fault hota hai."
+      },
+      "causes": [
+        {
+          "en": "A grounded fault on the PV string - damaged, wet or poorly terminated module.",
+          "ur": "PV string par grounded fault - kharab, geela ya ghulmi se baitha hua module."
+        },
+        {
+          "en": "DC cable insulation broken by a sharp roof edge or conduit.",
+          "ur": "DC cable ki insulation sharp roof edge ya conduit se kuchal kar tooti hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the DC switch OFF, wait 10 minutes, then locate the grounded string with an insulation tester.",
+          "ur": "DC switch OFF karein, 10 minute wait karein, phir insulation tester se grounded string dhoondein."
+        },
+        {
+          "en": "Check the inverter grounding line, then repair the damaged module, connector or DC cable section.",
+          "ur": "Inverter ki grounding line check karein, phir kharab module, connector ya DC cable ka hissa theek karein."
+        },
+        {
+          "en": "If the error occurs repeatedly, contact Sungrow Service Dept.",
+          "ur": "Agar baar baar aaye to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "059",
+      "aliases": [
+        "059",
+        "E059"
+      ],
+      "title": {
+        "en": "Master/slave DSP communication alarm (059)",
+        "ur": "Master/Slave DSP communication alarm (059)"
+      },
+      "meaning": {
+        "en": "The two internal DSP control boards could not talk to each other, so redundant protection is inactive.",
+        "ur": "Do internal DSP control boards aapas mein baat nahi kar paye, is liye redundant protection inactive hai."
+      },
+      "causes": [
+        {
+          "en": "Internal control harness connector loose, or a previous power event damaged the boards.",
+          "ur": "Internal control harness connector loose, ya pichhli power event se boards nuksaan hue."
+        },
+        {
+          "en": "One DSP board has failed outright.",
+          "ur": "Ek DSP board poora fail ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait 1 minute for the inverter to recover - the boards retry the handshake.",
+          "ur": "1 minute intezaar karein, boards dobara handshake karte hain."
+        },
+        {
+          "en": "Isolate AC and PV, then have a technician reseat the internal DSP harness and check the 24 V rail.",
+          "ur": "AC aur PV isolate karein, phir technician internal DSP harness dobara baithaye aur 24 V rail check kare."
+        },
+        {
+          "en": "If the fault persists, contact Sungrow Service Dept.",
+          "ur": "Agar fault rahe to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "061",
+      "aliases": [
+        "061",
+        "E061"
+      ],
+      "title": {
+        "en": "No inverter type setting (061)",
+        "ur": "Inverter type set nahi hai (061)"
+      },
+      "meaning": {
+        "en": "The inverter type parameter has not been configured, so the unit has not been fully commissioned and will not work correctly.",
+        "ur": "Inverter type parameter configure nahi hua, is liye unit poori tarah commission nahi hua aur theek se kaam nahi karega."
+      },
+      "causes": [
+        {
+          "en": "Commissioning steps were skipped after installation or a firmware update.",
+          "ur": "Installation ya firmware update ke baad commissioning ke steps chhoot gaye."
+        },
+        {
+          "en": "Parameter memory cleared or corrupted.",
+          "ur": "Parameter memory clear ya corrupt ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Set the inverter type in iSolarCloud or the LCD commissioning menu before anything else.",
+          "ur": "Sab se pehle iSolarCloud ya LCD commissioning menu mein inverter type set karein."
+        },
+        {
+          "en": "Then complete the remaining commissioning items: country code, grid parameters and communication.",
+          "ur": "Phir baqi commissioning poora karein: country code, grid parameters aur communication."
+        },
+        {
+          "en": "Contact Sungrow Service Dept if the parameter will not save.",
+          "ur": "Agar parameter save nahi hota to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "070",
+      "aliases": [
+        "070",
+        "E070"
+      ],
+      "title": {
+        "en": "Fans are defective (070)",
+        "ur": "Fan kharab hain (070)"
+      },
+      "meaning": {
+        "en": "The inverter's cooling fans have failed. Forced shutdown follows because the unit can no longer control its temperature.",
+        "ur": "Inverter ke cooling fan kharab ho gaye. Is liye zabardasti shutdown, kyun ke ab unit temperature control nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Fan motor bearing worn or the fan blades blocked by dust and debris.",
+          "ur": "Fan motor ka bearing ghis gaya ya fan ki blades dhool se block ho gayi."
+        },
+        {
+          "en": "Fan duct obstructed or the fan cable disconnected.",
+          "ur": "Fan duct band hai ya fan ka cable nikal gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Stop the inverter, disconnect the AC and DC cables, and wait 10 minutes before opening anything.",
+          "ur": "Inverter band karein, AC aur DC cables disconnect karein, aur kuch kholne se pehle 10 minute wait karein."
+        },
+        {
+          "en": "Check whether the fan duct is blocked and clear any dust or foreign material.",
+          "ur": "Check karein fan duct block to nahi aur dhool ya bahri cheez hata dein."
+        },
+        {
+          "en": "If the duct is clear, replace the fan(s) with the correct model.",
+          "ur": "Agar duct saaf hai to sahi model ke fan badal dein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "084",
+      "aliases": [
+        "084",
+        "E084"
+      ],
+      "title": {
+        "en": "Sungrow Meter reverse connection warning (084)",
+        "ur": "Sungrow Meter ulta jone ka warning (084)"
+      },
+      "meaning": {
+        "en": "The export/import meter current direction is reversed, so readings will be wrong. Generation usually continues.",
+        "ur": "Export/import meter ka current direction ulta hai, is liye readings ghalat hongi. Generation aam tor par chalti rehti hai."
+      },
+      "causes": [
+        {
+          "en": "Meter power cable connections incorrect, or the CT clamp mounted the wrong way round.",
+          "ur": "Meter ke power cable connections ghalat, ya CT clamp ulta lagaya gaya."
+        },
+        {
+          "en": "'Existing Inverter' feature switched on without setting the existing inverter's rated power correctly.",
+          "ur": "'Existing Inverter' feature on kiya gaya lekin us inverter ki rated power sahi set nahi ki."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the power cable connections to the meter are correct and re-terminate them.",
+          "ur": "Check karein meter ke power cable connections sahi hain aur unhein dobara baithayein."
+        },
+        {
+          "en": "If 'Existing Inverter' is set to ON in the LCD menu, verify the existing inverter's rated power value is set correctly.",
+          "ur": "Agar LCD menu mein 'Existing Inverter' ON hai to us inverter ki rated power value sahi set hai ya nahi check karein."
+        },
+        {
+          "en": "For a Sungrow single-phase meter, confirm the 1-phase sensor's CT clamp is clipped in the correct direction on the live conductor.",
+          "ur": "Sungrow single-phase meter ke liye confirm karein 1-phase sensor ka CT clamp live conductor par sahi direction mein laga hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "085",
+      "aliases": [
+        "085",
+        "E085"
+      ],
+      "title": {
+        "en": "Mismatched software version (085)",
+        "ur": "Software version mismatch (085)"
+      },
+      "meaning": {
+        "en": "Internal boards are running different firmware versions, which can break the control handshake.",
+        "ur": "Internal boards alag alag firmware version par chal rahe hain, is liye control handshake bigad sakta hai."
+      },
+      "causes": [
+        {
+          "en": "A firmware update was interrupted or only partly applied.",
+          "ur": "Firmware update adhoora reh gaya ya sirf aadha apply hua."
+        },
+        {
+          "en": "A board was replaced with a different revision without reflash.",
+          "ur": "Board badla gaya lekin us par firmware dobara nahi daala gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the firmware version shown under Device Info for every internal board and note any mismatch.",
+          "ur": "Device Info mein har internal board ka firmware version dekhein aur koi bhi mismatch note karein."
+        },
+        {
+          "en": "Do a full power cycle: isolate AC and PV, wait 10 minutes, then restore and allow the update to finish.",
+          "ur": "Poora power cycle karein: AC aur PV isolate karein, 10 minute wait karein, phir wapas on karke update poora hone dein."
+        },
+        {
+          "en": "Contact Sungrow Service Dept to obtain and flash the correct matched firmware package.",
+          "ur": "Sahi matched firmware package lene ke liye Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "087",
+      "aliases": [
+        "087",
+        "E087"
+      ],
+      "title": {
+        "en": "Arc detection module abnormal (087)",
+        "ur": "Arc detection module kharab (087)"
+      },
+      "meaning": {
+        "en": "The internal AFCI (arc fault detection) module itself is not working, so arc protection is unavailable.",
+        "ur": "Internal AFCI (arc fault detection) module khud kaam nahi kar raha, is liye arc protection available nahi hai."
+      },
+      "causes": [
+        {
+          "en": "AFCI module connector loose or the module has failed.",
+          "ur": "AFCI module ka connector loose hai ya module fail ho gaya."
+        },
+        {
+          "en": "Supply voltage to the AFCI module out of specification.",
+          "ur": "AFCI module ko milne wala supply voltage spec ke bahar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, wait 10 minutes, then have a technician check the AFCI module seating and its supply.",
+          "ur": "AC aur PV isolate karein, 10 minute wait karein, phir technician AFCI module ki seating aur supply check kare."
+        },
+        {
+          "en": "Contact Sungrow Service Dept for the replacement AFCI module.",
+          "ur": "Replacement AFCI module ke liye Sungrow Service Dept se rabta karein."
+        },
+        {
+          "en": "Until the module is fixed, treat the PV side as unprotected for arc faults and inspect connectors regularly.",
+          "ur": "Module theek hone tak PV side ko arc fault se unprotected samajhein aur connectors regularly check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "088",
+      "aliases": [
+        "088",
+        "E088"
+      ],
+      "title": {
+        "en": "Arc fault on PV side (088)",
+        "ur": "PV side par arc fault (088)"
+      },
+      "meaning": {
+        "en": "The AFCI detected a series or parallel arc in the PV DC wiring. A real fire risk - treat this as urgent.",
+        "ur": "AFCI ne PV DC wiring mein series ya parallel arc detect kiya. Ye asli fire risk hai - ise fori samajhein."
+      },
+      "causes": [
+        {
+          "en": "Loose, damaged or poorly crimped MC4 connector arcing under load.",
+          "ur": "Loose, kharab ya ghulmi se baitha MC4 connector load par chingaar maar raha hai."
+        },
+        {
+          "en": "DC cable insulation chafed against metal or a sharp roof edge.",
+          "ur": "DC cable ki insulation metal ya sharp roof edge par kuchal gayi hai."
+        },
+        {
+          "en": "Blowing a fuse or disconnecting a connector under DC load, which always arcs.",
+          "ur": "DC load par fuse udaana ya connector nikalna, jo hamesha chingaar maarta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Rotate the DC switch to OFF and check for damaged cables, loose terminals or blown fuses, and poor contact.",
+          "ur": "DC switch OFF karein aur kharab cable, loose terminal ya uda hua fuse aur kamzor contact check karein."
+        },
+        {
+          "en": "Replace damaged cable and re-crimp terminals with a proper crimping tool; never reuse a burnt connector.",
+          "ur": "Kharab cable badal dein aur terminals proper crimping tool se dobara crimp karein; jale hue connector dobara mat lagayein."
+        },
+        {
+          "en": "Rotate the DC switch to ON and clear the error via the App or LCD menu, then confirm it stays clear.",
+          "ur": "DC switch ON karein aur App ya LCD menu se error clear karein, phir confirm karein error wapas nahi aaya."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "089",
+      "aliases": [
+        "089",
+        "E089"
+      ],
+      "title": {
+        "en": "Arc detection function disabled (089)",
+        "ur": "Arc detection function band (089)"
+      },
+      "meaning": {
+        "en": "The AFCI arc detection function is switched off, so arc faults on the PV side will not be detected. A setting issue, not a fault.",
+        "ur": "AFCI arc detection function band hai, is liye PV side ke arc fault detect nahi honge. Ye setting ki masla hai, fault nahi."
+      },
+      "causes": [
+        {
+          "en": "Arc detection was left disabled during commissioning for a false-trip workaround.",
+          "ur": "Commissioning ke dauraan arc detection ko chhoot deya gaya tha taake jhalat trip na aaye."
+        },
+        {
+          "en": "A settings reset reverted the option to disabled.",
+          "ur": "Settings reset hone se option dobara band ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Enable the arc detection function via the App or the LCD menu.",
+          "ur": "App ya LCD menu se arc detection function on karein."
+        },
+        {
+          "en": "After enabling, watch for false trips; if 088 appears without a real arc, have the connectors inspected.",
+          "ur": "On karne ke baad nazar rakhein; agar asal arc ke baghair 088 aaye to connectors inspect karwane ko kahen."
+        },
+        {
+          "en": "If the error occurs repeatedly even with the function enabled, contact Sungrow Service Dept.",
+          "ur": "Agar function on hone ke bawajood baar baar aaye to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "100",
+      "aliases": [
+        "100",
+        "E100"
+      ],
+      "title": {
+        "en": "AC output current over limit (100)",
+        "ur": "AC output current limit se upar (100)"
+      },
+      "meaning": {
+        "en": "The AC output current exceeded the upper limit. The inverter resumes automatically once the current drops back.",
+        "ur": "AC output current upper limit se upar chala gaya. Current wapas normal hote hi inverter khud resume kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "Load surge from large appliances starting together.",
+          "ur": "Bare appliances ek saath start hone se load surge."
+        },
+        {
+          "en": "Two inverters paralleled without correct master/slave configuration.",
+          "ur": "Do inverters bina sahi master/slave setting ke parallel kiye gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "The inverter resumes on its own once the output current falls below the protection value - wait first.",
+          "ur": "Output current protection value se neeche girte hi inverter khud resume kar deta hai - pehle intezaar karein."
+        },
+        {
+          "en": "Reduce or stagger large loads so they do not all start together.",
+          "ur": "Bare loads kam karein ya alag alag start karein taake sab ek saath na on hon."
+        },
+        {
+          "en": "If the fault still exists, contact Sungrow Service Dept.",
+          "ur": "Agar fault phir bhi rahe to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "101",
+      "aliases": [
+        "101",
+        "E101"
+      ],
+      "title": {
+        "en": "Grid over-frequency (stage II) (101)",
+        "ur": "Grid frequency bahut zyada (stage II) (101)"
+      },
+      "meaning": {
+        "en": "The second, higher over-frequency threshold tripped - a worse frequency excursion than code 008.",
+        "ur": "Dusra aur zyada high over-frequency level trigger hua - code 008 se zyada sakht frequency violation."
+      },
+      "causes": [
+        {
+          "en": "Grid frequency beyond the permissible range, typically a generator-backed supply.",
+          "ur": "Grid frequency permissible range se bahar, aam tor par generator supply."
+        },
+        {
+          "en": "Frequency protection parameter set too tight for the site.",
+          "ur": "Frequency protection parameter site ke liye bohat tight rakha gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the actual grid frequency and log the reading and the time of the trip.",
+          "ur": "Asli grid frequency check karke reading aur trip ka waqt note karein."
+        },
+        {
+          "en": "If the frequency exceeds the permissible range, ask the utility grid company for a solution.",
+          "ur": "Agar frequency permissible range se upar ho to utility grid company se hal manga dein."
+        },
+        {
+          "en": "If the frequency is within the permissible range, contact Sungrow Service Dept.",
+          "ur": "Agar frequency permissible range mein hai to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "102",
+      "aliases": [
+        "102",
+        "E102"
+      ],
+      "title": {
+        "en": "Grid under-frequency (stage II) (102)",
+        "ur": "Grid frequency bahut kam (stage II) (102)"
+      },
+      "meaning": {
+        "en": "The second, lower under-frequency threshold tripped - a deeper frequency sag than code 009.",
+        "ur": "Dusra aur neeche ka under-frequency level trigger hua - code 009 se zyada gehra frequency girawat."
+      },
+      "causes": [
+        {
+          "en": "Overloaded generator or a very large motor start dragging frequency down.",
+          "ur": "Overloaded generator ya koi bohat bara motor start hokar frequency gira raha hai."
+        },
+        {
+          "en": "Grid instability on a long or weak supply line.",
+          "ur": "Lambi ya kamzor supply line par grid unstable."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the actual grid frequency and log the reading and the time of the trip.",
+          "ur": "Asli grid frequency check karke reading aur trip ka waqt note karein."
+        },
+        {
+          "en": "If the frequency is beyond the permissible range, ask the utility grid company for a solution.",
+          "ur": "Agar frequency permissible range se bahar ho to utility grid company se hal manga dein."
+        },
+        {
+          "en": "If the frequency is within the permissible range, contact Sungrow Service Dept.",
+          "ur": "Agar frequency permissible range mein hai to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "106",
+      "aliases": [
+        "106",
+        "E106"
+      ],
+      "title": {
+        "en": "Abnormal grounding / PE open (106)",
+        "ur": "Grounding abnormal / PE khula (106)"
+      },
+      "meaning": {
+        "en": "Neither the PE terminal on the AC connection block nor the second PE terminal on the enclosure is reliably earthed.",
+        "ur": "AC connection block ka PE terminal bhi na enclosure ka doosra PE terminal bhi reliably earth nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Earth wire not connected, or connected to a rusting/loose earth rod.",
+          "ur": "Earth wire judi hi nahi, ya zardast ya loose earth rod se judi hai."
+        },
+        {
+          "en": "Earth conductor broken or a loose crimp at the AC block PE terminal.",
+          "ur": "Earth conductor toota hua ya AC block ke PE terminal par loose crimp."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With AC and PV isolated, check continuity from the AC block PE terminal to the earth rod with a multimeter.",
+          "ur": "AC aur PV isolate kar ke multimeter se AC block ke PE terminal se earth rod tak continuity check karein."
+        },
+        {
+          "en": "Re-terminate both PE terminals properly and tighten them to the specified torque.",
+          "ur": "Dono PE terminals sahi tareeqe se dobara baithayein aur specified torque tak tighten karein."
+        },
+        {
+          "en": "If a proper earth is present and accessible and the fault persists, contact Sungrow Service Dept.",
+          "ur": "Agar sahi earth mojood aur accessible hai aur fault phir bhi rahe to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "200",
+      "aliases": [
+        "200",
+        "E200"
+      ],
+      "title": {
+        "en": "Bus hardware over-voltage (200)",
+        "ur": "Bus par hardware level ka over-voltage (200)"
+      },
+      "meaning": {
+        "en": "The DC bus voltage exceeded the protective value and the hardware-level protection tripped. Serious - the power stage is being protected.",
+        "ur": "DC bus voltage protective value se upar chala gaya aur hardware level protection trigger hui. Ye serious hai - power stage ko protect kiya ja raha hai."
+      },
+      "causes": [
+        {
+          "en": "AC grid lost while the PV side kept feeding power into the bus.",
+          "ur": "AC grid chala gaya lekin PV side bus mein power deta raha raha."
+        },
+        {
+          "en": "Bus voltage sensing fault giving a false over-voltage reading.",
+          "ur": "Bus voltage sensing fault jis se jhalat over-voltage reading aayi."
+        },
+        {
+          "en": "Boost stage or DC link capacitor degradation.",
+          "ur": "Boost stage ya DC link capacitor ki quality ghatti."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the inverter to recover after the bus voltage falls - do not reset while the bus is still high.",
+          "ur": "Bus voltage girne ke baad inverter ko recover hone dein - bus abhi high ho to reset na karein."
+        },
+        {
+          "en": "Check the AC breaker, anti-islanding relay and grid supply, which are the usual trigger for bus over-voltage.",
+          "ur": "AC breaker, anti-islanding relay aur grid supply check karein, bus over-voltage ki asal wajah yahin hoti hai."
+        },
+        {
+          "en": "If the fault occurs repeatedly, contact Sungrow Service Dept.",
+          "ur": "Agar baar baar ho to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "201",
+      "aliases": [
+        "201",
+        "E201"
+      ],
+      "title": {
+        "en": "Bus voltage too low (201)",
+        "ur": "Bus voltage bohat kam (201)"
+      },
+      "meaning": {
+        "en": "The internal DC bus voltage dropped below its normal operating level, so the inverter cannot run.",
+        "ur": "Internal DC bus voltage apne normal operating level se neeche gir gaya, is liye inverter chal nahi sakta."
+      },
+      "causes": [
+        {
+          "en": "Very low PV input - weak sunlight, so many strings are below the start-up voltage.",
+          "ur": "PV input bohat kam - dhoop kam hai, is liye bohat se strings start-up voltage se neeche hain."
+        },
+        {
+          "en": "DC side fuses blown or a string connector open.",
+          "ur": "DC side ke fuses ude hue ya koi string connector khula."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait a moment for the inverter to recover; PV must reach the minimum start-up voltage.",
+          "ur": "Thoda intezaar karein; PV ko minimum start-up voltage tak pohonchna zaruri hai."
+        },
+        {
+          "en": "Measure each string's open-circuit voltage in daylight and check the DC fuses one by one.",
+          "ur": "Dopahar mein har string ka open-circuit voltage naalein aur DC fuses ek ek karke check karein."
+        },
+        {
+          "en": "Re-seat any open MC4 connector and replace blown fuses of the correct rating.",
+          "ur": "Khula hua MC4 connector dobara baithayein aur sahi rating ke fuse badal dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "202",
+      "aliases": [
+        "202",
+        "E202"
+      ],
+      "title": {
+        "en": "PV hardware over-current (202)",
+        "ur": "PV par hardware level current zyada (202)"
+      },
+      "meaning": {
+        "en": "PV1 or PV2 current exceeded the protective value at the hardware level - a hard protection trip.",
+        "ur": "PV1 ya PV2 ka current hardware level par protective value se upar chala gaya - ye sakht protection trip hai."
+      },
+      "causes": [
+        {
+          "en": "String current far above the MPPT input rating - too many modules in parallel.",
+          "ur": "String current MPPT input rating se bohat zyada - us MPPT par bohat zyada modules parallel."
+        },
+        {
+          "en": "DC cable short circuit or insulation breakdown on that input.",
+          "ur": "Us input par DC cable short circuit ya insulation kharabi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Turn the DC switch OFF, wait 10 minutes, then recount and re-verify the modules on that MPPT.",
+          "ur": "DC switch OFF karein, 10 minute wait karein, phir us MPPT ke modules dohrayein aur dobara verify karein."
+        },
+        {
+          "en": "Measure the string open-circuit and short-circuit current and compare with the datasheet values.",
+          "ur": "String ka open-circuit aur short-circuit current naalein aur datasheet values se compare karein."
+        },
+        {
+          "en": "Contact Sungrow Service Dept if the fault occurs repeatedly - the hardware trip points to an internal limit.",
+          "ur": "Agar baar baar ho to Sungrow Service Dept se rabta karein - hardware trip ka matlab internal limit ki kami hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "203",
+      "aliases": [
+        "203",
+        "E203"
+      ],
+      "title": {
+        "en": "PV input voltage exceeds bus (203)",
+        "ur": "PV input voltage bus se zyada (203)"
+      },
+      "meaning": {
+        "en": "PV input voltage rose above the internal bus voltage, which the inverter cannot convert safely.",
+        "ur": "PV input voltage internal bus voltage se upar chala gaya, jo inverter mehfooz taur par convert nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "String voltage at or above the inverter's PV connection terminal limit.",
+          "ur": "String voltage inverter ke PV terminal limit par ya us se upar hai."
+        },
+        {
+          "en": "String with too few modules for a MPPT, so the per-MPPT minimum is not met in cold weather.",
+          "ur": "MPPT par modules kam hain, is liye cold weather mein per-MPPT minimum poora nahi hota."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the functionality of the PV connection terminals as the manual directs.",
+          "ur": "Manual ke mutabiq PV connection terminals ka kaam check karein."
+        },
+        {
+          "en": "Measure each string's open-circuit voltage on a cold, clear morning against the maximum DC input rating.",
+          "ur": "Thande aur saaf subah har string ka open-circuit voltage naalein aur maximum DC input rating se compare karein."
+        },
+        {
+          "en": "Reconfigure the string with more modules or move it to a suitable MPPT - do not just raise the software limit.",
+          "ur": "String mein modules zyada karke ya suitable MPPT par move karke dobara set karein - software limit sirf bara na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "306",
+      "aliases": [
+        "306",
+        "E306"
+      ],
+      "title": {
+        "en": "Input and output power mismatching (306)",
+        "ur": "Input aur output power mismatch (306)"
+      },
+      "meaning": {
+        "en": "The measured PV input power and AC output power do not agree, indicating a measurement or switching-path fault.",
+        "ur": "Napa hua PV input power aur AC output power ek se match nahi kar rahe, is ka matlab measurement ya switching path mein fault hai."
+      },
+      "causes": [
+        {
+          "en": "Current or voltage sensor drift giving a false power reading.",
+          "ur": "Current ya voltage sensor ki ghalti se power reading jhalat."
+        },
+        {
+          "en": "Partially disconnected string or a power stage device not switching correctly.",
+          "ur": "Adhoori disconnected string ya power stage device sahi se switch nahi ho raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Compare iSolarCloud PV power against the AC power and a clamp meter reading at the AC output.",
+          "ur": "iSolarCloud ke PV power ko AC power aur AC output par clamp meter ki reading se compare karein."
+        },
+        {
+          "en": "With DC isolated, check every string terminal and MC4 for a partial or high-resistance connection.",
+          "ur": "DC isolate kar ke har string terminal aur MC4 ko partial ya high-resistance connection ke liye check karein."
+        },
+        {
+          "en": "If the fault occurs repeatedly, contact Sungrow Service Dept.",
+          "ur": "Agar baar baar ho to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "315",
+      "aliases": [
+        "315",
+        "E315"
+      ],
+      "title": {
+        "en": "PV1 current sampling fault (315)",
+        "ur": "PV1 current sensing mein fault (315)"
+      },
+      "meaning": {
+        "en": "The PV1 current sampling channel reported an anomaly, so PV1 current cannot be trusted.",
+        "ur": "PV1 current sampling channel ne anomaly report kiya, is liye PV1 current par bharosa nahi."
+      },
+      "causes": [
+        {
+          "en": "PV1 current sensor or its harness damaged or loose.",
+          "ur": "PV1 current sensor ya uska harness kharab ya loose."
+        },
+        {
+          "en": "Abnormal PV1 string current confusing the sampling circuit.",
+          "ur": "PV1 string ka abnormal current sampling circuit ko confuse kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Channel sampling anomaly - power cycle once: isolate AC and PV, wait 10 minutes, then restore.",
+          "ur": "Channel sampling anomaly - ek baar power cycle karein: AC aur PV isolate karein, 10 minute wait karein, phir wapas on karein."
+        },
+        {
+          "en": "Measure PV1 string current with a DC clamp meter and compare with the app value.",
+          "ur": "DC clamp meter se PV1 string current naalein aur app value se compare karein."
+        },
+        {
+          "en": "Contact Sungrow Service Dept if the fault persists - the sensor is not a field-repairable part.",
+          "ur": "Agar fault rahe to Sungrow Service Dept se rabta karein - sensor field mein theek nahi hota."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "316",
+      "aliases": [
+        "316",
+        "E316"
+      ],
+      "title": {
+        "en": "PV2 current sampling fault (316)",
+        "ur": "PV2 current sensing mein fault (316)"
+      },
+      "meaning": {
+        "en": "The PV2 current sampling channel reported an anomaly, so PV2 current cannot be trusted.",
+        "ur": "PV2 current sampling channel ne anomaly report kiya, is liye PV2 current par bharosa nahi."
+      },
+      "causes": [
+        {
+          "en": "PV2 current sensor or its harness damaged or loose.",
+          "ur": "PV2 current sensor ya uska harness kharab ya loose."
+        },
+        {
+          "en": "Abnormal PV2 string current confusing the sampling circuit.",
+          "ur": "PV2 string ka abnormal current sampling circuit ko confuse kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Channel sampling anomaly - power cycle once: isolate AC and PV, wait 10 minutes, then restore.",
+          "ur": "Channel sampling anomaly - ek baar power cycle karein: AC aur PV isolate karein, 10 minute wait karein, phir wapas on karein."
+        },
+        {
+          "en": "Measure PV2 string current with a DC clamp meter and compare with the app value.",
+          "ur": "DC clamp meter se PV2 string current naalein aur app value se compare karein."
+        },
+        {
+          "en": "Contact Sungrow Service Dept if the fault persists - the sensor is not a field-repairable part.",
+          "ur": "Agar fault rahe to Sungrow Service Dept se rabta karein - sensor field mein theek nahi hota."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "320",
+      "aliases": [
+        "320",
+        "E320"
+      ],
+      "title": {
+        "en": "Leakage current sensor fault (320)",
+        "ur": "Leakage current sensor kharab (320)"
+      },
+      "meaning": {
+        "en": "The leakage current sensor is not reporting sensibly, so the Riso/earth-fault protection cannot be trusted.",
+        "ur": "Leakage current sensor theek report nahi kar raha, is liye Riso ya earth fault protection par bharosa nahi."
+      },
+      "causes": [
+        {
+          "en": "Leakage current sensor module or its ribbon cable disconnected.",
+          "ur": "Leakage current sensor module ya uski ribbon cable nikal hui."
+        },
+        {
+          "en": "Sensor module failed after a surge or water ingress.",
+          "ur": "Surge ya paas jaane ke baad sensor module fail ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Contact Sungrow Service Dept for a sensor module replacement - do not bypass the leakage sensor.",
+          "ur": "Sensor module replacement ke liye Sungrow Service Dept se rabta karein - leakage sensor bypass na karein."
+        },
+        {
+          "en": "Isolate AC and PV before any internal check, and wait the full 10 minutes.",
+          "ur": "Koi internal check karne se pehle AC aur PV isolate karein aur poore 10 minute wait karein."
+        },
+        {
+          "en": "Independently verify PV string insulation with an insulation tester so you are not blind to a real earth fault.",
+          "ur": "Insulation tester se PV string ki insulation alag se verify karein taake asal earth fault chhoot na jaye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "409",
+      "aliases": [
+        "409",
+        "E409"
+      ],
+      "title": {
+        "en": "All temperature sensors fail (409)",
+        "ur": "Tamam temperature sensors kharab (409)"
+      },
+      "meaning": {
+        "en": "Every temperature sensor in the unit has failed, so the inverter has no thermal protection at all.",
+        "ur": "Unit ke tamam temperature sensors fail ho gaye, is liye inverter ke paas koi bhi thermal protection nahi."
+      },
+      "causes": [
+        {
+          "en": "All sensor harnesses unplugged during a past repair, or the sensor board failed.",
+          "ur": "Pichhli marammat mein tamam sensor harnesses nikal diye gaye, ya sensor board fail ho gaya."
+        },
+        {
+          "en": "Shared sensor board supply rail failure taking all channels down together.",
+          "ur": "Shared sensor board ki supply rail failure ne tamam channels ko saath gira diya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Keep the unit off or heavily ventilated, and do not run it unattended - there is no thermal cutoff.",
+          "ur": "Unit band rakhein ya bohat ventilate karein, aur akela chhor ke na chalayein - koi thermal cutoff nahi hai."
+        },
+        {
+          "en": "Isolate AC and PV, wait 10 minutes, then have a technician check the sensor board and harnesses.",
+          "ur": "AC aur PV isolate karein, 10 minute wait karein, phir technician sensor board aur harnesses check kare."
+        },
+        {
+          "en": "Contact Sungrow Service Dept for a control board exchange - this is not a field-repairable fault.",
+          "ur": "Control board exchange ke liye Sungrow Service Dept se rabta karein - ye field mein theek nahi hota."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "501",
+      "aliases": [
+        "501",
+        "E501"
+      ],
+      "title": {
+        "en": "External memory read/write warning (501)",
+        "ur": "External memory parhne/likhne ka warning (501)"
+      },
+      "meaning": {
+        "en": "The inverter could not read or write to its external memory. The inverter can still be connected to the grid normally.",
+        "ur": "Inverter apni external memory se parh ya likh nahi paya. Inverter phir bhi normally grid se connected ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Intermittent power loss while saving settings corrupted the memory chip.",
+          "ur": "Settings save karte waqt bijli ka chalna jaldi band hona memory chip ko corrupt kar gaya."
+        },
+        {
+          "en": "Memory chip solder joint or the board itself failing.",
+          "ur": "Memory chip ka solder joint ya board kharab ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Inverter can normally be connected to the grid - this is a warning, not a stop condition.",
+          "ur": "Inverter normally grid se connect ho sakta hai - ye warning hai, rukne ki wajuh nahi."
+        },
+        {
+          "en": "Power on the inverter again; if the fault persists, contact Sungrow Service Dept.",
+          "ur": "Inverter dobara power on karein; fault phir bhi rahe to Sungrow Service Dept se rabta karein."
+        },
+        {
+          "en": "Re-save all settings from a clean App login and confirm they read back correctly.",
+          "ur": "Saaf App login se tamam settings dobara save karein aur confirm karein wo theek parh aati hain."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "503",
+      "aliases": [
+        "503",
+        "W503"
+      ],
+      "title": {
+        "en": "Ambient temperature sensor open circuit (503)",
+        "ur": "Ambient temperature sensor khula (503)"
+      },
+      "meaning": {
+        "en": "The ambient temperature sensor circuit reads open, so ambient temperature is not measured. A warning class item.",
+        "ur": "Ambient temperature sensor ka circuit open read ho raha hai, is liye ambient temperature napa hi nahi ja rahi. Ye warning class ka item hai."
+      },
+      "causes": [
+        {
+          "en": "Sensor cable disconnected or a connector pin backed out inside the unit.",
+          "ur": "Sensor ka cable nikal hua ya unit ke andar kisi connector ka pin nikal gaya."
+        },
+        {
+          "en": "Sensor resistive element open with age or thermal cycling.",
+          "ur": "Sensor ka resistive element umar ya temperature cycles se open ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Compare the reported ambient temperature against a thermometer at the site to see how far off it is.",
+          "ur": "Site par thermometer se reported ambient temperature compare karein taake pata chale kitna farq hai."
+        },
+        {
+          "en": "Isolate AC and PV, wait 10 minutes, then have a technician check the sensor connector seating.",
+          "ur": "AC aur PV isolate karein, 10 minute wait karein, phir technician sensor connector ki seating check kare."
+        },
+        {
+          "en": "If the fault occurs repeatedly, contact Sungrow Service Dept.",
+          "ur": "Agar baar baar ho to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "504",
+      "aliases": [
+        "504",
+        "W504"
+      ],
+      "title": {
+        "en": "Ambient temperature sensor short circuit (504)",
+        "ur": "Ambient temperature sensor short ho gaya (504)"
+      },
+      "meaning": {
+        "en": "The ambient temperature sensor reads short circuit, so ambient temperature is pinned to a wrong value.",
+        "ur": "Ambient temperature sensor short circuit read kar raha hai, is liye ambient temperature galat value par atak gayi hai."
+      },
+      "causes": [
+        {
+          "en": "Sensor cable chafed or pinched against a fan blade or heatsink.",
+          "ur": "Sensor ka cable fan blade ya heatsink se rub ho kar pinch ho gaya."
+        },
+        {
+          "en": "Moisture tracking across the sensor board.",
+          "ur": "Sensor board par moisture track kar rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the reported ambient temperature against a thermometer; a stuck value points to this sensor.",
+          "ur": "Reported ambient temperature ko thermometer se check karein; atki hui value isi sensor ki nishani hai."
+        },
+        {
+          "en": "Isolate AC and PV, wait 10 minutes, then inspect the sensor cable route near the fan for chafing.",
+          "ur": "AC aur PV isolate karein, 10 minute wait karein, phir fan ke paas sensor cable ki routing rub hone ke liye dekhein."
+        },
+        {
+          "en": "If the fault occurs repeatedly, contact Sungrow Service Dept.",
+          "ur": "Agar baar baar ho to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "505",
+      "aliases": [
+        "505",
+        "W505"
+      ],
+      "title": {
+        "en": "Radiator temperature sensor open circuit (505)",
+        "ur": "Radiator temperature sensor khula (505)"
+      },
+      "meaning": {
+        "en": "The heatsink temperature sensor reads open, so the hottest point in the inverter is not being measured.",
+        "ur": "Heatsink temperature sensor open read kar raha hai, is liye inverter ka sab se garam hissa napa hi nahi ja raha."
+      },
+      "causes": [
+        {
+          "en": "Sensor harness disconnected during a fan or heatsink replacement.",
+          "ur": "Fan ya heatsink badalte waqt sensor harness nikal gaya."
+        },
+        {
+          "en": "Sensor element open circuit from thermal cycling.",
+          "ur": "Sensor element temperature cycles se open ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not rely on the heatsink temperature reading; watch for fault 036/037 instead as the real thermal warning.",
+          "ur": "Heatsink temperature reading par bharosa na karein; asal thermal warning ke liye 036/037 ko dekhein."
+        },
+        {
+          "en": "Isolate AC and PV, wait 10 minutes, then check the radiator sensor connector seating.",
+          "ur": "AC aur PV isolate karein, 10 minute wait karein, phir radiator sensor connector ki seating check karein."
+        },
+        {
+          "en": "If the fault occurs repeatedly, contact Sungrow Service Dept.",
+          "ur": "Agar baar baar ho to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "506",
+      "aliases": [
+        "506",
+        "W506"
+      ],
+      "title": {
+        "en": "Radiator temperature sensor short circuit (506)",
+        "ur": "Radiator temperature sensor short ho gaya (506)"
+      },
+      "meaning": {
+        "en": "The heatsink temperature sensor reads short circuit, so the temperature protection point is wrong.",
+        "ur": "Heatsink temperature sensor short circuit read kar raha hai, is liye temperature protection ka point ghalat hai."
+      },
+      "causes": [
+        {
+          "en": "Sensor cable crushed between the heatsink and the chassis.",
+          "ur": "Sensor ka cable heatsink aur chassis ke darmiyan daba hua hai."
+        },
+        {
+          "en": "Water or dust ingress shorting the sensor terminals.",
+          "ur": "Paas ya dhool sensor terminals ko short kar rahi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Treat heatsink temperature as unmeasured and rely on the 036/037 faults plus your own thermometer check.",
+          "ur": "Heatsink temperature ko unmeasured samajhein aur 036/037 faults par apne thermometer check ke saath bharosa karein."
+        },
+        {
+          "en": "Isolate AC and PV, wait 10 minutes, then check the sensor cable route and clean any debris.",
+          "ur": "AC aur PV isolate karein, 10 minute wait karein, phir sensor cable ki routing check karein aur gand saaf karein."
+        },
+        {
+          "en": "If the fault occurs repeatedly, contact Sungrow Service Dept.",
+          "ur": "Agar baar baar ho to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "514",
+      "aliases": [
+        "514",
+        "E514",
+        "W514"
+      ],
+      "title": {
+        "en": "Sungrow Meter communication abnormal (514)",
+        "ur": "Sungrow Meter se communication kharab (514)"
+      },
+      "meaning": {
+        "en": "The inverter has lost communication with the Sungrow meter. The inverter can still be connected to the grid normally - this is a monitoring loss, not a stop condition.",
+        "ur": "Inverter ka Sungrow meter se communication khatam ho gaya hai. Inverter phir bhi normally grid se connected ho sakta hai - ye monitoring ka nuksan hai, rukne ki nahi."
+      },
+      "causes": [
+        {
+          "en": "Meter power cable connections incorrect, so the meter is not powered or not powered correctly.",
+          "ur": "Meter ke power cable connections ghalat, is liye meter ko power nahi mil raha ya theek nahi mil raha."
+        },
+        {
+          "en": "RS485 communication cable disconnected, loose or not correctly shielded/terminated.",
+          "ur": "RS485 communication cable nikal hua, loose ya sahi tareeqe se shield/terminate nahi hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the power cable connections of the meter are correct and re-terminate them.",
+          "ur": "Check karein meter ke power cable connections sahi hain aur unhein dobara baithayein."
+        },
+        {
+          "en": "Check whether the RS485 connection is correct, including A/B polarity and screen continuity.",
+          "ur": "Check karein RS485 connection sahi hai ya nahi, A/B polarity aur screen continuity samet."
+        },
+        {
+          "en": "Power on the inverter again; if the fault persists, contact Sungrow Service Dept.",
+          "ur": "Inverter dobara power on karein; fault phir bhi rahe to Sungrow Service Dept se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "LED_DARK",
+      "aliases": [
+        "LED_DARK",
+        "LED indicator cannot be lit"
+      ],
+      "title": {
+        "en": "LED indicator cannot be lit",
+        "ur": "LED indicator jal hi nahi raha"
+      },
+      "meaning": {
+        "en": "The front LED indicator is completely dead - the unit gives no visual status at all.",
+        "ur": "Front LED indicator bilkul band hai - unit koi bhi status nahi dikha raha."
+      },
+      "causes": [
+        {
+          "en": "No DC input reaching the unit, so the indicator has nothing to show.",
+          "ur": "Unit tak DC input nahi pohanch raha, is liye indicator ke paas dikhane ko kuch nahi."
+        },
+        {
+          "en": "DC input polarity reversed, so the unit powers up in a protected state.",
+          "ur": "DC input polarity ulta hai, is liye unit protected state mein power on hota hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the AC circuit breaker first.",
+          "ur": "Pehle AC circuit breaker disconnect karein."
+        },
+        {
+          "en": "Rotate the DC switch to OFF.",
+          "ur": "DC switch ko OFF par le jayein."
+        },
+        {
+          "en": "Check the polarity of the DC input with a multimeter, then reconnect correctly.",
+          "ur": "Multimeter se DC input ki polarity check karein, phir sahi tareeqe se dobara jodein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    },
+    {
+      "code": "LED_GREEN_OFF",
+      "aliases": [
+        "LED_GREEN_OFF",
+        "Green indicator goes out"
+      ],
+      "title": {
+        "en": "Green indicator goes out",
+        "ur": "Green indicator bujh gaya"
+      },
+      "meaning": {
+        "en": "The green LED was on and then went out - the unit has left its normal running state or lost an input.",
+        "ur": "Green LED on tha aur phir bujh gaya - unit apni normal running state chhor chuka hai ya koi input kho gaya hai."
+      },
+      "causes": [
+        {
+          "en": "AC or DC input lost, or the inverter connection is loose.",
+          "ur": "AC ya DC input kho gaya, ya inverter connection loose hai."
+        },
+        {
+          "en": "DC input voltage above the start-up voltage at the wrong polarity.",
+          "ur": "DC input voltage start-up voltage se upar hai magar polarity ghalat hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the AC circuit breaker, then rotate the DC switch to OFF.",
+          "ur": "AC circuit breaker disconnect karein, phir DC switch OFF par le jayein."
+        },
+        {
+          "en": "Check the inverter electrical connection as described in the manual's electrical connection section.",
+          "ur": "Manual ke electrical connection section mein bataye tareeqe se inverter ke connection check karein."
+        },
+        {
+          "en": "Check whether the DC input voltage exceeds the inverter start-up voltage.",
+          "ur": "Check karein DC input voltage inverter ki start-up voltage se zyada hai ya nahi."
+        },
+        {
+          "en": "If all the above conditions are OK, contact Sungrow.",
+          "ur": "Agar upar wali sab conditions theek hain to Sungrow se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "SG2-8K G2 Premium User Manual - 9 Troubleshooting and Maintenance (Error List V1.3, author 钟明)",
+        "retrieved": "2026-09-26",
+        "url": "https://service.sungrowpower.com.au/files/Web_Files/FAQ/TD_202003_SG2-8K%20G2%20Premium%20Error%20List_V1.3.pdf"
+      }
+    }
+  ]
+}

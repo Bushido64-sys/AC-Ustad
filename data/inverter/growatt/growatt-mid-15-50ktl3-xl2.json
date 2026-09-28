@@ -1,0 +1,908 @@
+{
+  "schemaVersion": 1,
+  "brandId": "growatt",
+  "series": {
+    "id": "growatt-mid-15-50ktl3-xl2",
+    "name": "MID 15-50KTL3-XL2 / X2 (three-phase commercial string, OLED + touch)",
+    "category": "inverter",
+    "unitType": "on_grid_inverter",
+    "modelPatterns": [
+      "*MID*KTL3-X2*",
+      "*MID*KTL3-XL2*",
+      "MID*15K*50K*"
+    ],
+    "notes": "GR-UM-247-A-01. IMPORTANT: the same 3-digit codes carry DIFFERENT wording from the MOD 3-15KTL3-X manual (e.g. here Error 200 = 'DC arc abnormal', 201 = 'Leakage current is too high', 202 = 'Panel voltage is too high', 300 = 'The mains voltage is abnormal', 301 = 'AC wiring error', 303 = 'Zero ground detection anomaly', 420 = 'Leakage current module is abnormal', 423 = 'Abnormal battery reverse connection protection tube', 424 = 'Battery voltage sampling is inconsistent'). Never merge this series with MOD 3-15KTL3-X. Codes unique to this body: 203 wording, 410 'Inconsistent insulation resistance sampling', 423, 424, and warnings 200-210/300-307/400-406."
+  },
+  "codes": [
+    {
+      "code": "Error 200",
+      "aliases": [
+        "Error 200",
+        "200",
+        "DC arc abnormal"
+      ],
+      "title": {
+        "en": "DC arc abnormal (arcing on PV side)",
+        "ur": "DC arc abnormal (PV side par arcing)"
+      },
+      "meaning": {
+        "en": "An arc has been detected on the DC / PV side and the unit has locked out.",
+        "ur": "DC / PV side par arc detect hua aur unit lock out ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Arcing at a PV terminal due to a loose or burnt connector",
+          "ur": "Loose ya burnt connector ki wajah se PV terminal par arcing"
+        },
+        {
+          "en": "Damaged module or cable insulation",
+          "ur": "Module ya cable insulation damaged"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then check the panel terminal wiring after shutdown.",
+          "ur": "AC aur PV isolate karke shutdown ke baad panel terminal wiring check karein."
+        },
+        {
+          "en": "Look for heat discolouration or a burnt smell at every DC terminal and re-crimp it.",
+          "ur": "Har DC terminal par garmi ke rang ya burnt smell dekhein aur use dobara crimp karein."
+        },
+        {
+          "en": "Restart the inverter; if the message persists, contact the manufacturer.",
+          "ur": "Inverter restart karein; message bacha rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Error 201",
+      "aliases": [
+        "Error 201",
+        "201",
+        "Leakage current is too high"
+      ],
+      "title": {
+        "en": "Leakage current too high",
+        "ur": "Leakage current bohat zyada hai"
+      },
+      "meaning": {
+        "en": "Measured leakage current is above the permitted level, so the inverter has stopped.",
+        "ur": "Measured leakage permitted level se zyada hai, is liye inverter ruk gaya."
+      },
+      "causes": [
+        {
+          "en": "Array insulation breakdown or a wet junction box",
+          "ur": "Array insulation breakdown ya geela junction box"
+        },
+        {
+          "en": "GFCI module or SPD damaged",
+          "ur": "GFCI module ya SPD damaged"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate PV and AC, then measure insulation resistance to earth with a megohmmeter.",
+          "ur": "PV aur AC isolate karke megohmmeter se earth ke taraf insulation resistance measure karein."
+        },
+        {
+          "en": "Split the array string by string to find the leaking path.",
+          "ur": "Array ko string by string baant kar leaking path dhoondein."
+        },
+        {
+          "en": "Restart the machine; if the fault information persists, contact the manufacturer.",
+          "ur": "Machine restart karein; fault information bachi rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Error 202",
+      "aliases": [
+        "Error 202",
+        "202",
+        "Panel voltage is too high"
+      ],
+      "title": {
+        "en": "Panel (PV) voltage too high",
+        "ur": "Panel (PV) voltage bohat zyada hai"
+      },
+      "meaning": {
+        "en": "PV input voltage is above what the inverter will accept on this body.",
+        "ur": "PV input voltage is body par inverter ki sehat se zyada hai."
+      },
+      "causes": [
+        {
+          "en": "Too many modules per string for the local minimum temperature",
+          "ur": "Local minimum temperature ke liye string mein modules zyada hain"
+        },
+        {
+          "en": "Two strings paralleled in error",
+          "ur": "Do strings galti se parallel ho gaye"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the DC switch immediately and confirm the voltage.",
+          "ur": "DC switch foran disconnect karke voltage confirm karein."
+        },
+        {
+          "en": "After the normal voltage is restored, if the message still exists, contact the manufacturer.",
+          "ur": "Normal voltage restore hone ke baad bhi message rahe to manufacturer se rabta karein."
+        },
+        {
+          "en": "Recalculate string length from the module Voc at the coldest expected temperature.",
+          "ur": "Sab se thande expected temperature par module Voc se string ki lambai dobara calculate karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Error 203",
+      "aliases": [
+        "Error 203",
+        "203",
+        "Low panel insulation resistance"
+      ],
+      "title": {
+        "en": "Low panel insulation resistance",
+        "ur": "Panel ki insulation resistance kam hai"
+      },
+      "meaning": {
+        "en": "The PV array insulation resistance to earth is below the required value.",
+        "ur": "PV array ki earth ke taraf insulation resistance required value se neeche hai."
+      },
+      "causes": [
+        {
+          "en": "Damaged module backsheet or cable insulation chafed on the frame",
+          "ur": "Module backsheet damaged ya cable insulation frame par rub hua"
+        },
+        {
+          "en": "Water ingress in the junction box or combiner",
+          "ur": "Junction box ya combiner mein paani aa gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "After shutting down, check whether the panel shell is reliably grounded.",
+          "ur": "Shutdown ke baad check karein ke panel shell mazboot se grounded hai ya nahi."
+        },
+        {
+          "en": "Measure insulation resistance per string with a megohmmeter to find the affected string.",
+          "ur": "Har string ki insulation resistance megohmmeter se measure karke affected string dhoondein."
+        },
+        {
+          "en": "Replace the damaged module or cable, and re-test before reconnecting the inverter.",
+          "ur": "Damaged module ya cable badlein, aur dobara lagane se pehle dobara test karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Error 300",
+      "aliases": [
+        "Error 300",
+        "300",
+        "The mains voltage is abnormal"
+      ],
+      "title": {
+        "en": "Mains voltage abnormal",
+        "ur": "Mains voltage abnormal hai"
+      },
+      "meaning": {
+        "en": "Grid voltage is abnormal and has not returned to the allowable range.",
+        "ur": "Grid voltage abnormal hai aur allowable range mein wapas nahi aayi."
+      },
+      "causes": [
+        {
+          "en": "Grid sag from a large motor starting, or an upstream fault",
+          "ur": "Bade motor ki starting se grid sag, ya upstream fault"
+        },
+        {
+          "en": "Transformer tap or voltage set-point wrong for the site",
+          "ur": "Transformer tap ya voltage set-point site ke liye ghalat"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the grid voltage with a true-RMS meter at the AC terminals.",
+          "ur": "AC terminals par true-RMS meter se grid voltage check karein."
+        },
+        {
+          "en": "If the grid voltage has recovered to the allowable range and the message persists, contact the manufacturer.",
+          "ur": "Agar grid voltage allowable range mein wapas aa gayi aur message bacha to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Error 301",
+      "aliases": [
+        "Error 301",
+        "301",
+        "AC wiring error"
+      ],
+      "title": {
+        "en": "AC wiring error",
+        "ur": "AC wiring mein ghalti hai"
+      },
+      "meaning": {
+        "en": "The mains terminal wiring is wrong, so the inverter cannot operate.",
+        "ur": "Mains terminal wiring ghalat hai, is liye inverter operate nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Phase sequence or N/PE conductors wrongly connected",
+          "ur": "Phase sequence ya N/PE conductors ghalat se lage hain"
+        },
+        {
+          "en": "Loose or overheated mains terminal lug",
+          "ur": "Mains terminal lug loose ya overheated"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC and PV, then check the mains terminal connections.",
+          "ur": "AC aur PV isolate karke mains terminal connections check karein."
+        },
+        {
+          "en": "Re-torque the mains terminals and check for heat discolouration on the lugs.",
+          "ur": "Mains terminals dobara torque karein aur lugs par garmi ke rang dekhein."
+        },
+        {
+          "en": "If the fault message still exists, contact the manufacturer.",
+          "ur": "Agar fault message phir bhi rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Error 302",
+      "aliases": [
+        "Error 302",
+        "302",
+        "No mains connection"
+      ],
+      "title": {
+        "en": "No mains connection",
+        "ur": "Mains connection nahi hai"
+      },
+      "meaning": {
+        "en": "The inverter sees no mains input after grid connection checks.",
+        "ur": "Grid connection checks ke baad inverter ko koi mains input nahi dikhta."
+      },
+      "causes": [
+        {
+          "en": "AC breaker open or upstream fuse blown",
+          "ur": "AC breaker open ya upstream fuse uth gaya"
+        },
+        {
+          "en": "AC side line disconnected",
+          "ur": "AC side line disconnect ho gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the AC side line connection after shutdown.",
+          "ur": "Shutdown ke baad AC side line connection check karein."
+        },
+        {
+          "en": "Measure grid voltage at the mains terminal to confirm the supply is present.",
+          "ur": "Mains terminal par grid voltage measure karke confirm karein ke supply mojood hai."
+        },
+        {
+          "en": "If the fault message still exists, contact the manufacturer.",
+          "ur": "Agar fault message phir bhi rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Error 303",
+      "aliases": [
+        "Error 303",
+        "303",
+        "Zero ground detection anomaly"
+      ],
+      "title": {
+        "en": "Zero ground detection anomaly (earth fault)",
+        "ur": "Zero ground detection anomaly - zameen fault"
+      },
+      "meaning": {
+        "en": "The earth / ground loop has been disturbed, so the zero-ground detection circuit has flagged it.",
+        "ur": "Earth / ground loop bigda hua hai, is liye zero-ground detection circuit ne ise flag kiya."
+      },
+      "causes": [
+        {
+          "en": "Ground wire not connected reliably between inverter and earth",
+          "ur": "Inverter aur earth ke darmiyan ground wire mazboot se nahi lagi"
+        },
+        {
+          "en": "N-PE impedance out of limit in the distribution board",
+          "ur": "Distribution board mein N-PE impedance limit se bahar"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the ground wire after shutting down to ensure it is connected reliably.",
+          "ur": "Shutdown ke baad ground wire check karein ke mazboot se lagi hai."
+        },
+        {
+          "en": "Measure earth continuity and the N-to-PE voltage with a multimeter.",
+          "ur": "Multimeter se earth continuity aur N se PE voltage measure karein."
+        },
+        {
+          "en": "If the fault message still exists, contact the manufacturer.",
+          "ur": "Agar fault message phir bhi rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Error 304",
+      "aliases": [
+        "Error 304",
+        "304",
+        "Abnormal mains frequency"
+      ],
+      "title": {
+        "en": "Abnormal mains frequency",
+        "ur": "Mains frequency abnormal hai"
+      },
+      "meaning": {
+        "en": "Grid frequency is outside the specified range.",
+        "ur": "Grid frequency specified range se bahar hai."
+      },
+      "causes": [
+        {
+          "en": "Generator supply with a drifting frequency",
+          "ur": "Generator supply jis ki frequency drift kar rahi ho"
+        },
+        {
+          "en": "Weak grid with frequency swings",
+          "ur": "Kamzor grid jismein frequency swing karti hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Detect the grid frequency with a meter and restart the inverter.",
+          "ur": "Meter se grid frequency detect karke inverter restart karein."
+        },
+        {
+          "en": "If the frequency is within range and the message persists, contact the manufacturer.",
+          "ur": "Agar frequency range mein hai aur message bacha rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Error 305",
+      "aliases": [
+        "Error 305",
+        "305",
+        "Output overload protection"
+      ],
+      "title": {
+        "en": "Output overload protection",
+        "ur": "Output overload protection trigger hua"
+      },
+      "meaning": {
+        "en": "Output load exceeded the inverter rating and the overload protection shut it down.",
+        "ur": "Output load inverter rating se cross kar gaya aur overload protection ne band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Connected load above the inverter rated power",
+          "ur": "Connected load inverter rated power se zyada hai"
+        },
+        {
+          "en": "Load step or motor inrush on start",
+          "ur": "Load step ya start par motor ka inrush"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the output load and reduce the load power.",
+          "ur": "Output load check karke load power kam karein."
+        },
+        {
+          "en": "Measure actual per-phase current with a clamp meter to confirm which leg is overloaded.",
+          "ur": "Clamp meter se asal per-phase current measure karke confirm karein kaun sa leg overloaded hai."
+        },
+        {
+          "en": "If the fault information persists, contact the manufacturer.",
+          "ur": "Agar fault information bachi rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Error 410",
+      "aliases": [
+        "Error 410",
+        "410",
+        "Inconsistent insulation resistance sampling"
+      ],
+      "title": {
+        "en": "Insulation resistance sampling inconsistent",
+        "ur": "Insulation resistance sampling inconsistent hai"
+      },
+      "meaning": {
+        "en": "The insulation-resistance measurement channels disagree, so the result is not trusted.",
+        "ur": "Insulation-resistance measurement channels aapas mein match nahi karte, is liye result par bharosa nahi."
+      },
+      "causes": [
+        {
+          "en": "Insulation detection circuit drifted, often after moisture",
+          "ur": "Insulation detection circuit bekar chala hai, aksar nam ke baad"
+        },
+        {
+          "en": "Loose connector on the insulation measurement board",
+          "ur": "Insulation measurement board par connector loose"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the machine and note whether the fault is consistent or intermittent.",
+          "ur": "Machine restart karke note karein ke fault consistent hai ya intermittent."
+        },
+        {
+          "en": "Isolate AC and PV, then use an external megohmmeter to get a true insulation reading.",
+          "ur": "AC aur PV isolate karke bahar ke megohmmeter se asal insulation reading lein."
+        },
+        {
+          "en": "If the external reading is good but the code stays, the internal circuit needs replacing - contact the manufacturer.",
+          "ur": "Agar bahar ki reading theek hai aur code bacha rahe to internal circuit badalna parega - manufacturer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Error 415",
+      "aliases": [
+        "Error 415",
+        "415",
+        "Abnormal auxiliary power supply"
+      ],
+      "title": {
+        "en": "Abnormal auxiliary power supply",
+        "ur": "Auxiliary power supply abnormal hai"
+      },
+      "meaning": {
+        "en": "The low-voltage auxiliary supply feeding the control electronics is out of specification.",
+        "ur": "Control electronics ko chalane wali low-voltage auxiliary supply specification se bahar hai."
+      },
+      "causes": [
+        {
+          "en": "Auxiliary SMPS failing on the control board",
+          "ur": "Control board par auxiliary SMPS fail ho raha hai"
+        },
+        {
+          "en": "Fuse or supply rail opened after a surge event",
+          "ur": "Surge event ke baad fuse ya supply rail khul gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then wait 5 minutes for the bus to discharge.",
+          "ur": "AC, PV aur battery isolate karke 5 minute wait karein taake bus discharge ho."
+        },
+        {
+          "en": "Restart the machine; if the fault persists, contact the manufacturer.",
+          "ur": "Machine restart karein; fault bacha rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Error 423",
+      "aliases": [
+        "Error 423",
+        "423",
+        "Abnormal battery reverse connection protection tube"
+      ],
+      "title": {
+        "en": "Battery reverse-connection protection tube abnormal",
+        "ur": "Battery reverse-connection protection tube abnormal hai"
+      },
+      "meaning": {
+        "en": "The reverse-polarity protection device in the battery connection has failed or tripped abnormally.",
+        "ur": "Battery connection ka reverse-polarity protection device fail ya abnormal trigger hua."
+      },
+      "causes": [
+        {
+          "en": "Battery connected with reversed polarity, blowing the protection device",
+          "ur": "Battery reversed polarity se lagi aur protection device uth gaya"
+        },
+        {
+          "en": "Protection fuse/relay stuck or failed without a real polarity error",
+          "ur": "Asal polarity error ke baghair protection fuse/relay jam ya fail"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the battery completely, then check polarity with a multimeter on the battery cable ends.",
+          "ur": "Battery poori tarah isolate karke multimeter se battery cable ends par polarity check karein."
+        },
+        {
+          "en": "Confirm BAT+ and BAT- match the inverter marking before reconnecting anything.",
+          "ur": "Kuch bhi dobara lagane se pehle confirm karein ke BAT+ aur BAT- inverter ke marking se match karte hain."
+        },
+        {
+          "en": "Restart the machine; if the fault message still exists, contact the manufacturer.",
+          "ur": "Machine restart karein; fault message phir bhi rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Error 424",
+      "aliases": [
+        "Error 424",
+        "424",
+        "Battery voltage sampling is inconsistent"
+      ],
+      "title": {
+        "en": "Battery voltage sampling inconsistent",
+        "ur": "Battery voltage sampling inconsistent hai"
+      },
+      "meaning": {
+        "en": "The two battery-voltage measurement paths disagree, so the reading is not trusted.",
+        "ur": "Do battery-voltage measurement paths aapas mein match nahi karte, is liye reading par bharosa nahi."
+      },
+      "causes": [
+        {
+          "en": "Voltage sense wire loose or corroded at the battery terminal",
+          "ur": "Battery terminal par voltage sense wire loose ya corroded"
+        },
+        {
+          "en": "Sampling divider or reference drifted on the board",
+          "ur": "Board par sampling divider ya reference bekar chala hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the battery and reseat the voltage sense wires at both the battery and the inverter.",
+          "ur": "Battery isolate karke voltage sense wires battery aur inverter dono taraf dobara baithayein."
+        },
+        {
+          "en": "Measure battery voltage with a multimeter and compare it against the app reading.",
+          "ur": "Multimeter se battery voltage measure karke app reading se compare karein."
+        },
+        {
+          "en": "If the paths never agree, the control board sensing circuit must be replaced - contact the manufacturer.",
+          "ur": "Agar paths kabhi match na hon to control board ka sensing circuit badalna parega - manufacturer se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Warning 400",
+      "aliases": [
+        "Warning 400",
+        "400",
+        "W400",
+        "Fan function is abnormal"
+      ],
+      "title": {
+        "en": "Fan function abnormal (warning 400)",
+        "ur": "Fan function abnormal hai (warning 400)"
+      },
+      "meaning": {
+        "en": "The cooling fan is not working, so the inverter derates instead of stopping.",
+        "ur": "Cooling fan kaam nahi kar raha, is liye inverter band hone ke bajaye power kam karta hai."
+      },
+      "causes": [
+        {
+          "en": "Fan connector loose after shutdown work",
+          "ur": "Shutdown kaam ke baad fan connector loose"
+        },
+        {
+          "en": "Fan motor failed or blades blocked",
+          "ur": "Fan motor fail ya blades block"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the fan wiring after shutdown and reseat the connector.",
+          "ur": "Shutdown ke baad fan wiring check karke connector dobara baithayein."
+        },
+        {
+          "en": "Spin the fan by hand to confirm it turns freely, then check for dust on the blades.",
+          "ur": "Fan ko haath se ghumakar confirm karein ke azaad ghoomta hai, phir blades par dhool dekhein."
+        },
+        {
+          "en": "Replace the fan if it is seized or noisy.",
+          "ur": "Fan jam ho ya shor kare to use badal dein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Warning 209",
+      "aliases": [
+        "Warning 209",
+        "209",
+        "W209"
+      ],
+      "title": {
+        "en": "Panel voltage too high (warning 209)",
+        "ur": "Panel voltage bohat zyada (warning 209)"
+      },
+      "meaning": {
+        "en": "Panel input voltage is above the set limit; output is restricted until it comes back.",
+        "ur": "Panel input voltage set limit se upar hai; wapas aane tak output restricted rahega."
+      },
+      "causes": [
+        {
+          "en": "Cold weather raising string Voc above the threshold",
+          "ur": "Thande mausam se string ka Voc threshold se upar chala gaya"
+        },
+        {
+          "en": "Upper voltage threshold set too low",
+          "ur": "Upper voltage threshold bohat kam set hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the DC switch immediately and confirm the voltage.",
+          "ur": "DC switch foran disconnect karke voltage confirm karein."
+        },
+        {
+          "en": "Check the panel input and count the modules against the string Voc calculation.",
+          "ur": "Panel input check karke string Voc calculation ke against modules gin lein."
+        },
+        {
+          "en": "After the normal voltage is restored, if the message persists, contact the manufacturer.",
+          "ur": "Normal voltage restore hone ke baad bhi message rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Warning 304",
+      "aliases": [
+        "Warning 304",
+        "W304",
+        "Open current transformer"
+      ],
+      "title": {
+        "en": "Current transformer open / not connected",
+        "ur": "Current transformer open hai / connected nahi"
+      },
+      "meaning": {
+        "en": "The inverter gets no current-transformer signal, so it cannot do export limiting.",
+        "ur": "Inverter ko current-transformer ka signal nahi mil raha, is liye export limiting nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "CT secondary lead not connected or CT not clipped onto the conductor",
+          "ur": "CT secondary lead nahi lagi ya CT conductor par nahi laga"
+        },
+        {
+          "en": "RS485 link to the CT/meter broken",
+          "ur": "CT/meter ka RS485 link toota hua"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "After shutdown, check whether the current transformer is connected well.",
+          "ur": "Shutdown ke baad check karein ke current transformer theek se laga hai ya nahi."
+        },
+        {
+          "en": "Confirm the CT arrow faces the load and S1/S2 go to the right meter terminals.",
+          "ur": "Confirm karein ke CT ka arrow load ki taraf hai aur S1/S2 sahi meter terminals par lage hain."
+        },
+        {
+          "en": "If the message persists, contact the manufacturer.",
+          "ur": "Agar message bacha rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    },
+    {
+      "code": "Warning 405",
+      "aliases": [
+        "Warning 405",
+        "405",
+        "W405",
+        "firmware version do not match"
+      ],
+      "title": {
+        "en": "Control board and comm board firmware mismatch (warning 405)",
+        "ur": "Control board aur comm board firmware mismatch (warning 405)"
+      },
+      "meaning": {
+        "en": "The control board and the communication board are running different firmware releases.",
+        "ur": "Control board aur communication board alag alag firmware releases par chal rahe hain."
+      },
+      "causes": [
+        {
+          "en": "A partial firmware update left the two boards on different versions",
+          "ur": "Partial firmware update ki wajah se dono boards alag versions par reh gaye"
+        },
+        {
+          "en": "Comm board replaced without matching firmware",
+          "ur": "Comm board badla gaya aur matching firmware nahi lagaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the firmware version of both boards and record them.",
+          "ur": "Dono boards ka firmware version check karke note karein."
+        },
+        {
+          "en": "Update both boards to the same released firmware pair from the Growatt download centre.",
+          "ur": "Dono boards ko Growatt download centre se ek hi released firmware pair par update karein."
+        },
+        {
+          "en": "If the message persists, contact the manufacturer.",
+          "ur": "Agar message bacha rahe to manufacturer se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "MID 33-50KTL3-X2 User Manual EN (GR-UM-247-A-01)",
+        "retrieved": "2026-09-26",
+        "url": "https://growatt.tech/wp-content/uploads/shared-files/MID-33-50KTL3-X2-User-Manual-EN-1.pdf"
+      }
+    }
+  ]
+}

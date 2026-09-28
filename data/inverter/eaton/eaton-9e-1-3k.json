@@ -1,0 +1,1316 @@
+{
+  "schemaVersion": 1,
+  "brandId": "eaton",
+  "series": {
+    "id": "eaton-9e-1-3k",
+    "name": "9E 1-3 kVA (online UPS 1-3kVA + 9E EBM)",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*9E1000i*",
+      "*9E2000i*",
+      "*9E3000i*",
+      "*9E1i*",
+      "*9E2i*",
+      "*9E3i*",
+      "*9E1000*",
+      "*9E2000*",
+      "*9E3000*"
+    ],
+    "notes": "Do NOT merge with SERIES 1. Same brand, same letter scheme, different code set: 1-3kVA has no A007/A10A/A806/A802/AC20 but adds A502/A604/A612, F007/F308/F500/F806/F208/F613/F816. F004 is worded differently ('Inner temperature high' in the minor-fault table, 'UPS Over temperature fault' in the major table). A107 is worded differently ('Cable connection error (Input Line and Neutral inversion)'). A60D is 'Battery not connected' here vs 'Batteries missing or Battery Box missing or not connected' on 6-20kVA. F302/F303 = 'DC Bus too low' and F300/F301 = 'DC Bus too high' here, vs 'Capacitor bank under/overvoltage' on 6-20kVA."
+  },
+  "codes": [
+    {
+      "code": "A107",
+      "aliases": [
+        "A107"
+      ],
+      "title": {
+        "en": "A107 Line/Neutral inversion",
+        "ur": "A107 Line aur Neutral ulta (inversion)"
+      },
+      "meaning": {
+        "en": "The input line and neutral conductors are swapped, so the UPS self-diagnosis has blocked normal operation.",
+        "ur": "Input line aur neutral conductors aapas mein badle hain, is liye self-diagnosis ne normal chalna rok diya hai."
+      },
+      "causes": [
+        {
+          "en": "The mains plug or terminal block has line and neutral interchanged.",
+          "ur": "Mains plug ya terminal block par line aur neutral aapas mein badal diye gaye hain."
+        },
+        {
+          "en": "Earth and neutral are swapped, which the unit reads as an inversion.",
+          "ur": "Earth aur neutral aapas mein badal diye gaye hain, jise unit inversion par parhta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off and unplug the mains. Never swap conductors live.",
+          "ur": "UPS band karein aur mains nikaal dein. Conductors ko live state par kabhi na badlein."
+        },
+        {
+          "en": "Use a non-contact voltage tester or a DMM on low-ohm range to identify live and neutral at the input.",
+          "ur": "Input par live aur neutral pehchane ke liye non-contact voltage tester ya low-ohm range wala DMM use karein."
+        },
+        {
+          "en": "Re-terminate the input so line, neutral and earth are each in the correct terminal, then tighten and retest.",
+          "ur": "Input dobara terminate karein taake line, neutral aur earth har aik theek terminal par hon, phir kheench kar dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "A502",
+      "aliases": [
+        "A502"
+      ],
+      "title": {
+        "en": "A502 Charger voltage high",
+        "ur": "A502 Charger voltage high (charger voltage zyada)"
+      },
+      "meaning": {
+        "en": "The battery charger output is above its specification, so it can over-charge and damage the battery string.",
+        "ur": "Battery charger ka output apni specification se zyada hai, is liye woh battery string ko zyada charge kar ke nuqsaan kar sakta hai."
+      },
+      "causes": [
+        {
+          "en": "The configured battery string count/voltage does not match the installed battery (wrong configuration selected in the menu).",
+          "ur": "Menu mein chuna hua battery string count/voltage installed battery se match nahi karta (galat configuration)."
+        },
+        {
+          "en": "Charger output sense resistor or the charger board is faulty.",
+          "ur": "Charger output sense resistor ya charger board kharab hai."
+        },
+        {
+          "en": "Ambient temperature is very high, so temperature-compensated charging has drifted.",
+          "ur": "Ambient temperature bohat zyada hai, is liye temperature-compensated charging drift ho gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the configured battery type and string voltage from the Battery settings menu and compare with the battery label.",
+          "ur": "Battery settings menu se configured battery type aur string voltage parhein aur battery label se tulna karein."
+        },
+        {
+          "en": "Measure the battery string voltage with a DMM after mains and battery isolation; check it against the charging voltage spec.",
+          "ur": "Mains aur battery isolate karne ke baad DMM se battery string voltage maarein; charging voltage spec se tulna karein."
+        },
+        {
+          "en": "Correct the battery configuration before leaving the unit on charge; have the charger board tested if the reading is still high.",
+          "ur": "Unit ko charge par chhodne se pehle battery configuration theek karein; reading abhi bhi zyada ho to charger board test karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "A604",
+      "aliases": [
+        "A604"
+      ],
+      "title": {
+        "en": "A604 Battery voltage low",
+        "ur": "A604 Battery voltage low (battery voltage kam)"
+      },
+      "meaning": {
+        "en": "The measured battery string voltage is below the expected value, so runtime is short or the string is undercharged.",
+        "ur": "Battery string ka measured voltage expected value se neeche hai, is liye runtime chhoti hai ya string adhoori charged hai."
+      },
+      "causes": [
+        {
+          "en": "The battery string is aged and has lost capacity.",
+          "ur": "Battery string purani ho chuki hai aur capacity khoyi hai."
+        },
+        {
+          "en": "The string was recently discharged or has not had enough charging time.",
+          "ur": "String haal hi mein discharge hui hai ya kaafi charging time nahi mila."
+        },
+        {
+          "en": "One or more cells in the string is open or shorted, dragging the string voltage down.",
+          "ur": "String mein koi aik ya zyada cells khula ya short ho gaya hai, jo string voltage neeche kheench raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With mains and battery isolated, measure each cell in the string with a DMM and compare the readings cell by cell.",
+          "ur": "Mains aur battery isolate karke DMM se string ka har cell voltage maarein aur cell ba cell tulna karein."
+        },
+        {
+          "en": "Apply utility power for 48 hours to charge the batteries fully, then re-run the battery test.",
+          "ur": "Batteries poori tarah charge karne ke liye 48 ghante utility power dein, phir battery test dobara chalayein."
+        },
+        {
+          "en": "Replace the whole string as a matched set if the readings stay unequal after full charging.",
+          "ur": "Poor charging ke baad bhi readings barabar nahi aati hain to poori string matched set ke taur par replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "A60D",
+      "aliases": [
+        "A60D"
+      ],
+      "title": {
+        "en": "A60D Battery not connected",
+        "ur": "A60D Battery connect nahi hai"
+      },
+      "meaning": {
+        "en": "The UPS cannot see the battery string or the attached EBM, so no backup is available.",
+        "ur": "UPS ko battery string ya lagaya hua EBM nazar nahi aa raha, is liye koi backup maujood nahi."
+      },
+      "causes": [
+        {
+          "en": "The internal battery string or the EBM power/detection cable is unplugged.",
+          "ur": "Internal battery string ya EBM ka power/detection cable nahi laga hua."
+        },
+        {
+          "en": "The battery connector pins are loose, corroded or bent.",
+          "ur": "Battery connector ke pins dhile, zang khaye ya tute hue hain."
+        },
+        {
+          "en": "The battery detection cable from the EBM is missing, so the unit assumes no battery.",
+          "ur": "EBM ki battery detection cable nahi hai, is liye unit maan leta hai ke koi battery nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, unplug the mains, then use insulated gloves and tools on the battery connector.",
+          "ur": "UPS band karein, mains nikaal dein, phir battery connector par insulated gloves aur tools use karein."
+        },
+        {
+          "en": "Push the EBM power cable and battery detection cable in quickly and firmly, then confirm both are latched.",
+          "ur": "EBM power cable aur battery detection cable tez aur mazbooti se push karein, phir confirm karein ke dono latch ho gaye hain."
+        },
+        {
+          "en": "Check that the battery voltage is present with a DMM before re-inserting, to rule out a dead string.",
+          "ur": "Dohasne se pehle DMM se battery voltage maujood hai ya nahi confirm kar lein, taake marri hui string ka pata chale."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "A612",
+      "aliases": [
+        "A612"
+      ],
+      "title": {
+        "en": "A612 Battery test failed",
+        "ur": "A612 Battery test fail ho gaya"
+      },
+      "meaning": {
+        "en": "The automatic or user-started battery test failed, which normally means the string can no longer carry the load.",
+        "ur": "Automatic ya user-start kiya hua battery test fail ho gaya, jo aam tor par matlab hai ke string ab load nahi utha sakti."
+      },
+      "causes": [
+        {
+          "en": "The batteries are aged, degraded or already deeply discharged.",
+          "ur": "Batteries purani, degrade ya poori tarah discharge ho chuki hain."
+        },
+        {
+          "en": "A cell in the string is open or shorted.",
+          "ur": "String mein koi aik cell khula ya short ho gaya hai."
+        },
+        {
+          "en": "The battery string is not fully charged, so the test aborts or fails.",
+          "ur": "Battery string poori tarah charged nahi hai, is liye test ruk jata hai ya fail ho jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Charge the batteries for 48 hours on utility power before judging the test result.",
+          "ur": "Test ka faisla lagane se pehle batteries ko 48 ghante utility power par charge karein."
+        },
+        {
+          "en": "With mains and battery isolated, measure each cell voltage with a DMM; any cell far out of line must be replaced.",
+          "ur": "Mains aur battery isolate karke DMM se har cell ka voltage maarein; line se bahar ka koi bhi cell replace karna hoga."
+        },
+        {
+          "en": "Replace the battery string and rerun the test (press the test button for more than 5 seconds in Normal mode with no active alarms).",
+          "ur": "Battery string replace karein aur test dobara chalayein (Normal mode mein koi active alarm na ho, test button 5 se zyada second dabayein)."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "A80E",
+      "aliases": [
+        "A80E"
+      ],
+      "title": {
+        "en": "A80E Overload Prealarm",
+        "ur": "A80E Overload Prealarm (load zyada hone ki warning)"
+      },
+      "meaning": {
+        "en": "The load has passed the overload pre-alarm threshold but has not yet reached the hard 105% trip.",
+        "ur": "Load overload pre-alarm threshold cross kar chuka hai magar abhi 105% hard trip tak nahi pohanch chuka."
+      },
+      "causes": [
+        {
+          "en": "Connected load has grown beyond the safe proportion of the UPS rating.",
+          "ur": "Connected load UPS rating ke mehfoor se barh kar safe limit cross kar gaya hai."
+        },
+        {
+          "en": "Equipment that should be on bypass or a separate supply is plugged into the UPS output.",
+          "ur": "Bypass ya alag supply par honay wala equipment UPS output mein plug kar diya gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off and disconnect the output before removing or re-dividing loads.",
+          "ur": "Load hatane ya dobara baantne se pehle UPS band karein aur output disconnect karein."
+        },
+        {
+          "en": "Measure the output current on the LCD's load percentage and confirm it against the nameplate kVA.",
+          "ur": "LCD ke load percentage par output current dekhein aur nameplate kVA se confirm karein."
+        },
+        {
+          "en": "Unplug non-essential loads until the display shows the load percentage back under 100%.",
+          "ur": "Jab tak display ka load percentage 100% ke neeche na aaye, ghair zaroori loads nikaalte jayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "A810",
+      "aliases": [
+        "A810"
+      ],
+      "title": {
+        "en": "A810 Overload alarm (load > 105%)",
+        "ur": "A810 Overload alarm (load 105% se zyada)"
+      },
+      "meaning": {
+        "en": "The load percentage is above 105%, so the UPS is running into its overload condition.",
+        "ur": "Load percentage 105% se upar hai, is liye UPS overload condition mein chal raha hai."
+      },
+      "causes": [
+        {
+          "en": "Load above the UPS capacity was connected deliberately.",
+          "ur": "UPS capacity se zyada load jaanbujhkar lagaya gaya hai."
+        },
+        {
+          "en": "Several devices were switched on together, such as after a power cut or a generator start.",
+          "ur": "Power cut ya generator start ke baad kai devices aik saath on kar diye gaye."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the load to within the threshold of 100% (or the user threshold in the case of code A80E).",
+          "ur": "Load ko 100% threshold ke andar laayein (code A80E ke haal mein user threshold tak)."
+        },
+        {
+          "en": "If the display shows a Fault:, remove the load and switch the UPS off and back on again.",
+          "ur": "Agar display par Fault: aaye to load hata dein aur UPS band karke dobara on karein."
+        },
+        {
+          "en": "Stagger large loads with a contactor or a delayed outlet so the UPS never sees the full step.",
+          "ur": "Bade loads ko contactor ya delayed outlet ke saath stagger karein taake UPS kabhi poora step na dekhe."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F004",
+      "aliases": [
+        "F004"
+      ],
+      "title": {
+        "en": "F004 Inner temperature high / UPS over temp",
+        "ur": "F004 Andar ka temperature zyada hai / UPS garm"
+      },
+      "meaning": {
+        "en": "Listed twice in the manual: as a minor fault 'Inner temperature high' and as a major fault 'UPS Over temperature fault' that powers off the inverter.",
+        "ur": "Manual mein do baar likha hai: minor fault ke taur par 'Inner temperature high' aur major fault ke taur par 'UPS Over temperature fault' jo inverter band kar deta hai."
+      },
+      "causes": [
+        {
+          "en": "The temperature inside the UPS is too high because a fan has failed.",
+          "ur": "Fan kharab hone ki wajah se UPS ke andar temperature bohat zyada ho gaya hai."
+        },
+        {
+          "en": "The intake or exhaust vents are blocked or the unit is in a hot enclosed cupboard.",
+          "ur": "Intake ya exhaust vents band hain ya unit garmi bhare band cabinet mein rakha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check that the fan is working normally first, then check the Inverter NTC is not damaged.",
+          "ur": "Pehle check karein ke fan theek chal raha hai, phir check karein ke Inverter NTC damage nahi hua."
+        },
+        {
+          "en": "Switch the UPS off, unplug mains, clear the vents and give the unit airflow; then measure ambient temperature with a thermometer.",
+          "ur": "UPS band karein, mains nikaal dein, vents saaf karein aur unit ko hawa ka raasta dein; phir thermometer se ambient temperature maarein."
+        },
+        {
+          "en": "If the fan does not spin after mains is restored, replace the fan module with the UPS isolated.",
+          "ur": "Mains wapas aane ke baad bhi fan na ghoome to UPS isolate karke fan module replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F007",
+      "aliases": [
+        "F007"
+      ],
+      "title": {
+        "en": "F007 Fans blocked",
+        "ur": "F007 Fans blocked (pankhe band)"
+      },
+      "meaning": {
+        "en": "Minor fault: the UPS has detected that a cooling fan is blocked, so it will soon be running hot.",
+        "ur": "Minor fault: UPS ne detect kiya ke ek cooling fan band hai, is liye jald hi UPS garm hone lagega."
+      },
+      "causes": [
+        {
+          "en": "Dust or a cable is physically blocking the fan blade.",
+          "ur": "Dhool ya koi cable fan blade ko physically block kar rahi hai."
+        },
+        {
+          "en": "The fan bearing has seized so the blade does not turn freely.",
+          "ur": "Fan ka bearing jam chuka hai is liye blade azaad nahi ghoom raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, unplug mains and wait 5 minutes before opening any vent.",
+          "ur": "Koi bhi vent kholne se pehle UPS band karein, mains nikaal dein aur 5 minute intezaar karein."
+        },
+        {
+          "en": "Clean the fan and vents with a soft brush or vacuum; remove any cable caught in the blade.",
+          "ur": "Fan aur vents ko narm brush ya vacuum se saaf karein; blade mein phansi koi cable nikaal dein."
+        },
+        {
+          "en": "Spin the fan by hand with mains disconnected; if it is stiff or scrapes, replace the fan module.",
+          "ur": "Mains disconnect karte hue fan ko haath se ghumayein; agar sast ya chharcha raha ho to fan module replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F500",
+      "aliases": [
+        "F500"
+      ],
+      "title": {
+        "en": "F500 Charger failure",
+        "ur": "F500 Charger failure (charger kharab)"
+      },
+      "meaning": {
+        "en": "Minor fault: the battery charger has failed, so the battery will not be recharged properly.",
+        "ur": "Minor fault: battery charger kharab ho gaya hai, is liye battery theek se recharge nahi hogi."
+      },
+      "causes": [
+        {
+          "en": "The charger fuse or the charger board has failed open.",
+          "ur": "Charger fuse ya charger board open ho chuka hai."
+        },
+        {
+          "en": "Charger output sense circuit is faulty, so it is switching itself off.",
+          "ur": "Charger output sense circuit kharab hai, is liye charger khud band ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, unplug mains and isolate the battery before inspecting the charger circuit.",
+          "ur": "Charger circuit dekhne se pehle UPS band karein, mains nikaal dein aur battery isolate karein."
+        },
+        {
+          "en": "Check the charger input fuse and the AC input to the charger board with a DMM.",
+          "ur": "DMM se charger input fuse aur charger board ka AC input check karein."
+        },
+        {
+          "en": "Check the battery current with a clamp meter on DC charge; no or very low charge current confirms charger failure.",
+          "ur": "DC charge par clamp meter se battery current check karein; charge current na ya bohat kam ho to charger failure confirm hoti hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F208",
+      "aliases": [
+        "F208"
+      ],
+      "title": {
+        "en": "F208 Bypass Output overload fault",
+        "ur": "F208 Bypass output overload fault (bypass par load zyada)"
+      },
+      "meaning": {
+        "en": "The bypass branch output is overloaded. Load is not powered while this is active.",
+        "ur": "Bypass branch ka output overloaded hai. Is ke chalte load powered nahi rehta."
+      },
+      "causes": [
+        {
+          "en": "The load exceeds the bypass branch rating, which is often lower than the inverter rating.",
+          "ur": "Load bypass branch ki rating se zyada hai, jo aksar inverter rating se kam hoti hai."
+        },
+        {
+          "en": "Bypass output current sensing or the bypass branch current transformer is faulty.",
+          "ur": "Bypass output current sensing ya bypass branch ka current transformer kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off and disconnect the output before re-dividing the load.",
+          "ur": "Load dobara baantne se pehle UPS band karein aur output disconnect karein."
+        },
+        {
+          "en": "Measure the bypass output current with a clamp meter and compare it with the bypass rating on the nameplate.",
+          "ur": "Clamp meter se bypass output current maarein aur nameplate par diye gaye bypass rating se tulna karein."
+        },
+        {
+          "en": "Move the excess load to a separate bypass-fed distribution board so the UPS bypass branch is not overloaded.",
+          "ur": "Zyada load ko alag bypass-fed distribution board par le jaayein taake UPS ka bypass branch overloaded na ho."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F300",
+      "aliases": [
+        "F300"
+      ],
+      "title": {
+        "en": "F300 DC Bus too high",
+        "ur": "F300 DC Bus bohat high (zyada)"
+      },
+      "meaning": {
+        "en": "The DC bus voltage has risen above its limit, so the inverter is switched off and the load is on bypass.",
+        "ur": "DC bus voltage apni limit se upar chala gaya hai, is liye inverter band ho gaya aur load bypass par hai."
+      },
+      "causes": [
+        {
+          "en": "Charger output is too high (see A502) and is over-charging the bus.",
+          "ur": "Charger output bohat zyada hai (A502 dekhein) aur bus ko zyada charge kar raha hai."
+        },
+        {
+          "en": "The load is too light, so the bus rises when the charger is at full output.",
+          "ur": "Load bohat kam hai, is liye charger full output par hote hue bus voltage barh jaata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the battery configuration in the Battery settings menu matches the installed string.",
+          "ur": "Battery settings menu mein battery configuration installed string se match karta hai ya nahi confirm karein."
+        },
+        {
+          "en": "Isolate mains and battery, then measure the DC bus voltage with a rated DMM.",
+          "ur": "Mains aur battery isolate karke rated DMM se DC bus voltage maarein."
+        },
+        {
+          "en": "Have the charger output and bus sensing checked by an Eaton service engineer.",
+          "ur": "Charger output aur bus sensing ki jaanch Eaton service engineer se karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F301",
+      "aliases": [
+        "F301"
+      ],
+      "title": {
+        "en": "F301 DC Bus too high",
+        "ur": "F301 DC Bus bohat high (zyada)"
+      },
+      "meaning": {
+        "en": "Second over-voltage variant of the DC bus fault on the 1-3kVA platform; the inverter is off.",
+        "ur": "1-3kVA platform par DC bus fault ka over-voltage doosra variant; inverter band hai."
+      },
+      "causes": [
+        {
+          "en": "A mains transient or unstable supply pushed the bus above its limit.",
+          "ur": "Mains ka transient ya unstable supply bus ko limit se upar le gaya."
+        },
+        {
+          "en": "A bulk capacitor on the bus has failed or leaked.",
+          "ur": "Bus ka koi bulk capacitor fail ya leak kar gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery before opening the cabinet; DC bus is lethal even when off.",
+          "ur": "Cabinet kholne se pehle mains aur battery isolate karein; band hone par bhi DC bus khatarnaak hota hai."
+        },
+        {
+          "en": "Measure the DC bus voltage and each bulk capacitor voltage with a rated DMM.",
+          "ur": "Rated DMM se DC bus voltage aur har bulk capacitor ka voltage maarein."
+        },
+        {
+          "en": "Book Eaton service for bus capacitor replacement; do not keep power-cycling the unit.",
+          "ur": "Bus capacitor tabdeeli ke liye Eaton service bulayein; unit ko baar baar power-cycle na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F302",
+      "aliases": [
+        "F302"
+      ],
+      "title": {
+        "en": "F302 DC Bus too low",
+        "ur": "F302 DC Bus bohat low (kam)"
+      },
+      "meaning": {
+        "en": "The DC bus voltage is below the minimum the inverter needs, so the inverter is off and the load is on bypass.",
+        "ur": "DC bus voltage inverter ke minimum se neeche hai, is liye inverter band hai aur load bypass par hai."
+      },
+      "causes": [
+        {
+          "en": "Battery string is disconnected, flat or dead, so the bus cannot be held up.",
+          "ur": "Battery string disconnect, flat ya marri hui hai, is liye bus upar nahi reh sakta."
+        },
+        {
+          "en": "Input AC is missing or out of range, so the rectifier cannot charge the bus.",
+          "ur": "Input AC missing ya range se bahar hai, is liye rectifier bus charge nahi kar sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, unplug mains and isolate the battery before touching the battery connector.",
+          "ur": "Battery connector chhoone se pehle UPS band karein, mains nikaal dein aur battery isolate karein."
+        },
+        {
+          "en": "Measure the battery string open-circuit voltage with a DMM; a dead string reads far below nominal.",
+          "ur": "DMM se battery string ka open-circuit voltage maarein; marri hui string nominal se kaafi neeche parhengi."
+        },
+        {
+          "en": "Check the input breaker, fuses and pre-charge contactor, then charge the battery for 48 hours on utility.",
+          "ur": "Input breaker, fuses aur pre-charge contactor check karein, phir 48 ghante utility par battery charge karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F303",
+      "aliases": [
+        "F303"
+      ],
+      "title": {
+        "en": "F303 DC Bus too low",
+        "ur": "F303 DC Bus bohat low (kam)"
+      },
+      "meaning": {
+        "en": "Second under-voltage variant of the DC bus fault; the inverter cannot start and the load is on bypass.",
+        "ur": "DC bus fault ka under-voltage doosra variant; inverter start nahi ho sakta aur load bypass par hai."
+      },
+      "causes": [
+        {
+          "en": "The battery string has aged and its end-of-discharge voltage trips the unit early.",
+          "ur": "Battery string purani ho gayi hai aur us ka end-of-discharge voltage unit ko jaldi trip kar deta hai."
+        },
+        {
+          "en": "Battery string voltage sense circuit is reading incorrectly low.",
+          "ur": "Battery string voltage sense circuit galat low reading kar raha hai."
+        },
+        {
+          "en": "EBM is unplugged or its detection cable is missing while other EBMs are fitted.",
+          "ur": "EBM plug nahi hai ya us ki detection cable missing hai jabke doosre EBM lage hue hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery, then measure the string voltage and each EBM's fuse with a DMM.",
+          "ur": "Mains aur battery isolate karke DMM se string voltage aur har EBM ka fuse check karein."
+        },
+        {
+          "en": "Confirm every EBM power cable and battery detection cable is fully seated and latched.",
+          "ur": "Confirm karein ke har EBM power cable aur battery detection cable poori tarah baithi hui aur latch hui hain."
+        },
+        {
+          "en": "Replace the aged battery string as a set if the measured voltage is below the manual's minimum.",
+          "ur": "Measured voltage manual ke minimum se neeche ho to purani battery string set ke taur par replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F304",
+      "aliases": [
+        "F304"
+      ],
+      "title": {
+        "en": "F304 DC Bus unbalanced",
+        "ur": "F304 DC Bus asammulnot (unbalanced)"
+      },
+      "meaning": {
+        "en": "The DC bus capacitor voltages are out of balance beyond tolerance, so the inverter is off and the load is on bypass.",
+        "ur": "DC bus ke capacitor voltages tolerance se bahar unbalanced hain, is liye inverter band hai aur load bypass par hai."
+      },
+      "causes": [
+        {
+          "en": "A bus capacitor has degraded or leaked, so bus halves charge unequally.",
+          "ur": "Bus ka koi capacitor degrade ya leak ho gaya hai, is liye bus ke do hisse barabar charge nahi hote."
+        },
+        {
+          "en": "Bus balancing or voltage sensing circuit is faulty.",
+          "ur": "Bus balancing ya voltage sensing circuit kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate mains and battery first; the DC bus stays live after switch-off.",
+          "ur": "Pehle mains aur battery isolate karein; band karne ke baad bhi DC bus live rehta hai."
+        },
+        {
+          "en": "Measure each bus capacitor's voltage with a DMM and compare the two halves of the bus.",
+          "ur": "DMM se har bus capacitor ka voltage maarein aur bus ke dono hisson ko tulna karein."
+        },
+        {
+          "en": "Have the balancing circuit and capacitors serviced by Eaton; do not reset without the diagnosis.",
+          "ur": "Balancing circuit aur capacitors ki servicing Eaton se karwayein; diagnosis ke baghair reset na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F305",
+      "aliases": [
+        "F305"
+      ],
+      "title": {
+        "en": "F305 DC Bus Failure on soft start",
+        "ur": "F305 DC Bus soft start par fail"
+      },
+      "meaning": {
+        "en": "The bus soft-start circuit failed to charge the capacitors in a controlled way, so the inverter stays off.",
+        "ur": "Bus soft-start circuit ne capacitors ko controlled tareeqe se charge nahi kar paya, is liye inverter band reh gaya."
+      },
+      "causes": [
+        {
+          "en": "The pre-charge resistor or soft-start relay has failed open.",
+          "ur": "Pre-charge resistor ya soft-start relay open ho chuka hai."
+        },
+        {
+          "en": "A bus capacitor is shorted, so the ramp cannot complete.",
+          "ur": "Bus ka koi capacitor short ho gaya hai, is liye ramp poora nahi ho sakta."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, unplug mains and isolate the battery before opening the cabinet.",
+          "ur": "Cabinet kholne se pehle UPS band karein, mains nikaal dein aur battery isolate karein."
+        },
+        {
+          "en": "Check the pre-charge resistor chain and the soft-start relay for continuity with a DMM.",
+          "ur": "DMM se pre-charge resistor chain aur soft-start relay ki continuity check karein."
+        },
+        {
+          "en": "Book Eaton service for soft-start circuit and capacitor replacement.",
+          "ur": "Soft-start circuit aur capacitor tabdeeli ke liye Eaton service bulayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F308",
+      "aliases": [
+        "F308"
+      ],
+      "title": {
+        "en": "F308 DC Bus Short",
+        "ur": "F308 DC Bus short ho gaya"
+      },
+      "meaning": {
+        "en": "A short circuit has been detected on the DC bus, so the UPS has shut down to protect itself.",
+        "ur": "DC bus par short circuit detect hua hai, is liye UPS ne apni hifazat ke liye band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "A bus capacitor has failed short.",
+          "ur": "Bus ka koi capacitor short ho gaya hai."
+        },
+        {
+          "en": "The battery string is wired with reversed polarity or a cell is shorted.",
+          "ur": "Battery string polarity ulti jore hue hai ya koi cell short ho gaya hai."
+        },
+        {
+          "en": "Charger output or a power component has failed short.",
+          "ur": "Charger output ya koi power component short ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not power the unit again. Switch off, unplug mains and isolate the battery first.",
+          "ur": "Unit ko dobara power na dein. Band karein, mains nikaal dein aur battery isolate karein."
+        },
+        {
+          "en": "With the battery disconnected, measure resistance across the bus with a DMM; a very low reading means a hard short.",
+          "ur": "Battery disconnect karne ke baad DMM se bus par resistance maarein; bohat kam reading ka matlab hai hard short."
+        },
+        {
+          "en": "Have the bus capacitors and battery string tested by an Eaton service engineer before re-powering.",
+          "ur": "Dobara power dene se pehle bus capacitors aur battery string ki test Eaton service engineer se karwayein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F613",
+      "aliases": [
+        "F613"
+      ],
+      "title": {
+        "en": "F613 Battery over voltage",
+        "ur": "F613 Battery over voltage (battery voltage zyada)"
+      },
+      "meaning": {
+        "en": "The battery string voltage has exceeded the safe maximum, which can destroy the cells.",
+        "ur": "Battery string voltage apni safe maximum se cross kar gaya hai, jis se cells kharab ho sakte hain."
+      },
+      "causes": [
+        {
+          "en": "Charger output voltage is misconfigured or the charger is faulty (see A502).",
+          "ur": "Charger output voltage ki configuration ghalat hai ya charger kharab hai (A502 dekhein)."
+        },
+        {
+          "en": "The wrong battery type/voltage was selected in the setup menu.",
+          "ur": "Setup menu mein ghalat battery type/voltage chuna gaya hai."
+        },
+        {
+          "en": "Temperature compensation is disabled while the ambient temperature is very low, so the charge voltage stays too high.",
+          "ur": "Temperature compensation band hai jabke ambient temperature bohat kam hai, is liye charge voltage zyada hi rehta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, unplug mains and isolate the battery immediately to stop further charging.",
+          "ur": "Charge band karne ke liye UPS foran band karein, mains nikaal dein aur battery isolate karein."
+        },
+        {
+          "en": "Measure each cell voltage with a DMM and compare it with the cell manufacturer's maximum charge voltage.",
+          "ur": "DMM se har cell ka voltage maarein aur cell manufacturer ki maximum charge voltage se tulna karein."
+        },
+        {
+          "en": "Correct the battery type/voltage setting and temperature compensation, then have the charger board tested.",
+          "ur": "Battery type/voltage setting aur temperature compensation theek karein, phir charger board ki test karwayein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F70C",
+      "aliases": [
+        "F70C"
+      ],
+      "title": {
+        "en": "F70C Inverter under voltage",
+        "ur": "F70C Inverter under voltage (inverter voltage kam)"
+      },
+      "meaning": {
+        "en": "The inverter output voltage fell below its acceptable window, so the UPS has shut the inverter down.",
+        "ur": "Inverter ka output voltage apni ijazat ke neeche gir gaya, is liye UPS ne inverter band kar diya."
+      },
+      "causes": [
+        {
+          "en": "DC bus too low because the battery is flat or the charger is not working.",
+          "ur": "DC bus bohat kam hai kyunke battery flat hai ya charger nahi chal raha."
+        },
+        {
+          "en": "Output overload or a heavy inrush load pulling the output down.",
+          "ur": "Output overload hai ya koi bada inrush load output kheench raha hai."
+        },
+        {
+          "en": "Inverter output voltage sensing or the inverter board has failed.",
+          "ur": "Inverter output voltage sensing ya inverter board kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Remove the excess load first, then restart the UPS and see whether F70C clears.",
+          "ur": "Pehle zyada load hata dein, phir UPS restart karke dekhein ke F70C clear hota hai ya nahi."
+        },
+        {
+          "en": "Isolate mains and battery, then measure the DC bus voltage with a DMM against the manual specification.",
+          "ur": "Mains aur battery isolate karke DMM se DC bus voltage maarein aur manual ki specification se tulna karein."
+        },
+        {
+          "en": "Measure the output voltage on battery with a true-RMS DMM at the output terminal block.",
+          "ur": "Battery par true-RMS DMM se output terminal block ka output voltage maarein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F70D",
+      "aliases": [
+        "F70D"
+      ],
+      "title": {
+        "en": "F70D Inverter overvoltage",
+        "ur": "F70D Inverter overvoltage (inverter voltage zyada)"
+      },
+      "meaning": {
+        "en": "The inverter output voltage rose above its acceptable window, so the UPS has shut the inverter down.",
+        "ur": "Inverter ka output voltage apni ijazat se upar chala gaya, is liye UPS ne inverter band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Output voltage setting is too high for the connected load.",
+          "ur": "Output voltage setting connected load ke liye bohat zyada hai."
+        },
+        {
+          "en": "Output is very lightly loaded, so the inverter steps the voltage up.",
+          "ur": "Output bohat kam load par hai, is liye inverter voltage barha deta hai."
+        },
+        {
+          "en": "Inverter output voltage sensing or the inverter board has failed.",
+          "ur": "Inverter output voltage sensing ya inverter board kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the configured output voltage in the Setup menu and confirm it against the load's rated voltage.",
+          "ur": "Setup menu se configured output voltage parhein aur load ki rated voltage se confirm karein."
+        },
+        {
+          "en": "Measure the output voltage with a true-RMS DMM at the output terminal block.",
+          "ur": "True-RMS DMM se output terminal block par output voltage maarein."
+        },
+        {
+          "en": "Have the inverter output sensing calibrated by an Eaton service engineer.",
+          "ur": "Inverter output sensing ki calibration Eaton service engineer se karwayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F704",
+      "aliases": [
+        "F704"
+      ],
+      "title": {
+        "en": "F704 Inverter soft start failure / INV capacitor",
+        "ur": "F704 Inverter soft start fail / INV capacitor"
+      },
+      "meaning": {
+        "en": "The inverter soft start failed, or the inverter capacitors have reduced in value, so the UPS will not come onto the line.",
+        "ur": "Inverter soft start fail ho gaya, ya inverter capacitors ki value gir gayi hai, is liye UPS line par nahi aayega."
+      },
+      "causes": [
+        {
+          "en": "DC bus voltage out of range at the moment the inverter was started.",
+          "ur": "Inverter start karte waqt DC bus voltage range se bahar tha."
+        },
+        {
+          "en": "Inverter DC-link capacitors have lost capacitance (this is why the manual names the capacitors in the same row).",
+          "ur": "Inverter DC-link capacitors ki capacity gir chuki hai (is liye manual usi row mein capacitors ka zikr karta hai)."
+        },
+        {
+          "en": "Inverter IGBT/gate drive failure, or an output short or heavy overload.",
+          "ur": "Inverter IGBT/gate drive ki kharabi, ya output short ya bohat zyada overload."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If possible disconnect the power to the load, switch the UPS off and back on again.",
+          "ur": "Ho sake to load ki power disconnect karein, UPS band karke dobara on karein."
+        },
+        {
+          "en": "Isolate mains and battery, then measure DC bus voltage and check the inverter DC-link capacitors with a capacitance meter.",
+          "ur": "Mains aur battery isolate karke DC bus voltage maarein aur capacitance meter se inverter DC-link capacitors check karein."
+        },
+        {
+          "en": "If the problem occurs again, call the support center - the inverter module needs service.",
+          "ur": "Agar masla dobara aaye to support centre ko call karein - inverter module ki servicing zaroori hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F805",
+      "aliases": [
+        "F805"
+      ],
+      "title": {
+        "en": "F805 Inverter Output Short",
+        "ur": "F805 Inverter output par short"
+      },
+      "meaning": {
+        "en": "A short circuit has been detected on the inverter output; a load powered by the UPS is faulty.",
+        "ur": "Inverter output par short circuit detect hua hai; UPS se power lene wala koi load kharab hai."
+      },
+      "causes": [
+        {
+          "en": "There is a fault on one or more of the loads powered by the UPS.",
+          "ur": "UPS se power lene walay loads mein kisi aik ya zyada par fault hai."
+        },
+        {
+          "en": "Output wiring is damaged or shorted to the chassis.",
+          "ur": "Output wiring damage hui hai ya chassis se short ho gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off and disconnect all output loads before touching any wiring.",
+          "ur": "Kisi bhi wiring ko chhoone se pehle UPS band karein aur saare output loads disconnect kar dein."
+        },
+        {
+          "en": "Disconnect all the utilities, switch the UPS off and back on again, reconnect the loads one at a time to identify which one is faulty.",
+          "ur": "Saari utilities disconnect karein, UPS band karke dobara on karein, phir loads aik aik karke dobara lagayein taake kaunsa kharab hai pata chale."
+        },
+        {
+          "en": "Test each suspect load and cable for continuity and insulation with a DMM before reconnecting.",
+          "ur": "Dohasne se pehle har shakhs load aur cable ko DMM se continuity aur insulation ke liye test karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F806",
+      "aliases": [
+        "F806"
+      ],
+      "title": {
+        "en": "F806 E-P-O control active",
+        "ur": "F806 E-P-O control active (emergency power off)"
+      },
+      "meaning": {
+        "en": "On the 1-3kVA 9E the Emergency Power Off input is reported as a FAULT, not an alarm (it is A806 on the 6-20kVA 9E).",
+        "ur": "1-3kVA 9E par Emergency Power Off input ko FAULT ke taur par report kiya gaya hai, alarm nahi (6-20kVA 9E par ye A806 hai)."
+      },
+      "causes": [
+        {
+          "en": "The EPO input contact has been closed by the remote EPO switch.",
+          "ur": "Remote EPO switch ne EPO input contact band kar diya hai."
+        },
+        {
+          "en": "The EPO wiring loop breaker is open or the connector is missing.",
+          "ur": "EPO wiring loop breaker khula hai ya connector missing hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Find out why EPO was triggered before you reset anything; the cause may be a fire-alarm or a person.",
+          "ur": "Kuch bhi reset karne se pehle dekhein ke EPO kyun trigger hua; wajah koi fire-alarm ya koi shakhs ho sakta hai."
+        },
+        {
+          "en": "With the unit in maintenance bypass, measure the EPO terminal pair; it must be open for normal running.",
+          "ur": "Unit ko maintenance bypass par rakhein aur EPO terminal pair voltage maarein; normal chalne par woh open hona chahiye."
+        },
+        {
+          "en": "Reset the EPO breaker, then press any front-panel button once to acknowledge and clear the fault.",
+          "ur": "EPO breaker reset karein, phir front panel ka koi bhi button aik baar dabayein taake fault acknowledge aur clear ho."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F808",
+      "aliases": [
+        "F808"
+      ],
+      "title": {
+        "en": "F808 Inverter Output overload fault",
+        "ur": "F808 Inverter output overload fault (load zyada)"
+      },
+      "meaning": {
+        "en": "The inverter output is overloaded and the inverter has been switched off; the load is unprotected or on bypass.",
+        "ur": "Inverter output overloaded hai aur inverter band kar diya gaya hai; load unprotected hai ya bypass par hai."
+      },
+      "causes": [
+        {
+          "en": "The load applied to the UPS is too high; earlier A80E/A810 alarms were not acted on.",
+          "ur": "UPS par lagaya hua load bohat zyada hai; pehle ke A80E/A810 alarms par action nahi hua."
+        },
+        {
+          "en": "A large motor or compressor inrush was switched on during a battery discharge.",
+          "ur": "Battery discharge ke doran koi bada motor ya compressor inrush on kiya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the load to within the threshold of 100% (or the user threshold in the case of code A80E).",
+          "ur": "Load ko 100% threshold ke andar laayein (code A80E ke haal mein user threshold tak)."
+        },
+        {
+          "en": "If the display shows a Fault:, remove the load and switch the UPS off and back on again.",
+          "ur": "Agar display par Fault: aaye to load hata dein aur UPS band karke dobara on karein."
+        },
+        {
+          "en": "Measure the load with a clamp meter and permanently move part of it to a bypass-fed outlet.",
+          "ur": "Clamp meter se load naaphein aur us ka kuch hissa mustaqil bypass-fed outlet par le jaayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    },
+    {
+      "code": "F816",
+      "aliases": [
+        "F816"
+      ],
+      "title": {
+        "en": "F816 Model Pin detect error",
+        "ur": "F816 Model Pin detect error (model pin detect nahi hua)"
+      },
+      "meaning": {
+        "en": "The UPS could not read the model identification pins, so it has refused to start correctly.",
+        "ur": "UPS ne model identification pins parhein nahi sake, is liye us ne theek se start karne se inkaar kar diya."
+      },
+      "causes": [
+        {
+          "en": "The model/Pin setting straps or jumpers on the power board are missing or wrongly fitted.",
+          "ur": "Power board par model/Pin setting straps ya jumpers nahi hain ya galat lagi hain."
+        },
+        {
+          "en": "The control board was replaced and the Pin detection was not configured for the new model.",
+          "ur": "Control board badla gaya tha aur Pin detection naye model ke liye configure nahi kiya gaya."
+        },
+        {
+          "en": "The Pin detect circuit or its connector is faulty.",
+          "ur": "Pin detect circuit ya us ka connector kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch the UPS off, unplug mains and isolate the battery before opening the cabinet.",
+          "ur": "Cabinet kholne se pehle UPS band karein, mains nikaal dein aur battery isolate karein."
+        },
+        {
+          "en": "Inspect the model Pin jumpers/straps on the power board and reseat the Pin detect connector.",
+          "ur": "Power board par model Pin jumpers/straps dekhein aur Pin detect connector dobara baitha dein."
+        },
+        {
+          "en": "Quote the model number and serial number to Eaton support; this fault needs configuration, not parts swapping.",
+          "ur": "Model number aur serial number Eaton support ko dein; ye fault configuration ka hai, parts badalne ka nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "Eaton 9E 1kVA-3kVA UPS - Eaton 9E EBM - Advance user guide",
+        "retrieved": "2026-09-26",
+        "url": "https://www.eaton.com/content/dam/eaton/products/backup-power-ups-surge-it-power-distribution/backup-power-ups/eaton_9e_ups/eaton-9e-1kva-3kva-ups-eaton-9e-ebm-advance-user-guide.pdf"
+      }
+    }
+  ]
+}

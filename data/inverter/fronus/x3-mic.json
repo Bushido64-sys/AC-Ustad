@@ -1,0 +1,1301 @@
+{
+  "schemaVersion": 1,
+  "brandId": "fronus",
+  "series": {
+    "id": "x3-mic",
+    "name": "X3 MIC / X3 MIC G2 (hybrid)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*X3*MIC*",
+      "*MIC*G2*"
+    ],
+    "notes": "Official Fronus X3 MIC G2 manual (fronus.com / UAN 042-111-111-140). Text layer was +31 ASCII cipher — decoded before parse. Named CamelCase fault codes (not numeric). Medium: single official source with cipher-OCR risk. 25 codes."
+  },
+  "codes": [
+    {
+      "code": "GridVoltFault",
+      "aliases": [
+        "GridVoltFault"
+      ],
+      "title": {
+        "en": "Grid voltage out of range / overvoltage for ten minutes",
+        "ur": "Grid voltage range se bahar"
+      },
+      "meaning": {
+        "en": "Grid voltage out of range / overvoltage for ten minutes",
+        "ur": "Grid voltage range se bahar"
+      },
+      "causes": [
+        {
+          "en": "Grid voltage out of range / overvoltage for ten minutes",
+          "ur": "Grid voltage range se bahar"
+        },
+        {
+          "en": "Utility supply high or low outside the allowed range.",
+          "ur": "Utility supply allowed range se zyada ya kam ho jana."
+        },
+        {
+          "en": "Input connection loose or the grid sensing wiring damaged.",
+          "ur": "Input connection dhila ho jana ya grid sensing wiring damage ho jana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the inverter and wait; do not keep restarting while the utility is outside its range.",
+          "ur": "Inverter band kar dein aur intezaar karein; utility range se bahar ho to baar baar restart na karein."
+        },
+        {
+          "en": "Once the supply is stable, measure the grid voltage with a meter; if it is outside the normal range, check the input terminals and wiring for looseness.",
+          "ur": "Supply theek hone par meter se grid voltage naapein; range se bahar ho to input terminal aur wiring ke dhilapan par nazar daalein."
+        },
+        {
+          "en": "When the utility returns to normal the system reconnects by itself; if it keeps tripping, call a technician.",
+          "ur": "Utility normal aate hi system khud connect ho jata hai; baar baar trip ho to technician bulayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "DcInjOCP",
+      "aliases": [
+        "DcInjOCP"
+      ],
+      "title": {
+        "en": "DC injection overcurrent protection",
+        "ur": "DC injection ki wajah se overcurrent"
+      },
+      "meaning": {
+        "en": "DC injection overcurrent protection",
+        "ur": "Output mein DC injection barh jati hai aur protection chal jati hai."
+      },
+      "causes": [
+        {
+          "en": "DC injection overcurrent protection",
+          "ur": "AC output se DC nikalna barh jana"
+        },
+        {
+          "en": "Output filter capacitor leaky so DC flows into the AC side.",
+          "ur": "Output filter capacitor leaky ho jana jis se DC AC side mein chala jaye."
+        },
+        {
+          "en": "Current sensor reading drifts and trips the protection.",
+          "ur": "Current sensor ki reading hil jaye aur protection trip kar de."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC and isolate the DC source before any testing.",
+          "ur": "Testing se pehle AC band kar dein aur DC source alag kar dein."
+        },
+        {
+          "en": "Use a meter to check the AC output for a DC component and inspect the output filter capacitors and wiring for damage or leaks.",
+          "ur": "Meter se AC output mein DC component check karein aur output filter capacitor aur wiring ko damage ya leak ke liye dekhein."
+        },
+        {
+          "en": "Restart once after the check; if the protection trips again, stop and send the unit in for repair.",
+          "ur": "Check ke baad ek baar restart karein; protection dobara trip ho to ruk jayein aur unit repair ke liye bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "HardLimitFault",
+      "aliases": [
+        "HardLimitFault"
+      ],
+      "title": {
+        "en": "Hard limit fault (Australian standard)",
+        "ur": "Australian standard hard limit fault"
+      },
+      "meaning": {
+        "en": "Hard limit fault (Australian standard)",
+        "ur": "Australian standard ke hard limit par fault aa jana."
+      },
+      "causes": [
+        {
+          "en": "Hard limit fault (Australian standard)",
+          "ur": "Australian standard ke hard limit se zyada power nikalna"
+        },
+        {
+          "en": "Export or power limit set above the hard limit.",
+          "ur": "Export ya power limit hard limit se zyada set ho jana."
+        },
+        {
+          "en": "Grid profile or firmware region set to the wrong standard.",
+          "ur": "Grid profile ya firmware region ghalat standard par set ho jana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the inverter before changing any setting.",
+          "ur": "Koi setting badalne se pehle inverter band kar dein."
+        },
+        {
+          "en": "Check the export/power limit setting against the local standard and confirm the grid profile chosen in the menu.",
+          "ur": "Export ya power limit setting ko local standard se compare karein aur menu mein chuna gaya grid profile confirm karein."
+        },
+        {
+          "en": "Restart the inverter after correcting the setting; if the fault remains, contact service support.",
+          "ur": "Setting theek karke inverter restart karein; fault rahe to service support se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "SwOcpFault",
+      "aliases": [
+        "SwOcpFault"
+      ],
+      "title": {
+        "en": "Software overcurrent protection",
+        "ur": "Software overcurrent protection chal jati"
+      },
+      "meaning": {
+        "en": "Software overcurrent protection",
+        "ur": "Software overcurrent protection chal jati hai."
+      },
+      "causes": [
+        {
+          "en": "Software overcurrent protection",
+          "ur": "Load current software limit se zyada hona"
+        },
+        {
+          "en": "Output short or a heavy load pulling high current.",
+          "ur": "Output short ho jana ya bhaari load zyada current khinche."
+        },
+        {
+          "en": "Current sensing circuit reading higher than the actual current.",
+          "ur": "Current sensing circuit asal se zyada reading de raha ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect the PV and grid, and reconnect only after checking the output for shorts.",
+          "ur": "PV aur grid alag kar dein aur output mein short check kiye hi phir se connect karein."
+        },
+        {
+          "en": "Measure the load current with a clamp meter and confirm it is inside the inverter rating; remove any heavy load.",
+          "ur": "Clamp meter se load current naapein aur rating ke andar confirm karein; bhaari load utaar dein."
+        },
+        {
+          "en": "Reconnect power and wait to see if the inverter returns to normal; if it trips again, call a technician.",
+          "ur": "Power wapas lagayein aur dekhein ke inverter normal ho jata hai; dobara trip ho to technician bulayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "TzFault",
+      "aliases": [
+        "TzFault"
+      ],
+      "title": {
+        "en": "Over current fault",
+        "ur": "Over current ka fault"
+      },
+      "meaning": {
+        "en": "Over current fault",
+        "ur": "Load ka current bohat zyada hona."
+      },
+      "causes": [
+        {
+          "en": "Over current fault",
+          "ur": "Load ka current allowed se zyada hona"
+        },
+        {
+          "en": "Sudden surge from motors or inductive loads.",
+          "ur": "Motor ya inductive load ka achanak surge aana."
+        },
+        {
+          "en": "Wiring shorted or a loose joint heating up.",
+          "ur": "Wiring short ho jana ya dhila joint garam ho jana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and isolate the supply before checking the wiring.",
+          "ur": "Wiring check karne se pehle band karke supply alag kar dein."
+        },
+        {
+          "en": "Disconnect the PV and grid, wait about 10 seconds, then use a meter to check the output wiring and joints for shorts or looseness.",
+          "ur": "PV aur grid alag karke 10 second intezaar karein, phir meter se output wiring aur joint mein short ya dhilapan check karein."
+        },
+        {
+          "en": "Reconnect and restart; if the fault returns, reduce the load and have the unit inspected.",
+          "ur": "Connect karke restart karein; fault wapas aaye to load kam karke unit check karwaein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "ResidualOCP",
+      "aliases": [
+        "ResidualOCP"
+      ],
+      "title": {
+        "en": "Overcurrent protection fault",
+        "ur": "Overcurrent protection ka fault"
+      },
+      "meaning": {
+        "en": "Overcurrent protection fault",
+        "ur": "Overcurrent protection chal jati hai."
+      },
+      "causes": [
+        {
+          "en": "Overcurrent protection fault",
+          "ur": "Residual ya over current bohat zyada hona"
+        },
+        {
+          "en": "Leakage to earth through wet or damaged wiring.",
+          "ur": "Gili ya damaged wiring se earth mein leakage hona."
+        },
+        {
+          "en": "DC switch or output breaker not fully closed.",
+          "ur": "DC switch ya output breaker theek se band na hona."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC switch and switch off the AC before touching any terminal.",
+          "ur": "Terminal chhoone se pehle DC switch kholein aur AC band kar dein."
+        },
+        {
+          "en": "Check the output and earth wiring for leakage or moisture, tighten every connection and measure insulation with a meter if you have one.",
+          "ur": "Output aur earth wiring mein leakage ya nami check karein, har connection tight karein aur meter ho to insulation naapein."
+        },
+        {
+          "en": "Close the DC switch and restart the inverter; if the protection trips again, stop and call a technician.",
+          "ur": "DC switch band karke inverter restart karein; protection dobara trip ho to ruk jayein aur technician bulayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "GridLostFault",
+      "aliases": [
+        "GridLostFault"
+      ],
+      "title": {
+        "en": "Grid lost",
+        "ur": "Grid lost / mains gayab"
+      },
+      "meaning": {
+        "en": "Grid lost",
+        "ur": "Grid lost / mains gayab"
+      },
+      "causes": [
+        {
+          "en": "Grid lost",
+          "ur": "Grid lost / mains gayab"
+        },
+        {
+          "en": "Utility power cut or the mains breaker tripped.",
+          "ur": "Utility ka power cut ho jana ya mains breaker trip ho jana."
+        },
+        {
+          "en": "Grid input cable loose at the terminal.",
+          "ur": "Grid input cable terminal par dhili ho jana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not keep restarting; with the supply off, first check the mains cable and breaker.",
+          "ur": "Baar baar restart na karein; supply band karke pehle mains cable aur breaker check karein."
+        },
+        {
+          "en": "Tighten the grid input terminals and use a meter to confirm the utility is actually supplying power.",
+          "ur": "Grid input terminal tight karein aur meter se confirm karein ke utility waqai power de rahi hai."
+        },
+        {
+          "en": "The system reconnects on its own once the utility is normal; if it stays off, contact the utility or a technician.",
+          "ur": "Utility normal hote hi system khud connect ho jata hai; band rahe to utility ya technician se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "IsoFault",
+      "aliases": [
+        "IsoFault"
+      ],
+      "title": {
+        "en": "Isolation fault",
+        "ur": "Isolation (ISO) fault"
+      },
+      "meaning": {
+        "en": "Isolation fault",
+        "ur": "Isolation (ISO) fault"
+      },
+      "causes": [
+        {
+          "en": "Isolation fault",
+          "ur": "Isolation (ISO) fault"
+        },
+        {
+          "en": "Moisture or dust on the PV and output wiring.",
+          "ur": "PV aur output wiring par nami ya dhool hona."
+        },
+        {
+          "en": "Damaged insulation letting leakage current escape.",
+          "ur": "Insulation damage hona jis se leakage current bahar nikle."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the AC and isolate the PV before checking insulation.",
+          "ur": "Insulation check karne se pehle AC band karein aur PV alag kar dein."
+        },
+        {
+          "en": "Inspect the PV and output wiring, connectors and inverter terminals for moisture, dust or damaged insulation.",
+          "ur": "PV aur output wiring, connector aur inverter terminal mein nami, dhool ya insulation damage check karein."
+        },
+        {
+          "en": "Dry and repair the wiring, then restart; if the fault remains, the unit needs service.",
+          "ur": "Wiring ko sukha karke theek karein aur restart karein; fault rahe to unit ki service zaroori hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "OverTempFault",
+      "aliases": [
+        "OverTempFault"
+      ],
+      "title": {
+        "en": "Over temperature",
+        "ur": "Temperature bohat zyada"
+      },
+      "meaning": {
+        "en": "Over temperature",
+        "ur": "Inverter ka temperature allowed se zyada hona."
+      },
+      "causes": [
+        {
+          "en": "Over temperature",
+          "ur": "Vent block hona ya ambient temperature bohat zyada hona"
+        },
+        {
+          "en": "Cooling fan stopped or the heatsink is full of dust.",
+          "ur": "Cooling fan band ho jana ya heatsink dhool se bhari ho jana."
+        },
+        {
+          "en": "Heavy load running long and heating the unit.",
+          "ur": "Lambi der bhaari load chalne se unit garam ho jana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the inverter and let it cool before working on it.",
+          "ur": "Kaam se pehle inverter band karke thanda hone dein."
+        },
+        {
+          "en": "Clear the vents, remove dust from the heatsink and confirm the cooling fan runs when powered.",
+          "ur": "Vent saaf karein, heatsink ki dhool hataayein aur power par fan chalne ko confirm karein."
+        },
+        {
+          "en": "Restore power and watch the temperature; if it climbs again, reduce the load or call a technician.",
+          "ur": "Power wapas on karein aur temperature dekhein; phir barhe to load kam karein ya technician bulayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "LowTempFault",
+      "aliases": [
+        "LowTempFault"
+      ],
+      "title": {
+        "en": "Low temperature",
+        "ur": "Temperature bohat kam"
+      },
+      "meaning": {
+        "en": "Low temperature",
+        "ur": "Ambient temperature allowed se bohat kam hona."
+      },
+      "causes": [
+        {
+          "en": "Low temperature",
+          "ur": "Ambient temperature bohat kam hona"
+        },
+        {
+          "en": "Ambient temperature below the allowed start temperature.",
+          "ur": "Ambient temperature allowed start temperature se neeche ho jana."
+        },
+        {
+          "en": "Temperature sensor reading wrongly low.",
+          "ur": "Temperature sensor ghalat kam reading de raha ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Do not force a start in very cold weather; let the unit warm up first.",
+          "ur": "Bohat sardi mein start zabardasti na karein; pehle unit ko garam hone dein."
+        },
+        {
+          "en": "Check the ambient temperature and take the temperature sensor reading with a meter.",
+          "ur": "Ambient temperature check karein aur meter se temperature sensor ki reading lein."
+        },
+        {
+          "en": "When the temperature is back in the normal range, restart the inverter; if the fault stays, have the sensor checked.",
+          "ur": "Temperature normal range mein aane par inverter restart karein; fault rahe to sensor check karwaein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "GridFreqFault",
+      "aliases": [
+        "GridFreqFault"
+      ],
+      "title": {
+        "en": "Grid frequency out of range",
+        "ur": "Grid frequency range se bahar"
+      },
+      "meaning": {
+        "en": "Grid frequency out of range",
+        "ur": "Grid frequency range se bahar"
+      },
+      "causes": [
+        {
+          "en": "Grid frequency out of range",
+          "ur": "Grid frequency range se bahar"
+        },
+        {
+          "en": "Utility frequency outside the standard range.",
+          "ur": "Utility frequency standard range se bahar hona."
+        },
+        {
+          "en": "Weak generator or grid feeding the inverter.",
+          "ur": "Kamzor generator ya grid inverter ko power de raha ho."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and wait; do not keep restarting while the grid frequency is out of range.",
+          "ur": "Power band karke intezaar karein; grid frequency range se bahar ho to baar baar restart na karein."
+        },
+        {
+          "en": "Measure the grid frequency with a meter and confirm it matches the standard for your area.",
+          "ur": "Meter se grid frequency naapein aur confirm karein ke woh ilaqay ke standard ke mutabiq hai."
+        },
+        {
+          "en": "The system reconnects when the frequency is normal; if it does not, contact a technician.",
+          "ur": "Frequency normal hote hi system connect ho jata hai; na ho to technician se rabta karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "InternalComFault",
+      "aliases": [
+        "InternalComFault"
+      ],
+      "title": {
+        "en": "Internal communication fault",
+        "ur": "Andaruni communication fault"
+      },
+      "meaning": {
+        "en": "Internal communication fault",
+        "ur": "Inverter ke andar boards ke darmiyan communication ruk jana."
+      },
+      "causes": [
+        {
+          "en": "Internal communication fault",
+          "ur": "Andaruni communication line dhili ya tooti hona"
+        },
+        {
+          "en": "Internal board connector not seated properly.",
+          "ur": "Andaruni board connector theek se na lagna."
+        },
+        {
+          "en": "Software version mismatch between the boards.",
+          "ur": "Boards ke darmiyan software version match na karna."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the inverter and isolate the supply before opening it.",
+          "ur": "Kholne se pehle inverter band karke supply alag kar dein."
+        },
+        {
+          "en": "Check the internal board connectors and communication wiring for looseness or damage.",
+          "ur": "Andaruni board connector aur communication wiring dhilapan ya damage ke liye check karein."
+        },
+        {
+          "en": "Restart the inverter to re-check; if the fault stays, the ARM software may need an update or reburn — send it for service.",
+          "ur": "Dobara check ke liye inverter restart karein; fault rahe to ARM software update ya reburn zaroori ho sakta hai — service ke liye bhejein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "PvVoltFault",
+      "aliases": [
+        "PvVoltFault"
+      ],
+      "title": {
+        "en": "PV voltage fault",
+        "ur": "PV voltage ka fault"
+      },
+      "meaning": {
+        "en": "PV voltage fault",
+        "ur": "PV ka voltage allowed range se bahar hona."
+      },
+      "causes": [
+        {
+          "en": "PV voltage fault",
+          "ur": "PV string ka voltage zyada ya kam hona"
+        },
+        {
+          "en": "Too many panels in series for the inverter input range.",
+          "ur": "Series mein inverter input range se zyada panel lagna."
+        },
+        {
+          "en": "Open or loose PV connection.",
+          "ur": "PV connection khula ya dhila ho jana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and isolate the PV before measuring.",
+          "ur": "Naapne se pehle PV band karke alag kar dein."
+        },
+        {
+          "en": "Measure the PV string voltage with a meter and confirm it sits inside the inverter input range.",
+          "ur": "Meter se PV string voltage naapein aur confirm karein ke woh inverter ke input range mein hai."
+        },
+        {
+          "en": "Check the string connections for loose or reversed plugs, then reconnect and restart.",
+          "ur": "String connection mein dhila ya ulta plug check karein, phir connect karke restart karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "FanFault",
+      "aliases": [
+        "FanFault"
+      ],
+      "title": {
+        "en": "Fan fault",
+        "ur": "Fan ka fault"
+      },
+      "meaning": {
+        "en": "Fan fault",
+        "ur": "Fan theek se na chalna."
+      },
+      "causes": [
+        {
+          "en": "Fan fault",
+          "ur": "Fan atka hona ya fan kharab hona"
+        },
+        {
+          "en": "Fan wiring loose or the fan connector oxidised.",
+          "ur": "Fan ki wiring dhili ho jana ya connector par carbon lag jana."
+        },
+        {
+          "en": "Fan bearings jammed with dust.",
+          "ur": "Dhool se fan ki bearing jam ho jana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the inverter before touching the fan.",
+          "ur": "Fan chhoone se pehle inverter band kar dein."
+        },
+        {
+          "en": "Check whether the fan is blocked, damaged or not spinning, clean out the dust and check the fan connector.",
+          "ur": "Dekhein ke fan ruka hua, damage ya ghumta hua nahi hai; dhool saaf karein aur fan connector check karein."
+        },
+        {
+          "en": "Replace the fan if it does not turn, restore power and confirm the fault clears.",
+          "ur": "Fan na ghumay to fan badlein, power on karein aur fault khatam hona confirm karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "BusVoltFault",
+      "aliases": [
+        "BusVoltFault"
+      ],
+      "title": {
+        "en": "DC bus voltage out of normal range",
+        "ur": "DC bus voltage normal range se bahar"
+      },
+      "meaning": {
+        "en": "DC bus voltage out of normal range",
+        "ur": "DC bus voltage normal range se bahar"
+      },
+      "causes": [
+        {
+          "en": "DC bus voltage out of normal range",
+          "ur": "DC bus voltage normal range se bahar"
+        },
+        {
+          "en": "PV or battery input outside the normal range.",
+          "ur": "PV ya battery input normal range se bahar hona."
+        },
+        {
+          "en": "DC link capacitor failed so the bus cannot hold voltage.",
+          "ur": "DC link capacitor kharab ho jana, jis ki wajah se bus voltage hold nahi kar pata."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and isolate the PV and battery before checking the bus.",
+          "ur": "Bus check karne se pehle PV aur battery band karke alag kar dein."
+        },
+        {
+          "en": "Measure the DC bus and PV input voltage with a meter and confirm both are inside the normal range.",
+          "ur": "Meter se DC bus aur PV input voltage naapein aur dono ko normal range mein confirm karein."
+        },
+        {
+          "en": "Check the DC terminals and wiring for looseness, then power up; if the bus is still out of range, call a technician.",
+          "ur": "DC terminal aur wiring dhilapan ke liye check karein, phir power on karein; bus phir bhi range se bahar ho to technician bulayein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "AcTerminalOTP",
+      "aliases": [
+        "AcTerminalOTP"
+      ],
+      "title": {
+        "en": "AC terminal overtemperature",
+        "ur": "AC terminal over-temperature"
+      },
+      "meaning": {
+        "en": "AC terminal overtemperature",
+        "ur": "AC terminal over-temperature"
+      },
+      "causes": [
+        {
+          "en": "AC terminal overtemperature",
+          "ur": "AC terminal over-temperature"
+        },
+        {
+          "en": "Loose AC terminal joint heating up.",
+          "ur": "AC terminal ka dhila joint garam ho jana."
+        },
+        {
+          "en": "High ambient temperature or a heavy load running for long.",
+          "ur": "Ambient temperature zyada hona ya lambi der bhaari load chalna."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the inverter and let the terminals cool before touching them.",
+          "ur": "Terminal chhoone se pehle inverter band karke terminal ko thanda hone dein."
+        },
+        {
+          "en": "Check that the AC terminals are tight and free of burns, and confirm the ambient temperature is within range.",
+          "ur": "Confirm karein ke AC terminal tight aur jale hue nahi hain, aur ambient temperature range mein hai."
+        },
+        {
+          "en": "Tighten or replace damaged terminals, restore power and check that the temperature stays normal.",
+          "ur": "Damage terminal tight ya badlein, power on karein aur temperature normal rehna confirm karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "EepromFault",
+      "aliases": [
+        "EepromFault"
+      ],
+      "title": {
+        "en": "DSP EEPROM fault",
+        "ur": "DSP EEPROM ka fault"
+      },
+      "meaning": {
+        "en": "DSP EEPROM fault",
+        "ur": "DSP ki EEPROM theek se kaam nahi karna."
+      },
+      "causes": [
+        {
+          "en": "DSP EEPROM fault",
+          "ur": "DSP EEPROM data kharab ho jana"
+        },
+        {
+          "en": "Power cut while the EEPROM data was being written.",
+          "ur": "Jab EEPROM ka data likha ja raha tha, us waqt power cut ho gaya."
+        },
+        {
+          "en": "EEPROM chip aged or damaged.",
+          "ur": "EEPROM chip purani ya damage ho jana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off and isolate the supplies before reconnecting any wiring.",
+          "ur": "Koi bhi wiring dobara lagane se pehle power band karke supply alag kar dein."
+        },
+        {
+          "en": "Disconnect the PV wiring and reconnect it firmly, making sure no connector is loose or damaged.",
+          "ur": "PV wiring alag karke mazbooti se wapas lagayein aur dekhein ke koi connector dhila ya damage nahi hai."
+        },
+        {
+          "en": "Power up again; if the fault persists, seek help — the DSP EEPROM may need a service reload.",
+          "ur": "Dobara power on karein; fault barqarar rahe to madad lein — DSP EEPROM ko service par dobara load karwana parega."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "RcDeviceFault",
+      "aliases": [
+        "RcDeviceFault"
+      ],
+      "title": {
+        "en": "Residual current device fault",
+        "ur": "Residual current device ka fault"
+      },
+      "meaning": {
+        "en": "Residual current device fault",
+        "ur": "Residual current device theek se kaam nahi karna."
+      },
+      "causes": [
+        {
+          "en": "Residual current device fault",
+          "ur": "Residual current device trip ya kharab hona"
+        },
+        {
+          "en": "Earth leakage in the installation wiring.",
+          "ur": "Installation wiring mein earth leakage hona."
+        },
+        {
+          "en": "Device wiring loose or the device itself failed.",
+          "ur": "Device ki wiring dhili ho jana ya device hi kharab ho jana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the inverter before checking the device.",
+          "ur": "Device check karne se pehle inverter band kar dein."
+        },
+        {
+          "en": "Check the residual current device wiring and the earth connection, then restart the inverter to re-check.",
+          "ur": "Residual current device ki wiring aur earth connection check karein, phir dobara check ke liye inverter restart karein."
+        },
+        {
+          "en": "If the fault stays, update the ARM software or send the unit in for service.",
+          "ur": "Fault rahe to ARM software update karein ya unit service ke liye bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "PvConnDirFault",
+      "aliases": [
+        "PvConnDirFault"
+      ],
+      "title": {
+        "en": "PV direction / polarity fault",
+        "ur": "PV polarity ulta lag jana"
+      },
+      "meaning": {
+        "en": "PV direction / polarity fault",
+        "ur": "PV ka connection ulti polarity se lag jana."
+      },
+      "causes": [
+        {
+          "en": "PV direction / polarity fault",
+          "ur": "PV positive aur negative ultay lag jana"
+        },
+        {
+          "en": "String connectors plugged in reverse.",
+          "ur": "String connector ulta plug ho jana."
+        },
+        {
+          "en": "Mixed PV strings of opposite polarity.",
+          "ur": "Alag polarity ki PV strings mix ho jana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and isolate the PV before checking polarity.",
+          "ur": "Polarity check karne se pehle PV band karke alag kar dein."
+        },
+        {
+          "en": "Use a meter to check that the PV sides are connected correctly — positive to positive and negative to negative.",
+          "ur": "Meter se check karein ke PV sides theek lagin hain — positive positive aur negative negative par."
+        },
+        {
+          "en": "Correct any reversed connection, then reconnect and restart the inverter.",
+          "ur": "Koi ulta connection theek karke wapas connect karein aur inverter restart karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "GridRelayFault",
+      "aliases": [
+        "GridRelayFault"
+      ],
+      "title": {
+        "en": "Relay fault",
+        "ur": "Grid relay fault"
+      },
+      "meaning": {
+        "en": "Relay fault",
+        "ur": "Grid relay fault"
+      },
+      "causes": [
+        {
+          "en": "Relay fault",
+          "ur": "Grid relay fault"
+        },
+        {
+          "en": "Relay contacts welded or worn out.",
+          "ur": "Relay contact chipak jana ya ghis jana."
+        },
+        {
+          "en": "Relay coil supply missing or the wiring loose.",
+          "ur": "Relay coil ki supply na aaye ya wiring dhili ho jana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the inverter before checking the relay.",
+          "ur": "Relay check karne se pehle inverter band kar dein."
+        },
+        {
+          "en": "Check the grid connection and listen for the relay clicking when the unit starts; check the relay wiring with a meter.",
+          "ur": "Grid connection check karein aur unit start hone par relay ki awaaz sunke dekhein; meter se relay wiring check karein."
+        },
+        {
+          "en": "Restart the inverter; if the relay still does not operate, the unit needs a technician.",
+          "ur": "Inverter restart karein; phir bhi relay na chale to unit technician ke paas jaye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "OtherDeviceFault",
+      "aliases": [
+        "OtherDeviceFault"
+      ],
+      "title": {
+        "en": "Model incorrectly set fault",
+        "ur": "Model ghalat set hone ka fault"
+      },
+      "meaning": {
+        "en": "Model incorrectly set fault",
+        "ur": "Inverter ka model settings mein ghalat set ho jana."
+      },
+      "causes": [
+        {
+          "en": "Model incorrectly set fault",
+          "ur": "Model number ki setting ghalat hona"
+        },
+        {
+          "en": "Product type or power rating chosen wrongly in the menu.",
+          "ur": "Menu mein product type ya power rating ghalat chun lena."
+        },
+        {
+          "en": "Firmware does not match the configured model.",
+          "ur": "Firmware configured model se match na karna."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off before changing the model setting.",
+          "ur": "Model setting badalne se pehle power band kar dein."
+        },
+        {
+          "en": "Open the settings menu and confirm the model or product type matches the nameplate.",
+          "ur": "Settings menu kholein aur confirm karein ke model ya product type nameplate se match karta hai."
+        },
+        {
+          "en": "Save the setting and restart; if the fault remains, seek help from service.",
+          "ur": "Setting save karke restart karein; fault rahe to service se madad lein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "MgrEEPROMFault",
+      "aliases": [
+        "MgrEEPROMFault"
+      ],
+      "title": {
+        "en": "ARM EEPROM fault",
+        "ur": "ARM EEPROM ka fault"
+      },
+      "meaning": {
+        "en": "ARM EEPROM fault",
+        "ur": "ARM board ki EEPROM theek se kaam nahi karna."
+      },
+      "causes": [
+        {
+          "en": "ARM EEPROM fault",
+          "ur": "ARM EEPROM data kharab ho jana"
+        },
+        {
+          "en": "Interrupted upgrade left the ARM EEPROM incomplete.",
+          "ur": "Upgrade ruk jane se ARM EEPROM adhoori reh jana."
+        },
+        {
+          "en": "EEPROM chip on the ARM board failed.",
+          "ur": "ARM board par lagi EEPROM chip kharab ho jana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and isolate the PV and grid before reconnecting.",
+          "ur": "Dobara connect karne se pehle PV aur grid band karke alag kar dein."
+        },
+        {
+          "en": "Disconnect the PV and grid, check the connectors, then reconnect them firmly.",
+          "ur": "PV aur grid alag karke connector check karein, phir mazbooti se wapas lagayein."
+        },
+        {
+          "en": "Power up and re-check; if the fault stays, the ARM board needs service support.",
+          "ur": "Power on karke dobara check karein; fault rahe to ARM board ko service support chahiye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "MeterFault",
+      "aliases": [
+        "MeterFault"
+      ],
+      "title": {
+        "en": "Meter fault",
+        "ur": "Meter ka fault"
+      },
+      "meaning": {
+        "en": "Meter fault",
+        "ur": "Meter sahi tareeqay se na chalna."
+      },
+      "causes": [
+        {
+          "en": "Meter fault",
+          "ur": "Meter kharab hona ya uska connection toot jana"
+        },
+        {
+          "en": "Meter communication wiring loose or broken.",
+          "ur": "Meter ki communication wiring dhili ya tooti ho jana."
+        },
+        {
+          "en": "Meter supply missing or the meter fuse blown.",
+          "ur": "Meter ki supply na aaye ya meter ka fuse udd jana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off before checking the meter wiring.",
+          "ur": "Meter wiring check karne se pehle power band kar dein."
+        },
+        {
+          "en": "Check the meter connection and communication line and confirm the meter itself is working.",
+          "ur": "Meter connection aur communication line check karein aur confirm karein ke meter khud chal raha hai."
+        },
+        {
+          "en": "Reconnect and restart the inverter; if the fault stays, the meter or its wiring needs replacing.",
+          "ur": "Connect karke inverter restart karein; fault rahe to meter ya uski wiring badalni paregi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "FanWarning",
+      "aliases": [
+        "FanWarning"
+      ],
+      "title": {
+        "en": "External fan abnormal warning",
+        "ur": "External fan ka normal se hatka warning"
+      },
+      "meaning": {
+        "en": "External fan abnormal warning",
+        "ur": "External fan normal tareeqay se nahi chal raha."
+      },
+      "causes": [
+        {
+          "en": "External fan abnormal warning",
+          "ur": "External fan atka hona ya kharab hona"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if the fan is working.",
+          "ur": "Manual ke hisaab se check karein; fix na ho to stop."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    },
+    {
+      "code": "PowerTypeFault",
+      "aliases": [
+        "PowerTypeFault"
+      ],
+      "title": {
+        "en": "Power type fault",
+        "ur": "Power type ka fault"
+      },
+      "meaning": {
+        "en": "Power type fault",
+        "ur": "Power type setting ghalat hona."
+      },
+      "causes": [
+        {
+          "en": "Power type fault",
+          "ur": "Power type settings ghalat hona"
+        },
+        {
+          "en": "Grid type or power type set wrongly in the settings.",
+          "ur": "Settings mein grid ya power type ghalat set ho jana."
+        },
+        {
+          "en": "Firmware or product SN does not match the configured type.",
+          "ur": "Firmware ya product SN configured type se match na karna."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off before checking the version and serial data.",
+          "ur": "Version aur serial data check karne se pehle power band kar dein."
+        },
+        {
+          "en": "Check the ARM/DSP version and product SN in the menu and confirm they match the configured power type.",
+          "ur": "Menu mein ARM/DSP version aur product SN check karein aur confirm karein ke woh configured power type se match karte hain."
+        },
+        {
+          "en": "Correct the setting and restart; if the fault stays, seek help from service.",
+          "ur": "Setting theek karke restart karein; fault rahe to service se madad lein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Fronus X3 MIC G2 user manual (official PDF — fronus.com / UAN 042-111-111-140; text layer +31 cipher, decoded)",
+        "url": "file:/tmp/opencode/fronus/x3mic.pdf",
+        "retrieved": "2026-09-24"
+      }
+    }
+  ]
+}

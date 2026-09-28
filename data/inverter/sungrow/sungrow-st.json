@@ -1,0 +1,1866 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sungrow",
+  "series": {
+    "id": "sungrow-st",
+    "name": "PowerKeeper ST050-062-075-087-100-112-125-137-150-162-175-187-200-212-225-237-250CF (BESS)",
+    "category": "inverter",
+    "unitType": "generic",
+    "modelPatterns": [
+      "*ST050CF*",
+      "*ST062CF*",
+      "*ST075CF*",
+      "*ST087CF*",
+      "*ST100CF*",
+      "*ST112CF*",
+      "*ST125CF*",
+      "*ST137CF*",
+      "*ST150CF*",
+      "*ST162CF*",
+      "*ST175CF*",
+      "*ST187CF*",
+      "*ST200CF*",
+      "*ST212CF*",
+      "*ST225CF*",
+      "*ST237CF*",
+      "*ST250CF*",
+      "*PowerKeeper*CF*",
+      "*PowerStack*ST*"
+    ],
+    "notes": "IMPORTANT: this is a BATTERY ENERGY STORAGE SYSTEM, not an inverter - hence unit_type generic. Its code table is NOT the inverter table. Proof that the same numeric string means different things on different device families: codes 703/711/712/715/717 are a lumped one-line 'Battery fault' row on the SH8.0-10RS INVERTER, but here they are a documented per-row Battery fault with an independent solution, and code 732 alone gets its own row. Battery codes on this family are shown with an 'EC' prefix in Sungrow's own support portal (e.g. 'EC714 BMS communication fault') - see BRAND RECON and CONFLICTS. EVERY battery solution in this table carries the same mandatory safety tail: if SOC is below 3%, switch the battery off immediately to avoid overdischarge damage - that tail is part of the official row, not an addition."
+  },
+  "codes": [
+    {
+      "code": "703, 711, 712, 715, 717",
+      "aliases": [
+        "703, 711, 712, 715, 717",
+        "703",
+        "711",
+        "712",
+        "715",
+        "717",
+        "EC703"
+      ],
+      "title": {
+        "en": "Battery fault - clears in 20 min (703, 711, 712, 715, 717)",
+        "ur": "Battery fault - 20 min mein clear (703, 711, 712, 715, 717)"
+      },
+      "meaning": {
+        "en": "A self-clearing battery internal fault. Sungrow states it normally clears within 20 minutes; frequent continuous occurrence means real damage.",
+        "ur": "Battery ka khud ba khud theek hone wala internal fault. Sungrow kehta hai ke aam tor par ye 20 minute mein clear ho jata hai; baar baar aana asli nuksan hai."
+      },
+      "causes": [
+        {
+          "en": "Transient battery internal fault that the BMS detects and clears on its own.",
+          "ur": "Battery ka aam internal fault jo BMS khud detect karke clear kar deta hai."
+        },
+        {
+          "en": "Repeated triggering indicates actual inverter damage rather than a transient.",
+          "ur": "Baar baar trigger hona asal mein inverter damage ka nishaan hai, transient ka nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait up to 20 minutes - this fault generally clears within that window on its own.",
+          "ur": "20 minute tak intezaar karein - ye fault aam tor par usi window mein khud clear ho jata hai."
+        },
+        {
+          "en": "If it occurs frequently and continuously, switch off the battery and contact the installer or manufacturer to check for inverter damage.",
+          "ur": "Agar baar baar aur lagatar aata hai to battery band karke installer ya manufacturer se rabta karein taake inverter damage check kiya jaye."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage from overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do not confuse with the SH8.0-10RS inverter's Battery Fault row, which lumps 703/707/708/711/712/715/717 into ONE undifferentiated row with different solutions. Here they have their own dedicated solution text.",
+        "ur": "SH8.0-10RS inverter ke Battery Fault row se confuse na karein, jahan 703/707/708/711/712/715/717 ek hi undifferentiated row mein hain aur solutions alag hain. Yahan inhein apna alag solution text mila hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "707, 733",
+      "aliases": [
+        "707, 733",
+        "707",
+        "733",
+        "EC707",
+        "EC733"
+      ],
+      "title": {
+        "en": "Battery fault - over temperature (707, 733)",
+        "ur": "Battery fault - temperature zyada (707, 733)"
+      },
+      "meaning": {
+        "en": "Battery ambient or internal temperature above the permitted range, so the BMS blocked charge/discharge to protect the cells.",
+        "ur": "Battery ka ambient ya internal temperature permitted range se upar hai, is liye BMS ne cells bachane ke liye charge/discharge block kar di."
+      },
+      "causes": [
+        {
+          "en": "Battery near a heat source such as a wall, transformer or direct sun.",
+          "ur": "Battery kisi heat source ke qareeb hai jaise deewar, transformer ya seedhi dhoop."
+        },
+        {
+          "en": "Poorly ventilated cabinet, or ambient temperature above 55 degC.",
+          "ur": "Cabinet ki ventilation kamzor, ya ambient temperature 55 degC se zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check for heat sources near the battery and confirm the ambient temperature is within limits - charging is 0 to 55 degC, discharging is -20 to 55 degC.",
+          "ur": "Battery ke qareeb heat sources dekhein aur confirm karein ambient temperature limit mein hai - charging 0 se 55 degC, discharging -20 se 55 degC."
+        },
+        {
+          "en": "If the battery is near a heat source, poorly ventilated, or ambient temperature is excessively high, improve the installation environment.",
+          "ur": "Agar battery heat source ke qareeb hai, ventilation kamzor hai, ya ambient temperature bohat zyada hai to installation environment behtar karein."
+        },
+        {
+          "en": "If the problem persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar masla lambi der tak rahe to installer ya manufacturer se rabta karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "708, 734",
+      "aliases": [
+        "708, 734",
+        "708",
+        "734",
+        "EC708",
+        "EC734"
+      ],
+      "title": {
+        "en": "Battery fault - under temperature (708, 734)",
+        "ur": "Battery fault - temperature kam (708, 734)"
+      },
+      "meaning": {
+        "en": "Battery ambient or internal temperature below the permitted range, so charging/discharging is blocked.",
+        "ur": "Battery ka ambient ya internal temperature permitted range se neeche hai, is liye charging/discharging block hai."
+      },
+      "causes": [
+        {
+          "en": "Ambient or battery temperature below -20 degC, or below 0 degC while charging.",
+          "ur": "Ambient ya battery temperature -20 degC se neeche, ya charging ke waqt 0 degC se neeche."
+        },
+        {
+          "en": "Battery installed outdoors in Pakistani winter with no thermal protection.",
+          "ur": "Battery Pakistan ki sarmay mein bina thermal protection ke bahar lagi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the temperature range: charging needs 0 to 55 degC, discharging needs -20 to 55 degC.",
+          "ur": "Temperature range confirm karein: charging ke liye 0 se 55 degC, discharging ke liye -20 se 55 degC."
+        },
+        {
+          "en": "If the ambient temperature is excessively low, improve the installation environment - wind protection or a warmer enclosure.",
+          "ur": "Agar ambient temperature bohat kam hai to installation environment behtar karein - wind protection ya garm enclosure lagayein."
+        },
+        {
+          "en": "If the problem persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar masla lambi der tak rahe to installer ya manufacturer se rabta karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "714",
+      "aliases": [
+        "714",
+        "EC714"
+      ],
+      "title": {
+        "en": "Battery fault - BMS communication (714)",
+        "ur": "Battery fault - BMS se baat nahi (714)"
+      },
+      "meaning": {
+        "en": "The inverter cannot communicate with the battery over the communication cable.",
+        "ur": "Inverter battery se communication cable ke zariye baat nahi kar sakta."
+      },
+      "causes": [
+        {
+          "en": "Communication cable between the inverter and the battery loose or not securely connected.",
+          "ur": "Inverter aur battery ke darmiyan communication cable loose hai ya mazboori se nahi juda."
+        },
+        {
+          "en": "Communication cable itself damaged.",
+          "ur": "Communication cable khud kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the communication cable between the inverter and the battery is correctly and securely connected - reseat both ends.",
+          "ur": "Check karein inverter aur battery ke darmiyan communication cable sahi se aur mazboori se juda hai - dono siron par dobara baithayein."
+        },
+        {
+          "en": "If the fault persists, replace the communication cable.",
+          "ur": "Agar fault phir bhi rahe to communication cable badal dein."
+        },
+        {
+          "en": "If the problem persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar masla lambi der tak rahe to installer ya manufacturer se rabta karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Sungrow's official installer FAQ portal has a dedicated article titled 'How to troubleshoot EC714 BMS communication fault?', confirming this code is displayed with an 'EC' prefix by the support organisation.",
+        "ur": "Sungrow ke official installer FAQ portal mein 'How to troubleshoot EC714 BMS communication fault?' naam ka khaas article hai, jis se confirm hota hai ke support organization is code ko 'EC' prefix ke saath dikhata hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "732",
+      "aliases": [
+        "732",
+        "EC732"
+      ],
+      "title": {
+        "en": "Battery fault - persists after rest (732)",
+        "ur": "Battery fault - rest ke baad bhi rahe (732)"
+      },
+      "meaning": {
+        "en": "A battery fault that occurred during charge or discharge. If it survives more than two hours of rest, the BESS control switch must be disconnected.",
+        "ur": "Charging ya discharging ke dauraan battery fault aaya. Agar do ghante ki rest ke baad bhi rahe to BESS control switch disconnect karna hoga."
+      },
+      "causes": [
+        {
+          "en": "Transient fault during a charge or discharge cycle.",
+          "ur": "Charging ya discharging cycle ke dauraan aaya hua transient fault."
+        },
+        {
+          "en": "Fault that does not clear even after the BESS has rested more than two hours.",
+          "ur": "Wo fault jo do ghante se zyada rest ke baad bhi clear nahi hota."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If the fault occurs during charging or discharging, allow the BESS to rest for a period of time first.",
+          "ur": "Agar fault charging ya discharging ke dauraan aaya hai to pehle BESS ko kuch der ke liye rest dein."
+        },
+        {
+          "en": "If it occurs after the BESS has been at rest for more than two hours, immediately disconnect the BESS control switch.",
+          "ur": "Agar ye do ghante se zyada rest ke baad bhi aaye to BESS control switch turant disconnect karein."
+        },
+        {
+          "en": "If the fault is not from the aforementioned reason and still cannot be resolved, contact Sungrow Customer Service.",
+          "ur": "Agar upar wali wajah na ho aur phir bhi hal na ho to Sungrow Customer Service se rabta karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This row is the ONLY battery-fault row in the whole ST table without the 'if SOC is below 3% switch off immediately' safety tail. Do not add that sentence to this code - it is not in the source.",
+        "ur": "Ye row poore ST table mein wohi battery-fault row hai jismein 'agar SOC 3% se neeche ho to turant band karein' wala safety tail nahi hai. Ye jumla is code mein add na karein - ye source mein nahi hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "735, 736, 737",
+      "aliases": [
+        "735, 736, 737",
+        "735",
+        "736",
+        "737",
+        "EC735"
+      ],
+      "title": {
+        "en": "Battery fault - needs 5 min restart (735, 736, 737)",
+        "ur": "Battery fault - 5 min restart chahiye (735, 736, 737)"
+      },
+      "meaning": {
+        "en": "Battery fault that usually self-recovers, but if it persists needs a power-off, 5-minute wait and restart.",
+        "ur": "Battery fault jo aam tor par khud theek hota hai, magar agar rahe to power off, 5 minute intezaar aur restart chahiye."
+      },
+      "causes": [
+        {
+          "en": "Transient internal battery fault, normally self-recovering.",
+          "ur": "Battery ka transient internal fault, jo aam tor par khud theek ho jata hai."
+        },
+        {
+          "en": "A second cause is not published - the manual gives only the recovery and restart procedure.",
+          "ur": "Doosri wajah publish nahi - manual sirf recovery aur restart procedure deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Generally the battery recovers automatically - wait before doing anything.",
+          "ur": "Aam tor par battery khud recover ho jata hai - kuch karne se pehle intezaar karein."
+        },
+        {
+          "en": "If the fault persists, switch off the battery, wait for five minutes, and restart it.",
+          "ur": "Agar fault rahe to battery band karein, paanch minute intezaar karein, aur dobara start karein."
+        },
+        {
+          "en": "If the problem persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar masla lambi der tak rahe to installer ya manufacturer se rabta karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "739",
+      "aliases": [
+        "739",
+        "EC739"
+      ],
+      "title": {
+        "en": "Battery fault - restart only (739)",
+        "ur": "Battery fault - sirf restart (739)"
+      },
+      "meaning": {
+        "en": "Battery fault whose only documented remedy is a power-off, 5-minute wait and restart.",
+        "ur": "Battery fault jiska sirf ek documented hal hai: power off, paanch minute intezaar aur restart."
+      },
+      "causes": [
+        {
+          "en": "Battery internal state that did not settle during the previous charge/discharge cycle.",
+          "ur": "Battery ka internal state jo pichhli charging/discharging cycle mein settle nahi hua."
+        },
+        {
+          "en": "A second cause is not published - the manual gives only a single restart instruction.",
+          "ur": "Doosri wajah publish nahi - manual sirf ek restart instruction deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the battery, wait for five minutes, and restart it.",
+          "ur": "Battery band karein, paanch minute intezaar karein, aur dobara start karein."
+        },
+        {
+          "en": "If the fault persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar fault lambi der tak rahe to installer ya manufacturer se rabta karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "740",
+      "aliases": [
+        "740",
+        "EC740"
+      ],
+      "title": {
+        "en": "Battery fault - loose connection in stacks (740)",
+        "ur": "Battery fault - stacks mein loose connection (740)"
+      },
+      "meaning": {
+        "en": "An incorrect or loose battery connection inside the rack/stack assembly.",
+        "ur": "Rack ya stack assembly ke andar battery ka connection galat ya loose hai."
+      },
+      "causes": [
+        {
+          "en": "Battery connection terminal inside the client stacks loose.",
+          "ur": "Client stacks ke andar battery connection terminal loose hai."
+        },
+        {
+          "en": "Connection incorrect (wrong terminal pairing) rather than merely loose.",
+          "ur": "Connection sirf loose nahi, ghalat bhi hai (galat terminal jori hui hai)."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether there is an incorrect or loose battery connection in the client stacks - isolate the BESS first.",
+          "ur": "Check karein client stacks mein battery ka connection ghalat ya loose hai ya nahi - pehle BESS isolate karein."
+        },
+        {
+          "en": "Re-seat and tighten every battery connection terminal to the specified torque.",
+          "ur": "Har battery connection terminal dobara baithayein aur specified torque tak tighten karein."
+        },
+        {
+          "en": "Switch off the battery, wait for five minutes, and restart it after the connections are corrected.",
+          "ur": "Connections theek karne ke baad battery band karein, paanch minute intezaar karein, aur dobara start karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "741",
+      "aliases": [
+        "741",
+        "EC741"
+      ],
+      "title": {
+        "en": "Battery fault - firmware / config mismatch (741)",
+        "ur": "Battery fault - firmware ya setting mismatch (741)"
+      },
+      "meaning": {
+        "en": "A firmware or system-configuration problem: the number of Packs does not match what the hybrid inverter expects.",
+        "ur": "Firmware ya system-configuration ki masla: Packs ki tadaad woh nahi jo hybrid inverter expect kar raha hai."
+      },
+      "causes": [
+        {
+          "en": "Hybrid inverter, Logger and battery software not on the latest versions.",
+          "ur": "Hybrid inverter, Logger aur battery software latest version par nahi hain."
+        },
+        {
+          "en": "System configuration wrong: single-phase hybrid must pair with a BESS of two to six Packs; three-phase hybrid with three to eight Packs.",
+          "ur": "System configuration ghalat: single-phase hybrid ke saath BESS do se chhe Packs ka hona chahiye; three-phase hybrid ke saath teen se aath Packs ka."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Contact the installer or manufacturer to upgrade the hybrid inverter, Logger and battery software to the latest versions.",
+          "ur": "Installer ya manufacturer se rabta karke hybrid inverter, Logger aur battery software latest version par upgrade karein."
+        },
+        {
+          "en": "Check whether the system configuration is correct: single-phase hybrid needs 2-6 Packs, three-phase hybrid needs 3-8 Packs.",
+          "ur": "Check karein system configuration sahi hai ya nahi: single-phase hybrid ke liye 2-6 Packs, three-phase hybrid ke liye 3-8 Packs chahiye."
+        },
+        {
+          "en": "If the problem persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar masla lambi der tak rahe to installer ya manufacturer se rabta karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "742",
+      "aliases": [
+        "742",
+        "EC742"
+      ],
+      "title": {
+        "en": "Battery fault - power cables reversed (742)",
+        "ur": "Battery fault - power cables ulti (742)"
+      },
+      "meaning": {
+        "en": "Battery power cables are connected in reverse, or the contact is poor.",
+        "ur": "Battery power cables ulti polarity se jade hain, ya contact kamzor hai."
+      },
+      "causes": [
+        {
+          "en": "Power cables connected in reverse polarity between packs.",
+          "ur": "Packs ke darmiyan power cables ulti polarity se jade hain."
+        },
+        {
+          "en": "Connector not fully seated or terminal not tightened, giving a high-resistance joint.",
+          "ur": "Connector poori tarah nahi baitha ya terminal tighten nahi, is liye joint mein zyada resistance."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the BESS control switch before touching any battery power cable.",
+          "ur": "Kisi bhi battery power cable ko chhune se pehle BESS control switch isolate karein."
+        },
+        {
+          "en": "Check whether the power cables are connected in inverse - verify polarity at each pack-to-pack link with a meter.",
+          "ur": "Check karein power cables ulti polarity se jude hain ya nahi - har pack-to-pack link par meter se polarity verify karein."
+        },
+        {
+          "en": "Re-seat the connectors fully and tighten terminals to the specified torque to cure poor contact.",
+          "ur": "Kamzor contact theek karne ke liye connectors poori tarah dobara baithayein aur terminals specified torque tak tighten karein."
+        },
+        {
+          "en": "If the problem persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar masla lambi der tak rahe to installer ya manufacturer se rabta karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Reverse power connection is damaging, so recorded as danger. The source does not add the SOC 3% tail to this row.",
+        "ur": "Power connection ulti hone se nuksan hota hai, is liye danger rakha gaya hai. Source is row mein SOC 3% wala tail add nahi karta."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "743, 744, 745",
+      "aliases": [
+        "743, 744, 745",
+        "743",
+        "744",
+        "745",
+        "EC743"
+      ],
+      "title": {
+        "en": "Battery fault - needs software upgrade (743, 744, 745)",
+        "ur": "Battery fault - software upgrade chahiye (743, 744, 745)"
+      },
+      "meaning": {
+        "en": "Battery fault that usually self-recovers; if it persists the fix is a battery software upgrade, not a hardware change.",
+        "ur": "Battery fault jo aam tor par khud theek hota hai; agar rahe to hal battery software upgrade hai, hardware badalna nahi."
+      },
+      "causes": [
+        {
+          "en": "Battery firmware issue that the BMS cannot clear by itself.",
+          "ur": "Battery firmware ki masla jo BMS khud clear nahi kar sakta."
+        },
+        {
+          "en": "Battery firmware version out of date, which the manual names as the reason to upgrade.",
+          "ur": "Battery firmware purana hai, jise manual hi upgrade ka wajah batata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Generally the battery recovers automatically - wait before intervening.",
+          "ur": "Aam tor par battery khud recover ho jata hai - kuch karne se pehle intezaar karein."
+        },
+        {
+          "en": "If the fault persists, upgrade the battery software - do not replace hardware at this stage.",
+          "ur": "Agar fault rahe to battery software upgrade karein - is stage par hardware mat badlein."
+        },
+        {
+          "en": "If the problem persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar masla lambi der tak rahe to installer ya manufacturer se rabta karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "746",
+      "aliases": [
+        "746",
+        "EC746"
+      ],
+      "title": {
+        "en": "Battery fault - pack stacking order (746)",
+        "ur": "Battery fault - packs galat order mein (746)"
+      },
+      "meaning": {
+        "en": "The Packs are stacked in the wrong order for the installed hardware, so the firmware cannot be upgraded successfully.",
+        "ur": "Packs installed hardware ke mutabiq galat order mein lage hain, is liye firmware successfully upgrade nahi ho sakta."
+      },
+      "causes": [
+        {
+          "en": "Hybrid inverter, Logger and battery software not on matched latest versions.",
+          "ur": "Hybrid inverter, Logger aur battery software aapas mein matched latest versions par nahi hain."
+        },
+        {
+          "en": "Packs installed in the wrong stacking order.",
+          "ur": "Packs galat stacking order mein lage hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Contact the installer or manufacturer to upgrade the hybrid inverter, Logger and battery software to the latest versions.",
+          "ur": "Installer ya manufacturer se rabta karke hybrid inverter, Logger aur battery software latest versions par upgrade karein."
+        },
+        {
+          "en": "If the fault persists, have the installer change the stacking order of the Packs and re-install the battery.",
+          "ur": "Agar fault rahe to installer se Packs ka stacking order badalwa kar battery dobara install karein."
+        },
+        {
+          "en": "If the problem persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar masla lambi der tak rahe to installer ya manufacturer se rabta karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "747",
+      "aliases": [
+        "747",
+        "EC747"
+      ],
+      "title": {
+        "en": "Battery fault - restart then upgrade (747)",
+        "ur": "Battery fault - pehle restart phir upgrade (747)"
+      },
+      "meaning": {
+        "en": "Battery fault: restart the battery first, and only upgrade the software if the restart does not clear it.",
+        "ur": "Battery fault: pehle battery restart karein, aur restart se hal na ho to hi software upgrade karein."
+      },
+      "causes": [
+        {
+          "en": "Transient battery state that a clean restart usually clears.",
+          "ur": "Battery ka transient state jo saaf restart se aam tor par hal ho jata hai."
+        },
+        {
+          "en": "A second cause is not published - the manual gives only a restart then upgrade sequence.",
+          "ur": "Doosri wajah publish nahi - manual sirf restart phir upgrade ka sequence deta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off the battery, wait for five minutes, and restart it - do this before anything else.",
+          "ur": "Battery band karein, paanch minute intezaar karein, aur dobara start karein - ye sab se pehle karein."
+        },
+        {
+          "en": "If the fault persists, upgrade the battery software.",
+          "ur": "Agar fault rahe to battery software upgrade karein."
+        },
+        {
+          "en": "If the problem persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar masla lambi der tak rahe to installer ya manufacturer se rabta karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "750, 751",
+      "aliases": [
+        "750, 751",
+        "750",
+        "751",
+        "EC750",
+        "EC751"
+      ],
+      "title": {
+        "en": "Battery fault - contact installer (750, 751)",
+        "ur": "Battery fault - installer se rabta karein (750, 751)"
+      },
+      "meaning": {
+        "en": "Battery fault with NO self-service remedy at all. Sungrow's only instruction is to contact the installer or manufacturer.",
+        "ur": "Battery fault jiska koi khud karne wala hal bilkul nahi hai. Sungrow ka sirf itna instruction hai ke installer ya manufacturer se rabta karein."
+      },
+      "causes": [
+        {
+          "en": "NOT PUBLISHED - Sungrow gives no cause for these codes.",
+          "ur": "PUBLISH NAHI HUI - Sungrow in codes ki koi wajah nahi deta."
+        },
+        {
+          "en": "A SECOND cause is also NOT PUBLISHED - the manual leaves both numbers deliberately without any stated cause, so neither row may be read as a diagnostic claim.",
+          "ur": "DOOSRI wajah bhi PUBLISH NAHI - manual dono numbers ko jaan boojh kar bina kisi wajah ke chhorta hai, is liye inhein kabhi diagnostic claim na samajhein."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Contact the installer or manufacturer - this is the only documented action for 750 and 751.",
+          "ur": "Installer ya manufacturer se rabta karein - 750 aur 751 ke liye yehi ek documented action hai."
+        },
+        {
+          "en": "Before the visit, record the SOC shown in iSolarCloud and the exact time the fault appeared.",
+          "ur": "Aane se pehle iSolarCloud mein dikhne wala SOC aur fault aane ka exact waqt note kar lein."
+        },
+        {
+          "en": "Have the BESS control switch isolated by the installer rather than opening the cabinet yourself.",
+          "ur": "Cabinet khud na kholein; installer se BESS control switch isolate karwane ko kahen."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "notes": {
+        "en": "confidence low is MANDATORY here: no cause and no field remedy are published by Sungrow. The single 'causes' row is a placeholder that declares the absence of information - it is not a claim about causation. The 2nd and 3rd solutions are technician-scoping advice, NOT Sungrow-documented steps. Do not present them as Sungrow instructions.",
+        "ur": "confidence low yahin MUST hai: Sungrow na wajah na field remedy publish karta. 'causes' ki ek row yeh batata hai ke maloomati nahi hai - ye causation ka daawa nahi. 2nd aur 3rd solutions technician-scoping advice hain, Sungrow ke documented steps NAHI. Inhein Sungrow ke instructions ki tarah mat pesh karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "833",
+      "aliases": [
+        "833",
+        "EC833"
+      ],
+      "title": {
+        "en": "Battery fault - stacking order or software (833)",
+        "ur": "Battery fault - stacking order ya software (833)"
+      },
+      "meaning": {
+        "en": "Battery fault whose documented fix is a firmware upgrade, and if that fails, re-stacking the Packs in the correct order.",
+        "ur": "Battery fault jiska documented hal firmware upgrade hai, aur agar woh na mile to Packs ko sahi order mein dobara stack karna."
+      },
+      "causes": [
+        {
+          "en": "Hybrid inverter, Logger and battery software not on the latest versions.",
+          "ur": "Hybrid inverter, Logger aur battery software latest versions par nahi hain."
+        },
+        {
+          "en": "Packs stacked in the wrong order.",
+          "ur": "Packs galat order mein stack hue hain."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Contact the installer or manufacturer to upgrade the hybrid inverter, Logger and battery software to the latest versions.",
+          "ur": "Installer ya manufacturer se rabta karke hybrid inverter, Logger aur battery software latest versions par upgrade karein."
+        },
+        {
+          "en": "If the fault persists, have the installer change the stacking order of the Packs and re-install the battery.",
+          "ur": "Agar fault rahe to installer se Packs ka stacking order badalwa kar battery dobara install karein."
+        },
+        {
+          "en": "If the problem persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar masla lambi der tak rahe to installer ya manufacturer se rabta karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Shares its solution text with 746 but is documented as a separate row. Also note code 833 appears inside the SH8.0-10RS inverter's lumped 'Battery Fault' range 832-837 - same number, different device family, do not merge.",
+        "ur": "Solution text 746 ke saath share karta hai magar alag row ke tor par document hai. Dhyan dein code 833 SH8.0-10RS inverter ke lumped 'Battery Fault' range 832-837 ke andar bhi hai - wohi number, alag device family, merge na karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "908",
+      "aliases": [
+        "908",
+        "EC908"
+      ],
+      "title": {
+        "en": "Battery fault - contact installer (908)",
+        "ur": "Battery fault - installer se rabta karein (908)"
+      },
+      "meaning": {
+        "en": "Battery fault with no published self-service remedy. Sungrow's only instruction is to contact the installer or manufacturer.",
+        "ur": "Battery fault jis ka khud karne wala koi hal publish nahi hua. Sungrow ka sirf itna instruction hai ke installer ya manufacturer se rabta karein."
+      },
+      "causes": [
+        {
+          "en": "NOT PUBLISHED - Sungrow gives no cause for this code.",
+          "ur": "PUBLISH NAHI HUI - Sungrow is code ki koi wajah nahi deta."
+        },
+        {
+          "en": "A SECOND cause is also NOT PUBLISHED - the manual deliberately leaves this number without any stated cause.",
+          "ur": "DOOSRI wajah bhi PUBLISH NAHI - manual jaan boojh kar is number ko bina kisi wajah ke chhorta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Contact the installer or manufacturer - this is the only documented action for 908.",
+          "ur": "Installer ya manufacturer se rabta karein - 908 ke liye yehi ek documented action hai."
+        },
+        {
+          "en": "Before the visit, record the SOC and the fault timestamp from iSolarCloud so the technician has data.",
+          "ur": "Aane se pehle iSolarCloud se SOC aur fault timestamp note kar lein taake technician ke paas data ho."
+        },
+        {
+          "en": "Do not power-cycle the BESS repeatedly - the source gives no restart instruction for this code.",
+          "ur": "BESS baar baar power cycle na karein - is code ke liye source koi restart instruction nahi deta."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "low",
+      "notes": {
+        "en": "confidence low is MANDATORY here: no cause and no field remedy are published. The single 'causes' row is a placeholder declaring the absence of information, not a causal claim. 908 is NOT inside any lumped inverter range, so it is BESS-specific.",
+        "ur": "confidence low yahin MUST hai: na wajah na field remedy publish hui hai. 'causes' ki ek row yeh batata hai ke maloomati nahi hai, causal claim nahi. 908 kisi lumped inverter range ke andar nahi hai, is liye ye BESS-specific hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "932, 939, 964",
+      "aliases": [
+        "932, 939, 964",
+        "932",
+        "939",
+        "964",
+        "EC932",
+        "EC939",
+        "EC964"
+      ],
+      "title": {
+        "en": "Battery alarm - auto recovery (932, 939, 964)",
+        "ur": "Battery alarm - khud recover (932, 939, 964)"
+      },
+      "meaning": {
+        "en": "Battery alarm that generally recovers by itself without action. Log it, but do not intervene immediately.",
+        "ur": "Battery alarm jo aam tor par kisi action ke baghair khud recover ho jata hai. Note to lein, magar foran kuch na karein."
+      },
+      "causes": [
+        {
+          "en": "Transient battery condition the BMS reports as an alarm rather than a fault.",
+          "ur": "Battery ka transient hal jo BMS fault ke bajaye alarm ki tarah report karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Generally the battery recovers automatically - no action needed at this stage.",
+          "ur": "Aam tor par battery khud recover ho jata hai - is stage par koi action ki zarurat nahi."
+        },
+        {
+          "en": "If the problem persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar masla lambi der tak rahe to installer ya manufacturer se rabta karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "ALARM class, not fault, so isFault is false. Note 932/939/964 also appear in the SH8.0-10RS inverter's 'Battery Alarm' row (932-935, 937, 939-943, 964, 840) - same numbers, different device family.",
+        "ur": "ALARM class, fault nahi, is liye isFault false hai. Note 932/939/964 SH8.0-10RS inverter ke 'Battery Alarm' row (932-935, 937, 939-943, 964, 840) mein bhi hain - wohi numbers, alag device family."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "937, 941, 942",
+      "aliases": [
+        "937, 941, 942",
+        "937",
+        "941",
+        "942",
+        "EC937"
+      ],
+      "title": {
+        "en": "Battery alarm - needs software update (937, 941, 942)",
+        "ur": "Battery alarm - software update chahiye (937, 941, 942)"
+      },
+      "meaning": {
+        "en": "Battery alarm that usually self-recovers; if it persists the fix is updating the battery software.",
+        "ur": "Battery alarm jo aam tor par khud theek hota hai; agar rahe to hal battery software update karna hai."
+      },
+      "causes": [
+        {
+          "en": "Battery firmware behaviour the BMS flags as an alarm.",
+          "ur": "Battery firmware ka aisa raw behaviour jo BMS alarm ki tarah flag karta hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Generally the battery recovers automatically - wait first.",
+          "ur": "Aam tor par battery khud recover ho jata hai - pehle intezaar karein."
+        },
+        {
+          "en": "If the fault persists, update the battery software.",
+          "ur": "Agar fault rahe to battery software update karein."
+        },
+        {
+          "en": "If the problem persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar masla lambi der tak rahe to installer ya manufacturer se rabta karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "ALARM class, so isFault is false. Also inside the SH inverter's lumped Battery Alarm row.",
+        "ur": "ALARM class, is liye isFault false hai. Ye SH inverter ke lumped Battery Alarm row ke andar bhi hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "933",
+      "aliases": [
+        "933",
+        "EC933"
+      ],
+      "title": {
+        "en": "Battery alarm - over temperature (933)",
+        "ur": "Battery alarm - temperature zyada (933)"
+      },
+      "meaning": {
+        "en": "Battery over-temperature alarm: charging is permitted only 0 to 55 degC and discharging -20 to 55 degC.",
+        "ur": "Battery over-temperature alarm: charging sirf 0 se 55 degC aur discharging -20 se 55 degC mein."
+      },
+      "causes": [
+        {
+          "en": "Battery near a heat source, or ambient temperature above 55 degC.",
+          "ur": "Battery heat source ke qareeb hai, ya ambient temperature 55 degC se zyada hai."
+        },
+        {
+          "en": "Poor ventilation inside the cabinet.",
+          "ur": "Cabinet ke andar ventilation kamzor hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check for heat sources near the battery and confirm the ambient temperature is within limits.",
+          "ur": "Battery ke qareeb heat sources dekhein aur confirm karein ambient temperature limit mein hai."
+        },
+        {
+          "en": "If the battery is near a heat source, poorly ventilated, or ambient temperature is excessively high, improve the installation environment.",
+          "ur": "Agar battery heat source ke qareeb hai, ventilation kamzor hai, ya ambient temperature bohat zyada hai to installation environment behtar karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "733 is the FAULT counterpart of this 933 ALARM (same temperature cause). Do not merge - one stops the battery, the other warns.",
+        "ur": "733 is 933 ALARM ka FAULT counterpart hai (wahi temperature ki wajah). Merge na karein - ek battery band karta hai, doosra warning deta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "934",
+      "aliases": [
+        "934",
+        "EC934"
+      ],
+      "title": {
+        "en": "Battery alarm - under temperature (934)",
+        "ur": "Battery alarm - temperature kam (934)"
+      },
+      "meaning": {
+        "en": "Battery under-temperature alarm, same 0 to 55 degC charging and -20 to 55 degC discharging limits.",
+        "ur": "Battery under-temperature alarm, wahi 0 se 55 degC charging aur -20 se 55 degC discharging limits."
+      },
+      "causes": [
+        {
+          "en": "Battery ambient or internal temperature below the permitted range.",
+          "ur": "Battery ka ambient ya internal temperature permitted range se neeche hai."
+        },
+        {
+          "en": "No heating in cold weather, or the battery is exposed to cold airflow.",
+          "ur": "Sarmay mein heating nahi hai, ya battery thande airflow mein exposed hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the temperature range: charging needs 0 to 55 degC, discharging needs -20 to 55 degC.",
+          "ur": "Temperature range confirm karein: charging ke liye 0 se 55 degC, discharging ke liye -20 se 55 degC."
+        },
+        {
+          "en": "If the ambient temperature is excessively low, improve the installation environment.",
+          "ur": "Agar ambient temperature bohat kam hai to installation environment behtar karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "734 is the FAULT counterpart of this 934 ALARM. Do not merge.",
+        "ur": "734 is 934 ALARM ka FAULT counterpart hai. Merge na karein."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "935",
+      "aliases": [
+        "935",
+        "EC935"
+      ],
+      "title": {
+        "en": "Battery alarm - needs 5 min restart (935)",
+        "ur": "Battery alarm - 5 min restart chahiye (935)"
+      },
+      "meaning": {
+        "en": "Battery alarm that usually self-recovers; if it persists, power off the battery for five minutes and restart.",
+        "ur": "Battery alarm jo aam tor par khud theek hota hai; agar rahe to battery paanch minute ke liye band karke restart karein."
+      },
+      "causes": [
+        {
+          "en": "Transient battery state reported as an alarm.",
+          "ur": "Battery ka transient hal jo alarm ki tarah report hua."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Generally the battery recovers automatically - wait first.",
+          "ur": "Aam tor par battery khud recover ho jata hai - pehle intezaar karein."
+        },
+        {
+          "en": "If the fault persists, switch off the battery, wait for five minutes, and restart it.",
+          "ur": "Agar fault rahe to battery band karein, paanch minute intezaar karein, aur dobara start karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "ALARM class, so isFault is false. Note 935 sits in the SH inverter's Battery Alarm range 932-935 while here it is a standalone row.",
+        "ur": "ALARM class, is liye isFault false hai. Note 935 SH inverter ke Battery Alarm range 932-935 mein hai jab ke yahan ye alag row hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "968, 969, 970, 972, 973",
+      "aliases": [
+        "968, 969, 970, 972, 973",
+        "968",
+        "969",
+        "970",
+        "972",
+        "973",
+        "EC968"
+      ],
+      "title": {
+        "en": "Battery alarm - auto recovery group (968-973)",
+        "ur": "Battery alarm group - khud theek hota hai (968-973)"
+      },
+      "meaning": {
+        "en": "A group of battery alarms that generally recover by themselves. Log them; escalate only if they persist.",
+        "ur": "Battery alarms ka group jo aam tor par khud recover ho jata hai. Note to lein; sirf tab upar batayein jab lambi der tak rahein."
+      },
+      "causes": [
+        {
+          "en": "Transient battery conditions reported by the BMS as alarms.",
+          "ur": "BMS ke taraf se report kiye gaye transient battery hal."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Generally the battery recovers automatically - no immediate action.",
+          "ur": "Aam tor par battery khud recover ho jata hai - foran koi action nahi."
+        },
+        {
+          "en": "If the problem persists for an extended period, contact the installer or the manufacturer.",
+          "ur": "Agar masla lambi der tak rahe to installer ya manufacturer se rabta karein."
+        },
+        {
+          "en": "If SOC is below 3%, switch off the battery immediately to avoid damage caused by overdischarge.",
+          "ur": "Agar SOC 3% se neeche hai to overdischarge ke nuksan se bachne ke liye battery turant band karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "971",
+      "aliases": [
+        "971",
+        "EC971"
+      ],
+      "title": {
+        "en": "Battery alarm - fan or vent blocked (971)",
+        "ur": "Battery alarm - fan ya vent block (971)"
+      },
+      "meaning": {
+        "en": "Battery cooling fan fault or blocked air inlet/outlet. The only alarm row in the table whose remedy names a replaceable component.",
+        "ur": "Battery cooling fan ka fault ya blocked air inlet/outlet. Ye table mein wohi alarm row hai jiska hal ek replaceable component ka naam leta hai."
+      },
+      "causes": [
+        {
+          "en": "Cooling fan blocked by foreign objects, dust or debris.",
+          "ur": "Cooling fan bahri cheez, dhool ya kachra se block ho gaya."
+        },
+        {
+          "en": "Air inlet or outlet grille blocked or obstructed.",
+          "ur": "Air inlet ya outlet grille block ya band ho gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the fan or the air inlet and outlet are blocked by foreign objects - isolate the BESS before opening the cabinet.",
+          "ur": "Check karein fan ya air inlet aur outlet bahri cheez se block to nahi hain - cabinet kholne se pehle BESS isolate karein."
+        },
+        {
+          "en": "Clear the obstruction and restart the equipment.",
+          "ur": "Obstruction hata dein aur equipment restart karein."
+        },
+        {
+          "en": "If the alarm persists, it is recommended to replace the faulty component - replace the fan.",
+          "ur": "Agar alarm phir bhi rahe to faulty component badalna recommended hai - fan badal dein."
+        },
+        {
+          "en": "If the issue recurs, consult the battery manufacturer for a resolution.",
+          "ur": "Agar masla dobara aaye to hal ke liye battery manufacturer se mashwara karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "notes": {
+        "en": "The only entry in the whole ST table that names a specific replaceable part and a consult-the-manufacturer step, so it is a genuinely actionable field fix.",
+        "ur": "Poore ST table mein yehi wohi entry hai jo koi khaas replaceable part aur manufacturer se mashwara karne ka step batati hai, is liye ye haqeeq mein field par karne wala practical fix hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "LED_SOC_LOW_5",
+      "aliases": [
+        "LED_SOC_LOW_5",
+        "SOC Indicator Yellow",
+        "SOC <= 5%"
+      ],
+      "title": {
+        "en": "SOC LED yellow - SOC 5% or less",
+        "ur": "SOC LED yellow - SOC 5% ya us se kam"
+      },
+      "meaning": {
+        "en": "The five-bar SOC indicator shows its first bar in yellow: state of charge is 5 percent or lower.",
+        "ur": "Paanch bar wala SOC indicator apni pehli bar yellow mein dikhata hai: state of charge 5 percent ya us se kam hai."
+      },
+      "causes": [
+        {
+          "en": "Battery state of charge genuinely at or below 5 percent.",
+          "ur": "Battery ka state of charge haqeeq mein 5 percent ya us se kam hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "This is the LOWEST SOC band on the indicator - it is a state display, not a fault.",
+          "ur": "Ye indicator ka sab se neeche wala SOC band hai - ye state display hai, fault nahi."
+        },
+        {
+          "en": "Check that the battery is actually charging - confirm current flow in iSolarCloud.",
+          "ur": "Check karein battery asal mein charge ho rahi hai - iSolarCloud mein current flow ki tasdeeq karein."
+        },
+        {
+          "en": "If SOC stays below 5% while the PV is generating, check the hybrid inverter for a battery code such as 741 or 746.",
+          "ur": "Agar PV generate karte hue bhi SOC 5% se neeche atka rahe to hybrid inverter mein battery code jaise 741 ya 746 check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "SOC indicator first bar yellow steady on",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "LED_SOC_20",
+      "aliases": [
+        "LED_SOC_20",
+        "SOC Indicator Blue 20%"
+      ],
+      "title": {
+        "en": "SOC LED blue 1 bar - SOC 5% to 20%",
+        "ur": "SOC LED blue 1 bar - SOC 5% se 20%"
+      },
+      "meaning": {
+        "en": "One blue bar lit: state of charge is between 5 and 20 percent.",
+        "ur": "Ek blue bar jal: state of charge 5 se 20 percent ke darmiyan hai."
+      },
+      "causes": [
+        {
+          "en": "Battery state of charge in the 5-20 percent band.",
+          "ur": "Battery ka state of charge 5-20 percent ke darmiyan hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Normal state display - no action needed.",
+          "ur": "Normal state display - koi action ki zarurat nahi."
+        },
+        {
+          "en": "During charging the bars chase; during discharging they blink - that animation is normal.",
+          "ur": "Charging ke dauraan bars chaltay hain; discharging ke dauraan blink karte hain - ye animation normal hai."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "SOC indicator bar 1 blue steady on",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "LED_SOC_40",
+      "aliases": [
+        "LED_SOC_40",
+        "SOC Indicator Blue 40%"
+      ],
+      "title": {
+        "en": "SOC LED blue 2 bars - SOC 20% to 40%",
+        "ur": "SOC LED blue 2 bars - SOC 20% se 40%"
+      },
+      "meaning": {
+        "en": "Two blue bars lit: state of charge is between 20 and 40 percent.",
+        "ur": "Do blue bar jal: state of charge 20 se 40 percent ke darmiyan hai."
+      },
+      "causes": [
+        {
+          "en": "Battery state of charge in the 20-40 percent band.",
+          "ur": "Battery ka state of charge 20-40 percent ke darmiyan hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Normal state display - no action needed.",
+          "ur": "Normal state display - koi action ki zarurat nahi."
+        },
+        {
+          "en": "If the SOC has been stuck in this band for days with full sun, check for battery communication code 714.",
+          "ur": "Agar poori dhoop ke bawajood bhi SOC kayi din se is band mein atka hai to battery communication code 714 check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "SOC indicator bars 1-2 blue steady on",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "LED_SOC_60",
+      "aliases": [
+        "LED_SOC_60",
+        "SOC Indicator Blue 60%"
+      ],
+      "title": {
+        "en": "SOC LED blue 3 bars - SOC 40% to 60%",
+        "ur": "SOC LED blue 3 bars - SOC 40% se 60%"
+      },
+      "meaning": {
+        "en": "Three blue bars lit: state of charge is between 40 and 60 percent.",
+        "ur": "Teen blue bar jal: state of charge 40 se 60 percent ke darmiyan hai."
+      },
+      "causes": [
+        {
+          "en": "Battery state of charge in the 40-60 percent band.",
+          "ur": "Battery ka state of charge 40-60 percent ke darmiyan hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Normal state display - no action needed.",
+          "ur": "Normal state display - koi action ki zarurat nahi."
+        },
+        {
+          "en": "This is the nominal working band - expect discharge from here during the evening peak.",
+          "ur": "Ye nominal kaam ka band hai - shaam ki peak se yahan se discharge hona chahiye."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "SOC indicator bars 1-3 blue steady on",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "LED_SOC_80",
+      "aliases": [
+        "LED_SOC_80",
+        "SOC Indicator Blue 80%"
+      ],
+      "title": {
+        "en": "SOC LED blue 4 bars - SOC 60% to 80%",
+        "ur": "SOC LED blue 4 bars - SOC 60% se 80%"
+      },
+      "meaning": {
+        "en": "Four blue bars lit: state of charge is between 60 and 80 percent.",
+        "ur": "Chaar blue bar jal: state of charge 60 se 80 percent ke darmiyan hai."
+      },
+      "causes": [
+        {
+          "en": "Battery state of charge in the 60-80 percent band.",
+          "ur": "Battery ka state of charge 60-80 percent ke darmiyan hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Normal state display - no action needed.",
+          "ur": "Normal state display - koi action ki zarurat nahi."
+        },
+        {
+          "en": "If the battery never reaches this band, check the maximum SOC setting in iSolarCloud.",
+          "ur": "Agar battery kabhi is band tak nahi pohanchti to iSolarCloud mein maximum SOC setting check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "SOC indicator bars 1-4 blue steady on",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "LED_SOC_100",
+      "aliases": [
+        "LED_SOC_100",
+        "SOC Indicator Blue 100%",
+        "SOC full"
+      ],
+      "title": {
+        "en": "SOC LED blue 5 bars - SOC 80% to 100%",
+        "ur": "SOC LED blue 5 bars - SOC 80% se 100%"
+      },
+      "meaning": {
+        "en": "All five blue bars lit: state of charge is between 80 and 100 percent.",
+        "ur": "Paanchon blue bar jal: state of charge 80 se 100 percent ke darmiyan hai."
+      },
+      "causes": [
+        {
+          "en": "Battery state of charge in the 80-100 percent band.",
+          "ur": "Battery ka state of charge 80-100 percent ke darmiyan hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Normal state display - no action needed.",
+          "ur": "Normal state display - koi action ki zarurat nahi."
+        },
+        {
+          "en": "If SOC is pinned at 100% and never discharges, check the AC grid connection of the hybrid inverter.",
+          "ur": "Agar SOC 100% par atka rahe aur kabhi discharge na ho to hybrid inverter ka AC grid connection check karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "SOC indicator bars 1-5 blue steady on",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "LED_MAIN_BLUE_ON",
+      "aliases": [
+        "LED_MAIN_BLUE_ON",
+        "Main battery stack status Blue steady"
+      ],
+      "title": {
+        "en": "Main stack status LED blue on - normal",
+        "ur": "Main stack ka LED blue chala - sab theek hai"
+      },
+      "meaning": {
+        "en": "Main battery stack status indicator steady blue: the stack is in normal operation.",
+        "ur": "Main battery stack status indicator steady blue: stack normal operation mein hai."
+      },
+      "causes": [
+        {
+          "en": "Main battery stack operating normally.",
+          "ur": "Main battery stack normally chal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed - this is the healthy state.",
+          "ur": "Koi action ki zarurat nahi - ye theek hal ka state hai."
+        },
+        {
+          "en": "Read the SOC indicator bar count to get the actual state of charge.",
+          "ur": "Asli state of charge janne ke liye SOC indicator ki bars gino."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Blue status LED steady on",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "LED_MAIN_FLASH_1S",
+      "aliases": [
+        "LED_MAIN_FLASH_1S",
+        "Main battery stack status Blue flash 1s"
+      ],
+      "title": {
+        "en": "Main stack status LED blue flash 1s - self-testing",
+        "ur": "Main stack ka LED 1s blink - self-test chal raha hai"
+      },
+      "meaning": {
+        "en": "Blue status LED flashing at 1 second interval: the stack is running its self-test.",
+        "ur": "Blue status LED 1 second ke interval par blink: stack apna self-test chala raha hai."
+      },
+      "causes": [
+        {
+          "en": "Self-test routine running after power-on or a scheduled check.",
+          "ur": "Power-on ya scheduled check ke baad self-test routine chal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the self-test to complete - it is a normal routine, not a fault.",
+          "ur": "Self-test poora hone ka intezaar karein - ye normal routine hai, fault nahi."
+        },
+        {
+          "en": "If it stays in self-test for far longer than normal, record the time and contact the installer.",
+          "ur": "Agar normal se bohat zyada der tak self-test mein rahe to waqt note karke installer se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Blue status LED flashing, interval 1s",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "LED_MAIN_FLASH_05S",
+      "aliases": [
+        "LED_MAIN_FLASH_05S",
+        "Main battery stack status Blue flash 0.5s",
+        "Updating"
+      ],
+      "title": {
+        "en": "Main stack status LED blue flash 0.5s - updating",
+        "ur": "Main stack ka LED 0.5s blink - update chal raha hai"
+      },
+      "meaning": {
+        "en": "Blue status LED flashing at 0.5 second interval: the firmware is being updated. Do not interrupt.",
+        "ur": "Blue status LED 0.5 second ke interval par blink: firmware update ho raha hai. Beech mein mat kaatein."
+      },
+      "causes": [
+        {
+          "en": "A firmware/software update is in progress on the stack.",
+          "ur": "Stack par firmware ya software update chal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Leave the BESS powered on and do not disconnect anything while the LED flashes at 0.5s.",
+          "ur": "LED 0.5s par blink karte waqt BESS on chhor dein aur kuch disconnect na karein."
+        },
+        {
+          "en": "This is a normal state, distinct from a fault - do not power-cycle during an update.",
+          "ur": "Ye normal state hai, fault se alag - update ke dauraan power cycle na karein."
+        },
+        {
+          "en": "If the update does not finish within a reasonable time, contact the installer rather than interrupting.",
+          "ur": "Agar update reasonable time mein poora na ho to use kaatne ke bajaye installer se rabta karein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Blue status LED flashing, interval 0.5s (firmware update)",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "LED_MAIN_RED_ON",
+      "aliases": [
+        "LED_MAIN_RED_ON",
+        "Main battery stack status Red",
+        "Main battery stack fault"
+      ],
+      "title": {
+        "en": "Main stack status LED red - stack fault",
+        "ur": "Main stack ka LED red - stack mein fault hai"
+      },
+      "meaning": {
+        "en": "Red status LED steady on: a fault has occurred in the MAIN battery stack. The auxiliary stack may still be healthy.",
+        "ur": "Red status LED steady on: MAIN battery stack mein fault aa gaya hai. Auxiliary stack abhi bhi theek ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Any fault code in the 703-751 / 833 / 908 / 742 family raised by the main stack.",
+          "ur": "Main stack se taraf se 703-751 / 833 / 908 / 742 family ka koi bhi fault code."
+        },
+        {
+          "en": "The auxiliary stack may also be faulted, so identify which indicator is red before acting.",
+          "ur": "Auxiliary stack bhi fault ho sakta hai, is liye kaam karne se pehle identify karein ke kaun sa indicator red hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the active fault code from iSolarCloud or the LCD before touching the cabinet.",
+          "ur": "Cabinet chhune se pehle iSolarCloud ya LCD se active fault code parh lein."
+        },
+        {
+          "en": "Look that code up in this series and follow its solution - but confirm it is the MAIN stack code, not the auxiliary one.",
+          "ur": "Woh code is series mein dhoondein aur us ka solution follow karein - magar confirm karein ke ye MAIN stack ka code hai, auxiliary ka nahi."
+        },
+        {
+          "en": "Check whether the SOC is below 3% - if so, switch the battery off immediately.",
+          "ur": "Check karein SOC 3% se neeche hai ya nahi - agar haan to battery turant band karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Red status LED steady on",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "LED_MAIN_GRAY_SHUTDOWN",
+      "aliases": [
+        "LED_MAIN_GRAY_SHUTDOWN",
+        "Main battery stack status Gray",
+        "In shutdown status"
+      ],
+      "title": {
+        "en": "Main stack status LED gray - powered off / shutdown",
+        "ur": "Main stack status LED gray - band / shutdown"
+      },
+      "meaning": {
+        "en": "Gray status LED in shutdown state: the BESS is powered off. This is a deliberate state, not a fault.",
+        "ur": "Gray status LED shutdown state mein: BESS band hai. Ye jaan boojh kar kiya hua state hai, fault nahi."
+      },
+      "causes": [
+        {
+          "en": "BESS control switch in the OFF position.",
+          "ur": "BESS control switch OFF position par hai."
+        },
+        {
+          "en": "A protective shutdown after a lockout, awaiting a service visit.",
+          "ur": "Lockout ke baad protective shutdown, service visit ka intezaar kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the BESS control switch position before assuming a fault.",
+          "ur": "Fault samajhne se pehle BESS control switch ki position check karein."
+        },
+        {
+          "en": "If the switch is ON but the LED is gray, check for a latched lockout code in iSolarCloud before restarting.",
+          "ur": "Agar switch ON hai magar LED gray hai to restart karne se pehle iSolarCloud mein latched lockout code check karein."
+        },
+        {
+          "en": "This is also the normal display during a planned power-off, so do not treat it as an outage.",
+          "ur": "Ye planned power-off ke dauraan bhi normal display hai, is liye isay outage na samajhein."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Gray status LED, shutdown state",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "LED_AUX_BLUE_ON",
+      "aliases": [
+        "LED_AUX_BLUE_ON",
+        "Aux battery stack status Blue steady"
+      ],
+      "title": {
+        "en": "Aux stack status LED blue on - normal",
+        "ur": "Aux stack ka LED blue chala - sab theek hai"
+      },
+      "meaning": {
+        "en": "Auxiliary battery stack status indicator steady blue: the auxiliary stack is in normal operation.",
+        "ur": "Auxiliary battery stack status indicator steady blue: auxiliary stack normal operation mein hai."
+      },
+      "causes": [
+        {
+          "en": "Auxiliary battery stack operating normally.",
+          "ur": "Auxiliary battery stack normally chal raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed - this is the healthy state for the auxiliary stack.",
+          "ur": "Koi action ki zarurat nahi - ye auxiliary stack ke liye theek hal ka state hai."
+        },
+        {
+          "en": "Note that main and auxiliary are independent - a blue aux LED does not clear a main stack fault.",
+          "ur": "Note karein ke main aur auxiliary aapas mein hain - blue aux LED main stack ka fault nahi mitata."
+        }
+      ],
+      "severity": "info",
+      "display": "led_blink",
+      "isFault": false,
+      "blinkPattern": "Aux Blue status LED steady on",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    },
+    {
+      "code": "LED_AUX_RED_ON",
+      "aliases": [
+        "LED_AUX_RED_ON",
+        "Aux battery stack status Red",
+        "Auxiliary battery stack fault"
+      ],
+      "title": {
+        "en": "Aux stack status LED red - auxiliary fault",
+        "ur": "Aux stack ka LED red - auxiliary mein fault hai"
+      },
+      "meaning": {
+        "en": "Red status LED on the auxiliary indicator: a fault has occurred in the AUXILIARY battery stack.",
+        "ur": "Auxiliary indicator par red status LED: AUXILIARY battery stack mein fault aa gaya hai."
+      },
+      "causes": [
+        {
+          "en": "Any fault code raised by the auxiliary battery stack, distinct from the main stack.",
+          "ur": "Auxiliary battery stack se taraf se koi bhi fault code, main stack se alag."
+        },
+        {
+          "en": "The main stack may also be faulted, so identify which indicator is red before acting.",
+          "ur": "Main stack bhi fault ho sakta hai, is liye kaam karne se pehle identify karein ke kaun sa indicator red hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the active fault code from iSolarCloud and identify which stack raised it.",
+          "ur": "iSolarCloud se active fault code parh lein aur identify karein ke kis stack ne diya."
+        },
+        {
+          "en": "Follow that code's solution, but isolate the AUXILIARY stack only - do not shut down the main stack unnecessarily.",
+          "ur": "Us code ka solution follow karein, magar sirf AUXILIARY stack isolate karein - main stack ko ghalti se band na karein."
+        },
+        {
+          "en": "Check whether the SOC is below 3% - if so, switch the battery off immediately.",
+          "ur": "Check karein SOC 3% se neeche hai ya nahi - agar haan to battery turant band karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Red status LED steady on (auxiliary indicator)",
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "PowerKeeper ST050-250CF-UEN-Ver12-202607M0D02664 Battery Energy Storage System (BESS) User Manual, 10.1 Troubleshooting + Tables 2-6/2-7/2-8 indicators",
+        "retrieved": "2026-09-26",
+        "url": "https://info-support.sungrowpower.com/cms/af994f1d-bb0d-408a-b310-6ad732402c99/GUID-6981CDA8-F9AA-4930-9DEA-90B9B65271DE_1_en-US_PDF%20(%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E9%83%A8_%E5%9F%BA%E7%A1%80%E7%89%88)_1784022674702_compressed.pdf"
+      }
+    }
+  ]
+}

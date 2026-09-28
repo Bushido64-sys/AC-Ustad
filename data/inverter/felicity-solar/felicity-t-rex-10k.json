@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "brandId": "felicity-solar",
+  "series": {
+    "id": "felicity-t-rex-10k",
+    "name": "T-REX-10KLP3G01 three-phase hybrid inverter",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "T-REX-10KLP3G01",
+      "*10KLP3G01*"
+    ],
+    "notes": "The code table of this model is unreadable in the source PDF (CorelDRAW-to-PDF conversion outlined the text), so only the two codes actually recovered are listed. Codes 01-24 and 26+ of the chapter 9 table remain unverified and are in NEGATIVE. A reseller transcription (felicitysolar.me) claims 48 codes for this model; it was NOT used as a source. IMPORTANT: on this model fault = LED always-on AND buzzer continuous, warning = LED flashing AND buzzer intermittent - a different LED rule from SERIES 1."
+  },
+  "codes": [
+    {
+      "code": "40",
+      "aliases": [
+        "40",
+        "error code <40>",
+        "Earth Fault Alarm",
+        "Fault 40"
+      ],
+      "title": {
+        "en": "Error 40 Earth fault alarm",
+        "ur": "Error 40 Earth fault ka alarm"
+      },
+      "meaning": {
+        "en": "An earth fault has been detected; the ring light glows red and code 40 shows on the Fsolar app.",
+        "ur": "Earth fault detect ho gaya hai; ring light laal chamak ti hai aur Fsolar app par code 40 dikhta hai."
+      },
+      "causes": [
+        {
+          "en": "PV string insulation breakdown to earth (damaged cable, backsheet or MC4)",
+          "ur": "PV string ki insulation earth ke khilaf kharab (kharab cable, backsheet ya MC4)"
+        },
+        {
+          "en": "Water or moisture in a PV junction box or DC connector",
+          "ur": "PV junction box ya DC connector mein paani ya nami"
+        },
+        {
+          "en": "Poor inverter earth so a normal leakage current trips the monitor",
+          "ur": "Inverter ki earth kamzor hai jis se normal leakage current bhi monitor ko trip kar deta hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate PV at the DC isolator and switch off the AC side before investigating any earth fault.",
+          "ur": "Earth fault investigate karne se pehle DC isolator se PV isolate karein aur AC side band karein."
+        },
+        {
+          "en": "Megohmmeter-test each PV string to earth, string by string, to find the leaking string.",
+          "ur": "Har PV string ko alag alag earth ke khilaf megohmmeter se test karke leak wala string dhoondein."
+        },
+        {
+          "en": "The manual states the inverter must not be used with functionally earthed PV arrays; respect that.",
+          "ur": "Manual kehta hai ke functionally earthed PV arrays par inverter istemal nahi hona chahiye; is baat ka khayal rakhein."
+        }
+      ],
+      "severity": "danger",
+      "display": "led_blink",
+      "isFault": true,
+      "blinkPattern": "Ring light on the inverter LED panel lit up in red",
+      "confidence": "high",
+      "notes": {
+        "en": "IEC 62109-2 clause 13.9 earth-fault monitoring. This is a different meaning from SERIES 1 fault 40, which is 'Bus short circuit' on the T-REX 25-50KHP3G01. Never cross-apply.",
+        "ur": "IEC 62109-2 clause 13.9 earth-fault monitoring. Ye T-REX 25-50KHP3G01 ke SERIES 1 fault 40 se bilkul alag hai jahan woh 'Bus short circuit' hai. Kabhi aik doosre par apply na karein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-10KLP3G01 Hybrid Inverter User Guide (358-S010004-04)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/documents/2025/08/t-rex-10klp3g01-user-guide-en.pdf"
+      }
+    },
+    {
+      "code": "Warning 25",
+      "aliases": [
+        "Warning 25",
+        "25",
+        "W25",
+        "Phase Sequence Errors"
+      ],
+      "title": {
+        "en": "Warning 25 Phase sequence error",
+        "ur": "Warning 25 Grid phase ka sequence ghalat"
+      },
+      "meaning": {
+        "en": "The input and output power lines do not correspond; a setup/commissioning warning.",
+        "ur": "Input aur output power lines aik doosre se match nahi kar rahi; yeh setup/commissioning warning hai."
+      },
+      "causes": [
+        {
+          "en": "Two grid phases swapped at the AC terminal block",
+          "ur": "AC terminal block par do grid phases aik doosre ki jagah lage hue hain"
+        },
+        {
+          "en": "Output phases not following the same sequence as the grid input",
+          "ur": "Output phases grid input ki same sequence follow nahi kar rahi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the AC supply and confirm the phase sequence with a phase sequence meter.",
+          "ur": "AC supply isolate karke phase sequence meter se sequence confirm karein."
+        },
+        {
+          "en": "Re-land the phases at the AC terminal block so input and output correspond one to one.",
+          "ur": "AC terminal block par phases dobara lagayein taake input aur output aik doosre se match hon."
+        },
+        {
+          "en": "Confirm the grid and load conductors are correctly torqued after re-landing.",
+          "ur": "Dobara lagane ke baad confirm karein ke grid aur load conductors sahi torque par hain."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "Warning = LED flashes and the buzzer beeps intermittently (per the manual's LED/buzzer table)",
+      "confidence": "medium",
+      "notes": {
+        "en": "This is the ONLY row of the chapter 9 warning table whose text survived PDF extraction, so the wording comes from that row directly. Confidence is medium, not high, because the rest of the table could not be read: we cannot confirm that 25 is numbered inside the warning table (rather than the fault table) on this model, nor that the surrounding codes follow the same pattern. Do not infer sibling codes from this row.",
+        "ur": "Yeh chapter 9 warning table ki sirf aik row hai jis ka text PDF se mila, is liye wording usi row se li gayi hai. Confidence medium hai, high nahi, kyunke baqi table parh nahi ja saki: confirm nahi ho sakta ke is model par 25 warning table mein hai (fault table mein nahi), aur aik jaisa pattern baqi codes ka bhi hai. Is row se doosre codes ka andaza na lagayein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "T-REX-10KLP3G01 Hybrid Inverter User Guide (358-S010004-04)",
+        "retrieved": "2026-09-26",
+        "url": "https://www.felicitysolar.com/documents/2025/08/t-rex-10klp3g01-user-guide-en.pdf"
+      }
+    }
+  ]
+}

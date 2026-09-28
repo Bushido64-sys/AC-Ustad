@@ -1,0 +1,524 @@
+{
+  "schemaVersion": 1,
+  "brandId": "sofar",
+  "series": {
+    "id": "sofar-hyd-3-6k-ep",
+    "name": "HYD 3-6K-EP (single-phase hybrid 3-6 kW, PV + battery + EPS + generator)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*HYD*3000-EP*",
+      "*HYD*3600-EP*",
+      "*HYD*5000-EP*",
+      "*HYD*6000-EP*",
+      "*HYD*3-6K-EP*"
+    ],
+    "notes": "Manual section 7 'EventList information', Table 7-1 Eventlist. High PK relevance - single-phase residential hybrid with EPS backup. Rows unique to THIS table: ID032 OffgridGroundFault, ID045 CTDisconnect, ID046 PVReversalConnect, ID047 ParallelFault, ID056 NTCConnectFault, ID094 LoadShortCircuit, ID107 HwVerError, ID108 GenStartupFail, ID109 GeneratorOverload, ID125 'Battery discharge protection', ID144 PermGridRlyFail, ID151 BatPartOffline, ID158 BatLowVolt, ID186-ID188 battery temperature protections. Never merged with SERIES 5."
+  },
+  "codes": [
+    {
+      "code": "ID032",
+      "aliases": [
+        "ID032",
+        "OffgridGroundFault",
+        "Off-grid ground fault"
+      ],
+      "title": {
+        "en": "Off-grid / EPS earth fault (ID032)",
+        "ur": "Off-grid / EPS earth fault - backup circuit mein earth fault (ID032)"
+      },
+      "meaning": {
+        "en": "An earth fault was detected while the inverter was supplying the backup (off-grid) circuit. This row exists only on the EP single-phase table.",
+        "ur": "Jab inverter backup (off-grid) circuit ko power de raha tha tab earth fault detect hua. Yeh row sirf EP single-phase table par hai."
+      },
+      "causes": [
+        {
+          "en": "Leakage to earth in the EPS/load wiring - water in a junction box on the load side.",
+          "ur": "EPS/load wiring mein earth leakage - load side ke junction box mein paani."
+        },
+        {
+          "en": "Load-side cable pinched or a damaged appliance pulling current to earth.",
+          "ur": "Load side ka cable pinch hua ya koi damaged appliance earth mein current kheench raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off DC switch and AC breaker and isolate the EPS/load panel completely.",
+          "ur": "DC switch aur AC breaker off karke EPS/load panel ko mukammal tarah isolate karein."
+        },
+        {
+          "en": "Test the backup load wiring to earth with an insulation tester, one circuit at a time.",
+          "ur": "Insulation tester se backup load wiring ko earth ke saath ek ek circuit karke test karein."
+        },
+        {
+          "en": "Locate the leaky circuit or appliance, repair it, and only then re-enable the EPS output.",
+          "ur": "Leaky circuit ya dhoop dhundh kar theek karein, us ke baad hi EPS output dobara on karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "HYD 3-6K-EP User Manual, section 7, Table 7-1 Eventlist",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241227/1735288541294079959.pdf"
+      }
+    },
+    {
+      "code": "ID045",
+      "aliases": [
+        "ID045",
+        "CTDisconnect",
+        "CT error"
+      ],
+      "title": {
+        "en": "CT error / CT disconnected (ID045)",
+        "ur": "CT error / CT disconnect - current transformer ka signal nahi (ID045)"
+      },
+      "meaning": {
+        "en": "The current transformer is not delivering a usable signal. Manual action: check whether the CT wiring is correct.",
+        "ur": "Current transformer se qabil-e-istemal signal nahi aa raha. Manual ka action: check karein ke CT wiring sahi hai ya nahi."
+      },
+      "causes": [
+        {
+          "en": "CT lead loose, not seated, or connected to the wrong port.",
+          "ur": "CT lead loose, seat nahi hua, ya galat port par connected."
+        },
+        {
+          "en": "CT clamp not closed, or mounted on the wrong conductor / reversed.",
+          "ur": "CT clamp band nahi, ya galat conductor par / ulti taraf lagi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC breaker and check the CT wiring per the manual, including the port pinout.",
+          "ur": "AC breaker off karke manual ke mutabiq CT wiring check karein, port pinout samet."
+        },
+        {
+          "en": "Confirm the CT clamp arrow points with grid current flow and that the clamp closes fully.",
+          "ur": "Confirm karein ke CT clamp ki arrow grid current flow ki taraf hai aur clamp poori tarah band hota hai."
+        },
+        {
+          "en": "Verify the inverter CT type setting matches the fitted CT and re-check the LCD current reading.",
+          "ur": "Inverter ki CT type setting fitted CT se match karwayein aur LCD current reading dobara dekhein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "HYD 3-6K-EP User Manual, section 7, Table 7-1 Eventlist",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241227/1735288541294079959.pdf"
+      }
+    },
+    {
+      "code": "ID047",
+      "aliases": [
+        "ID047",
+        "Parallel Fault",
+        "Parallel error"
+      ],
+      "title": {
+        "en": "Parallel connection error (ID047)",
+        "ur": "Parallel connection error - parallel wiring ya setting ghalat (ID047)"
+      },
+      "meaning": {
+        "en": "Parallel operation is enabled but the parallel network is not correctly wired or the parallel setting on the LCD is wrong. Manual lists two checks for this row.",
+        "ur": "Parallel operation on hai magar parallel network sahi se wired nahi ya LCD ka parallel setting ghalat hai. Manual is row ke liye do check batata hai."
+      },
+      "causes": [
+        {
+          "en": "Parallel cable not correctly connected between the units.",
+          "ur": "Units ke darmiyan parallel cable sahi se connected nahi."
+        },
+        {
+          "en": "Parallel setting on the LCD left disabled or set to the wrong channel.",
+          "ur": "LCD ka parallel setting disable chhoda ya galat channel par set."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the parallel cable is correctly connected between the two units.",
+          "ur": "Check karein ke parallel cable do units ke darmiyan sahi se connected hai ya nahi."
+        },
+        {
+          "en": "Then check whether the parallel setting on the LCD is correct and enabled.",
+          "ur": "Phir check karein ke LCD ka parallel setting theek aur on hai ya nahi."
+        },
+        {
+          "en": "Power the master on first, then the slave, so each finds its role.",
+          "ur": "Pehle master on karein, phir slave, takay har apna role dhoondh le."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "HYD 3-6K-EP User Manual, section 7, Table 7-1 Eventlist",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241227/1735288541294079959.pdf"
+      }
+    },
+    {
+      "code": "ID056",
+      "aliases": [
+        "ID056",
+        "NTCConnectFault",
+        "NTC error"
+      ],
+      "title": {
+        "en": "NTC temperature sensor error (ID056)",
+        "ur": "NTC temperature sensor error - battery ka NTC sensor kharab (ID056)"
+      },
+      "meaning": {
+        "en": "The battery NTC temperature sensor connection is faulty, so the inverter cannot safely charge or discharge the battery. Manual action: check whether the NTC is properly connected.",
+        "ur": "Battery NTC temperature sensor ka connection kharab hai, is liye inverter battery ko safely charge ya discharge nahi kar sakta. Manual ka action: check karein ke NTC theek se connected hai ya nahi."
+      },
+      "causes": [
+        {
+          "en": "NTC lead not plugged into the COM port, or the plug is only half in.",
+          "ur": "NTC lead COM port mein plug nahi, ya plug aadha hi baitha hai."
+        },
+        {
+          "en": "NTC cable pinched, cut, or corroded at the sensor end.",
+          "ur": "NTC cable pinch hui, kat gayi, ya sensor side par corroded."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power off the inverter and check whether the NTC is properly connected in the COM port.",
+          "ur": "Inverter power off karke dekhein ke NTC COM port mein theek se connected hai ya nahi."
+        },
+        {
+          "en": "Measure NTC resistance with a multimeter at ambient temperature and compare with the sensor's specification curve.",
+          "ur": "Ambient temperature par multimeter se NTC resistance measure karke sensor ke specification curve se compare karein."
+        },
+        {
+          "en": "Replace the NTC lead or sensor if the reading is out of range or the connector is heat-damaged.",
+          "ur": "Reading range se bahar ho ya connector garmi se kharab ho to NTC lead ya sensor replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "HYD 3-6K-EP User Manual, section 7, Table 7-1 Eventlist",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241227/1735288541294079959.pdf"
+      }
+    },
+    {
+      "code": "ID094",
+      "aliases": [
+        "ID094",
+        "LoadShortCircuit",
+        "EPS short circuit protection"
+      ],
+      "title": {
+        "en": "EPS load short-circuit protection (ID094)",
+        "ur": "EPS load short circuit protection - backup load par short (ID094)"
+      },
+      "meaning": {
+        "en": "The inverter detected a short circuit on the EPS/LOAD output and cut backup power. Manual remedy: after three detections wait 30 minutes before re-entering off-grid mode, and check the AC LOAD port connection.",
+        "ur": "Inverter ne EPS/LOAD output par short circuit detect karke backup power kaat diya. Manual ka hal: teen detections ke baad off-grid mode mein dobara jaane se pehle 30 minute intezaar karein, aur AC LOAD port ki connection check karein."
+      },
+      "causes": [
+        {
+          "en": "A shorted appliance or a failed capacitor on the backup load panel.",
+          "ur": "Backup load panel par koi short hua appliance ya capacitor fail."
+        },
+        {
+          "en": "Incorrect or loose wiring at the AC LOAD terminal block.",
+          "ur": "AC LOAD terminal block par galat ya loose wiring."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate the AC LOAD panel and disconnect loads one by one to find the shorted item.",
+          "ur": "AC LOAD panel isolate karke loads ek ek karke disconnect karein takay short hua item mil jaye."
+        },
+        {
+          "en": "Check whether the AC LOAD port is connected correctly, as the manual directs, including PE and neutral.",
+          "ur": "Manual ke mutabiq check karein ke AC LOAD port theek se connected hai, PE aur neutral samet."
+        },
+        {
+          "en": "After three detections, wait the full 30 minutes the manual specifies before re-entering off-grid mode.",
+          "ur": "Teen detections ke baad manual ke bataye poore 30 minute intezaar karein, phir off-grid mode mein wapas jayein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "HYD 3-6K-EP User Manual, section 7, Table 7-1 Eventlist",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241227/1735288541294079959.pdf"
+      }
+    },
+    {
+      "code": "ID108",
+      "aliases": [
+        "ID108",
+        "GenStartupFail",
+        "Generator startup failure"
+      ],
+      "title": {
+        "en": "Generator startup failure (ID108)",
+        "ur": "Generator startup failure - generator start nahi ho raha (ID108)"
+      },
+      "meaning": {
+        "en": "In generator mode the inverter could not start output, usually because the generator did not come up to a usable voltage/frequency. Manual gives two checks.",
+        "ur": "Generator mode mein inverter ne output start nahi kiya, aam tor par is liye ke generator qabil-e-istemal voltage/frequency tak nahi aaya. Manual do check batata hai."
+      },
+      "causes": [
+        {
+          "en": "Generator not in a good condition - low fuel, failed starter, or a tripped breaker.",
+          "ur": "Generator theek haal mein nahi - fuel kam, starter kharab, ya breaker trip."
+        },
+        {
+          "en": "Generator and inverter not properly connected, or wrong generator mode configuration.",
+          "ur": "Generator aur inverter theek se jure nahi, ya generator mode ki configuration ghalat hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check whether the generator is in good condition - fuel, oil, cooling, air filter, and its own breaker.",
+          "ur": "Check karein ke generator theek haal mein hai - fuel, oil, cooling, air filter, aur us ka apna breaker."
+        },
+        {
+          "en": "Then check whether the generator and inverter are properly connected at the AC side.",
+          "ur": "Phir check karein ke generator aur inverter AC side par theek se jure hain ya nahi."
+        },
+        {
+          "en": "Confirm the generator mode is enabled correctly and the generator start-up time/voltage settings suit the genset.",
+          "ur": "Confirm karein ke generator mode theek enable hai aur generator start-up time/voltage settings genset ke mutabiq hain."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "HYD 3-6K-EP User Manual, section 7, Table 7-1 Eventlist",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241227/1735288541294079959.pdf"
+      }
+    },
+    {
+      "code": "ID124",
+      "aliases": [
+        "ID124",
+        "Low batteryAlarm",
+        "Battery low voltage shutdown"
+      ],
+      "title": {
+        "en": "Battery low-voltage alarm (ID124)",
+        "ur": "Battery low voltage alarm - battery voltage low par (ID124)"
+      },
+      "meaning": {
+        "en": "The battery voltage has fallen to the low threshold. Manual action: check whether the battery voltage of the inverter is too low.",
+        "ur": "Battery voltage low threshold tak gir gaya hai. Manual ka action: check karein ke inverter ki battery voltage bohat kam to nahi."
+      },
+      "causes": [
+        {
+          "en": "Battery genuinely discharged with no PV surplus to recharge it.",
+          "ur": "Battery sach mein discharge ho gaya aur recharge karne ke liye PV surplus nahi tha."
+        },
+        {
+          "en": "Load running continuously in EPS/backup mode draining the pack overnight.",
+          "ur": "Load aksar EPS/backup mode mein chalta raha aur raat bhar pack drain kar gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read battery voltage and SOC on the LCD, and measure pack voltage at the BAT terminals with a multimeter.",
+          "ur": "LCD par battery voltage aur SOC padhein, aur BAT terminals par multimeter se pack voltage measure karein."
+        },
+        {
+          "en": "Compare the measured voltage with the battery's minimum operating voltage from its datasheet.",
+          "ur": "Measured voltage ko battery ke datasheet ki minimum operating voltage se compare karein."
+        },
+        {
+          "en": "If voltage is healthy, adjust the low-voltage cutoff and depth-of-discharge settings in the advanced menu.",
+          "ur": "Agar voltage theek hai to advanced menu mein low-voltage cutoff aur depth-of-discharge settings theek karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "HYD 3-6K-EP User Manual, section 7, Table 7-1 Eventlist",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241227/1735288541294079959.pdf"
+      }
+    },
+    {
+      "code": "ID125",
+      "aliases": [
+        "ID125",
+        "Battery discharge protection",
+        "Battery prohibition discharge"
+      ],
+      "title": {
+        "en": "Battery discharge prohibited (ID125)",
+        "ur": "Battery discharge prohibited - BMS ne discharge block kar di (ID125)"
+      },
+      "meaning": {
+        "en": "Protection is blocking battery discharge to protect the cells. This EP table's ID125 is named differently from the HYD 3PH table's ID125 - kept separate.",
+        "ur": "Cells bachane ke liye protection ne battery discharge block kar diya. Is EP table ka ID125 HYD 3PH table ke ID125 se alag naam rakhta hai - alag rakha gaya hai."
+      },
+      "causes": [
+        {
+          "en": "SOC already at the configured lower cutoff - normal end of discharge.",
+          "ur": "SOC configured lower cutoff par pahunch chuka hai - ye normal discharge ka ant hai."
+        },
+        {
+          "en": "One or more cells below the cell-level undervoltage limit (pack imbalance).",
+          "ur": "Ek ya zyada cells cell-level undervoltage limit se neeche (pack imbalance)."
+        },
+        {
+          "en": "Battery temperature outside the safe discharge window.",
+          "ur": "Battery temperature safe discharge window se bahar hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the SOC on the LCD; at the lower cutoff this message is expected and needs no repair.",
+          "ur": "LCD par SOC padhein; lower cutoff par ye message aana expected hai aur koi marammat zaroori nahi."
+        },
+        {
+          "en": "If SOC is high but discharge is blocked, measure pack voltage and check battery temperature.",
+          "ur": "Agar SOC zyada hai phir bhi discharge block hai to pack voltage aur battery temperature check karein."
+        },
+        {
+          "en": "A blocked discharge at healthy SOC and normal temperature points to a BMS or cell-balance fault.",
+          "ur": "Healthy SOC aur normal temperature par blocked discharge BMS ya cell-balance ki ghalti batata hai."
+        }
+      ],
+      "severity": "self_clear",
+      "display": "controller",
+      "isFault": false,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "HYD 3-6K-EP User Manual, section 7, Table 7-1 Eventlist",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241227/1735288541294079959.pdf"
+      }
+    },
+    {
+      "code": "ID144",
+      "aliases": [
+        "ID144",
+        "PermGridRlyFail",
+        "Power grid relay failure"
+      ],
+      "title": {
+        "en": "Permanent grid relay failure (ID144)",
+        "ur": "Permanent grid relay failure - grid relay permanently fail (ID144)"
+      },
+      "meaning": {
+        "en": "The grid-side relay has latched into a permanent failure, so the inverter cannot connect to the grid without service. This code is unique to the EP table.",
+        "ur": "Grid side relay permanent failure mein chala gaya, is liye service ke baghair inverter grid se connect nahi ho sakta. Yeh code sirf EP table par hai."
+      },
+      "causes": [
+        {
+          "en": "Grid relay contacts welded from a short or repeated overcurrent event.",
+          "ur": "Short ya baar baar ke overcurrent event se grid relay ke contacts juce hue."
+        },
+        {
+          "en": "Relay coil or its drive circuit failed.",
+          "ur": "Relay coil ya us ka drive circuit fail."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off DC switch and AC breaker, wait 5 minutes, and attempt one clean restart to confirm it is not a false latch.",
+          "ur": "DC switch aur AC breaker off karke 5 minute wait karein, aur ye confirm karne ke liye ek saaf restart karein ke latch asal mein hua ya nahi."
+        },
+        {
+          "en": "With power off, inspect the grid relay connector and socket for pushed-back or burnt pins.",
+          "ur": "Power off karke grid relay connector aur socket mein dhakle ya jale pins dekhein."
+        },
+        {
+          "en": "Because this is a permanent fault, replace the grid relay through a service centre and log it for the warranty claim.",
+          "ur": "Kyunke ye permanent fault hai, grid relay service centre se replace karwayein aur warranty claim ke liye note karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "HYD 3-6K-EP User Manual, section 7, Table 7-1 Eventlist",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241227/1735288541294079959.pdf"
+      }
+    },
+    {
+      "code": "ID186",
+      "aliases": [
+        "ID186",
+        "BatDischargeHTP",
+        "Battery discharge over temperature protection"
+      ],
+      "title": {
+        "en": "Battery discharge over-temperature protection (ID186)",
+        "ur": "Battery discharge over temperature protection - discharge mein battery garm ho gayi (ID186)"
+      },
+      "meaning": {
+        "en": "The pack got too hot during discharge and shut down. Manual remedy: make sure the battery is within its normal temperature range, power off and wait 2 hours.",
+        "ur": "Discharge ke dauran pack bohat garm ho gaya aur band ho gaya. Manual ka hal: battery apne normal temperature range mein honi chahiye, power off karke 2 ghante intezaar karein."
+      },
+      "causes": [
+        {
+          "en": "Discharging a high current in a hot environment with no ventilation.",
+          "ur": "Garm mahol mein bina ventilation ke high current discharge."
+        },
+        {
+          "en": "Battery mounted in direct sunlight, or too close to a heat source.",
+          "ur": "Battery direct sunlight mein lagi, ya kisi garmi ke source ke bohat qareeb."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the ambient temperature and the battery temperature shown on the LCD.",
+          "ur": "LCD par dikhne wali battery temperature aur ambient temperature check karein."
+        },
+        {
+          "en": "Power off and wait 2 hours as the manual instructs before trying again.",
+          "ur": "Manual ke mutabiq power off karke 2 ghante intezaar karein, phir dobara koshish karein."
+        },
+        {
+          "en": "Relocate or shade the battery and improve airflow, and consider derating the discharge current in hot months.",
+          "ur": "Battery ko shift ya shade karein aur airflow behtar karein, aur garmi ke mahinon mein discharge current kam karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "HYD 3-6K-EP User Manual, section 7, Table 7-1 Eventlist",
+        "retrieved": "2026-09-26",
+        "url": "https://www.sofarsolar.com/upload/file/20241227/1735288541294079959.pdf"
+      }
+    }
+  ]
+}

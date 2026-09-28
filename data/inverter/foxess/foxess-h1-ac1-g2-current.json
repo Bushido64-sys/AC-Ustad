@@ -1,0 +1,408 @@
+{
+  "schemaVersion": 1,
+  "brandId": "foxess",
+  "series": {
+    "id": "foxess-h1-ac1-g2-current",
+    "name": "H1(G2)/AC1(G2) - output current, DC bus and PV input current",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*H1*",
+      "*AC1*"
+    ],
+    "notes": "The SW/HW prefix pair is FoxESS's software-detected vs hardware-detected twin. Both have the SAME official remedy (disconnect PV, grid and battery, then reconnect), so they are kept as separate codes but must not be given different field advice. Earlier E1 manuals print the strings WITHOUT the 'Fault' suffix (e.g. 'HW Inv Cur', 'SW Bus Vol') - treat those as aliases, not different codes."
+  },
+  "codes": [
+    {
+      "code": "SW Inv Cur Fault",
+      "aliases": [
+        "SW Inv Cur Fault",
+        "SW Inv Cur"
+      ],
+      "title": {
+        "en": "Inverter output current high (software trip)",
+        "ur": "Inverter output current zyada (software trip)"
+      },
+      "meaning": {
+        "en": "The inverter's own current supervision saw output current above the limit and shut down.",
+        "ur": "Inverter ka apna current supervision ne output current limit se upar dekha aur band kar diya."
+      },
+      "causes": [
+        {
+          "en": "Sudden large load step or a shorted output branch on EPS or AC.",
+          "ur": "Achanak bada load step ya EPS/AC par koi short circuit wala branch."
+        },
+        {
+          "en": "Inverter paralleled beyond its permitted unit count, so current sharing fails.",
+          "ur": "Inverter ijazat se zyada units mein parallel hai, is liye current sharing fail ho rahi hai."
+        },
+        {
+          "en": "Current transformer / sampling hardware drift on an ageing unit.",
+          "ur": "Purane unit par current transformer ya sampling hardware mein drift."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate fully: AC switch off, PV DC switch off, battery isolator off. Wait for the LCD to go dark.",
+          "ur": "Poori tarah isolate karein: AC switch off, PV DC switch off, battery isolator off. LCD band hone tak intezar karein."
+        },
+        {
+          "en": "Reconnect one source at a time - battery first, then PV, then grid - and watch whether the code returns.",
+          "ur": "Ek waqt mein ek source wapas karein - pehle battery, phir PV, phir grid - aur dekhein ke code wapas aata hai ya nahi."
+        },
+        {
+          "en": "If it returns with no load connected, the unit needs service - do not keep cycling it.",
+          "ur": "Agar koi load na hone par bhi wapas aaye to unit ko service chahiye - baar baar on/off na karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "An EPS over-load event frequently presents as this code rather than 'Eps Over Load' on some firmware.",
+        "ur": "Kuch firmware par EPS over-load ki event is code ki shakal mein aati hai, 'Eps Over Load' ki nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "HW Inv Cur Fault",
+      "aliases": [
+        "HW Inv Cur Fault",
+        "HW Inv Cur"
+      ],
+      "title": {
+        "en": "Inverter output current high (hardware trip)",
+        "ur": "Inverter output current zyada (hardware trip)"
+      },
+      "meaning": {
+        "en": "A hardware comparator, not software, detected excessive output current. Usually a more serious condition than the SW variant.",
+        "ur": "Software nahi, hardware comparator ne zyada output current detect kiya. Aam tor par SW variant se zyada serious halat."
+      },
+      "causes": [
+        {
+          "en": "Power stage damage - IGBT/MOSFET or gate driver failure.",
+          "ur": "Power stage ka nuqsan - IGBT/MOSFET ya gate driver ki kharabi."
+        },
+        {
+          "en": "Sustained overload or a dead short on the AC output that software did not catch first.",
+          "ur": "Mustaqil overload ya AC output par koi short jo software ne pehle nahi pakra."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery completely before any inspection.",
+          "ur": "Koi bhi check karne se pehle AC, PV aur battery poori tarah disconnect kar lein."
+        },
+        {
+          "en": "With power isolated, check DC bus capacitors for bulging and smell burnt components around the power stage.",
+          "ur": "Power off kar ke DC bus capacitors par swelling aur power stage ke aas paas burnt smell check karein."
+        },
+        {
+          "en": "Measure insulation resistance of all AC and PV wiring to earth; below roughly 100 kOhm indicates a leak.",
+          "ur": "Tamam AC aur PV wiring ki earth ke sath insulation resistance measure karein; taqreeban 100 kOhm se neeche matlab leak hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Distinguishing SW from HW matters commercially: HW Inv Cur on an in-warranty unit is a board-level claim, not a wiring claim.",
+        "ur": "SW aur HW ka farq tamam ke liye ahem hai: warranty ke andar HW Inv Cur board-level claim hai, wiring claim nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "DCI Fault",
+      "aliases": [
+        "DCI Fault",
+        "DCI over range"
+      ],
+      "title": {
+        "en": "DC component in AC output too high",
+        "ur": "AC output mein DC component zyada"
+      },
+      "meaning": {
+        "en": "A DC offset in the inverter's AC output current exceeded the permitted limit.",
+        "ur": "Inverter ke AC output current mein DC offset ijazat limit se upar chala gaya."
+      },
+      "causes": [
+        {
+          "en": "Output filter capacitor degraded, allowing DC to leak into the AC output.",
+          "ur": "Output filter capacitor kharaab hua, is liye AC output mein DC leak hone laga."
+        },
+        {
+          "en": "Internal current-sensing offset or a failed sensing resistor.",
+          "ur": "Internal current-sensing offset ya sensing resistor ki kharabi."
+        },
+        {
+          "en": "Damaged output stage producing half-wave-like asymmetry.",
+          "ur": "Output stage ka nuqsan jis se output aadho jaisa asymmetric ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then power-cycle once as FoxESS directs.",
+          "ur": "AC, PV aur battery disconnect kar ke aik baar power-cycle karein jaise FoxESS kahe."
+        },
+        {
+          "en": "If it returns, disconnect the EPS load entirely and re-test to rule out an external DC-injecting load.",
+          "ur": "Agar wapas aaye to EPS load poori tarah disconnect kar ke dobara test karein, taake external DC-inject karne wala load rule out ho jaye."
+        },
+        {
+          "en": "Persistent DCI Fault on an idle inverter means output filter or current sensing - a workshop job, not a site job.",
+          "ur": "Idle inverter par baar baar DCI Fault aana matlab output filter ya current sensing ka masla - ye workshop ka kaam hai, site ka nahi."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Do not confuse with R-series numeric 1034 'DC Component Current Fault' (verified in the R V1.4 and R G2 V1.5 tables) - same physics, different model line, and FoxESS gives it a 10-minute AC/DC switch-off restart instead of a plain reconnect. Never hand a Pakistani R-series owner the H1 string or vice versa.",
+        "ur": "R-series ke numeric 1034 'DC Component Current Fault' se confuse na karein (R V1.4 aur R G2 V1.5 ki table mein verify hua) - wahi physics, alag model line, aur FoxESS usay 10 minute ke AC/DC switch off karke restart kehta hai, sirf reconnect nahi. Pakistan ke R-series owner ko H1 ki string dein ya ulta, kabhi nahi."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "SW Bus Vol Fault",
+      "aliases": [
+        "SW Bus Vol Fault",
+        "SW Bus Vol"
+      ],
+      "title": {
+        "en": "DC bus voltage out of range (software)",
+        "ur": "DC bus voltage range se bahar (software)"
+      },
+      "meaning": {
+        "en": "Software supervision saw the internal DC link voltage outside its safe window.",
+        "ur": "Software supervision ne internal DC link voltage ko safe window se bahar dekha."
+      },
+      "causes": [
+        {
+          "en": "Grid voltage at an extreme, so the bus cannot be held in the operating window.",
+          "ur": "Grid voltage bilkul extreme par, is liye bus ko operating window mein nahi rakh sakte."
+        },
+        {
+          "en": "Loose or open N line at the GRID port on a single-phase install.",
+          "ur": "Single-phase install par GRID port mein N line loose ya khari hui."
+        },
+        {
+          "en": "Firmware too old to handle the present grid conditions correctly.",
+          "ur": "Grid ki maujooda halaat sahi se handle karne ke liye firmware bohat purana."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reconnect in sequence as FoxESS directs.",
+          "ur": "AC, PV aur battery disconnect kar ke jaise FoxESS kahe us tarah se wapas sequence mein lagayein."
+        },
+        {
+          "en": "With power off, verify the neutral conductor is solidly landed at the GRID port and the PE is sound.",
+          "ur": "Power off kar ke verify karein ke neutral conductor GRID port par mazboot se laga hai aur PE theek hai."
+        },
+        {
+          "en": "Check available firmware and update from the app or the inverter's firmware menu.",
+          "ur": "Maujooda firmware check karke app ya inverter ke firmware menu se update karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "IMPORTANT MODEL-LINE DIFFERENCE, now verified side by side: the H3 V1.0.4 row for the identical string adds 'Please check whether the N line is connected to the GRID port of the inverter' and 'at least ensure that the master is upgraded to 1.69 or above'. The H1 V1.6 row contains neither line - it is a bare disconnect/reconnect. Do not give a Pakistani H1 owner the H3 advice. See foxess-h3-ac3-power-relay and CONFLICTS.",
+        "ur": "IMPORTANT MODEL-LINE DIFFERENCE, ab dono side se verify: H3 V1.0.4 mein isi string ki row mein 'Please check whether the N line is connected to the GRID port of the inverter' aur 'master ko 1.69 ya us se upar upgrade karein' shamil hai. H1 V1.6 ki row mein dono nahi - woh sirf disconnect/reconnect hai. Pakistan ke H1 owner ko H3 wali mat nasihat na dein. foxess-h3-ac3-power-relay aur CONFLICTS dekhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "HW Bus Vol Fault",
+      "aliases": [
+        "HW Bus Vol Fault",
+        "HW Bus Vol"
+      ],
+      "title": {
+        "en": "DC bus voltage out of range (hardware)",
+        "ur": "DC bus voltage range se bahar (hardware)"
+      },
+      "meaning": {
+        "en": "A hardware comparator detected the DC link voltage outside its safe window, indicating a real over/under-voltage event on the bus.",
+        "ur": "Hardware comparator ne DC link voltage safe window se bahar detect kiya - matlab bus par asal over/under-voltage event hua hai."
+      },
+      "causes": [
+        {
+          "en": "Grid under-voltage dip pulling the bus down, or a surge pushing it up.",
+          "ur": "Grid under-voltage dip jo bus neeche kheench raha hai, ya surge jo upar push kar raha hai."
+        },
+        {
+          "en": "Failed bus voltage sensing divider.",
+          "ur": "Bus voltage sensing divider ki kharabi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery before opening anything.",
+          "ur": "Kuch bhi kholne se pehle AC, PV aur battery disconnect karein."
+        },
+        {
+          "en": "Check PV string open-circuit voltage; a string too far above the inverter maximum forces the bus high.",
+          "ur": "PV string ka open-circuit voltage check karein; string inverter ki maximum se upar ho to bus ko high le jata hai."
+        },
+        {
+          "en": "Inspect the bus for a bulged or vented capacitor, which is a replacement-not-repair item.",
+          "ur": "Bus par bulging ya venting wala capacitor dekhein - use badalna hota hai, theek nahi karna."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "Often appears together with HW Inv Cur Fault on the same event - treat the pair as a power-stage investigation.",
+        "ur": "Aik hi event par ye HW Inv Cur Fault ke saath aata hai - dono ko power-stage investigation ki tarah dekhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "SW Pv Cur Fault",
+      "aliases": [
+        "SW Pv Cur Fault",
+        "SW Pv Cur"
+      ],
+      "title": {
+        "en": "PV input current high (software)",
+        "ur": "PV input current zyada (software)"
+      },
+      "meaning": {
+        "en": "Software supervision saw PV input current above the limit, which points to a shading, mismatch or islanding-arc current condition on the array.",
+        "ur": "Software supervision ne PV input current limit se upar dekha - is ka matlab array par shading, mismatch ya islanding-arc current ki halat hai."
+      },
+      "causes": [
+        {
+          "en": "Partial shading or a bypassed/cracked module causing a current mismatch between parallel strings.",
+          "ur": "Aadha chhaaya ya bypass / toota hua module jis se parallel strings mein current mismatch ho raha hai."
+        },
+        {
+          "en": "PV string wired with too few modules in parallel for the inverter's input current rating.",
+          "ur": "PV string mein parallel modules inverter ki input current rating se kam hue."
+        },
+        {
+          "en": "A DC arc forming on a damaged connector under load.",
+          "ur": "Load ke under damaged connector par DC arc ban raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reconnect and re-check the code.",
+          "ur": "AC, PV aur battery disconnect karke wapas lagayen aur code dobara dekhein."
+        },
+        {
+          "en": "String-by-string, measure each string's current against its neighbours in FoxCloud to find the mismatched one.",
+          "ur": "FoxCloud mein har string ka current naap kar uske padosi strings se compare karein, taake mismatch wali string mil jaye."
+        },
+        {
+          "en": "With PV isolated, torque-check every MC4 connector and replace any that are discoloured, warm or not fully seated.",
+          "ur": "PV isolate kar ke har MC4 connector ka torque check karein, aur jo rang badla, garm ya puri tarah nahi laga usay replace karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "In high-dust Pakistan environments, thermally degraded MC4 crimps are a leading real cause of this and of the HW variant.",
+        "ur": "Pakistan ke ghar-ghar mein dhool se MC4 crimps garm ho kar kharaab hote hain - is aur HW variant ki aam wajah yahi hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    },
+    {
+      "code": "SW Bat Cur Fault",
+      "aliases": [
+        "SW Bat Cur Fault",
+        "SW Bat Cur"
+      ],
+      "title": {
+        "en": "Battery current high (software)",
+        "ur": "Battery current zyada (software)"
+      },
+      "meaning": {
+        "en": "Software supervision saw battery charge or discharge current above the limit.",
+        "ur": "Software supervision ne battery charge ya discharge current limit se upar dekha."
+      },
+      "causes": [
+        {
+          "en": "Battery pack internal cell imbalance forcing high circulating current.",
+          "ur": "Battery pack mein cells ka imbalance jo high circulating current par majboor kar raha hai."
+        },
+        {
+          "en": "Charge or discharge current set above the connected battery's rating in the app.",
+          "ur": "App mein charge ya discharge current connected battery ki rating se upar set kiya gaya."
+        },
+        {
+          "en": "Damaged battery harness or a pack whose internal fuse has degraded.",
+          "ur": "Battery wiring kharabi ya pack ka internal fuse degrade ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery, then reconnect once as FoxESS directs.",
+          "ur": "AC, PV aur battery disconnect karke jaise FoxESS kahe aik baar wapas lagayein."
+        },
+        {
+          "en": "In the app, compare max charge and max discharge current against the battery nameplate rating and set them equal or lower.",
+          "ur": "App mein max charge aur max discharge current ko battery ke nameplate rating se compare karein aur unhein barabar ya kam set karein."
+        },
+        {
+          "en": "With battery isolated, check the pack's own DC fuse and the inter-pack communication lead seating.",
+          "ur": "Battery isolate kar ke pack ka apna DC fuse aur inter-pack communication lead ki fitting check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "If BMS-side codes are also present, the battery is the suspect - go to foxess-h1-ac1-g2-bms-comms before condemning the inverter.",
+        "ur": "Agar BMS side ke codes bhi aa rahe hain to battery hi mamool hai - inverter gherne se pehle foxess-h1-ac1-g2-bms-comms dekhein."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "H1(G2)/AC1(G2) Series User Manual V1.6, section 9.1 Alarm List (FoxESS Pakistan portal)",
+        "retrieved": "2026-09-26",
+        "url": "https://pk.fox-ess.com/download/upfiles/EN-H1AC1%28G2%29-Manual-V1.6.pdf"
+      }
+    }
+  ]
+}

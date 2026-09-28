@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "brandId": "goodwe",
+  "series": {
+    "id": "goodwe-et-named",
+    "name": "ET Series / ET Plus+ named messages (PV Master era)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*ET*",
+      "GW*ET*"
+    ],
+    "notes": "ET / ET Plus+ is the high-voltage battery hybrid line (40/50kW three-phase on the Pakistan product page). It has its own named-message table which is a superset of the ES table: it adds 'Utility Phase Failure' (unique to the three-phase ET) and 'PV/BAT Overvoltage' (covers battery overvoltage, not just PV). The ET Plus+ is a line GoodWe markets in Pakistan. Later ET/ET PLUS+/BT firmware uses the EMEA app codes in SERIES 5 - do not merge the two."
+  },
+  "codes": [
+    {
+      "code": "Utility Phase Failure",
+      "aliases": [
+        "Utility Phase Failure"
+      ],
+      "title": {
+        "en": "Utility Phase Failure",
+        "ur": "Utility Phase Failure - L2/L3 ulat"
+      },
+      "meaning": {
+        "en": "The inverter detected that the L2 and L3 phase angles are reversed, so it refuses to connect to the grid.",
+        "ur": "Inverter ne dekha ke L2 aur L3 ke phase angles ultay hain, is liye grid se connect nahi hota."
+      },
+      "causes": [
+        {
+          "en": "L2 and L3 on-grid cables connected in reverse order.",
+          "ur": "On-grid ke L2 aur L3 cables ulat order mein lage hain."
+        },
+        {
+          "en": "Phase angle detection error in the inverter.",
+          "ur": "Inverter mein phase angle detection error."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC fully and confirm dead before touching the phase cables.",
+          "ur": "AC poori tarah isolate karke phase cables chhoone se pehle dead hona confirm karein."
+        },
+        {
+          "en": "Swap L2 and L3 at the inverter AC terminals.",
+          "ur": "Inverter ke AC terminals par L2 aur L3 ko aik doosre se badal dein."
+        },
+        {
+          "en": "Re-check terminal tightness and phase sequence, then re-energise.",
+          "ur": "Terminals ki tightening aur phase sequence dobara check karke dobara on karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "On EMEA firmware the same symptom appears as app codes 14ETU or 27ETU (Phase order / Phase angle failure).",
+        "ur": "EMEA firmware par yehi symptom app codes 14ETU ya 27ETU (Phase order / Phase angle failure) ke roop mein aata hai."
+      },
+      "source": {
+        "type": "service_manual",
+        "title": "GW ET Series | ET Plus Series Hybrid Inverter User Manual V1.1, section 4.1 Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ET_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "PV/BAT Overvoltage",
+      "aliases": [
+        "PV/BAT Overvoltage"
+      ],
+      "title": {
+        "en": "PV/BAT Overvoltage",
+        "ur": "PV/BAT Overvoltage - PV ya battery voltage zyada"
+      },
+      "meaning": {
+        "en": "Either the PV string open-circuit voltage or the battery pack voltage is above the inverter's maximum input, so the unit stops.",
+        "ur": "Ya PV string ka open-circuit voltage ya battery pack ka voltage inverter ke maximum input se upar hai, is liye unit ruk jata hai."
+      },
+      "causes": [
+        {
+          "en": "PV string Voc higher than the inverter's max PV input voltage.",
+          "ur": "PV string ka Voc inverter ke max PV input voltage se zyada hai."
+        },
+        {
+          "en": "Battery voltage higher than the inverter's max BAT input voltage.",
+          "ur": "Battery voltage inverter ke max BAT input voltage se zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Confirm the PV string Voc is below the max PV input voltage on the label.",
+          "ur": "Confirm karein ke PV string ka Voc label par likhe max PV input voltage se neeche hai."
+        },
+        {
+          "en": "If Voc is high, reduce the number of PV panels in series.",
+          "ur": "Agar Voc zyada hai to series mein lage PV panels ki sankhya kam karein."
+        },
+        {
+          "en": "Measure the battery voltage and compare with the max battery input voltage; remove one pack if it is over.",
+          "ur": "Battery voltage measure karke max battery input voltage se compare karein, agar zyada ho to aik pack nikaal dein."
+        },
+        {
+          "en": "Always switch the DC off before changing the string or battery configuration.",
+          "ur": "String ya battery configuration badalne se pehle hamesha DC off karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ET Series | ET Plus Series Hybrid Inverter User Manual V1.1, section 4.1 Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ET_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "Isolation Failure",
+      "aliases": [
+        "Isolation Failure"
+      ],
+      "title": {
+        "en": "Isolation Failure (ET)",
+        "ur": "Isolation Failure (ET) - insulation kam"
+      },
+      "meaning": {
+        "en": "On ET the isolation monitor measures the PV string and the battery both, so either side's low ground insulation trips it.",
+        "ur": "ET par isolation monitor PV string aur battery dono measure karta hai, is liye kisi bhi taraf ka kam ground insulation trip karwa deta hai."
+      },
+      "causes": [
+        {
+          "en": "PV panels not grounded well or DC cable broken.",
+          "ur": "PV panels theek se grounded nahi ya DC cable tooti hui hai."
+        },
+        {
+          "en": "PV panels aged or ambient humidity heavy.",
+          "ur": "PV panels purane ho chuke hain ya ambient humidity zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check earth to inverter frame resistance with a multimeter; it should be close to zero.",
+          "ur": "Multimeter se earth se inverter frame ki resistance check karein, zero ke qareeb hona chahiye."
+        },
+        {
+          "en": "Measure each PV input to earth and the battery terminals to earth separately.",
+          "ur": "Har PV input ko earth se aur battery terminals ko alag se earth se measure karein."
+        },
+        {
+          "en": "Isolate the battery first, then the PV strings, to identify which side is leaking.",
+          "ur": "Pehle battery isolate karein, phir PV strings, taake pata chale kis taraf leak hai."
+        },
+        {
+          "en": "Re-terminate or replace the affected connector, then restart and confirm the reading.",
+          "ur": "Matlab wala connector dobara lagayein ya replace karein, phir restart karke reading confirm karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ET Series | ET Plus Series Hybrid Inverter User Manual V1.1, section 4.1 Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ET_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "Relay Check Failure",
+      "aliases": [
+        "Relay Check Failure"
+      ],
+      "title": {
+        "en": "Relay Check Failure (ET)",
+        "ur": "Relay Check Failure (ET) - relay kharab"
+      },
+      "meaning": {
+        "en": "The relay self-test failed, which the manual ties to N and PE not being connected well on the AC side.",
+        "ur": "Relay self-test fail hua, manual isay AC side par N aur PE ke theek na lagne se jodta hai."
+      },
+      "causes": [
+        {
+          "en": "Neutral and ground cables not connected well on the AC side.",
+          "ur": "AC side par neutral aur ground cables theek se nahi lage."
+        },
+        {
+          "en": "Occasional relay self-test failure.",
+          "ur": "Kabhi kabhi relay self-test fail hota hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With a multimeter, check for voltage between N and PE on the AC side; normally below 10V.",
+          "ur": "Multimeter se AC side par N aur PE ke darmiyan voltage check karein, aam tor par 10V se kam."
+        },
+        {
+          "en": "If it reads above 10V, re-terminate N and PE and retest.",
+          "ur": "Agar 10V se zyada ho to N aur PE dobara terminate karke dobara test karein."
+        },
+        {
+          "en": "Then restart the inverter and confirm the self-test passes.",
+          "ur": "Phir inverter restart karke confirm karein ke self-test pass ho gaya."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW ET Series | ET Plus Series Hybrid Inverter User Manual V1.1, section 4.1 Error Messages",
+        "retrieved": "2026-09-26",
+        "url": "https://en.goodwe.com/Ftp/EN/Downloads/User%20Manual/GW_ET_User%20Manual-EN.pdf"
+      }
+    }
+  ]
+}

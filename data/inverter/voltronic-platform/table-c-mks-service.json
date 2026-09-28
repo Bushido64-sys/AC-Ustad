@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "brandId": "voltronic-platform",
+  "series": {
+    "id": "table-c-mks-service",
+    "name": "Table C — Older MKS service tables",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*MKS*SERVICE*",
+      "*MKS*1*3*"
+    ],
+    "notes": "Secondary mirror service faults: 10 fan locked off, 11 Main relay failed, 12 AC over current, 13 AC over voltage. Medium confidence."
+  },
+  "codes": [
+    {
+      "code": "11",
+      "aliases": [
+        "11"
+      ],
+      "title": {
+        "en": "Main relay failed",
+        "ur": "Main relay nakaam"
+      },
+      "meaning": {
+        "en": "Main relay failed (older MKS service firmware table).",
+        "ur": "Main relay kharab ho gaya (purani MKS service firmware table)."
+      },
+      "causes": [
+        {
+          "en": "Main relay / relay driver fault.",
+          "ur": "Main relay / driver kharab"
+        },
+        {
+          "en": "Relay contacts burnt or welded together.",
+          "ur": "Relay ke contacts jal gaye ya aapas mein chipak gaye."
+        },
+        {
+          "en": "Relay coil supply missing on the main board.",
+          "ur": "Main board par relay coil ka supply nahin aa raha."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off AC input and PV and wait 5 minutes before opening the unit; the main relay carries mains voltage.",
+          "ur": "Unit khole se pehle AC input aur PV band kar ke 5 minute intezar karein; main relay mains voltage leta hai."
+        },
+        {
+          "en": "Listen for the relay click at power-on and check the main board relay for burnt or pitted contacts.",
+          "ur": "Power on par relay ka click sun kar dekhein aur main board relay ke contacts jal ya kharab to nahin, yeh check karein."
+        },
+        {
+          "en": "If the relay does not switch or the contacts are burnt, replace the main relay on the main board and retest.",
+          "ur": "Agar relay switch nahin hoti ya contacts jal gaye hain, to main board par main relay badal kar dobara test karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "source": {
+        "type": "service_manual",
+        "title": "Axpert MKS 1~3KVA service manual 20130611 (pdfcoffee mirror)",
+        "url": "https://pdfcoffee.com/axpert-mks-1-3kva-service-manual-20130611-pdf-free.html",
+        "retrieved": "2026-09-24"
+      },
+      "notes": {
+        "en": "COLLISION with MKS II fault 11 (PV over voltage) and InfiniSolar 11 (PV voltage over). Secondary mirror → medium. Also service faults 10/12/13 with old meanings (see table below in Conflicts). Platform reference entry (table source SRC-MKSSVC). Local brand rows may match but keep brand code space separate.",
+        "ur": "Isay MKS II fault 11 (PV over voltage) aur InfiniSolar 11 (PV voltage over) ke sath COLLISION hai. Secondary mirror → medium. Sath hi service faults 10/12/13 purane meanings ke sath hain (Conflicts ki table dekhein). Yeh platform ka reference entry hai (table source SRC-MKSSVC). Local brand ki rows mil sakti hain, magar brand ka code space alag rakhein."
+      },
+      "blinkPattern": "Fault icon lit; red LED solid; continuous buzzer (service-manual convention)."
+    }
+  ]
+}

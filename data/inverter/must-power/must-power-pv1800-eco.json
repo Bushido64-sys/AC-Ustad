@@ -1,0 +1,629 @@
+{
+  "schemaVersion": 1,
+  "brandId": "must-power",
+  "series": {
+    "id": "must-power-pv1800-eco",
+    "name": "PV1800 ECO (400V/450V high-voltage-PV off-grid hybrid)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*PV1800*ECO*",
+      "*PV18*ECO*",
+      "*PV1800*VPM*II*",
+      "*PV18*VPM*II*",
+      "*PV1800*PREM*",
+      "*PV1800*HP*"
+    ],
+    "notes": "ONLY the rows that DIFFER from SERIES 1 are listed here, because the ECO/VPM-II family reuses the same 01-77 numbering but with WIDER meanings. Do not fall back to SERIES 1 for 03, 52 or 58 - on ECO these also cover a reversed AC L/N input and an over-hot component, which SERIES 1 does not. This series also records the ECO-specific TROUBLESHOOTING thresholds (95-150 Vac instead of 202-253 Vac). All other 01-77 rows are word-for-word the SERIES 1 text and were verified against this manual."
+  },
+  "codes": [
+    {
+      "code": "03",
+      "aliases": [
+        "03",
+        "Fault 03"
+      ],
+      "title": {
+        "en": "Battery too high OR AC L/N reversed",
+        "ur": "Battery zyada high ya AC L/N ulta"
+      },
+      "meaning": {
+        "en": "On ECO this is a dual-meaning code: battery over-voltage, or the AC input L and N wires are connected in reverse.",
+        "ur": "ECO par ye do matlab rakhta hai: battery over-voltage, ya AC input ke L aur N wires ulte lagi hain."
+      },
+      "causes": [
+        {
+          "en": "AC input L and N are connected in reverse at the input terminal block.",
+          "ur": "AC input terminal block par L aur N wires ulte lagi hain."
+        },
+        {
+          "en": "Battery voltage is above the safe charging limit for the pack.",
+          "ur": "Battery voltage pack ke safe charging limit se upar hai."
+        },
+        {
+          "en": "Too many cells in series, or the wrong battery voltage is set on the LCD.",
+          "ur": "Series mein zyada cells hain, ya LCD par galat battery voltage set hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off, isolate AC, PV and battery, then check L and N at the AC input with a multimeter before anything else.",
+          "ur": "Off karke AC, PV aur battery disconnect karein, phir sab se pehle multimeter se AC input par L aur N check karein."
+        },
+        {
+          "en": "Confirm L is on the live line from the utility and N on neutral; the ECO manual's 03 row says simply 'Check AC input'.",
+          "ur": "Confirm karein ke L utility ki live line par hai aur N neutral par, ECO manual ki 03 row kehti hai 'Check AC input'."
+        },
+        {
+          "en": "If polarity is correct, measure battery voltage and re-check the battery type and max charge voltage on the LCD.",
+          "ur": "Agar polarity theek hai to battery voltage check karein aur LCD par battery type aur max charge voltage dobara check karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - PV18 2KW-ECO 400V 80A MPPT (OEM doc 4200-010052-01A1)",
+        "retrieved": "2026-09-26",
+        "url": "https://fixer.com.ua/storage/files/fd/fd135adf5b66ffba863484535be81f7d.pdf"
+      }
+    },
+    {
+      "code": "52",
+      "aliases": [
+        "52",
+        "Fault 52"
+      ],
+      "title": {
+        "en": "Bus too low OR component over temperature",
+        "ur": "Bus voltage low ya component zyada garm"
+      },
+      "meaning": {
+        "en": "On ECO the bus is too low, or an internal component has exceeded its temperature - the SERIES 1 reading omits the temperature half.",
+        "ur": "ECO par bus voltage bahut low hai ya koi internal component apne temperature limit se upar chala gaya hai, SERIES 1 ki listing mein temperature wala hissa nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Battery bank is deeply discharged or a string is open, so the bus cannot be built up.",
+          "ur": "Battery bank poori tarah discharge hai ya koi string open hai jis se bus nahi ban pata."
+        },
+        {
+          "en": "An internal component is over temperature, which on ECO shares this same code.",
+          "ur": "Koi internal component temperature limit se upar hai jo ECO par isi code ko share karta hai."
+        },
+        {
+          "en": "DC/DC boost stage or bus capacitor is faulty.",
+          "ur": "DC/DC boost stage ya bus capacitor kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter with only the battery connected, PV and AC isolated.",
+          "ur": "Sirf battery ke saath inverter restart karein, PV aur AC disconnect karke."
+        },
+        {
+          "en": "Measure battery voltage, the DC fuse in the battery path, and the heatsink temperature cause before assuming a board fault.",
+          "ur": "Board fault assume karne se pehle battery voltage, battery path ka DC fuse aur heatsink temperature ki wajah check karein."
+        },
+        {
+          "en": "If the fault returns with a healthy battery and a cool heatsink, return the unit to the repair centre as the manual states.",
+          "ur": "Agar sehatar battery aur thande heatsink par bhi fault wapas aaye to manual ke mutabiq unit repair centre bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - PV18 2KW-ECO 400V 80A MPPT (OEM doc 4200-010052-01A1)",
+        "retrieved": "2026-09-26",
+        "url": "https://fixer.com.ua/storage/files/fd/fd135adf5b66ffba863484535be81f7d.pdf"
+      }
+    },
+    {
+      "code": "58",
+      "aliases": [
+        "58",
+        "Fault 58"
+      ],
+      "title": {
+        "en": "Output voltage too low OR component over temperature",
+        "ur": "Output voltage low ya component zyada garm"
+      },
+      "meaning": {
+        "en": "On ECO this also means an over-hot component, unlike SERIES 1 where 58 is output voltage only.",
+        "ur": "ECO par iska matlab zyada garm component bhi hai, SERIES 1 mein 58 sirf output voltage hai."
+      },
+      "causes": [
+        {
+          "en": "Battery is deeply discharged so the inverter cannot hold output voltage.",
+          "ur": "Battery poori tarah discharge hai jis se inverter output voltage nahi tikka sakta."
+        },
+        {
+          "en": "An internal component is over temperature, which on ECO shares this same code.",
+          "ur": "Koi internal component temperature limit se upar hai jo ECO par isi code ko share karta hai."
+        },
+        {
+          "en": "Load draws more than the unit can supply and pulls the output down.",
+          "ur": "Load unit ki capacity se zyada kheech raha hai aur output neeche gira raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load and restart, then measure battery voltage before suspecting the board.",
+          "ur": "Connected load kam karke restart karein, phir board par shak karne se pehle battery voltage check karein."
+        },
+        {
+          "en": "Check heatsink and fan condition, since ECO allows 58 to be a temperature event.",
+          "ur": "Heatsink aur fan ki halat check karein, kyun ke ECO par 58 temperature event bhi ho sakta hai."
+        },
+        {
+          "en": "On ECO the manual's 06/58 row gives the acceptance window as 95 Vac to 150 Vac, not the SERIES 1 window - measure against 95-150 Vac.",
+          "ur": "ECO par manual ki 06/58 row acceptance window 95 Vac se 150 Vac deti hai, SERIES 1 ki window nahi, 95-150 Vac ke against measure karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - PV18 2KW-ECO 400V 80A MPPT (OEM doc 4200-010052-01A1)",
+        "retrieved": "2026-09-26",
+        "url": "https://fixer.com.ua/storage/files/fd/fd135adf5b66ffba863484535be81f7d.pdf"
+      }
+    },
+    {
+      "code": "06",
+      "aliases": [
+        "06",
+        "Fault 06"
+      ],
+      "title": {
+        "en": "Output voltage high, ECO 95-150 Vac window",
+        "ur": "Output voltage high, ECO ki 95-150 Vac limit"
+      },
+      "meaning": {
+        "en": "The ECO manual accepts inverter output between 95 Vac and 150 Vac; outside that the unit reports 06/58.",
+        "ur": "ECO manual inverter output ko 95 Vac se 150 Vac ke darmiyan acceptable maanta hai, is range se bahar hone par 06/58 aata hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter output measured outside 95-150 Vac during the ECO acceptance check.",
+          "ur": "ECO acceptance check ke dauran inverter output 95-150 Vac se bahar measure hua."
+        },
+        {
+          "en": "Battery over-charged, raising inverter output above the acceptable band.",
+          "ur": "Battery over-charged hai jis se inverter output acceptable band se upar chala gaya."
+        },
+        {
+          "en": "Output voltage sense circuit has drifted on the ECO control board.",
+          "ur": "ECO control board par output voltage sense circuit bigad gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure output voltage with a multimeter and compare it to the ECO window of 95-150 Vac, not to the SERIES 1 window.",
+          "ur": "Output voltage multimeter se check karke ECO window 95-150 Vac se compare karein, SERIES 1 window se nahi."
+        },
+        {
+          "en": "Reduce the connected load, which is the first action the manual gives for 06/58.",
+          "ur": "Connected load kam karein, ye manual 06/58 ke liye pehla action deta hai."
+        },
+        {
+          "en": "If load and battery are both correct, return the unit to the repair centre for the output sense circuit.",
+          "ur": "Agar load aur battery dono theek hon to output sense circuit ke liye unit repair centre bhejein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - PV18 2KW-ECO 400V 80A MPPT (OEM doc 4200-010052-01A1)",
+        "retrieved": "2026-09-26",
+        "url": "https://fixer.com.ua/storage/files/fd/fd135adf5b66ffba863484535be81f7d.pdf"
+      }
+    },
+    {
+      "code": "01",
+      "aliases": [
+        "01",
+        "Fault 01"
+      ],
+      "title": {
+        "en": "Fan locked while off, ECO remedy is fan swap",
+        "ur": "Fan off state mein atka, ECO hal fan badalna"
+      },
+      "meaning": {
+        "en": "Fan did not run while the inverter was off; the ECO troubleshooting row gives the direct remedy.",
+        "ur": "Inverter band hone par fan nahi chala, ECO troubleshooting row seedha hal deta hai."
+      },
+      "causes": [
+        {
+          "en": "Cooling fan is jammed or its motor has failed.",
+          "ur": "Cooling fan jam hai ya uska motor kharab ho gaya hai."
+        },
+        {
+          "en": "Fan driver circuit on the ECO main board is faulty.",
+          "ur": "ECO main board par fan driver circuit kharab hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off, isolate AC, PV and battery, then open the unit and check the fan spins freely by hand.",
+          "ur": "Off karke AC, PV aur battery disconnect karein, phir unit khol ke haath se check karein ke fan azaad ghoomta hai ya nahi."
+        },
+        {
+          "en": "Replace the fan - the ECO manual's 01 troubleshooting row states 'Replace the fan.'",
+          "ur": "Fan replace karein, ECO manual ki 01 troubleshooting row kehti hai 'Replace the fan.'"
+        },
+        {
+          "en": "If a new fan still triggers 01, the fan drive circuit on the main board needs workshop repair.",
+          "ur": "Naya fan lagane par bhi 01 aaye to main board ka fan drive circuit workshop repair maangta hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - PV18 2KW-ECO 400V 80A MPPT (OEM doc 4200-010052-01A1)",
+        "retrieved": "2026-09-26",
+        "url": "https://fixer.com.ua/storage/files/fd/fd135adf5b66ffba863484535be81f7d.pdf"
+      }
+    },
+    {
+      "code": "02",
+      "aliases": [
+        "02",
+        "Fault 02"
+      ],
+      "title": {
+        "en": "Component over 90 C",
+        "ur": "Component 90 C se upar"
+      },
+      "meaning": {
+        "en": "An inverter component exceeded 90 degrees C and the unit shut down.",
+        "ur": "Inverter ka koi component 90 degree C se upar chala gaya aur unit band ho gaya."
+      },
+      "causes": [
+        {
+          "en": "Air flow of the unit is blocked by dust or a closed cabinet.",
+          "ur": "Unit ka hawa ka rasta dust ya band cabinet se block hai."
+        },
+        {
+          "en": "Ambient temperature is too high for the installation room.",
+          "ur": "Installation kamre ka ambient temperature zyada hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and isolate AC, PV and battery, then check whether air flow is blocked or ambient is too high, as the ECO manual directs.",
+          "ur": "Off karke AC, PV aur battery disconnect karein, phir ECO manual ke mutabiq check karein ke hawa ka rasta band hai ya ambient zyada hai."
+        },
+        {
+          "en": "Clean the fan and anti-dust mesh and restore the 200 mm side and 300 mm top clearances.",
+          "ur": "Fan aur anti-dust mesh saaf karein aur 200 mm side, 300 mm upar clearance wapas karein."
+        },
+        {
+          "en": "Measure the NTC at the heatsink with a multimeter and replace it if it is open or far from its marked value.",
+          "ur": "Heatsink ka NTC multimeter se check karein aur khula ya marked value se door ho to replace karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - PV18 2KW-ECO 400V 80A MPPT (OEM doc 4200-010052-01A1)",
+        "retrieved": "2026-09-26",
+        "url": "https://fixer.com.ua/storage/files/fd/fd135adf5b66ffba863484535be81f7d.pdf"
+      }
+    },
+    {
+      "code": "05",
+      "aliases": [
+        "05",
+        "Fault 05"
+      ],
+      "title": {
+        "en": "Output short circuited, ECO remedy",
+        "ur": "Output short circuit, ECO hal"
+      },
+      "meaning": {
+        "en": "AC output or load wiring is shorted; the ECO manual's remedy is to check wiring and remove the abnormal load.",
+        "ur": "AC output ya load wiring short hai, ECO manual ka hal hai wiring check karna aur abnormal load hatana."
+      },
+      "causes": [
+        {
+          "en": "Load wiring is shorted or a copper strand has bridged L and N.",
+          "ur": "Load wiring short hai ya copper ka taar L aur N ko jor raha hai."
+        },
+        {
+          "en": "A load's internal insulation has failed.",
+          "ur": "Kisi load ki internal insulation kharab ho gayi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and isolate AC, PV and battery before opening the unit or touching wiring.",
+          "ur": "Unit kholne ya wiring chhoone se pehle off karke AC, PV aur battery disconnect karein."
+        },
+        {
+          "en": "Check if wiring is connected right and remove abnormal load, exactly as the ECO 05 row instructs.",
+          "ur": "ECO ki 05 row ki tarah check karein ke wiring theek connected hai ya nahi aur abnormal load hata dein."
+        },
+        {
+          "en": "Disconnect loads one by one to find the shorted circuit, then re-tighten all AC terminal screws.",
+          "ur": "Short wala circuit dhoondne ke liye loads ek ek karke disconnect karein, phir saare AC terminal screws dobara tight karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - PV18 2KW-ECO 400V 80A MPPT (OEM doc 4200-010052-01A1)",
+        "retrieved": "2026-09-26",
+        "url": "https://fixer.com.ua/storage/files/fd/fd135adf5b66ffba863484535be81f7d.pdf"
+      }
+    },
+    {
+      "code": "07",
+      "aliases": [
+        "07",
+        "Fault 07"
+      ],
+      "title": {
+        "en": "Overload 110 percent, ECO remedy",
+        "ur": "Overload 110 percent, ECO hal"
+      },
+      "meaning": {
+        "en": "The unit was overloaded past 110 percent until the overload timer expired.",
+        "ur": "Unit 110 percent se zyada overload hua jab tak overload timer khatam nahi hua."
+      },
+      "causes": [
+        {
+          "en": "Too many appliances connected, or a motor surge on start.",
+          "ur": "Bohat zyada appliances lagi hain, ya motor start par surge le raha hai."
+        },
+        {
+          "en": "Air conditioner or fridge restarted without its delay time.",
+          "ur": "Air conditioner ya fridge ne apna delay time rakhe baghair dobara start kar diya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load by switching off some equipment, as the ECO 07 row directs.",
+          "ur": "Kuch equipment band kar ke connected load kam karein, jaisa ECO ki 07 row kehti hai."
+        },
+        {
+          "en": "Keep a 2-3 minute restart delay for air conditioners so refrigerant can settle.",
+          "ur": "Air conditioner ke liye 2-3 minute ka restart delay rakhein taake refrigerant settle ho sake."
+        },
+        {
+          "en": "Verify the total running load in watts on the LCD against the model's rated power.",
+          "ur": "LCD par kul chal rahe load watts ko model ki rated power se verify karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - PV18 2KW-ECO 400V 80A MPPT (OEM doc 4200-010052-01A1)",
+        "retrieved": "2026-09-26",
+        "url": "https://fixer.com.ua/storage/files/fd/fd135adf5b66ffba863484535be81f7d.pdf"
+      }
+    },
+    {
+      "code": "08/09/53/57",
+      "aliases": [
+        "08/09/53/57",
+        "Fault 08/09/53/57"
+      ],
+      "title": {
+        "en": "Internal components failed (group code)",
+        "ur": "Internal components fail (group code)"
+      },
+      "meaning": {
+        "en": "The ECO manual groups these four numbers into one troubleshooting row and calls the cause 'Internal components failed'.",
+        "ur": "ECO manual in chaar numbers ko aik troubleshooting row mein group karta hai aur wajah 'Internal components failed' batata hai."
+      },
+      "causes": [
+        {
+          "en": "One or more power devices or control components on the main board have failed.",
+          "ur": "Main board par aik ya kai power devices ya control components kharab ho gaye hain."
+        },
+        {
+          "en": "Soft-start, bus sensing or control current sensing circuit has failed.",
+          "ur": "Soft-start, bus sensing ya control current sensing circuit kharab ho gaya hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Isolate AC, PV and battery and measure the devices the ECO manual points to for each code, starting with the DC fuse and boost module.",
+          "ur": "AC, PV aur battery disconnect karke ECO manual ki taraf bataye gaye devices check karein, DC fuse aur boost module se shuru karein."
+        },
+        {
+          "en": "Return to repair center - this is the ECO manual's explicit instruction for this group.",
+          "ur": "Repair center bhejein, ye is group ke liye ECO manual ka saaf instruction hai."
+        },
+        {
+          "en": "If one IGBT or MOSFET is burnt, the manufacturer advises replacing all devices in that bridge, not just one.",
+          "ur": "Agar aik IGBT ya MOSFET jal gaya ho to manufacturer kehta hai ke us bridge ke tamam devices replace karein, sirf aik nahi."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - PV18 2KW-ECO 400V 80A MPPT (OEM doc 4200-010052-01A1)",
+        "retrieved": "2026-09-26",
+        "url": "https://fixer.com.ua/storage/files/fd/fd135adf5b66ffba863484535be81f7d.pdf"
+      }
+    },
+    {
+      "code": "51",
+      "aliases": [
+        "51",
+        "Fault 51"
+      ],
+      "title": {
+        "en": "Over current or surge, ECO remedy",
+        "ur": "Over current ya surge, ECO hal"
+      },
+      "meaning": {
+        "en": "Output over-current or a surge event tripped protection; the ECO remedy is to reduce the connected load.",
+        "ur": "Output over-current ya surge event ne protection chala di, ECO hal connected load kam karna hai."
+      },
+      "causes": [
+        {
+          "en": "Motor or compressor inrush current on start.",
+          "ur": "Start par motor ya compressor ka inrush current."
+        },
+        {
+          "en": "Too many loads connected, or AC output shorted.",
+          "ur": "Bohat zyada loads lagi hain ya AC output short hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Reduce the connected load by switching off equipment, as the ECO 51 row directs.",
+          "ur": "Equipment band kar ke connected load kam karein, jaisa ECO ki 51 row kehti hai."
+        },
+        {
+          "en": "Compare the load's rated current with the inverter's output current and move large motors to a separate unit.",
+          "ur": "Load ka rated current inverter ke output current se compare karein aur bade motors alag unit par le jaayein."
+        },
+        {
+          "en": "If the fault returns with a reduced load, inspect the AC output wiring for a short with a multimeter.",
+          "ur": "Load kam karne par bhi fault aaye to multimeter se AC output wiring mein short check karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - PV18 2KW-ECO 400V 80A MPPT (OEM doc 4200-010052-01A1)",
+        "retrieved": "2026-09-26",
+        "url": "https://fixer.com.ua/storage/files/fd/fd135adf5b66ffba863484535be81f7d.pdf"
+      }
+    },
+    {
+      "code": "55",
+      "aliases": [
+        "55",
+        "Fault 55"
+      ],
+      "title": {
+        "en": "Output voltage unbalanced",
+        "ur": "Output voltage unbalanced hai"
+      },
+      "meaning": {
+        "en": "The manual describes this as output voltage being unbalanced, meaning the inverter bridge is not switching symmetrically.",
+        "ur": "Manual isay output voltage unbalanced kehta hai, yaani inverter bridge symmetrical switch nahi kar raha."
+      },
+      "causes": [
+        {
+          "en": "One inverter IGBT or MOSFET is damaged, so its half bridge is asymmetric.",
+          "ur": "Aik inverter IGBT ya MOSFET damage hua hai jis se uska half bridge asymmetric ho gaya."
+        },
+        {
+          "en": "DC is leaking into the AC output through a failed snubber or filter capacitor.",
+          "ur": "Kharab snubber ya filter capacitor ke zariye AC output mein DC leak ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Switch off and isolate AC, PV and battery, then measure DC volts on the AC output with the meter set to DC.",
+          "ur": "Off karke AC, PV aur battery disconnect karein, phir meter DC par set karke AC output par DC voltage check karein."
+        },
+        {
+          "en": "Check the output snubber and filter capacitors on the main board for short or open.",
+          "ur": "Main board par output snubber aur filter capacitors ko short ya open check karein."
+        },
+        {
+          "en": "Replace all devices in the affected bridge if any power device is found damaged.",
+          "ur": "Agar koi power device damage nikle to us bridge ke tamam devices replace karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - PV18 2KW-ECO 400V 80A MPPT (OEM doc 4200-010052-01A1)",
+        "retrieved": "2026-09-26",
+        "url": "https://fixer.com.ua/storage/files/fd/fd135adf5b66ffba863484535be81f7d.pdf"
+      }
+    },
+    {
+      "code": "56",
+      "aliases": [
+        "56",
+        "Fault 56"
+      ],
+      "title": {
+        "en": "Battery not connected right or fuse burnt",
+        "ur": "Battery theek connected nahi ya fuse jal gaya"
+      },
+      "meaning": {
+        "en": "The ECO troubleshooting row states the battery is not connected right or the fuse is burnt.",
+        "ur": "ECO troubleshooting row kehti hai ke battery theek connected nahi ya fuse jal chuka hai."
+      },
+      "causes": [
+        {
+          "en": "Battery cable is not connected right, or a ring terminal has come off.",
+          "ur": "Battery cable theek connected nahi ya ring terminal nikal gaya hai."
+        },
+        {
+          "en": "The DC fuse in the battery path is burnt.",
+          "ur": "Battery path ka DC fuse jal chuka hai."
+        },
+        {
+          "en": "A battery string is open because a cell failed.",
+          "ur": "Battery string khuli hai kyun ke aik cell kharab ho gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check battery is not connected right first, then inspect the DC fuse with a multimeter continuity test.",
+          "ur": "Pehle check karein ke battery theek connected hai ya nahi, phir DC fuse ko multimeter continuity test se check karein."
+        },
+        {
+          "en": "Replace a burnt fuse with the exact same amp rating and type, never a higher rating.",
+          "ur": "Jala hua fuse bilkul usi amp rating aur type se lagayein, kabhi higher rating na dein."
+        },
+        {
+          "en": "If the battery is connected well, return to repair center, which is the ECO manual's stated action.",
+          "ur": "Agar battery theek connected hai to repair center bhejein, ye ECO manual ka bataya hua action hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "indoor",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual - PV18 2KW-ECO 400V 80A MPPT (OEM doc 4200-010052-01A1)",
+        "retrieved": "2026-09-26",
+        "url": "https://fixer.com.ua/storage/files/fd/fd135adf5b66ffba863484535be81f7d.pdf"
+      }
+    }
+  ]
+}

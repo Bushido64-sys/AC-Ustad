@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "brandId": "goodwe",
+  "series": {
+    "id": "goodwe-ehb-named",
+    "name": "EHB named messages (battery hybrid GW5000/6500/8600/0010-EHB)",
+    "category": "inverter",
+    "unitType": "hybrid_inverter",
+    "modelPatterns": [
+      "*EHB*",
+      "GW*-EHB"
+    ],
+    "notes": "Documented models GW5000-EHB, GW6500-EHB, GW8600-EHB, GW0010-EHB. EHB is a high-voltage battery hybrid, not listed on the Pakistan product page, so it is a lower PK priority than ES Uniq / SDT G3 / ET. Its named table is close to the ES/SBP one but adds 'PV Over Voltage', 'AC HCT Check Failure', 'AFCI Fault' and 'GFCI Device Check Failure' as explicit rows and adds a numbered FAQ section (8.2) for behaviour questions. Codes here are message strings only."
+  },
+  "codes": [
+    {
+      "code": "AFCI Fault",
+      "aliases": [
+        "AFCI Fault"
+      ],
+      "title": {
+        "en": "AFCI Fault (EHB)",
+        "ur": "AFCI Fault (EHB) - arc fault module ne arc pakda"
+      },
+      "meaning": {
+        "en": "The arc fault module either failed its self-test or detected an arc at the inverter's PV terminals.",
+        "ur": "Arc fault module ka self-test fail hua ya inverter ke PV terminals par arc detect hua."
+      },
+      "causes": [
+        {
+          "en": "AFCI self-test abnormal.",
+          "ur": "AFCI self-test abnormal hai."
+        },
+        {
+          "en": "An arc occurs on the PV terminals of the inverter.",
+          "ur": "Inverter ke PV terminals par arc ho raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "If it is the first occurrence, clear the arc fault in the app and restart the inverter.",
+          "ur": "Agar pehli baar ho to app se arc fault clear karke inverter restart karein."
+        },
+        {
+          "en": "Open the DC isolator and inspect every PV connector and cable for looseness, heat damage or a broken core.",
+          "ur": "DC isolator kholein aur har PV connector aur cable ki dhili jagah, garmi ka nuqsan ya toota core check karein."
+        },
+        {
+          "en": "Unplug and reconnect all DC wiring, replacing any damaged cable, then restart.",
+          "ur": "Tamam DC wiring unplug karke dobara lagayein, damaged cable replace karein, phir restart karein."
+        },
+        {
+          "en": "If it still trips, leave the DC isolated and contact after-sales - do not keep re-energising.",
+          "ur": "Agar phir bhi trip ho to DC isolate chhor kar after-sales se rabta karein, baar baar on na karein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EHB User Manual, section 8.1 Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.au/Ftp/EN/Downloads/User%20Manual/GW_EHB_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "GFCI Device Check Failure",
+      "aliases": [
+        "GFCI Device Check Failure"
+      ],
+      "title": {
+        "en": "GFCI Device Check Failure (EHB)",
+        "ur": "GFCI Device Check Failure (EHB) - GFCi kharab"
+      },
+      "meaning": {
+        "en": "The ground fault current interrupter device inside the inverter failed its self-check.",
+        "ur": "Inverter ke andar ka GFCI device apna self-check pass nahi kar saka."
+      },
+      "causes": [
+        {
+          "en": "GFCI device failure.",
+          "ur": "GFCI device kharab hai."
+        },
+        {
+          "en": "External magnetic field disturbing the GFCI self-check.",
+          "ur": "External magnetic field GFCI self-check ko disturb kar raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and see whether the fault returns.",
+          "ur": "Inverter restart karein aur dekhein ke fault wapas aata hai ya nahi."
+        },
+        {
+          "en": "Move steel structures, motors and transformers away from the unit and its DC cables.",
+          "ur": "Steel structures, motors aur transformers ko unit aur DC cables se door karein."
+        },
+        {
+          "en": "If it returns, contact after-sales - the GFCI device itself has failed.",
+          "ur": "Agar wapas aaye to after-sales se rabta karein, khud GFCI device kharab hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EHB User Manual, section 8.1 Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.au/Ftp/EN/Downloads/User%20Manual/GW_EHB_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "AC HCT Check Failure",
+      "aliases": [
+        "AC HCT Check Failure"
+      ],
+      "title": {
+        "en": "AC HCT Check Failure (EHB)",
+        "ur": "AC HCT Check Failure (EHB) - sensor kharab"
+      },
+      "meaning": {
+        "en": "The inverter's AC Hall current sensor self-check failed, indicating a hardware current sensor problem.",
+        "ur": "Inverter ke AC Hall current sensor ka self-check fail hua, is ka matlab hardware current sensor mein masla hai."
+      },
+      "causes": [
+        {
+          "en": "Inverter hardware current sensor failure.",
+          "ur": "Inverter ke hardware current sensor kharab hai."
+        },
+        {
+          "en": "Strong external magnetic field around the unit.",
+          "ur": "Unit ke gird bohat strong external magnetic field."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Restart the inverter and confirm whether the code is intermittent or latched.",
+          "ur": "Inverter restart karein aur dekhein ke code intermittent hai ya latched."
+        },
+        {
+          "en": "Remove external magnetic sources near the AC cable entry.",
+          "ur": "AC cable entry ke paas se magnetic sources hatayein."
+        },
+        {
+          "en": "If it returns every time, the current sensor has failed - send to after-sales.",
+          "ur": "Agar har baar wapas aaye to current sensor kharab hai, after-sales ko bhejein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EHB User Manual, section 8.1 Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.au/Ftp/EN/Downloads/User%20Manual/GW_EHB_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "PV Over Voltage",
+      "aliases": [
+        "PV Over Voltage"
+      ],
+      "title": {
+        "en": "PV Over Voltage (EHB)",
+        "ur": "PV Over Voltage (EHB) - PV voltage zyada"
+      },
+      "meaning": {
+        "en": "The open-circuit voltage of a PV string is higher than the inverter's maximum DC input voltage.",
+        "ur": "Kisi PV string ka open-circuit voltage inverter ke maximum DC input voltage se zyada hai."
+      },
+      "causes": [
+        {
+          "en": "PV string Voc higher than the max DC input voltage of the inverter.",
+          "ur": "PV string ka Voc inverter ke max DC input voltage se zyada hai."
+        },
+        {
+          "en": "Too many modules in series, so Voc rises further in cold conditions.",
+          "ur": "Series mein modules zyada hain, thande mausam mein Voc aur barh jata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Open the DC isolator and measure each string's Voc with a multimeter.",
+          "ur": "DC isolator kholein aur har string ka Voc multimeter se measure karein."
+        },
+        {
+          "en": "Compare with the max DC input voltage printed on the inverter label.",
+          "ur": "Inverter ke label par likhe max DC input voltage se compare karein."
+        },
+        {
+          "en": "Reduce the number of series panels until cold-morning Voc is inside the limit.",
+          "ur": "Series panels ki sankhya kam karein jab tak thande subah ki Voc limit ke andar na aa jaye."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EHB User Manual, section 8.1 Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.au/Ftp/EN/Downloads/User%20Manual/GW_EHB_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "Isolation Failure",
+      "aliases": [
+        "Isolation Failure"
+      ],
+      "title": {
+        "en": "Isolation Failure (EHB)",
+        "ur": "Isolation Failure (EHB) - insulation kam"
+      },
+      "meaning": {
+        "en": "Ground insulation impedance of the PV string is too low, tripping the inverter's isolation monitor.",
+        "ur": "PV string ka ground insulation impedance bohat kam hai, is liye inverter ka isolation monitor trigger ho gaya."
+      },
+      "causes": [
+        {
+          "en": "PV string shorted to protective earth.",
+          "ur": "PV string protective earth se short ho gaya hai."
+        },
+        {
+          "en": "DC cable insulation damaged.",
+          "ur": "DC cable ka insulation damaged hai."
+        },
+        {
+          "en": "Heavy humidity in the early morning or after rain.",
+          "ur": "Subah jaldi ya barsaat ke baad bohat zyada humidity."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Use a multimeter to check resistance between earth and the inverter frame; it should be close to zero.",
+          "ur": "Multimeter se earth aur inverter frame ke darmiyan resistance check karein, zero ke qareeb hona chahiye."
+        },
+        {
+          "en": "Measure resistance from PV1+/PV2+/PV3+/PV4+/BAT+/PV- to earth and compare to the manual's table in 2.4.2.",
+          "ur": "PV1+/PV2+/PV3+/PV4+/BAT+/PV- se earth tak resistance measure karke manual ke 2.4.2 table se compare karein."
+        },
+        {
+          "en": "If below the minimum, disconnect strings one by one and repair the leaking string's connectors.",
+          "ur": "Agar minimum se neeche ho to strings aik aik disconnect karke leaking string ke connectors theek karein."
+        },
+        {
+          "en": "If humidity is genuinely high, log the weather with each event before condemning any part.",
+          "ur": "Agar humidity asal mein zyada hai to koi bhi part kharab kehne se pehle har event ke saath weather note karein."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EHB User Manual, section 8.1 Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.au/Ftp/EN/Downloads/User%20Manual/GW_EHB_User%20Manual-EN.pdf"
+      }
+    },
+    {
+      "code": "Relay Check Failure",
+      "aliases": [
+        "Relay Check Failure"
+      ],
+      "title": {
+        "en": "Relay Check Failure (EHB)",
+        "ur": "Relay Check Failure (EHB) - relay kharab"
+      },
+      "meaning": {
+        "en": "Relay self-test failed, tied to N and PE not being connected well on the AC side.",
+        "ur": "Relay self-test fail hua, is ki wajah AC side par N aur PE ka theek na lagna hai."
+      },
+      "causes": [
+        {
+          "en": "Neutral and ground cables not connected well on the AC side.",
+          "ur": "AC side par neutral aur ground cables theek se nahi lage."
+        },
+        {
+          "en": "Occasional relay self-test failure.",
+          "ur": "Kabhi kabhi relay self-test fail hota hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "With a multimeter, check for voltage between N and PE on the AC side; normally below 10V.",
+          "ur": "Multimeter se AC side par N aur PE ke darmiyan voltage check karein, aam tor par 10V se kam."
+        },
+        {
+          "en": "If above 10V, re-terminate N and PE at the AC terminal block.",
+          "ur": "Agar 10V se zyada ho to AC terminal block par N aur PE dobara terminate karein."
+        },
+        {
+          "en": "Restart the inverter and confirm the self-test now passes.",
+          "ur": "Inverter restart karke confirm karein ke self-test ab pass ho gaya."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "source": {
+        "type": "service_manual",
+        "title": "GW EHB User Manual, section 8.1 Error Message",
+        "retrieved": "2026-09-26",
+        "url": "https://www.goodwe.com.au/Ftp/EN/Downloads/User%20Manual/GW_EHB_User%20Manual-EN.pdf"
+      }
+    }
+  ]
+}

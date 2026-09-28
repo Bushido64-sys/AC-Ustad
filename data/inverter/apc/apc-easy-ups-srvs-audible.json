@@ -1,0 +1,717 @@
+{
+  "schemaVersion": 1,
+  "brandId": "apc",
+  "series": {
+    "id": "apc-easy-ups-srvs-audible",
+    "name": "APC Easy UPS SRVS 1/2/3 KI and KRI - audible alarm and notification patterns",
+    "category": "inverter",
+    "unitType": "ups",
+    "modelPatterns": [
+      "*Easy UPS SRVS*",
+      "SRVS*",
+      "SRVM*",
+      "SRV3KIL*",
+      "SRV2KIL*",
+      "SRV1KIL*"
+    ],
+    "notes": "This series is the audible/notification half of the Easy UPS SRVS documentation. The codes here are the unit's audible patterns and its alarm-condition states, NOT the F##/hex codes of Series 2 (SRV/SRVL Modbus) and NOT the display-text alarms of Series 3 (Easy UPS 3S). Same product name, different documented table - kept separate deliberately. The 'Alerts' sub-table in the same manual uses graphic display-code icons rather than text codes, so its five conditions are recorded here as descriptive rows, with the icon-based source noted rather than invented codes."
+  },
+  "codes": [
+    {
+      "code": "CONT-BEEPS-HALF-SEC",
+      "aliases": [
+        "CONT-BEEPS-HALF-SEC",
+        "Low Battery State"
+      ],
+      "title": {
+        "en": "Low battery state - continuous beeps every half second",
+        "ur": "Low battery halat - har aadha second musalsal beep"
+      },
+      "meaning": {
+        "en": "The battery is nearing complete discharge, so the unit is warning continuously and is about to shut down.",
+        "ur": "Battery poori discharge ke qareeb hai, is liye unit musalsal ehtiyat kar raha hai aur band hone wali hai."
+      },
+      "causes": [
+        {
+          "en": "Outage has lasted longer than the pack's remaining runtime.",
+          "ur": "Outage pack ki baaki runtime se lambi rahi."
+        },
+        {
+          "en": "Load higher than the pack was sized for, so it drains faster than rated.",
+          "ur": "Load pack ki bajaye se zyada hai jis se rated se tez drain hota hai."
+        },
+        {
+          "en": "Battery aged, so its real capacity is well below the nameplate.",
+          "ur": "Battery purani ho chuki hai jis se asli capacity nameplate se bohat neeche hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect non-essential load immediately to slow the discharge, using the load level shown on the display.",
+          "ur": "Display par dikhne wali load level dekh kar foran naami load disconnect karein taake discharge dheema ho."
+        },
+        {
+          "en": "Do not start a large motor from a low battery; a stalled motor will trip the unit again.",
+          "ur": "Kam battery se bara motor start na karein; atka hua motor unit dobara trip kar dega."
+        },
+        {
+          "en": "Confirm mains has returned before the unit shuts down, so the load is not cut off unexpectedly.",
+          "ur": "Unit band hone se pehle confirm karein ke mains wapas aa gaya hai taake load achanak na gire."
+        },
+        {
+          "en": "After mains returns, allow the full charge time the manual specifies, then run the battery self-test from the SET menu.",
+          "ur": "Mains aane ke baad manual ki batay hui poori charge der dein, phir SET menu se battery self-test chalayein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Continuous beeps every half second",
+      "confidence": "high",
+      "notes": {
+        "en": "APC's wording: 'Low Battery State - The battery is nearing its complete discharge state. The UPS is about to shut down.'",
+        "ur": "APC ka alfaz: 'Low Battery State - Battery poori discharge ke qareeb hai, UPS band hone wali hai.'"
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual Easy UPS On-Line - Easy UPS Series SRVS 1/2/3 KI/KRI (EUO-UM-990-91091B-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://download.se.com/doc/SPD_AHUG-ASVAYL_EN/EUO-UM-990-91091B-MN01_EN.pdf"
+      }
+    },
+    {
+      "code": "BEEPS-4-EVERY-30SEC",
+      "aliases": [
+        "BEEPS-4-EVERY-30SEC",
+        "On Battery State"
+      ],
+      "title": {
+        "en": "On battery state - 4 beeps every 30 seconds",
+        "ur": "On battery halat - har 30 second par 4 beep"
+      },
+      "meaning": {
+        "en": "The unit has moved to battery and is supplying backup power to the connected equipment.",
+        "ur": "Unit battery par chala gaya hai aur connected equipment ko backup power de raha hai."
+      },
+      "causes": [
+        {
+          "en": "A utility outage, or input voltage outside the unit's transfer window.",
+          "ur": "Utility outage, ya input voltage unit ki transfer window se bahar."
+        },
+        {
+          "en": "Input breaker tripped or the input plug not fully seated.",
+          "ur": "Input breaker trip ho gaya ya input plug poori tarah baitha nahi."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "No action needed during a genuine outage - this is the unit confirming it is protecting the load.",
+          "ur": "Asal outage mein koi karakari zaroori nahi - unit is baat kar raha hai ke woh load ki hifazat kar raha hai."
+        },
+        {
+          "en": "Read the runtime and input voltage from the display so you know how long the backup will last.",
+          "ur": "Display se runtime aur input voltage parhein taake pata chale ke backup kitni der chalega."
+        },
+        {
+          "en": "If mains is actually present, check the input breaker and that the plug is fully inserted, then test the outlet with another device.",
+          "ur": "Agar mains waqai mojood hai to input breaker check karein aur plug poori tarah baitha hua ho, phir outlet kisi doosre device se test karein."
+        },
+        {
+          "en": "Adjust the transfer window or sensitivity per the manual if the site supply is known to swing outside the default range.",
+          "ur": "Agar site ka supply default range se bahar nalta hai to manual ke mutabiq transfer window ya sensitivity adjust karein."
+        }
+      ],
+      "severity": "info",
+      "display": "controller",
+      "isFault": false,
+      "blinkPattern": "4 beeps every 30 seconds; first beep starts after 4 seconds on battery",
+      "confidence": "high",
+      "notes": {
+        "en": "APC notes the first beep starts 4 seconds after going to battery, so a brief click is not a fault.",
+        "ur": "APC kehta hai pehla beep battery par jane ke 4 second baad aata hai, is liye halki si click fault nahi hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual Easy UPS On-Line - Easy UPS Series SRVS 1/2/3 KI/KRI (EUO-UM-990-91091B-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://download.se.com/doc/SPD_AHUG-ASVAYL_EN/EUO-UM-990-91091B-MN01_EN.pdf"
+      }
+    },
+    {
+      "code": "BEEPER-CONTINUOUS",
+      "aliases": [
+        "BEEPER-CONTINUOUS",
+        "Alarm State"
+      ],
+      "title": {
+        "en": "Alarm state - beeper continuously on",
+        "ur": "Alarm halat - beeper musalsal on"
+      },
+      "meaning": {
+        "en": "The UPS has detected an internal error and is sounding continuously, so the condition needs diagnosis.",
+        "ur": "UPS ne andar ka error detect kiya hai aur musalsal awaaz de raha hai, is liye halat ki jaanch zaroori hai."
+      },
+      "causes": [
+        {
+          "en": "One of the alert conditions in the manual's Alerts table is active, such as a short circuit, overload, DC voltage error, over temperature or a charger error.",
+          "ur": "Manual ke Alerts table mein se koi alert halat active hai, jaise short circuit, overload, DC voltage error, over temperature ya charger error."
+        },
+        {
+          "en": "The unit is in configuration mode, which APC also flags with the same alarm icon.",
+          "ur": "Unit configuration mode mein hai, jise APC usi alarm icon se dikhata hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the display for the specific alert condition rather than relying on the sound alone.",
+          "ur": "Sirf awaaz par bharosa na karke display se khaas alert halat parhein."
+        },
+        {
+          "en": "Isolate mains and disconnect the battery before opening the unit, since an internal error may be live.",
+          "ur": "Unit kholne se pehle mains isolate karein aur battery disconnect karein, kyunke internal error live ho sakta hai."
+        },
+        {
+          "en": "If the alert is over temperature, check the load level, ambient temperature and clearance as APC's own solution text directs.",
+          "ur": "Agar alert over temperature hai to APC ke apne hal ke mutabiq load level, ambient temperature aur clearance check karein."
+        },
+        {
+          "en": "If the alert is a charger error, press POWER ON/OFF to restart as the manual directs, then re-check; if it persists, escalate.",
+          "ur": "Agar alert charger error hai to manual ke mutabiq POWER ON/OFF daba kar restart karein, phir dobara dekhein; rahe to aage barha dein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Beeper continuously on; Alarm or notification icon illuminated",
+      "confidence": "high",
+      "notes": {
+        "en": "APC's manual states: 'Contact Schneider Electric Customer Support for all other alert codes' beyond the five it tabulates.",
+        "ur": "APC manual kehta hai: 'Baaki tamam alert codes ke liye Schneider Electric Customer Support se rabta karein' — jo paanch table mein hain un ke ilawa."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual Easy UPS On-Line - Easy UPS Series SRVS 1/2/3 KI/KRI (EUO-UM-990-91091B-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://download.se.com/doc/SPD_AHUG-ASVAYL_EN/EUO-UM-990-91091B-MN01_EN.pdf"
+      }
+    },
+    {
+      "code": "BEEP-2.5SEC",
+      "aliases": [
+        "BEEP-2.5SEC",
+        "Battery disconnected"
+      ],
+      "title": {
+        "en": "Battery disconnected - short beep every 2.5 seconds",
+        "ur": "Battery disconnect - har 2.5 second par chhota beep"
+      },
+      "meaning": {
+        "en": "The UPS cannot see its battery, so there is no backup at all while it keeps running on mains.",
+        "ur": "UPS ko apni battery nazar nahi aa rahi, is liye mains par chalte hue bhi koi backup nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Battery connector unplugged, loose or not fully snapped in.",
+          "ur": "Battery connector nikal hua, loose, ya poori tarah snap nahi hua."
+        },
+        {
+          "en": "Internal battery fuse or breaker open.",
+          "ur": "Internal battery fuse ya breaker khula hai."
+        },
+        {
+          "en": "Battery string aged and no longer accepted, or a cell failed open.",
+          "ur": "Battery string purani ho kar ab qubool nahi, ya koi cell khul ho kar kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Read the battery voltage and total Ah capacity from the display to confirm the unit sees an open pack.",
+          "ur": "Battery voltage aur total Ah capacity display se parh kar confirm karein ke unit ko pack khuli nazar aa rahi hai."
+        },
+        {
+          "en": "Turn the unit off, unplug mains and remove the front bezel, then reseat the battery connectors firmly - this is the first step APC's own FAQ gives for BDC.",
+          "ur": "Unit off karein, mains se nikaalein aur front bezel nikaal dein, phir battery connectors mazbooti se baitha dein - yahi pehla qadam hai jo APC ka apna FAQ BDC ke liye deta hai."
+        },
+        {
+          "en": "Check the internal fuse or breaker continuity with an ohmmeter and replace with the same rating if open.",
+          "ur": "Internal fuse ya breaker ki continuity ohmmeter se check karein aur khuli ho to usi rating se badal dein."
+        },
+        {
+          "en": "If the connector is sound and the pack is healthy, allow it to charge for at least 5 hours then run the battery self-test from the SET menu.",
+          "ur": "Agar connector theek hai aur pack sehat hai to kam az kam 5 ghante charge karne dein phir SET menu se battery self-test chalayein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Short beep every 2.5 seconds; battery disconnected notification icon illuminated",
+      "confidence": "high",
+      "notes": {
+        "en": "Independently confirmed by SE's FAQ for BDC on the SRV: battery loosely connected, not connected, or weak.",
+        "ur": "SE ke SRV ke liye BDC FAQ se alag se confirm hai: battery loosely connected, not connected, ya weak."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual Easy UPS On-Line - Easy UPS Series SRVS 1/2/3 KI/KRI (EUO-UM-990-91091B-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://download.se.com/doc/SPD_AHUG-ASVAYL_EN/EUO-UM-990-91091B-MN01_EN.pdf"
+      }
+    },
+    {
+      "code": "BEEPS-1MIN-5HR",
+      "aliases": [
+        "BEEPS-1MIN-5HR",
+        "Bad battery"
+      ],
+      "title": {
+        "en": "Bad battery - 1 min short beeps, repeat every 5 hours",
+        "ur": "Kharab battery - 1 minute chhote beep, har 5 ghante dohraye"
+      },
+      "meaning": {
+        "en": "The battery has failed the self-test and needs replacement; the unit re-warns every five hours until it is changed.",
+        "ur": "Battery self-test mein fail ho gayi hai aur badalni chahiye; unit har paanch ghante baad dobara ehtiyat karta hai jab tak badli na jaye."
+      },
+      "causes": [
+        {
+          "en": "Battery has genuinely aged past its rated service life.",
+          "ur": "Battery apni rated service life ke baad asal mein purani ho chuki hai."
+        },
+        {
+          "en": "Battery discharged by an outage and not given enough charge time before the test.",
+          "ur": "Battery outage se discharge hui aur test se pehle kaafi charge time nahi mila."
+        },
+        {
+          "en": "Battery connector loose, so the test sees a poor pack rather than a bad one.",
+          "ur": "Battery connector loose hai jis se test kharab pack ke bajaye kamzor pack dekh raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "First rule out a false alarm: leave the unit on mains to charge fully, then re-run the battery self-test from the SET menu.",
+          "ur": "Pehle ghalat alarm khatam karein: unit ko mains par poori charge hone dein, phir SET menu se battery self-test dobara chalayein."
+        },
+        {
+          "en": "Measure the battery voltage shown on the display against a direct DC meter reading at the battery terminals.",
+          "ur": "Display par dikhne wali battery voltage ko seedhe battery terminals par DC meter ki reading se compare karein."
+        },
+        {
+          "en": "Reseat the battery connector and confirm it is fully snapped before condemning the pack.",
+          "ur": "Battery connector dobara baitha dein aur poori tarah snap hua hua confirm karein, phir pack kharab kahayen."
+        },
+        {
+          "en": "Replace the pack with the specified type and number, then run the self-test again to confirm the warning stops.",
+          "ur": "Pack ko bataye gaye type aur number se badal dein, phir self-test dobara chalayein taaki confirm ho ke warning ruki."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Continuous short beeps for every half second for 1 minute, repeating every 5 hours",
+      "confidence": "high",
+      "notes": {
+        "en": "APC's own text for this state is simply 'Bad battery (replace the battery)'.",
+        "ur": "APC ka apna is halat ke liye alfaz hai 'Bad battery (replace the battery)'."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual Easy UPS On-Line - Easy UPS Series SRVS 1/2/3 KI/KRI (EUO-UM-990-91091B-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://download.se.com/doc/SPD_AHUG-ASVAYL_EN/EUO-UM-990-91091B-MN01_EN.pdf"
+      }
+    },
+    {
+      "code": "BEEPS-2-EVERY-5SEC",
+      "aliases": [
+        "BEEPS-2-EVERY-5SEC",
+        "Event Bypass State"
+      ],
+      "title": {
+        "en": "Event bypass state - two short beeps every 5 seconds",
+        "ur": "Event bypass halat - har 5 second par do chhote beep"
+      },
+      "meaning": {
+        "en": "The unit has logged a bypass event, so the connected equipment is being fed from the bypass relay rather than the inverter.",
+        "ur": "Unit ne bypass event note kiya hai, is liye connected equipment inverter ke bajaye bypass relay se supply ho rahi hai."
+      },
+      "causes": [
+        {
+          "en": "Bypass taken because the input was outside the inverter's acceptable range.",
+          "ur": "Input inverter ki ijazat ke range se bahar hone par bypass le liya gaya."
+        },
+        {
+          "en": "A commanded transfer to bypass for maintenance work.",
+          "ur": "Maintenance kaam ke liye command di gayi bypass transfer."
+        },
+        {
+          "en": "Bypass taken after repeated overload or an internal inverter condition.",
+          "ur": "Baar baar overload ya inverter ki koi andar ki halat ke baad bypass le liya gaya."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the event log on the display, since APC's manual records the last 10 events with numeric and textual codes.",
+          "ur": "Display par event log dekhein, kyunke APC ka manual aakhri 10 events numeric aur textual codes ke saath record karta hai."
+        },
+        {
+          "en": "Read the input voltage and confirm whether it was outside the transfer window when the bypass was taken.",
+          "ur": "Input voltage parhein aur confirm karein ke bypass lene waqt yeh transfer window ke bahar tha ya nahi."
+        },
+        {
+          "en": "Confirm the bypass source is healthy by measuring its voltage at the unit's input, not just trusting the display.",
+          "ur": "Sirf display par bharosa kar ke na chhodein; unit ke input par bypass source ki voltage nikaal kar confirm karein ke woh sehat hai."
+        },
+        {
+          "en": "If the bypass was for maintenance, verify the load is safely transferred back to the inverter before closing the panel.",
+          "ur": "Agar bypass maintenance ke liye tha to panel band karne se pehle confirm karein ke load inverter par mehfooz tareeqe se wapas aa gayi hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "blinkPattern": "Two short beeps every 5 seconds; Event icon illuminated",
+      "confidence": "high",
+      "notes": {
+        "en": "The unit is still supplying the load, but the inverter is not providing it - protection is reduced while in bypass.",
+        "ur": "Unit load de raha hai magar inverter use provide nahi kar raha - bypass mein hifazat kam ho jati hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual Easy UPS On-Line - Easy UPS Series SRVS 1/2/3 KI/KRI (EUO-UM-990-91091B-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://download.se.com/doc/SPD_AHUG-ASVAYL_EN/EUO-UM-990-91091B-MN01_EN.pdf"
+      }
+    },
+    {
+      "code": "ALERT-SHORT-CIRCUIT",
+      "aliases": [
+        "ALERT-SHORT-CIRCUIT"
+      ],
+      "title": {
+        "en": "Alert: short circuit at the output terminals",
+        "ur": "Alert: output terminals par short circuit"
+      },
+      "meaning": {
+        "en": "The UPS has experienced a short circuit at the output terminals and will try to auto-recover.",
+        "ur": "UPS ne output terminals par short circuit jhela hai aur khud se theek hone ki koshish karega."
+      },
+      "causes": [
+        {
+          "en": "A connected device with failed internal insulation shorting the output.",
+          "ur": "Kisi connected device ki andar ki insulation kharab ho kar output short kar rahi hai."
+        },
+        {
+          "en": "Damaged output wiring, a pinched cable or a bad outlet feeding the load.",
+          "ur": "Output wiring damaged, cable nichal hui ya load ko chalane wala outlet kharab."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check if there is any short circuit at the UPS output terminals, exactly as APC directs.",
+          "ur": "Jaise APC kahe, UPS ke output terminals par koi short circuit hai ya nahi check karein."
+        },
+        {
+          "en": "Remove the short circuit, then wait for the unit to auto-recover or press POWER ON/OFF to start it, as APC's own solution states.",
+          "ur": "Short circuit nikaal dein, phir unit ko khud recover hone dein ya POWER ON/OFF daba kar start karein, jaise APC ka hal hai."
+        },
+        {
+          "en": "Isolate mains and disconnect the battery before inspecting wiring, then re-add load one item at a time to find the short.",
+          "ur": "Wiring dekhne se pehle mains isolate karein aur battery disconnect karein, phir load aik-aik karke dobara jorr ke short dhoondein."
+        }
+      ],
+      "severity": "danger",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "notes": {
+        "en": "This is one of five 'Alerts' rows in the manual. The manual shows this condition with a graphic display-code ICON, not a text code, so no text code is asserted here. Confidence is medium for that reason. A separate SE FAQ for the SRV names the equivalent event as 'SC'.",
+        "ur": "Yeh manual ke paanch 'Alerts' rows mein se aik hai. Manual is halat ko graphic display-code ICON ke saath dikhata hai, text code ke saath nahi, is liye yahan koi text code assert nahi kiya gaya. Isi liye confidence medium. SRV ke liye SE ka alag FAQ iska barabar event 'SC' kehta hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual Easy UPS On-Line - Easy UPS Series SRVS 1/2/3 KI/KRI (EUO-UM-990-91091B-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://download.se.com/doc/SPD_AHUG-ASVAYL_EN/EUO-UM-990-91091B-MN01_EN.pdf"
+      }
+    },
+    {
+      "code": "ALERT-OVERLOAD",
+      "aliases": [
+        "ALERT-OVERLOAD"
+      ],
+      "title": {
+        "en": "Alert: overload condition",
+        "ur": "Alert: overload halat"
+      },
+      "meaning": {
+        "en": "The UPS is experiencing an overload because the connected equipment draws more than rated.",
+        "ur": "UPS overload halat mein hai kyunke connected equipment rated se zyada kheech rahi hai."
+      },
+      "causes": [
+        {
+          "en": "Too much equipment connected, or load added after installation.",
+          "ur": "Bohat zyada equipment lagi hai, ya installation ke baad load barha diya gaya."
+        },
+        {
+          "en": "A load with a locked rotor drawing a large inrush on transfer to battery.",
+          "ur": "Aisa load jiska rotor jam ho aur battery par transfer par bara inrush kheech raha hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect nonessential equipment from the UPS to eliminate the overload condition, as APC's solution states.",
+          "ur": "Jaise APC ka hal hai, overload halat khatam karne ke liye UPS se naami equipment disconnect karein."
+        },
+        {
+          "en": "Read the load level in kVA and percent from the display and compare it with the unit's rating.",
+          "ur": "Display se load level kVA aur percent mein parhein aur unit ki rating se compare karein."
+        },
+        {
+          "en": "Measure each load with a clamp meter on the output to identify the device that is over-drawing.",
+          "ur": "Output par clamp meter se har load nikaal ke woh device dhoondein jo zyada kheech raha hai."
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "notes": {
+        "en": "Shown in the manual as a graphic display-code icon, not a text code, so no text code is asserted here. Same reason for medium confidence. The SRV event-log equivalent is 'OL'.",
+        "ur": "Manual mein graphic display-code icon ke taur par, text code ke taur par nahi, is liye yahan koi text code assert nahi kiya gaya. isi wajah se medium confidence. SRV event-log ka barabar code 'OL' hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual Easy UPS On-Line - Easy UPS Series SRVS 1/2/3 KI/KRI (EUO-UM-990-91091B-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://download.se.com/doc/SPD_AHUG-ASVAYL_EN/EUO-UM-990-91091B-MN01_EN.pdf"
+      }
+    },
+    {
+      "code": "ALERT-DC-VOLTAGE-ERROR",
+      "aliases": [
+        "ALERT-DC-VOLTAGE-ERROR"
+      ],
+      "title": {
+        "en": "Alert: DC voltage error",
+        "ur": "Alert: DC voltage mein masla"
+      },
+      "meaning": {
+        "en": "The UPS has detected a DC voltage error and will try to auto-recover.",
+        "ur": "UPS ne DC voltage error detect kiya hai aur khud se theek hone ki koshish karega."
+      },
+      "causes": [
+        {
+          "en": "Battery string disconnected, exhausted or with a failed cell, so the DC link is wrong.",
+          "ur": "Battery string disconnect, khatam ya kisi cell kharab hone se DC link ghalat hai."
+        },
+        {
+          "en": "Input voltage far outside the unit's range so the DC link cannot be regulated.",
+          "ur": "Input voltage unit ke range se bahar hai jis se DC link regulate nahi ho sakta."
+        },
+        {
+          "en": "DC bus capacitor degraded, so the link ripples beyond limits.",
+          "ur": "DC bus capacitor bigda hua hai jis se link ki ripple limit se bahar chali jati hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Wait for the unit to auto-recover; APC states it will try to do so from this condition.",
+          "ur": "Unit ke auto-recover hone ka intezaar karein; APC kehta hai ke woh is halat se yeh koshish karega."
+        },
+        {
+          "en": "Measure the battery voltage and total Ah capacity shown on the display, and the battery string with a DC meter.",
+          "ur": "Display par battery voltage aur total Ah capacity parhein, aur battery string ko DC meter se nikaalein."
+        },
+        {
+          "en": "If the UPS does not recover automatically, contact Schneider Electric Customer Support, which is APC's own stated action.",
+          "ur": "Agar UPS khud recover nahi hota to Schneider Electric Customer Support se rabta karein - yehi APC ka bataya hua amal hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "notes": {
+        "en": "Shown as a graphic display-code icon in the manual, not a text code, so no text code is asserted here. APC's own solution column for this row is escalation only, with no user remedy given.",
+        "ur": "Manual mein graphic display-code icon ke taur par, text code ke taur par nahi, is liye yahan koi text code assert nahi kiya gaya. APC ka apna solution column sirf escalation hai, user ka hal nahi diya gaya."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual Easy UPS On-Line - Easy UPS Series SRVS 1/2/3 KI/KRI (EUO-UM-990-91091B-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://download.se.com/doc/SPD_AHUG-ASVAYL_EN/EUO-UM-990-91091B-MN01_EN.pdf"
+      }
+    },
+    {
+      "code": "ALERT-OVER-TEMPERATURE",
+      "aliases": [
+        "ALERT-OVER-TEMPERATURE"
+      ],
+      "title": {
+        "en": "Alert: temperature above set limits",
+        "ur": "Alert: temperature set limits se upar"
+      },
+      "meaning": {
+        "en": "The unit's temperature is rising above its set limits, so it warns and may shut down.",
+        "ur": "Unit ki temperature apni set limits se upar chali ja rahi hai, is liye ehtiyat karta hai aur band bhi ho sakta hai."
+      },
+      "causes": [
+        {
+          "en": "Load too high for the unit's cooling capacity, or ambient temperature above limits.",
+          "ur": "Load unit ki cooling capacity se zyada hai, ya ambient temperature limit se upar hai."
+        },
+        {
+          "en": "Insufficient clearance around the unit restricting airflow.",
+          "ur": "Unit ke aas paas clearance kam hai jis se airflow restricted hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect nonessential equipment from the UPS to reduce the UPS load, exactly as APC directs.",
+          "ur": "Jaise APC kahe, UPS ka load kam karne ke liye UPS se naami equipment disconnect karein."
+        },
+        {
+          "en": "Ensure that ambient temperature is within limits, which is APC's own wording.",
+          "ur": "Yeh APC ka apna alfaz hai: confirm karein ke ambient temperature limit ke andar hai."
+        },
+        {
+          "en": "Ensure that adequate clearance is maintained around the unit, again APC's own wording.",
+          "ur": "Yeh bhi APC ka apna alfaz hai: confirm karein ke unit ke aas paas poori clearance hai."
+        },
+        {
+          "en": "Read the ambient temperature and the UPS's internal temperature from the display parameters to see how far over it is.",
+          "ur": "Display parameters se ambient temperature aur unit ki andar ki temperature parhein taake pata chale kitna oopar hai."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "medium",
+      "notes": {
+        "en": "Shown as a graphic display-code icon in the manual, not a text code, so no text code is asserted here. The three remedies quoted in the notes are APC's own solution text verbatim.",
+        "ur": "Manual mein graphic display-code icon ke taur par, text code ke taur par nahi, is liye yahan koi text code assert nahi kiya gaya. Notes mein di gaye teen hal APC ke apne solution text se bilkul waise hi hain."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual Easy UPS On-Line - Easy UPS Series SRVS 1/2/3 KI/KRI (EUO-UM-990-91091B-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://download.se.com/doc/SPD_AHUG-ASVAYL_EN/EUO-UM-990-91091B-MN01_EN.pdf"
+      }
+    },
+    {
+      "code": "ALERT-CHARGER-ERROR",
+      "aliases": [
+        "ALERT-CHARGER-ERROR"
+      ],
+      "title": {
+        "en": "Alert: charger error",
+        "ur": "Alert: charger mein masla"
+      },
+      "meaning": {
+        "en": "The UPS has detected a charger error; pressing the power button restarts it, and a persisting error needs support.",
+        "ur": "UPS ne charger error detect kiya hai; power button dabane se restart hota hai, aur error rehne par support chahiye."
+      },
+      "causes": [
+        {
+          "en": "Short circuit at the battery terminal on the charger path.",
+          "ur": "Charger path par battery terminal ka short circuit."
+        },
+        {
+          "en": "Battery or external battery cabinet connected with reversed polarity.",
+          "ur": "Battery ya external battery cabinet ulat polarity ke saath lagi hai."
+        },
+        {
+          "en": "Charger board component failure, or a battery string too large for the charger.",
+          "ur": "Charger board ka koi component kharab, ya battery string charger ke liye bohat bari hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Press the POWER ON/OFF button to start the UPS, which is APC's own first instruction for this row.",
+          "ur": "Yeh APC ka apna pehla instruction hai is row ke liye: UPS start karne ke liye POWER ON/OFF button dabayein."
+        },
+        {
+          "en": "Verify there is no short circuit at the battery terminal before the restart, as SE's CH9 FAQ instructs.",
+          "ur": "Restart se pehle battery terminal par koi short circuit nahi hai ya nahi check karein, jaise SE ka CH9 FAQ kahe."
+        },
+        {
+          "en": "If the charger error persists, contact Schneider Electric Customer Support, which is APC's own stated action.",
+          "ur": "Agar charger error baki rahe to Schneider Electric Customer Support se rabta karein - yehi APC ka bataya hua amal hai."
+        },
+        {
+          "en": "Check the battery string's cell count and age against the manual, since an oversized or old string will fault the charger every time.",
+          "ur": "Battery string ke cell count aur umar manual se compare karein, kyunke bari ya purani string har baar charger ko fault karayegi."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "The fetched SRVS manual shows this alert with a graphic display-code icon, not a text code, so no text code is asserted here. SE's own support pages state that 'CH9' is the Easy UPS SRV charger-error code, but those FAQ pages returned HTTP 403 and could NOT be fetched - the CH9 identity is therefore recorded under NEGATIVE, not as an entry here.",
+        "ur": "Fetch ki gayi SRVS manual yeh alert graphic display-code icon ke saath dikhati hai, text code ke saath nahi, is liye yahan koi text code assert nahi kiya gaya. SE ke apne support pages kehte hain ke 'CH9' Easy UPS SRV ka charger-error code hai, magar woh FAQ pages HTTP 403 de kar fetch nahi ho saken - is liye CH9 ki pehchan NEGATIVE mein likhi hai, yahan entry ke taur par nahi."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual Easy UPS On-Line - Easy UPS Series SRVS 1/2/3 KI/KRI (EUO-UM-990-91091B-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://download.se.com/doc/SPD_AHUG-ASVAYL_EN/EUO-UM-990-91091B-MN01_EN.pdf"
+      }
+    },
+    {
+      "code": "NOTIF-BATTERY-NOT-CONNECTED",
+      "aliases": [
+        "NOTIF-BATTERY-NOT-CONNECTED"
+      ],
+      "title": {
+        "en": "Notification: battery is not connected",
+        "ur": "Notification: battery connected nahi hai"
+      },
+      "meaning": {
+        "en": "The battery is not connected to the UPS, so the unit has no backup even while running on mains.",
+        "ur": "Battery UPS se connected nahi hai, is liye mains par chalte hue bhi unit ka koi backup nahi hai."
+      },
+      "causes": [
+        {
+          "en": "Battery connectors not snapped together after a service or a battery change.",
+          "ur": "Service ya battery badalne ke baad battery connectors aapas mein snap nahi hue."
+        },
+        {
+          "en": "Battery not fitted at all, or fitted the wrong way round.",
+          "ur": "Battery lagi hi nahi, ya ulat taraf lagi hai."
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Connect the battery to the UPS and follow the manual's 'Connect the battery' step, which is APC's own written solution.",
+          "ur": "Battery ko UPS se connect karein aur manual ka 'Connect the battery' qadam follow karein - yehi APC ka likha hua hal hai."
+        },
+        {
+          "en": "Check whether the battery is connected to the UPS by removing the front bezel; if not connected, snap the battery connectors together.",
+          "ur": "Front bezel nikaal kar dekhein ke battery UPS se connected hai ya nahi; connect nahi to battery connectors ko aapas mein snap kar dein."
+        },
+        {
+          "en": "Check the battery's polarity as you connect it, and confirm the connector is fully seated rather than half on.",
+          "ur": "Jorrte waqt battery ki polarity check karein, aur confirm karein ke connector poori tarah baitha hai, aadha nahi."
+        },
+        {
+          "en": "Once connected, allow it to charge for at least 5 hours and then execute the battery self-test from the SET menu to confirm the status.",
+          "ur": "Jorrne ke baad kam az kam 5 ghante charge hone dein phir SET menu se battery self-test chala kar halat confirm karein."
+        }
+      ],
+      "severity": "check_restart",
+      "display": "controller",
+      "isFault": true,
+      "confidence": "high",
+      "notes": {
+        "en": "This row is a 'Notification' in the manual, separate from the 'Alerts' table, and APC's own written solution is 'Connect battery to the UPS. Refer \"Connect the battery\" on page 9 for details.' SE's FAQ pages also describe 'BDC' for Easy UPS SRV, but those pages returned HTTP 403 and were not fetched, so BDC is recorded under NEGATIVE rather than as an alias here.",
+        "ur": "Yeh row manual mein 'Alerts' table se alag 'Notification' hai, aur APC ka likha hua hal hai 'Battery ko UPS se connect karein. \"Connect the battery\" page 9 dekhein.' SE ke FAQ pages Easy UPS SRV ke liye 'BDC' bhi batate hain, magar woh pages HTTP 403 de kar fetch nahi hue, is liye BDC yahan alias ke bajaye NEGATIVE mein likha gaya hai."
+      },
+      "source": {
+        "type": "user_manual",
+        "title": "User Manual Easy UPS On-Line - Easy UPS Series SRVS 1/2/3 KI/KRI (EUO-UM-990-91091B-MN01-EN)",
+        "retrieved": "2026-09-26",
+        "url": "https://download.se.com/doc/SPD_AHUG-ASVAYL_EN/EUO-UM-990-91091B-MN01_EN.pdf"
+      }
+    }
+  ]
+}

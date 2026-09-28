@@ -1,0 +1,687 @@
+{
+  "schemaVersion": 1,
+  "brandId": "hitachi",
+  "series": {
+    "id": "hitachi-pk-airhome-ld301-outdoor-blink",
+    "name": "airHome LD301 outdoor-unit LED blink map (300 CH / 400 DJ / 500 GH)",
+    "category": "ac",
+    "unitType": "split",
+    "modelPatterns": [
+      "*LD301*",
+      "*LED*"
+    ],
+    "notes": "airHome LD301 outdoor-unit LED blink table (airHome 300/400/500 service manuals, mirror at snowflakeaircon.sg). Model-scoped outdoor blink — separate from indoor timer LED. Medium-high."
+  },
+  "codes": [
+    {
+      "code": "ld301-off",
+      "aliases": [
+        "ld301-off",
+        "LD301 LED not lit",
+        "LD301 off"
+      ],
+      "title": {
+        "en": "No power supply to the outdoor board",
+        "ur": "Outdoor board ko power supply nahi mil rahi"
+      },
+      "meaning": {
+        "en": "The LD301 indicator stays dark instead of blinking, which the source records as a no-power-supply condition rather than a coded fault.",
+        "ur": "LD301 indicator blink karne ke bajaye band rehta hai, jise source ne coded fault ke bajaye no power supply ki halat likhi hai"
+      },
+      "causes": [
+        {
+          "en": "Mains supply absent at the outdoor unit — breaker tripped, fuse blown, or supply wiring open.",
+          "ur": "Outdoor unit par mains supply nahi hai — breaker trip ho chuka hai, fuse ura ho gaya hai, ya supply wiring khuli hai"
+        },
+        {
+          "en": "Loose supply terminal, failed outdoor PCB power section, or a protective device holding the board off.",
+          "ur": "Supply terminal dheela, outdoor PCB ka power section kharab, ya kisi protective device ki wajah se board off rehta hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check voltage at the outdoor terminals and at the incoming supply; reset the breaker/replace the fuse if open.",
+          "ur": "Outdoor terminals aur aane wali supply par voltage check karein; breaker reset karein, agar fuse khula ho to badal dein"
+        },
+        {
+          "en": "Repair supply wiring and tighten terminals; if voltage is present but the LED stays off, inspect the outdoor PCB power section.",
+          "ur": "Supply wiring theek karein aur terminals kassain; voltage mojod ho uske bawajood LED off rahe to outdoor PCB ka power section dekhein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld301off"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Source states airHome 300 CH / 400 DJ / 500 GH LD301 service manuals. PK sells airHome 200/200X/400 — confirm the model.",
+        "ur": "Source airHome 300 CH / 400 DJ / 500 GH LD301 service manuals se liya gaya hai. Pakistan mein airHome 200/200X/400 bikta hai — apna model confirm karein."
+      },
+      "blinkPattern": "Outdoor LD301 LED: off (no blinking)"
+    },
+    {
+      "code": "ld301-2",
+      "aliases": [
+        "ld301-2",
+        "LD301 2 blinks",
+        "2 blinks outdoor"
+      ],
+      "title": {
+        "en": "Peak-current cut",
+        "ur": "Peak current ki cut"
+      },
+      "meaning": {
+        "en": "The outdoor board cut the compressor because the inrush/peak current limit was reached.",
+        "ur": "Outdoor board ne compressor rok diya kyunke inrush/peak current ki limit cross ho gayi"
+      },
+      "causes": [
+        {
+          "en": "Compressor inrush too high — weak run capacitor, poor supply, or compressor binding.",
+          "ur": "Compressor ka inrush zyada hai — run capacitor kamzor, supply kamzor, ya compressor jam kar na chalne ki wajah se"
+        },
+        {
+          "en": "Peak-current detection threshold disturbed by an outdoor PCB fault or wrong settings.",
+          "ur": "Peak current ki detection threshold outdoor PCB ki kharabi ya ghalat settings se bigad gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check the run capacitor and supply voltage at the outdoor unit, and free the compressor if it is locked.",
+          "ur": "Outdoor unit par run capacitor aur supply voltage check karein, aur compressor locked ho to azad karein"
+        },
+        {
+          "en": "Measure running current against nameplate; if current is normal, inspect the outdoor inverter PCB.",
+          "ur": "Chalta current ko nameplate se compare karke napen; current normal ho to outdoor inverter PCB check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld3012"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Source wording: peak current cut in Wall-Mounted Split / Inverter Split / Single-Split rows.",
+        "ur": "Source ki wording yahan Wall-Mounted Split / Inverter Split / Single-Split rows mein 'peak current cut' hai."
+      },
+      "blinkPattern": "Outdoor LD301 LED: 2 blinks, pause, repeat"
+    },
+    {
+      "code": "ld301-3",
+      "aliases": [
+        "ld301-3",
+        "LD301 3 blinks"
+      ],
+      "title": {
+        "en": "Abnormal low-speed rotation",
+        "ur": "Low speed par ghoomne mein kharabi"
+      },
+      "meaning": {
+        "en": "The compressor or outdoor fan is not holding its minimum speed and the board cut operation.",
+        "ur": "Compressor ya outdoor fan apni minimum speed par nahi rakh raha aur board ne operation rok diya"
+      },
+      "causes": [
+        {
+          "en": "Refrigerant undercharge/overcharge or a restriction producing abnormal running conditions.",
+          "ur": "Refrigerant km ya zyada charge, ya koi rokawat — in par run karne ki halat ghair mamooli ho jati hai"
+        },
+        {
+          "en": "Inverter drive or motor winding problem preventing stable low-speed operation.",
+          "ur": "Inverter drive ya motor winding ka masla, jis ki wajah se unit stable low speed par nahi chl pati"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check system pressures/charge and clean the condenser; verify the outdoor fan turns freely.",
+          "ur": "System ke pressures aur charge check karein, condenser saaf karein; outdoor fan ki azaad rotation ki tasdeiq karein"
+        },
+        {
+          "en": "If charge and airflow are correct, test the inverter drive and motor windings, replacing the faulty part.",
+          "ur": "Charge aur airflow theek hon to inverter drive aur motor windings test karein aur kharab part badal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld3013"
+      },
+      "confidence": "medium",
+      "blinkPattern": "Outdoor LD301 LED: 3 blinks, pause, repeat"
+    },
+    {
+      "code": "ld301-4",
+      "aliases": [
+        "ld301-4",
+        "LD301 4 blinks"
+      ],
+      "title": {
+        "en": "Switching failure",
+        "ur": "Switching kharabi"
+      },
+      "meaning": {
+        "en": "The inverter's power-switching stage reported a failure and the unit shut down.",
+        "ur": "Inverter ke power switching stage ne failure report ki aur unit band ho gaya"
+      },
+      "causes": [
+        {
+          "en": "Inverter/IGBT drive fault, damaged snubber or gate-drive components on the outdoor PCB.",
+          "ur": "Inverter drive fault, outdoor PCB par snubber ya driver ke parts kharab"
+        },
+        {
+          "en": "Loose DC-bus power connections or a shorted compressor winding stressing the switching stage.",
+          "ur": "DC bus ke power connections dheele ya compressor winding short ho jane se switching stage par load barh gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Inspect the outdoor inverter PCB for burnt drive components and check all power terminals for tightness.",
+          "ur": "Outdoor inverter PCB par zale lagay huay drive components check karein aur tamam power terminals ki kash-shi check karein"
+        },
+        {
+          "en": "Megger the compressor windings and replace the outdoor inverter PCB if the switching fault persists.",
+          "ur": "Compressor ki windings ko megger se check karein aur agar switching kharabi bar bar aaye to outdoor inverter PCB badal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld3014"
+      },
+      "confidence": "medium",
+      "blinkPattern": "Outdoor LD301 LED: 4 blinks, pause, repeat"
+    },
+    {
+      "code": "ld301-5",
+      "aliases": [
+        "ld301-5",
+        "LD301 5 blinks"
+      ],
+      "title": {
+        "en": "Overload lower-limit cut",
+        "ur": "Overload ki lower limit par cut"
+      },
+      "meaning": {
+        "en": "The overload protection cut in at its lower limit, i.e. the unit tripped on overload earlier than the normal setting would allow.",
+        "ur": "Overload protection apni lower limit par hi cut ho gayi, yani unit normal setting se pehle hi overload par trip ho gayi"
+      },
+      "causes": [
+        {
+          "en": "High head pressure from a fouled condenser, blocked airflow or a condenser fan problem.",
+          "ur": "Ganda condenser, band airflow ya condenser fan ke masle se head pressure zyada ho gaya"
+        },
+        {
+          "en": "Overload protection settings/components out of spec, or an overcharged system.",
+          "ur": "Overload protection ki settings ya parts ghalat par hain, ya system mein refrigerant zyada charge hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Clean the condenser, verify the outdoor fan runs at speed, and clear anything blocking airflow.",
+          "ur": "Condenser saaf karein, outdoor fan ki poori speed verify karein, aur airflow rokne wali har cheez hatayein"
+        },
+        {
+          "en": "Recover and weigh the refrigerant charge against nameplate; replace the overload device if it trips with normal current.",
+          "ur": "Refrigerant charge nikal kar nameplate ke mutabiq waze kar ke tol lein; current normal hone par bhi overload device trip kare to use badal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld3015"
+      },
+      "confidence": "medium",
+      "blinkPattern": "Outdoor LD301 LED: 5 blinks, pause, repeat"
+    },
+    {
+      "code": "ld301-6",
+      "aliases": [
+        "ld301-6",
+        "LD301 6 blinks"
+      ],
+      "title": {
+        "en": "Compressor temperature rise",
+        "ur": "Compressor ki temperature barh jana"
+      },
+      "meaning": {
+        "en": "Compressor temperature climbed above the allowed value and the board cut out.",
+        "ur": "Compressor ki temperature allowed value se upar chali gayi aur board ne operation cut kar diya"
+      },
+      "causes": [
+        {
+          "en": "Low refrigerant charge, pipe clogging, or a failed discharge/pipe thermistor.",
+          "ur": "Refrigerant charge kam, pipe ka rakaav, ya discharge/pipe ka thermistor kharab"
+        },
+        {
+          "en": "Poor heat rejection — dirty condenser, slow outdoor fan, or high ambient with blocked airflow.",
+          "ur": "Heat rejection kamzor — ganda condenser, slow outdoor fan, ya band airflow ke saath ambient temperature zyada"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Leak-test, evacuate and recharge to specification; clean the condenser and confirm fan operation.",
+          "ur": "Leak test karein, evacuate karke specification ke mutabiq recharge karein; condenser saaf karein aur fan ka kaam confirm karein"
+        },
+        {
+          "en": "Measure the discharge/pipe thermistors and replace the one reading out of range.",
+          "ur": "Discharge aur pipe ke thermistors ko naap lein, aur range se bahar reading wale ko badal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld3016"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Related to, but not the same scheme as, alarm code 08 (discharge-gas temperature) in the SET FREE series.",
+        "ur": "Yeh alarm code 08 (discharge-gas temperature, SET FREE series) se milta hai, lekin scheme bilkul woh nahi."
+      },
+      "blinkPattern": "Outdoor LD301 LED: 6 blinks, pause, repeat"
+    },
+    {
+      "code": "ld301-7",
+      "aliases": [
+        "ld301-7",
+        "LD301 7 blinks"
+      ],
+      "title": {
+        "en": "Thermistor abnormality",
+        "ur": "Thermistor ki kharabi"
+      },
+      "meaning": {
+        "en": "A thermistor used by the outdoor board is reading outside its valid range.",
+        "ur": "Outdoor board jo thermistor istemal karta hai wo apni valid range ke bilkul ulat parh raha hai"
+      },
+      "causes": [
+        {
+          "en": "Thermistor open-circuit or short-circuit from moisture, age or physical damage.",
+          "ur": "Nami, umar ya physical damage ki wajah se thermistor open-circuit ya short-circuit ho gaya"
+        },
+        {
+          "en": "Loose thermistor connector or damaged harness between sensor and board.",
+          "ur": "Thermistor ka connector dheela ya sensor aur board ke darmiyan harness kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure each outdoor thermistor against the service-manual resistance curve at known temperatures.",
+          "ur": "Har outdoor thermistor ko maloom temperature par service manual ki resistance curve se compare kar ke napen"
+        },
+        {
+          "en": "Refit or replace the out-of-range sensor; if all are in range, check the outdoor PCB input stage.",
+          "ur": "Range se bahar reading wale sensor ko dobara lagayein ya badal dein; sab range mein hon to outdoor PCB ka input stage check karein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld3017"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "The source does not say which thermistor; identify by measuring all outdoor sensors.",
+        "ur": "Source mein nahi likha ke kaunsa thermistor hai; tamam outdoor sensors ko naap kar identify kar lein."
+      },
+      "blinkPattern": "Outdoor LD301 LED: 7 blinks, pause, repeat"
+    },
+    {
+      "code": "ld301-9",
+      "aliases": [
+        "ld301-9",
+        "LD301 9 blinks"
+      ],
+      "title": {
+        "en": "Communication error",
+        "ur": "Rabte ki kharabi"
+      },
+      "meaning": {
+        "en": "Signals between the outdoor board and the other unit/controller are not being received.",
+        "ur": "Outdoor board aur doosre unit/controller ke darmiyan ka signal receive nahi ho raha"
+      },
+      "causes": [
+        {
+          "en": "Inter-unit or controller wiring open, short or loosely terminated.",
+          "ur": "Inter-unit ya controller ki wiring khuli, short ya dheele terminal se lagi hui hai"
+        },
+        {
+          "en": "Grounding/noise problem or a failed communication circuit on either PCB.",
+          "ur": "Grounding ya noise ka masla, ya kisi aik PCB ka communication circuit kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Check continuity and polarity of the communication wiring at both ends and re-terminate.",
+          "ur": "Communication wiring ki continuity aur polarity dono saron par check karke dobara terminate karein"
+        },
+        {
+          "en": "Keep communication cable away from power cable; if wiring is sound, replace the faulty PCB.",
+          "ur": "Communication cable ko power cable se door rakhein; wiring theek nikle to kharab PCB badal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld3019"
+      },
+      "confidence": "medium",
+      "blinkPattern": "Outdoor LD301 LED: 9 blinks, pause, repeat"
+    },
+    {
+      "code": "ld301-10",
+      "aliases": [
+        "ld301-10",
+        "LD301 10 blinks"
+      ],
+      "title": {
+        "en": "Power-supply voltage error",
+        "ur": "Power supply ki voltage kharabi"
+      },
+      "meaning": {
+        "en": "The supply voltage seen by the outdoor board is outside the allowed window.",
+        "ur": "Outdoor board ko jo supply voltage mil rahi hai wo allowed range se door hai"
+      },
+      "causes": [
+        {
+          "en": "Local grid voltage too low/high, brownouts, or a wrongly sized supply.",
+          "ur": "Local grid voltage bohat kam ya zyada, voltage mein kami, ya supply ka size ghalat"
+        },
+        {
+          "en": "Loose supply terminals or a voltage-sense circuit fault on the outdoor PCB.",
+          "ur": "Supply terminals dheele, ya outdoor PCB par voltage sensing circuit kharab"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure voltage at the outdoor terminals during the fault and compare with the rating plate.",
+          "ur": "Kharabi ke doran outdoor terminals par voltage nap kar rating plate se compare karein"
+        },
+        {
+          "en": "Tighten terminals, correct the supply, and fit a stabiliser where the local supply swings.",
+          "ur": "Terminals kass lein, supply theek karein, aur jahan local supply mein atar-chirah aati ho wahan stabiliser lagayein"
+        }
+      ],
+      "severity": "check_restart",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld30110"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Very common first check in Pakistan where supply voltage swings are frequent. A live Urdu/Hindi video covers 10-time blinking (youtube.com/watch?v=rxR3Ziq9MJ0) — procedure only, no separate table.",
+        "ur": "Pakistan mein supply voltage ki swings aam hain, is liye yeh sabse pehla check hai. Ek live Urdu/Hindi video 10-time blinking par hai (youtube.com/watch?v=rxR3Ziq9MJ0) — sirf procedure hai, alag table nahi."
+      },
+      "blinkPattern": "Outdoor LD301 LED: 10 blinks, pause, repeat"
+    },
+    {
+      "code": "ld301-12",
+      "aliases": [
+        "ld301-12",
+        "LD301 12 blinks"
+      ],
+      "title": {
+        "en": "Fan lock stop",
+        "ur": "Fan lock se fan ruk gaya"
+      },
+      "meaning": {
+        "en": "The outdoor fan is locked or not feedback-confirmed, so the board stopped the unit.",
+        "ur": "Outdoor fan locked hai ya feedback confirm nahi hua, is liye board ne unit rok di"
+      },
+      "causes": [
+        {
+          "en": "Fan blade obstructed, bearing seized, or fan motor winding failed.",
+          "ur": "Fan blade mein rakaav, bearing jam, ya fan motor ki winding kharab"
+        },
+        {
+          "en": "Fan motor connector loose or the outdoor PCB not driving the motor.",
+          "ur": "Fan motor ka connector dheela ya outdoor PCB motor ko drive nahi kar raha"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Disconnect power, spin the fan by hand and clear any obstruction; replace a seized motor.",
+          "ur": "Power disconnect karein, fan ko haath se ghumayein aur rakaav hatayein; motor jam ho to badal dein"
+        },
+        {
+          "en": "Check the motor connector and windings; if the motor is good, check the outdoor PCB fan output.",
+          "ur": "Motor ka connector aur windings check karein; motor theek ho to outdoor PCB ka fan output check karein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld30112"
+      },
+      "confidence": "medium",
+      "blinkPattern": "Outdoor LD301 LED: 12 blinks, pause, repeat"
+    },
+    {
+      "code": "ld301-13",
+      "aliases": [
+        "ld301-13",
+        "LD301 13 blinks"
+      ],
+      "title": {
+        "en": "EEPROM read error",
+        "ur": "EEPROM reading ki kharabi"
+      },
+      "meaning": {
+        "en": "The board could not read its stored configuration/parameters from the EEPROM.",
+        "ur": "Board apne stored configuration/parameters ko EEPROM se parh nahi saka"
+      },
+      "causes": [
+        {
+          "en": "EEPROM data corrupted after a power interruption or an electrical transient.",
+          "ur": "Power break ya electrical transient ke baad EEPROM ka data kharab ho gaya"
+        },
+        {
+          "en": "Board replaced without writing the correct model parameters, or a failed EEPROM device.",
+          "ur": "Board tabbadla gaya magar sahi model parameters likhe gaye hi nahi, ya EEPROM device kharab ho gaya"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Power-cycle once; if the error returns, re-program the board parameters for the model.",
+          "ur": "Aik dafa power cycle karein; error wapas aaye to board ke parameters model ke mutabiq wapas program karein"
+        },
+        {
+          "en": "Replace the outdoor PCB if the EEPROM cannot be re-read after reprogramming.",
+          "ur": "Agar dobara program karne ke baad bhi EEPROM read na ho to outdoor PCB badal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld30113"
+      },
+      "confidence": "medium",
+      "blinkPattern": "Outdoor LD301 LED: 13 blinks, pause, repeat"
+    },
+    {
+      "code": "ld301-14",
+      "aliases": [
+        "ld301-14",
+        "LD301 14 blinks"
+      ],
+      "title": {
+        "en": "DC voltage abnormal",
+        "ur": "DC voltage ghair mamooli"
+      },
+      "meaning": {
+        "en": "The DC bus voltage inside the inverter is outside its working range.",
+        "ur": "Inverter ke andar DC bus ki voltage apne kaam ke range se bahar hai"
+      },
+      "causes": [
+        {
+          "en": "Rectifier, PFC or DC-link capacitor fault, or a supply sag feeding the DC bus.",
+          "ur": "Rectifier, PFC ya DC link capacitor kharab, ya supply kamzor hone se DC bus ki voltage gir gayi"
+        },
+        {
+          "en": "Overload pulling the DC bus down, or a short on the inverter output stage.",
+          "ur": "Overload ki wajah se DC bus ki voltage girna, ya inverter output stage par short"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Measure the DC bus with the unit running and inspect the DC-link capacitors and rectifier.",
+          "ur": "Unit ko chalate hue DC bus naapein aur DC-link capacitors aur rectifier ko check karein."
+        },
+        {
+          "en": "Check the mains supply feeding the board; replace the inverter PCB if the bus stays abnormal with good supply.",
+          "ur": "Board ko chalane wali mains supply check karein; supply theek hone par bhi DC bus kharab rahe to inverter PCB badal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld30114"
+      },
+      "confidence": "medium",
+      "blinkPattern": "Outdoor LD301 LED: 14 blinks, pause, repeat"
+    },
+    {
+      "code": "ld301-15",
+      "aliases": [
+        "ld301-15",
+        "LD301 15 blinks"
+      ],
+      "title": {
+        "en": "Circuit abnormal",
+        "ur": "Circuit mein kharabi"
+      },
+      "meaning": {
+        "en": "A protection circuit on the outdoor board reported an abnormal condition; the source groups it under a generic circuit-abnormal state.",
+        "ur": "Outdoor board ka koi protection circuit abnormal condition report kar raha hai; source isay aam circuit abnormal state ke hisaab se report karta hai"
+      },
+      "causes": [
+        {
+          "en": "Protection circuit (overcurrent, undervoltage or thermal) tripping on the outdoor PCB.",
+          "ur": "Outdoor PCB par protection circuit (overcurrent, undervoltage ya thermal) trip ho gaya"
+        },
+        {
+          "en": "Aged or damaged outdoor PCB with leakage in the detection network.",
+          "ur": "Purana ya kharab outdoor PCB, jis mein detection network ki leakage hai"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Identify which protection input tripped per the model's service manual and correct that circuit's cause.",
+          "ur": "Model ke service manual se dekhein ke kaunsa protection input trip hua hai, phir us circuit ki wajah theek karein"
+        },
+        {
+          "en": "Replace the outdoor PCB if the abnormal state repeats with all inputs normal.",
+          "ur": "Agar tamam inputs theek hone par bhi kharabi baar baar aaye to outdoor PCB badal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld30115"
+      },
+      "confidence": "medium",
+      "notes": {
+        "en": "Diagnostic note from the source: some models do not have a 15-blink state — confirm the model before diagnosing.",
+        "ur": "Source ka diagnostic note: kuch models mein 15-blink state hi nahi hoti — diagnosing se pehle model confirm karein."
+      },
+      "blinkPattern": "Outdoor LD301 LED: 15 blinks, pause, repeat"
+    },
+    {
+      "code": "ld301-16",
+      "aliases": [
+        "ld301-16",
+        "LD301 16 blinks"
+      ],
+      "title": {
+        "en": "High load during stop",
+        "ur": "Band hone ke doran zyada load"
+      },
+      "meaning": {
+        "en": "The unit detected a high-load/high-pressure condition while it was supposed to be stopped.",
+        "ur": "Unit ko band hona chahiye tha, phir bhi us ne zyada load/pressure ki halat detect kar li"
+      },
+      "causes": [
+        {
+          "en": "High standing pressure from non-condensables, overcharge, or a valve not seating while off.",
+          "ur": "Ghair mumine gas, zyada charge, ya band hone par valve theek se baith na jane ki wajah se standing pressure zyada hai"
+        },
+        {
+          "en": "Check valves/EEV leaking by, or the unit being restarted into a loaded circuit.",
+          "ur": "Check valve ya EEV se gas nikal rahi hai, ya loaded circuit mein unit dobara start kar di gayi"
+        }
+      ],
+      "solutions": [
+        {
+          "en": "Record standing pressure with the unit off and compare with the specification.",
+          "ur": "Unit band hone par standing pressure likhein aur specification se compare karein"
+        },
+        {
+          "en": "Recover and recharge correctly, replace leaking check valves/EEV, and clear non-condensables.",
+          "ur": "Gas wapas le kar sahi tareeqe se recharge karein, leak karne wale check valve/EEV badlein, aur non-condensable gasses nikaal dein"
+        }
+      ],
+      "severity": "stop_pro",
+      "display": "led_blink",
+      "isFault": true,
+      "source": {
+        "type": "service_manual",
+        "title": "Hitachi airHome LD301 blink table (snowflakeaircon mirror)",
+        "retrieved": "2026-09-24",
+        "url": "https://snowflakeaircon.sg/error-code/hitachi/ld30116"
+      },
+      "confidence": "medium",
+      "blinkPattern": "Outdoor LD301 LED: 16 blinks, pause, repeat"
+    }
+  ]
+}
