@@ -4,7 +4,8 @@
 
 > **Where we are:** Phases 1–4, 6 and the Phase 8 language toggle are built and have been through
 > the §6 phone checks. The knowledge base and the 20-document build guide are finished.
-> **A Settings screen and theme override are written but have never been compiled** — §7 item 2.
+> **Settings and the theme override are built and CI-green but have never been opened by a
+> human** — §7 item 2, §6 group 4.
 
 > **2026-09-29:** the human ran the §6 checks on a real phone and reported them passing, so the
 > Phase 4, 6 and 8 screens move to ✅. That is a human result, not a CI result — CI still cannot
@@ -242,7 +243,7 @@ reason several comments in the code look defensive.
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
 | `verify data` / `check_app_sql.py` | **43 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order**, added after trap 15 |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | **72** tests as of 2026-09-29 (58 + 14 for the theme round-trip and the two Settings formatters), including all 2,139 code strings and the FTS quoting. The 14 are **written, not yet run** — CI is the authority until the `build app` check goes green |
+| `build app` / unit tests | **72** tests (58 + 14 for the theme round-trip and the two Settings formatters), including all 2,139 code strings and the FTS quoting. **Green on 755f8e1, 2026-09-29.** Note what this does and does not prove: every one of them runs off-device, and not one opens a screen |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission |
 | `build app` / database hash | the APK cannot carry a stale database. On-device re-staging is a separate rule — see trap 16 |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
@@ -350,28 +351,26 @@ one.
    should be built on the corrected one, not on a transparent panel. `PHASE_11_UI_UX.md` has the
    order.
 2. ~~**The Settings screen, and the third bottom-nav item with it.**~~ — **coded 2026-09-29,
-   NOT yet built or phone-checked.** Written before item 1, which is the one ordering mistake in
-   this list: the Settings screen is a new surface and `PHASE_11` is going to change what every
-   surface looks like, so it may well need a second pass. What exists now:
+   CI green, still NOT phone-checked.** It was written before item 1, which is the one ordering
+   mistake in this list: the Settings screen is a new surface and `PHASE_11` is going to change
+   what every surface looks like, so it will probably need a second pass. What exists:
    - `ui/settings/SettingsScreen.kt` + `SettingsViewModel.kt`, and `NavTab.SETTINGS` with
      `Routes.SETTINGS`. The bar shows on Home, Saved and Settings.
    - The **EN/UR toggle moved out of Home** into it. `HomeViewModel.language`/`setLanguage` went
      with it rather than being left behind as dead code.
    - The **theme** is `ThemeMode { SYSTEM, LIGHT, DARK }` on the shared repository, persisted,
      resolved once in `MainActivity` **above** the navigation graph — so the first frame is
-     already correct and a configuration change cannot reset it. `systemFrom` defaults to SYSTEM,
+     already correct and a configuration change cannot reset it. `themeFrom()` defaults to SYSTEM,
      never to LIGHT.
    - **Phase 7 §6's content**: data version from `meta.kb_version`, the build date, Sources, and
      three About lines.
-   - **§6 group 4 is nine new phone checks.** A screen no test opens is the exact situation this
-     file's own rule exists to prevent, so it is not marked done until they are walked.
-   - Still to verify: it has never been compiled. There is no SDK on this machine, so **push and
-     read the compiler's `e:` lines off the `build app` check** before believing any of it.
-     *(One push has happened: the first failed to compile on `Modifier.align` — trap 21 — which
-     is now fixed. The log is below.)*
-   - Note the deliberate deviation: the language and theme rows share one `ChoiceGroup`
-     composable, so they cannot drift apart, and no sixth icon was added for the Settings tab
-     (RULE 11).
+   - **It did not compile on the first push** — `Modifier.align` needs a `ColumnScope` that
+     `PanelColumn` does not hand to its content. One `Row`, one push, now **trap 21**.
+   - **`build app` is green on 755f8e1**: compile, lint, unit tests, no-permissions, database
+     hash, APK size, artifact. That is the whole gate list and it is a **compile** result, not a
+     screen result.
+   - **§6 group 4's nine checks have not been run.** Until they are, this screen is exactly what
+     trap 15 describes: a green build and no human ever having opened it.
 3. **Phase 5's teaching empty state.** When a code is typed on the *brands* screen the search
    correctly finds nothing; the screen must then explain why, in one line, with a way forward.
 4. ~~**The remaining phone checks**~~ — **done 2026-09-29.** The human ran `PHASE_7` §7 (airplane
@@ -402,15 +401,15 @@ ads — it will pass the moment it is written.
 - The bar is shown on **Home, Saved and Settings only**, and hidden while drilling into brands,
   models, codes and detail. Those screens are one continuous descent and the bar is a way out to
   a different top-level place, not a way down.
-- **A Settings screen now exists** (2026-09-29, unbuilt and unphone-checked — see §7 item 2).
+- **A Settings screen now exists** (2026-09-29, CI-green, unphone-checked — see §7 item 2).
   It holds the EN/UR and theme switches and the data version, and nothing else. It has no search
   box, no "reset app", no cache controls and no About/links page beyond the three lines
   `PHASE_7` §6 asks for.
-- **The theme override is wired but unverified.** `AcUstadTheme(dark = …)` already took a
-  null/true/false; the work was the value on the shared repository and resolving it in
-  `MainActivity` above the graph. `SYSTEM` is the default and resolves through
-  `isSystemInDarkTheme()`; an unrecognised stored value falls back to `SYSTEM` and never to
-  `LIGHT`, so a stale preferences file cannot override the phone's own setting.
+- **The theme override is built.** `AcUstadTheme(dark = …)` already took a null/true/false; the
+  work was the value on the shared repository and resolving it in `MainActivity` above the graph.
+  `SYSTEM` is the default and resolves through `isSystemInDarkTheme()`; an unrecognised stored
+  value falls back to `SYSTEM` and never to `LIGHT`, so a stale preferences file cannot override
+  the phone's own setting.
 - No search box on the Saved screen. Six rows; PHASE_6 §4 says no grouping and no folders.
 
 ## 9. Environment facts
