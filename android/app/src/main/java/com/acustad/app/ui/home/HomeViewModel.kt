@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.acustad.app.model.CategoryCounts
-import com.acustad.app.model.ContentLanguage
 import com.acustad.app.repo.KbRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,13 +28,6 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
     private val _state = MutableStateFlow<HomeState>(HomeState.Loading)
     val state: StateFlow<HomeState> = _state.asStateFlow()
 
-    /**
-     * Exposed so the screen can show which language is active. The counts and the two category
-     * names are English either way — a brand count is not content — so this is only here to
-     * render the toggle's own selected state.
-     */
-    val language: StateFlow<ContentLanguage> = repo.contentLanguage
-
     init {
         load()
     }
@@ -51,11 +43,4 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
             }
         }
     }
-
-    /**
-     * Sets the content language. Costs **no query**: both languages were already returned by
-     * every read, so every screen holding this repository's flow re-renders on the spot.
-     * (RULES.md RULE 13)
-     */
-    fun setLanguage(language: ContentLanguage) = repo.setContentLanguage(language)
 }

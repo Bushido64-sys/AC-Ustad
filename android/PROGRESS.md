@@ -1,9 +1,15 @@
 # PROGRESS — AC Ustad app
 
-**Read this first when resuming.** Last updated: 2026-09-28
+**Read this first when resuming.** Last updated: 2026-09-29
 
-> **Where we are:** Phases 1–4 and 6 are built and green. The app installs and runs. The knowledge
-> base and the 20-document build guide are finished. **Nothing is half-finished.**
+> **Where we are:** Phases 1–4, 6 and the Phase 8 language toggle are built and have been through
+> the §6 phone checks. The knowledge base and the 20-document build guide are finished.
+> **A Settings screen and theme override are written but have never been compiled** — §7 item 2.
+
+> **2026-09-29:** the human ran the §6 checks on a real phone and reported them passing, so the
+> Phase 4, 6 and 8 screens move to ✅. That is a human result, not a CI result — CI still cannot
+> open a screen (trap 15). It is recorded here because §1 defines ✅ as a phone check and the
+> human is the only party that can perform one.
 
 ---
 
@@ -19,11 +25,11 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 1 · Setup | ✅ phone-checked | Skeleton, bundled database, 7 IBM Plex fonts, light + dark themes, launcher icon, home screen with live counts |
 | 2 · Data layer | ✅ phone-checked | 4 DAOs, immutable models, one repository, favourites writes, stale-id sweep |
 | 3 · Browse | ✅ phone-checked | Home → brands → model lines → codes, with scoped search on every list |
-| 4 · Code detail | ⚠️ fixed 2026-09-29, **awaiting phone check** | Severity + meaning → numbered fix steps → causes → notes → source, with a working star. Was marked ✅ while being **completely dead on a phone** — see trap 15. The build was green throughout; only a human tapping a code found it |
+| 4 · Code detail | ✅ phone-checked 2026-09-29 | Severity + meaning → numbered fix steps → causes → notes → source, with a working star. Was marked ✅ while being **completely dead on a phone** — see trap 15. The build was green throughout; only a human tapping a code found it. Fixed and now re-verified on the device |
 | 5 · Search polish | 🟡 | The **data layer** is done and tested; the empty-search teaching state is not built |
-| 6 · Saved screen | ⚠️ built, **awaiting phone check** | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
-| 7 · Offline & updates | 🟡 | **Trap 16 fixed** — a new APK now always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and four CI gates enforce them. Phase 7 §6's Settings content is item 1 in §7; the rest is phone checks |
-| 8 · Accessibility & Roman Urdu | 🟡 | The **EN/UR content toggle works and persists** (built 2026-09-29, awaiting a phone check). Still open: the Settings screen, the theme override, and the font-scale / TalkBack pass |
+| 6 · Saved screen | ✅ phone-checked 2026-09-29 | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
+| 7 · Offline & updates | 🟡 | **Trap 16 fixed** — a new APK now always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and four CI gates enforce them. The Settings *screen* that carries the §6 content is **coded, unbuilt** — §7 item 2 |
+| 8 · Accessibility & Roman Urdu | 🟡 | The **EN/UR content toggle works, persists, and passed the §6 group-3 phone checks 2026-09-29** (it is partial-toggle-safe: one repository per process). **Settings and the theme are coded but never compiled** — see §7 item 2. Still open: the font-scale / TalkBack pass |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
 | 11 · UI/UX | ⬜ **planned, not started** | **The app looks bare because `BorderedPanel` and `BorderedRow` use `Color.Transparent`** — `surface` and `surface_alt` are mapped in the theme and never used as a fill. The design exists and is measured; the implementation ignores it. Plan: `app-pipeline/guide/PHASE_11_UI_UX.md`. Fixes it with **zero new colours** |
 | 10 · Monetisation | ⬜ **not started** | **Planning only.** Free-with-ads → trial → paid, all on Play. The plan is written: `app-pipeline/guide/PHASE_10_MONETISATION.md`. Nothing is built until a Play developer account exists |
@@ -225,7 +231,7 @@ reason several comments in the code look defensive.
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
 | `verify data` / `check_app_sql.py` | **43 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order**, added after trap 15 |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | 58 tests, including all 2,139 code strings and the FTS quoting |
+| `build app` / unit tests | **72** tests as of 2026-09-29 (58 + 14 for the theme round-trip and the two Settings formatters), including all 2,139 code strings and the FTS quoting. The 14 are **written, not yet run** — CI is the authority until the `build app` check goes green |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission |
 | `build app` / database hash | the APK cannot carry a stale database. On-device re-staging is a separate rule — see trap 16 |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
@@ -234,7 +240,7 @@ reason several comments in the code look defensive.
 `check_app_sql.py` imports the canonical rule from `build_kb.py` rather than restating it. Two
 copies of that rule would drift, and a lower-case copy would quietly break every code search.
 
-## 6. Test on the phone — the eighteen checks
+## 6. Test on the phone — the twenty-seven checks
 
 **A green build does not get a phase marked ✅. This section does.** Every screen in a phase has
 to be opened here, on a real phone, by a human, before the phase counts as done. Phase 4 sat in
@@ -275,11 +281,12 @@ is a real one: `is_fault = 0` with `severity = 'info'`.
 
 **Group 3 — the EN/UR content toggle (Phase 8).** The failure this catches is a *partial*
 toggle: it changing one screen and not the others, which is exactly what trap 12 describes and
-what no automated test can see.
+what no automated test can see. **The toggle moved from Home to Settings on 2026-09-29** — tap
+the **Settings** tab, not Home.
 
-13. On **Home**, tap **UR**. Go AC → any brand → any model → the code list: **titles are Roman
-    Urdu.** Tap a code: **meaning, fix steps and causes are Roman Urdu.** The severity word is
-    too — STOP becomes BAND KARO.
+13. On **Settings**, tap **UR**. Go to Browse → AC → any brand → any model → the code list:
+    **titles are Roman Urdu.** Tap a code: **meaning, fix steps and causes are Roman Urdu.** The
+    severity word is too — STOP becomes BAND KARO.
 14. **Brand names and model names stay English** through the whole journey. Growatt is Growatt.
     This is RULE 13 and it is the thing most likely to be quietly broken.
 15. Open **Saved** while in UR: saved rows show the **Roman Urdu** title. This is the screen that
@@ -289,6 +296,30 @@ what no automated test can see.
     not a toggle.
 18. Airplane mode, cold start, straight into a code: still in UR, and the app opens instantly
     with no visible language switch.
+
+**Group 4 — Settings, and the theme (Phase 8, added 2026-09-29).** A new screen that no test
+opens is exactly the situation §1's rule was written about, so it gets checks before it is
+called done.
+
+19. The bar has **three** tabs — Browse, Saved, Settings — and the Settings tab opens the
+    Settings screen. Only Saved has an icon; Browse and Settings are text with the icon slot
+    reserved, and all three labels sit on one baseline.
+20. **Settings** shows the two controls, then a data block reading **Version 2026-09-26** and a
+    build date of **2026-09-28**, then Sources, then About. The coverage line reads
+    **62 brands, 320 model lines, 4418 codes**, and the About line states a size.
+21. **Every number is read from the database.** Change nothing and the numbers must match the
+    home screen's brand counts; a number that is a typed-in literal rather than a query is
+    exactly the kind of claim this project has been wrong about before.
+22. **Theme → Dark.** The whole app repaints immediately, including the already-visible Home and
+    Saved screens — a partial re-theme means the value was not read from the shared repository.
+23. **Theme → Light** while the *phone* is in dark mode. The app stays light: an explicit choice
+    beats the system, and it stays light after a force-stop and reopen.
+24. **Theme → System** and flip the phone's system theme. The app follows.
+25. Pull a stored theme by setting Light, then **browse away and back**: Settings still reads
+    Light, and the tab's selected state is right.
+26. The Settings screen in **UR** is still **English in its labels** — "Theme", "System", "Data"
+    do not change. Only code content changes. (RULE 13)
+27. Airplane mode: Settings opens and shows the data block. Nothing on it needs a network.
 
 ## 7. Do these next, in this order
 
@@ -307,18 +338,34 @@ one.
    finished app. Do these before the Settings screen — the Settings screen is a new surface and
    should be built on the corrected one, not on a transparent panel. `PHASE_11_UI_UX.md` has the
    order.
-2. **The Settings screen, and the third bottom-nav item with it.** Move the EN/UR toggle out of
-   Home and into it, add the theme row (`AcUstadTheme(dark = …)` already takes null/true/false,
-   so the wiring is a row) and **Phase 7 §6's content**: data version from `meta.kb_version`,
-   three plain lines of About, and Sources. Phase 7 §6 is the reason this is the top item — it
-   specifies what the screen must contain. The theme needs the same treatment the language just
-   got: one value on the shared repository, persisted.
+2. ~~**The Settings screen, and the third bottom-nav item with it.**~~ — **coded 2026-09-29,
+   NOT yet built or phone-checked.** Written before item 1, which is the one ordering mistake in
+   this list: the Settings screen is a new surface and `PHASE_11` is going to change what every
+   surface looks like, so it may well need a second pass. What exists now:
+   - `ui/settings/SettingsScreen.kt` + `SettingsViewModel.kt`, and `NavTab.SETTINGS` with
+     `Routes.SETTINGS`. The bar shows on Home, Saved and Settings.
+   - The **EN/UR toggle moved out of Home** into it. `HomeViewModel.language`/`setLanguage` went
+     with it rather than being left behind as dead code.
+   - The **theme** is `ThemeMode { SYSTEM, LIGHT, DARK }` on the shared repository, persisted,
+     resolved once in `MainActivity` **above** the navigation graph — so the first frame is
+     already correct and a configuration change cannot reset it. `systemFrom` defaults to SYSTEM,
+     never to LIGHT.
+   - **Phase 7 §6's content**: data version from `meta.kb_version`, the build date, Sources, and
+     three About lines.
+   - **§6 group 4 is nine new phone checks.** A screen no test opens is the exact situation this
+     file's own rule exists to prevent, so it is not marked done until they are walked.
+   - Still to verify: it has never been compiled. There is no SDK on this machine, so **push and
+     read the compiler's `e:` lines off the `build app` check** before believing any of it.
+   - Note the deliberate deviation: the language and theme rows share one `ChoiceGroup`
+     composable, so they cannot drift apart, and no sixth icon was added for the Settings tab
+     (RULE 11).
 3. **Phase 5's teaching empty state.** When a code is typed on the *brands* screen the search
    correctly finds nothing; the screen must then explain why, in one line, with a way forward.
-4. **The remaining phone checks** — `PHASE_7` §7 (airplane mode, cache deleted while closed, a
-   replaced asset with a higher `kb_version`, battery stats), `PHASE_8` §8 (font scale 1.0 /
-   1.15 / 1.3, TalkBack reading a code end to end, longest content in both languages). These are
-   §6 checks, not features.
+4. ~~**The remaining phone checks**~~ — **done 2026-09-29.** The human ran `PHASE_7` §7 (airplane
+   mode, cache deleted while closed, a replaced asset with a higher `kb_version`, battery stats)
+   and `PHASE_8` §8 (font scale 1.0 / 1.15 / 1.3, TalkBack reading a code end to end, longest
+   content in both languages) on the device, and they pass. Re-run §6 after **any** change that
+   touches a screen — it is not a one-time gate.
 5. **Phase 9 release signing** — only when the feature set stops changing.
 6. **Phase 10 monetisation** — and it is **blocked, not next**. It needs a Google Play developer
    account, and everything in it is written down in
@@ -334,17 +381,23 @@ ads — it will pass the moment it is written.
 
 ## 8. Things deliberately not built yet
 
-- **The bottom nav has 2 items, not 3.** `PHASE_6` §5 wants Browse / Saved / Settings, but
-  PROGRESS §8 of the original plan put the Settings *screen* in Phase 8. A third tab with
-  nothing behind it is a dead end, so the tab arrives with its screen. `NavTab` is a closed
-  enum, so adding it is one enum value and one branch.
-- The bar is shown on **Home and Saved only**, and hidden while drilling into brands, models,
-  codes and detail. Those screens are one continuous descent and the bar is a way out to a
-  different top-level place, not a way down.
-- No Settings screen: it holds the EN/UR and theme switches (Phase 8) and the data version.
-- No theme override: `AcUstadTheme(dark = ...)` already takes a null/true/false, so the
-  wiring is a Settings row.
-- No dark-mode force: the app follows the system today, which is the correct default.
+- **The bottom nav has 3 items.** `PHASE_6` §5 wants Browse / Saved / Settings, and the Settings
+  screen arrived on 2026-09-29, so the tab arrived with it. `NavTab` is a closed enum, so adding
+  it was one enum value and one branch. **Only Saved carries an icon** — Browse and Settings keep
+  the icon slot reserved so the three labels share a baseline, and a gear would have been a sixth
+  icon in an app whose whole budget is five (RULE 11).
+- The bar is shown on **Home, Saved and Settings only**, and hidden while drilling into brands,
+  models, codes and detail. Those screens are one continuous descent and the bar is a way out to
+  a different top-level place, not a way down.
+- **A Settings screen now exists** (2026-09-29, unbuilt and unphone-checked — see §7 item 2).
+  It holds the EN/UR and theme switches and the data version, and nothing else. It has no search
+  box, no "reset app", no cache controls and no About/links page beyond the three lines
+  `PHASE_7` §6 asks for.
+- **The theme override is wired but unverified.** `AcUstadTheme(dark = …)` already took a
+  null/true/false; the work was the value on the shared repository and resolving it in
+  `MainActivity` above the graph. `SYSTEM` is the default and resolves through
+  `isSystemInDarkTheme()`; an unrecognised stored value falls back to `SYSTEM` and never to
+  `LIGHT`, so a stale preferences file cannot override the phone's own setting.
 - No search box on the Saved screen. Six rows; PHASE_6 §4 says no grouping and no folders.
 
 ## 9. Environment facts

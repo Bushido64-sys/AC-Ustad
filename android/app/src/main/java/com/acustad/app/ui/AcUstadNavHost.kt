@@ -37,13 +37,15 @@ import com.acustad.app.ui.home.HomeScreen
 import com.acustad.app.ui.saved.SavedScreen
 import com.acustad.app.ui.saved.SavedState
 import com.acustad.app.ui.saved.SavedViewModel
+import com.acustad.app.ui.settings.SettingsScreen
 
 /**
  * The whole navigation graph: one linear path and two top-level destinations.
  *
  * ```
- * Home  ->  Brands(category)  ->  Series(brandId)  ->  Codes(seriesId, brandId)  ->  Detail
- * Saved ->  Detail
+ * Home    ->  Brands(category)  ->  Series(brandId)  ->  Codes(seriesId, brandId)  ->  Detail
+ * Saved   ->  Detail
+ * Settings
  * ```
  *
  * The browse path is deliberately linear and shallow. A technician standing in front of a
@@ -65,7 +67,7 @@ import com.acustad.app.ui.saved.SavedViewModel
  * route carrying the id alone would be capable of showing the wrong codes. Passing both makes
  * that unrepresentable.
  *
- * ### The bottom bar appears on the two top-level destinations only
+ * ### The bottom bar appears on the three top-level destinations only
  *
  * It is hidden while drilling into brands, models, codes and a code's detail: those are a
  * continuous gesture downwards, and a persistent bar over a list a technician is scrolling
@@ -75,6 +77,7 @@ import com.acustad.app.ui.saved.SavedViewModel
 object Routes {
     const val HOME = "home"
     const val SAVED = "saved"
+    const val SETTINGS = "settings"
     const val BRANDS = "brands/{category}"
     const val SERIES = "series/{brandId}"
     const val CODES = "codes/{seriesId}/{brandId}"
@@ -109,6 +112,7 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
 
     val tab = when (route) {
         Routes.SAVED -> NavTab.SAVED
+        Routes.SETTINGS -> NavTab.SETTINGS
         else -> NavTab.BROWSE
     }
     val hasSaved = (savedState as? SavedState.Ready)?.items?.isNotEmpty() == true
@@ -157,6 +161,12 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
                             onCodeClick = { item -> nav.navigate(Routes.detail(item.codeId)) },
                             viewModel = savedViewModel,
                         )
+                    }
+                }
+
+                composable(Routes.SETTINGS) {
+                    ScreenWithBar(title = stringResource(R.string.nav_settings), onBack = null) {
+                        SettingsScreen()
                     }
                 }
 
@@ -230,7 +240,7 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
                 }
             }
 
-            if (route == Routes.HOME || route == Routes.SAVED) {
+            if (route == Routes.HOME || route == Routes.SAVED || route == Routes.SETTINGS) {
                 AcUstadBottomNav(
                     selected = tab,
                     hasSaved = hasSaved,
@@ -241,6 +251,11 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
                             // second Home on top. Already on Home it is a no-op.
                             NavTab.BROWSE -> nav.popBackStack(Routes.HOME, inclusive = false)
                             NavTab.SAVED -> nav.navigate(Routes.SAVED) { launchSingleTop = true }
+                            // Same rule as Saved. The bar is always visible here, so a tap while
+                            // already on Settings must not stack a second copy of the screen —
+                            // which would also put a second SettingsViewModel's worth of state on
+                            // the back stack.
+                            NavTab.SETTINGS -> nav.navigate(Routes.SETTINGS) { launchSingleTop = true }
                         }
                     },
                 )

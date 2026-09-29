@@ -18,6 +18,7 @@ import com.acustad.app.model.FavouriteItem
 import com.acustad.app.model.KbMeta
 import com.acustad.app.model.ScopedSeries
 import com.acustad.app.model.Series
+import com.acustad.app.model.ThemeMode
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,6 +27,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import java.io.File
 
 /**
  * The app's only door to the database.
@@ -111,6 +113,27 @@ class KbRepository private constructor(
 
     private fun readStoredLanguage(): String? = prefs.getString(KEY_CONTENT_LANGUAGE, null)
 
+    // ── theme ─────────────────────────────────────────────────────────────────
+    // The same shape as the language, and for the same reasons: one flow on the one shared
+    // instance, so a change is visible to every screen at once, and persisted, because a
+    // setting that forgets is not a setting.
+    //
+    // It lives here rather than in a Compose `remember` because the activity reads it *above*
+    // the whole navigation graph, and a value held inside a composable would restart the app's
+    // theming from the default on every configuration change. (MainActivity)
+    private val _theme = MutableStateFlow(themeFrom(readStoredTheme()))
+    val theme: StateFlow<ThemeMode> = _theme.asStateFlow()
+
+    fun setTheme(mode: ThemeMode) {
+        if (_theme.value == mode) return
+        _theme.value = mode
+        // commit(), for the same reason as the language: a technician sets it once and comes
+        // back tomorrow. Losing that is the failure this whole block exists to prevent.
+        prefs.edit().putString(KEY_THEME, mode.name).commit()
+    }
+
+    private fun readStoredTheme(): String? = prefs.getString(KEY_THEME, null)
+
     /**
      * Opens the database once, on the IO dispatcher, and sweeps stale saved ids the first
      * time. The sweep matters because `favourites.code_id` is only stable within one data
@@ -163,6 +186,29 @@ class KbRepository private constructor(
     suspend fun meta(): KbMeta = CatalogDao(db()).meta()
 
     /**
+     * The size in bytes of the database this app is actually reading, or null when it cannot be
+     * measured.
+     *
+     * Settings states the size of the data, and the number has to be measured rather than typed
+     * into a string: the file is replaced on every data release, and a hard-coded "9 MB" in
+     * `strings.xml` would be a claim about the data that stops being true silently — the exact
+     * failure mode of trap 15, in a different place.
+     *
+     * **Null rather than 0.** `File.length()` answers 0 for a file that is not there, and 0 is
+     * also the honest reading of a genuinely empty database. Rendering either as "0 bytes"
+     * states a fact about the data that this method has not established, so an absent file is
+     * reported as an absent measurement and the screen omits the clause. (trap 5)
+     *
+     * The database is opened first, because opening is what stages the copy out of the asset —
+     * asking for the length before then would measure a file that may not be there yet.
+     */
+    suspend fun dataSizeBytes(): Long? {
+        db()
+        val bytes = File(appContext.cacheDir, KbDatabase.DB_NAME).length()
+        return if (bytes > 0) bytes else null
+    }
+
+    /**
      * One code, in one query, with its causes, fix steps and saved state.
      * Returns null when the uid is not in the database — a normal outcome, not an error.
      */
@@ -196,6 +242,7 @@ class KbRepository private constructor(
     companion object {
         private const val PREFS_NAME = "ac-ustad"
         private const val KEY_CONTENT_LANGUAGE = "content_language"
+        private const val KEY_THEME = "theme_mode"
 
         @Volatile
         private var instance: KbRepository? = null
@@ -228,3 +275,15 @@ class KbRepository private constructor(
  */
 fun languageFrom(raw: String?): ContentLanguage =
     if (raw == ContentLanguage.UR.name) ContentLanguage.UR else ContentLanguage.EN
+
+/**
+ * Maps the stored preference value to a theme, with exactly the same contract as [languageFrom]:
+ * anything unrecognised is the **default**, never an exception.
+ *
+ * The default is [ThemeMode.SYSTEM], not LIGHT. The two are the same value today and are not the
+ * same decision — SYSTEM will follow the phone into dark mode, LIGHT will not — so a value this
+ * build cannot read must resolve to the one that keeps deferring to the system. Defaulting to
+ * LIGHT here would be a preferences file quietly overriding the phone's own setting.
+ */
+fun themeFrom(raw: String?): ThemeMode = ThemeMode.entries.firstOrNull { it.name == raw }
+    ?: ThemeMode.SYSTEM

@@ -35,6 +35,34 @@ enum class ContentLanguage { EN, UR;
 /** AC or solar inverter. The two categories on the home screen. */
 enum class CategoryId { AC, INVERTER }
 
+/**
+ * Which palette the app paints itself with.
+ *
+ * A three-way choice rather than a boolean, and the third value is the point: **following the
+ * system is the default**, so a phone that flips to dark at sunset flips this app with it. A
+ * plain light/dark switch would have to guess on a fresh install and would be wrong for half of
+ * the technicians who never open Settings at all.
+ *
+ * [SYSTEM] deliberately holds *no* boolean. Storing "dark = false" would be indistinguishable
+ * from "the user chose light", and the first thing that must not happen is a phone in dark mode
+ * opening the app in light because the preference file said `false`.
+ */
+enum class ThemeMode {
+    SYSTEM,
+    LIGHT,
+    DARK;
+
+    /**
+     * Collapses the choice against what the system currently says. Only this method reads the
+     * system setting, so there is exactly one place in the app that knows how SYSTEM resolves.
+     */
+    fun isDark(systemIsDark: Boolean): Boolean = when (this) {
+        SYSTEM -> systemIsDark
+        LIGHT -> false
+        DARK -> true
+    }
+}
+
 @Immutable
 data class CategoryCounts(
     val acBrands: Int,

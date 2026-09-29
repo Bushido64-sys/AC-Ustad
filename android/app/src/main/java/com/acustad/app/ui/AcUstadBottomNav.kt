@@ -26,15 +26,13 @@ import com.acustad.app.ui.common.hardShadow
 import com.acustad.app.ui.theme.UstadType
 
 /**
- * The two top-level destinations. A closed set rather than a route string, so a tab cannot be
+ * The three top-level destinations. A closed set rather than a route string, so a tab cannot be
  * added without the navigation host also learning to open it.
  */
-enum class NavTab { BROWSE, SAVED }
+enum class NavTab { BROWSE, SAVED, SETTINGS }
 
 /**
- * The bottom bar. Two items today; the third, Settings, arrives with the Settings screen in
- * Phase 8 — a tab that opens nothing is worse than a tab that does not exist yet.
- * (PHASE_6_FAVOURITES.md §5)
+ * The bottom bar. Three items: Browse, Saved, Settings.
  *
  * It carries the design's one structural blue and nothing else:
  *
@@ -49,9 +47,14 @@ enum class NavTab { BROWSE, SAVED }
  * Those are two different questions, and a technician glancing at the bar should be able to
  * answer the first one without opening the tab.
  *
- * Browse has no icon, because the only chevron in the design means "go forward" and would be
- * meaningless here. Its slot is reserved anyway so both labels sit on one baseline: a label
- * that jumps when the tab changes is worse than a label with a little air above it.
+ * **Only Saved has an icon, and that is the budget.** RULE 11 allows five icons in the whole app
+ * and four are already spoken for. Browse and Settings are text-only and keep the icon slot empty
+ * so their labels sit on one baseline with Saved's — a label that jumps when the tab changes is
+ * worse than a label with a little air above it. The alternative, a gear, would be a sixth icon
+ * for a control that opens nothing more interesting than a language switch.
+ *
+ * Settings arrived with its screen rather than before it: a tab that opens nothing is worse than
+ * a tab that does not exist yet. (PHASE_6_FAVOURITES.md §5)
  */
 @Composable
 fun AcUstadBottomNav(
@@ -93,6 +96,13 @@ fun AcUstadBottomNav(
                         size = ICON_SIZE_DP,
                     )
                 },
+            )
+            // No icon, deliberately — see the KDoc. The slot is reserved by NavItem so this
+            // label sits on the same baseline as the other two.
+            NavItem(
+                label = stringResource(R.string.nav_settings),
+                selected = selected == NavTab.SETTINGS,
+                onClick = { onSelect(NavTab.SETTINGS) },
             )
         }
     }
