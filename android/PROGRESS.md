@@ -22,7 +22,7 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 4 · Code detail | ⚠️ fixed 2026-09-29, **awaiting phone check** | Severity + meaning → numbered fix steps → causes → notes → source, with a working star. Was marked ✅ while being **completely dead on a phone** — see trap 15. The build was green throughout; only a human tapping a code found it |
 | 5 · Search polish | 🟡 | The **data layer** is done and tested; the empty-search teaching state is not built |
 | 6 · Saved screen | ⚠️ built, **awaiting phone check** | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
-| 7 · Offline & updates | ⬜ | Mostly satisfied already; no verification pass yet |
+| 7 · Offline & updates | 🟡 | **One real bug found, not fixed: trap 16.** The offline *promises* all hold and four CI gates enforce them. Phase 7 §6's Settings content is now item 1 in §7. The rest is phone checks |
 | 8 · Accessibility & Roman Urdu | 🟡 | The **EN/UR content toggle works and persists** (built 2026-09-29, awaiting a phone check). Still open: the Settings screen, the theme override, and the font-scale / TalkBack pass |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
 
@@ -177,6 +177,17 @@ reason several comments in the code look defensive.
    - a failed read is now a **different state** from an absent code, so a thrown exception can
      never again be reported as a fact about the data.
 
+16. **The database re-copy is decided by file LENGTH, not by `kb_version` — and Phase 7 says it
+   must not be.** `KbDatabase.stageFile()` re-copies the asset only when
+   `target.length() != asset.available()`. `PHASE_7_OFFLINE_AND_UPDATES.md` §2 step 5 specifies
+   comparing the asset's `meta.kb_version` with the cached copy and re-copying when they differ.
+   So a data release whose `kb.sqlite` lands on **exactly the same byte length** as the one
+   already in `cacheDir` is silently ignored: the app updates, the APK carries the new answers,
+   and the technician keeps reading the old ones. Nothing errors. The length check was a
+   deliberate shortcut for a half-written cache copy and it is good at that job — it is simply
+   answering the wrong question for a version change. This is a genuine Phase 7 item, found by
+   reading the phase file rather than by the summary line that had been standing in for it.
+
 ## 5. The gates, and what each one is for
 
 | Gate | Protects |
@@ -252,23 +263,30 @@ what no automated test can see.
 
 ## 7. Do these next, in this order
 
-**Phase 7 is deliberately not in this queue, and "let's do Phase 7" is a common misreading.**
-Phase 7 (Offline & updates) is already satisfied by construction — there is no network layer, no
-sync and no refresh affordance to remove, so there is no *feature* to build. What it has is an
-unwritten **verification pass**, which is a phone check, not a phase: confirm airplane mode, that
-re-installing over the old build keeps `favourites`, and that a database re-copy does not lose a
-saved row. Fold that into §6 when a phone is in hand. Do not open a Phase 7 branch.
+**Phase 7 is not a feature phase, and that is why it is not above — but it is not empty either.**
+Most of it is a list of things **not to build**: the whole point is that the app never mentions
+the network, and you satisfy that by writing no code at all. `DEPENDENCIES.md` §2 already
+records the absence of every library Phase 7 §1 bans, and four of its nine §7 checks are
+permanent CI gates that are green on every push (no permissions, no HTTP client, exactly one
+database copy, asset hash matches the manifest). Those need a gate, not a phase, and they have
+one.
 
-1. **The Settings screen, and the third bottom-nav item with it.** This is now the top item
-   because the EN/UR toggle is built and the bar is the one place a third item belongs. Move the
-   toggle out of Home and into it, and add the theme row (`AcUstadTheme(dark = …)` already takes
-   null/true/false, so the wiring is a row) and the data version from `meta()`. The theme needs
-   the same treatment the language just got: one value on the shared repository, persisted.
+**Two real items remain, and item 0 is the one to do first:**
+
+0. **Fix the database re-copy to compare `kb_version`, not file length** — trap 16. A silent
+   wrong-data bug, and the only genuine defect Phase 7 has.
+1. **The Settings screen, and the third bottom-nav item with it.** Move the EN/UR toggle out of
+   Home and into it, add the theme row (`AcUstadTheme(dark = …)` already takes null/true/false,
+   so the wiring is a row) and **Phase 7 §6's content**: data version from `meta.kb_version`,
+   three plain lines of About, and Sources. Phase 7 §6 is the reason this is the top item — it
+   specifies what the screen must contain. The theme needs the same treatment the language just
+   got: one value on the shared repository, persisted.
 2. **Phase 5's teaching empty state.** When a code is typed on the *brands* screen the search
    correctly finds nothing; the screen must then explain why, in one line, with a way forward.
-3. **Phase 8's remaining checks** — font scale 1.0 / 1.15 / 1.3 on every screen, TalkBack reading a
-   code end to end, and the longest content in both languages. These are §6 phone checks, not
-   features: `PHASE_8` §8 already lists them.
+3. **The remaining phone checks** — `PHASE_7` §7 (airplane mode, cache deleted while closed, a
+   replaced asset with a higher `kb_version`, battery stats), `PHASE_8` §8 (font scale 1.0 /
+   1.15 / 1.3, TalkBack reading a code end to end, longest content in both languages). These are
+   §6 checks, not features.
 4. **Phase 9 release signing** — only when the feature set stops changing.
 
 ## 8. Things deliberately not built yet
