@@ -218,10 +218,21 @@ reason several comments in the code look defensive.
    cheap LCD in sunlight. Muted text may go on `surface` (4.67:1, only just) but **never on the
    raised surface**. Measured for Phase 11, not assumed.
 20. **The 2dp `hairline` is 1.41:1 against the canvas and effectively does not exist in sun.**
-   `DESIGN.md` §1 asks the bottom nav for one; `PHASE_8` §6 forbids thin text-coloured
-   separators for meaningful grouping. **`PHASE_8` wins** — it is the document written for a
-   cheap LCD in bright sun. Structural lines are 2dp `outline`. `hairline` survives only as the
-   `info` chip border, where `DESIGN.md` §3 already accepts it because the *word* is the signal.
+    `DESIGN.md` §1 asks the bottom nav for one; `PHASE_8` §6 forbids thin text-coloured
+    separators for meaningful grouping. **`PHASE_8` wins** — it is the document written for a
+    cheap LCD in bright sun. Structural lines are 2dp `outline`. `hairline` survives only as the
+    `info` chip border, where `DESIGN.md` §3 already accepts it because the *word* is the signal.
+21. **`Modifier.align` is a `ColumnScope` extension, and a composable's content lambda is not a
+    `ColumnScope`.** Trap 13, a second time and a different method. `PanelColumn` is an ordinary
+    composable that opens a `Column` *inside itself*, so a lambda passed to it — `PanelColumn {
+    TextButton(Modifier.align(Alignment.Start)) }` — has no `ColumnScope` receiver in scope and
+    `align` does not resolve. `HomeScreen`'s failed block makes the identical call and compiles,
+    because that one sits **directly** inside a `Column { }`. So the working and broken shapes are
+    again indistinguishable unless you check which one opened the Column. This is now a
+    **compile** error rather than the silent off-by-one of trap 13, which is the one good thing
+    about it: CI caught it on the first push and the fix was one `Row`.
+    **The general rule: a scope-provided modifier only resolves where that scope is the receiver.
+    An ordinary composable that wraps a layout does not pass its scope on to its content.**
 
 ## 5. The gates, and what each one is for
 
@@ -356,6 +367,8 @@ one.
      file's own rule exists to prevent, so it is not marked done until they are walked.
    - Still to verify: it has never been compiled. There is no SDK on this machine, so **push and
      read the compiler's `e:` lines off the `build app` check** before believing any of it.
+     *(One push has happened: the first failed to compile on `Modifier.align` — trap 21 — which
+     is now fixed. The log is below.)*
    - Note the deliberate deviation: the language and theme rows share one `ChoiceGroup`
      composable, so they cannot drift apart, and no sixth icon was added for the Settings tab
      (RULE 11).

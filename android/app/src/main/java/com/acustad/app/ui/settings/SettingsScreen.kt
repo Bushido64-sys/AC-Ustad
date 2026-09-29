@@ -2,6 +2,7 @@ package com.acustad.app.ui.settings
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
@@ -12,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -124,16 +124,27 @@ private fun DataPanel(state: SettingsState, onRetry: () -> Unit) {
 
                 is SettingsState.Failed -> {
                     MutedLine(stringResource(R.string.settings_data_unavailable))
-                    TextButton(
-                        onClick = onRetry,
-                        modifier = Modifier
-                            .align(Alignment.Start)
-                            .semantics { contentDescription = "Try again" },
+                    // A `Row`, not `Modifier.align(Alignment.Start)`.
+                    //
+                    // `align` is declared inside `ColumnScope`, and this lambda is the *content*
+                    // of `PanelColumn` — which is itself an ordinary composable that opens the
+                    // Column one level down. So there is no `ColumnScope` receiver in scope here
+                    // at all, and `align` does not resolve. Same family as trap 13: the rest of
+                    // the app makes this exact call and compiles, because those call sites sit
+                    // directly inside a `Column { }`.
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start,
                     ) {
-                        Text(
-                            text = stringResource(R.string.action_try_again),
-                            style = UstadType.label,
-                        )
+                        TextButton(
+                            onClick = onRetry,
+                            modifier = Modifier.semantics { contentDescription = "Try again" },
+                        ) {
+                            Text(
+                                text = stringResource(R.string.action_try_again),
+                                style = UstadType.label,
+                            )
+                        }
                     }
                 }
 
