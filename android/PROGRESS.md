@@ -22,7 +22,7 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 4 · Code detail | ⚠️ fixed 2026-09-29, **awaiting phone check** | Severity + meaning → numbered fix steps → causes → notes → source, with a working star. Was marked ✅ while being **completely dead on a phone** — see trap 15. The build was green throughout; only a human tapping a code found it |
 | 5 · Search polish | 🟡 | The **data layer** is done and tested; the empty-search teaching state is not built |
 | 6 · Saved screen | ⚠️ built, **awaiting phone check** | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
-| 7 · Offline & updates | 🟡 | **One real bug found, not fixed: trap 16.** The offline *promises* all hold and four CI gates enforce them. Phase 7 §6's Settings content is now item 1 in §7. The rest is phone checks |
+| 7 · Offline & updates | 🟡 | **Trap 16 fixed** — a new APK now always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and four CI gates enforce them. Phase 7 §6's Settings content is item 1 in §7; the rest is phone checks |
 | 8 · Accessibility & Roman Urdu | 🟡 | The **EN/UR content toggle works and persists** (built 2026-09-29, awaiting a phone check). Still open: the Settings screen, the theme override, and the font-scale / TalkBack pass |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
 
@@ -196,9 +196,9 @@ reason several comments in the code look defensive.
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
 | `verify data` / `check_app_sql.py` | **43 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order**, added after trap 15 |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | 50 tests, including all 2,139 code strings and the FTS quoting |
+| `build app` / unit tests | 58 tests, including all 2,139 code strings and the FTS quoting |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission |
-| `build app` / database hash | the APK cannot carry a stale database |
+| `build app` / database hash | the APK cannot carry a stale database. On-device re-staging is a separate rule — see trap 16 |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
 | `build app` / compiler error lines | puts the compiler's own `e:` lines on the **check itself**, not only in a log. GitHub's log download endpoint needs admin rights, so without this step a compile failure is visible only as "exit code 1" and needs a personal access token to diagnose. Runs `if: failure()`, cannot weaken a gate, needs no secret |
 
@@ -271,10 +271,8 @@ permanent CI gates that are green on every push (no permissions, no HTTP client,
 database copy, asset hash matches the manifest). Those need a gate, not a phase, and they have
 one.
 
-**Two real items remain, and item 0 is the one to do first:**
+**The one genuine defect it had is now fixed (trap 16). What remains:**
 
-0. **Fix the database re-copy to compare `kb_version`, not file length** — trap 16. A silent
-   wrong-data bug, and the only genuine defect Phase 7 has.
 1. **The Settings screen, and the third bottom-nav item with it.** Move the EN/UR toggle out of
    Home and into it, add the theme row (`AcUstadTheme(dark = …)` already takes null/true/false,
    so the wiring is a row) and **Phase 7 §6's content**: data version from `meta.kb_version`,

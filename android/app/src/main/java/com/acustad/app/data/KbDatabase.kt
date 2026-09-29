@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
+import androidx.core.content.pm.PackageInfoCompat
 import java.io.File
 import java.io.InputStream
 
@@ -75,24 +76,71 @@ class KbDatabase private constructor(private val appContext: Context) {
     /**
      * Ensures a complete copy of the asset exists in the cache and returns it.
      *
-     * The asset is compared by length: a copy interrupted by a kill mid-write is shorter, and
-     * that is the only realistic corruption detectable without hashing 9 MB at every start.
+     * The decision is [shouldRestage], which is pure and tested. This method only supplies the
+     * four facts it needs: does the cache exist, how long is it, how long is the asset, and what
+     * `versionCode` wrote it.
+     *
+     * The length comparison alone is what this used to do, and it was a bug: a data release
+     * whose `kb.sqlite` matched the previous file size byte for byte was never picked up, so the
+     * app kept serving the old answers. See `Staging.kt`.
      *
      * The asset stream is always closed here, including on the path where no copy is needed —
      * otherwise a warm start leaks a file handle every single launch.
      */
     private fun stageFile(): File {
         val target = File(appContext.cacheDir, DB_NAME)
-        openAsset().use { asset ->
-            // available() is a lower bound in general, but for a file-backed asset it is the
-            // whole length, which is all this comparison needs. Long vs Int: Kotlin does not
-            // apply `!=` across the two, hence the explicit conversion.
-            val expected = asset.available().toLong()
-            if (!target.exists() || target.length() != expected) {
-                copyAsset(asset, target)
-            }
+        val stamp = File(appContext.cacheDir, STAMP_NAME)
+        val exists = target.exists()
+        val assetBytes = assetLength()
+        val version = currentVersionCode()
+
+        if (!shouldRestage(
+                cachedExists = exists,
+                cachedLength = if (exists) target.length() else -1L,
+                assetLength = assetBytes,
+                stampedVersion = readStamp(stamp),
+                currentVersion = version,
+            )
+        ) {
+            return target
         }
+
+        copyAsset(target)
+        writeStamp(stamp, version)
         return target
+    }
+
+    /** The asset's length, read from the zip entry header. No file content is read. */
+    private fun assetLength(): Long = openAsset().use { it.available().toLong() }
+
+    /**
+     * The `versionCode` of the running APK, or [UNKNOWN_VERSION] if it cannot be read.
+     *
+     * This runs on the IO dispatcher, like everything else that opens the database, so the one
+     * binder call is never on the main thread.
+     */
+    @Suppress("DEPRECATION")
+    private fun currentVersionCode(): Int = runCatching {
+        val info = appContext.packageManager.getPackageInfo(appContext.packageName, 0)
+        PackageInfoCompat.getLongVersionCode(info).toInt()
+    }.getOrElse {
+        Log.w(TAG, "could not read versionCode; treating it as unknown", it)
+        UNKNOWN_VERSION
+    }
+
+    /** null means "no stamp", which always re-copies. An unreadable stamp is treated as absent. */
+    private fun readStamp(stamp: File): Int? =
+        if (!stamp.exists()) null
+        else runCatching { stamp.readText().trim().toIntOrNull() }.getOrNull()
+
+    /**
+     * A stamp that cannot be written costs one redundant re-copy on the next launch and nothing
+     * else, so a failure here is logged and otherwise ignored. Getting the database staged
+     * matters more than recording which build staged it.
+     */
+    private fun writeStamp(stamp: File, version: Int) {
+        runCatching { stamp.writeText("$version\n") }
+            .onFailure { Log.w(TAG, "could not write the staging stamp", it) }
     }
 
     private fun openAsset(): InputStream =
@@ -100,17 +148,19 @@ class KbDatabase private constructor(private val appContext: Context) {
             ?: throw IllegalStateException("bundled asset $ASSET_PATH is missing from the APK")
 
     /** Does not close the stream: the caller owns it. */
-    private fun copyAsset(asset: InputStream, target: File) {
-        val tmp = File(target.parentFile, "$DB_NAME.tmp")
-        try {
-            tmp.outputStream().use { asset.copyTo(it) }
-            if (!tmp.renameTo(target)) {
-                tmp.copyTo(target, overwrite = true)
+    private fun copyAsset(target: File) {
+        openAsset().use { asset ->
+            val tmp = File(target.parentFile, "$DB_NAME.tmp")
+            try {
+                tmp.outputStream().use { asset.copyTo(it) }
+                if (!tmp.renameTo(target)) {
+                    tmp.copyTo(target, overwrite = true)
+                    tmp.delete()
+                }
+            } catch (e: Exception) {
                 tmp.delete()
+                throw IllegalStateException("could not stage $ASSET_PATH: ${e.message}", e)
             }
-        } catch (e: Exception) {
-            tmp.delete()
-            throw IllegalStateException("could not stage $ASSET_PATH: ${e.message}", e)
         }
     }
 
@@ -118,7 +168,12 @@ class KbDatabase private constructor(private val appContext: Context) {
     companion object {
         const val DB_NAME = "kb.sqlite"
         const val ASSET_PATH = "db/kb.sqlite"
+
+        /** Records which `versionCode` staged the cache copy. In `cacheDir`, so it disappears
+         *  with the database it describes and a cleared cache simply re-copies. */
+        private const val STAMP_NAME = "kb.stamp"
         private const val TAG = "KbDatabase"
+        private const val UNKNOWN_VERSION = -1
 
         @Volatile
         private var instance: KbDatabase? = null
