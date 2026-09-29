@@ -25,6 +25,7 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 7 · Offline & updates | 🟡 | **Trap 16 fixed** — a new APK now always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and four CI gates enforce them. Phase 7 §6's Settings content is item 1 in §7; the rest is phone checks |
 | 8 · Accessibility & Roman Urdu | 🟡 | The **EN/UR content toggle works and persists** (built 2026-09-29, awaiting a phone check). Still open: the Settings screen, the theme override, and the font-scale / TalkBack pass |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
+| 11 · UI/UX | ⬜ **planned, not started** | **The app looks bare because `BorderedPanel` and `BorderedRow` use `Color.Transparent`** — `surface` and `surface_alt` are mapped in the theme and never used as a fill. The design exists and is measured; the implementation ignores it. Plan: `app-pipeline/guide/PHASE_11_UI_UX.md`. Fixes it with **zero new colours** |
 | 10 · Monetisation | ⬜ **not started** | **Planning only.** Free-with-ads → trial → paid, all on Play. The plan is written: `app-pipeline/guide/PHASE_10_MONETISATION.md`. Nothing is built until a Play developer account exists |
 
 ## 1a. Starting a session
@@ -199,6 +200,23 @@ reason several comments in the code look defensive.
    data means a new APK, and `PHASE_7` §2 step 2 already requires `versionCode` to be bumped.
    Eight tests, and the second one is the exact bug — same length, new version must copy.
 
+18. **The palette was built and then thrown away by two lines.** `BorderedPanel` and
+   `BorderedRow` both set `color = Color.Transparent`, so every card, every row and the meaning
+   block sit on raw canvas. `surface` (#EFF6FB) and `surface_alt` (#DCEAF5) are mapped into the
+   colour scheme and **used as a fill nowhere in the app**. This is why the app reads as a
+   wireframe while `DESIGN.md` §2 describes a finished design. The whole fix is about forty
+   lines and invents nothing — see `PHASE_11_UI_UX.md`. **The trap is general: a colour system
+   that is defined, measured and documented is not the same as one that is used.**
+19. **`ink_muted` on `surface_alt` is 4.15:1 — under AA.** In dark mode it is 6.93:1 and fine,
+   which is exactly how this kind of thing survives a dark-mode screenshot review and fails on a
+   cheap LCD in sunlight. Muted text may go on `surface` (4.67:1, only just) but **never on the
+   raised surface**. Measured for Phase 11, not assumed.
+20. **The 2dp `hairline` is 1.41:1 against the canvas and effectively does not exist in sun.**
+   `DESIGN.md` §1 asks the bottom nav for one; `PHASE_8` §6 forbids thin text-coloured
+   separators for meaningful grouping. **`PHASE_8` wins** — it is the document written for a
+   cheap LCD in bright sun. Structural lines are 2dp `outline`. `hairline` survives only as the
+   `info` chip border, where `DESIGN.md` §3 already accepts it because the *word* is the signal.
+
 ## 5. The gates, and what each one is for
 
 | Gate | Protects |
@@ -284,20 +302,25 @@ one.
 
 **The one genuine defect it had is now fixed (trap 16). What remains:**
 
-1. **The Settings screen, and the third bottom-nav item with it.** Move the EN/UR toggle out of
+1. **Phase 11's first two steps: the surface hierarchy, then the detail screen.** They are about
+   forty lines, they add no colours, and they are the difference between a wireframe and a
+   finished app. Do these before the Settings screen — the Settings screen is a new surface and
+   should be built on the corrected one, not on a transparent panel. `PHASE_11_UI_UX.md` has the
+   order.
+2. **The Settings screen, and the third bottom-nav item with it.** Move the EN/UR toggle out of
    Home and into it, add the theme row (`AcUstadTheme(dark = …)` already takes null/true/false,
    so the wiring is a row) and **Phase 7 §6's content**: data version from `meta.kb_version`,
    three plain lines of About, and Sources. Phase 7 §6 is the reason this is the top item — it
    specifies what the screen must contain. The theme needs the same treatment the language just
    got: one value on the shared repository, persisted.
-2. **Phase 5's teaching empty state.** When a code is typed on the *brands* screen the search
+3. **Phase 5's teaching empty state.** When a code is typed on the *brands* screen the search
    correctly finds nothing; the screen must then explain why, in one line, with a way forward.
-3. **The remaining phone checks** — `PHASE_7` §7 (airplane mode, cache deleted while closed, a
+4. **The remaining phone checks** — `PHASE_7` §7 (airplane mode, cache deleted while closed, a
    replaced asset with a higher `kb_version`, battery stats), `PHASE_8` §8 (font scale 1.0 /
    1.15 / 1.3, TalkBack reading a code end to end, longest content in both languages). These are
    §6 checks, not features.
-4. **Phase 9 release signing** — only when the feature set stops changing.
-5. **Phase 10 monetisation** — and it is **blocked, not next**. It needs a Google Play developer
+5. **Phase 9 release signing** — only when the feature set stops changing.
+6. **Phase 10 monetisation** — and it is **blocked, not next**. It needs a Google Play developer
    account, and everything in it is written down in
    `app-pipeline/guide/PHASE_10_MONETISATION.md` already. Do not start it early and do not
    re-derive it; read the phase file. It supersedes RULE 14 and `PERMISSIONS.md`, and that
