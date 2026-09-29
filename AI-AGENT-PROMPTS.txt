@@ -27,9 +27,9 @@ READ THESE, IN THIS ORDER
 
 1.  android/PROGRESS.md            THE STATUS FILE. Read all of it; it is short.
       §1  which phases are done
-      §4  the nine traps - each one is a real bug that has already happened
+      §4  the fifteen traps - each one is a real bug that has already happened
       §5  what each CI gate protects
-      §6  the six checks to run on a real phone
+      §6  the twelve checks to run on a real phone, in two groups
       §7  the next tasks, IN ORDER. This is your instruction queue.
 
 2.  app-pipeline/guide/AGENTS.md   master instructions. Section 3 is the read
@@ -79,21 +79,37 @@ database - do not rewrite them, do not re-invent them, follow them.
     TESTING.md ............ what must pass before anything is called done
 
 --------------------------------------------------------------------------------
-FIVE RULES THAT ARE WORTH CARRYING IN YOUR HEAD
+EIGHT RULES THAT ARE WORTH CARRYING IN YOUR HEAD
 --------------------------------------------------------------------------------
 
 1. THE DATABASE WINS. If a document and kb.sqlite disagree, the database is
    right. Say so in your report - never quietly work around it.
 2. Do not state a number, a column name or an API you have not read in THIS
-   session. Check it: app-pipeline/check_app_sql.py runs 40 checks of the app's
-   real SQL, and SchemaContractTest pins the schema in code.
+   session. Check it: app-pipeline/check_app_sql.py runs 43 assertions of the
+   app's real SQL, and SchemaContractTest pins the schema in code.
 3. There is no Android SDK and no emulator on this machine. To build: push to
    main, wait for the green "build app" check, and read the failing STEP BY
    NAME from the Actions UI. A later step in the list never means a later
    failure - read the list from the top.
-4. Do not commit a file you did not create. Desktop editors drop lock files
+4. **A GREEN BUILD IS NOT A WORKING SCREEN.** Green compile, green lint, green
+   tests and green data checks all passed while the code-detail screen - the
+   entire point of the app - was dead on the phone for days, and it was
+   marked done in PROGRESS.md. No test ever opened it. A test that does not
+   open a screen cannot fail when that screen is broken. Nothing counts a phase
+   as done until a HUMAN has opened every screen in it on a real phone.
+5. **Never let an exception become a user-facing fact.** A cursor read past the
+   end of a row threw, `runCatching { }.getOrNull()` turned it into `null`, and
+   the screen rendered "This code is not in the knowledge base" - so a crash was
+   reported to a technician as an incomplete database, pointing them at the
+   wrong file. If a read can fail, the failure needs its OWN state. "Not found"
+   is a claim about the data and may only be made when the query genuinely
+   returned no row.
+6. Read columns BY NAME, never by index, in a query with more than a handful of
+   them. `detailById` read index 20 on a 20-column cursor and every field after
+   the summary was off by one. A name cannot be off by one.
+7. Do not commit a file you did not create. Desktop editors drop lock files
    (.~lock.*#) exactly when someone is reading the project.
-5. One commit per phase, and update android/PROGRESS.md in the same commit.
+8. One commit per phase, and update android/PROGRESS.md in the same commit.
    That file is the only reason a fresh session can pick this up.
 
 --------------------------------------------------------------------------------

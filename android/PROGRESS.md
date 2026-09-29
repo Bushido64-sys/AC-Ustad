@@ -9,14 +9,19 @@
 
 ## 1. Phase status
 
+**What ✅ means here: the screens in that phase have been opened on a real phone and the §6
+checks for it have passed.** It does **not** mean the code compiles, that the tests pass, or
+that CI is green — all three were true for Phase 4 while its screen was dead on the device. A
+green gate proves the app builds; only a human proves a screen works. See trap 15.
+
 | Phase | State | What actually works |
 |---|---|---|
-| 1 · Setup | ✅ | Skeleton, bundled database, 7 IBM Plex fonts, light + dark themes, launcher icon, home screen with live counts |
-| 2 · Data layer | ✅ | 4 DAOs, immutable models, one repository, favourites writes, stale-id sweep |
-| 3 · Browse | ✅ | Home → brands → model lines → codes, with scoped search on every list |
-| 4 · Code detail | ✅ **fixed 2026-09-29** | Severity + meaning → numbered fix steps → causes → notes → source, with a working star. Was marked ✅ while being **completely dead on a phone** — see trap 15. The build was green throughout; only a human tapping a code found it |
+| 1 · Setup | ✅ phone-checked | Skeleton, bundled database, 7 IBM Plex fonts, light + dark themes, launcher icon, home screen with live counts |
+| 2 · Data layer | ✅ phone-checked | 4 DAOs, immutable models, one repository, favourites writes, stale-id sweep |
+| 3 · Browse | ✅ phone-checked | Home → brands → model lines → codes, with scoped search on every list |
+| 4 · Code detail | ⚠️ fixed 2026-09-29, **awaiting phone check** | Severity + meaning → numbered fix steps → causes → notes → source, with a working star. Was marked ✅ while being **completely dead on a phone** — see trap 15. The build was green throughout; only a human tapping a code found it |
 | 5 · Search polish | 🟡 | The **data layer** is done and tested; the empty-search teaching state is not built |
-| 6 · Saved screen | ✅ | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
+| 6 · Saved screen | ⚠️ built, **awaiting phone check** | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
 | 7 · Offline & updates | ⬜ | Mostly satisfied already; no verification pass yet |
 | 8 · Accessibility & Roman Urdu | ⬜ | Sizes, contrast and semantics are in; the EN/UR toggle itself does not exist yet |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
@@ -184,7 +189,15 @@ reason several comments in the code look defensive.
 `check_app_sql.py` imports the canonical rule from `build_kb.py` rather than restating it. Two
 copies of that rule would drift, and a lower-case copy would quietly break every code search.
 
-## 6. Test on the phone — the six checks
+## 6. Test on the phone — the twelve checks
+
+**A green build does not get a phase marked ✅. This section does.** Every screen in a phase has
+to be opened here, on a real phone, by a human, before the phase counts as done. Phase 4 sat in
+§1 marked ✅ for days with all four CI gates green while its screen was dead on the device,
+because no automated test ever opened it. Re-run these after **any** change that touches a
+screen, not only when a phase closes.
+
+**Group 1 — the six original checks (browse, detail, search):**
 
 1. **Airplane mode on.** The app must be fully usable. If anything needs a network, it is a bug.
 2. Home shows **AC 31 brands / 1,723 codes** and **Inverter 33 brands / 2,695 codes**. If these
@@ -199,7 +212,7 @@ copies of that rule would drift, and a lower-case copy would quietly break every
 
 Then: dark mode, and search `e1` in lowercase inside a model — it must find `E1`.
 
-**And the six checks for the Saved screen (Phase 6):**
+**Group 2 — the six Saved-screen checks (Phase 6):**
 
 7. Star a code, then open **Saved** from the bar: the row is there, and the tab's star is
    filled. Go back to Browse — the star stays filled.
@@ -211,7 +224,18 @@ Then: dark mode, and search `e1` in lowercase inside a model — it must find `E
     duplicated.
 12. Saved with nothing starred shows the one-line empty state and no bar.
 
+**And one that guards the data, not the UI:** a saved **non-fault** code — an indicator or a
+parameter — must show a muted rail and the word INDICATOR, never a severity word. `dawlance/DF`
+is a real one: `is_fault = 0` with `severity = 'info'`.
+
 ## 7. Do these next, in this order
+
+**Phase 7 is deliberately not in this queue, and "let's do Phase 7" is a common misreading.**
+Phase 7 (Offline & updates) is already satisfied by construction — there is no network layer, no
+sync and no refresh affordance to remove, so there is no *feature* to build. What it has is an
+unwritten **verification pass**, which is a phone check, not a phase: confirm airplane mode, that
+re-installing over the old build keeps `favourites`, and that a database re-copy does not lose a
+saved row. Fold that into §6 when a phone is in hand. Do not open a Phase 7 branch.
 
 1. **Phase 8's EN/UR toggle.** `KbRepository.setContentLanguage()` and `ContentLanguage.pick()`
    exist and are wired into every state flow, but nothing calls `setContentLanguage`. Both
@@ -221,7 +245,7 @@ Then: dark mode, and search `e1` in lowercase inside a model — it must find `E
 2. **Phase 5's teaching empty state.** When a code is typed on the *brands* screen the search
    correctly finds nothing; the screen must then explain why, in one line, with a way forward.
 3. **The Settings screen, and the third bottom-nav item with it.** The bar has Browse and
-   Saved only — see §8.
+   Saved only — see §8. The toggle in item 1 needs a home; this is where it goes.
 4. **Phase 9 release signing** — only when the feature set stops changing.
 
 ## 8. Things deliberately not built yet
