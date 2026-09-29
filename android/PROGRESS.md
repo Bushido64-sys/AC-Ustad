@@ -25,6 +25,7 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 7 · Offline & updates | 🟡 | **Trap 16 fixed** — a new APK now always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and four CI gates enforce them. Phase 7 §6's Settings content is item 1 in §7; the rest is phone checks |
 | 8 · Accessibility & Roman Urdu | 🟡 | The **EN/UR content toggle works and persists** (built 2026-09-29, awaiting a phone check). Still open: the Settings screen, the theme override, and the font-scale / TalkBack pass |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
+| 10 · Monetisation | ⬜ **not started** | **Planning only.** Free-with-ads → trial → paid, all on Play. The plan is written: `app-pipeline/guide/PHASE_10_MONETISATION.md`. Nothing is built until a Play developer account exists |
 
 ## 1a. Starting a session
 
@@ -177,16 +178,26 @@ reason several comments in the code look defensive.
    - a failed read is now a **different state** from an absent code, so a thrown exception can
      never again be reported as a fact about the data.
 
-16. **The database re-copy is decided by file LENGTH, not by `kb_version` — and Phase 7 says it
-   must not be.** `KbDatabase.stageFile()` re-copies the asset only when
-   `target.length() != asset.available()`. `PHASE_7_OFFLINE_AND_UPDATES.md` §2 step 5 specifies
-   comparing the asset's `meta.kb_version` with the cached copy and re-copying when they differ.
-   So a data release whose `kb.sqlite` lands on **exactly the same byte length** as the one
-   already in `cacheDir` is silently ignored: the app updates, the APK carries the new answers,
-   and the technician keeps reading the old ones. Nothing errors. The length check was a
-   deliberate shortcut for a half-written cache copy and it is good at that job — it is simply
-   answering the wrong question for a version change. This is a genuine Phase 7 item, found by
-   reading the phase file rather than by the summary line that had been standing in for it.
+16. **A network kill switch and a fully-offline app cannot both be real.** The app's headline
+   promise is that it works in airplane mode; a version check needs a network. So any such switch
+   **fails open**: an unreachable server means the app runs, always. A closed door is a failure
+   for exactly the technician standing in front of a broken unit with no signal — and it enforces
+   nothing against anyone determined, because airplane mode is a one-tap bypass. What *can* be
+   enforced is Play's: content behind a Play Billing licence is checked by Google, server-side,
+   and is genuinely unbypassable. Read `PHASE_10_MONETISATION.md` before proposing either one.
+   Also: a sideloaded APK **cannot be revoked** once installed, whatever the app's code says.
+17. **A length check answers "is this file damaged", not "is this file current". FIXED
+   2026-09-29.** `KbDatabase.stageFile()` re-copied the asset only when
+   `target.length() != asset.available()`. A data release whose `kb.sqlite` came out the same
+   number of bytes as the one already in `cacheDir` was never picked up: the app updated, the
+   new APK carried the corrected answers, and the technician kept reading the old ones —
+   silently, with nothing in a log. The length check was good at its real job, catching a copy
+   interrupted by a kill. It was simply answering the wrong question. `shouldRestage()` in
+   `Staging.kt` now re-stages when the `versionCode` recorded in `cacheDir/kb.stamp` differs
+   from the running APK's. The app cannot read `meta.kb_version` out of an asset without
+   extracting 8.8 MB per launch, and does not need to: the data lives **inside** the APK, so new
+   data means a new APK, and `PHASE_7` §2 step 2 already requires `versionCode` to be bumped.
+   Eight tests, and the second one is the exact bug — same length, new version must copy.
 
 ## 5. The gates, and what each one is for
 
@@ -286,6 +297,17 @@ one.
    1.15 / 1.3, TalkBack reading a code end to end, longest content in both languages). These are
    §6 checks, not features.
 4. **Phase 9 release signing** — only when the feature set stops changing.
+5. **Phase 10 monetisation** — and it is **blocked, not next**. It needs a Google Play developer
+   account, and everything in it is written down in
+   `app-pipeline/guide/PHASE_10_MONETISATION.md` already. Do not start it early and do not
+   re-derive it; read the phase file. It supersedes RULE 14 and `PERMISSIONS.md`, and that
+   supersession is deliberate and written down rather than a quiet workaround.
+
+**One thing to fix in the next session regardless of phase:** `CI_CD.md` §1 documents a CI step
+that fails the build if the APK contains an HTTP client class, and **that step does not exist in
+`build-app.yml`**. It has never mattered because the app has no network code. The moment an ad
+SDK lands, the guide claims a protection the build does not have. Build that gate *before* the
+ads — it will pass the moment it is written.
 
 ## 8. Things deliberately not built yet
 
