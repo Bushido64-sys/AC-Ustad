@@ -28,7 +28,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.acustad.app.R
 import com.acustad.app.model.CategoryId
+import com.acustad.app.model.ContentLanguage
 import com.acustad.app.ui.common.BorderedPanel
+import com.acustad.app.ui.common.ContentLanguageToggle
 import com.acustad.app.ui.common.PanelColumn
 import com.acustad.app.ui.theme.UstadType
 
@@ -47,6 +49,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val language by viewModel.language.collectAsStateWithLifecycle()
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -63,14 +66,19 @@ fun HomeScreen(
             when (val s = state) {
                 is HomeState.Loading -> LoadingBlock()
                 is HomeState.Failed -> FailedBlock(s.message, viewModel::load)
-                is HomeState.Ready -> ReadyContent(s, onCategoryClick)
+                is HomeState.Ready -> ReadyContent(s, language, onCategoryClick, viewModel::setLanguage)
             }
         }
     }
 }
 
 @Composable
-private fun ReadyContent(state: HomeState.Ready, onCategoryClick: (CategoryId) -> Unit) {
+private fun ReadyContent(
+    state: HomeState.Ready,
+    language: ContentLanguage,
+    onCategoryClick: (CategoryId) -> Unit,
+    onLanguage: (ContentLanguage) -> Unit,
+) {
     val counts = state.counts
     Column(
         modifier = Modifier
@@ -100,6 +108,13 @@ private fun ReadyContent(state: HomeState.Ready, onCategoryClick: (CategoryId) -
             codes = counts.inverterCodes,
             onClick = { onCategoryClick(CategoryId.INVERTER) },
         )
+
+        // Below the two choices, not above them: the technician's question is "what does this
+        // code mean", and the language is a preference, not a decision. Home is the right home
+        // for it because the bottom bar's Browse tab puts this screen one tap away from
+        // anywhere in the app. The Settings screen, in Phase 8's next step, will own it properly
+        // alongside the theme and the data version.
+        ContentLanguageToggle(selected = language, onSelect = onLanguage)
     }
 }
 

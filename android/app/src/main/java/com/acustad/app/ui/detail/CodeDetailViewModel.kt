@@ -31,7 +31,7 @@ class CodeDetailViewModel(
     savedState: SavedStateHandle,
 ) : AndroidViewModel(app) {
 
-    private val repo = KbRepository(app)
+    private val repo = KbRepository.get(app)
 
     private val codeId: Long = savedState.get<Long>(ARG_CODE_ID) ?: -1L
 

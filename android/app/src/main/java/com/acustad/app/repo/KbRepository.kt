@@ -1,6 +1,7 @@
 package com.acustad.app.repo
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.database.sqlite.SQLiteDatabase
 import com.acustad.app.data.CatalogDao
 import com.acustad.app.data.CodeDao
@@ -42,12 +43,45 @@ import kotlinx.coroutines.withContext
  * One connection is opened for the process lifetime and wrapped in a throwaway DAO per call —
  * the DAOs are stateless, so allocating one costs nothing and removes any chance of a DAO
  * capturing a stale handle.
+ *
+ * ### One instance per process, deliberately
+ *
+ * Every view model takes this class from [get], never from the constructor. Two things depend
+ * on it:
+ *
+ *  - **The content language has to reach every screen at once.** Both languages come back from
+ *    every query, so the choice is made at read time from one flow — and a flow held by a
+ *    private instance reaches only the screen that made it. With a repository per view model
+ *    the EN/UR toggle would flip the codes list and nothing else. (RULES.md RULE 13)
+ *  - **One `SQLiteDatabase` handle per process** rather than one per view model, so six
+ *    screens cannot each hold an open connection to the same file.
  */
-class KbRepository(
+class KbRepository private constructor(
     context: Context,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
-    private val kb = KbDatabase.get(context)
+    private val appContext = context.applicationContext
+    private val kb = KbDatabase.get(appContext)
+
+    /**
+     * Two settings in a preferences file: the content language, and (Phase 8) the theme.
+     * `SharedPreferences` rather than DataStore or a table, per DEPENDENCIES.md §2 — there is
+     * nothing to migrate and nothing to query.
+     *
+     * Declared before `_contentLanguage` below, deliberately: Kotlin runs property initialisers
+     * in declaration order, and the language is seeded from this file.
+     *
+     * **Known StrictMode cost, accepted on purpose.** The first `getSharedPreferences` in a
+     * process reads the XML off disk synchronously, and this runs on the main thread when the
+     * first view model is constructed. `TESTING.md` §6 asks for no disk on the main thread, so
+     * this is a real exception to it: the file is tens of bytes, it is read exactly once per
+     * process, and the alternative — seeding the flow asynchronously — makes every screen that
+     * reads `contentLanguage` flash from English to the stored language on every cold start. A
+     * technician who chose Urdu would see English first, every time. The flicker is worse than
+     * the microsecond of IO, so the IO is kept and recorded here rather than hidden.
+     */
+    private val prefs: SharedPreferences =
+        appContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     @Volatile
     private var handle: SQLiteDatabase? = null
@@ -58,12 +92,24 @@ class KbRepository(
     // ── language ──────────────────────────────────────────────────────────────
     // A single flow, so toggling EN/UR re-renders with NO new query: both languages are always
     // loaded together and the choice is made at read time. (RULES.md RULE 13)
-    private val _contentLanguage = MutableStateFlow(ContentLanguage.EN)
+    //
+    // The choice is **persisted**, because a toggle that forgets on every app launch is not a
+    // toggle. A technician sets it once, in Urdu, and it should still be Urdu tomorrow. Two keys
+    // in a preferences file, not a database: DEPENDENCIES.md §2 rules out DataStore for
+    // two settings, and there is no migration story to invent.
+    private val _contentLanguage = MutableStateFlow(languageFrom(readStoredLanguage()))
     val contentLanguage: StateFlow<ContentLanguage> = _contentLanguage.asStateFlow()
 
     fun setContentLanguage(language: ContentLanguage) {
+        if (_contentLanguage.value == language) return
         _contentLanguage.value = language
+        // commit() rather than apply(): a technician switches language, pockets the phone and
+        // comes back to it tomorrow, and losing that is exactly what this setting exists to
+        // stop. The file is a few bytes and this is not on a hot path.
+        prefs.edit().putString(KEY_CONTENT_LANGUAGE, language.name).commit()
     }
+
+    private fun readStoredLanguage(): String? = prefs.getString(KEY_CONTENT_LANGUAGE, null)
 
     /**
      * Opens the database once, on the IO dispatcher, and sweeps stale saved ids the first
@@ -146,4 +192,39 @@ class KbRepository(
     }
 
     suspend fun isFavourite(codeId: Long): Boolean = FavouritesDao(db()).isFavourite(codeId)
+
+    companion object {
+        private const val PREFS_NAME = "ac-ustad"
+        private const val KEY_CONTENT_LANGUAGE = "content_language"
+
+        @Volatile
+        private var instance: KbRepository? = null
+
+        /**
+         * The one repository. Mirrors [KbDatabase.get] exactly, for the same reason: a stale
+         * handle must never be reachable, and `applicationContext` keeps it from leaking an
+         * Activity.
+         *
+         * Call this, never the constructor — the constructor is private precisely so a
+         * view model cannot quietly take a second copy and strand the language flow.
+         */
+        fun get(context: Context): KbRepository =
+            instance ?: synchronized(this) {
+                instance ?: KbRepository(context).also { instance = it }
+            }
+    }
 }
+
+/**
+ * Maps the stored preference value to a language.
+ *
+ * Anything that is not exactly `UR` is English. That covers a missing value, a blank one, and —
+ * the case worth writing down — a value written by a **future** version under a different enum
+ * constant name, which is what `enumValueOf` would throw on. An old preferences file must never
+ * be able to stop the app opening.
+ *
+ * Public, and pure, so the round trip can be tested without a device. It is the whole contract
+ * for what may sit in that preferences file.
+ */
+fun languageFrom(raw: String?): ContentLanguage =
+    if (raw == ContentLanguage.UR.name) ContentLanguage.UR else ContentLanguage.EN

@@ -23,7 +23,7 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 5 · Search polish | 🟡 | The **data layer** is done and tested; the empty-search teaching state is not built |
 | 6 · Saved screen | ⚠️ built, **awaiting phone check** | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
 | 7 · Offline & updates | ⬜ | Mostly satisfied already; no verification pass yet |
-| 8 · Accessibility & Roman Urdu | ⬜ | Sizes, contrast and semantics are in; the EN/UR toggle itself does not exist yet |
+| 8 · Accessibility & Roman Urdu | 🟡 | The **EN/UR content toggle works and persists** (built 2026-09-29, awaiting a phone check). Still open: the Settings screen, the theme override, and the font-scale / TalkBack pass |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
 
 ## 1a. Starting a session
@@ -87,7 +87,9 @@ and there is 1.7 GB free. CI builds; the phone tests.
 android/app/src/main/java/com/acustad/app/
   data/        KbDatabase, Io, CatalogDao, CodeDao, SearchDao, FavouritesDao, SearchInput
   model/       Models.kt — every read model, ContentLanguage, CategoryId, ScopedSeries
-  repo/        KbRepository.kt — the UI's ONLY door to the database
+  repo/        KbRepository.kt — the UI's ONLY door to the database, and a
+                PROCESS SINGLETON (get() only) so the content language reaches
+                every screen. Persists the language in SharedPreferences.
                 ToggleGuard.kt — drops a repeat star/unsave inside 400ms
   ui/
     AcUstadAppBar.kt      title + at most one action
@@ -99,6 +101,7 @@ android/app/src/main/java/com/acustad/app/
     browse/               Brands, Series, Codes screens + view models
     detail/               CodeDetailScreen + view model
     saved/                SavedScreen + view model (one instance, shared with the bottom bar)
+                          ContentLanguageToggle lives in common/, not here
   ui/theme/    Color/Type live in res/values/colors.xml — never hard-code a hex in Kotlin
 ```
 
@@ -141,12 +144,14 @@ reason several comments in the code look defensive.
    database wins, so a tap opens the code and does nothing else. No unread dot, no `is_read`,
    and `PHASE_6` §3 already says the same thing — the two documents disagree with each other
    and both agree with the database.
-12. **Every view model builds its own `KbRepository`** (`HomeViewModel`, `SavedViewModel`,
-   `CodeDetailViewModel`, …), so each one holds a private `contentLanguage` StateFlow, its own
-   `Mutex` and its own `SQLiteDatabase` handle to the same file. It works for Phase 6 — the
-   saved list is re-read on arrival precisely *because* the detail screen writes through a
-   different instance. **It will not do for the EN/UR toggle**, which has to reach every screen
-   at once, so Phase 8 needs one shared instance.
+12. **One `KbRepository` per PROCESS, or the EN/UR toggle half-works.** This used to be the
+   worst bug in the app, because it did not look like one: every view model built its own
+   `KbRepository`, so each held a private `contentLanguage` flow. Flipping the toggle changed the
+   one screen whose repository you happened to be on and nothing else — and because each held
+   its own `SQLiteDatabase` handle, a star written from the detail screen was invisible to the
+   Saved screen's list until something forced a re-read. `KbRepository.get(context)` is now the
+   only way to obtain one and the constructor is private, so a second copy is not expressible.
+   **If a new screen needs data, take the shared repository. Never construct one.**
 13. **`Modifier.weight` needs a `RowScope` in scope, and a function call does not inherit one.**
    `AcUstadBottomNav.NavItem` was a plain top-level composable that took a `Modifier` and called
    `modifier.weight(1f)` in its own body. That does not compile: `weight` is declared inside
@@ -180,7 +185,7 @@ reason several comments in the code look defensive.
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
 | `verify data` / `check_app_sql.py` | **43 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order**, added after trap 15 |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | 44 tests, including all 2,139 code strings and the FTS quoting |
+| `build app` / unit tests | 50 tests, including all 2,139 code strings and the FTS quoting |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission |
 | `build app` / database hash | the APK cannot carry a stale database |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
@@ -189,7 +194,7 @@ reason several comments in the code look defensive.
 `check_app_sql.py` imports the canonical rule from `build_kb.py` rather than restating it. Two
 copies of that rule would drift, and a lower-case copy would quietly break every code search.
 
-## 6. Test on the phone — the twelve checks
+## 6. Test on the phone — the eighteen checks
 
 **A green build does not get a phase marked ✅. This section does.** Every screen in a phase has
 to be opened here, on a real phone, by a human, before the phase counts as done. Phase 4 sat in
@@ -228,6 +233,23 @@ Then: dark mode, and search `e1` in lowercase inside a model — it must find `E
 parameter — must show a muted rail and the word INDICATOR, never a severity word. `dawlance/DF`
 is a real one: `is_fault = 0` with `severity = 'info'`.
 
+**Group 3 — the EN/UR content toggle (Phase 8).** The failure this catches is a *partial*
+toggle: it changing one screen and not the others, which is exactly what trap 12 describes and
+what no automated test can see.
+
+13. On **Home**, tap **UR**. Go AC → any brand → any model → the code list: **titles are Roman
+    Urdu.** Tap a code: **meaning, fix steps and causes are Roman Urdu.** The severity word is
+    too — STOP becomes BAND KARO.
+14. **Brand names and model names stay English** through the whole journey. Growatt is Growatt.
+    This is RULE 13 and it is the thing most likely to be quietly broken.
+15. Open **Saved** while in UR: saved rows show the **Roman Urdu** title. This is the screen that
+    the old per-screen repository would have missed.
+16. Switch back to **EN** and walk the same path: everything returns to English.
+17. **Force-stop and reopen the app.** Still in **UR**. A toggle that forgets on every launch is
+    not a toggle.
+18. Airplane mode, cold start, straight into a code: still in UR, and the app opens instantly
+    with no visible language switch.
+
 ## 7. Do these next, in this order
 
 **Phase 7 is deliberately not in this queue, and "let's do Phase 7" is a common misreading.**
@@ -237,15 +259,16 @@ unwritten **verification pass**, which is a phone check, not a phase: confirm ai
 re-installing over the old build keeps `favourites`, and that a database re-copy does not lose a
 saved row. Fold that into §6 when a phone is in hand. Do not open a Phase 7 branch.
 
-1. **Phase 8's EN/UR toggle.** `KbRepository.setContentLanguage()` and `ContentLanguage.pick()`
-   exist and are wired into every state flow, but nothing calls `setContentLanguage`. Both
-   languages are already loaded on every query, so the toggle re-renders with **no new query**.
-   Read trap 12 first: every view model builds its **own** `KbRepository`, so the language
-   currently lives per-screen and the toggle needs one shared instance to reach all of them.
+1. **The Settings screen, and the third bottom-nav item with it.** This is now the top item
+   because the EN/UR toggle is built and the bar is the one place a third item belongs. Move the
+   toggle out of Home and into it, and add the theme row (`AcUstadTheme(dark = …)` already takes
+   null/true/false, so the wiring is a row) and the data version from `meta()`. The theme needs
+   the same treatment the language just got: one value on the shared repository, persisted.
 2. **Phase 5's teaching empty state.** When a code is typed on the *brands* screen the search
    correctly finds nothing; the screen must then explain why, in one line, with a way forward.
-3. **The Settings screen, and the third bottom-nav item with it.** The bar has Browse and
-   Saved only — see §8. The toggle in item 1 needs a home; this is where it goes.
+3. **Phase 8's remaining checks** — font scale 1.0 / 1.15 / 1.3 on every screen, TalkBack reading a
+   code end to end, and the longest content in both languages. These are §6 phone checks, not
+   features: `PHASE_8` §8 already lists them.
 4. **Phase 9 release signing** — only when the feature set stops changing.
 
 ## 8. Things deliberately not built yet

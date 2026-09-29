@@ -29,7 +29,7 @@ class SeriesViewModel(
     savedState: SavedStateHandle,
 ) : AndroidViewModel(app) {
 
-    private val repo = KbRepository(app)
+    private val repo = KbRepository.get(app)
 
     val brandId: String = savedState.get<String>(ARG_BRAND_ID).orEmpty()
 

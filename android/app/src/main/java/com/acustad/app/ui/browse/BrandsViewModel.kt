@@ -29,7 +29,7 @@ class BrandsViewModel(
     savedState: SavedStateHandle,
 ) : AndroidViewModel(app) {
 
-    private val repo = KbRepository(app)
+    private val repo = KbRepository.get(app)
 
     val category: CategoryId =
         if (savedState.get<String>(ARG_CATEGORY) == "ac") CategoryId.AC else CategoryId.INVERTER

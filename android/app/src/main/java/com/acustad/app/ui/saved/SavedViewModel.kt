@@ -53,7 +53,7 @@ enum class SavedNotice { COULD_NOT_SAVE, COULD_NOT_RESTORE }
  */
 class SavedViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val repo = KbRepository(app)
+    private val repo = KbRepository.get(app)
     private val guard = ToggleGuard()
 
     /** `null` until the first read lands, which is what distinguishes Loading from empty. */
