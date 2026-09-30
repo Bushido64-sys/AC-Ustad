@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.database.sqlite.SQLiteDatabase
 import com.acustad.app.data.CatalogDao
 import com.acustad.app.data.CodeDao
+import com.acustad.app.data.CodePresence
 import com.acustad.app.data.FavouritesDao
 import com.acustad.app.data.KbDatabase
 import com.acustad.app.data.SearchDao
@@ -181,6 +182,13 @@ class KbRepository private constructor(
 
     suspend fun searchCodes(scope: ScopedSeries, query: String): List<CodeSummary> =
         SearchDao(db()).searchCodes(scope, query)
+
+    /**
+     * "Is what I typed a code, and if so how many brands have it?" — for the brands screen's
+     * teaching empty state. See [SearchDao.codePresence] for why it is a measured count and not
+     * a number written down anywhere.
+     */
+    suspend fun codePresence(query: String): CodePresence = SearchDao(db()).codePresence(query)
 
     suspend fun meta(): KbMeta = CatalogDao(db()).meta()
 

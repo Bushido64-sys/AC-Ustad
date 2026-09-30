@@ -176,6 +176,47 @@ jobs:
           fi
           echo "no permissions beyond the AGP-injected self-permission - OK"
 
+      - name: The APK contains no network client
+        run: |
+          set -uo pipefail
+          # RULE 14 / RULE 15, and the gate CI_CD.md §1 has documented for a long time without
+          # existing. It has never mattered because the app has no network code at all — which is
+          # exactly why it is dangerous to leave it unwritten. The moment an ad SDK or an update
+          # check lands, the guide would be claiming a protection the build does not have, and
+          # the app's headline promise (it works in airplane mode) would quietly stop being
+          # enforced by anything.
+          #
+          # It is written before the ads, deliberately: a gate added after the code it forbids
+          # is a gate that has to fight its way past the code it is protecting.
+          #
+          # The check is on the CLASS NAMES in the built APK, not on the Gradle dependency
+          # graph, because the dependency graph is what a project declares and the APK is what
+          # actually ships. A library can arrive transitively.
+          APK=app/build/outputs/apk/debug/app-debug.apk
+          [ -f "$APK" ] || { echo "::error::no APK at $APK"; exit 1; }
+          if ! command -v unzip >/dev/null 2>&1; then
+            echo "::error::unzip is required for this gate"; exit 1
+          fi
+          WORK=$(mktemp -d)
+          trap 'rm -rf "$WORK"' EXIT
+          unzip -qo "$APK" -d "$WORK" 'classes*.dex' 2>/dev/null || true
+          DEX_COUNT=$(find "$WORK" -name 'classes*.dex' | wc -l)
+          echo "dex files: $DEX_COUNT"
+          [ "$DEX_COUNT" -gt 0 ] || { echo "::error::no dex files in the APK"; exit 1; }
+
+          # Strings, not class names: `strings` over the dex is enough to spot an HTTP stack,
+          # and it cannot be defeated by a class being renamed or obfuscated away from a
+          # grep for a familiar name. Both the package prefix and the telltale type names are
+          # checked, because the two fail differently.
+          PATTERN='Ljava/net/HttpURLConnection|Ljavax/net/ssl/HttpsURLConnection|Lokhttp3/|Lorg/apache/http/|Ljava/net/Socket|Landroid/webkit/WebView;|Lio/reactivex/rxjava3/|Lcom/google/android/gms/ads/|Lcom/facebook/ads/'
+          HITS=$(find "$WORK" -name 'classes*.dex' -print0 | xargs -0 strings | grep -E "$PATTERN" || true)
+          if [ -n "$HITS" ]; then
+            echo "::error::the APK contains a network or ads class (RULE 14, PERMISSIONS.md)"
+            echo "$HITS" | sort -u
+            exit 1
+          fi
+          echo "no network, ads or analytics classes in the APK - OK"
+
       - name: The database in assets is the validated one
         run: |
           sha256sum app/src/main/assets/db/kb.sqlite

@@ -117,11 +117,20 @@ fun SearchField(
  * No illustration, no emoji, no "Try again" unless retrying is the actual fix. 8 brands and 65
  * model lines legitimately have no codes, so this is a screen a technician will meet often
  * and it must read as information, not as failure. (RULES.md RULE 17)
+ *
+ * @param message the outcome, in one sentence. Always required — "nothing found" is a fact and
+ *   it gets said whatever else is true.
+ * @param detail **why**, for the case where the outcome is correct but the screen is not where
+ *   the user thought it was. This is the one place a second sentence is allowed, and it is
+ *   allowed for a specific reason: a search that found nothing because it was pointed at the
+ *   wrong level is not a dead end if the screen says so. Rendered muted and directly under the
+ *   message, so the hierarchy stays "what happened" then "why", with the action last.
  */
 @Composable
 fun EmptyState(
     message: String,
     modifier: Modifier = Modifier,
+    detail: String? = null,
     actionLabel: String? = null,
     onAction: (() -> Unit)? = null,
 ) {
@@ -130,6 +139,13 @@ fun EmptyState(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(text = message, style = UstadType.body)
+        if (detail != null) {
+            Text(
+                text = detail,
+                style = UstadType.caption,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
         if (actionLabel != null && onAction != null) {
             androidx.compose.material3.TextButton(
                 onClick = onAction,

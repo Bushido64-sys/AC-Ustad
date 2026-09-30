@@ -49,8 +49,7 @@ fun BrandsScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val query by viewModel.query.collectAsStateWithLifecycle()
-
-    val noMatch = stringResource(R.string.empty_no_brand_match, query)
+    val teaching by viewModel.teaching.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier
@@ -82,7 +81,7 @@ fun BrandsScreen(
                 }
             }
             if (state.brands.isEmpty() && query.isNotBlank()) {
-                item(key = "empty") { EmptyState(message = noMatch) }
+                item(key = "empty") { DeadEndState(query, teaching, viewModel::onClearQuery) }
             }
             if (state.brands.isEmpty() && query.isBlank()) {
                 // No query, no rows: the database did not load. That is an error, not a
@@ -92,6 +91,57 @@ fun BrandsScreen(
                 }
             }
         }
+    }
+}
+
+/**
+ * "No results" on the brands screen, which is two different situations wearing one hat.
+ *
+ * A technician who typed a **brand name** that does not exist gets a plain miss, and that is the
+ * whole answer. A technician who typed a **code** gets the miss *and* the reason it is a miss —
+ * because that screen is one level above where codes live, and saying so turns a dead end into
+ * the app explaining itself. (DESIGN.md §4.2, PHASE_5_SEARCH.md §5)
+ *
+ * The action is always the same and it is deliberately modest: show the full brand list again.
+ * **It is not "search models instead"** — that was the guide's suggestion, and it would not
+ * work. Models are scoped to a brand (RULE 2), so there is no model search to send them to until
+ * they have picked a brand; an action that jumped to a search they cannot perform is a worse
+ * dead end than the one it replaced. Clearing the query is the one step that is always available
+ * and always right.
+ */
+@Composable
+private fun DeadEndState(
+    query: String,
+    teaching: BrandSearchTeaching?,
+    onClearQuery: () -> Unit,
+) {
+    when (teaching) {
+        is BrandSearchTeaching.Ambiguous -> EmptyState(
+            message = stringResource(R.string.empty_no_brand_match, query),
+            detail = stringResource(R.string.teach_ambiguous, teaching.code, teaching.brandCount),
+            actionLabel = stringResource(R.string.teach_action),
+            onAction = onClearQuery,
+        )
+
+        is BrandSearchTeaching.OneBrand -> EmptyState(
+            message = stringResource(R.string.empty_no_brand_match, query),
+            // The name can be empty only if the query changed between the lookup and this frame,
+            // which the view model's equality check prevents. A blank brand is shown as the code
+            // itself rather than as an empty gap, because a sentence with a hole in it reads
+            // like a bug. (trap 5)
+            detail = stringResource(
+                R.string.teach_one_brand,
+                teaching.code,
+                teaching.brandName.ifBlank { teaching.code },
+            ),
+            actionLabel = stringResource(R.string.teach_action),
+            onAction = onClearQuery,
+        )
+
+        // null while the lookup is in flight, and `None` for a query that is not a code. Both
+        // show the plain miss and nothing else: an explanation that appears late and unbidden
+        // is worse than none.
+        else -> EmptyState(message = stringResource(R.string.empty_no_brand_match, query))
     }
 }
 

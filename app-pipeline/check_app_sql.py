@@ -268,6 +268,48 @@ def main() -> int:
         "SELECT COUNT(*) FROM favourites WHERE code_id NOT IN (SELECT id FROM codes)"
     ).fetchone()[0], 0)
 
+    # ── SearchDao.codePresence: the brands screen's teaching empty state ────
+    # This is the only query in the app whose *output* is a sentence. If the shape is wrong the
+    # screen says something false out loud, so it is pinned on both halves: the count, and the
+    # guarantee that a name is only ever returned when there is exactly one brand to name.
+    presence_sql = """
+        SELECT COUNT(DISTINCT c.brand_id),
+               CASE WHEN COUNT(DISTINCT c.brand_id) = 1 THEN MIN(b.name) END
+          FROM codes c LEFT JOIN brands b ON b.id = c.brand_id
+         WHERE c.code_norm = ?
+    """
+    for query, want_count in [("E6", 16), ("E1", 20), ("F4", 15), ("200", 1), ("ID013", 1)]:
+        count, name = db.execute(presence_sql, (norm(query),)).fetchone()
+        check(f"codePresence({query}) counts the brands that publish it", count, want_count)
+        if count == 1:
+            check(f"codePresence({query}) names the single publishing brand", bool(name), True)
+        else:
+            check(f"codePresence({query}) names no brand when there are {count}",
+                  name is None, True)
+
+    # The number the guide quotes as an illustration is E6 on 16 brands. If a data release
+    # moves it, this fails loudly rather than the app quietly telling a technician something
+    # that is no longer true.
+    check("E6 really is on 16 brands, as PHASE_5 5 and DESIGN.md 4.2 state",
+          db.execute(presence_sql, ("E6",)).fetchone()[0], 16)
+
+    # The digit heuristic in `looksLikeACode` is only safe because of these two facts. If a
+    # future data release adds a brand whose name contains a digit, the teaching state would
+    # start firing on a brand search and the screen would explain a rule nobody broke.
+    check("no brand name contains a digit, so the digit heuristic cannot misfire",
+          db.execute("SELECT COUNT(*) FROM brands WHERE name GLOB '*[0-9]*'").fetchone()[0], 0)
+    check("most code strings do contain a digit, so the heuristic is worth having",
+          db.execute(
+              "SELECT COUNT(*) FROM codes WHERE code_norm GLOB '*[0-9]*'"
+          ).fetchone()[0] > 1000, True)
+
+    # `code_norm` must exist and be indexed: this is the difference between 0.15 ms and a
+    # full scan, and the whole reason the query is on a keystroke at all.
+    check("code_norm exists on codes", "code_norm" in
+          [r[1] for r in db.execute("PRAGMA table_info(codes)")], True)
+    check("code_norm is indexed", "idx_codes_norm" in
+          [r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='index'")], True)
+
     db.close()
     if failures:
         print(f"\n::error::the app's SQL does not match the data: {', '.join(failures)}")

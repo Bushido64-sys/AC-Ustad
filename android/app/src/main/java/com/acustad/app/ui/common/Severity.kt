@@ -65,7 +65,9 @@ enum class Severity {
 fun severityVisuals(severity: Severity, language: ContentLanguage): SeverityVisuals =
     when (severity) {
         Severity.DANGER -> SeverityVisuals(
-            label = word(R.string.severity_danger, R.string.severity_danger_ur, language),
+            label = bilingualChipWord(
+                R.string.severity_danger, R.string.severity_danger_ur, language,
+            ),
             background = ustadColor(R.color.signal_deep, R.color.signal_on_dark),
             content = ustadColor(R.color.canvas, R.color.canvas_dark),
             border = BorderStroke(
@@ -74,25 +76,33 @@ fun severityVisuals(severity: Severity, language: ContentLanguage): SeverityVisu
             ),
         )
         Severity.STOP -> SeverityVisuals(
-            label = word(R.string.severity_stop_pro, R.string.severity_stop_pro_ur, language),
+            label = bilingualChipWord(
+                R.string.severity_stop_pro, R.string.severity_stop_pro_ur, language,
+            ),
             background = ustadColor(R.color.signal_tint, R.color.signal_dark_surface),
             content = ustadColor(R.color.ink, R.color.ink_invert),
             border = BorderStroke(2.dp, ustadColor(R.color.signal_stop, R.color.signal_dark_text)),
         )
         Severity.CHECK -> SeverityVisuals(
-            label = word(R.string.severity_check_restart, R.string.severity_check_restart_ur, language),
+            label = bilingualChipWord(
+                R.string.severity_check_restart, R.string.severity_check_restart_ur, language,
+            ),
             background = ustadColor(R.color.signal_tint_3, R.color.signal_dark_surface),
             content = ustadColor(R.color.ink, R.color.ink_invert),
             border = BorderStroke(2.dp, ustadColor(R.color.signal_mid, R.color.signal_dark_text)),
         )
         Severity.CLEARS -> SeverityVisuals(
-            label = word(R.string.severity_self_clear, R.string.severity_self_clear_ur, language),
+            label = bilingualChipWord(
+                R.string.severity_self_clear, R.string.severity_self_clear_ur, language,
+            ),
             background = ustadColor(R.color.neutral_fill, R.color.neutral_fill_dark),
             content = ustadColor(R.color.ink, R.color.ink_invert),
             border = null,
         )
         Severity.INFO -> SeverityVisuals(
-            label = word(R.string.severity_info, R.string.severity_info_ur, language),
+            label = bilingualChipWord(
+                R.string.severity_info, R.string.severity_info_ur, language,
+            ),
             background = ustadColor(R.color.canvas, R.color.canvas_dark),
             content = ustadColor(R.color.ink, R.color.ink_invert),
             border = BorderStroke(2.dp, ustadColor(R.color.hairline, R.color.hairline_dark)),
@@ -106,14 +116,29 @@ fun severityVisuals(severity: Severity, language: ContentLanguage): SeverityVisu
  */
 @Composable
 fun indicatorVisuals(language: ContentLanguage): SeverityVisuals = SeverityVisuals(
-    label = word(R.string.severity_indicator, R.string.severity_indicator_ur, language),
+    label = bilingualChipWord(
+                R.string.severity_indicator, R.string.severity_indicator_ur, language,
+            ),
     background = ustadColor(R.color.canvas, R.color.canvas_dark),
     content = ustadColor(R.color.ink_muted, R.color.ink_muted_dark),
     border = BorderStroke(2.dp, ustadColor(R.color.hairline, R.color.hairline_dark)),
 )
 
+/**
+ * Picks the English or Roman Urdu string for a chip's word.
+ *
+ * **Not private, and that is the point.** The severity chips and the confidence badge both need
+ * it, and the confidence badge was silently missing its Urdu strings for the whole life of the
+ * app because it had no way to ask. A badge that says HIGH while everything around it is in
+ * Roman Urdu is a partial toggle, which is trap 12 wearing a much smaller hat.
+ *
+ * Every chip word goes through here, so a new chip cannot forget the language by accident. The
+ * rule it implements is RULE 13: these words are **content** and switch; UI labels, brand names
+ * and model names do not.
+ */
 @Composable
-private fun word(enRes: Int, urRes: Int, language: ContentLanguage): String = when (language) {
-    ContentLanguage.EN -> stringResource(enRes)
-    ContentLanguage.UR -> stringResource(urRes)
-}
+fun bilingualChipWord(enRes: Int, urRes: Int, language: ContentLanguage): String =
+    when (language) {
+        ContentLanguage.EN -> stringResource(enRes)
+        ContentLanguage.UR -> stringResource(urRes)
+    }

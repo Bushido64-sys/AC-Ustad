@@ -2,10 +2,9 @@
 
 **Read this first when resuming.** Last updated: 2026-09-29
 
-> **Where we are:** Phases 1–4, 6 and the Phase 8 language toggle are built and have been through
-> the §6 phone checks. The knowledge base and the 20-document build guide are finished.
-> **Settings and the theme override are built and CI-green but have never been opened by a
-> human** — §7 item 2, §6 group 4.
+> **Where we are:** Phases 1–4, 6 and 8 are built and phone-checked. The knowledge base and the
+> 20-document build guide are finished. Phase 11 (UI/UX) is the next build, with Phase 5's
+> teaching empty state and one CI gate ahead of it.
 
 > **2026-09-29:** the human ran the §6 checks on a real phone and reported them passing, so the
 > Phase 4, 6 and 8 screens move to ✅. That is a human result, not a CI result — CI still cannot
@@ -30,7 +29,7 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 5 · Search polish | 🟡 | The **data layer** is done and tested; the empty-search teaching state is not built |
 | 6 · Saved screen | ✅ phone-checked 2026-09-29 | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
 | 7 · Offline & updates | 🟡 | **Trap 16 fixed** — a new APK now always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and four CI gates enforce them. The Settings *screen* that carries the §6 content is **coded, unbuilt** — §7 item 2 |
-| 8 · Accessibility & Roman Urdu | 🟡 | The **EN/UR content toggle works, persists, and passed the §6 group-3 phone checks 2026-09-29** (it is partial-toggle-safe: one repository per process). **Settings and the theme are coded but never compiled** — see §7 item 2. Still open: the font-scale / TalkBack pass |
+| 8 · Accessibility & Roman Urdu | ✅ phone-checked 2026-09-29 | The EN/UR toggle works, persists and is partial-toggle-safe. **Settings + the theme override are built and passed the §6 group-4 checks**, including the trap-22 Light-mode fix. Still open: the font-scale / TalkBack pass |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
 | 11 · UI/UX | ⬜ **planned, not started** | **The app looks bare because `BorderedPanel` and `BorderedRow` use `Color.Transparent`** — `surface` and `surface_alt` are mapped in the theme and never used as a fill. The design exists and is measured; the implementation ignores it. Plan: `app-pipeline/guide/PHASE_11_UI_UX.md`. Fixes it with **zero new colours**. **Carries two live constraints now: (a) the theme override is real and must stay real — no colour may go back behind a `values-night` qualifier (trap 22), and (b) the Settings screen is a third surface and will need the same pass as the rest** |
 | 10 · Monetisation | ⬜ **not started** | **Planning only.** Free-with-ads → trial → paid, all on Play. The plan is written: `app-pipeline/guide/PHASE_10_MONETISATION.md`. Nothing is built until a Play developer account exists |
@@ -328,6 +327,12 @@ the **Settings** tab, not Home.
 **Group 4 — Settings, and the theme (Phase 8, added 2026-09-29).** A new screen that no test
 opens is exactly the situation §1's rule was written about, so it gets checks before it is
 called done.
+
+> **All nine passed 2026-09-29**, on build `0b1b4c0`, reported by the human. That includes the
+> Light-mode fix for trap 22, which was found by this very round: the first attempt at group 4
+> came back "the light mode isn't working", and the cause was a `values-night/` colour folder
+> that no automated test in this project could have seen. Two of the nine failed on the first
+> pass and were fixed; the rest passed first time. **A human result, not a CI result.**
 
 19. The bar has **three** tabs — Browse, Saved, Settings — and the Settings tab opens the
     Settings screen. Only Saved has an icon; Browse and Settings are text with the icon slot

@@ -35,6 +35,7 @@ import com.acustad.app.ui.common.EmptyState
 import com.acustad.app.ui.common.Severity
 import com.acustad.app.ui.common.SeverityChip
 import com.acustad.app.ui.common.StarIcon
+import com.acustad.app.ui.common.bilingualChipWord
 import com.acustad.app.ui.common.indicatorVisuals
 import com.acustad.app.ui.common.severityVisuals
 import com.acustad.app.ui.theme.UstadType
@@ -121,7 +122,7 @@ fun CodeDetailScreen(
             )
         }
 
-        SourceBlock(detail)
+        SourceBlock(detail, state.language)
     }
 }
 
@@ -277,7 +278,7 @@ private fun CollapsibleBlock(
  * none. The confidence badge appears here and nowhere else.
  */
 @Composable
-private fun SourceBlock(detail: CodeDetail) {
+private fun SourceBlock(detail: CodeDetail, language: ContentLanguage) {
     val type = detail.sourceType
     val title = detail.sourceTitle
     if (type == null && title == null) return
@@ -293,7 +294,7 @@ private fun SourceBlock(detail: CodeDetail) {
                     text = listOfNotNull(type, title).joinToString(" · "),
                     style = UstadType.caption,
                 )
-                ConfidenceChip(detail.confidence)
+                ConfidenceChip(detail.confidence, language)
                 if (link != null) {
                     TextButton(
                         onClick = { runCatching { uriHandler.openUri(link) } },
@@ -309,13 +310,27 @@ private fun SourceBlock(detail: CodeDetail) {
     }
 }
 
-/** The confidence badge: outline only, detail screen only, never in a list. */
+/**
+ * The confidence badge: outline only, detail screen only, never in a list.
+ *
+ * It takes the language because **the word is content and must switch with it** (RULE 13). It
+ * did not, for the badge's whole life, which meant the detail screen said HIGH while the
+ * severity chip beside it said BAND KARO — a partial toggle, and the exact class of fault trap
+ * 12 is about. The `confidence_*_ur` strings existed the whole time and were never referenced;
+ * a declared-but-unused string is how this stayed invisible, because nothing failed.
+ */
 @Composable
-private fun ConfidenceChip(confidence: String) {
+private fun ConfidenceChip(confidence: String, language: ContentLanguage) {
     val label = when (confidence) {
-        "high" -> stringResource(R.string.confidence_high)
-        "medium" -> stringResource(R.string.confidence_medium)
-        else -> stringResource(R.string.confidence_low)
+        "high" -> bilingualChipWord(
+            R.string.confidence_high, R.string.confidence_high_ur, language,
+        )
+        "medium" -> bilingualChipWord(
+            R.string.confidence_medium, R.string.confidence_medium_ur, language,
+        )
+        else -> bilingualChipWord(
+            R.string.confidence_low, R.string.confidence_low_ur, language,
+        )
     }
     SeverityChip(
         label = label,

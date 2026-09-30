@@ -59,11 +59,23 @@ jobs:
           # fails the build if any permission slipped in (PERMISSIONS.md)
           ! grep -ri "uses-permission" app/build/intermediates/merged_manifests/
 
-      - name: No network client in the binary
+      - name: The APK contains no network client
         run: |
-          # fail on okhttp / retrofit / HttpURLConnection (RULE 14)
-          ! unzip -p app/build/outputs/apk/debug/app-debug.apk classes.dex | strings \
-            | grep -Ei "okhttp3|retrofit2|okio"
+          # RULE 14. See build-app.yml for the real thing.
+          #
+          # The sketch below is what this file claimed for a long time and never had. Two
+          # reasons it is not what ships: it greps one hard-coded `classes.dex`, and a multidex
+          # APK splits the classes across `classes2.dex`, `classes3.dex` and so on, where a
+          # library that should not be there is simply invisible to it. The shipped step unzips
+          # **every** dex file and looks for the type descriptors, which cannot be dodged by
+          # renaming a class.
+          #
+          # It also checks more than HTTP. An ad SDK is the realistic way this app would ever
+          # grow a network client, and an ad SDK is not an okhttp class - so the check names
+          # Play Ads, Facebook Ads and RxJava too, which is what an ad SDK brings with it.
+          ! unzip -qo "$APK" -d "$WORK" 'classes*.dex' \
+            && ! find "$WORK" -name 'classes*.dex' -print0 | xargs -0 strings \
+              | grep -E "Ljava/net/HttpURLConnection;|Lokhttp3/|Lcom/google/android/gms/ads/;|..."
 
       - uses: actions/upload-artifact@v4
         with:

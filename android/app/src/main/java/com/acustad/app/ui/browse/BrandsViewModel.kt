@@ -41,6 +41,22 @@ class BrandsViewModel(
 
     private val _all = MutableStateFlow<List<Brand>>(emptyList())
 
+    /**
+     * The teaching hint for a dead-end query, or null while there is nothing to say.
+     *
+     * Null is a **third** state, distinct from "no hint" and from "hint failed". It means "not
+     * applicable": the query was a brand name, so there is no rule to teach. Keeping it as null
+     * rather than an `Ambiguous(0, …)` is what stops a typo from producing a paragraph of
+     * explanation about a code that does not exist.
+     *
+     * A failed lookup also lands on null, and that is deliberate and worth being explicit
+     * about: the teaching line is a courtesy, and a courtesy that could fail must never take the
+     * plain "no brand matches" message down with it. (trap 5)
+     */
+    private val _teaching = MutableStateFlow<BrandSearchTeaching?>(null)
+
+    val teaching: StateFlow<BrandSearchTeaching?> = _teaching.asStateFlow()
+
     val state: StateFlow<BrandsState> =
         combine(_all, _query, _showAll, repo.contentLanguage) { brands, q, all, language ->
             val filtered = if (q.isBlank()) brands else brands.filter {
@@ -66,12 +82,43 @@ class BrandsViewModel(
         // A new query starts from the first page again, otherwise a short query can look
         // empty simply because the list is still collapsed.
         _showAll.value = false
+        refreshTeaching(value)
     }
 
     fun onClearQuery() = onQueryChange("")
 
     fun showAll() {
         _showAll.value = true
+    }
+
+    /**
+     * Works out whether the current query deserves the teaching empty state.
+     *
+     * Two-stage on purpose, and the cheap stage first. [looksLikeACode] is a digit test over the
+     * raw string — free, and it rejects the overwhelming majority of keystrokes. Only a query
+     * that survives it reaches the database, so this costs at most one 0.15 ms query on a
+     * debounced search field and usually costs nothing.
+     *
+     * Every keystroke cancels the previous lookup's result. Without that, typing `E6` one
+     * character at a time would leave whichever answer arrived last on screen, which is not
+     * necessarily the one for the text currently in the field. A stale hint is worse than no
+     * hint: it explains the wrong thing confidently.
+     */
+    private fun refreshTeaching(value: String) {
+        _teaching.value = null
+        if (!looksLikeACode(value)) return
+
+        val asked = value
+        viewModelScope.launch {
+            val hint = runCatching {
+                val presence = repo.codePresence(asked)
+                teachingFor(asked, presence.brandCount, presence.brandName)
+            }.getOrDefault(BrandSearchTeaching.None)
+
+            // The query moved on while this was in flight. `String` equality, not identity, so
+            // a re-typed identical query is still accepted.
+            if (asked == _query.value) _teaching.value = hint
+        }
     }
 
     companion object {
