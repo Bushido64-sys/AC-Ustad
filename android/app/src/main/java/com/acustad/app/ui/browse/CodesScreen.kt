@@ -115,7 +115,17 @@ fun CodesScreen(
             if (state.codes.isEmpty() && !state.isSearching) {
                 item(key = "empty") {
                     if (query.isNotBlank()) {
-                        EmptyState(message = noMatch)
+                        // The third step of `searchCodes` — this model's own descriptions —
+                        // produces no row of its own, so a technician reading a bare "no code
+                        // matches" cannot tell it ran. `isDescription` is the same carve-out the
+                        // brands screen uses: a fault description deserves saying what was
+                        // searched, a code (`E6`) only needs the headline.
+                        val detail = if (isDescription(query)) {
+                            stringResource(R.string.empty_no_code_match_detail, viewModel.seriesName)
+                        } else {
+                            null
+                        }
+                        EmptyState(message = noMatch, detail = detail)
                     } else {
                         EmptyState(
                             message = stringResource(

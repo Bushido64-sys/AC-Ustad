@@ -169,6 +169,19 @@ PROGRESS trap 25):
 Same headline, same action, different detail. The one-word typo (`sharpe`) still gets silence:
 two words with no digit between them are how no one spells a brand name here.
 
+Inside a **model** those same words are the right question and usually a right answer (§2) —
+and when they find nothing there either, the codes screen no longer answers with a bare
+zero (added 2026-09-30, PROGRESS trap 25):
+
+> **No code matches "air leakage" in this model.**
+> Only Splits — Inverter & Fixed-Speed (shared platform) is searched — including what its
+> codes mean, what causes them and how to fix them. Words that appear only in another model
+> are not shown here.
+
+One line, no button, no image — the brands screen's `isDescription` carve-out applied to a
+different box. `E6` missing from a model still gets the headline alone: a code needs no
+explanation, it just is not in this model.
+
 ## 6. Perf numbers to protect
 
 | Operation | Budget | Measured |

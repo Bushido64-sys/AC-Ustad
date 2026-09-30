@@ -151,6 +151,18 @@ clip them.
   fix steps, so `air leakage` finds the two codes whose fix steps say it (`PHASE_5_SEARCH.md`
   §2, PROGRESS trap 25). If the query matches exactly one code, offer "Open E6" rather than
   making them tap a row.
+- That third step is invisible when it returns nothing — a technician who searched a model
+  and read a bare "no code matches" concluded it was never implemented there. So a **fault
+  description** that finds nothing now gets a second line saying what was searched (added
+  2026-09-30):
+
+  > **No code matches "air leakage" in this model.**
+  > Only Splits — Inverter & Fixed-Speed (shared platform) is searched — including what its
+  > codes mean, what causes them and how to fix them. Words that appear only in another model
+  > are not shown here.
+
+  A real code that this model lacks (`E6`) still gets the headline alone: it needs no
+  explanation, it simply is not here. Same `isDescription` carve-out as §4.2.
 
 ### 4.5 Code detail — action first
 Order is fixed by product decision: **the technician wants the action, not the essay.**
