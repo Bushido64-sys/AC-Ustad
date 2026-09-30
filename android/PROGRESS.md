@@ -2,10 +2,14 @@
 
 **Read this first when resuming.** Last updated: 2026-09-30
 
-> **Where we are:** Phases 1–8 and 11 are built and phone-checked. The knowledge base and the
-> 20-document build guide are finished. Phase 11 is complete as a build — steps 1–6 of its 7,
-> the seventh (per-brand source list) closed by decision — and its §6 group 5 has been run on a
-> phone.
+> **Where we are:** Phases 1–8 and 11 are built and phone-checked, and **Phase 5's search work
+> is finished and confirmed on the phone at this session's close (2026-09-30)**: free text
+> reaches the descriptions (trap 25), the loose title step answers words apart, the empty state
+> says what was searched, a device without FTS5 still finds every word (trap 26), and the
+> known-code guard can no longer deny a model its own codes (trap 27). The knowledge base and
+> the 20-document build guide are finished. Phase 11 is complete as a build — steps 1–6 of its
+> 7, the seventh (per-brand source list) closed by decision — and its §6 group 5 has been run
+> on a phone.
 >
 > **Nothing is half-finished and nothing is in flight.** `build app` and `verify data` are green
 > on `main`, and the working tree is clean. (A commit hash is deliberately not written here:
@@ -13,6 +17,23 @@
 >
 > **Next in §7 is Phase 9** — release signing, the performance pass and the pre-release
 > checklist. Phase 10 stays blocked on a Play developer account.
+
+> **2026-09-30 (session close) — every open phone item, confirmed by the human.** The builds
+> from this session were installed and tested, and at close the human's instruction was that
+> everything passes, so this note discharges every **Needs a human** line in the notes below.
+> Confirmed: §6 group 1 **including all trap-25 additions** — Panasonic → Modern H/F →
+> `air leakage` = F91 + F97 and nothing else; FoxESS → H1(G2) = Iso Fault + Res Cur HW Fault;
+> the brands screen teaching fault words (*"air leakage" describes a fault, not a brand*) and
+> staying silent for `E6`; Dawlance → Splits → `air leakage` = **2 rows, `CF` and `E4`** while
+> Panasonic still shows only its precise pair; `water pump` = **0 rows with the scope line**;
+> the swapped row labels on checks 3–4 (brand rows count models, model rows count codes). Also
+> confirmed: the trap-26 build — `indoor` in Hitachi's SET FREE air365 = **31 rows including
+> `01`**; the trap-27 build — `Run flash 5Hz + Timer off` inside Midea's MSG lamp = that row,
+> and "no code matches" in any other model; and **check 34** on the build carrying trap 24 (no
+> muted text on a raised block, light mode). Gates at close: `verify data` green with
+> `check_app_sql.py` at **79 assertions**; `build app` green with **114 unit tests**, 0 lint
+> errors and artifact `ac-ustad-debug` (13,415,165 bytes). Phase 5 is ✅ phone-checked in §1,
+> §6 groups 1 and 5 are fully run, and the first open item in §7 is Phase 9.
 
 > **2026-09-30:** the human reported §6 group 5 (28–37) passing on the phone, so Phase 11 moves
 > to ✅. Then a source read — not a phone — found that all three `Text`s inside `RaisedPanel`
@@ -112,14 +133,14 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 |---|---|---|
 | 1 · Setup | ✅ phone-checked | Skeleton, bundled database, 7 IBM Plex fonts, light + dark themes, launcher icon, home screen with live counts |
 | 2 · Data layer | ✅ phone-checked | 4 DAOs, immutable models, one repository, favourites writes, stale-id sweep |
-| 3 · Browse | ✅ phone-checked | Home → brands → model lines → codes, with scoped search on every list |
+| 3 · Browse | ✅ phone-checked | Home → brands → model lines → codes, with scoped search on every list. **Row labels confirmed 2026-09-30:** brand rows count **models**, model rows count **codes** (they were swapped until `058a015`; pinned by `RowCountLabelTest`) |
 | 4 · Code detail | ✅ phone-checked 2026-09-29 | Severity + meaning → numbered fix steps → causes → notes → source, with a working star. Was marked ✅ while being **completely dead on a phone** — see trap 15. The build was green throughout; only a human tapping a code found it. Fixed and now re-verified on the device |
-| 5 · Search polish | ✅ phone-checked 2026-09-29 | The **teaching empty state** (2026-09-29): a code typed on the brands screen explains the scoping rule with a **measured** brand count, and offers a way forward. The count is a query — `16` is written nowhere in the app. **Added 2026-09-30, not yet on a phone:** free text inside a model now also searches that model's descriptions (trap 25), and the brands screen teaches fault words — both are in the note at the top and in §6's group 1 |
+| 5 · Search polish | ✅ **phone-checked 2026-09-30** | **All of it on the phone at session close** (see the close note at the top). The **teaching empty state**: a code typed on the brands screen explains the scoping rule with a **measured** brand count (never written down), and the same screen teaches fault words — *"air leakage" describes a fault, not a brand*. Free text inside a model searches that model's **descriptions** (trap 25), the **loose title step** answers words the index holds apart (Dawlance Splits `air leakage` → `CF`, `E4`), a dead description query carries the **scope line** in the codes empty state, a device **without FTS5** still finds every word (`codesText` catches and falls through — trap 26), and the **known-code guard** can no longer deny a model its own codes (trap 27: `Run flash 5Hz + Timer off`, `★-★-●` — the whole chain replays at 4,418/4,418). Gates: 79 checker assertions, 10 contract tests |
 | 6 · Saved screen | ✅ phone-checked 2026-09-29 | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
 | 7 · Offline & updates | ✅ | **Trap 16 fixed** — a new APK always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and **five** CI gates now enforce them, including the network/ads gate that used to be documented and not written (trap 23) |
-| 8 · Accessibility & Roman Urdu | ✅ phone-checked 2026-09-29 | The EN/UR toggle works, persists and is partial-toggle-safe. **Settings + the theme override are built and passed the §6 group-4 checks**, including the trap-22 Light-mode fix. Still open: the font-scale / TalkBack pass |
+| 8 · Accessibility & Roman Urdu | ✅ phone-checked 2026-09-29 | The EN/UR toggle works, persists and is partial-toggle-safe. **Settings + the theme override are built and passed the §6 group-4 checks**, including the trap-22 Light-mode fix. **The font-scale / TalkBack pass ran on the device 2026-09-29** (§7 item 4: font scale 1.0 / 1.15 / 1.3, TalkBack reading a code end to end, longest content in both languages) and passed |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
-| 11 · UI/UX | ✅ **phone-checked 2026-09-30** | **Built 2026-09-29, steps 1–6 of the guide's 7; §6 group 5 (28–37) reported passing on the phone 2026-09-30, with check 34 to be re-read on the build carrying trap 24 — see the note at the top.** `BorderedPanel` and `BorderedRow` were passing `Color.Transparent`; both now fill with `surface`, and the new `RaisedPanel` (level 2, `surfaceVariant`) is on the detail screen's meaning and source line where `DESIGN.md` §4.5 already said *raised*. `R.dimen` went from **zero uses to four**, so the token file is load-bearing rather than decorative. **Zero new colours.** **Also built in the same pass, all from `PHASE_11_UI_UX.md`:**
+| 11 · UI/UX | ✅ **phone-checked 2026-09-30** | **Built 2026-09-29, steps 1–6 of the guide's 7; §6 group 5 (28–37) reported passing on the phone 2026-09-30, and check 34 confirmed on the build carrying trap 24 at this session's close.** `BorderedPanel` and `BorderedRow` were passing `Color.Transparent`; both now fill with `surface`, and the new `RaisedPanel` (level 2, `surfaceVariant`) is on the detail screen's meaning and source line where `DESIGN.md` §4.5 already said *raised*. `R.dimen` went from **zero uses to four**, so the token file is load-bearing rather than decorative. **Zero new colours.** **Also built in the same pass, all from `PHASE_11_UI_UX.md`:**
    - **The star moved into the app bar** (§6 #1, and the one the guide calls important).
      `AcUstadAppBar` had **no action slot at all**; it has exactly one now, and the star is
      extracted to a shared `StarToggle` so the body and the bar cannot disagree. It sat in the
@@ -478,6 +499,12 @@ to be opened here, on a real phone, by a human, before the phase counts as done.
 because no automated test ever opened it. Re-run these after **any** change that touches a
 screen, not only when a phase closes.
 
+> **Groups 1, 4 and 5 are fully run.** Group 4 passed 2026-09-29; groups 1 (including every
+> trap-25 addition below, the row labels in checks 3–4, and the trap-26/27 search builds) and 5
+> (including check 34 on the trap-24 build) were reported passing at this session's close,
+> 2026-09-30 — see the close note at the top. Groups 2 and 3 passed 2026-09-29 with Phases 6
+> and 8. **All thirty-seven checks have now been run on a phone.**
+
 **Group 1 — the six original checks (browse, detail, search):**
 
 1. **Airplane mode on.** The app must be fully usable. If anything needs a network, it is a bug.
@@ -592,8 +619,9 @@ called done.
     do not change. Only code content changes. (RULE 13)
 27. Airplane mode: Settings opens and shows the data block. Nothing on it needs a network.
 
-**Group 5 — Phase 11, the visual pass. Reported passing on the phone 2026-09-30, with check 34
-outstanding on the build carrying trap 24 — see the note at the top.**
+**Group 5 — Phase 11, the visual pass. Reported passing on the phone 2026-09-30, and re-run at
+session close with check 34 confirmed on the build carrying trap 24 — no muted text on a raised
+block in light mode.**
 Every check here is a **visual judgement**, and not one automated test in this project can make
 one. The surface hierarchy is the phase; if the three levels do not read, stop rather than
 building on them.
@@ -634,8 +662,9 @@ one.
 **The one genuine defect it had is now fixed (trap 16). What remains:**
 
 1. ~~**Phase 11 is built through §6 and is waiting on a human.**~~ — **done 2026-09-30.** §6
-   group 5 (28–37) was reported passing on the phone, so Phase 11 is ✅ in §1, with check 34
-   recorded there as needing one re-read on the build carrying trap 24. The phase's two
+   group 5 (28–37) was reported passing on the phone, so Phase 11 is ✅ in §1, and **check 34
+   was re-read on the build carrying trap 24 and confirmed at this session's close.** The
+   phase's two
    remaining items were both closed on purpose and stay closed:
    - **§6 #4 — the brand's source list at the bottom of Brands: SKIPPED by decision, 2026-09-29.**
      The human chose to close the phase without it. It needs a new route, a new DAO query and a
@@ -670,7 +699,8 @@ one.
      screen result.
    - **§6 group 4's nine checks have not been run.** Until they are, this screen is exactly what
      trap 15 describes: a green build and no human ever having opened it.
-3. ~~**Phase 5's teaching empty state.**~~ — **built 2026-09-29, CI green, not phone-checked.**
+3. ~~**Phase 5's teaching empty state.**~~ — **built 2026-09-29, phone-checked 2026-09-30**
+   (the brands screen's two teaching lines are in §6 group 1, confirmed at session close).
    A code typed on the *brands* screen now explains the scoping rule with a **measured** brand
    count and offers "Show all brands". Three outcomes, not one: many brands, exactly one brand
    (which is named), and not-a-code (which says nothing). The action is deliberately **not** the

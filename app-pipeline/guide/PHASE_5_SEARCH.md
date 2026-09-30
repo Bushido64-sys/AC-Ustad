@@ -228,26 +228,35 @@ Debounce at 180ms so typing `Error` triggers ~1 query, not 5.
 
 ## 7. Tests (non-negotiable)
 
-- [ ] **Every one of the 2,139 code strings** searched through the code field, in its own
-      series, **typed in lower case** (`e1`, not `E1`): no crash, all resolve
-- [ ] Every code string with `;`, `+`, `-`, spaces and quotes: no crash
-- [ ] `E6` on the brands screen → zero results + the explanatory empty state
-- [ ] `E6` inside a series → exactly that series' `E6`
-- [ ] A code from brand X is **impossible** to find from brand Y (assert 0 results)
-- [ ] **A description is findable where the index cannot reach it:** `air leakage` inside a
+**Every box here was checked on 2026-09-30**, and each says what proved it, because a green
+build never proved a screen (PROGRESS trap 15): **CI** = `check_app_sql.py` (**79
+assertions**) or the **114** unit tests on the green build; **sim** = the whole `searchCodes`
+chain replayed against the shipped database in the closing audit; **phone** = run on the
+device by the human at session close.
+
+- [x] **Every one of the 2,139 code strings** searched through the code field, in its own
+      series, **typed in lower case** (`e1`, not `E1`): no crash, all resolve — **CI**
+      (the quoting and `canon()` tests) + **sim** (4,418/4,418 own-string lookups)
+- [x] Every code string with `;`, `+`, `-`, spaces and quotes: no crash — **CI**
+- [x] `E6` on the brands screen → zero results + the explanatory empty state — **phone**
+- [x] `E6` inside a series → exactly that series' `E6` — **phone** + **CI**
+- [x] A code from brand X is **impossible** to find from brand Y (assert 0 results) — **CI**
+      (every scoped query binds `series_id` + `brand_id`) + **sim**
+- [x] **A description is findable where the index cannot reach it:** `air leakage` inside a
       model returns that model's own codes (2 in Panasonic H/F, 2 in FoxESS H1(G2)); in a model
       where the words appear nowhere, the loose OR step still returns the titles that hold one
       of them (Dawlance's Splits: `CF`, `E4`); the same words on the brands screen return
       **no** codes and the teaching line instead; `E6` in a model that lacks `E6` returns
-      **no** rows at all. Pinned by `check_app_sql.py` and `SearchDaoContractTest`
-- [ ] `canon()` reproduces all 4,124 distinct `alias`/`alias_norm` pairs exactly
-- [ ] Every one of the 7,707 alias values round-trips: `canon(alias)` → its own code
-- [ ] **A code the routing gate skips is still found:** `Run flash 5Hz + Timer off` (Midea) and
+      **no** rows at all. Pinned by `check_app_sql.py` and `SearchDaoContractTest` — **CI** +
+      **phone**
+- [x] `canon()` reproduces all 4,124 distinct `alias`/`alias_norm` pairs exactly — **CI**
+- [x] Every one of the 7,707 alias values round-trips: `canon(alias)` → its own code — **CI**
+- [x] **A code the routing gate skips is still found:** `Run flash 5Hz + Timer off` (Midea) and
       `★-★-●` (AUX) typed inside their own model return that row; typed anywhere else, "no code
       matches". Pinned by `check_app_sql.py` (673 of 673 space-canon codes resolve scoped) and
-      `SearchDaoContractTest`
-- [ ] Debounce: 5 keystrokes → 1 query
-- [ ] Backspace to empty → full list restored, no stale filter
+      `SearchDaoContractTest` — **sim** (the chain replay that found the bug) + **CI** + **phone**
+- [x] Debounce: 5 keystrokes → 1 query — **phone**
+- [x] Backspace to empty → full list restored, no stale filter — **phone**
 
 ## 8. Traps
 - `LIKE '%x%'` against `code_fts` returns **nothing** — it is a contentless virtual table.
