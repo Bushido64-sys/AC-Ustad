@@ -1,8 +1,12 @@
 package com.acustad.app.data
 
+import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 import com.acustad.app.model.CodeSummary
 import com.acustad.app.model.ScopedSeries
+
+private const val TAG = "SearchDao"
 
 /**
  * Search: **two jobs, never mixed.**
@@ -93,22 +97,41 @@ class SearchDao(private val db: SQLiteDatabase) {
      *
      * `bm25` ascending means better matches first — the sign is easy to get backwards.
      * `code_fts` is a contentless external table with `rowid = codes.id`.
+     *
+     * ### Why this step is allowed to fail
+     *
+     * FTS5 is a **compile-time option of SQLite**, and the system build Android ships is not
+     * guaranteed to have it: on a device that does not, preparing this statement throws
+     * `no such module: FTS5` and — because `searchCodes` runs its steps in order — that one
+     * throw used to abort the *whole* search, including [codesDescription], which is plain
+     * `LIKE` and needed no FTS at all. The symptom was a search box that answered every code
+     * and no word: `indoor` in Hitachi's SET FREE air365 returns **31 rows** off the titles
+     * alone, and the phone showed none of them. So a database error here returns **no rows and
+     * logs**, it does not propagate — the index is a speed-up over the LIKE step, never a
+     * prerequisite of it.
      */
     suspend fun codesText(
         scope: ScopedSeries,
         quotedQuery: String,
         limit: Int = 60,
     ): List<CodeSummary> = io {
-        db.rawQuery(
-            """
-            SELECT c.id, c.uid, c.code, c.title_en, c.title_ur, c.severity, c.is_fault, c.display
-              FROM code_fts JOIN codes c ON c.id = code_fts.rowid
-             WHERE code_fts MATCH ? AND c.series_id = ? AND c.brand_id = ?
-             ORDER BY bm25(code_fts, 10.0, 1.0, 3.0)
-             LIMIT ?
-            """.trimIndent(),
-            arrayOf(quotedQuery, scope.seriesId, scope.brandId, limit.toString()),
-        ).mapRows { it.toSummary() }
+        try {
+            db.rawQuery(
+                """
+                SELECT c.id, c.uid, c.code, c.title_en, c.title_ur, c.severity, c.is_fault, c.display
+                  FROM code_fts JOIN codes c ON c.id = code_fts.rowid
+                 WHERE code_fts MATCH ? AND c.series_id = ? AND c.brand_id = ?
+                 ORDER BY bm25(code_fts, 10.0, 1.0, 3.0)
+                 LIMIT ?
+                """.trimIndent(),
+                arrayOf(quotedQuery, scope.seriesId, scope.brandId, limit.toString()),
+            ).mapRows { it.toSummary() }
+        } catch (e: SQLException) {
+            // Empty, not thrown: the caller's next step is codesDescription, which asks the
+            // same titles with LIKE and has never needed FTS5. See the doc above.
+            Log.w(TAG, "code_fts MATCH failed (${e.message}); falling back to the LIKE step", e)
+            emptyList<CodeSummary>()
+        }
     }
 
     /**

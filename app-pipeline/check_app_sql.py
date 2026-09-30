@@ -347,6 +347,20 @@ def main() -> int:
     check("a second model with the same words returns its own 2 codes",
           len(describe(PANASONIC, "panasonic", "air leakage")[1]), 2)
 
+    # ── The step that has to work when the index does not ─────────────────────
+    # FTS5 is a compile-time option of SQLite, and Android's system build does not promise it.
+    # When `code_fts MATCH` throws, SearchDao.codesText catches it and returns nothing so that
+    # searchCodes carries on to the LIKE step - which never needed FTS5. Without that, one
+    # throw emptied the whole search and the box answered codes but no words: `indoor` in
+    # Hitachi's SET FREE air365 finds 31 rows off the titles alone, and the phone showed none.
+    # This query is the fallback path verbatim: it touches no index at all.
+    AIR365 = "hitachi-pk-set-free-air365-wired-alarm"
+    air365_cols, air365_rows = describe(AIR365, "hitachi", "indoor")
+    check("a title word answers through the LIKE step alone, with no index involved",
+          len(air365_rows), 31)
+    check("including code 01, the row the technician reported missing",
+          "01" in [r[2] for r in air365_rows], True)
+
     # ── RULE 3, on the one series_id the database reuses across 9 brands ─────
     # `series_id` is not unique: 'inverter-split' belongs to nine brands. A description query
     # bound on the series alone would return all nine brands' rows at once — the exact failure

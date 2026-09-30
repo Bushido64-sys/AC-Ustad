@@ -1,6 +1,7 @@
 package com.acustad.app.ui.browse
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -8,6 +9,7 @@ import com.acustad.app.model.CodeSummary
 import com.acustad.app.model.ContentLanguage
 import com.acustad.app.model.ScopedSeries
 import com.acustad.app.repo.KbRepository
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -91,7 +93,16 @@ class CodesViewModel(
         searchJob = viewModelScope.launch {
             delay(DEBOUNCE_MS)
             _searching.value = true
-            _results.value = runCatching { repo.searchCodes(scope, value) }.getOrDefault(emptyList())
+            _results.value = try {
+                repo.searchCodes(scope, value)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                // The first version of this line was `runCatching {}.getOrDefault(emptyList())`,
+                // which turned every failure into "no code matches" and hid the one that mattered.
+                Log.e(TAG, "search for '$value' in $seriesId/$brandId failed", e)
+                emptyList()
+            }
             _searching.value = false
         }
     }
@@ -104,6 +115,8 @@ class CodesViewModel(
 
         /** 180ms: long enough to avoid a query per keystroke, short enough to feel instant. */
         const val DEBOUNCE_MS = 180L
+
+        private const val TAG = "CodesViewModel"
     }
 }
 

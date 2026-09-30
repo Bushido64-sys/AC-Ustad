@@ -62,6 +62,22 @@
 > Dawlance → Splits → `water pump` = **0 rows plus the detail line**, the only shape that
 > empty state can still take.
 
+> **2026-09-30 (last) — a word search that answered nothing was the index, not the data.**
+> The report: *"i search 'indoor' in Hitachi's air365 MAX / Max Pro model's code list page and
+> it doesn't appear — the 01 code which has 'indoor' in its title; tested others with their
+> title words too but never worked."* The row was there all along: `01` is titled *Indoor-unit
+> float-switch protection activated*, and **31 of that model's 65 codes** say "indoor"
+> somewhere — the LIKE path returns all 31 in about 3 ms locally, index or no index. What broke
+> was the **order** of `searchCodes` and the `catch` that was not there — FTS5 is a compile-time
+> option of SQLite and Android's system
+> build does not promise it, so `code_fts MATCH` throwing took the whole search down with it,
+> *including the `LIKE` step that never needed an index*. `CodesViewModel` then drew the
+> failure as an ordinary empty list. It is trap 26, fixed in the DAO (catch, log, fall through)
+> and in the ViewModel (log instead of swallow). **Needs a human:** Hitachi → SET FREE air365
+> Max / Max Pro → `indoor` must show **31 rows with `01` among them**; the same word in any
+> other model must return its titles rather than nothing; and if the index really is missing on
+> that phone, `adb logcat -s SearchDao` shows the warning while search still works.
+
 > **2026-09-29:** the human ran the §6 checks on a real phone and reported them passing, so the
 > Phase 4, 6 and 8 screens move to ✅. That is a human result, not a CI result — CI still cannot
 > open a screen (trap 15). It is recorded here because §1 defines ✅ as a phone check and the
@@ -387,15 +403,30 @@ reason several comments in the code look defensive.
     copying it, and by `SearchDaoContractTest`. **The general rule: when the data contract and
     the promise disagree, change the code that reads the data — not the data.**
 
+26. **A search box that answers every code and no word is an index failure, not a data gap.**
+    Reported 2026-09-30: `indoor` in Hitachi's SET FREE air365 Max / Max Pro showed nothing,
+    although code `01` is titled *Indoor-unit float-switch protection activated* and **31 of
+    that model's 65 codes** say "indoor" somewhere. The data was fine. FTS5 is a
+    **compile-time option of SQLite** and Android's system build does not promise it, so
+    `code_fts MATCH` can throw on a phone — and `searchCodes` runs its steps in order, so one
+    throw aborted the **whole** search, including `codesDescription`, which is plain `LIKE` and
+    never needed an index. Two things hid it: the throw itself, and
+    `runCatching {}.getOrDefault(emptyList())` in `CodesViewModel`, which renders a failure as
+    an honest-looking "No code matches". Fixed app-side: `codesText` catches `SQLException`,
+    logs `Log.w` and returns an empty list so the LIKE step still runs; the ViewModel now logs
+    instead of swallowing. Pinned by `check_app_sql.py` (31 rows through the LIKE path alone,
+    `01` among them) and a source-reading test. **The general rule: a step that is an
+    optimisation must never be able to fail the steps after it.**
+
 ## 5. The gates, and what each one is for
 
 | Gate | Protects |
 |---|---|
 | `verify data` / `tools/validate.py` | the knowledge base validates against the schema |
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
-| `verify data` / `check_app_sql.py` | **75 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order** (after trap 15), the teaching-state count and its `code_norm` guard, and the description search (trap 25) — whose SQL is **read out of `SearchDao.kt`**, not retyped, so the checker and the app cannot drift |
+| `verify data` / `check_app_sql.py` | **77 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order** (after trap 15), the teaching-state count and its `code_norm` guard, the description search (trap 25) — whose SQL is **read out of `SearchDao.kt`**, not retyped, so the checker and the app cannot drift — and the LIKE-only fallback for a device without FTS5 (trap 26) |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | **112** tests (20 search input, 17 teaching-state, 15 models, 9 schema, 8 staging, **8 search-SQL contract**, 7 theme, 6 language, 6 toggle-guard, 5 palette-contract, 4 Settings formatters, **2 row-label**, **2 codes-empty-state**, 3 content-colour — counted off the `@Test` annotations, 2026-09-30), including all 2,139 code strings and the FTS quoting. Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen**; the decision-function and SQL assertions, and every source-reading test — the 3 added with trap 24, the 8 in `SearchDaoContractTest` (trap 25), the 2 in `RowCountLabelTest` and the 2 in `CodesEmptyStateTest` — all still cannot see a pixel |
+| `build app` / unit tests | **113** tests (20 search input, 17 teaching-state, 15 models, 9 schema, 8 staging, **9 search-SQL contract**, 7 theme, 6 language, 6 toggle-guard, 5 palette-contract, 4 Settings formatters, **2 row-label**, **2 codes-empty-state**, 3 content-colour — counted off the `@Test` annotations, 2026-09-30), including all 2,139 code strings and the FTS quoting. Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen**; the decision-function and SQL assertions, and every source-reading test — the 3 added with trap 24, the 9 in `SearchDaoContractTest` (traps 25 and 26), the 2 in `RowCountLabelTest` and the 2 in `CodesEmptyStateTest` — all still cannot see a pixel |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission. **This is what actually enforces RULE 14** — zero permissions means zero network, since `INTERNET` is a normal permission |
 | `build app` / database hash | the APK cannot carry a stale database. On-device re-staging is a separate rule — see trap 16 |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |

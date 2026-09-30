@@ -57,6 +57,15 @@ last, it never runs for a single word (nothing to loosen), and it never runs for
 exists somewhere in the knowledge base. In Dawlance's Splits the whole chain now reads
 `air leakage` → 2 rows (`CF`, `E4`); in Panasonic Modern H/F it still reads F91 and F97.
 
+**No step may depend on FTS5 being compiled into the device.** It is a compile-time option of
+SQLite and Android's system build does not promise it, so `code_fts MATCH` can throw on a
+phone. `SearchDao.codesText` catches that `SQLException`, logs it and returns an empty list,
+which lets `searchCodes` continue to `codesDescription` — plain `LIKE`, no index required. The
+index is a speed-up over that step, never a prerequisite: through the fallback alone,
+`indoor` in Hitachi's SET FREE air365 returns **31 rows including `01`**, and that is what
+`check_app_sql.py` pins (a JVM test cannot ask a phone which modules its SQLite was built
+with).
+
 ### Exact / prefix code lookup — the safe path
 
 ```sql

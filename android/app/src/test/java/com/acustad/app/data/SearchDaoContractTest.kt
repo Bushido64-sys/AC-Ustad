@@ -160,6 +160,29 @@ class SearchDaoContractTest {
         )
     }
 
+    @Test
+    fun `the index step may fail, and may not take the LIKE step down with it`() {
+        // FTS5 is a compile-time option of SQLite and Android's system build does not promise
+        // it. When `MATCH` throws, codesText must hand back nothing rather than propagate: one
+        // throw in the middle of searchCodes emptied the whole search, titles included, and the
+        // box answered every code and no word (`indoor` in Hitachi air365 = 0 rows on a phone,
+        // 31 rows on the same data through LIKE).
+        val body = bodyOf(source, "codesText")
+        assertTrue(
+            "codesText must catch SQLException, or a device without FTS5 answers every word " +
+                "with nothing while the LIKE step beside it stays perfectly healthy",
+            body.contains("catch (e: SQLException)"),
+        )
+        assertTrue(
+            "the catch must return an empty list so searchCodes continues to codesDescription",
+            body.contains("emptyList<CodeSummary>()"),
+        )
+        assertTrue(
+            "the failure must be logged - an invisible fallback is how the first one hid",
+            body.contains("Log.w(TAG"),
+        )
+    }
+
     /** The `DESCRIPTION_SQL` constant, exactly as it is written in SearchDao.kt. */
     private fun descriptionSql(): String {
         val marker = "DESCRIPTION_SQL = \"\"\""
