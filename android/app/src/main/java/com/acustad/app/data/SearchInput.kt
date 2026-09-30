@@ -78,6 +78,31 @@ object SearchInput {
             .joinToString(" AND ") { "\"" + it.replace("\"", "\"\"") + "\"" }
 
     /**
+     * The same terms as [ftsQuery], **OR**-joined — the last thing `searchCodes` asks the
+     * index, and nothing else ever uses it.
+     *
+     * A technician types words and expects the ones that *are* in this model's titles to come
+     * up. The AND of [ftsQuery] cannot always deliver that: measured on the shipped database,
+     * **no title in the whole knowledge base contains both `air` and `leakage`** — 0 of 4,418 —
+     * so `"air" AND "leakage"` answers zero in all 320 model lines while *Refrigerant leakage
+     * detection* and *Anti-Cold Air Feature On* sit in titles holding one word of it each.
+     * This is that same index with the words OR-joined, asked only when the precise steps
+     * above have all failed, so nothing that already works is re-ranked and the words found
+     * together still win over the words found apart.
+     *
+     * Returns **nothing to search for fewer than two words**: one word has nothing to loosen,
+     * and [ftsQuery] already asked the index for it. Same quoting rule as [ftsQuery] — every
+     * term quoted individually — so `BLINK-RUNNING`, `;` and `+` stay harmless.
+     */
+    fun ftsQueryAny(raw: String): String {
+        val terms = raw.split(' ', '\t', '\n')
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+        if (terms.size < MIN_LOOSE_TERMS) return ""
+        return terms.joinToString(" OR ") { "\"" + it.replace("\"", "\"\"") + "\"" }
+    }
+
+    /**
      * The words a canonical query contributes to the **description** search — the text of a
      * fault, not the code that names it.
      *
@@ -109,6 +134,9 @@ object SearchInput {
 
     /** Shortest term the description search will match on; see [descriptionTerms]. */
     private const val MIN_DESCRIPTION_TERM = 2
+
+    /** Fewest words worth a loose (OR) search; see [ftsQueryAny]. */
+    private const val MIN_LOOSE_TERMS = 2
 
     /**
      * True when a query looks like a code rather than a description: short and space-free

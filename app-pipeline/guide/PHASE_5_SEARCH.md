@@ -48,6 +48,15 @@ model, 7.8 ms on the largest (106 codes), against §6's 50 ms budget.
 lines for `air leakage`, two inside each of two named models, and zero for a brand that does
 not publish the series.
 
+**A third step, and only when both of those fail: the same index with the words OR-joined.**
+`SearchInput.ftsQueryAny` answers the words *apart* when they answer nothing *together* —
+measured on the shipped database **no title holds both `air` and `leakage`** (0 of 4,418), so
+the AND above returns zero in all 320 model lines while *Refrigerant leakage detection* and
+*Anti-Cold Air Feature On* each hold one word of it. The precise steps always win: this runs
+last, it never runs for a single word (nothing to loosen), and it never runs for a code that
+exists somewhere in the knowledge base. In Dawlance's Splits the whole chain now reads
+`air leakage` → 2 rows (`CF`, `E4`); in Panasonic Modern H/F it still reads F91 and F97.
+
 ### Exact / prefix code lookup — the safe path
 
 ```sql
@@ -169,11 +178,12 @@ PROGRESS trap 25):
 Same headline, same action, different detail. The one-word typo (`sharpe`) still gets silence:
 two words with no digit between them are how no one spells a brand name here.
 
-Inside a **model** those same words are the right question and usually a right answer (§2) —
-and when they find nothing there either, the codes screen no longer answers with a bare
-zero (added 2026-09-30, PROGRESS trap 25):
+Inside a **model** those same words are the right question and usually a right answer (§2): the
+precise step finds them in a fix step, and the loose step finds the titles that hold one of
+them when the two together hold none. Only when the whole chain comes back empty does the
+codes screen stop answering with a bare zero (added 2026-09-30, PROGRESS trap 25):
 
-> **No code matches "air leakage" in this model.**
+> **No code matches "water pump" in this model.**
 > Only Splits — Inverter & Fixed-Speed (shared platform) is searched — including what its
 > codes mean, what causes them and how to fix them. Words that appear only in another model
 > are not shown here.
@@ -205,10 +215,11 @@ Debounce at 180ms so typing `Error` triggers ~1 query, not 5.
 - [ ] `E6` inside a series → exactly that series' `E6`
 - [ ] A code from brand X is **impossible** to find from brand Y (assert 0 results)
 - [ ] **A description is findable where the index cannot reach it:** `air leakage` inside a
-      model returns that model's own codes (2 in Panasonic H/F, 2 in FoxESS H1(G2)); the same
-      words on the brands screen return **no** codes and the teaching line instead; `E6` in a
-      model that lacks `E6` returns **no** description rows. Pinned by `check_app_sql.py` and
-      `SearchDaoContractTest`
+      model returns that model's own codes (2 in Panasonic H/F, 2 in FoxESS H1(G2)); in a model
+      where the words appear nowhere, the loose OR step still returns the titles that hold one
+      of them (Dawlance's Splits: `CF`, `E4`); the same words on the brands screen return
+      **no** codes and the teaching line instead; `E6` in a model that lacks `E6` returns
+      **no** rows at all. Pinned by `check_app_sql.py` and `SearchDaoContractTest`
 - [ ] `canon()` reproduces all 4,124 distinct `alias`/`alias_norm` pairs exactly
 - [ ] Every one of the 7,707 alias values round-trips: `canon(alias)` → its own code
 - [ ] Debounce: 5 keystrokes → 1 query

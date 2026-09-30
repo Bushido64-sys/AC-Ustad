@@ -131,6 +131,25 @@ class SearchInputTest {
     }
 
     @Test
+    fun `ftsQueryAny OR-joins the words, each still quoted`() {
+        // The words together matched nothing in this model, so the index is asked for each of
+        // them apart: no title holds both `air` and `leakage`, but two of them hold one each.
+        assertEquals("\"air\" OR \"leakage\"", SearchInput.ftsQueryAny("air leakage"))
+        assertEquals("\"a\" OR \"b\" OR \"c\"", SearchInput.ftsQueryAny("a b c"))
+        assertEquals("\"air\" OR \"leakage\"", SearchInput.ftsQueryAny("  air   leakage  "))
+    }
+
+    @Test
+    fun `ftsQueryAny has nothing to ask for fewer than two words, and stays crash-safe`() {
+        // One word has nothing to loosen, and ftsQuery already asked the index for it.
+        assertEquals("", SearchInput.ftsQueryAny("compressor"))
+        assertEquals("", SearchInput.ftsQueryAny("   "))
+        // Same quoting rule as ftsQuery, so the inputs that crash MATCH unquoted stay safe.
+        assertEquals("\"BLINK-RUNNING\" OR \"fan\"", SearchInput.ftsQueryAny("BLINK-RUNNING fan"))
+        assertEquals("\"LED1\" OR \"blink;\"", SearchInput.ftsQueryAny("LED1 blink;"))
+    }
+
+    @Test
     fun `looksLikeCode is true for codes and false for descriptions`() {
         assertTrue(SearchInput.looksLikeCode(SearchInput.canon("e1")))
         assertTrue(SearchInput.looksLikeCode(SearchInput.canon("blink-running")))

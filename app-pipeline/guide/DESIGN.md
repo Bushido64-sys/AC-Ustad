@@ -149,14 +149,17 @@ clip them.
 - The search box here searches **this model line only** — its codes, and (when the input is
   not a code anywhere in the knowledge base) its own descriptions, meanings, notes, causes and
   fix steps, so `air leakage` finds the two codes whose fix steps say it (`PHASE_5_SEARCH.md`
-  §2, PROGRESS trap 25). If the query matches exactly one code, offer "Open E6" rather than
-  making them tap a row.
+  §2, PROGRESS trap 25) — and, when the words together appear nowhere in this model, the same
+  index OR-joined still returns the titles that hold one of them: `air leakage` in Dawlance's
+  Splits gives `CF` and `E4`, because no title in the whole database holds both words. The
+  precise answer always outranks the loose one. If the query matches exactly one code, offer
+  "Open E6" rather than making them tap a row.
 - That third step is invisible when it returns nothing — a technician who searched a model
   and read a bare "no code matches" concluded it was never implemented there. So a **fault
   description** that finds nothing now gets a second line saying what was searched (added
   2026-09-30):
 
-  > **No code matches "air leakage" in this model.**
+  > **No code matches "water pump" in this model.**
   > Only Splits — Inverter & Fixed-Speed (shared platform) is searched — including what its
   > codes mean, what causes them and how to fix them. Words that appear only in another model
   > are not shown here.

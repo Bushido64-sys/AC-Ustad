@@ -45,9 +45,22 @@
 > carve-out — multi-word, no digit) that finds nothing in a model now carries the scope line,
 > *"Only <model> is searched — including what its codes mean, what causes them and how to fix
 > them"*. A code still gets the headline alone. Pinned by `CodesEmptyStateTest`, which reads
-> `CodesScreen.kt` because no test here can open a screen (trap 15). **Needs a human:**
-> Dawlance → Splits → `air leakage` = **0 rows plus the new line**; Panasonic → Modern H/F →
-> the same words = F91 and F97 with **no** detail line.
+> `CodesScreen.kt` because no test here can open a screen (trap 15). The phone checks for it
+> moved to the note below, once the search learned to answer them with rows.
+
+> **2026-09-30 (later still) — and then he wanted the words, not the explanation.** The
+> sharpened report: *"i want search result with 'air leakage' in there title — titles words
+> can be able to search and come up in results"*. Measured on the shipped database **no title
+> in the knowledge base holds both `air` and `leakage`** (0 of 4,418), so step two's AND
+> answered zero in all 320 model lines while *Refrigerant leakage detection* and *Anti-Cold
+> Air Feature On* each hold one word of it. `searchCodes` gained a **fourth step**: the same
+> index OR-joined (`SearchInput.ftsQueryAny`), asked only when the three precise steps have
+> failed, never for a single word (there is nothing to loosen), never for a code that exists
+> somewhere else (`isKnownCode` still sits ahead of it). **Needs a human:** Dawlance → Splits →
+> `air leakage` = **2 rows (CF, E4)** where every build until now said 0; Panasonic → Modern
+> H/F → still **F91 and F97** with **no** detail line, because the precise step wins; and
+> Dawlance → Splits → `water pump` = **0 rows plus the detail line**, the only shape that
+> empty state can still take.
 
 > **2026-09-29:** the human ran the §6 checks on a real phone and reported them passing, so the
 > Phase 4, 6 and 8 screens move to ✅. That is a human result, not a CI result — CI still cannot
@@ -382,7 +395,7 @@ reason several comments in the code look defensive.
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
 | `verify data` / `check_app_sql.py` | **75 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order** (after trap 15), the teaching-state count and its `code_norm` guard, and the description search (trap 25) — whose SQL is **read out of `SearchDao.kt`**, not retyped, so the checker and the app cannot drift |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | **110** tests (18 search input, 17 teaching-state, 15 models, 9 schema, 8 staging, **8 search-SQL contract**, 7 theme, 6 language, 6 toggle-guard, 5 palette-contract, 4 Settings formatters, **2 row-label**, **2 codes-empty-state**, 3 content-colour — counted off the `@Test` annotations, 2026-09-30), including all 2,139 code strings and the FTS quoting. Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen**; the decision-function and SQL assertions, and every source-reading test — the 3 added with trap 24, the 8 in `SearchDaoContractTest` (trap 25), the 2 in `RowCountLabelTest` and the 2 in `CodesEmptyStateTest` — all still cannot see a pixel |
+| `build app` / unit tests | **112** tests (20 search input, 17 teaching-state, 15 models, 9 schema, 8 staging, **8 search-SQL contract**, 7 theme, 6 language, 6 toggle-guard, 5 palette-contract, 4 Settings formatters, **2 row-label**, **2 codes-empty-state**, 3 content-colour — counted off the `@Test` annotations, 2026-09-30), including all 2,139 code strings and the FTS quoting. Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen**; the decision-function and SQL assertions, and every source-reading test — the 3 added with trap 24, the 8 in `SearchDaoContractTest` (trap 25), the 2 in `RowCountLabelTest` and the 2 in `CodesEmptyStateTest` — all still cannot see a pixel |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission. **This is what actually enforces RULE 14** — zero permissions means zero network, since `INTERNET` is a normal permission |
 | `build app` / database hash | the APK cannot carry a stale database. On-device re-staging is a separate rule — see trap 16 |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
@@ -434,11 +447,16 @@ without opening a screen.
   empty list. Type `E6` instead: the teaching line must stay silent and the scoping
   explanation must appear as before, because `E6` is a real code.
 - **A model that does *not* use those words** — **Dawlance → Splits — Inverter & Fixed-Speed
-  (shared platform)**, search `air leakage`: **0 rows**, and the empty state must carry the
+  (shared platform)**, search `water pump`: **0 rows**, and the empty state must carry the
   second line, *"Only … is searched — including what its codes mean, what causes them and how
   to fix them"*, not the bare headline. That second line is what tells a technician the
   description search exists in this box. A one-word code typed the same way must leave the
   empty state to the headline alone.
+- **The loose step, still in that model:** search `air leakage` → **2 rows, `CF` and `E4`**
+  (*Anti-Cold Air Feature On*, *Refrigerant Leakage*), because no title in the whole database
+  holds both words and the fourth step shows the titles that hold one. One screen up in
+  **Panasonic → Modern H/F** the same words must still be **F91 and F97 only** — the precise
+  step wins, the loose one must not push extra rows in front of it.
 
 **Group 2 — the six Saved-screen checks (Phase 6):**
 

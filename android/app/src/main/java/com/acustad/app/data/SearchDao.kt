@@ -31,6 +31,16 @@ import com.acustad.app.model.ScopedSeries
  * have must still be told "no code matches", not shown a list of codes that merely *mention*
  * it. `PHASE_5_SEARCH.md` §1 promises free text searches "that series' descriptions"; the
  * index alone could not keep that promise.
+ *
+ * ### And a third step, which loosens the first one
+ *
+ * When both of those answer nothing — the words together appear nowhere in this model —
+ * [SearchInput.ftsQueryAny] asks the *same* index for the words it does hold in titles,
+ * OR-joined. Measured on the shipped database no title contains both `air` and `leakage` (0 of
+ * 4,418), while *Refrigerant leakage detection* and *Anti-Cold Air Feature On* hold one of
+ * them each: a technician who typed both is shown those, scoped exactly like every other step,
+ * instead of a bare "no code matches". It runs last so the precise answers always win, and
+ * never for a single word, which has nothing to loosen.
  */
 class SearchDao(private val db: SQLiteDatabase) {
 
@@ -243,17 +253,19 @@ class SearchDao(private val db: SQLiteDatabase) {
     }
 
     /**
-     * The full two-job search a code field runs, in order:
+     * The full search a code field runs, in order:
      *
      *  1. **exact**, then **prefix**, on `aliases` — but only for a query that looks like a
      *     code. A code-looking string is never sent to FTS.
      *  2. **free text** over `code_fts`, quoted and AND-joined.
      *  3. only if that found nothing, and only if the query is not a code anywhere in the
      *     knowledge base, the **description** search over this model's own text.
+     *  4. only if *that* found nothing, the same index **OR-joined** — the words this model's
+     *     titles do hold, when the words together hold none of them.
      *
-     * Each step returns only when it found something, so step 3 costs nothing on any query that
-     * already works, and a code this model does not have still ends on step 2's empty list —
-     * which is what the screen's "no code matches" message is for.
+     * Each step returns only when it found something, so the later steps cost nothing on any
+     * query that already works, and a code this model does not have still ends on step 2's
+     * empty list — which is what the screen's "no code matches" message is for.
      */
     suspend fun searchCodes(scope: ScopedSeries, rawQuery: String): List<CodeSummary> {
         val canon = SearchInput.canon(rawQuery)
@@ -267,7 +279,10 @@ class SearchDao(private val db: SQLiteDatabase) {
         val text = codesText(scope, SearchInput.ftsQuery(rawQuery))
         if (text.isNotEmpty()) return text
         if (isKnownCode(canon)) return emptyList()
-        return codesDescription(scope, SearchInput.descriptionTerms(canon))
+        val described = codesDescription(scope, SearchInput.descriptionTerms(canon))
+        if (described.isNotEmpty()) return described
+        val loose = SearchInput.ftsQueryAny(rawQuery)
+        return if (loose.isEmpty()) emptyList() else codesText(scope, loose)
     }
 
     companion object {

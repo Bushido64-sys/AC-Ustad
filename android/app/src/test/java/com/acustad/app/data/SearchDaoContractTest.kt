@@ -110,15 +110,17 @@ class SearchDaoContractTest {
     }
 
     @Test
-    fun `the description fallback is the last step, and only after the free-text index failed`() {
+    fun `the precise steps run in order, and the loose title search is last`() {
         val body = bodyOf(source, "searchCodes")
         val text = body.indexOf("codesText(")
         val known = body.indexOf("isKnownCode(")
         val description = body.indexOf("codesDescription(")
+        val loose = body.indexOf("ftsQueryAny(")
 
         assertTrue("searchCodes no longer calls codesText", text >= 0)
         assertTrue("searchCodes no longer gates on isKnownCode", known >= 0)
         assertTrue("searchCodes no longer falls back to codesDescription", description >= 0)
+        assertTrue("searchCodes no longer loosens the index with ftsQueryAny", loose >= 0)
 
         assertTrue(
             "the description search must come after the free-text index, or every query that " +
@@ -132,8 +134,19 @@ class SearchDaoContractTest {
             known < description,
         )
         assertTrue(
-            "codesDescription must be the last call in searchCodes",
-            description == body.lastIndexOf("codesDescription("),
+            "the loose OR search must come after the description search, or titles that merely " +
+                "share one word would outrank the answers the words together actually found",
+            description < loose,
+        )
+        assertTrue(
+            "the loose search must be the last codesText call in searchCodes, so the least " +
+                "precise step can never return first",
+            body.lastIndexOf("codesText(") > loose,
+        )
+        assertTrue(
+            "a single word must never reach the loose search: it has nothing to loosen, and the " +
+                "plain free-text step already asked the index for it",
+            body.contains("loose.isEmpty()"),
         )
     }
 
