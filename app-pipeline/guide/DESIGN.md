@@ -184,8 +184,13 @@ Order is fixed by product decision: **the technician wants the action, not the e
 - Numbers matter: they are what a technician says on the phone ("try step 2").
 - Source line shows `source_type` + `source_title`, and a link **only** when `source_url` is
   present (26 codes have none — no dead button).
-- The full-screen list of sources for the brand goes at the bottom of the Brands screen, not
-  here.
+- ~~The full-screen list of sources for the brand goes at the bottom of the Brands screen, not
+  here.~~ **Not built, by decision 2026-09-29.** The per-code `source_type` / `source_title` /
+  `source_url` still show on **this** screen, which is where a technician checking a specific
+  answer wants them. What is missing is the per-brand roll-up at the bottom of Brands, and the
+  same day that the global coverage panel came off Settings — so the line above is now an
+  override rather than a description. It needs a new route and a new query; it is a judgement
+  call, not an oversight.
 
 ### 4.6 Saved
 - Rows: code (mono) + series + brand, star filled. There is no `is_read` column, so there is

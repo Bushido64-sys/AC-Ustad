@@ -290,7 +290,7 @@ Not decoration. Each is a line in `DESIGN.md` that the code does not honour.
 | 1 | §4.5 *"← chevron · series · brand · ☆ — the star is the only action in the top bar"* | The star is in the content body, and **`AcUstadAppBar` has no action slot at all** | Add one `action: @Composable (() -> Unit)?` to the app bar, move the star into it |
 | 2 | §4.3 *"Back returns to the brands list with its query and scroll position intact"* | No list state is saved anywhere | `rememberSaveable` the `LazyListState` and the query per screen |
 | 3 | §4.4 *"If the query matches exactly one code, offer 'Open E6' rather than making them tap a row"* | Not built | One extra row on a single result |
-| 4 | §4.5 *"The full-screen list of sources for the brand goes at the bottom of the Brands screen"* | Not built | A trailing row on `BrandsScreen` |
+| 4 | §4.5 *"The full-screen list of sources for the bottom of the Brands screen"* | **Skipped by decision, 2026-09-29** | A trailing row on `BrandsScreen` would need a new screen, a new route, a new query and a new `check_app_sql.py` assertion. It was held for confirmation because it collides with a decision already taken — the global coverage panel was removed from **Settings** the same day, and this is the closest thing to bringing it back. The difference is real (a per-brand list answers "is **my** machine covered?" where the global one answered "how big is this app?"), so it is a judgement call about this app rather than an oversight. **Not built, on purpose.** |
 
 **#1 is the important one.** It is why the detail screen's header looks unfinished, and it is
 the one place the star is missing from where a thumb expects it. `PHASE_8` §3 says the star must

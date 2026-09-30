@@ -412,15 +412,17 @@ one.
 
 1. **Phase 11 is built through §6 and is waiting on a human.** See the Phase 11 row in §1. The
    remaining two items are:
-   - **§6 #4 — the brand's source list at the bottom of Brands** (`DESIGN.md` §4.5). **Held
-     back deliberately, and the reason is a decision already taken.** A *per-brand* source list
-     answers "is my machine covered?", which is a question about the user's machine. That is
-     different from the global coverage panel that was removed from Settings on 2026-09-29,
-     which answered a question about the app. It needs a new route, a new DAO query and a new
-     `check_app_sql.py` assertion, so it is worth confirming it is wanted before building it.
-   - **§7 — the remaining token drift.** ~110 hardcoded `.dp` values. **Invisible**: not one
-     pixel changes, and no phone check can see it done. It converts screen by screen alongside
-     whatever else each screen is already being given, and nothing else.
+   - **§6 #4 — the brand's source list at the bottom of Brands: SKIPPED by decision, 2026-09-29.**
+     The human chose to close the phase without it. It needs a new route, a new DAO query and a
+     new `check_app_sql.py` assertion, and it collides with a decision taken the same day (the
+     global coverage panel came off Settings). `DESIGN.md` §4.5 and `PHASE_11` §6 both now record
+     it as an override, so neither document quietly claims it exists. The per-code source still
+     shows on the code's own page, which is where a technician checking one answer looks.
+   - **§7 — the remaining token drift: also closed.** ~110 hardcoded `.dp` values left in the
+     source. **Invisible** — not one pixel changes, and no phone check can see it done. It is
+     documentation debt, not a defect, and it converts screen by screen whenever a screen is
+     being changed anyway. `R.dimen` went 0 → 5 uses this phase, which is enough that the token
+     file is no longer a comment.
    **And the thing that is actually blocking: none of steps 1–6 has been looked at.** The guide
    is explicit that if the three levels do not read on a real phone, the rest of this phase is
    built on a wrong foundation.
