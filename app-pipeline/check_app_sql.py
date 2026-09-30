@@ -12,6 +12,9 @@ Every assertion below mirrors a query in the app:
   app/src/main/java/com/acustad/app/data/SearchDao.kt
   app/src/main/java/com/acustad/app/data/FavouritesDao.kt
 
+with one exception: `SearchDao.DESCRIPTION_SQL` is *read out of the Kotlin source* rather than
+retyped, because it is too long to copy faithfully (see `_kotlin_description_sql`).
+
 If a data release changes a column, a count or a convention, this fails on the push that
 caused it, rather than in a technician's hand.
 
@@ -44,6 +47,71 @@ def _load_norm():
 
 
 norm = _load_norm()
+
+APP_SRC = (HERE.parent / "android" / "app" / "src" / "main" / "java" / "com" / "acustad" /
+           "app" / "data" / "SearchDao.kt")
+
+
+def _kotlin_description_sql() -> str:
+    """Reads `SearchDao.DESCRIPTION_SQL` out of the Kotlin source, verbatim.
+
+    Every other query in this file is retyped, with a comment naming the file it came from —
+    which is honest, and is also a copy that can drift. This one is *not* retyped, because its
+    haystack is eight columns and two correlated subqueries: a hand-copied version of that would
+    be wrong in some subtle way within a month, and the error would be a search that quietly
+    returns the wrong codes rather than a failure.
+
+    So the statement executed here is the statement the app ships, byte for byte, with the same
+    `%WHERE%` substitution the DAO performs. If either side changes, they diverge and this file
+    fails first.
+    """
+    if not APP_SRC.exists():
+        raise SystemExit(f"::error::{APP_SRC} does not exist - cannot verify the app's SQL")
+    text = APP_SRC.read_text(encoding="utf-8")
+    marker = 'DESCRIPTION_SQL = """'
+    start = text.find(marker)
+    if start < 0:
+        raise SystemExit(
+            f"::error::{marker!r} not found in SearchDao.kt - DESCRIPTION_SQL moved; "
+            "this checker and the app must be updated together")
+    body = start + len(marker)
+    end = text.find('"""', body)
+    if end < 0:
+        raise SystemExit("::error::DESCRIPTION_SQL in SearchDao.kt is never closed")
+    lines = text[body:end].split("\n")
+    # Kotlin's trimIndent(): drop the common leading indent of the non-blank lines.
+    indent = min((len(l) - len(l.lstrip()) for l in lines if l.strip()), default=0)
+    return "\n".join(l[indent:] for l in lines).strip()
+
+
+def _description_terms(raw: str) -> list[str]:
+    """Mirrors `SearchInput.descriptionTerms`: canonicalise, split like unicode61, drop 1-char.
+
+    One copy, at module level, for the same reason `norm` is imported from build_kb: the term
+    rules are what make the query safe without an ESCAPE clause, and two of them would disagree
+    about `_` or about `3 phase` within a month.
+    """
+    return [t for t in re.split(r"[^A-Z0-9]+", norm(raw)) if len(t) >= 2]
+
+
+def _count_description_matches(db, query: str, sql: str):
+    """(codes, model lines) anywhere in the knowledge base whose own text holds every term.
+
+    Unscoped on purpose: it is used once, to state how much the fallback reaches — the number
+    that says whether this query is a token gesture or the fix it claims to be. Everything the
+    app actually runs is scoped; the scope is asserted separately, on the shared series_id.
+    """
+    terms = _description_terms(query)
+    if not terms:
+        return (0, 0)
+    start = sql.index("lower(")
+    end = sql.index(") AS haystack", start)
+    haystack = sql[start:end + len(")")]
+    where = " AND ".join(haystack + " LIKE ?" for _ in terms)
+    return db.execute(
+        "SELECT COUNT(*), COUNT(DISTINCT series_id || '|' || brand_id) FROM codes c WHERE " + where,
+        [f"%{t}%" for t in terms],
+    ).fetchone()
 
 # The app's code-detail query, mirrored from
 # android/app/src/main/java/com/acustad/app/data/CodeDao.kt (`DETAIL_SQL`), and the column
@@ -233,6 +301,94 @@ def main() -> int:
     check("a nonsense word returns nothing rather than everything", db.execute(
         "SELECT COUNT(*) FROM code_fts WHERE code_fts MATCH ?",
         (fts_query("zzzqqxnothing"),)).fetchone()[0], 0)
+
+    # ── SearchDao.codesDescription(): the words an index cannot answer ───────
+    # `code_fts` holds code_norm, aliases, titles — and `titles` is only the English and Roman
+    # Urdu titles (DATA_SCHEMA.md §2). A technician does not search titles; they search what is
+    # written on the unit in front of them: "air leakage". The phrase appears in 12 fix steps of
+    # the shipped database and in 0 titles, so free text returns nothing and the screen looks
+    # broken. This query answers them instead, scoped to one model line.
+    #
+    # The SQL is not mirrored here, it is *read out of SearchDao.kt*: DESCRIPTION_SQL is the one
+    # statement in this file that cannot be retyped faithfully, because its haystack is eight
+    # columns and two correlated subqueries. Reading it means this checker runs the exact bytes
+    # the app ships, and a change on either side fails here rather than in a technician's hand.
+    description_sql = _kotlin_description_sql()
+
+    SUMMARY_COLUMNS = ["id", "uid", "code", "title_en", "title_ur",
+                       "severity", "is_fault", "display"]
+
+    description_terms = _description_terms
+
+    def describe(series_id: str, brand_id: str, raw: str, limit: int = 60):
+        """Runs the app's description query exactly as the DAO builds it."""
+        terms = description_terms(raw)
+        if not terms:
+            return [], []
+        where = " AND ".join("d.haystack LIKE ?" for _ in terms)
+        cur = db.execute(
+            description_sql.replace("%WHERE%", where),
+            [series_id, brand_id] + [f"%{t}%" for t in terms] + [str(limit)],
+        )
+        return [d[0] for d in cur.description], cur.fetchall()
+
+    # The premise, in one line each: the index cannot answer this, and the fallback can.
+    check("code_fts answers 0 for 'air leakage' - it holds titles only, so a fallback exists",
+          db.execute("SELECT COUNT(*) FROM code_fts WHERE code_fts MATCH ?",
+                     (fts_query("air leakage"),)).fetchone()[0], 0)
+    check("the description search reaches 29 codes in 25 model lines for 'air leakage'",
+          _count_description_matches(db, "air leakage", description_sql), (29, 25))
+
+    FOXESS, PANASONIC = "foxess-h1-ac1-g2-insulation", "panasonic-hf-self-diagnosis"
+    cols, rows = describe(FOXESS, "foxess", "air leakage")
+    check("the description query projects the summary columns, in toSummary's order",
+          cols, SUMMARY_COLUMNS)
+    check("a model whose fix steps mention air leakage returns its 2 codes", len(rows), 2)
+    check("a second model with the same words returns its own 2 codes",
+          len(describe(PANASONIC, "panasonic", "air leakage")[1]), 2)
+
+    # ── RULE 3, on the one series_id the database reuses across 9 brands ─────
+    # `series_id` is not unique: 'inverter-split' belongs to nine brands. A description query
+    # bound on the series alone would return all nine brands' rows at once — the exact failure
+    # RULE 3 exists to prevent, and the reason both bindings live in the statement.
+    SHARED, WORD = "inverter-split", "power"
+    shared_brands = [r[0] for r in db.execute(
+        "SELECT DISTINCT brand_id FROM codes WHERE series_id = ? ORDER BY brand_id", (SHARED,))]
+    check("the shared series really is shared by nine brands", len(shared_brands), 9)
+    check("every one of the nine gets its own rows for the same words",
+          [len(describe(SHARED, b, WORD)[1]) for b in shared_brands],
+          [29, 23, 14, 1, 1, 21, 30, 24, 19])
+    check("the same words against a brand that does not publish that series return nothing",
+          len(describe(SHARED, "sharp", WORD)[1]), 0)
+
+    # The shape of the answer: AND, not OR; tokenised, not literal; scoped, not global.
+    check("AND, not OR: one real word plus one absent word finds nothing",
+          len(describe(FOXESS, "foxess", "air zzzqqxnothing")[1]), 0)
+    check("a nonsense description finds nothing", len(describe(FOXESS, "foxess", "zzzqqxnothing")[1]), 0)
+    check("punctuation is tokenised away rather than matched literally",
+          len(describe(FOXESS, "foxess", "air leakage!")[1]), 2)
+    check("the statement has exactly three placeholders that are not terms",
+          description_sql.count("?"), 3)
+
+    # The gate: whether a dead-end query is words or a code is decided by the database, not by
+    # the shape of the string — 27% of code strings contain no digit, so a digit test would get
+    # `BLINK-RUNNING` wrong.
+    check("'E6' is a code somewhere, so it must never reach the description search",
+          db.execute("SELECT COUNT(*) FROM codes WHERE code_norm = ?",
+                     (norm("E6"),)).fetchone()[0] > 0, True)
+    check("'air leakage' is not a code, so it must get the description search",
+          db.execute("SELECT COUNT(*) FROM codes WHERE code_norm = ?",
+                     (norm("air leakage"),)).fetchone()[0], 0)
+
+    # The term rules, which are why the query needs no ESCAPE clause.
+    check("a one-character query is dropped, so LIKE cannot become a scan",
+          description_terms("a"), [])
+    check("terms are alphanumeric only, so no input can inject a LIKE wildcard",
+          all(t.isascii() and t.isalnum()
+              for q in ("100%", "%", "_", "a_b", "();--", "€£¥", "air leakage!")
+              for t in description_terms(q)), True)
+    check("descriptionTerms splits the way fts5's unicode61 tokenizer does",
+          description_terms("air leakage!"), ["AIR", "LEAKAGE"])
 
     # ── CodeDao.detailById(): the detail query's COLUMN LAYOUT ───────────────
     # This mirrors DETAIL_SQL deliberately. It does not re-test the query's *result*; it pins

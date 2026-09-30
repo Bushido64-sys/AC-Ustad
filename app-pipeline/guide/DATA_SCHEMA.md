@@ -182,6 +182,13 @@ It is contentless, so `LIKE '%x%'` against it returns nothing; free-text search 
 `MATCH`. A `snippet()` of `titles` is a duplicated uppercase blob and reads as noise, so the app
 selects no snippet — the code list already shows the real title on every row.
 
+**Nothing else about a code is in this index** — not the meanings, the notes, the causes or the
+fix steps. A word a technician says (`air leakage`) and no title uses therefore finds 0 rows here
+even though it is written through the fix steps. The app answers those with a second, scoped
+query over the model's own text (`SearchDao.codesDescription`), not with a reindex: rebuilding
+`code_fts` would change `kb.sqlite` and so the `data-manifest.json` sha256 the APK hash gate
+verifies (PROGRESS trap 25, `PHASE_5_SEARCH.md` §2).
+
 **Quote each term and AND them; do not wrap the whole query as one phrase.** A single quoted
 string is an FTS5 *phrase*, so `"inverter fault"` matches only those words adjacent in that order.
 Measured on the shipped database: phrase 10 hits, AND 89. See §8.

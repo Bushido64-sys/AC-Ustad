@@ -27,8 +27,7 @@ interface KbRepository {
     // ---- search, always scoped (RULE 3) -------------------------------
     suspend fun searchBrands(category: CategoryId, query: String): List<Brand>
     suspend fun searchSeries(brandId: Long, query: String): List<Series>
-    suspend fun searchCodes(seriesId: Long, query: String): List<CodeSummary>
-    suspend fun searchText(seriesId: Long, query: String): List<CodeHit>   // FTS, quoted
+    suspend fun searchCodes(scope: ScopedSeries, query: String): List<CodeSummary>
 
     // ---- one code, both languages, one query --------------------------
     suspend fun code(uid: String): CodeDetail?
@@ -44,16 +43,17 @@ interface KbRepository {
 }
 ```
 
-The scoping is enforced **in the signatures**: `searchCodes` and `searchText` take a
-`seriesId`, so it is not possible to write a global code search by accident. That is the
-mechanism behind RULE 3, not a convention.
+The scoping is enforced **in the signature**: `searchCodes` takes a `ScopedSeries`, which binds
+`series_id` **and** `brand_id` — `series_id` alone is not unique (9 brands share
+`inverter-split`) — so it is not possible to write a global code search by accident. That is
+the mechanism behind RULE 3, not a convention. It is also the only search entry point: there is
+no `searchText()`.
 
 ## 2. Value types
 
 ```kotlin
 @Immutable data class Category(val id: CategoryId, val title: String,
                                val brandCount: Int, val codeCount: Int)
-@Immutable data class CodeHit(val summary: CodeSummary, val snippet: String)
 @Immutable data class FavouriteRow(val codeId: Long, val createdAt: String)
 @Immutable data class KbMeta(val kbVersion: String, val builtAt: String,
                              val brandCount: Int, val seriesCount: Int, val codeCount: Int)
@@ -70,8 +70,7 @@ enum class CategoryId { AC, INVERTER }
 | `brands()` | includes brands with `code_count = 0` (8 of them). Sorted by `code_count` desc, then name. The caller decides whether to mute them |
 | `series()` | sorted by `code_count` desc, then name. Includes the 8 empty series |
 | `codes()` | one query, in memory, ≤106 rows. Use `display` as-is |
-| `searchCodes()` | **aliases table only.** Exact then prefix. Never FTS, never another series. Empty list is a normal result, not an error |
-| `searchText()` | FTS, wrapped in double quotes, series-scoped. Snippet marked with `«»`, 12-token radius |
+| `searchCodes()` | Three steps, in order: **exact then prefix** on `aliases` (only when the query looks like a code), then **quoted FTS** over `code_fts`, then — only if both found nothing and the input is **not a code anywhere in the knowledge base** — the **description** search over that model's own titles, meanings, notes, causes and fix steps (`SearchDao.codesDescription`, PROGRESS trap 25). Never another series, never another brand, never a snippet. Empty list is a normal result, not an error |
 | `code()` | `null` only if the uid is not in the database. All blocks may be empty; the UI hides them (`PHASE_4` §4) |
 | `setFavourite()` | idempotent, keyed on `code_id`, optimistic, single transaction |
 | `observeFavourites()` | emits on every write; newest first. Brand, series and title come from the join — the row has none of them |

@@ -42,6 +42,7 @@ object SearchInput {
     /** Anything that is not a letter, digit or one of `_ . / -` becomes a single space. */
     private val NON_CANON = Regex("[^A-Z0-9_./\\-]+")
     private val WHITESPACE = Regex("\\s+")
+    private val NON_ALNUM = Regex("[^A-Z0-9]+")
 
     /**
      * Canonicalise a query for an exact or prefix `alias_norm` match.
@@ -75,6 +76,39 @@ object SearchInput {
             .map { it.trim() }
             .filter { it.isNotEmpty() }
             .joinToString(" AND ") { "\"" + it.replace("\"", "\"\"") + "\"" }
+
+    /**
+     * The words a canonical query contributes to the **description** search — the text of a
+     * fault, not the code that names it.
+     *
+     * The split is on every non-alphanumeric character, which is how `tokenize = 'unicode61'`
+     * cuts the `code_fts` index when it is built, so both paths agree on what one word is:
+     * `AIR-LEAKAGE`, `Air leakage` and `air leakage!` all become `AIR` and `LEAKAGE`. A title
+     * match and a description match that tokenised differently would answer the same question
+     * two ways, and the technician would be the one to notice.
+     *
+     * Every term this returns matches `[A-Z0-9]+`, and that is what makes the description
+     * query a plain `LIKE '%term%'` with no `ESCAPE` clause: a `%` or `_` typed by the user is
+     * a separator, never a term, so no input can turn the search into a match-everything scan.
+     *
+     * [canon] is the input because it is already upper-cased and already stripped to
+     * `A-Z 0-9 _ . / -`, and SQLite's `LIKE` ignores case for ASCII — so `AIR` matches `air`,
+     * `Air` and `AIR` alike.
+     *
+     * ### Why terms shorter than two characters are dropped
+     *
+     * `LIKE '%3%'` is not a search, it is a scan: it matches every row containing any digit,
+     * which for a single-character query is most of them. The field is debounced by 180 ms, so
+     * a technician halfway through typing `3 phase` really does stop on `3` for long enough to
+     * be answered — and the answer must not be the whole model line. FTS keeps such a token,
+     * because there a one-character token is a word rather than a substring; here it is a
+     * substring, so the two paths deliberately part company on this one rule.
+     */
+    fun descriptionTerms(canon: String): List<String> =
+        canon.split(NON_ALNUM).filter { it.length >= MIN_DESCRIPTION_TERM }
+
+    /** Shortest term the description search will match on; see [descriptionTerms]. */
+    private const val MIN_DESCRIPTION_TERM = 2
 
     /**
      * True when a query looks like a code rather than a description: short and space-free

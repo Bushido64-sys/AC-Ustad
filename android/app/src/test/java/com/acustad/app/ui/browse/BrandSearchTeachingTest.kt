@@ -104,4 +104,68 @@ class BrandSearchTeachingTest {
     fun `surrounding whitespace is trimmed off the echoed code`() {
         assertEquals(BrandSearchTeaching.Ambiguous("E6", 16), teachingFor("  E6  ", 16))
     }
+
+    // ── the fourth outcome: fault words typed where a brand name was expected ──
+
+    @Test
+    fun `a phrase describing a fault says where fault words are searched`() {
+        // The report this exists for: "air leakage" returns nothing on the brands screen, and a
+        // bare "No brand matches" reads as a broken search rather than as the wrong box.
+        assertEquals(
+            BrandSearchTeaching.Description("air leakage"),
+            teachingFor("air leakage", brandCount = 0),
+        )
+        assertEquals(
+            BrandSearchTeaching.Description("not cooling"),
+            teachingFor("  not cooling  ", brandCount = 0),
+        )
+        assertEquals(
+            BrandSearchTeaching.Description("gas leak"),
+            teachingFor("gas leak", brandCount = 0),
+        )
+    }
+
+    @Test
+    fun `a one-word miss still teaches nothing, however true the description would be`() {
+        // The bias the rest of this file is built around: a paragraph dropped on a typo is
+        // worse than no paragraph. "compressor" could be a mistyped brand just as easily as a
+        // fault, and here it gets the plain miss.
+        assertEquals(BrandSearchTeaching.None, teachingFor("compressor", brandCount = 0))
+        assertEquals(BrandSearchTeaching.None, teachingFor("leakage", brandCount = 0))
+    }
+
+    @Test
+    fun `a phrase containing a digit stays a code question, never a description`() {
+        // `Error 200` and `LED1 x1 blink` are codes. The digit half of the rule is what keeps
+        // them on the code path even though both contain a space.
+        assertEquals(BrandSearchTeaching.None, teachingFor("Error 200", brandCount = 0))
+        assertEquals(BrandSearchTeaching.None, teachingFor("LED1 x1 blink", brandCount = 0))
+        assertFalse(isDescription("Error 200"))
+    }
+
+    @Test
+    fun `isDescription needs both halves of the rule`() {
+        assertTrue(isDescription("air leakage"))
+        assertTrue(isDescription("high pressure"))
+        // no space -> one word -> possibly a typo, so not a description
+        assertFalse(isDescription("compressor"))
+        assertFalse(isDescription("dawlance"))
+        // a digit -> possibly a code, so not a description
+        assertFalse(isDescription("3 phase"))
+        assertFalse(isDescription("E6"))
+        // blank input is nothing at all, and must not read as a description of a fault
+        assertFalse(isDescription(""))
+        assertFalse(isDescription("   "))
+    }
+
+    @Test
+    fun `a description state never appears for a query that is a real code somewhere`() {
+        // Defence in depth: the view model only asks about a query with brandCount 0, but a
+        // caller that has measured a count must not be able to turn a code into fault words.
+        assertEquals(BrandSearchTeaching.Ambiguous("E6", 16), teachingFor("E6", brandCount = 16))
+        assertEquals(
+            BrandSearchTeaching.OneBrand("ID013", "Sofar Solar"),
+            teachingFor("ID013", brandCount = 1, brandName = "Sofar Solar"),
+        )
+    }
 }

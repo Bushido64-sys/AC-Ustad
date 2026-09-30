@@ -45,9 +45,9 @@ class BrandsViewModel(
      * The teaching hint for a dead-end query, or null while there is nothing to say.
      *
      * Null is a **third** state, distinct from "no hint" and from "hint failed". It means "not
-     * applicable": the query was a brand name, so there is no rule to teach. Keeping it as null
-     * rather than an `Ambiguous(0, …)` is what stops a typo from producing a paragraph of
-     * explanation about a code that does not exist.
+     * applicable": the query was a brand name, or a phrase with nothing worth saying about it,
+     * so there is no rule to teach. Keeping it as null rather than an `Ambiguous(0, …)` is what
+     * stops a typo from producing a paragraph of explanation about a code that does not exist.
      *
      * A failed lookup also lands on null, and that is deliberate and worth being explicit
      * about: the teaching line is a courtesy, and a courtesy that could fail must never take the
@@ -99,6 +99,12 @@ class BrandsViewModel(
      * that survives it reaches the database, so this costs at most one 0.15 ms query on a
      * debounced search field and usually costs nothing.
      *
+     * The branch it returns into is the other half: a query that is *not* code-shaped is decided
+     * from the text alone by [isDescription], because that question needs no data — no brand
+     * name has a digit, and a two-word phrase with none is a fault described, not a name
+     * misspelled. Running [com.acustad.app.repo.KbRepository.codePresence] for those would be a
+     * query per keystroke to learn what the string already says.
+     *
      * Every keystroke cancels the previous lookup's result. Without that, typing `E6` one
      * character at a time would leave whichever answer arrived last on screen, which is not
      * necessarily the one for the text currently in the field. A stale hint is worse than no
@@ -106,7 +112,13 @@ class BrandsViewModel(
      */
     private fun refreshTeaching(value: String) {
         _teaching.value = null
-        if (!looksLikeACode(value)) return
+        if (!looksLikeACode(value)) {
+            // brandCount 0 is what codePresence returns for anything that is not a code, so the
+            // arguments describe the situation exactly: not a code, therefore possibly words.
+            val hint = teachingFor(value, brandCount = 0)
+            if (hint is BrandSearchTeaching.Description) _teaching.value = hint
+            return
+        }
 
         val asked = value
         viewModelScope.launch {

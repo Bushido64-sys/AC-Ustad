@@ -12,7 +12,7 @@ crashes, ever, on any of the 2139 code strings.**
 | Brands | brand names | `brands.name` | codes, series |
 | Model lines | model names | `series.name` | codes, brands |
 | Codes in a model | that series' codes | `codes.code`, `aliases` | other series, other brands |
-| Free text in a model | that series' descriptions | `code_fts` | other series, other brands |
+| Free text in a model | that series' descriptions | `code_fts`, then that series' own text (trap 25) | other series, other brands |
 
 **There is no global code search, and you must not add one.** `E1` is on 20 brands, `E3` on
 21, `E6` on 16, `F4` on 15. A global search would answer "E6" with 16 different meanings and
@@ -20,7 +20,8 @@ force the technician to work out which brand they are standing in front of. Insi
 `E6` has exactly one meaning — and it is the right one.
 
 A code search only ever runs with a `series_id` bound. Enforce it in the DAO signature, not in
-the call site: `searchCodes(seriesId: Long, query: String)`.
+the call site: `searchCodes(scope: ScopedSeries, query: String)` — and `ScopedSeries` carries
+`brandId` too, because `series_id` alone repeats across nine brands (§8).
 
 ## 2. The two-job rule
 
@@ -32,6 +33,20 @@ the call site: `searchCodes(seriesId: Long, query: String)`.
 **Rule:** if the normalised query contains no space and is short (≤ 24 chars) and matches
 something in `aliases`, that is the answer. Only fall through to FTS when aliases return
 nothing. Never send a code-looking string to FTS.
+
+**Free text itself has two steps, and it is the second one that keeps §1's promise.**
+`code_fts` holds `code_norm`, `aliases` and **titles only** — never the meanings, causes or
+fix steps (see §3) — so `compressor` is answered and `air leakage` returns **0** rows
+app-wide while the phrase sits in 12 fix steps. Step two is `SearchDao.codesDescription`: the
+same words, AND-joined as `LIKE`, over that one model's titles, meanings, notes, causes and
+fix steps, with `series_id` **and** `brand_id` bound (RULE 3). It runs only when the index
+came back empty **and the query is not a code anywhere in the knowledge base** — a digit test
+would get `BLINK-RUNNING` wrong — so `E6` in a model that lacks it still ends on "no code
+matches" instead of a list of codes that merely mention it. Measured 1.5 ms on a four-code
+model, 7.8 ms on the largest (106 codes), against §6's 50 ms budget.
+`check_app_sql.py` reads the statement out of `SearchDao.kt` and pins it: 29 codes in 25 model
+lines for `air leakage`, two inside each of two named models, and zero for a brand that does
+not publish the series.
 
 ### Exact / prefix code lookup — the safe path
 
@@ -68,9 +83,11 @@ Applied to the **query only** — the stored values are already canonical.
 
 ## 3. The FTS escaping rule — the crash
 
-`code_fts` is an external-content FTS5 table over `title`, `meaning`, `solution_text`, with
-`rowid = codes.id`. Passing raw user input to `MATCH` makes SQLite parse the words as **column
-names**.
+`code_fts` is an external-content FTS5 table over **`code_norm`, `aliases`, `titles`** — the
+English and Roman Urdu *titles*, and nothing else — with `rowid = codes.id`. It does **not**
+index the meaning, the notes, the causes or the fix steps (`DATA_SCHEMA.md` §2), which is why
+§2 needs a second step and why PROGRESS trap 25 exists. Passing raw user input to `MATCH` makes
+SQLite parse the words as **column names**.
 
 ```
 "BLINK-RUNNING"    -> no such column: RUNNING
@@ -81,23 +98,36 @@ names**.
 Measured on the shipped database: **454 of the 2139 code strings throw when passed raw; all
 2139 return results when quoted.**
 
+The query itself is `SearchDao.codesText` — the app has no `ftsSearch` and no `CodeHit`:
+
 ```kotlin
 fun ftsQuery(raw: String) = "\"" + raw.replace("\"", "\"\"") + "\""
 
-@Query("SELECT c.id, c.uid, c.code, c.title_en, c.title_ur, c.severity, c.is_fault, c.display, " +
-       "       c.title_en, c.title_ur, " +
-       "       snippet(code_fts, 2, '«', '»', '…', 12) AS hit " +
-       "FROM code_fts JOIN codes c ON c.id = code_fts.rowid " +
-       "WHERE code_fts MATCH :quoted AND c.series_id = :seriesId AND c.brand_id = :brandId " +
-       "ORDER BY bm25(code_fts, 10.0, 1.0, 3.0) LIMIT 60")
-suspend fun ftsSearch(seriesId: Long, brandId: String, q: String): List<CodeHit>
+suspend fun codesText(scope: ScopedSeries, quotedQuery: String, limit: Int = 60) = io {
+    db.rawQuery(
+        """
+        SELECT c.id, c.uid, c.code, c.title_en, c.title_ur, c.severity, c.is_fault, c.display
+          FROM code_fts JOIN codes c ON c.id = code_fts.rowid
+         WHERE code_fts MATCH ? AND c.series_id = ? AND c.brand_id = ?
+         ORDER BY bm25(code_fts, 10.0, 1.0, 3.0)
+         LIMIT ?
+        """.trimIndent(),
+        arrayOf(quotedQuery, scope.seriesId, scope.brandId, limit.toString()),
+    ).mapRows { it.toSummary() }
+}
 ```
 
-Call it as `ftsSearch(seriesId, brandId, ftsQuery(input))`. Note `rowid = c.id` — that join condition
-is correct as written and is the second most common way to write this wrong.
+Call it as `codesText(scope, ftsQuery(input))`. Note `c.id = code_fts.rowid` — that join
+condition is correct as written and is the second most common way to write this wrong.
 
-Weight `title` 10, `meaning` 1, `solution_text` 3: a code whose **name** matches should beat a
-code that merely mentions the word in a fix step.
+**Three weights, three columns.** `bm25(code_fts, 10.0, 1.0, 3.0)` is read left to right
+against the columns in the order `fts5(...)` declares them: `code_norm` 10.0, `aliases` 1.0,
+`titles` 3.0. The prose this section used to carry — *weight `title` 10, `meaning` 1,
+`solution_text` 3* — described an index this one is not: there is no `meaning` and no
+`solution_text` in `code_fts` to weigh, so "a code whose name matches should beat a code that
+merely mentions the word in a fix step" is a claim about a fallback that does not exist in
+this index (the fallback is §2's `codesDescription`, and it is unranked by design). Do not
+change the numbers to make a missed result appear — see §8 and PROGRESS trap 25.
 
 ## 4. Search UI
 
@@ -121,11 +151,23 @@ code that merely mentions the word in a fix step.
 Typing a code on the **brands** screen finds nothing — and that is the moment to explain the
 design instead of looking broken:
 
-> **No brand matches "E6"**
+> **No brand matches "E6".**
 > E6 means something different on 16 brands, so codes are searched inside a model.
-> **Search models instead**
+> **Show all brands**
 
 One line of explanation and a way forward. No image, no emoji, no "Try again".
+
+A **description** of a fault typed in that same box gets its own line, for the same reason —
+it is not a wrong answer, it is a question asked one level too high (added 2026-09-30,
+PROGRESS trap 25):
+
+> **No brand matches "air leakage".**
+> "air leakage" describes a fault, not a brand. This box searches brand names only. Open a
+> brand, pick a model, and search there.
+> **Show all brands**
+
+Same headline, same action, different detail. The one-word typo (`sharpe`) still gets silence:
+two words with no digit between them are how no one spells a brand name here.
 
 ## 6. Perf numbers to protect
 
@@ -135,6 +177,7 @@ One line of explanation and a way forward. No image, no emoji, no "Try again".
 | prefix alias lookup (`E%`) | < 20 ms | 3.0 ms |
 | a `LOWER()` variant of the same lookup | — | 3.6 ms and it misses lowercase input |
 | FTS quoted, series-scoped | < 50 ms | safe |
+| description fallback (`LIKE`, series-scoped) | < 50 ms | **1.5 ms** on a 4-code model, **7.8 ms** on the 106-code worst case |
 | brand list filter | < 16 ms | in-memory, 62 rows |
 | series list filter | < 16 ms | in-memory, 320 rows |
 
@@ -148,6 +191,11 @@ Debounce at 180ms so typing `Error` triggers ~1 query, not 5.
 - [ ] `E6` on the brands screen → zero results + the explanatory empty state
 - [ ] `E6` inside a series → exactly that series' `E6`
 - [ ] A code from brand X is **impossible** to find from brand Y (assert 0 results)
+- [ ] **A description is findable where the index cannot reach it:** `air leakage` inside a
+      model returns that model's own codes (2 in Panasonic H/F, 2 in FoxESS H1(G2)); the same
+      words on the brands screen return **no** codes and the teaching line instead; `E6` in a
+      model that lacks `E6` returns **no** description rows. Pinned by `check_app_sql.py` and
+      `SearchDaoContractTest`
 - [ ] `canon()` reproduces all 4,124 distinct `alias`/`alias_norm` pairs exactly
 - [ ] Every one of the 7,707 alias values round-trips: `canon(alias)` → its own code
 - [ ] Debounce: 5 keystrokes → 1 query
@@ -164,3 +212,9 @@ Debounce at 180ms so typing `Error` triggers ~1 query, not 5.
   query must bind `brand_id` as well, or a model can return another brand's codes.
 - Do not "fix" a missed result by adding `LOWER()`. Canonicalise to UPPER instead: it is the
   form the index holds, and lower-cased input is what the canonical form exists to catch.
+- **`code_fts` holds titles only.** A word a technician *says* (`air leakage`, `not cooling`)
+  and nobody *named* a code with returns 0 rows from the index even though it is written all
+  over the fix steps. The fix is `SearchDao.codesDescription` (§2), **not** a reindex: adding
+  columns to `code_fts` changes `kb.sqlite` and therefore the `data-manifest.json` sha256 the
+  APK hash gate verifies, and it would leave `bm25`'s three weights applied to different
+  columns. PROGRESS trap 25.

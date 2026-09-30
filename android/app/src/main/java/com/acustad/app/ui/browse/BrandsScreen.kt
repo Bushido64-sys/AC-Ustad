@@ -100,19 +100,23 @@ fun BrandsScreen(
 }
 
 /**
- * "No results" on the brands screen, which is two different situations wearing one hat.
+ * "No results" on the brands screen, which is four different situations wearing one hat.
  *
  * A technician who typed a **brand name** that does not exist gets a plain miss, and that is the
  * whole answer. A technician who typed a **code** gets the miss *and* the reason it is a miss —
  * because that screen is one level above where codes live, and saying so turns a dead end into
- * the app explaining itself. (DESIGN.md §4.2, PHASE_5_SEARCH.md §5)
+ * the app explaining itself. A technician who typed **fault words** gets the same treatment for
+ * the same reason: `air leakage` is not a wrong answer, it is a question asked of the wrong box,
+ * and only the app can tell them which box takes it (PHASE_5_SEARCH.md §1). (DESIGN.md §4.2,
+ * PHASE_5_SEARCH.md §5)
  *
  * The action is always the same and it is deliberately modest: show the full brand list again.
  * **It is not "search models instead"** — that was the guide's suggestion, and it would not
  * work. Models are scoped to a brand (RULE 2), so there is no model search to send them to until
  * they have picked a brand; an action that jumped to a search they cannot perform is a worse
  * dead end than the one it replaced. Clearing the query is the one step that is always available
- * and always right.
+ * and always right. The description state asks them to *navigate* there in words instead — the
+ * guidance goes in the `detail` line, never in the button.
  */
 @Composable
 private fun DeadEndState(
@@ -143,9 +147,20 @@ private fun DeadEndState(
             onAction = onClearQuery,
         )
 
-        // null while the lookup is in flight, and `None` for a query that is not a code. Both
-        // show the plain miss and nothing else: an explanation that appears late and unbidden
-        // is worse than none.
+        is BrandSearchTeaching.Description -> EmptyState(
+            message = stringResource(R.string.empty_no_brand_match, query),
+            // The headline is unchanged on purpose: this box searched brand names and found
+            // none, which is exactly what happened. The detail is the part that is new — it
+            // names where those words *are* searched, which is the one thing a dead list
+            // cannot tell them. `words` is echoed back verbatim, like `code` above.
+            detail = stringResource(R.string.teach_description, teaching.words),
+            actionLabel = stringResource(R.string.teach_action),
+            onAction = onClearQuery,
+        )
+
+        // null while the lookup is in flight, and `None` for a one-word query that is neither a
+        // code nor a description. Both show the plain miss and nothing else: an explanation that
+        // appears late and unbidden is worse than none.
         else -> EmptyState(message = stringResource(R.string.empty_no_brand_match, query))
     }
 }

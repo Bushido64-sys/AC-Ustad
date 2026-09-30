@@ -13,12 +13,15 @@ package com.acustad.app.ui.browse
  *
  * ### Why this is a sealed type and not a string
  *
- * Three different situations are all "no results", and collapsing them into one message is the
+ * Four different situations are all "no results", and collapsing them into one message is the
  * bug this avoids:
  *
  *  - the query is a code that exists on several brands → explain the rule, with a count;
  *  - the query is a code on exactly **one** brand → "different on 1 brands" is absurd, and the
  *    reason is different: they were nearly right, and going one level down is the fix;
+ *  - the query is a **description of a fault** — `air leakage`, `not cooling` → nothing here is
+ *    wrong with what they typed, and this box is simply the wrong box: brand names are all it
+ *    searches (DESIGN.md §4.2, RULE 3). Silence would read as a broken search;
  *  - the query is a **brand** that does not exist → there is nothing to teach. The number would
  *    be 0, "E6 means something different on 0 brands" is nonsense, and a paragraph of
  *    explanation would be noise on a typo.
@@ -59,10 +62,24 @@ sealed interface BrandSearchTeaching {
      * question the search.
      */
     data class OneBrand(val code: String, val brandName: String) : BrandSearchTeaching
+
+    /**
+     * The query is a phrase describing a fault — `air leakage`, `not cooling` — and this box
+     * searches brand names.
+     *
+     * Worth its own state because the reason is entirely different from the other three:
+     * nothing is wrong with what they typed, and nothing is wrong with the search. The box is
+     * simply one level too high. `PHASE_5_SEARCH.md` §1 puts it as a table row — "Free text in
+     * a model | that series' descriptions" — and a technician who reads a dead "No brand
+     * matches air leakage" has no way to discover that row.
+     *
+     * @param words the technician's own text, trimmed, casing untouched — see [Ambiguous].
+     */
+    data class Description(val words: String) : BrandSearchTeaching
 }
 
 /**
- * Decides which of those three situations a dead-end query is.
+ * Decides which of those four situations a dead-end query is.
  *
  * @param query what the technician typed, verbatim.
  * @param brandCount how many brands publish the code, from
@@ -84,11 +101,32 @@ sealed interface BrandSearchTeaching {
  * reverse bias is deliberate: when in doubt, say nothing extra. A paragraph of explanation
  * dropped on someone who mistyped a brand name is worse than no paragraph.
  *
+ * ### The one kind of query where saying something is right
+ *
+ * [isDescription] carves a single exception: a **multi-word** phrase with no digit. The bias
+ * above still holds for `sharpe` or `carrierr` — those are one word, and a typo is still a
+ * typo. Two words with no digit between them are not how any of the 62 brand names is spelled,
+ * so when the list is empty the technician did not mistype a brand: they described a fault, and
+ * the honest answer is to say which box takes those.
+ *
+ * The cost is a two-word brand typo getting the same line. It is accepted, because the
+ * headline stays "No brand matches" in every branch — the teaching line is a `detail` under it,
+ * not a replacement — and the sentence it adds is true for a typo too.
+ *
  * Total by construction — it runs on every keystroke and must never throw.
  */
 fun teachingFor(query: String, brandCount: Int, brandName: String? = null): BrandSearchTeaching {
     val trimmed = query.trim()
-    if (trimmed.isEmpty() || brandCount <= 0) return BrandSearchTeaching.None
+    if (trimmed.isEmpty()) return BrandSearchTeaching.None
+    if (brandCount <= 0) {
+        // Nothing publishes it, so this is not a code — unless it never was one. A description
+        // is the only other thing a dead-end query here can be, and it has its own sentence.
+        return if (isDescription(trimmed)) {
+            BrandSearchTeaching.Description(trimmed)
+        } else {
+            BrandSearchTeaching.None
+        }
+    }
     if (!trimmed.any { it.isDigit() }) return BrandSearchTeaching.None
 
     return when {
@@ -99,6 +137,27 @@ fun teachingFor(query: String, brandCount: Int, brandName: String? = null): Bran
         // better than silence: the code does exist, one level down.
         else -> BrandSearchTeaching.OneBrand(trimmed, "")
     }
+}
+
+/**
+ * Whether a dead-end query is a **phrase describing a fault** rather than a brand name or a
+ * code. The reason this is a separate function, rather than a line inside [teachingFor]: the
+ * view model needs it before it decides whether a database lookup is worth running at all.
+ *
+ * Two words and no digit. Both halves are load-bearing:
+ *
+ *  - **the digit** keeps `Error 200` and `LED1 x1 blink` on the code path, where they belong;
+ *  - **the space** is what stops a one-word typo (`sharpe`) from earning a paragraph, which is
+ *    the failure the rest of this file is built around.
+ *
+ * A brand name with a space in it (`Blue Star`) is not a special case: if it matched, the list
+ * would not be empty and nothing here would be shown.
+ */
+fun isDescription(query: String): Boolean {
+    val trimmed = query.trim()
+    return trimmed.isNotEmpty() &&
+        trimmed.any { it.isWhitespace() } &&
+        !trimmed.any { it.isDigit() }
 }
 
 /**

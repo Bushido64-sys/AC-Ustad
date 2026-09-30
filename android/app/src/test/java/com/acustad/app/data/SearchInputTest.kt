@@ -142,4 +142,63 @@ class SearchInputTest {
     fun `looksLikeCode rejects absurdly long input`() {
         assertFalse(SearchInput.looksLikeCode("A".repeat(500)))
     }
+
+    // ── descriptionTerms: the words the fallback search ANDs together ────────
+
+    @Test
+    fun `descriptionTerms splits a fault description into its words`() {
+        // The case a technician actually reports: words, not a code, typed into a search box.
+        assertEquals(
+            listOf("AIR", "LEAKAGE"),
+            SearchInput.descriptionTerms(SearchInput.canon("air leakage")),
+        )
+        assertEquals(
+            listOf("NOT", "COOLING"),
+            SearchInput.descriptionTerms(SearchInput.canon("not cooling")),
+        )
+        assertEquals(listOf("COMPRESSOR"), SearchInput.descriptionTerms(SearchInput.canon("compressor")))
+    }
+
+    @Test
+    fun `descriptionTerms tokenises the way unicode61 does, so both paths agree on a word`() {
+        // Punctuation is a separator in the FTS index, so it must be one here too - otherwise a
+        // title match and a description match would disagree about what the user typed.
+        assertEquals(listOf("AIR", "LEAKAGE"), SearchInput.descriptionTerms(SearchInput.canon("air-leakage")))
+        assertEquals(listOf("ISO", "FAIL"), SearchInput.descriptionTerms(SearchInput.canon("iso_fail")))
+        assertEquals(
+            listOf("LED1", "X1", "BLINK"),
+            SearchInput.descriptionTerms(SearchInput.canon("led1 x1 blink;")),
+        )
+        // The trailing bang must not become part of the term: LIKE '%LEAKAGE!%' matches nothing.
+        assertEquals(
+            listOf("AIR", "LEAKAGE"),
+            SearchInput.descriptionTerms(SearchInput.canon("air leakage!")),
+        )
+    }
+
+    @Test
+    fun `a one-character term is dropped, because LIKE against it is a scan not a search`() {
+        // The field is debounced, so a technician pausing halfway through `3 phase` really does
+        // get queried on `3`. LIKE '%3%' would answer with most of the model line.
+        assertEquals(listOf("PHASE"), SearchInput.descriptionTerms(SearchInput.canon("3 phase")))
+        assertEquals(emptyList<String>(), SearchInput.descriptionTerms(SearchInput.canon("a")))
+        assertEquals(emptyList<String>(), SearchInput.descriptionTerms(SearchInput.canon("1")))
+        assertEquals(emptyList<String>(), SearchInput.descriptionTerms(SearchInput.canon("   ")))
+    }
+
+    @Test
+    fun `descriptionTerms cannot emit a LIKE wildcard from user input`() {
+        // No ESCAPE clause is written, so this is the guarantee that one is not needed: a `%`
+        // or `_` is a separator and never a term, so `100%` cannot mean "everything".
+        val nasty = listOf("100%", "%", "_", "a_b", "\\", "();--", "€£¥", "a".repeat(500))
+        for (input in nasty) {
+            for (term in SearchInput.descriptionTerms(SearchInput.canon(input))) {
+                assertTrue(
+                    "term '$term' from input '$input' contains a character LIKE would treat " +
+                        "as a wildcard, and the query has no ESCAPE clause",
+                    term.all { it.isLetterOrDigit() && it.code < 128 },
+                )
+            }
+        }
+    }
 }

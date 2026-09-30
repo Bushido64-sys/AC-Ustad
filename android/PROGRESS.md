@@ -25,6 +25,17 @@
 > source line on a code detail, and the brand notes on a model screen, in light mode. One line
 > of content colour, and exactly the kind of judgement no gate in this project can make.
 
+> **2026-09-30 (later) — free-text search reaches descriptions.** The report was *"air leakage
+> finds nothing"*: `code_fts` indexes **titles only**, so the phrase returned **0** app-wide
+> while it sits in 12 fix steps, and `PHASE_5_SEARCH.md` §1 had been promising free text that
+> searches "that series' descriptions" for months. It is trap 25. Fixed **app-side** — a third,
+> `series_id` + `brand_id`-scoped step in `SearchDao.searchCodes`, run only when the input is
+> not a code — **not** by reindexing, which would move the `kb.sqlite` bytes the APK hash check
+> verifies. On the **brands** screen the same words now teach that fault words are searched
+> inside a model instead of showing a dead list. **Needs a human:** inside Panasonic H/F,
+> `air leakage` must return F91 and F97; on the brands screen the same words must show the
+> teaching line. CI cannot open either screen.
+
 > **2026-09-29:** the human ran the §6 checks on a real phone and reported them passing, so the
 > Phase 4, 6 and 8 screens move to ✅. That is a human result, not a CI result — CI still cannot
 > open a screen (trap 15). It is recorded here because §1 defines ✅ as a phone check and the
@@ -45,7 +56,7 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 2 · Data layer | ✅ phone-checked | 4 DAOs, immutable models, one repository, favourites writes, stale-id sweep |
 | 3 · Browse | ✅ phone-checked | Home → brands → model lines → codes, with scoped search on every list |
 | 4 · Code detail | ✅ phone-checked 2026-09-29 | Severity + meaning → numbered fix steps → causes → notes → source, with a working star. Was marked ✅ while being **completely dead on a phone** — see trap 15. The build was green throughout; only a human tapping a code found it. Fixed and now re-verified on the device |
-| 5 · Search polish | ✅ phone-checked 2026-09-29 | The **teaching empty state** (2026-09-29): a code typed on the brands screen explains the scoping rule with a **measured** brand count, and offers a way forward. The count is a query — `16` is written nowhere in the app |
+| 5 · Search polish | ✅ phone-checked 2026-09-29 | The **teaching empty state** (2026-09-29): a code typed on the brands screen explains the scoping rule with a **measured** brand count, and offers a way forward. The count is a query — `16` is written nowhere in the app. **Added 2026-09-30, not yet on a phone:** free text inside a model now also searches that model's descriptions (trap 25), and the brands screen teaches fault words — both are in the note at the top and in §6's group 1 |
 | 6 · Saved screen | ✅ phone-checked 2026-09-29 | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
 | 7 · Offline & updates | ✅ | **Trap 16 fixed** — a new APK always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and **five** CI gates now enforce them, including the network/ads gate that used to be documented and not written (trap 23) |
 | 8 · Accessibility & Roman Urdu | ✅ phone-checked 2026-09-29 | The EN/UR toggle works, persists and is partial-toggle-safe. **Settings + the theme override are built and passed the §6 group-4 checks**, including the trap-22 Light-mode fix. Still open: the font-scale / TalkBack pass |
@@ -102,7 +113,7 @@ Three rules for whoever picks this up, human or AI:
 1. **The database wins.** If this file, the build guide and `kb.sqlite` disagree, the
    database is right - and say so instead of quietly working around it.
 2. **Do not trust a number that has not been read.** Every count here was queried, but a data
-   release can move them. `python3 app-pipeline/check_app_sql.py` re-checks 58 of them.
+   release can move them. `python3 app-pipeline/check_app_sql.py` re-checks 75 of them.
 3. **Watch for the six failure modes this project actually produced:**
    - a column name written from memory instead of read from the schema;
    - **a claim described as "verified" that was only reasoned about.** Phase 4 sat in the table
@@ -333,15 +344,32 @@ reason several comments in the code look defensive.
     is defined, not remembered at every use — and a rule written only in a KDoc is a rule that
     has not been implemented.**
 
+25. **Free-text search reads titles only, while the guide promises the descriptions.** `code_fts`
+    holds exactly three columns — `code_norm`, `aliases`, `titles` — and never `meaning`,
+    `causes` or `solutions`, so `"air" AND "leakage"` returned **0** app-wide while the phrase
+    sits in 12 fix steps. `PHASE_5_SEARCH.md` §1 had been promising free text that searches
+    "that series' descriptions" for months, so the report the user filed (*"air leakage finds
+    nothing"*) was correct and the search really was broken. **What makes it a trap rather than
+    a bug:** the obvious fix is to reindex `code_fts` with the other columns, which changes
+    `kb.sqlite` and therefore the `data-manifest.json` sha256 that `build-app.yml` verifies —
+    a data release nobody asked for — and `bm25(code_fts, 10.0, 1.0, 3.0)`, whose weights were
+    written for title/meaning/solution, would silently start weighing different columns.
+    Fixed 2026-09-30 **app-side instead**: a third step in `SearchDao.searchCodes`, scoped by
+    `series_id` + `brand_id` (RULE 3), over the same haystack a person reads, and reached only
+    when the input is not a code — so `E6` still never touches it. Pinned by
+    `check_app_sql.py`, which now *reads* `DESCRIPTION_SQL` out of `SearchDao.kt` rather than
+    copying it, and by `SearchDaoContractTest`. **The general rule: when the data contract and
+    the promise disagree, change the code that reads the data — not the data.**
+
 ## 5. The gates, and what each one is for
 
 | Gate | Protects |
 |---|---|
 | `verify data` / `tools/validate.py` | the knowledge base validates against the schema |
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
-| `verify data` / `check_app_sql.py` | **58 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order** (after trap 15) and the teaching-state count and its `code_norm` guard |
+| `verify data` / `check_app_sql.py` | **75 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order** (after trap 15), the teaching-state count and its `code_norm` guard, and the description search (trap 25) — whose SQL is **read out of `SearchDao.kt`**, not retyped, so the checker and the app cannot drift |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | **89** tests (58 + the theme round-trip, Settings formatters, 5 palette-contract assertions, 12 teaching-state assertions and 3 content-colour assertions — total counted off the `@Test` annotations, 2026-09-30), including all 2,139 code strings and the FTS quoting. Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen**; the decision-function and SQL assertions, and the three source-reading ones added with trap 24, all still cannot see a pixel |
+| `build app` / unit tests | **106** tests (18 search input, 17 teaching-state, 15 models, 9 schema, 8 staging, **8 search-SQL contract**, 7 theme, 6 language, 6 toggle-guard, 5 palette-contract, 4 Settings formatters, 3 content-colour — counted off the `@Test` annotations, 2026-09-30), including all 2,139 code strings and the FTS quoting. Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen**; the decision-function and SQL assertions, and every source-reading test — the 3 added with trap 24 plus the 8 in `SearchDaoContractTest` added with trap 25 — all still cannot see a pixel |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission. **This is what actually enforces RULE 14** — zero permissions means zero network, since `INTERNET` is a normal permission |
 | `build app` / database hash | the APK cannot carry a stale database. On-device re-staging is a separate rule — see trap 16 |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
@@ -373,6 +401,21 @@ screen, not only when a phase closes.
 6. Star a code, force-stop, reopen, open it again: **the star is still filled.**
 
 Then: dark mode, and search `e1` in lowercase inside a model — it must find `E1`.
+
+**Added to group 1 on 2026-09-30 (trap 25) — the words a technician actually types:**
+
+`air leakage` is a *fault*, not a code, so it skips the code lookup and must reach the
+descriptions. Two screens, two different right answers, and neither is a number CI can check
+without opening a screen.
+
+- Inside **AC → Panasonic → Modern H/F self-diagnosis**, search `air leakage`: **F91 and F97**
+  come back (2 rows). Nothing else does.
+- Inside **Solar inverter → FoxESS → H1(G2)/AC1(G2)**, the same words: **Iso Fault** and
+  **Res Cur HW Fault** (2 rows).
+- On the **brands** screen — the one that only searches brand names — type `air leakage`: it
+  must say *"air leakage" describes a fault, not a brand* and point at a model, **not** show an
+  empty list. Type `E6` instead: the teaching line must stay silent and the scoping
+  explanation must appear as before, because `E6` is a real code.
 
 **Group 2 — the six Saved-screen checks (Phase 6):**
 

@@ -98,7 +98,11 @@ Full-bleed, two panels stacked, each the full width with a 2dp ink border and 4d
 - **Search box, top, persistent:** searches **brand names only**. Type `sh` → Sharp, Showell.
   Type `E6` → **no results**, and the empty state explains why: *"Codes are searched inside a
   model, because E6 means something different on 16 brands."* This turns the rule into a
-  feature instead of a dead end.
+  feature instead of a dead end. Type `air leakage` → also no results, but fault words are a
+  *right question in the wrong box*, so the empty state says so instead of staying silent:
+  *'air leakage' describes a fault, not a brand. This box searches brand names only.* The
+  action button stays **Show all brands** in both cases; the guidance is in the detail line
+  (added 2026-09-30, PROGRESS trap 25).
 - List, one row per brand: **name** (16sp semibold) + **code count** right-aligned in mono
   (`41 codes`).
 - Sort by `code_count` **desc**. It is the single highest-value decision on this screen.
@@ -138,8 +142,11 @@ clip them.
 - Row: severity chip (left) · code in Plex Mono (18sp) · title beneath (16sp, max 2 lines
   with ellipsis). 56dp min, grows to fit.
 - `is_fault = 0` rows: muted left rail, no filled chip.
-- The search box here searches **this series' codes only**. If the query matches exactly one
-  code, offer "Open E6" rather than making them tap a row.
+- The search box here searches **this model line only** — its codes, and (when the input is
+  not a code anywhere in the knowledge base) its own descriptions, meanings, notes, causes and
+  fix steps, so `air leakage` finds the two codes whose fix steps say it (`PHASE_5_SEARCH.md`
+  §2, PROGRESS trap 25). If the query matches exactly one code, offer "Open E6" rather than
+  making them tap a row.
 
 ### 4.5 Code detail — action first
 Order is fixed by product decision: **the technician wants the action, not the essay.**
