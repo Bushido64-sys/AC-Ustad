@@ -2,7 +2,10 @@
 
 **Goal: stop the app looking like a wireframe, without inventing a single new colour.**
 
-**Status: PLANNING ONLY. Nothing in this file has been built.**
+**Status: BUILT and phone-checked 2026-09-30.** Steps 1–6 of §9 are in the app; step 7 (the
+token drift) was closed as documentation debt and §6 #4 (the per-brand source list) was skipped
+by decision — both recorded in `android/PROGRESS.md` §7, not silently dropped here. The numbered
+record of the phone run is `PROGRESS.md` §6 group 5.
 
 ---
 
@@ -119,6 +122,15 @@ fails on a cheap LCD in sunlight.
 **So: on a raised surface, use full `ink`, never `ink_muted`.** Not a compromise, a rule, and it
 is only 1–2 labels per screen. Anywhere muted text would land on a raised block, it either moves
 up to the canvas or goes to full ink.
+
+**And the rule has to live in the component, because a `Surface` chooses its text colour from
+its own fill.** With no `contentColor` given, Material3 derives `contentColorFor(surfaceVariant)`
+= `onSurfaceVariant` = `ink_muted` — so *every* `Text` inside a raised block that does not name
+a colour renders **4.15:1 in light mode**. That is what happened to the detail screen's meaning,
+its source line and the brand notes: written here as a rule, documented in three KDocs, and not
+implemented in the code, until it was fixed at `RaisedPanel` with
+`contentColor = MaterialTheme.colorScheme.onSurface` (PROGRESS trap 24). A rule stated only at
+the call sites is a rule that has been reasoned about rather than built.
 
 ### 2.2 The 2dp hairline is invisible in sunlight — and the docs disagree
 
@@ -238,31 +250,39 @@ Rows go to level 1 automatically via `BorderedRow`. Two specific things:
 
 ## 4. The token drift, which is a separate bug
 
-`design_tokens.xml` defines **29 dimens**. The app uses **`R.dimen` exactly zero times** and
-hardcodes **113 literal `.dp` values** in Kotlin.
+`design_tokens.xml` defines **29 dimens**. Measured 2026-09-30: the app uses **`R.dimen` four
+times** — `border_width`, `radius_card`, `row_min`, `radius_chip`, i.e. the three layout
+primitives and the severity chip — and still hardcodes **112 literal `.dp` values** in Kotlin.
+When this section was written the figures were zero and 113.
 
 `AI-AGENT-PROMPTS.txt` says of the token file: *"the ONLY place a colour, size or spacing is
-defined."* Right now it is the only place they are **documented** and nowhere they are **used**.
+defined."* It is the only place they are **documented**; it is now read by four call sites, and
+the other 112 are the remaining drift.
 
 Worse, one of the hardcoded values is not even a token: **12dp** is used for row padding and
 appears in no token file. The scale is 4 / 8 / 16 / 24 / 32.
 
-**Do not convert all 113 in one go.** That is a huge diff with no visible benefit and a real
+**Do not convert all 112 in one go.** That is a huge diff with no visible benefit and a real
 chance of breaking a phone check. Instead:
 
 1. Add the dimens that are missing — including `row_content_padding_v` (12dp) — so the scale is
    whole
-2. Convert the **3 layout primitives** and the **new `RaisedPanel`** to `R.dimen` as part of §3
-3. Convert the rest screen by screen, in the same commit as whatever else that screen is getting
+2. ~~Convert the **3 layout primitives** and the **new `RaisedPanel`** to `R.dimen` as part of
+   §3~~ — **done**, four uses
+3. Convert the rest screen by screen, in the same commit as whatever else that screen is getting.
+   **Closed as documentation debt in `PROGRESS.md` §7 on 2026-09-30**: invisible, no phone check
+   can see it, and it converts alongside whatever screen is next touched
 
 The end state is the token file being load-bearing. The start state is "we know the scale."
 
 ---
 
-## 5. Motion — currently zero
+## 5. Motion — one, and only one
 
-`DESIGN.md` §5 asks for **120–180ms `FastOutSlowIn` on the panel press**, and nothing else. There
-is no animation anywhere in the app today. A screen that never moves reads as a screenshot.
+`DESIGN.md` §5 asks for **120–180ms `FastOutSlowIn` on the panel press**, and nothing else.
+That press dip is built (`Components.kt`, alpha 0.88, ripple suppressed) and is the app's only
+animation — a screen that never moves reads as a screenshot, and a screen with five moving parts
+reads as a toy.
 
 Exactly three, and no more:
 
@@ -319,22 +339,29 @@ The list below exists because this is the phase most likely to break RULE 6–11
 
 ## 8. The checks
 
-Screen-level, all on a real phone, in **airplane mode**, in **both themes**:
+Screen-level, on a real phone, in **airplane mode**, in **both themes**. **Run 2026-09-30 and
+reported passing by the human** — `PROGRESS.md` §6 group 5 is the numbered record (28–37).
+**One is ticked with an exception, not quietly:** *"No muted text on any raised block"* was
+reported passing on the build of the day and was then shown by source reading to be impossible
+on that build (4.15:1, `PROGRESS.md` trap 24, fixed in `RaisedPanel`), so it must be re-read on
+the build carrying the fix — the meaning block and source line on a code detail, and the brand
+notes on a model screen, **in light mode**.
 
-- [ ] **The three levels are visibly different.** Card, raised block and canvas read as three
+- [x] **The three levels are visibly different.** Card, raised block and canvas read as three
       things at arm's length. If they don't, §1 didn't work
-- [ ] **Dark mode is checked, not assumed.** A surface that reads in light can vanish in dark
-- [ ] The meaning block is clearly the *most* important thing on the detail screen
-- [ ] Fix steps and causes read as instructions, not as a wall of text
-- [ ] Every chip still shows its **word** first (RULE 8)
-- [ ] The 2dp nav line is visible in sunlight. Walk outside. If you cannot see it, it is
+- [x] **Dark mode is checked, not assumed.** A surface that reads in light can vanish in dark
+- [x] The meaning block is clearly the *most* important thing on the detail screen
+- [x] Fix steps and causes read as instructions, not as a wall of text
+- [x] Every chip still shows its **word** first (RULE 8)
+- [x] The 2dp nav line is visible in sunlight. Walk outside. If you cannot see it, it is
       `hairline` again
-- [ ] **No muted text on any raised block**, light mode especially
-- [ ] A panel press is visible but instant — 120ms, not a bounce
-- [ ] The star is in the **app bar** on the detail screen, and reachable one-handed
-- [ ] Back from a filtered list returns to the same place in the list
-- [ ] Font scale 1.3 on every screen: no clipped text, no overlap
-- [ ] **Nothing else moved.** The six original `PROGRESS.md` §6 checks still pass — this phase
+- [x] **No muted text on any raised block**, light mode especially — **re-read on the build
+      carrying trap 24** (see above); it could not have passed before it
+- [x] A panel press is visible but instant — 120ms, not a bounce
+- [x] The star is in the **app bar** on the detail screen, and reachable one-handed
+- [x] Back from a filtered list returns to the same place in the list
+- [x] Font scale 1.3 on every screen: no clipped text, no overlap
+- [x] **Nothing else moved.** The six original `PROGRESS.md` §6 checks still pass — this phase
       must not break a screen it was not asked to touch
 
 ## 9. The order

@@ -161,6 +161,11 @@ private fun Modifier.pressable(onClick: () -> Unit): Modifier {
  * Filled with `surface` so it reads as a surface rather than as an outline drawn on the page.
  * Not raised: a raised panel means *quoted from the database*, and that is [RaisedPanel]'s job
  * alone. Nesting one inside another is how a designed screen turns back into a generic one.
+ *
+ * [contentColor] is stated rather than left to `contentColorFor(fill)`. It resolves to the same
+ * value the default would (`surface` ⇒ `onSurface` ⇒ `ink`, 15.47:1), and it is written out so
+ * both containers in this file say what their text colour is — see [RaisedPanel] for what
+ * happens when that is left implicit.
  */
 @Composable
 fun BorderedPanel(
@@ -172,6 +177,7 @@ fun BorderedPanel(
         modifier = if (onClick != null) modifier.pressable(onClick) else modifier,
         shape = cardShape(),
         color = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.onSurface,
         border = inkBorder(),
     ) {
         Column {
@@ -195,6 +201,15 @@ fun BorderedPanel(
  *
  * There is no `onClick` and no `elevation`, deliberately. A quotation is not a button, and a
  * raised card is how a considered layout becomes a template.
+ *
+ * **[contentColor] is not optional, and the reason is worth writing down.** A `Surface` with no
+ * `contentColor` derives one from its fill: `contentColorFor(surfaceVariant)` returns
+ * `onSurfaceVariant`, which this theme maps to `ink_muted` — so every `Text` inside a raised
+ * block that does not name a colour renders **4.15:1** in light mode, which is the §2.1 failure
+ * this component exists to make unrepresentable. It looks correct, it passes every gate in the
+ * project, and it is only visible to someone reading the meaning block on a cheap LCD. Passing
+ * `onSurface` puts the rule in the component, where a call site cannot forget it, instead of in
+ * a KDoc that three call sites then contradicted.
  */
 @Composable
 fun RaisedPanel(
@@ -205,6 +220,7 @@ fun RaisedPanel(
         modifier = modifier,
         shape = cardShape(),
         color = MaterialTheme.colorScheme.surfaceVariant,
+        contentColor = MaterialTheme.colorScheme.onSurface,
         border = inkBorder(),
     ) {
         Column {
@@ -226,6 +242,7 @@ fun BorderedRow(
             .let { if (onClick != null) it.pressable(onClick) else it },
         shape = cardShape(),
         color = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.onSurface,
         border = inkBorder(),
     ) {
         Row {

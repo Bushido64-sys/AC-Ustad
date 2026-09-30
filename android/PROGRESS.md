@@ -1,18 +1,29 @@
 # PROGRESS — AC Ustad app
 
-**Read this first when resuming.** Last updated: 2026-09-29
+**Read this first when resuming.** Last updated: 2026-09-30
 
-> **Where we are:** Phases 1–8 are built and phone-checked. The knowledge base and the
-> 20-document build guide are finished, and so is the whole of Phase 11 as a *build* — steps 1–6
-> of its 7, all green, the seventh (per-brand source list) closed by decision.
+> **Where we are:** Phases 1–8 and 11 are built and phone-checked. The knowledge base and the
+> 20-document build guide are finished. Phase 11 is complete as a build — steps 1–6 of its 7,
+> the seventh (per-brand source list) closed by decision — and its §6 group 5 has been run on a
+> phone.
 >
-> **Nothing is half-finished and nothing is in flight.** `main` is `a1cfb3b`, `build app` and
-> `verify data` are both green on it, and the working tree is clean.
+> **Nothing is half-finished and nothing is in flight.** `build app` and `verify data` are green
+> on `main`, and the working tree is clean. (A commit hash is deliberately not written here:
+> the last time one was, it was stale by two commits within a day.)
 >
-> **The only thing outstanding is a human looking at `282b035`.** §6 group 5 is ten visual
-> checks, and no gate in this project can make a visual judgement — the surface hierarchy is a
-> look, and it will pass every automated check in the file whether or not it reads. That is the
-> next session's first job, and it is the same job as trap 15.
+> **Next in §7 is Phase 9** — release signing, the performance pass and the pre-release
+> checklist. Phase 10 stays blocked on a Play developer account.
+
+> **2026-09-30:** the human reported §6 group 5 (28–37) passing on the phone, so Phase 11 moves
+> to ✅. Then a source read — not a phone — found that all three `Text`s inside `RaisedPanel`
+> inherited `onSurfaceVariant` = `ink_muted`: **4.15:1 on the meaning block in light mode**, so
+> check 34 could not have been true on the build that was tested. `SeriesScreen`'s KDoc claimed
+> the notes were full ink; the code never said so — the same failure as trap 15, a claim
+> described as verified that was only reasoned about. It is now trap 24, fixed **in the
+> component** where a call site cannot forget it, and pinned by `ContainerContentColorTest`.
+> **Check 34 needs re-reading on the build that carries the fix** — the meaning block and the
+> source line on a code detail, and the brand notes on a model screen, in light mode. One line
+> of content colour, and exactly the kind of judgement no gate in this project can make.
 
 > **2026-09-29:** the human ran the §6 checks on a real phone and reported them passing, so the
 > Phase 4, 6 and 8 screens move to ✅. That is a human result, not a CI result — CI still cannot
@@ -39,17 +50,19 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 7 · Offline & updates | ✅ | **Trap 16 fixed** — a new APK always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and **five** CI gates now enforce them, including the network/ads gate that used to be documented and not written (trap 23) |
 | 8 · Accessibility & Roman Urdu | ✅ phone-checked 2026-09-29 | The EN/UR toggle works, persists and is partial-toggle-safe. **Settings + the theme override are built and passed the §6 group-4 checks**, including the trap-22 Light-mode fix. Still open: the font-scale / TalkBack pass |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
-| 11 · UI/UX | 🟡 **built and CI-green, awaiting a phone** | **Built 2026-09-29, steps 1–6 of the guide's 7. Nothing here is phone-checked, and no gate in this project can check a visual judgement — steps 1 and 2 first, on their own build, was the guide's explicit instruction and the human has not reported on them yet.** `BorderedPanel` and `BorderedRow` were passing `Color.Transparent`; both now fill with `surface`, and the new `RaisedPanel` (level 2, `surfaceVariant`) is on the detail screen's meaning and source line where `DESIGN.md` §4.5 already said *raised*. `R.dimen` went from **zero uses to four**, so the token file is load-bearing rather than decorative. **Zero new colours.** **Also built in the same pass, all from `PHASE_11_UI_UX.md`:**
+| 11 · UI/UX | ✅ **phone-checked 2026-09-30** | **Built 2026-09-29, steps 1–6 of the guide's 7; §6 group 5 (28–37) reported passing on the phone 2026-09-30, with check 34 to be re-read on the build carrying trap 24 — see the note at the top.** `BorderedPanel` and `BorderedRow` were passing `Color.Transparent`; both now fill with `surface`, and the new `RaisedPanel` (level 2, `surfaceVariant`) is on the detail screen's meaning and source line where `DESIGN.md` §4.5 already said *raised*. `R.dimen` went from **zero uses to four**, so the token file is load-bearing rather than decorative. **Zero new colours.** **Also built in the same pass, all from `PHASE_11_UI_UX.md`:**
    - **The star moved into the app bar** (§6 #1, and the one the guide calls important).
      `AcUstadAppBar` had **no action slot at all**; it has exactly one now, and the star is
      extracted to a shared `StarToggle` so the body and the bar cannot disagree. It sat in the
      content body, which is precisely where a thumb is when the phone is held in one hand.
    - **The nav's top line is `outline` at 2dp, not `hairline`** (§2.2). Measured 1.41:1 light and
      1.47:1 dark against a 3.0 bar — a structural line that does not exist in sunlight.
-   - **`SeriesScreen`'s brand notes are raised** (§3.4), and their text is **full ink, not
-     muted** — the first place §2.1's rule actually bites, because `ink_muted` on `surface_alt`
-     is 4.15:1 in light mode. It is 6.93:1 in dark, so a dark-mode review would never have
-     caught it.
+   - **`SeriesScreen`'s brand notes are raised** (§3.4), and their text is full ink — but that
+     was a **reasoned-about** claim until 2026-09-30: the `Text` named no colour, so it inherited
+     `onSurfaceVariant` = `ink_muted`, which is 4.15:1 on `surface_alt` in light mode (6.93:1 in
+     dark, so a dark-mode review would never have caught it). Same for the detail screen's meaning
+     and source line. It is true now because `RaisedPanel` passes `contentColor = onSurface` for
+     every child. **See trap 24.**
    - **One press animation, 120ms** (§5): an alpha dip to 0.88 on tappable panels and rows, with
      the Material ripple suppressed because the dip *is* the specified press feedback. An alpha
      dip and not a scale, because a scale would expose a sliver of canvas at the card's edge.
@@ -59,7 +72,12 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
    - **"Open E6" on an exact single match** (§6 #3, `DESIGN.md` §4.4). The one primary action in
      the app, so the only other `hardShadow`. On an exact match only — a prefix match must never
      offer to open something.
-   - `R.dimen` uses: **0 → 5**. **Carries two live constraints now: (a) the theme override is real and must stay real — no colour may go back behind a `values-night` qualifier (trap 22), and (b) the Settings screen is a third surface and will need the same pass as the rest** |
+   - `R.dimen` uses: **0 → 4** (`border_width`, `radius_card`, `row_min`, `radius_chip`; the
+     count was written here as 5 and is 4). **Carries three live constraints now: (a) the theme
+     override is real and must stay real — no colour may go back behind a `values-night`
+     qualifier (trap 22), (b) the Settings screen is a third surface and gets the same pass as
+     the rest, and (c) `RaisedPanel` must keep stating `contentColor = onSurface`, because the
+     inherited default is 4.15:1 (trap 24), pinned by `ContainerContentColorTest`** |
 | 10 · Monetisation | ⬜ **not started** | **Planning only.** Free-with-ads → trial → paid, all on Play. The plan is written: `app-pipeline/guide/PHASE_10_MONETISATION.md`. Nothing is built until a Play developer account exists |
 
 ## 1a. Starting a session
@@ -84,7 +102,7 @@ Three rules for whoever picks this up, human or AI:
 1. **The database wins.** If this file, the build guide and `kb.sqlite` disagree, the
    database is right - and say so instead of quietly working around it.
 2. **Do not trust a number that has not been read.** Every count here was queried, but a data
-   release can move them. `python3 app-pipeline/check_app_sql.py` re-checks 40 of them.
+   release can move them. `python3 app-pipeline/check_app_sql.py` re-checks 58 of them.
 3. **Watch for the six failure modes this project actually produced:**
    - a column name written from memory instead of read from the schema;
    - **a claim described as "verified" that was only reasoned about.** Phase 4 sat in the table
@@ -143,7 +161,8 @@ android/app/src/main/java/com/acustad/app/
 
 ## 4. Traps that will bite anyone
 
-Each of these was found by the build failing, or by querying the real database. They are the
+Each of these was found by the build failing, by querying the real database, or — trap 24 — by
+reading the source against a rule a document had already written. They are the
 reason several comments in the code look defensive.
 
 1. **`series.id` is unique only within a brand.** `inverter-split` is shared by **14** brands. A
@@ -296,6 +315,24 @@ reason several comments in the code look defensive.
     `INTERNET` is a normal permission and cannot be had for free. The class gate is the early
     warning that a library is arriving which brings its own networking.
 
+24. **A `Surface` picks its text colour from its own fill, so a component that does not say it
+    hands every child the one colour the design forbids.** `RaisedPanel` filled with
+    `surfaceVariant` passed no `contentColor`, so Material3 derived
+    `contentColorFor(surfaceVariant)` = `onSurfaceVariant` = **`ink_muted`**, and every `Text`
+    inside it that named no colour rendered **4.15:1 in light mode** — under the 4.5 AA bar, on
+    exactly what `PHASE_11` §2.1 and check 34 protect: the detail screen's **meaning** (the most
+    important text in the app), its **source line**, and `SeriesScreen`'s **brand notes**. Dark
+    mode is 6.93:1 and passes, so a dark-mode review cannot see it; the build is green; no test
+    opens the screen. **What makes it a trap rather than a bug:** the `SeriesScreen` KDoc said
+    the notes were *"full ink, not muted"* and this file said the same — a claim described as
+    verified that was only reasoned about, the same failure as trap 15, this time in a KDoc that
+    read like a fix. Fixed 2026-09-30 **in the component**: `contentColor =
+    MaterialTheme.colorScheme.onSurface` on all three containers, so a call site cannot forget
+    it, plus `ContainerContentColorTest`, which reads the source and fails if the line goes.
+    **The general rule: a default that the design forbids must be overridden where the container
+    is defined, not remembered at every use — and a rule written only in a KDoc is a rule that
+    has not been implemented.**
+
 ## 5. The gates, and what each one is for
 
 | Gate | Protects |
@@ -304,7 +341,7 @@ reason several comments in the code look defensive.
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
 | `verify data` / `check_app_sql.py` | **58 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order** (after trap 15) and the teaching-state count and its `code_norm` guard |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | **86** tests (58 + the theme round-trip, Settings formatters, 5 palette-contract assertions and 12 teaching-state assertions), including all 2,139 code strings and the FTS quoting. **Green on 282b035, 2026-09-29.** Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen** — the 12 new ones check a pure decision function and a SQL string, not a pixel |
+| `build app` / unit tests | **89** tests (58 + the theme round-trip, Settings formatters, 5 palette-contract assertions, 12 teaching-state assertions and 3 content-colour assertions — total counted off the `@Test` annotations, 2026-09-30), including all 2,139 code strings and the FTS quoting. Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen**; the decision-function and SQL assertions, and the three source-reading ones added with trap 24, all still cannot see a pixel |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission. **This is what actually enforces RULE 14** — zero permissions means zero network, since `INTERNET` is a normal permission |
 | `build app` / database hash | the APK cannot carry a stale database. On-device re-staging is a separate rule — see trap 16 |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
@@ -406,7 +443,8 @@ called done.
     do not change. Only code content changes. (RULE 13)
 27. Airplane mode: Settings opens and shows the data block. Nothing on it needs a network.
 
-**Group 5 — Phase 11, the visual pass (`build app` green on `282b035`, none of it phone-checked).**
+**Group 5 — Phase 11, the visual pass. Reported passing on the phone 2026-09-30, with check 34
+outstanding on the build carrying trap 24 — see the note at the top.**
 Every check here is a **visual judgement**, and not one automated test in this project can make
 one. The surface hierarchy is the phase; if the three levels do not read, stop rather than
 building on them.
@@ -433,6 +471,9 @@ building on them.
 
 ## 7. Do these next, in this order
 
+> **Next is item 5 — Phase 9.** Items 1–4 are all closed (item 1 closed 2026-09-30), so the
+> first *open* item in this list is the one that ships. Item 6 stays blocked on a Play account.
+
 **Phase 7 is not a feature phase, and that is why it is not above — but it is not empty either.**
 Most of it is a list of things **not to build**: the whole point is that the app never mentions
 the network, and you satisfy that by writing no code at all. `DEPENDENCIES.md` §2 already
@@ -443,22 +484,22 @@ one.
 
 **The one genuine defect it had is now fixed (trap 16). What remains:**
 
-1. **Phase 11 is built through §6 and is waiting on a human.** See the Phase 11 row in §1. The
-   remaining two items are:
+1. ~~**Phase 11 is built through §6 and is waiting on a human.**~~ — **done 2026-09-30.** §6
+   group 5 (28–37) was reported passing on the phone, so Phase 11 is ✅ in §1, with check 34
+   recorded there as needing one re-read on the build carrying trap 24. The phase's two
+   remaining items were both closed on purpose and stay closed:
    - **§6 #4 — the brand's source list at the bottom of Brands: SKIPPED by decision, 2026-09-29.**
      The human chose to close the phase without it. It needs a new route, a new DAO query and a
      new `check_app_sql.py` assertion, and it collides with a decision taken the same day (the
      global coverage panel came off Settings). `DESIGN.md` §4.5 and `PHASE_11` §6 both now record
      it as an override, so neither document quietly claims it exists. The per-code source still
      shows on the code's own page, which is where a technician checking one answer looks.
-   - **§7 — the remaining token drift: also closed.** ~110 hardcoded `.dp` values left in the
-     source. **Invisible** — not one pixel changes, and no phone check can see it done. It is
+   - **§7 — the remaining token drift: also closed.** 112 hardcoded `.dp` values left in the
+     source (counted 2026-09-30). **Invisible** — not one pixel changes, and no phone check can
+     see it done. It is
      documentation debt, not a defect, and it converts screen by screen whenever a screen is
-     being changed anyway. `R.dimen` went 0 → 5 uses this phase, which is enough that the token
+     being changed anyway. `R.dimen` went 0 → 4 uses this phase, which is enough that the token
      file is no longer a comment.
-   **And the thing that is actually blocking: none of steps 1–6 has been looked at.** The guide
-   is explicit that if the three levels do not read on a real phone, the rest of this phase is
-   built on a wrong foundation.
 2. ~~**The Settings screen, and the third bottom-nav item with it.**~~ — **done and
    phone-checked 2026-09-29** (all nine of §6 group 4 passed, after the trap-22 Light-mode fix). It was written before item 1, which is the one ordering
    mistake in this list: the Settings screen is a new surface and `PHASE_11` is going to change
