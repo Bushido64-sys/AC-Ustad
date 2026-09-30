@@ -33,6 +33,7 @@ import com.acustad.app.model.ContentLanguage
 import com.acustad.app.ui.common.BorderedPanel
 import com.acustad.app.ui.common.EmptyState
 import com.acustad.app.ui.common.Severity
+import com.acustad.app.ui.common.RaisedPanel
 import com.acustad.app.ui.common.SeverityChip
 import com.acustad.app.ui.common.StarIcon
 import com.acustad.app.ui.common.bilingualChipWord
@@ -91,7 +92,11 @@ fun CodeDetailScreen(
 
         val meaning = detail.meaning(state.language)
         if (meaning != null) {
-            BorderedPanel(modifier = Modifier.fillMaxWidth()) {
+            // Level 2 - raised. DESIGN.md §4.5 draws the meaning inside a raised block, and this
+            // is the one piece of the screen that is genuinely a quotation: the manufacturer or
+            // the manual's own words, not the app's. It is also the block a technician reads
+            // first, so raising it puts the hierarchy in the order the design intended.
+            RaisedPanel(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = meaning,
                     style = UstadType.body,
@@ -114,6 +119,9 @@ fun CodeDetailScreen(
 
         val notes = detail.notes(state.language)
         if (notes != null) {
+            // Level 1, not raised. Notes are editorial rather than a quotation, and the design
+            // groups them with the other collapsible blocks. Only the meaning and the source
+            // line are level 2 on this screen.
             CollapsibleBlock(
                 heading = stringResource(R.string.heading_notes),
                 text = notes,
@@ -288,7 +296,11 @@ private fun SourceBlock(detail: CodeDetail, language: ContentLanguage) {
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         HeadingWithCount(stringResource(R.string.heading_source), "")
-        BorderedPanel(modifier = Modifier.fillMaxWidth()) {
+        // Level 2 - raised. DESIGN.md §4.5 and PHASE_11 §3.2 both put the source line on the
+        // raised surface, and they are right: `source_type` and `source_title` are a citation,
+        // which is a quotation, and showing provenance on the same footing as the app's own
+        // copy would be quietly claiming it.
+        RaisedPanel(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(
                     text = listOfNotNull(type, title).joinToString(" · "),

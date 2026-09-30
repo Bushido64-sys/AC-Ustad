@@ -22,8 +22,10 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.acustad.app.R
 import com.acustad.app.ui.theme.UstadType
 
 /**
@@ -36,15 +38,65 @@ import com.acustad.app.ui.theme.UstadType
  *  - no elevation and no shadow on containers. A hard `3dp 3dp 0` shadow is allowed only on
  *    primary actions and the selected state (RULES.md RULE 9).
  *
+ * ### The three surfaces, and why this file is where they live
+ *
+ * There are exactly three levels and the whole app hangs off them (`PHASE_11_UI_UX.md` §1):
+ *
+ * | Level | Role | Where |
+ * |---|---|---|
+ * | 0 · canvas | the page | everywhere else |
+ * | 1 · surface | anything you could **tap** | [BorderedPanel], [BorderedRow] |
+ * | 2 · raised | quoted content from the database | [RaisedPanel] |
+ *
+ * **Rule 1: tappable ⇒ level 1 or above. Quoted from the database ⇒ level 2. Neither ⇒ canvas.**
+ *
+ * Both `BorderedPanel` and `BorderedRow` used to pass `Color.Transparent`, which meant every
+ * card, every list row and the meaning block sat on raw canvas while `surface` and
+ * `surface_alt` sat mapped in the theme and used nowhere. That is the entire reason the app
+ * reads as a wireframe: not a missing design, a **built-and-unused** one. Two lines, and the
+ * hierarchy exists.
+ *
+ * Every contrast pair these fills create was computed, not eyeballed (PHASE_11 §1), and all of
+ * them are AA or better with one documented exception that [RaisedPanel] exists partly to make
+ * avoidable: **`ink_muted` on `surface_alt` is 4.15:1, under the 4.5 text bar** — fine in dark
+ * mode at 6.93:1, which is exactly how this kind of thing survives a dark-mode review and fails
+ * on a cheap LCD in sunlight. So muted text never goes on a raised block. It is one rule, in
+ * one KDoc, instead of a comment on forty call sites.
+ *
+ * The fill is **added to** the border, never a replacement for it. The 2dp ink border is the
+ * sunlight guarantee; the fill is the hierarchy. A panel that reads as bare in sun gets a
+ * stronger border or more text contrast — never a darker fill, and never a shadow.
+ *
  * Taps are applied with `Modifier.clickable` on a plain `Surface` rather than with the
  * Material 3 `Surface(onClick = ...)` overload. That overload is still marked experimental in
  * places and takes a different parameter list, so relying on it costs a build for no benefit.
  */
 
 @Composable
-private fun inkBorder(): BorderStroke = BorderStroke(2.dp, MaterialTheme.colorScheme.outline)
+private fun inkBorder(): BorderStroke =
+    BorderStroke(dimensionResource(R.dimen.border_width), MaterialTheme.colorScheme.outline)
 
-/** A bordered panel — the app's only container type. */
+/**
+ * The one card radius, read from the token file.
+ *
+ * `design_tokens.xml` is documented as *"the ONLY place a colour, size or spacing is
+ * defined"*, and until this change it was the only place those values were **written down** and
+ * nowhere they were **used**: the app referenced `R.dimen` zero times and hardcoded 113 literal
+ * `.dp` values. A token file that nothing reads is a comment. The three primitives read from it
+ * first, and the rest of the app follows screen by screen alongside whatever else each screen
+ * is being given — not in one sweeping diff, which would be a large change with no visible
+ * benefit and a real chance of breaking a phone check.
+ */
+@Composable
+private fun cardShape() = RoundedCornerShape(dimensionResource(R.dimen.radius_card))
+
+/**
+ * A bordered panel — the app's level-1 container: **cards, and anything you could tap.**
+ *
+ * Filled with `surface` so it reads as a surface rather than as an outline drawn on the page.
+ * Not raised: a raised panel means *quoted from the database*, and that is [RaisedPanel]'s job
+ * alone. Nesting one inside another is how a designed screen turns back into a generic one.
+ */
 @Composable
 fun BorderedPanel(
     modifier: Modifier = Modifier,
@@ -53,8 +105,8 @@ fun BorderedPanel(
 ) {
     Surface(
         modifier = modifier,
-        shape = RoundedCornerShape(4.dp),
-        color = Color.Transparent,
+        shape = cardShape(),
+        color = MaterialTheme.colorScheme.surface,
         border = inkBorder(),
     ) {
         Column(
@@ -69,7 +121,40 @@ fun BorderedPanel(
     }
 }
 
-/** A bordered row container. 56dp is the minimum height, for gloves. */
+/**
+ * Level 2: a block of content **quoted from the database** — a code's meaning, a source line,
+ * a brand's own note. Exactly one per idea, and never nested inside another raised block.
+ *
+ * `surfaceVariant` is the theme's mapping of `surface_alt` (#DCEAF5 light, #1B2833 dark).
+ *
+ * **The rule that comes with this component: no muted text inside.** `ink_muted` on
+ * `surface_alt` is **4.15:1**, which is under the 4.5:1 AA text bar — in light mode only, where
+ * it is 6.93:1 and fine, which is precisely how this survives a dark-mode screenshot review
+ * and then fails on a cheap LCD in sunlight. Use full `ink`, or move the label out onto the
+ * canvas. Recomputed for this phase from the real resource values; the number is not a
+ * round number someone liked.
+ *
+ * There is no `onClick` and no `elevation`, deliberately. A quotation is not a button, and a
+ * raised card is how a considered layout becomes a template.
+ */
+@Composable
+fun RaisedPanel(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    Surface(
+        modifier = modifier,
+        shape = cardShape(),
+        color = MaterialTheme.colorScheme.surfaceVariant,
+        border = inkBorder(),
+    ) {
+        Column {
+            content()
+        }
+    }
+}
+
+/** A bordered row container. Level 1, like [BorderedPanel]. 56dp is the minimum height, for gloves. */
 @Composable
 fun BorderedRow(
     modifier: Modifier = Modifier,
@@ -77,9 +162,9 @@ fun BorderedRow(
     content: @Composable () -> Unit,
 ) {
     Surface(
-        modifier = modifier.heightIn(min = 56.dp),
-        shape = RoundedCornerShape(4.dp),
-        color = Color.Transparent,
+        modifier = modifier.heightIn(min = dimensionResource(R.dimen.row_min)),
+        shape = cardShape(),
+        color = MaterialTheme.colorScheme.surface,
         border = inkBorder(),
     ) {
         Row(
@@ -109,7 +194,7 @@ fun SeverityChip(
 ) {
     Surface(
         modifier = modifier.semantics { contentDescription = label },
-        shape = RoundedCornerShape(2.dp),
+        shape = RoundedCornerShape(dimensionResource(R.dimen.radius_chip)),
         color = background,
         border = border,
     ) {
