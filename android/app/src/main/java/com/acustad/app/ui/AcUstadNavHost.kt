@@ -31,6 +31,7 @@ import com.acustad.app.ui.browse.CodesScreen
 import com.acustad.app.ui.browse.CodesViewModel
 import com.acustad.app.ui.browse.SeriesScreen
 import com.acustad.app.ui.browse.SeriesViewModel
+import com.acustad.app.ui.common.StarToggle
 import com.acustad.app.ui.detail.CodeDetailScreen
 import com.acustad.app.ui.detail.CodeDetailViewModel
 import com.acustad.app.ui.home.HomeScreen
@@ -230,10 +231,22 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
                     ),
                 ) {
                     val vm: CodeDetailViewModel = viewModel()
+                    // Collected here, not inside the screen, because the star lives in the app bar
+                    // and the bar is rendered by this host. Same view model, same StateFlow: this
+                    // is a second observer, not a second source of truth, so the body and the bar
+                    // cannot disagree about whether the code is saved. (trap 12's cousin — two
+                    // readers of one flow is fine; two writers is not.)
+                    val detailState by vm.state.collectAsStateWithLifecycle()
                     ScreenWithBar(
                         title = vm.seriesName.ifBlank { stringResource(R.string.heading_code) },
                         subtitle = vm.brandName.ifBlank { null },
                         onBack = { nav.popBackStack() },
+                        action = {
+                            StarToggle(
+                                filled = detailState.detail?.isFavourite == true,
+                                onToggle = vm::toggleFavourite,
+                            )
+                        },
                     ) {
                         CodeDetailScreen()
                     }
@@ -264,16 +277,25 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
     }
 }
 
-/** An app bar above a screen's content. A top-level screen has no back arrow. */
+/**
+ * An app bar above a screen's content. A top-level screen has no back arrow.
+ *
+ * @param action passed straight through to [AcUstadAppBar], and used on exactly one screen: the
+ *   code detail, where the star belongs next to the code rather than in the content body
+ *   (DESIGN.md §4.5, `PHASE_8` §3). Keeping the plumbing here rather than inside
+ *   [CodeDetailScreen] is what lets the detail screen's content be a plain scrollable column
+ *   with no app bar in it at all — the bar is chrome, and chrome belongs to the host.
+ */
 @Composable
 private fun ScreenWithBar(
     title: String,
     onBack: (() -> Unit)?,
     subtitle: String? = null,
+    action: @Composable (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        AcUstadAppBar(title = title, subtitle = subtitle, onBack = onBack)
+        AcUstadAppBar(title = title, subtitle = subtitle, onBack = onBack, action = action)
         content()
     }
 }

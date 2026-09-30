@@ -1,7 +1,12 @@
 package com.acustad.app.ui.common
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,11 +18,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -91,6 +99,63 @@ private fun inkBorder(): BorderStroke =
 private fun cardShape() = RoundedCornerShape(dimensionResource(R.dimen.radius_card))
 
 /**
+ * The app's **one** animation: a 120ms `FastOutSlowIn` dip while a panel or row is held.
+ *
+ * `DESIGN.md` §5 asks for 120–180ms on the panel press and nothing else, and the app had **zero**
+ * motion — which is a large part of why a correct design reads as a screenshot. One animation,
+ * 120ms, and then stop: motion is the easiest thing in this project to overdo and the fastest
+ * way to make a working tool feel like a toy.
+ *
+ * **An alpha dip, not a scale.** A scale would move the panel's edge out from under the finger
+ * and, on a bordered card, would expose a sliver of canvas at one edge — a new colour appearing
+ * for 120ms on a surface that has exactly three defined levels. Alpha cannot do that.
+ *
+ * 0.88, not a fade to something faint: a technician tapping in sunlight needs to *see* that the
+ * press registered, and this is a touch target used with cold, dirty hands.
+ *
+ * **No hard shadow on press.** RULE 9 allows `3dp 3dp 0` on the selected nav indicator and
+ * primary actions only, and moving a shadow would be the most visible way to turn a considered
+ * design into a template.
+ *
+ * Respects the system "remove animations" setting for free: `animateFloatAsState` reads the
+ * `MotionDurationScale` that Compose provides, and at scale 0 the value snaps.
+ */
+private const val PRESSED_ALPHA = 0.88f
+private val PressAlphaSpec = tween<Float>(durationMillis = 120, easing = FastOutSlowInEasing)
+
+/**
+ * Makes a container tappable with the press dip, or returns itself unchanged when there is
+ * nothing to tap.
+ *
+ * The default Material ripple is **suppressed** (`indication = null`) because the alpha dip is
+ * the press feedback `DESIGN.md` §5 specifies, and a circular ripple clipping at a 4dp corner on
+ * a 2dp-bordered card looks like a template rather than an instrument. This does not remove
+ * anything a screen reader needs: `onClick` still contributes a click action, and TalkBack
+ * announces the button role from the semantics, not from the ripple.
+ *
+ * The clickable is applied to the **container**, not to a child column. On a bordered card the
+ * old arrangement left the 2dp border itself untappable, which is a 2dp strip a gloved thumb can
+ * just miss.
+ */
+@Composable
+private fun Modifier.pressable(onClick: () -> Unit): Modifier {
+    val interaction = remember { MutableInteractionSource() }
+    val pressed by interaction.collectIsPressedAsState()
+    val alpha by animateFloatAsState(
+        targetValue = if (pressed) PRESSED_ALPHA else 1f,
+        animationSpec = PressAlphaSpec,
+        label = "press-dip",
+    )
+    return this
+        .graphicsLayer { this.alpha = alpha }
+        .clickable(
+            interactionSource = interaction,
+            indication = null,
+            onClick = onClick,
+        )
+}
+
+/**
  * A bordered panel — the app's level-1 container: **cards, and anything you could tap.**
  *
  * Filled with `surface` so it reads as a surface rather than as an outline drawn on the page.
@@ -104,18 +169,12 @@ fun BorderedPanel(
     content: @Composable () -> Unit,
 ) {
     Surface(
-        modifier = modifier,
+        modifier = if (onClick != null) modifier.pressable(onClick) else modifier,
         shape = cardShape(),
         color = MaterialTheme.colorScheme.surface,
         border = inkBorder(),
     ) {
-        Column(
-            modifier = if (onClick != null) {
-                Modifier.clickable(onClick = onClick)
-            } else {
-                Modifier
-            }
-        ) {
+        Column {
             content()
         }
     }
@@ -162,18 +221,14 @@ fun BorderedRow(
     content: @Composable () -> Unit,
 ) {
     Surface(
-        modifier = modifier.heightIn(min = dimensionResource(R.dimen.row_min)),
+        modifier = modifier
+            .heightIn(min = dimensionResource(R.dimen.row_min))
+            .let { if (onClick != null) it.pressable(onClick) else it },
         shape = cardShape(),
         color = MaterialTheme.colorScheme.surface,
         border = inkBorder(),
     ) {
-        Row(
-            modifier = if (onClick != null) {
-                Modifier.clickable(onClick = onClick)
-            } else {
-                Modifier
-            }
-        ) {
+        Row {
             content()
         }
     }

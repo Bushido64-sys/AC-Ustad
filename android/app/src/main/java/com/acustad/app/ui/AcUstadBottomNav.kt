@@ -64,11 +64,21 @@ fun AcUstadBottomNav(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
+        // The top line is `outline` (ink) at 2dp, and **not** the 2dp `hairline` DESIGN.md §1
+        // asks for here. Measured: hairline on canvas is 1.41:1 in light and 1.47:1 in dark,
+        // against a 3.0 non-text bar — a line that does not exist on a cheap LCD in sunlight,
+        // and the one element of this bar carrying structural meaning.
+        //
+        // PHASE_8 §6 ("no thin text-coloured separators for meaningful grouping — use a 2dp ink
+        // border or spacing") wins over DESIGN.md §1 here, because PHASE_8 is the document
+        // written for a screen in sun. `hairline` survives in exactly one place, the `info`
+        // chip's border, where DESIGN.md §3 already accepts 1.42:1 because the *word* is the
+        // signal. (PHASE_11 §2.2, trap 20)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(HAIRLINE_DP)
-                .background(MaterialTheme.colorScheme.outlineVariant),
+                .background(MaterialTheme.colorScheme.outline),
         )
         Row(
             modifier = Modifier
@@ -174,7 +184,7 @@ private fun RowScope.NavItem(
 /** 56dp: the same minimum as a list row, because a nav item is used with gloves too. */
 private val NAV_BAR_HEIGHT_DP = 56.dp
 
-/** The 2dp ink border is the app's structural line weight. */
+/** 2dp ink border, as on every card, row and chip. The app's structural line weight. */
 private val HAIRLINE_DP = 2.dp
 
 /** 4dp indicator, not a pill. (design_tokens.xml: stroke_selected) */

@@ -8,11 +8,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.ui.Alignment
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -50,6 +53,8 @@ fun BrandsScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val query by viewModel.query.collectAsStateWithLifecycle()
     val teaching by viewModel.teaching.collectAsStateWithLifecycle()
+    // Keyed on the category, so AC and Inverter do not share a scroll position.
+    val listState = rememberListStateFor(viewModel.category.name)
 
     Column(
         modifier = modifier
@@ -64,6 +69,7 @@ fun BrandsScreen(
         )
 
         LazyColumn(
+            state = listState,
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -197,3 +203,27 @@ private fun BrandRow(name: String, codeCount: Int, onClick: () -> Unit) {
         }
     }
 }
+
+/**
+ * A list state that survives navigation.
+ *
+ * DESIGN.md §4.3: *"Back returns to the brands list with its query and scroll position intact."*
+ * Neither was kept, and it is the single most irritating thing a list app can get wrong: a
+ * technician has scrolled to one brand out of 62, tapped the wrong row, pressed back, and is now
+ * at the top of an alphabet they were halfway down.
+ *
+ * `rememberSaveable`, not `remember`, and the difference is the whole point. `remember` dies with
+ * the composition, and a screen that is merely off-screen is not destroyed — but a
+ * `NavBackStackEntry` that is popped **is**, so `remember` would lose the position exactly when
+ * the app returns. `rememberSaveable` survives that, and also survives a configuration change,
+ * which matters because this app is used in a van.
+ *
+ * The key is the route argument, not a constant: three different lists share this function, and
+ * a shared key would restore Carrier's scroll position onto Dawlance's list.
+ *
+ * The saved value is the list state's own `firstVisibleItemIndex` / `firstVisibleItemScrollOffset`
+ * pair, which Compose saves for free. Nothing is measured or computed here.
+ */
+@Composable
+private fun rememberListStateFor(key: String): LazyListState =
+    rememberSaveable(saver = LazyListState.Saver, key) { LazyListState() }

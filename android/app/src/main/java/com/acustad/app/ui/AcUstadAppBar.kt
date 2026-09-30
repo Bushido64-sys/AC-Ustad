@@ -27,6 +27,21 @@ import com.acustad.app.ui.theme.UstadType
  * tinted with **ink, never the blue** — blue means "selected or primary", and a back arrow that
  * changes colour for decoration destroys that meaning. It is 48dp because it is used with
  * gloves.
+ *
+ * @param action **the** action slot, and there is exactly one. DESIGN.md §4.5 puts the star
+ *   here on the code-detail screen, next to the code, and `PHASE_8` §3 says the same thing for
+ *   a reason worth keeping: *"so a thumb never covers the code while tapping."* A star in the
+ *   content body sits directly under the thumb when the phone is held in one hand, which is
+ *   exactly the hand this app is read with.
+ *
+ *   The slot is `null` on every other screen, and it stays null rather than becoming a
+ *   back-and-two-actions row. A screen with no action must not reserve space for one — that
+ *   would push the title 48dp right on the screens that have nothing to do there, and a title
+ *   that moves between screens is a title nobody can find.
+ *
+ *   The action is a composable slot rather than an icon + label pair on purpose: it is the only
+ *   way a caller can put a *toggled* control (filled or outline) in it without the app bar
+ *   knowing what a star is. `AcUstadAppBar` has no opinion about what the action does.
  */
 @Composable
 fun AcUstadAppBar(
@@ -34,6 +49,7 @@ fun AcUstadAppBar(
     onBack: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     subtitle: String? = null,
+    action: @Composable (() -> Unit)? = null,
 ) {
     Column(
         modifier = modifier
@@ -80,6 +96,11 @@ fun AcUstadAppBar(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
+            }
+            if (action != null) {
+                // The action is a sibling of the title column, not inside it, so it sits in the
+                // row's own vertical centring and cannot be pushed around by a two-line title.
+                action()
             }
         }
     }

@@ -2,14 +2,20 @@ package com.acustad.app.ui.common
 
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.Canvas
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.foundation.layout.size
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.toggleableState
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.acustad.app.R
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -57,3 +63,48 @@ fun StarIcon(
         }
     }
 }
+
+/**
+ * The save star as a **control**: a 48dp tap target, a filled/outline state, and a spoken label
+ * that changes with the state.
+ *
+ * Extracted from the code-detail screen's body and shared with the app bar, because the star now
+ * lives in the app bar (DESIGN.md §4.5, PHASE_8 §3) and one implementation of "what does saved
+ * look like" is the only way the two can never disagree. There are two call sites and they mean
+ * the same thing; a second drawing of the star is a second thing to get wrong.
+ *
+ * Starred is the **primary blue**, because in this app blue means "selected". Unstarred is ink.
+ * The label is the important half: a screen reader announces "Save this code" or "Remove from
+ * saved", never the word "star", and it is the state a listener needs rather than the shape.
+ */
+@Composable
+fun StarToggle(
+    filled: Boolean,
+    onToggle: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val label = stringResource(if (filled) R.string.action_unstar else R.string.action_star)
+    IconButton(
+        onClick = onToggle,
+        modifier = modifier
+            .size(TOUCH_TARGET_DP)
+            .semantics {
+                contentDescription = label
+                // Announced as a toggle, so a listener says "on"/"off" without the app having to
+                // encode the state into the label twice.
+                toggleableState = filled
+            },
+    ) {
+        StarIcon(
+            filled = filled,
+            tint = if (filled) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.onSurface
+            },
+        )
+    }
+}
+
+/** 48dp: the app's touch-target floor, for gloves (RULE 16). */
+private val TOUCH_TARGET_DP = 48.dp

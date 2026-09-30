@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -35,7 +34,6 @@ import com.acustad.app.ui.common.EmptyState
 import com.acustad.app.ui.common.Severity
 import com.acustad.app.ui.common.RaisedPanel
 import com.acustad.app.ui.common.SeverityChip
-import com.acustad.app.ui.common.StarIcon
 import com.acustad.app.ui.common.bilingualChipWord
 import com.acustad.app.ui.common.indicatorVisuals
 import com.acustad.app.ui.common.severityVisuals
@@ -88,7 +86,7 @@ fun CodeDetailScreen(
             .padding(bottom = 24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Headline(detail, state.language, viewModel::toggleFavourite)
+        Headline(detail, state.language)
 
         val meaning = detail.meaning(state.language)
         if (meaning != null) {
@@ -134,45 +132,35 @@ fun CodeDetailScreen(
     }
 }
 
+/**
+ * The severity chip, the code, and the title.
+ *
+ * **The star used to be here and is not any more.** DESIGN.md §4.5 has always put it in the top
+ * bar, beside the code, and `PHASE_8` §3 gives the reason: in the body it sits exactly where a
+ * thumb is when the phone is held in one hand, which is the only way this app is ever held. It
+ * now renders from `AcUstadNavHost` into the app bar's action slot, and the row below is just
+ * the chip, so there is nothing here to scroll away from.
+ *
+ * The chip is first and stays first: RULE 8 says the word is the signal, and a severity a
+ * technician has to scroll to find is a severity they will not find.
+ */
 @Composable
-private fun Headline(detail: CodeDetail, language: ContentLanguage, onToggleStar: () -> Unit) {
+private fun Headline(detail: CodeDetail, language: ContentLanguage) {
     // A non-fault row (569 of 4,418) is an indicator or a parameter, not a breakdown.
     val visuals = if (detail.summary.isFault) {
         severityVisuals(Severity.from(detail.summary.severity), language)
     } else {
         indicatorVisuals(language)
     }
-    val starLabel = stringResource(
-        if (detail.isFavourite) R.string.action_unstar else R.string.action_star
-    )
     val title = detail.summary.title(language)
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            SeverityChip(
-                label = visuals.label,
-                background = visuals.background,
-                contentColor = visuals.content,
-                border = visuals.border,
-            )
-            Box(modifier = Modifier.weight(1f))
-            IconButton(
-                onClick = onToggleStar,
-                modifier = Modifier
-                    .size(48.dp)
-                    .semantics { contentDescription = starLabel },
-            ) {
-                StarIcon(
-                    filled = detail.isFavourite,
-                    // Starred is the primary blue, which is what "selected" means in this app.
-                    tint = if (detail.isFavourite) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        MaterialTheme.colorScheme.onSurface
-                    },
-                )
-            }
-        }
+        SeverityChip(
+            label = visuals.label,
+            background = visuals.background,
+            contentColor = visuals.content,
+            border = visuals.border,
+        )
         Text(text = detail.summary.code, style = UstadType.code)
         if (title != null) {
             Text(text = title, style = UstadType.title)

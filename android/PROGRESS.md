@@ -31,7 +31,27 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 7 · Offline & updates | ✅ | **Trap 16 fixed** — a new APK always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and **five** CI gates now enforce them, including the network/ads gate that used to be documented and not written (trap 23) |
 | 8 · Accessibility & Roman Urdu | ✅ phone-checked 2026-09-29 | The EN/UR toggle works, persists and is partial-toggle-safe. **Settings + the theme override are built and passed the §6 group-4 checks**, including the trap-22 Light-mode fix. Still open: the font-scale / TalkBack pass |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
-| 11 · UI/UX | 🟡 **steps 1–2 built** | **Built 2026-09-29, steps 1–2 of 9, not yet phone-checked.** `BorderedPanel` and `BorderedRow` were passing `Color.Transparent`; both now fill with `surface`, and the new `RaisedPanel` (level 2, `surfaceVariant`) is on the detail screen's meaning and source line where `DESIGN.md` §4.5 already said *raised*. `R.dimen` went from **zero uses to four**, so the token file is load-bearing rather than decorative. **Zero new colours.** Steps 3–9 (app-bar action + star move, home and list screens, motion, the four structural fixes, token conversion) follow only after the three levels are confirmed readable on a phone — the guide is explicit that if they do not read, the rest is built on a wrong foundation **Carries two live constraints now: (a) the theme override is real and must stay real — no colour may go back behind a `values-night` qualifier (trap 22), and (b) the Settings screen is a third surface and will need the same pass as the rest** |
+| 11 · UI/UX | 🟡 **steps 1–6 built, none phone-checked** | **Built 2026-09-29, steps 1–6 of the guide's 7. Nothing here is phone-checked, and no gate in this project can check a visual judgement — steps 1 and 2 first, on their own build, was the guide's explicit instruction and the human has not reported on them yet.** `BorderedPanel` and `BorderedRow` were passing `Color.Transparent`; both now fill with `surface`, and the new `RaisedPanel` (level 2, `surfaceVariant`) is on the detail screen's meaning and source line where `DESIGN.md` §4.5 already said *raised*. `R.dimen` went from **zero uses to four**, so the token file is load-bearing rather than decorative. **Zero new colours.** **Also built in the same pass, all from `PHASE_11_UI_UX.md`:**
+   - **The star moved into the app bar** (§6 #1, and the one the guide calls important).
+     `AcUstadAppBar` had **no action slot at all**; it has exactly one now, and the star is
+     extracted to a shared `StarToggle` so the body and the bar cannot disagree. It sat in the
+     content body, which is precisely where a thumb is when the phone is held in one hand.
+   - **The nav's top line is `outline` at 2dp, not `hairline`** (§2.2). Measured 1.41:1 light and
+     1.47:1 dark against a 3.0 bar — a structural line that does not exist in sunlight.
+   - **`SeriesScreen`'s brand notes are raised** (§3.4), and their text is **full ink, not
+     muted** — the first place §2.1's rule actually bites, because `ink_muted` on `surface_alt`
+     is 4.15:1 in light mode. It is 6.93:1 in dark, so a dark-mode review would never have
+     caught it.
+   - **One press animation, 120ms** (§5): an alpha dip to 0.88 on tappable panels and rows, with
+     the Material ripple suppressed because the dip *is* the specified press feedback. An alpha
+     dip and not a scale, because a scale would expose a sliver of canvas at the card's edge.
+   - **Back keeps your place** (§6 #2): `rememberSaveable` list state, keyed on the route
+     argument, on all three browse lists. `remember` would lose the position at exactly the
+     moment the app returns, because a popped back stack entry is destroyed.
+   - **"Open E6" on an exact single match** (§6 #3, `DESIGN.md` §4.4). The one primary action in
+     the app, so the only other `hardShadow`. On an exact match only — a prefix match must never
+     offer to open something.
+   - `R.dimen` uses: **0 → 5**. **Carries two live constraints now: (a) the theme override is real and must stay real — no colour may go back behind a `values-night` qualifier (trap 22), and (b) the Settings screen is a third surface and will need the same pass as the rest** |
 | 10 · Monetisation | ⬜ **not started** | **Planning only.** Free-with-ads → trial → paid, all on Play. The plan is written: `app-pipeline/guide/PHASE_10_MONETISATION.md`. Nothing is built until a Play developer account exists |
 
 ## 1a. Starting a session
@@ -390,11 +410,20 @@ one.
 
 **The one genuine defect it had is now fixed (trap 16). What remains:**
 
-1. **Phase 11's first two steps: the surface hierarchy, then the detail screen.** They are about
-   forty lines, they add no colours, and they are the difference between a wireframe and a
-   finished app. Do these before the Settings screen — the Settings screen is a new surface and
-   should be built on the corrected one, not on a transparent panel. `PHASE_11_UI_UX.md` has the
-   order.
+1. **Phase 11 is built through §6 and is waiting on a human.** See the Phase 11 row in §1. The
+   remaining two items are:
+   - **§6 #4 — the brand's source list at the bottom of Brands** (`DESIGN.md` §4.5). **Held
+     back deliberately, and the reason is a decision already taken.** A *per-brand* source list
+     answers "is my machine covered?", which is a question about the user's machine. That is
+     different from the global coverage panel that was removed from Settings on 2026-09-29,
+     which answered a question about the app. It needs a new route, a new DAO query and a new
+     `check_app_sql.py` assertion, so it is worth confirming it is wanted before building it.
+   - **§7 — the remaining token drift.** ~110 hardcoded `.dp` values. **Invisible**: not one
+     pixel changes, and no phone check can see it done. It converts screen by screen alongside
+     whatever else each screen is already being given, and nothing else.
+   **And the thing that is actually blocking: none of steps 1–6 has been looked at.** The guide
+   is explicit that if the three levels do not read on a real phone, the rest of this phase is
+   built on a wrong foundation.
 2. ~~**The Settings screen, and the third bottom-nav item with it.**~~ — **coded 2026-09-29,
    CI green, still NOT phone-checked.** It was written before item 1, which is the one ordering
    mistake in this list: the Settings screen is a new surface and `PHASE_11` is going to change
