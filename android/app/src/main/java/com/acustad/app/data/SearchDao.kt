@@ -84,6 +84,23 @@ class SearchDao(private val db: SQLiteDatabase) {
     }
 
     /**
+     * This model line's own codes for one canonical query: [codesExact] first, then
+     * [codesPrefix] — the two alias lookups [searchCodes] runs, kept in one place because
+     * there are now two places that need them.
+     *
+     * The second is the one that matters: a code whose canonical form contains a space
+     * (`Run flash 5Hz + Timer off`, `★-★-●` — 55 of the 4,418 shipped codes) never looks
+     * like a code to [SearchInput.looksLikeCode], so step 1 skips it and `code_norm` still
+     * reports it as a known code. If the known-code guard answered from that reading alone,
+     * a technician typing exactly what is printed on the unit would be told "no code
+     * matches" by the very model that publishes the row.
+     */
+    private suspend fun codesInModel(scope: ScopedSeries, canon: String): List<CodeSummary> {
+        val exact = codesExact(scope, canon)
+        return if (exact.isNotEmpty()) exact else codesPrefix(scope, canon)
+    }
+
+    /**
      * Free-text search over the `code_fts` index, scoped to one model line.
      *
      * The index holds three columns — `code_norm`, `aliases`, `titles` — and `titles` is the
@@ -282,7 +299,10 @@ class SearchDao(private val db: SQLiteDatabase) {
      *     code. A code-looking string is never sent to FTS.
      *  2. **free text** over `code_fts`, quoted and AND-joined.
      *  3. only if that found nothing, and only if the query is not a code anywhere in the
-     *     knowledge base, the **description** search over this model's own text.
+     *     knowledge base, the **description** search over this model's own text. The "is a
+     *     code" check asks this model's own alias tables first whenever step 1 skipped the
+     *     query — see [codesInModel] for why that is the difference between finding a code
+     *     and denying it exists.
      *  4. only if *that* found nothing, the same index **OR-joined** — the words this model's
      *     titles do hold, when the words together hold none of them.
      *
@@ -294,14 +314,18 @@ class SearchDao(private val db: SQLiteDatabase) {
         val canon = SearchInput.canon(rawQuery)
         if (canon.isEmpty()) return emptyList()
         if (SearchInput.looksLikeCode(canon)) {
-            val exact = codesExact(scope, canon)
-            if (exact.isNotEmpty()) return exact
-            val prefix = codesPrefix(scope, canon)
-            if (prefix.isNotEmpty()) return prefix
+            val aliased = codesInModel(scope, canon)
+            if (aliased.isNotEmpty()) return aliased
         }
         val text = codesText(scope, SearchInput.ftsQuery(rawQuery))
         if (text.isNotEmpty()) return text
-        if (isKnownCode(canon)) return emptyList()
+        if (isKnownCode(canon)) {
+            // A code-shaped query asked in step 1 already — this model simply has no such
+            // code. The others were routed away from the alias steps by looksLikeCode (a space
+            // in the canon: `Run flash 5Hz + Timer off`, `★-★-●` — 55 of 4,418), so the guard
+            // must ask the data that gate skipped before it says "no code matches".
+            return if (SearchInput.looksLikeCode(canon)) emptyList() else codesInModel(scope, canon)
+        }
         val described = codesDescription(scope, SearchInput.descriptionTerms(canon))
         if (described.isNotEmpty()) return described
         val loose = SearchInput.ftsQueryAny(rawQuery)

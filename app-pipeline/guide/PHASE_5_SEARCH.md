@@ -66,6 +66,17 @@ index is a speed-up over that step, never a prerequisite: through the fallback a
 `check_app_sql.py` pins (a JVM test cannot ask a phone which modules its SQLite was built
 with).
 
+**And the known-code guard must ask the model, not just the fact.** `isKnownCode` answers
+"this string *is* a code somewhere", and on that reading alone the search used to end with
+"no code matches" — wrong for the **673** codes whose canonical form contains a space
+(`ERROR 200`, `Run flash 5Hz + Timer off`, `★-★-●`), because the routing rule above never
+sends a space-containing query to the alias steps while `code_norm` still registers those
+very codes. **55 of the 673 were unreachable by typing their own string**, in the model that
+publishes them. The guard now runs the same scoped exact/prefix lookup
+(`SearchDao.codesInModel`) before it answers; a code-shaped query already asked in step 1 and
+does not pay for it twice. `check_app_sql.py` pins the data side of that call: all 673
+resolve through their own model's alias table (RULE 3).
+
 ### Exact / prefix code lookup — the safe path
 
 ```sql
@@ -231,6 +242,10 @@ Debounce at 180ms so typing `Error` triggers ~1 query, not 5.
       **no** rows at all. Pinned by `check_app_sql.py` and `SearchDaoContractTest`
 - [ ] `canon()` reproduces all 4,124 distinct `alias`/`alias_norm` pairs exactly
 - [ ] Every one of the 7,707 alias values round-trips: `canon(alias)` → its own code
+- [ ] **A code the routing gate skips is still found:** `Run flash 5Hz + Timer off` (Midea) and
+      `★-★-●` (AUX) typed inside their own model return that row; typed anywhere else, "no code
+      matches". Pinned by `check_app_sql.py` (673 of 673 space-canon codes resolve scoped) and
+      `SearchDaoContractTest`
 - [ ] Debounce: 5 keystrokes → 1 query
 - [ ] Backspace to empty → full list restored, no stale filter
 
@@ -251,3 +266,8 @@ Debounce at 180ms so typing `Error` triggers ~1 query, not 5.
   columns to `code_fts` changes `kb.sqlite` and therefore the `data-manifest.json` sha256 the
   APK hash gate verifies, and it would leave `bm25`'s three weights applied to different
   columns. PROGRESS trap 25.
+- **A routing gate is not a fact about the data.** `looksLikeCode` (no space, ≤ 24 chars)
+  decides which *steps* run, never what is *true*: 55 of 4,418 codes canonicalise to something
+  containing a space, and the known-code guard — which trusts `code_norm` — answered "no code
+  matches" for all of them while the row sat in that very model. Ask the data the gate
+  skipped. PROGRESS trap 27.

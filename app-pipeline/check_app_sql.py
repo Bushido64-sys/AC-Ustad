@@ -361,6 +361,26 @@ def main() -> int:
     check("including code 01, the row the technician reported missing",
           "01" in [r[2] for r in air365_rows], True)
 
+    # ── What the known-code guard must be able to fall back on (trap 27) ───────
+    # 673 of the 4,418 codes canonicalise to something with a space in it (`ERROR 200`,
+    # `Run flash 5Hz + Timer off`, `★-★-●`), and SearchInput.looksLikeCode rejects a canon
+    # containing a space — so step 1 of searchCodes skips them while `code_norm` still reports
+    # them as known codes, and the guard used to answer "no code matches" from that alone (55
+    # of them, found by replaying the whole chain in simulation). SearchDao now asks the alias
+    # tables itself at the guard; this pins the data side that call depends on: every one
+    # resolves through the alias table of its OWN model, in scope (RULE 3).
+    spaced = [(c, s, b) for (c, s, b) in db.execute(
+        "SELECT code, series_id, brand_id FROM codes") if " " in norm(c)]
+    unresolved = [
+        c for c, s, b in spaced
+        if not db.execute(
+            "SELECT 1 FROM aliases a JOIN codes c ON c.id = a.code_id "
+            "WHERE a.alias_norm = ? AND c.series_id = ? AND c.brand_id = ? LIMIT 1",
+            (norm(c), s, b)).fetchone()]
+    check("codes whose canonical form contains a space are counted", len(spaced), 673)
+    check("every one resolves through its own model's alias table, in scope",
+          len(unresolved), 0)
+
     # ── RULE 3, on the one series_id the database reuses across 9 brands ─────
     # `series_id` is not unique: 'inverter-split' belongs to nine brands. A description query
     # bound on the series alone would return all nine brands' rows at once — the exact failure

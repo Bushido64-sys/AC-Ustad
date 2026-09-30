@@ -183,6 +183,30 @@ class SearchDaoContractTest {
         )
     }
 
+    @Test
+    fun `the known-code guard must ask this model's alias tables before it says no matches`() {
+        // 55 of the 4,418 shipped codes canonicalise to something containing a space
+        // (`Run flash 5Hz + Timer off`, `★-★-●`), so looksLikeCode rejects them in step 1 and
+        // the alias lookups never run — while `code_norm` still reports them as known codes.
+        // The guard used to read that one fact and answer "no code matches": telling a
+        // technician their model has no such code while the row sits right there.
+        val body = bodyOf(source, "searchCodes")
+        val guard = body.indexOf("if (isKnownCode(canon))")
+        assertTrue("searchCodes no longer gates on isKnownCode", guard >= 0)
+        val fromGuard = body.substring(guard)
+        assertTrue(
+            "the guard must consult codesInModel before it answers, or every code whose " +
+                "canonical form contains a space reads as 'no code matches' in the very " +
+                "model that publishes it",
+            fromGuard.contains("codesInModel(scope, canon)"),
+        )
+        assertTrue(
+            "a query that already looked like a code asked in step 1; asking again would be " +
+                "a second round trip for the same empty answer",
+            fromGuard.contains("looksLikeCode(canon)) emptyList()"),
+        )
+    }
+
     /** The `DESCRIPTION_SQL` constant, exactly as it is written in SearchDao.kt. */
     private fun descriptionSql(): String {
         val marker = "DESCRIPTION_SQL = \"\"\""

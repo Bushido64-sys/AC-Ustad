@@ -62,7 +62,23 @@
 > Dawlance → Splits → `water pump` = **0 rows plus the detail line**, the only shape that
 > empty state can still take.
 
-> **2026-09-30 (last) — a word search that answered nothing was the index, not the data.**
+> **2026-09-30 (closing audit) — the whole chain replayed, and it lied about 55 codes.**
+> While the human tested the FTS5 build, `searchCodes` was re-implemented in Python, byte for
+> byte, and run over every query that matters: typing **each code's own displayed string**
+> into its own model (4,418 runs), and **each word of each title** into its own model (9,866
+> runs). Titles: 9,866/9,866 answered, before and after. Codes: **4,363/4,418 — 55 misses**,
+> every one of them the same shape. `Run flash 5Hz + Timer off` (Midea), `★-★-●` (AUX) and 53
+> like them canonicalise to something **containing a space**, so `looksLikeCode` skips the
+> alias steps, the index finds nothing (symbols and `+` tokenise to nothing), and then
+> `isKnownCode` — which finds them registered in `code_norm` — answered *true*, so the search
+> returned an empty list: the guard built to stop a technician seeing other models' codes was
+> denying this model's own. Fixed by asking the data the gate skipped (`SearchDao.codesInModel`
+> at the guard); simulation after the fix: **4,418/4,418, 0 suppressions, titles unchanged**.
+> Data side pinned: all **673** space-canon codes resolve in their own model (RULE 3). It is
+> trap 27. **Needs a human:** inside Midea → MSG lamp troubleshooting, search `Run flash 5Hz +
+> Timer off` → that row; the same string in any other model → "no code matches".
+
+> **2026-09-30 (phone bug) — a word search that answered nothing was the index, not the data.**
 > The report: *"i search 'indoor' in Hitachi's air365 MAX / Max Pro model's code list page and
 > it doesn't appear — the 01 code which has 'indoor' in its title; tested others with their
 > title words too but never worked."* The row was there all along: `01` is titled *Indoor-unit
@@ -418,15 +434,33 @@ reason several comments in the code look defensive.
     `01` among them) and a source-reading test. **The general rule: a step that is an
     optimisation must never be able to fail the steps after it.**
 
+27. **A routing gate is not a fact about the data.** Found 2026-09-30 by replaying the whole
+    `searchCodes` chain in a Python simulation (the audit note at the top): typing each code's
+    own displayed string into its own model answered **4,363 of 4,418**. The 55 misses —
+    `Run flash 5Hz + Timer off` (Midea), `★-★-●` (AUX), 53 more — canonicalise to a string
+    **containing a space**, so `SearchInput.looksLikeCode` routed them away from the alias
+    steps; the FTS step found nothing (`+` and the symbols tokenise away); and then
+    `isKnownCode` found them in `code_norm` and `searchCodes` returned `emptyList()` on that
+    reading alone. The guard whose job is to stop a technician seeing *other* models' codes was
+    telling them their own model does not have this one. **What makes it a trap:** the two
+    pieces are each correct — the gate really must not send phrases to the alias lookup, and
+    the guard really must deny codes this model lacks — and only their conjunction is wrong.    Fixed by making the guard consult the model before it answers (`SearchDao.codesInModel`,
+    the lookup step 1 skipped; the code-shaped path keeps its early return, so nothing working
+    pays for it). `check_app_sql.py` pins the data side: **673** of the 4,418 codes have a
+    space in their canonical form and all 673 resolve through their own model's alias table
+    (RULE 3). Simulation after the fix: 4,418/4,418 codes findable, 0 guard suppressions, the
+    9,866/9,866 title-word recall untouched. **The general rule: a gate decides which steps
+    run — it is never evidence about what the data contains. Ask the data the gate skipped.**
+
 ## 5. The gates, and what each one is for
 
 | Gate | Protects |
 |---|---|
 | `verify data` / `tools/validate.py` | the knowledge base validates against the schema |
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
-| `verify data` / `check_app_sql.py` | **77 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order** (after trap 15), the teaching-state count and its `code_norm` guard, the description search (trap 25) — whose SQL is **read out of `SearchDao.kt`**, not retyped, so the checker and the app cannot drift — and the LIKE-only fallback for a device without FTS5 (trap 26) |
+| `verify data` / `check_app_sql.py` | **79 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order** (after trap 15), the teaching-state count and its `code_norm` guard, the description search (trap 25) — whose SQL is **read out of `SearchDao.kt`**, not retyped, so the checker and the app cannot drift — the LIKE-only fallback for a device without FTS5 (trap 26), and the 673 space-canon codes the guard must find scoped (trap 27) |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | **113** tests (20 search input, 17 teaching-state, 15 models, 9 schema, 8 staging, **9 search-SQL contract**, 7 theme, 6 language, 6 toggle-guard, 5 palette-contract, 4 Settings formatters, **2 row-label**, **2 codes-empty-state**, 3 content-colour — counted off the `@Test` annotations, 2026-09-30), including all 2,139 code strings and the FTS quoting. Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen**; the decision-function and SQL assertions, and every source-reading test — the 3 added with trap 24, the 9 in `SearchDaoContractTest` (traps 25 and 26), the 2 in `RowCountLabelTest` and the 2 in `CodesEmptyStateTest` — all still cannot see a pixel |
+| `build app` / unit tests | **114** tests (20 search input, 17 teaching-state, 15 models, 9 schema, 8 staging, **10 search-SQL contract**, 7 theme, 6 language, 6 toggle-guard, 5 palette-contract, 4 Settings formatters, **2 row-label**, **2 codes-empty-state**, 3 content-colour — counted off the `@Test` annotations, 2026-09-30), including all 2,139 code strings and the FTS quoting. Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen**; the decision-function and SQL assertions, and every source-reading test — the 3 added with trap 24, the 10 in `SearchDaoContractTest` (traps 25, 26, 27), the 2 in `RowCountLabelTest` and the 2 in `CodesEmptyStateTest` — all still cannot see a pixel |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission. **This is what actually enforces RULE 14** — zero permissions means zero network, since `INTERNET` is a normal permission |
 | `build app` / database hash | the APK cannot carry a stale database. On-device re-staging is a separate rule — see trap 16 |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
