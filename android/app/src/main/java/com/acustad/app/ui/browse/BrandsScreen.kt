@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -226,4 +225,4 @@ private fun BrandRow(name: String, codeCount: Int, onClick: () -> Unit) {
  */
 @Composable
 private fun rememberListStateFor(key: String): LazyListState =
-    rememberSaveable(saver = LazyListState.Saver, key) { LazyListState() }
+    rememberSaveable(key, saver = LazyListState.Saver) { LazyListState() }

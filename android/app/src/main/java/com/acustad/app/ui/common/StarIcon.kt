@@ -13,6 +13,8 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.toggleableState
+import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.acustad.app.R
@@ -92,7 +94,7 @@ fun StarToggle(
                 contentDescription = label
                 // Announced as a toggle, so a listener says "on"/"off" without the app having to
                 // encode the state into the label twice.
-                toggleableState = filled
+                toggleableState = ToggleableState(filled)
             },
     ) {
         StarIcon(

@@ -1,6 +1,7 @@
 package com.acustad.app.ui.browse
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -221,7 +223,7 @@ private fun CodeRow(code: CodeSummary, language: com.acustad.app.model.ContentLa
  */
 @Composable
 private fun rememberListStateFor(key: String): LazyListState =
-    rememberSaveable(saver = LazyListState.Saver, key) { LazyListState() }
+    rememberSaveable(key, saver = LazyListState.Saver) { LazyListState() }
 
 /**
  * "Open E6" — the single shortcut row for an exact one-code match.

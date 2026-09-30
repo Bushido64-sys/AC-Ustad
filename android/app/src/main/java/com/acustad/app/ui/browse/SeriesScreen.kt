@@ -223,4 +223,4 @@ private fun SeriesRow(modelName: String, codeCount: Int, onClick: () -> Unit) {
  */
 @Composable
 private fun rememberListStateFor(key: String): LazyListState =
-    rememberSaveable(saver = LazyListState.Saver, key) { LazyListState() }
+    rememberSaveable(key, saver = LazyListState.Saver) { LazyListState() }
