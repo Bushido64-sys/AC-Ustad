@@ -369,7 +369,7 @@ reason several comments in the code look defensive.
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
 | `verify data` / `check_app_sql.py` | **75 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order** (after trap 15), the teaching-state count and its `code_norm` guard, and the description search (trap 25) — whose SQL is **read out of `SearchDao.kt`**, not retyped, so the checker and the app cannot drift |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | **106** tests (18 search input, 17 teaching-state, 15 models, 9 schema, 8 staging, **8 search-SQL contract**, 7 theme, 6 language, 6 toggle-guard, 5 palette-contract, 4 Settings formatters, 3 content-colour — counted off the `@Test` annotations, 2026-09-30), including all 2,139 code strings and the FTS quoting. Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen**; the decision-function and SQL assertions, and every source-reading test — the 3 added with trap 24 plus the 8 in `SearchDaoContractTest` added with trap 25 — all still cannot see a pixel |
+| `build app` / unit tests | **108** tests (18 search input, 17 teaching-state, 15 models, 9 schema, 8 staging, **8 search-SQL contract**, 7 theme, 6 language, 6 toggle-guard, 5 palette-contract, 4 Settings formatters, **2 row-label**, 3 content-colour — counted off the `@Test` annotations, 2026-09-30), including all 2,139 code strings and the FTS quoting. Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen**; the decision-function and SQL assertions, and every source-reading test — the 3 added with trap 24, the 8 in `SearchDaoContractTest` (trap 25) and the 2 in `RowCountLabelTest` — all still cannot see a pixel |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission. **This is what actually enforces RULE 14** — zero permissions means zero network, since `INTERNET` is a normal permission |
 | `build app` / database hash | the APK cannot carry a stale database. On-device re-staging is a separate rule — see trap 16 |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
@@ -392,9 +392,13 @@ screen, not only when a phase closes.
 1. **Airplane mode on.** The app must be fully usable. If anything needs a network, it is a bug.
 2. Home shows **AC 31 brands / 1,723 codes** and **Inverter 33 brands / 2,695 codes**. If these
    numbers are wrong, the database is not the validated one.
-3. AC → **Hitachi** first in the list (93 codes, sorted by count desc).
-4. Solar inverter → **Dawlance** → `inverter-split` → **41 codes**. Not 200. That row is the
-   proof the two-part scoping works.
+3. AC → **Hitachi** first in the list. It sorts by **code** count desc (206 codes), so on a
+   brand row it reads **7 models** — brand rows count models, model rows count codes (swapped
+   2026-09-30). The number under the name must be a model count on this screen and a code
+   count on the next one, or they are back to front.
+4. Solar inverter → **Dawlance** → `inverter-split` → **41 codes**. Not 200, and not "41
+   models", which is what this row said until 2026-09-30. That row is the proof the two-part
+   scoping works.
 5. Tap a code: severity chip, meaning, **numbered** fix steps starting at 1, then causes, then
    source. No block with no data is rendered — `panasonic/…/H00` has no causes, so there is no
    causes section.

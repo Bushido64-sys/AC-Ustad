@@ -103,8 +103,10 @@ Full-bleed, two panels stacked, each the full width with a 2dp ink border and 4d
   *'air leakage' describes a fault, not a brand. This box searches brand names only.* The
   action button stays **Show all brands** in both cases; the guidance is in the detail line
   (added 2026-09-30, PROGRESS trap 25).
-- List, one row per brand: **name** (16sp semibold) + **code count** right-aligned in mono
-  (`41 codes`).
+- List, one row per brand: **name** (16sp semibold) + **model count** right-aligned in mono
+  (`7 models`). It is `brands.series_count`, not `code_count`: the question on this screen is
+  how much is *inside* the brand, and one level down the model row answers the same question
+  with codes. A brand with **0 codes** stays muted whatever its model count.
 - Sort by `code_count` **desc**. It is the single highest-value decision on this screen.
 - 8 brands have 0 codes: keep them visible but muted, and tapping one shows the empty state
   with the brand's `notes_en` if present. They are honest data, not errors.
@@ -116,7 +118,9 @@ Full-bleed, two panels stacked, each the full width with a 2dp ink border and 4d
   control (max 725 chars, p90 202 — it must not flood the screen).
 - **Search box searches model lines only.**
 - Row: model name in IBM Plex Sans (these are model numbers, so mono is *not* required, but
-  `code_count` in mono is) + count on the right.
+  `code_count` in mono is) + **code count** on the right (`41 codes`). One screen up the brand
+  row shows model counts instead — the two swapped on 2026-09-30, so each row answers the
+  question that screen is asking.
 - Back returns to the brands list **with its query and scroll position intact**.
 
 ### 4.4 Codes (scoped to one model line)

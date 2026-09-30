@@ -159,12 +159,20 @@ private fun BrandNotes(notes: String, expanded: Boolean, onToggle: () -> Unit) {
     }
 }
 
+/**
+ * One model line: name on the left, **code count** in mono on the right.
+ *
+ * The number here is `series.code_count` — how many codes this model publishes — and the label
+ * says codes. It used to say "N models" on a row that was already a model, which told the
+ * technician nothing: the question on this screen is which model has the codes, so that is what
+ * the right-hand number answers (the brand row one level up counts models instead).
+ */
 @Composable
 private fun SeriesRow(modelName: String, codeCount: Int, onClick: () -> Unit) {
     val countText = if (codeCount == 1) {
-        stringResource(R.string.unit_series_one)
+        stringResource(R.string.unit_codes_one)
     } else {
-        stringResource(R.string.unit_series_many, codeCount)
+        stringResource(R.string.unit_codes_many, codeCount)
     }
     val description = "$modelName, $countText"
 

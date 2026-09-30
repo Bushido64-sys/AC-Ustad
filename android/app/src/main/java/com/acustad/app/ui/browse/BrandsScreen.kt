@@ -76,6 +76,7 @@ fun BrandsScreen(
             items(items = state.brands, key = { it.id }) { brand ->
                 BrandRow(
                     name = brand.name,
+                    seriesCount = brand.seriesCount,
                     codeCount = brand.codeCount,
                     onClick = { onBrandClick(brand.id) },
                 )
@@ -166,16 +167,29 @@ private fun DeadEndState(
 }
 
 /**
- * One brand: name on the left, code count in mono on the right, 56dp minimum so it can be
- * tapped with gloves on. The count is the reason the row exists — it tells a technician whether
- * this brand is worth entering.
+ * One brand: name on the left, **model count** in mono on the right, 56dp minimum so it can be
+ * tapped with gloves on.
+ *
+ * The right-hand number counts **models, not codes**, because that is the choice this row is
+ * for: how much is inside the brand. The model line next door counts codes, because there the
+ * question is how much is inside the model — the two rows sit one above the other and the
+ * numbers mean different things on each (they were the wrong way round until 2026-09-30).
+ *
+ * The **colour** still keys off `codeCount`, not the number being shown: a brand with models
+ * but zero published codes is real, and entering it finds nothing, so it stays muted however
+ * many model lines it has.
  */
 @Composable
-private fun BrandRow(name: String, codeCount: Int, onClick: () -> Unit) {
-    val countText = if (codeCount == 1) {
-        stringResource(R.string.unit_codes_one)
+private fun BrandRow(
+    name: String,
+    seriesCount: Int,
+    codeCount: Int,
+    onClick: () -> Unit,
+) {
+    val countText = if (seriesCount == 1) {
+        stringResource(R.string.unit_series_one)
     } else {
-        stringResource(R.string.unit_codes_many, codeCount)
+        stringResource(R.string.unit_series_many, seriesCount)
     }
     val description = "$name, $countText"
 
