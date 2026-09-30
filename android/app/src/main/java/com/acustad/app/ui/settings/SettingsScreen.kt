@@ -66,8 +66,7 @@ fun SettingsScreen(
             LanguagePanel(language, viewModel::setLanguage)
             ThemePanel(theme, viewModel::setTheme)
             DataPanel(state, viewModel::load)
-            SourcesPanel(state)
-            AboutPanel(state)
+            AboutPanel()
         }
     }
 }
@@ -167,48 +166,36 @@ private fun DataPanel(state: SettingsState, onRetry: () -> Unit) {
     }
 }
 
-/** What is covered, so "my model is missing" has a real answer. (PHASE_7 §6) */
-@Composable
-private fun SourcesPanel(state: SettingsState) {
-    val meta = (state as? SettingsState.Ready)?.meta ?: return
-    BorderedPanel(modifier = Modifier.fillMaxWidth()) {
-        PanelColumn {
-            PanelHeading(stringResource(R.string.settings_sources_title))
-            Text(
-                text = stringResource(
-                    R.string.settings_sources_coverage,
-                    meta.brandCount,
-                    meta.seriesCount,
-                    meta.codeCount,
-                ),
-                style = UstadType.listRow,
-            )
-            MutedLine(stringResource(R.string.settings_sources_note))
-        }
-    }
-}
-
 /**
- * Three lines, per PHASE_7 §6. The third appears only when the size was actually measured.
+ * What this app is, what it does for you, and what it does not do. **Removed 2026-09-29**:
+ * the coverage panel that used to sit here, and the line stating the size of the shipped
+ * database.
  *
- * "It uploads nothing" is not a slogan here — it is the reason this screen carries no website
- * and no support address.
+ * Both are gone on the user's instruction and it is worth recording why that is a real change
+ * rather than a cosmetic one. `PHASE_7` §6 asks Settings to show coverage "so 'my model is
+ * missing' is answerable by pointing at a real gap", and the size was a factual measure of what
+ * the app carries. Neither is false, but neither is what someone opens Settings to find, and a
+ * screen listing 62 brands and 320 model lines in the middle of a phone is a number about the
+ * app rather than a fact about their machine. The data version stays: that one tells a
+ * technician whether the answers they are reading are current, which is the one data fact that
+ * earns its place on this screen.
+ *
+ * The remaining copy introduces the app and then says what it does for the person reading it.
+ * No adjectives, no claims about size or coverage, and no punctuation the copy rules ban
+ * (DESIGN.md §6).
  */
 @Composable
-private fun AboutPanel(state: SettingsState) {
-    val bytes = (state as? SettingsState.Ready)?.dataBytes
+private fun AboutPanel() {
     BorderedPanel(modifier = Modifier.fillMaxWidth()) {
         PanelColumn {
             PanelHeading(stringResource(R.string.settings_about_title))
             Text(text = stringResource(R.string.settings_about_what), style = UstadType.caption)
-            Text(text = stringResource(R.string.settings_about_offline), style = UstadType.caption)
-            val size = formatDataSize(bytes)
-            if (size != null) {
-                Text(
-                    text = stringResource(R.string.settings_about_size, size),
-                    style = UstadType.caption,
-                )
-            }
+            PanelHeading(stringResource(R.string.settings_about_helps_title))
+            Text(text = stringResource(R.string.settings_about_helps_1), style = UstadType.caption)
+            Text(text = stringResource(R.string.settings_about_helps_2), style = UstadType.caption)
+            Text(text = stringResource(R.string.settings_about_helps_3), style = UstadType.caption)
+            Text(text = stringResource(R.string.settings_about_helps_4), style = UstadType.caption)
+            Text(text = stringResource(R.string.settings_about_privacy), style = UstadType.caption)
         }
     }
 }
@@ -249,29 +236,3 @@ fun formatBuiltDate(raw: String?): String? {
 }
 
 private const val BUILT_DATE_LENGTH = 10
-
-/**
- * A human size for the knowledge base, or null when nothing measured one.
- *
- * Integer arithmetic throughout. `String.format("%.1f", …)` is shorter, and it also follows the
- * device locale — a phone set to a language that writes `8,8` would put a comma inside a
- * sentence that is otherwise English. (RULE 13)
- *
- * Null in, null out: the caller omits the clause rather than asserting a size that was never
- * measured. 0 is not a size, it is the absence of a file. (trap 5)
- */
-fun formatDataSize(bytes: Long?): String? {
-    if (bytes == null || bytes <= 0) return null
-    return when {
-        bytes < KIB -> "$bytes bytes"
-        bytes < MIB -> "${bytes / KIB} kB"
-        else -> {
-            // Tenths of a megabyte, with no floating point involved.
-            val tenths = (bytes * 10) / MIB
-            "${tenths / 10}.${tenths % 10} MB"
-        }
-    }
-}
-
-private const val KIB = 1024L
-private const val MIB = 1024L * 1024L

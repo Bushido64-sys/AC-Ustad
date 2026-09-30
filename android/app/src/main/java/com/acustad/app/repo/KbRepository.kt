@@ -27,7 +27,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import java.io.File
 
 /**
  * The app's only door to the database.
@@ -184,29 +183,6 @@ class KbRepository private constructor(
         SearchDao(db()).searchCodes(scope, query)
 
     suspend fun meta(): KbMeta = CatalogDao(db()).meta()
-
-    /**
-     * The size in bytes of the database this app is actually reading, or null when it cannot be
-     * measured.
-     *
-     * Settings states the size of the data, and the number has to be measured rather than typed
-     * into a string: the file is replaced on every data release, and a hard-coded "9 MB" in
-     * `strings.xml` would be a claim about the data that stops being true silently — the exact
-     * failure mode of trap 15, in a different place.
-     *
-     * **Null rather than 0.** `File.length()` answers 0 for a file that is not there, and 0 is
-     * also the honest reading of a genuinely empty database. Rendering either as "0 bytes"
-     * states a fact about the data that this method has not established, so an absent file is
-     * reported as an absent measurement and the screen omits the clause. (trap 5)
-     *
-     * The database is opened first, because opening is what stages the copy out of the asset —
-     * asking for the length before then would measure a file that may not be there yet.
-     */
-    suspend fun dataSizeBytes(): Long? {
-        db()
-        val bytes = File(appContext.cacheDir, KbDatabase.DB_NAME).length()
-        return if (bytes > 0) bytes else null
-    }
 
     /**
      * One code, in one query, with its causes, fix steps and saved state.

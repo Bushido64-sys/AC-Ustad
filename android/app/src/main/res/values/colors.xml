@@ -1,26 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- LIGHT theme. Every value is measured, not estimated: see
-     PHASE_8_ACCESSIBILITY_URDU.md §5 in the knowledge-base guide.
-     The dark equivalents live in values-night/colors.xml. -->
+<!--
+  THE LIGHT PALETTE, plus every token that is identical in both modes.
+
+  The dark values are NOT here, and they are not in a values-night/ folder either. That is the
+  whole point of this arrangement, and it is written down because the previous arrangement
+  silently broke the theme override (PROGRESS trap 22).
+
+  Android chooses between `values/` and `values-night/` using the PHONE's night setting, and
+  nothing else. It has no way to know the user picked Light in Settings while the phone is in
+  dark mode. So a `colorResource(R.color.canvas)` call would have returned the dark canvas to a
+  screen that had explicitly asked for the light one - a light-shaped palette filled with dark
+  values, which reads as "Light does nothing".
+
+  Both palettes are therefore ordinary resources in this one folder, under names that say which
+  is which, and the code picks between them. `values-night/` now exists for ONE thing only: the
+  platform window background, which has to follow the system because it is painted before any
+  Compose code runs.
+
+  The names here are the guide's, from design_tokens.xml. Do not invent a third scheme.
+  Tokens that differ between modes are listed in colors_dark.xml under their own name.
+-->
 <resources>
-    <!-- Blue: the only structural colour -->
+    <!-- Blue: the only structural colour. Identical in both modes - one name, one value, so
+         there is no second copy to drift. -->
     <color name="blue_300">#6FB4DE</color>  <!-- accents/borders only. WHITE TEXT HERE FAILS (2.27:1) -->
     <color name="blue_400">#4A9DD0</color>
     <color name="blue_500">#2A86C7</color>  <!-- light-mode accent border (3.94:1 on canvas) -->
     <color name="blue_600">#1668A8</color>  <!-- PRIMARY: white text 5.87:1 -->
     <color name="blue_800">#0D4C79</color>  <!-- pressed / high-emphasis link -->
 
-    <!-- Ink: blue-tinted neutrals, never pure grey, never pure black -->
+    <color name="on_accent">#FFFFFF</color>  <!-- the ONLY white text token -->
+
+    <!-- Ink: blue-tinted neutrals, never pure grey, never pure black. The dark equivalents
+         are `ink_invert` and `ink_muted_dark` in colors_dark.xml. -->
     <color name="ink">#0B1F2A</color>          <!-- 16.89:1 on canvas -->
     <color name="ink_muted">#5A7183</color>    <!-- 5.09:1 - never grey-400/500 -->
-    <color name="ink_invert">#F2F6F8</color>
 
-    <!-- Canvas and surfaces -->
+    <!-- Canvas and surfaces. Dark equivalents carry a _dark suffix. -->
     <color name="canvas">#FFFFFF</color>
     <color name="surface">#EFF6FB</color>
     <color name="surface_alt">#DCEAF5</color>
     <color name="hairline">#C9DCEA</color>
-    <color name="on_accent">#FFFFFF</color>    <!-- the ONLY white text token -->
 
     <!-- Signal: severity and alerts. One hue, five steps. Never decorative. -->
     <color name="signal_tint">#FFE7DF</color>

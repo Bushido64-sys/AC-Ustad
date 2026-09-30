@@ -2,18 +2,28 @@
 <!--
   design_tokens.xml — the only place a colour, size or spacing value may be defined.
   Every contrast ratio below was measured, not estimated. See DESIGN.md §3.
-  Copy into app/src/main/res/values/design_tokens.xml (and values-night/ for the dark block).
+  Colours live in values/colors.xml and values/colors_dark.xml (see below).
+  Spacing and type live here.
 -->
 <resources>
 
     <!-- ============================================================ -->
     <!-- COLOURS ARE NOT DEFINED HERE.                                -->
     <!-- They live in values/colors.xml (light) and                   -->
-    <!-- values-night/colors.xml (dark), and that is the only place    -->
-    <!-- they exist. Defining a colour in two files is a hard AAPT2     -->
-    <!-- error ("Duplicate resources"), which is exactly how this file   -->
-    <!-- broke the first build. Read the values from R.color.*, never   -->
-    <!-- hard-code a hex in Kotlin.                                    -->
+    <!-- values/colors_dark.xml (dark), and that is the only place    -->
+    <!-- they exist. Defining a colour in two files is a hard AAPT2    -->
+    <!-- error ("Duplicate resources"), which is exactly how this file -->
+    <!-- broke the first build. Read the values from R.color.*, never  -->
+    <!-- hard-code a hex in Kotlin.                                   -->
+    <!--                                                             -->
+    <!-- BOTH palettes are in the default folder, NOT values-night/.  -->
+    <!-- A values-night/ folder is chosen by ANDROID from the phone's  -->
+    <!-- night setting, which is the right answer right up until a    -->
+    <!-- user can override the theme: then "Light" would be ignored   -->
+    <!-- and the app would look like the control did nothing. That     -->
+    <!-- bug is real and is written up as PROGRESS trap 22.           -->
+    <!-- Theme.kt picks between the two files in code.                -->
+    <!--                                                             -->
     <!-- The full ramp with every measured contrast ratio is documented -->
     <!-- in app-pipeline/guide/design_tokens.xml in the parent repo.   -->
     <!-- ============================================================ -->

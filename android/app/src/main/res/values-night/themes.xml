@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  The platform window background for a phone in DARK mode.
+
+  This is the ONE remaining use of a night-qualified resource, and it is deliberate. The window
+  background is painted by Android before a single line of Compose runs, so it cannot know what
+  the user picked in Settings. It follows the phone, which is the right answer for a first frame
+  and the wrong one in exactly one case: a user who chose Light on a dark phone gets a dark
+  window for the fraction of a second before the app repaints. That is the cheapest way this can
+  be built - the alternative is a custom theme resolved in code, which is real complexity for one
+  frame.
+
+  It must be `canvas_dark` and not `canvas`. `canvas` is the light token and is now white in
+  every configuration, so leaving this as @color/canvas would put a white flash at the start of
+  every dark launch - the exact thing this file exists to prevent.
+-->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.AcUstad" parent="android:Theme.Material.NoActionBar">
-        <item name="android:windowBackground">@color/canvas</item>
+        <item name="android:windowBackground">@color/canvas_dark</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>

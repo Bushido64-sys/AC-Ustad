@@ -8,10 +8,39 @@
 
 ## 0. Read this first, because it is the whole phase
 
+### Two things added since this file was written, 2026-09-29
+
+**1. The theme override now exists, and it constrains this phase.** `ThemeMode { SYSTEM, LIGHT,
+DARK }` lives on the shared repository and is resolved once in `MainActivity`, above the
+navigation graph. Both palettes are ordinary resources — `values/colors.xml` and
+`values/colors_dark.xml` — and `Theme.kt` selects between them **in code**.
+
+That last part is the constraint. The dark palette used to live in `res/values-night/`, and a
+night-qualified folder is chosen by **Android, from the phone's setting** — so the moment the app
+grew a control that could disagree with the system, "Light" silently stopped working and the
+override looked like it was never wired up. It was a real bug, found on a phone, and it is
+written up as PROGRESS trap 22.
+
+**So: do not move a colour back into a `values-night/` folder while doing this phase.** Phase 11
+is about which surface a colour fills, not about where the colour is stored, and the two must
+not be confused. `values-night/` now contains exactly one file, `themes.xml`, for the platform
+window background, which is genuinely painted before any Compose code exists. `PaletteContractTest`
+asserts both halves of this and will fail the build if a colour file reappears there.
+
+**2. There is a third surface.** `SettingsScreen` was added the same day and is built on the
+same primitives, so it inherits the same wireframe look and **must get the same treatment as
+Home, Browse, Saved and Detail** in §3 below. Skip it and the app will look finished everywhere
+except the one screen a user opens deliberately.
+
+---
+
 The app has a **complete, measured, hand-checked colour system** and it uses almost none of it.
 
-`Theme.kt` maps 37 colour bindings. `colors.xml` defines 20 colours. `DESIGN.md` §2 assigns every
-one of them a role, and `design_tokens.xml` is the single source for all of it.
+`Theme.kt` maps 37 colour bindings. The palette is **29 tokens** across two files — `colors.xml`
+(light, plus the blues and the one white that are identical in both modes) and `colors_dark.xml`
+(dark) — rather than 20, since the split happened on 2026-09-29 when the theme override arrived
+and the dark values had to become individually addressable (trap 22). `DESIGN.md` §2 assigns
+every one of them a role, and `design_tokens.xml` is the single source for all of it.
 
 Then three layout primitives throw it away:
 
@@ -188,6 +217,22 @@ Rows go to level 1 automatically via `BorderedRow`. Two specific things:
 - The bar itself stays on the **canvas** — it is chrome, not content, and a filled bar competes
   with the list above it
 - The selected indicator keeps its hard shadow and stays `blue_600`
+- **It has a third label now.** The bar is Browse / Saved / Settings, added 2026-09-29. Only
+  Saved carries an icon (RULE 11 spends five icons in this app and four are already gone); the
+  other two keep the icon slot **reserved and empty** so all three labels sit on one baseline.
+  Do not fill those slots while doing this phase — a filled bar with three icons reads as a
+  template, which is the specific look §0 exists to get rid of.
+
+### 3.6 `ui/settings/SettingsScreen.kt` — the third surface
+
+- Every panel on it is a `BorderedPanel`, so §3.1 fixes all of them at once. Nothing to do here
+  for the surface hierarchy.
+- The **Data** block is the one place a *failed* read is designed rather than inherited: it shows
+  one line and a Try again button while the Language and Theme controls above it stay live. Fill
+  it like any other panel; do not make the failure state a raised surface, because a raised red
+  panel would read as an error state the user caused.
+- About is now a run of caption lines, so it wants the same breathing room as the rest. It has
+  no illustration, no logo and no links, and **nothing should be added** to it.
 
 ---
 

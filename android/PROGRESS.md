@@ -32,7 +32,7 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 7 · Offline & updates | 🟡 | **Trap 16 fixed** — a new APK now always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and four CI gates enforce them. The Settings *screen* that carries the §6 content is **coded, unbuilt** — §7 item 2 |
 | 8 · Accessibility & Roman Urdu | 🟡 | The **EN/UR content toggle works, persists, and passed the §6 group-3 phone checks 2026-09-29** (it is partial-toggle-safe: one repository per process). **Settings and the theme are coded but never compiled** — see §7 item 2. Still open: the font-scale / TalkBack pass |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
-| 11 · UI/UX | ⬜ **planned, not started** | **The app looks bare because `BorderedPanel` and `BorderedRow` use `Color.Transparent`** — `surface` and `surface_alt` are mapped in the theme and never used as a fill. The design exists and is measured; the implementation ignores it. Plan: `app-pipeline/guide/PHASE_11_UI_UX.md`. Fixes it with **zero new colours** |
+| 11 · UI/UX | ⬜ **planned, not started** | **The app looks bare because `BorderedPanel` and `BorderedRow` use `Color.Transparent`** — `surface` and `surface_alt` are mapped in the theme and never used as a fill. The design exists and is measured; the implementation ignores it. Plan: `app-pipeline/guide/PHASE_11_UI_UX.md`. Fixes it with **zero new colours**. **Carries two live constraints now: (a) the theme override is real and must stay real — no colour may go back behind a `values-night` qualifier (trap 22), and (b) the Settings screen is a third surface and will need the same pass as the rest** |
 | 10 · Monetisation | ⬜ **not started** | **Planning only.** Free-with-ads → trial → paid, all on Play. The plan is written: `app-pipeline/guide/PHASE_10_MONETISATION.md`. Nothing is built until a Play developer account exists |
 
 ## 1a. Starting a session
@@ -234,6 +234,22 @@ reason several comments in the code look defensive.
     about it: CI caught it on the first push and the fix was one `Row`.
     **The general rule: a scope-provided modifier only resolves where that scope is the receiver.
     An ordinary composable that wraps a layout does not pass its scope on to its content.**
+22. **A night-qualified `values-night/` colour folder cannot be overridden, and it fails looking
+    exactly like an override that was forgotten to wire up.** Reported on 2026-09-29 as "the light
+    mode isn't working". It was not a wiring bug at all: the dark palette lived in
+    `res/values-night/colors.xml`, and Android picks `values/` versus `values-night/` **from the
+    phone's night setting**, with no way to know that Settings says Light. So `ThemeMode.LIGHT`
+    did switch to `lightColorScheme(...)` — and every value inside it still came from the night
+    folder: canvas `#0B1116` on a "light" background. The user saw a control that did nothing.
+    **The trap is general: a resource qualifier is a *system* setting, not an app setting.** The
+    moment the app grows a user-facing control that disagrees with the system, anything read
+    through a qualifier silently stops responding. Fixed by moving the dark palette to
+    `res/values/colors_dark.xml` under the guide's own token names and selecting in code
+    (`Theme.kt`, and `ustadColor` for `Severity.kt`); `values-night/` now exists for the platform
+    window background alone, because that really is painted before any Compose code runs. Five
+    assertions in `PaletteContractTest` hold the arrangement, including *"no `values-night`
+    colour file may exist"*. **`PHASE_11` MUST NOT put a colour back behind a qualifier** — see
+    §1's Phase 11 row.
 
 ## 5. The gates, and what each one is for
 

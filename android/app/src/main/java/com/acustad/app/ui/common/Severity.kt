@@ -4,11 +4,11 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.acustad.app.R
 import com.acustad.app.model.ContentLanguage
+import com.acustad.app.ui.theme.ustadColor
 
 /**
  * One severity level, resolved for a theme and a language.
@@ -66,33 +66,36 @@ fun severityVisuals(severity: Severity, language: ContentLanguage): SeverityVisu
     when (severity) {
         Severity.DANGER -> SeverityVisuals(
             label = word(R.string.severity_danger, R.string.severity_danger_ur, language),
-            background = colorResource(R.color.signal_deep),
-            content = colorResource(R.color.canvas),
-            border = BorderStroke(2.dp, colorResource(R.color.signal_danger_border)),
+            background = ustadColor(R.color.signal_deep, R.color.signal_on_dark),
+            content = ustadColor(R.color.canvas, R.color.canvas_dark),
+            border = BorderStroke(
+                2.dp,
+                ustadColor(R.color.signal_danger_border, R.color.signal_dark_text),
+            ),
         )
         Severity.STOP -> SeverityVisuals(
             label = word(R.string.severity_stop_pro, R.string.severity_stop_pro_ur, language),
-            background = colorResource(R.color.signal_tint),
-            content = colorResource(R.color.ink),
-            border = BorderStroke(2.dp, colorResource(R.color.signal_stop)),
+            background = ustadColor(R.color.signal_tint, R.color.signal_dark_surface),
+            content = ustadColor(R.color.ink, R.color.ink_invert),
+            border = BorderStroke(2.dp, ustadColor(R.color.signal_stop, R.color.signal_dark_text)),
         )
         Severity.CHECK -> SeverityVisuals(
             label = word(R.string.severity_check_restart, R.string.severity_check_restart_ur, language),
-            background = colorResource(R.color.signal_tint_3),
-            content = colorResource(R.color.ink),
-            border = BorderStroke(2.dp, colorResource(R.color.signal_mid)),
+            background = ustadColor(R.color.signal_tint_3, R.color.signal_dark_surface),
+            content = ustadColor(R.color.ink, R.color.ink_invert),
+            border = BorderStroke(2.dp, ustadColor(R.color.signal_mid, R.color.signal_dark_text)),
         )
         Severity.CLEARS -> SeverityVisuals(
             label = word(R.string.severity_self_clear, R.string.severity_self_clear_ur, language),
-            background = colorResource(R.color.neutral_fill),
-            content = colorResource(R.color.ink),
+            background = ustadColor(R.color.neutral_fill, R.color.neutral_fill_dark),
+            content = ustadColor(R.color.ink, R.color.ink_invert),
             border = null,
         )
         Severity.INFO -> SeverityVisuals(
             label = word(R.string.severity_info, R.string.severity_info_ur, language),
-            background = colorResource(R.color.canvas),
-            content = colorResource(R.color.ink),
-            border = BorderStroke(2.dp, colorResource(R.color.hairline)),
+            background = ustadColor(R.color.canvas, R.color.canvas_dark),
+            content = ustadColor(R.color.ink, R.color.ink_invert),
+            border = BorderStroke(2.dp, ustadColor(R.color.hairline, R.color.hairline_dark)),
         )
     }
 
@@ -104,9 +107,9 @@ fun severityVisuals(severity: Severity, language: ContentLanguage): SeverityVisu
 @Composable
 fun indicatorVisuals(language: ContentLanguage): SeverityVisuals = SeverityVisuals(
     label = word(R.string.severity_indicator, R.string.severity_indicator_ur, language),
-    background = colorResource(R.color.canvas),
-    content = colorResource(R.color.ink_muted),
-    border = BorderStroke(2.dp, colorResource(R.color.hairline)),
+    background = ustadColor(R.color.canvas, R.color.canvas_dark),
+    content = ustadColor(R.color.ink_muted, R.color.ink_muted_dark),
+    border = BorderStroke(2.dp, ustadColor(R.color.hairline, R.color.hairline_dark)),
 )
 
 @Composable
