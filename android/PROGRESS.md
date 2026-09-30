@@ -259,7 +259,7 @@ reason several comments in the code look defensive.
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
 | `verify data` / `check_app_sql.py` | **43 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order**, added after trap 15 |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | **72** tests (58 + 14 for the theme round-trip and the two Settings formatters), including all 2,139 code strings and the FTS quoting. **Green on 755f8e1, 2026-09-29.** Note what this does and does not prove: every one of them runs off-device, and not one opens a screen |
+| `build app` / unit tests | **74** tests (58 + the theme round-trip, the Settings formatters, and 5 palette-contract assertions), including all 2,139 code strings and the FTS quoting. **Green on 0b1b4c0, 2026-09-29.** Note what this does and does not prove: every one of them runs off-device, and not one opens a screen |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission |
 | `build app` / database hash | the APK cannot carry a stale database. On-device re-staging is a separate rule — see trap 16 |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
