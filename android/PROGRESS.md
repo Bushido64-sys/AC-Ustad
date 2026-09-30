@@ -2,9 +2,17 @@
 
 **Read this first when resuming.** Last updated: 2026-09-29
 
-> **Where we are:** Phases 1–4, 6 and 8 are built and phone-checked. The knowledge base and the
-> 20-document build guide are finished. Phase 11 (UI/UX) is the next build, with Phase 5's
-> teaching empty state and one CI gate ahead of it.
+> **Where we are:** Phases 1–8 are built and phone-checked. The knowledge base and the
+> 20-document build guide are finished, and so is the whole of Phase 11 as a *build* — steps 1–6
+> of its 7, all green, the seventh (per-brand source list) closed by decision.
+>
+> **Nothing is half-finished and nothing is in flight.** `main` is `a1cfb3b`, `build app` and
+> `verify data` are both green on it, and the working tree is clean.
+>
+> **The only thing outstanding is a human looking at `282b035`.** §6 group 5 is ten visual
+> checks, and no gate in this project can make a visual judgement — the surface hierarchy is a
+> look, and it will pass every automated check in the file whether or not it reads. That is the
+> next session's first job, and it is the same job as trap 15.
 
 > **2026-09-29:** the human ran the §6 checks on a real phone and reported them passing, so the
 > Phase 4, 6 and 8 screens move to ✅. That is a human result, not a CI result — CI still cannot
@@ -26,12 +34,12 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 2 · Data layer | ✅ phone-checked | 4 DAOs, immutable models, one repository, favourites writes, stale-id sweep |
 | 3 · Browse | ✅ phone-checked | Home → brands → model lines → codes, with scoped search on every list |
 | 4 · Code detail | ✅ phone-checked 2026-09-29 | Severity + meaning → numbered fix steps → causes → notes → source, with a working star. Was marked ✅ while being **completely dead on a phone** — see trap 15. The build was green throughout; only a human tapping a code found it. Fixed and now re-verified on the device |
-| 5 · Search polish | ✅ built, awaiting phone check | The **teaching empty state** (2026-09-29): a code typed on the brands screen now explains the scoping rule with a **measured** brand count, and offers a way forward. Data layer was already done |
+| 5 · Search polish | ✅ phone-checked 2026-09-29 | The **teaching empty state** (2026-09-29): a code typed on the brands screen explains the scoping rule with a **measured** brand count, and offers a way forward. The count is a query — `16` is written nowhere in the app |
 | 6 · Saved screen | ✅ phone-checked 2026-09-29 | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
 | 7 · Offline & updates | ✅ | **Trap 16 fixed** — a new APK always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and **five** CI gates now enforce them, including the network/ads gate that used to be documented and not written (trap 23) |
 | 8 · Accessibility & Roman Urdu | ✅ phone-checked 2026-09-29 | The EN/UR toggle works, persists and is partial-toggle-safe. **Settings + the theme override are built and passed the §6 group-4 checks**, including the trap-22 Light-mode fix. Still open: the font-scale / TalkBack pass |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
-| 11 · UI/UX | 🟡 **steps 1–6 built, none phone-checked** | **Built 2026-09-29, steps 1–6 of the guide's 7. Nothing here is phone-checked, and no gate in this project can check a visual judgement — steps 1 and 2 first, on their own build, was the guide's explicit instruction and the human has not reported on them yet.** `BorderedPanel` and `BorderedRow` were passing `Color.Transparent`; both now fill with `surface`, and the new `RaisedPanel` (level 2, `surfaceVariant`) is on the detail screen's meaning and source line where `DESIGN.md` §4.5 already said *raised*. `R.dimen` went from **zero uses to four**, so the token file is load-bearing rather than decorative. **Zero new colours.** **Also built in the same pass, all from `PHASE_11_UI_UX.md`:**
+| 11 · UI/UX | 🟡 **built and CI-green, awaiting a phone** | **Built 2026-09-29, steps 1–6 of the guide's 7. Nothing here is phone-checked, and no gate in this project can check a visual judgement — steps 1 and 2 first, on their own build, was the guide's explicit instruction and the human has not reported on them yet.** `BorderedPanel` and `BorderedRow` were passing `Color.Transparent`; both now fill with `surface`, and the new `RaisedPanel` (level 2, `surfaceVariant`) is on the detail screen's meaning and source line where `DESIGN.md` §4.5 already said *raised*. `R.dimen` went from **zero uses to four**, so the token file is load-bearing rather than decorative. **Zero new colours.** **Also built in the same pass, all from `PHASE_11_UI_UX.md`:**
    - **The star moved into the app bar** (§6 #1, and the one the guide calls important).
      `AcUstadAppBar` had **no action slot at all**; it has exactly one now, and the star is
      extracted to a shared `StarToggle` so the body and the bar cannot disagree. It sat in the
@@ -294,9 +302,9 @@ reason several comments in the code look defensive.
 |---|---|
 | `verify data` / `tools/validate.py` | the knowledge base validates against the schema |
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
-| `verify data` / `check_app_sql.py` | **43 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order**, added after trap 15 |
+| `verify data` / `check_app_sql.py` | **58 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order** (after trap 15) and the teaching-state count and its `code_norm` guard |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | **86** tests (58 + the theme round-trip, Settings formatters, 5 palette-contract assertions and 12 teaching-state assertions), including all 2,139 code strings and the FTS quoting. **Green on 4620c5e, 2026-09-29.** Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen** — the 12 new ones check a pure decision function and a SQL string, not a pixel |
+| `build app` / unit tests | **86** tests (58 + the theme round-trip, Settings formatters, 5 palette-contract assertions and 12 teaching-state assertions), including all 2,139 code strings and the FTS quoting. **Green on 282b035, 2026-09-29.** Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen** — the 12 new ones check a pure decision function and a SQL string, not a pixel |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission. **This is what actually enforces RULE 14** — zero permissions means zero network, since `INTERNET` is a normal permission |
 | `build app` / database hash | the APK cannot carry a stale database. On-device re-staging is a separate rule — see trap 16 |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
@@ -306,7 +314,7 @@ reason several comments in the code look defensive.
 `check_app_sql.py` imports the canonical rule from `build_kb.py` rather than restating it. Two
 copies of that rule would drift, and a lower-case copy would quietly break every code search.
 
-## 6. Test on the phone — the twenty-seven checks
+## 6. Test on the phone — the thirty-seven checks
 
 **A green build does not get a phase marked ✅. This section does.** Every screen in a phase has
 to be opened here, on a real phone, by a human, before the phase counts as done. Phase 4 sat in
@@ -398,6 +406,31 @@ called done.
     do not change. Only code content changes. (RULE 13)
 27. Airplane mode: Settings opens and shows the data block. Nothing on it needs a network.
 
+**Group 5 — Phase 11, the visual pass (`build app` green on `282b035`, none of it phone-checked).**
+Every check here is a **visual judgement**, and not one automated test in this project can make
+one. The surface hierarchy is the phase; if the three levels do not read, stop rather than
+building on them.
+
+28. **The three levels are visibly different** — card, raised block and canvas, at arm's length.
+    This is the single check the whole phase rests on.
+29. **The star is in the app bar** on the code-detail screen, reachable one-handed, and the thumb
+    does not cover the code. It was in the content body until `282b035`.
+30. **A panel press is a 120ms dip and nothing else** — no bounce, no ripple, no shadow moving.
+31. **Back from a model returns to the same scroll position with the search text intact** on all
+    three browse lists. A jump to the top means `rememberSaveable` is not saving.
+32. **An exact code match in a model offers one blue "Open E6" row** above the single result. A
+    prefix match must **not** offer it.
+33. **The nav's top line is visible in sunlight.** Walk outside. It is 2dp ink now, not the
+    1.41:1 hairline that did not exist.
+34. **No muted text on any raised block**, light mode especially — `ink_muted` on `surface_alt`
+    is 4.15:1. The SeriesScreen brand notes are the one place this was fixed.
+35. **Dark mode, checked and not assumed**, on the detail screen: meaning block, fix steps,
+    causes, source line. A surface that reads in light can vanish in dark.
+36. **The meaning block is the most important thing on the detail screen** — that was the point
+    of making it raised.
+37. **Nothing else moved.** The §6 checks 1–27 still pass, and the six original checks are
+    re-run in full.
+
 ## 7. Do these next, in this order
 
 **Phase 7 is not a feature phase, and that is why it is not above — but it is not empty either.**
@@ -426,8 +459,8 @@ one.
    **And the thing that is actually blocking: none of steps 1–6 has been looked at.** The guide
    is explicit that if the three levels do not read on a real phone, the rest of this phase is
    built on a wrong foundation.
-2. ~~**The Settings screen, and the third bottom-nav item with it.**~~ — **coded 2026-09-29,
-   CI green, still NOT phone-checked.** It was written before item 1, which is the one ordering
+2. ~~**The Settings screen, and the third bottom-nav item with it.**~~ — **done and
+   phone-checked 2026-09-29** (all nine of §6 group 4 passed, after the trap-22 Light-mode fix). It was written before item 1, which is the one ordering
    mistake in this list: the Settings screen is a new surface and `PHASE_11` is going to change
    what every surface looks like, so it will probably need a second pass. What exists:
    - `ui/settings/SettingsScreen.kt` + `SettingsViewModel.kt`, and `NavTab.SETTINGS` with
@@ -509,6 +542,25 @@ claims it exists.** Trap 23 has the whole story; the doc is corrected to match w
   `values-night/` — see trap 22. Do not let a colour go back behind a qualifier.**
 - No search box on the Saved screen. Six rows; PHASE_6 §4 says no grouping and no folders.
 
+## 8a. Two things that are debt, not defects, so nobody re-investigates them
+
+**Five string resources are declared and never referenced** (checked 2026-09-29, unchanged from
+before this session): `action_search`, `empty_brand_no_codes`, `empty_favourites_hint`,
+`unit_cause_one`, `unit_cause_many`. They are not bugs — every screen that would want them has a
+working equivalent. `empty_brand_no_codes` is genuinely redundant: the brand → series path
+renders `empty_series_no_codes` instead. **Not worth a commit on their own**; delete them
+alongside whatever next touches that file, or leave them, since an unused string is a lint
+warning at worst.
+
+**A scripted import insert is not a check.** Two builds in this session were lost to the same
+family: a missing import, a duplicate import, a positional argument after a named one, and a
+`Boolean` where a `ToggleableState` was required — none of which the script that *added* those
+imports would have caught. The script anchors on a line it has not verified, so when the anchor
+is missing it does **nothing and reports success**. Before pushing, sweep `main/` for all four
+of: a symbol used with no import, an import used nowhere, a duplicated import, and an argument
+list that mixes positional after named. `getValue` is excluded from the "unused" test by
+necessity — it is an implicit operator for `by` and never appears in a body (trap 8).
+
 ## 9. Environment facts
 
 - Repo: `git@github.com:Bushido64-sys/AC-Ustad.git`, branch `main`. **It is public, not
@@ -537,6 +589,24 @@ TOK=$(cat ~/.config/ac-ustad/ci-token)
 curl -s -H "Authorization: Bearer $TOK" \
   "https://api.github.com/repos/Bushido64-sys/AC-Ustad/actions/runs/<run-id>/logs" -o runlog.zip
 ```
+
+> ### ⚠️ A token was pasted into this chat on 2026-09-29. Revoke it.
+>
+> A fine-grained PAT was pasted into the conversation to fetch CI logs. Two things came out of it
+> and both are worth keeping:
+>
+>  - **It returned `401 Bad credentials`, so it was already invalid** — revoked, truncated when
+>    copied, or mistyped. It was written to `~/.config/ac-ustad/ci-token`, used, and the file has
+>    since been deleted. It never reached the repository: the secret scan in `verify-data.yml`
+>    passed on every push that session.
+>  - **It was not needed.** The repository is public, so run status, job steps and the compiler's
+>    own `e:` annotations are all readable **unauthenticated**. Every diagnosis in this file's
+>    history was made that way.
+>
+> **A token pasted into a chat is burned whether or not it works.** Revoke it
+> (`Settings → Developer settings → Personal access tokens`) and write a new one to the path
+> above. The next session should assume **no token exists** and not ask for one until it has
+> actually tried without.
 
 **The token must never be written into this repository**, and there are two independent reasons
 rather than one: the `verify data` secret scan fails any push containing it
