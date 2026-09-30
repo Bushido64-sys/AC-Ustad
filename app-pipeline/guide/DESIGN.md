@@ -196,8 +196,25 @@ Order is fixed by product decision: **the technician wants the action, not the e
 
 ### 4.7 Settings
 Language (EN / UR — content only, per RULE 13) · Theme (System / Light / Dark) · Data version
-from `meta.kb_version` + `meta.built_at` · Sources · About. Plain rows, 2dp borders, no
-illustration, no social links.
+from `meta.kb_version` + `meta.built_at` · About. Plain rows, 2dp borders, no illustration, no
+social links.
+
+**Revised 2026-09-29, and it is a deliberate override rather than an omission.** The original
+list ended `… + meta.built_at` · Sources · About`, and two items are gone:
+
+- **Sources is not on the screen.** The intent was that coverage be visible, so "my model is
+  missing" has an answer. A coverage list is a fact about the app, and the person opening
+  Settings has a machine in front of them and wants a fact about that machine. Provenance
+  belongs on the code's own page, where it is — every code carries the source it was read from,
+  and the detail screen shows it. The panel was measured before it was dropped, and it was
+  correct; it was simply answering a question nobody was asking.
+- **No size line.** The database size was measured at runtime rather than typed, so it could
+  never be *wrong* — but it is a number about a file the user cannot act on, and it put a
+  second claim-to-be-trusted on the screen next to the one that matters.
+
+The **data version stays**: it is the single fact on this screen that tells a technician whether
+the answers they are reading right now are current. That is the standard every item here is now
+held to — *does this change what the user does?* — and coverage and file size failed it.
 
 ## 5. Motion
 120–180ms, `FastOutSlowIn` for the panel press, nothing else. No shared-element transitions,

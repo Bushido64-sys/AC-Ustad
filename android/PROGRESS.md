@@ -332,12 +332,17 @@ called done.
 19. The bar has **three** tabs — Browse, Saved, Settings — and the Settings tab opens the
     Settings screen. Only Saved has an icon; Browse and Settings are text with the icon slot
     reserved, and all three labels sit on one baseline.
-20. **Settings** shows the two controls, then a data block reading **Version 2026-09-26** and a
-    build date of **2026-09-28**, then Sources, then About. The coverage line reads
-    **62 brands, 320 model lines, 4418 codes**, and the About line states a size.
-21. **Every number is read from the database.** Change nothing and the numbers must match the
-    home screen's brand counts; a number that is a typed-in literal rather than a query is
-    exactly the kind of claim this project has been wrong about before.
+20. **Settings** shows, in order: Language, Theme, a data block reading **Version 2026-09-26** and
+    a build date of **2026-09-28**, then About. About introduces the app and then says what it
+    does for the reader. **Revised 2026-09-29:** the Sources panel and the database-size line
+    were removed on the user's instruction, so this check no longer expects them — see §8. What
+    must still be true is that the data block survives the removal, and that About contains no
+    claim about size, coverage or brand count.
+21. **The data version is read from the database, not typed in.** It must match the version Home
+    shows in its subtitle, and both must match `meta.kb_version`. A number that is a literal in
+    `strings.xml` rather than a query is exactly the kind of claim this project has been wrong
+    about before — and the size line that used to sit below it was removed precisely because it
+    was a second number to keep honest.
 22. **Theme → Dark.** The whole app repaints immediately, including the already-visible Home and
     Saved screens — a partial re-theme means the value was not read from the shared repository.
 23. **Theme → Light** while the *phone* is in dark mode. The app stays light: an explicit choice
@@ -418,14 +423,28 @@ ads — it will pass the moment it is written.
   models, codes and detail. Those screens are one continuous descent and the bar is a way out to
   a different top-level place, not a way down.
 - **A Settings screen now exists** (2026-09-29, CI-green, unphone-checked — see §7 item 2).
-  It holds the EN/UR and theme switches and the data version, and nothing else. It has no search
-  box, no "reset app", no cache controls and no About/links page beyond the three lines
-  `PHASE_7` §6 asks for.
+  It holds the EN/UR and theme switches, the data version, and About. No search box, no "reset
+  app", no cache controls, no social links.
+- **Two things `PHASE_7` §6 asks for are NOT on it, by the user's decision on 2026-09-29, and
+  this is the record of that override rather than a quiet omission:**
+  - **The Sources panel is gone.** §6 wanted brand and model coverage shown, "so 'my model is
+    missing' is answerable by pointing at a real gap." The reasoning for dropping it is on
+    screen rather than in a document: a list of 62 brands and 320 model lines is a fact about
+    the app, and a technician with a broken unit in front of them is looking for a fact about
+    *their* machine. The per-code source is still shown, on the code's own page, which is where
+    a claim of provenance belongs. `DESIGN.md` §4.7 still lists Sources and **is now wrong**;
+    Phase 11 should settle it rather than leave two documents disagreeing.
+  - **The database size is gone**, and so are `KbRepository.dataSizeBytes()` and
+    `formatDataSize()`. The size was measured rather than typed, so it was never *false* — but
+    it was a second number on a settings screen, about a file the user cannot act on.
+  - **The data version stays**, and is the only data fact on the screen: it is the one that
+    tells a technician whether the answers they are currently reading are current.
 - **The theme override is built.** `AcUstadTheme(dark = …)` already took a null/true/false; the
   work was the value on the shared repository and resolving it in `MainActivity` above the graph.
   `SYSTEM` is the default and resolves through `isSystemInDarkTheme()`; an unrecognised stored
   value falls back to `SYSTEM` and never to `LIGHT`, so a stale preferences file cannot override
-  the phone's own setting.
+  the phone's own setting. **It only became real once the dark palette moved out of
+  `values-night/` — see trap 22. Do not let a colour go back behind a qualifier.**
 - No search box on the Saved screen. Six rows; PHASE_6 §4 says no grouping and no folders.
 
 ## 9. Environment facts
