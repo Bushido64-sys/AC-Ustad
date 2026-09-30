@@ -26,9 +26,9 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 2 · Data layer | ✅ phone-checked | 4 DAOs, immutable models, one repository, favourites writes, stale-id sweep |
 | 3 · Browse | ✅ phone-checked | Home → brands → model lines → codes, with scoped search on every list |
 | 4 · Code detail | ✅ phone-checked 2026-09-29 | Severity + meaning → numbered fix steps → causes → notes → source, with a working star. Was marked ✅ while being **completely dead on a phone** — see trap 15. The build was green throughout; only a human tapping a code found it. Fixed and now re-verified on the device |
-| 5 · Search polish | 🟡 | The **data layer** is done and tested; the empty-search teaching state is not built |
+| 5 · Search polish | ✅ built, awaiting phone check | The **teaching empty state** (2026-09-29): a code typed on the brands screen now explains the scoping rule with a **measured** brand count, and offers a way forward. Data layer was already done |
 | 6 · Saved screen | ✅ phone-checked 2026-09-29 | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
-| 7 · Offline & updates | 🟡 | **Trap 16 fixed** — a new APK now always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and four CI gates enforce them. The Settings *screen* that carries the §6 content is **coded, unbuilt** — §7 item 2 |
+| 7 · Offline & updates | ✅ | **Trap 16 fixed** — a new APK always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and **five** CI gates now enforce them, including the network/ads gate that used to be documented and not written (trap 23) |
 | 8 · Accessibility & Roman Urdu | ✅ phone-checked 2026-09-29 | The EN/UR toggle works, persists and is partial-toggle-safe. **Settings + the theme override are built and passed the §6 group-4 checks**, including the trap-22 Light-mode fix. Still open: the font-scale / TalkBack pass |
 | 9 · Hardening & release | ⬜ | Release signing, the perf pass, the full release checklist |
 | 11 · UI/UX | ⬜ **planned, not started** | **The app looks bare because `BorderedPanel` and `BorderedRow` use `Color.Transparent`** — `surface` and `surface_alt` are mapped in the theme and never used as a fill. The design exists and is measured; the implementation ignores it. Plan: `app-pipeline/guide/PHASE_11_UI_UX.md`. Fixes it with **zero new colours**. **Carries two live constraints now: (a) the theme override is real and must stay real — no colour may go back behind a `values-night` qualifier (trap 22), and (b) the Settings screen is a third surface and will need the same pass as the rest** |
@@ -249,6 +249,24 @@ reason several comments in the code look defensive.
     assertions in `PaletteContractTest` hold the arrangement, including *"no `values-night`
     colour file may exist"*. **`PHASE_11` MUST NOT put a colour back behind a qualifier** — see
     §1's Phase 11 row.
+23. **A class name in a dex is `Lpkg/Class;` and the trailing semicolon is part of the token.**
+    Written without it, `Ljava/net/Socket` also matches `Ljava/net/SocketException;` and
+    `Ljava/net/SocketTimeoutException;` — which is a very common *transitive* reference in
+    libraries the app never calls. The first version of the network gate failed the build for
+    exactly this reason, and nothing in the app had changed. The general trap is worse than the
+    bug: **a gate that can fail for a reason unrelated to what it is checking will be disabled**,
+    and a disabled gate is worse than no gate, because the guide still claims it exists. Two
+    rules came out of it, and both are now how the step is written:
+    - **match the full descriptor**, semicolon included, so a prefix cannot match a longer name;
+    - **print what was matched as a check annotation, not to the log** — a log an agent cannot
+      read is the same as no diagnosis, and guessing which library matched would have been this
+      project's own "a check reporting a conclusion it could not see" failure. The hard-fail
+      set is now only libraries whose mere presence is a deliberate decision, and the platform
+      types that a library can reference without the app calling them are report-only.
+    **Worth stating plainly, because it is what actually enforces RULE 14: the *permissions*
+    gate is the real protection.** Zero declared permissions means zero network, since
+    `INTERNET` is a normal permission and cannot be had for free. The class gate is the early
+    warning that a library is arriving which brings its own networking.
 
 ## 5. The gates, and what each one is for
 
@@ -258,10 +276,11 @@ reason several comments in the code look defensive.
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
 | `verify data` / `check_app_sql.py` | **43 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order**, added after trap 15 |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | **74** tests (58 + the theme round-trip, the Settings formatters, and 5 palette-contract assertions), including all 2,139 code strings and the FTS quoting. **Green on 0b1b4c0, 2026-09-29.** Note what this does and does not prove: every one of them runs off-device, and not one opens a screen |
-| `build app` / permissions | the app ships with nothing but AGP's own self-permission |
+| `build app` / unit tests | **86** tests (58 + the theme round-trip, Settings formatters, 5 palette-contract assertions and 12 teaching-state assertions), including all 2,139 code strings and the FTS quoting. **Green on 4620c5e, 2026-09-29.** Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen** — the 12 new ones check a pure decision function and a SQL string, not a pixel |
+| `build app` / permissions | the app ships with nothing but AGP's own self-permission. **This is what actually enforces RULE 14** — zero permissions means zero network, since `INTERNET` is a normal permission |
 | `build app` / database hash | the APK cannot carry a stale database. On-device re-staging is a separate rule — see trap 16 |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
+| `build app` / no network, ads or analytics library | **Added 2026-09-29** — the gate `CI_CD.md` §1 had documented for months without existing. Reads every dex in the APK. Written *before* any ad SDK, because a gate added after the code it forbids has to fight the code. See trap 23 |
 | `build app` / compiler error lines | puts the compiler's own `e:` lines on the **check itself**, not only in a log. GitHub's log download endpoint needs admin rights, so without this step a compile failure is visible only as "exit code 1" and needs a personal access token to diagnose. Runs `if: failure()`, cannot weaken a gate, needs no secret |
 
 `check_app_sql.py` imports the canonical rule from `build_kb.py` rather than restating it. Two
@@ -397,8 +416,13 @@ one.
      screen result.
    - **§6 group 4's nine checks have not been run.** Until they are, this screen is exactly what
      trap 15 describes: a green build and no human ever having opened it.
-3. **Phase 5's teaching empty state.** When a code is typed on the *brands* screen the search
-   correctly finds nothing; the screen must then explain why, in one line, with a way forward.
+3. ~~**Phase 5's teaching empty state.**~~ — **built 2026-09-29, CI green, not phone-checked.**
+   A code typed on the *brands* screen now explains the scoping rule with a **measured** brand
+   count and offers "Show all brands". Three outcomes, not one: many brands, exactly one brand
+   (which is named), and not-a-code (which says nothing). The action is deliberately **not** the
+   guide's "Search models instead" — models are scoped to a brand, so there is no model search to
+   send someone to until they have picked one, and an action pointing at a search they cannot
+   perform is a worse dead end. Recorded in `DESIGN.md` §4.2 rather than quietly substituted.
 4. ~~**The remaining phone checks**~~ — **done 2026-09-29.** The human ran `PHASE_7` §7 (airplane
    mode, cache deleted while closed, a replaced asset with a higher `kb_version`, battery stats)
    and `PHASE_8` §8 (font scale 1.0 / 1.15 / 1.3, TalkBack reading a code end to end, longest
@@ -411,11 +435,13 @@ one.
    re-derive it; read the phase file. It supersedes RULE 14 and `PERMISSIONS.md`, and that
    supersession is deliberate and written down rather than a quiet workaround.
 
-**One thing to fix in the next session regardless of phase:** `CI_CD.md` §1 documents a CI step
-that fails the build if the APK contains an HTTP client class, and **that step does not exist in
-`build-app.yml`**. It has never mattered because the app has no network code. The moment an ad
-SDK lands, the guide claims a protection the build does not have. Build that gate *before* the
-ads — it will pass the moment it is written.
+**The stray CI gap is closed.** `CI_CD.md` §1 documented a no-HTTP-client step that did not exist
+in `build-app.yml`; it is written and green as of `4620c5e`. It took two attempts and the second
+one taught something worth keeping — the first version failed the build for a reason that had
+nothing to do with the app, because a class name in a dex needs its trailing semicolon or
+`Ljava/net/Socket` also matches `Ljava/net/SocketException;`. **A gate that can fail for an
+unrelated reason gets disabled, and a disabled gate is worse than none, because the guide still
+claims it exists.** Trap 23 has the whole story; the doc is corrected to match what ships.
 
 ## 8. Things deliberately not built yet
 
