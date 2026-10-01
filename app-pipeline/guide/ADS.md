@@ -185,6 +185,12 @@ deliberately and in the open, not by drift:
   debug on demo units forever.
 - **app-ads.txt + transparent seller info**: owner's domain work, outside the
   codebase. DSPs bid less without it.
+- **Banner refresh**: console-side per ad unit — Google-optimised or 30s
+  minimum. Set 30s for maximum impressions; the code intentionally sets no
+  timer (timer-driven loads are a policy smell).
+- **New-unit fill delay**: brand-new ad units can take hours to serve on
+  Google's side. Empty natives on day one with everything else showing is the
+  account, not the app — wait before diagnosing.
 - **GMA Next-Gen migration**: legacy is in maintenance mode. Migrate when a
   feature needs it, not before — the legacy API is stable and fully
   mediated.

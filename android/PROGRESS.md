@@ -29,7 +29,9 @@
 > removed, exit finishes clean. Now: fresh banner per screen (keyed by route),
 > app-open every cold start + resume + 3s retry, interstitial on detail-back
 > and return-to-top under one budget (every 2nd back, 90s cap), native slots
-> retry 3× at 15s. Needs: green CI, then ADS.md §7 on a real phone.
+> retry 3× at 15s. CI green on `247b5ae` (all 17 steps). Awaiting the ADS.md §7
+> phone run: app-open on launch, per-screen banners, detail-back interstitial
+> rhythm, exit with no ad, natives in all four spots, validator pass.
 >
 > **2026-10-01 — Phase 9 phone-checked, ✅.** The human installed the build and
 > confirmed it good: install-over works, airplane mode full, dark/light/system,
