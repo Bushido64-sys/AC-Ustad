@@ -1,6 +1,12 @@
-# PHASE_10_MONETISATION.md — getting paid without wrecking the app
+# PHASE_10_MONETISATION.md — ARCHIVED, SUPERSEDED 2026-10-01
 
-**Status: PLANNING ONLY. Nothing in this file has been built.**
+> **Do not follow this file.** It is kept for history only. On the user's decision
+> 2026-10-01 the staged trial/paid/kill-switch plan was dropped: ads ship as a
+> straight feature instead (banner + interstitials, offline path untouched), and the
+> live ads spec lives in the new ads document, not here. Nothing in this file has
+> been built and nothing in it will be.
+
+**Status at archive time: PLANNING ONLY. Nothing in this file has been built.**
 
 The one gate: **we do not start until the Google Play developer account exists.** Everything here
 assumes Play, because Play is what makes the hard version block real instead of a polite

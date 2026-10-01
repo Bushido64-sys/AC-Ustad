@@ -189,7 +189,7 @@ private fun AboutPanel(state: SettingsState, onRetry: () -> Unit) {
  * The privacy promise, in the same words as PRIVACY.md.
  *
  * True today and written so it stays true: no account, no permissions, no network,
- * nothing uploaded. The day ads land (PHASE_10, blocked on a Play account) this
+ * nothing uploaded. The day ads land (see the ads document) this
  * panel is rewritten first — the "no network" line goes the same commit the SDK
  * arrives, never before.
  */

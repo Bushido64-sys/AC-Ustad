@@ -15,8 +15,8 @@
 > on `main`, and the working tree is clean. (A commit hash is deliberately not written here:
 > the last time one was, it was stale by two commits within a day.)
 >
-> **Next in §7 is Phase 10** — and it is **blocked on a Play developer account**,
-> so nothing is next until that exists. Phase 9 is ✅ (see below).
+> **Next is item 6 — ads.** Items 1–5 closed, trial/paid plan archived, so the fresh
+> AdMob implementation under the new ads document is what ships next.
 >
 > **2026-10-01 — Phase 9 phone-checked, ✅.** The human installed the build and
 > confirmed it good: install-over works, airplane mode full, dark/light/system,
@@ -191,7 +191,7 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
      qualifier (trap 22), (b) the Settings screen is a third surface and gets the same pass as
      the rest, and (c) `RaisedPanel` must keep stating `contentColor = onSurface`, because the
      inherited default is 4.15:1 (trap 24), pinned by `ContainerContentColorTest`** |
-| 10 · Monetisation | ⬜ **not started** | **Planning only.** Free-with-ads → trial → paid, all on Play. The plan is written: `app-pipeline/guide/PHASE_10_MONETISATION.md`. Nothing is built until a Play developer account exists |
+| 10 · Monetisation | ⬜ **not started** | **Trial/paid plan archived 2026-10-01** (see `app-pipeline/guide/archive/PHASE_10_MONETISATION.md`). Ads ship as a straight feature under the new ads document instead — AdMob, test IDs until a Play account exists |
 
 ## 1a. Starting a session
 
@@ -351,7 +351,9 @@ reason several comments in the code look defensive.
    for exactly the technician standing in front of a broken unit with no signal — and it enforces
    nothing against anyone determined, because airplane mode is a one-tap bypass. What *can* be
    enforced is Play's: content behind a Play Billing licence is checked by Google, server-side,
-   and is genuinely unbypassable. Read `PHASE_10_MONETISATION.md` before proposing either one.
+   and is genuinely unbypassable. (The staged trial/paid plan that used to live in
+   `PHASE_10_MONETISATION.md` was archived 2026-10-01; ads ship as a straight feature
+   under the new ads document instead.)
    Also: a sideloaded APK **cannot be revoked** once installed, whatever the app's code says.
 17. **A length check answers "is this file damaged", not "is this file current". FIXED
    2026-09-29.** `KbDatabase.stageFile()` re-copied the asset only when
@@ -749,11 +751,12 @@ one.
    main, full §6 re-run and PHASE_9 §5 pre-release checklist passed on a real phone
    (install-over, airplane, dark, font 1.3, no permissions, EN/UR, favourite survives
    re-copy) — human-confirmed 2026-10-01.
-6. **Phase 10 monetisation** — and it is **blocked, not next**. It needs a Google Play developer
-   account, and everything in it is written down in
-   `app-pipeline/guide/PHASE_10_MONETISATION.md` already. Do not start it early and do not
-   re-derive it; read the phase file. It supersedes RULE 14 and `PERMISSIONS.md`, and that
-   supersession is deliberate and written down rather than a quiet workaround.
+6. **Ads (AdMob, straight feature)** — next. Trial/paid plan archived 2026-10-01, so
+   this is a fresh implementation under the new ads document, not Phase 10 as written:
+   AdMob via version catalog, test IDs until a Play account exists, banner + aggressive
+   interstitials that never touch the answer path or the offline guarantee. When the SDK
+   lands it supersedes RULE 14 and `PERMISSIONS.md`, and that supersession is deliberate
+   and written down rather than a quiet workaround.
 
 **The stray CI gap is closed.** `CI_CD.md` §1 documented a no-HTTP-client step that did not exist
 in `build-app.yml`; it is written and green as of `4620c5e`. It took two attempts and the second
@@ -798,15 +801,14 @@ claims it exists.** Trap 23 has the whole story; the doc is corrected to match w
   `values-night/` — see trap 22. Do not let a colour go back behind a qualifier.**
 - No search box on the Saved screen. Six rows; PHASE_6 §4 says no grouping and no folders.
 
-## 8a. Two things that are debt, not defects, so nobody re-investigates them
+## 8a. One thing that is debt, not a defect, so nobody re-investigates it
+   (plus one already paid off above)
 
-**Five string resources are declared and never referenced** (checked 2026-09-29, unchanged from
-before this session): `action_search`, `empty_brand_no_codes`, `empty_favourites_hint`,
-`unit_cause_one`, `unit_cause_many`. They are not bugs — every screen that would want them has a
-working equivalent. `empty_brand_no_codes` is genuinely redundant: the brand → series path
-renders `empty_series_no_codes` instead. **Not worth a commit on their own**; delete them
-alongside whatever next touches that file, or leave them, since an unused string is a lint
-warning at worst.
+**Five string resources were declared and never referenced** (`action_search`,
+`empty_brand_no_codes`, `empty_favourites_hint`, `unit_cause_one`, `unit_cause_many`) —
+**deleted 2026-10-01** alongside the Settings rebuild, exactly as this note prescribed.
+`empty_brand_no_codes` was genuinely redundant: the brand → series path renders
+`empty_series_no_codes` instead.
 
 **A scripted import insert is not a check.** Two builds in this session were lost to the same
 family: a missing import, a duplicate import, a positional argument after a named one, and a
