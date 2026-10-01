@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -11,7 +12,7 @@ plugins {
 // against the owner's account. Release reads the git-ignored ads.properties;
 // if it is absent (CI, a fresh clone) release falls back to the demo units
 // with a warning rather than failing the build — CI never builds release.
-val adsProps = java.util.Properties().apply {
+val adsProps = Properties().apply {
     val file = rootProject.file("ads.properties")
     if (file.exists()) file.inputStream().use(::load)
 }
@@ -23,12 +24,12 @@ fun adsId(key: String, demo: String): String =
     }
 
 // Demo units from https://developers.google.com/admob/android/test-ads.
-const val DEMO_APP_ID = "ca-app-pub-3940256099942544~3347511713"
-const val DEMO_BANNER = "ca-app-pub-3940256099942544/9214589741"
-const val DEMO_INTERSTITIAL = "ca-app-pub-3940256099942544/1033173712"
-const val DEMO_REWARDED = "ca-app-pub-3940256099942544/5224354917"
-const val DEMO_NATIVE = "ca-app-pub-3940256099942544/2247696110"
-const val DEMO_APP_OPEN = "ca-app-pub-3940256099942544/9257395921"
+val DEMO_APP_ID = "ca-app-pub-3940256099942544~3347511713"
+val DEMO_BANNER = "ca-app-pub-3940256099942544/9214589741"
+val DEMO_INTERSTITIAL = "ca-app-pub-3940256099942544/1033173712"
+val DEMO_REWARDED = "ca-app-pub-3940256099942544/5224354917"
+val DEMO_NATIVE = "ca-app-pub-3940256099942544/2247696110"
+val DEMO_APP_OPEN = "ca-app-pub-3940256099942544/9257395921"
 
 android {
     namespace = "com.acustad.app"
