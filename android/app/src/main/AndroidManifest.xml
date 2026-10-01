@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  AC Ustad - AC & solar inverter error code knowledge base.
+   AC Ustad - AC & solar inverter error code knowledge base.
 
-  There is deliberately NO uses-permission element in this manifest, and there must
-  never be one. No INTERNET, no storage, no camera, no location, no notifications.
-  The whole knowledge base is a bundled SQLite file, so the app needs nothing from the
-  system beyond a screen. PERMISSIONS.md explains why, and CI_CD.md fails the build if
-  a permission ever reappears.
+   The source manifest declares no <uses-permission> element. Two permissions
+   reach the merged manifest anyway, merged in by the AdMob SDK's own manifest:
+   INTERNET and ACCESS_NETWORK_STATE (ADS.md). PERMISSIONS.md records the
+   decision; the CI gate allows exactly those two plus AGP's injected
+   self-permission, and fails on any other.
 
-  The merged manifest will still show one entry that this project never wrote:
-  com.acustad.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION, which the Android Gradle
-  Plugin injects for registerReceiver safety on Android 13+. It is a signature-level
-  permission the app defines for itself and grants access to nothing. The CI gate
-  allows exactly that one name and fails on any other.
+   The AdMob App ID below is a manifest placeholder: Google's demo ID in debug,
+   the owner's real ID in release (from the git-ignored ads.properties, never
+   committed — the repository is public).
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -38,6 +36,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="${adsAppId}" />
     </application>
 
 </manifest>

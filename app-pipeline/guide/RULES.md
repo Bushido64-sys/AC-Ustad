@@ -81,11 +81,15 @@ no italics, no letter-spacing changes, no justified text, no all-caps for body.
 severity/confidence words. UI labels, brand names and model names stay English.
 *Why:* a technician reads brands and models in English; the content is what needs Roman Urdu.
 
-## RULE 14 — No permissions, no network, no analytics
-The app declares **no runtime permission** and makes **no network call**. Everything is in
-the bundled database. No analytics, no crash reporting, no ads, no accounts, no login.
-*Why:* the app must work in a basement with no signal, and asking for nothing is the
-strongest privacy position available.
+## RULE 14 — Two permissions for the ads, network for Google's ad servers only, nothing else
+The app declares **exactly two permissions, `INTERNET` and `ACCESS_NETWORK_STATE`,
+merged in by the AdMob SDK's own manifest and never typed** — and makes **no network
+call of its own**. No accounts, no login, no analytics, no crash reporting, no uploads.
+Everything the knowledge base needs is in the bundled database.
+*Why:* the app must work in a basement with no signal, and the only network traffic
+a technician's phone should ever carry for this app is the ads that keep it free.
+The two permissions are a recorded decision (ADS.md), not drift — and the CI gates
+fail the build on any third permission or any non-ads network library.
 
 ## RULE 15 — Offline is the only mode
 No "you appear to be offline" state exists, because there is no online state. Do not build

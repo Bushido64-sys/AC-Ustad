@@ -1,5 +1,6 @@
 package com.acustad.app.ui.detail
 
+import android.app.Activity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,7 +11,9 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -18,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -26,6 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.acustad.app.R
+import com.acustad.app.ads.AdsManager
+import com.acustad.app.ads.NativeAdCard
+import com.acustad.app.ads.rememberNativeAdPool
 import com.acustad.app.model.BilingualText
 import com.acustad.app.model.CodeDetail
 import com.acustad.app.model.ContentLanguage
@@ -57,7 +64,29 @@ fun CodeDetailScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val notesExpanded by viewModel.notesExpanded.collectAsStateWithLifecycle()
+    val wallPopup by viewModel.wallPopup.collectAsStateWithLifecycle()
+    val needsNetPopup by viewModel.needsNetPopup.collectAsStateWithLifecycle()
+    val activity = LocalContext.current as? Activity
+    val nativePool = rememberNativeAdPool(size = 1)
     val detail = state.detail
+
+    if (wallPopup) {
+        SaveWallDialog(
+            onWatch = {
+                activity?.let {
+                    AdsManager.showRewarded(
+                        activity = it,
+                        onEarned = viewModel::confirmStarAfterReward,
+                        onUnavailable = viewModel::onRewardUnavailable,
+                    )
+                } ?: viewModel.onRewardUnavailable()
+            },
+            onDismiss = viewModel::dismissWall,
+        )
+    }
+    if (needsNetPopup) {
+        NeedsConnectionDialog(onDismiss = viewModel::dismissNeedsNet)
+    }
 
     if (detail == null) {
         when {
@@ -129,7 +158,91 @@ fun CodeDetailScreen(
         }
 
         SourceBlock(detail, state.language)
+
+        // One native ad below the source line, never inside the answer. Badged
+        // by construction (NativeAdCard), omitted while it has not filled.
+        nativePool.adFor(0)?.let { NativeAdCard(ad = it) }
     }
+}
+
+/**
+ * The save wall: the first three saves are free, this one needs a reward.
+ *
+ * A restyled `AlertDialog`, not a default one: 4dp corners, the app surface,
+ * no tonal lift, verb buttons (DESIGN.md §6). Warm on purpose — "keeps AC
+ * Ustad free" is the reason, stated once, and "Not now" is a real way out.
+ */
+@Composable
+private fun SaveWallDialog(onWatch: () -> Unit, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        shape = RoundedCornerShape(4.dp),
+        containerColor = MaterialTheme.colorScheme.surface,
+        tonalElevation = 0.dp,
+        title = {
+            Text(
+                text = stringResource(R.string.save_wall_title),
+                style = UstadType.section,
+            )
+        },
+        text = {
+            Text(
+                text = stringResource(R.string.save_wall_text),
+                style = UstadType.body,
+            )
+        },
+        confirmButton = {
+            TextButton(onClick = onWatch) {
+                Text(
+                    text = stringResource(R.string.save_wall_watch),
+                    style = UstadType.label,
+                )
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(
+                    text = stringResource(R.string.save_wall_later),
+                    style = UstadType.label,
+                )
+            }
+        },
+    )
+}
+
+/**
+ * The wall's offline branch: no ad could be shown, so the save waits on a
+ * connection. By decision (ADS.md) the save does not go through — and the
+ * popup says exactly that in one line rather than spinning.
+ */
+@Composable
+private fun NeedsConnectionDialog(onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        shape = RoundedCornerShape(4.dp),
+        containerColor = MaterialTheme.colorScheme.surface,
+        tonalElevation = 0.dp,
+        title = {
+            Text(
+                text = stringResource(R.string.save_needs_net_title),
+                style = UstadType.section,
+            )
+        },
+        text = {
+            Text(
+                text = stringResource(R.string.save_needs_net_text),
+                style = UstadType.body,
+            )
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text(
+                    text = stringResource(R.string.action_ok),
+                    style = UstadType.label,
+                )
+            }
+        },
+    )
 }
 
 /**

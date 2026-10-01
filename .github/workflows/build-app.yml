@@ -148,13 +148,13 @@ jobs:
       - name: The app requests no permissions
         run: |
           set -uo pipefail
-          # RULE 14. The app must ship with no permissions at all.
+          # RULE 14. The app must ship with nothing beyond what the ads need.
           #
-          # One exception is unavoidable and is injected by the Android Gradle Plugin itself,
-          # not by this project: com.acustad.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION is a
-          # signature-level permission the app defines for itself so that a registerReceiver
-          # call is safe on Android 13+. It grants the app nothing and is never shown to a
-          # user. Everything else is a failure.
+          # Three entries are allowed and all three are injected, none typed:
+          # com.acustad.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION is the AGP
+          # self-permission (signature-level, grants nothing), and INTERNET plus
+          # ACCESS_NETWORK_STATE are merged in by the AdMob SDK's own manifest
+          # for Google's ad servers (ADS.md). Everything else is a failure.
           #
           # The grep matches 'uses-permission android:name=' rather than 'uses-permission' so
           # that the explanatory comments in the source manifest cannot trigger it.
@@ -164,17 +164,17 @@ jobs:
             echo "::error::could not find the merged manifest"
             exit 1
           fi
-          ALLOWED="com.acustad.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+          ALLOWED_SELF="com.acustad.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
           FOUND=$(grep -o 'uses-permission android:name="[^"]*"' "$MANIFEST" | sort -u || true)
           echo "permissions in the merged manifest:"
           echo "${FOUND:-  (none)}"
-          BAD=$(echo "$FOUND" | grep -v "android:name=\"$ALLOWED\"" || true)
+          BAD=$(echo "$FOUND" | grep -v -e "android:name=\"$ALLOWED_SELF\"" -e 'android:name="android.permission.INTERNET"' -e 'android:name="android.permission.ACCESS_NETWORK_STATE"' || true)
           if [ -n "$BAD" ]; then
-            echo "::error::the app must not request any permission (PERMISSIONS.md)"
+            echo "::error::the app must not request any permission beyond the two the ads need (PERMISSIONS.md)"
             echo "$BAD"
             exit 1
           fi
-          echo "no permissions beyond the AGP-injected self-permission - OK"
+          echo "only the AGP self-permission and the two ads permissions - OK"
 
       - name: The APK contains no network, ads or analytics library
         run: |
@@ -195,16 +195,23 @@ jobs:
           # Nothing in this app's dependency graph legitimately references any of them, so
           # there is no false-positive risk and no reason to soften them.
           #
+          # KNOWN-ALLOWED: the AdMob SDK and its consent library, by decision (ADS.md).
+          # `com.google.android.gms` covers play-services-ads and everything it pulls
+          # in; `com.google.android.ump` is the UMP consent flow. Both are reported
+          # as annotations on every build, so a second ad SDK arriving under the
+          # same prefix would still be visible — and anything outside both
+          # prefixes still fails the build.
+          #
           # REPORT ONLY: platform types that a library can reference without the app ever
           # making a call. A gate that fails on these teaches people to disable it, and a
           # disabled gate is worse than no gate. They are surfaced as annotations so a real
           # network call is still visible on the check, without breaking a build over a
           # transitive reference.
           #
-          # The real enforcement for "this app must not use the network" is the PERMISSIONS
-          # gate above: zero declared permissions means zero network, because `INTERNET` is a
-          # normal permission and cannot be had for free. This gate is the early warning for
-          # a library arriving that brings its own.
+          # The real enforcement for "this app talks to nobody but Google's ad servers"
+          # is the PERMISSIONS gate above: INTERNET plus ACCESS_NETWORK_STATE and
+          # nothing else. This gate is the early warning for a library arriving
+          # that brings its own networking.
           APK=app/build/outputs/apk/debug/app-debug.apk
           [ -f "$APK" ] || { echo "::error::no APK at $APK"; exit 1; }
           command -v unzip >/dev/null 2>&1 || { echo "::error::unzip is required"; exit 1; }
@@ -224,16 +231,23 @@ jobs:
           # ── hard fail ──
           FAILED=0
           for P in 'Lokhttp3/' 'Lretrofit2/' 'Lorg/apache/http/' \
-                   'Lcom/google/android/gms/ads/' 'Lcom/facebook/ads/' \
+                   'Lcom/facebook/ads/' \
                    'Lcom/google/firebase/' 'Lio/reactivex/rxjava3/' \
                    'Lcom/crashlytics/' 'Lio/sentry/' ; do
             if grep -qF "$P" "$WORK/all.strings"; then
-              echo "::error file=build-app.yml,title=Network or ads library in the APK::found $P - RULE 14 forbids this, and it must be removed before it is ever added (PERMISSIONS.md, and the ads document when the AdMob SDK lands)"
+              echo "::error file=build-app.yml,title=Network or ads library in the APK::found $P - RULE 14 forbids this (PERMISSIONS.md, ADS.md)"
               FAILED=1
             fi
           done
-          [ "$FAILED" -eq 0 ] && echo "no network, ads or analytics library in the APK - OK"
+          [ "$FAILED" -eq 0 ] && echo "no forbidden network, ads or analytics library in the APK - OK"
           [ "$FAILED" -eq 0 ] || exit 1
+
+          # ── known-allowed, still reported ──
+          for P in 'Lcom/google/android/gms/' 'Lcom/google/android/ump/' ; do
+            if grep -qF "$P" "$WORK/all.strings"; then
+              echo "::notice file=build-app.yml,title=AdMob SDK present::found $P - allowed by decision (ADS.md). Anything outside these two prefixes still fails above"
+            fi
+          done
 
           # ── report only ──
           for P in 'Ljava/net/HttpURLConnection;' 'Ljavax/net/ssl/HttpsURLConnection;' \

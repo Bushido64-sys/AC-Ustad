@@ -32,6 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.acustad.app.R
+import com.acustad.app.ads.NativeAdCard
+import com.acustad.app.ads.nativeSlotAfterPositions
+import com.acustad.app.ads.rememberNativeAdPool
 import com.acustad.app.model.CodeSummary
 import com.acustad.app.ui.common.BorderedRow
 import com.acustad.app.ui.common.hardShadow
@@ -63,6 +66,15 @@ fun CodesScreen(
     val query by viewModel.query.collectAsStateWithLifecycle()
     val listState = rememberListStateFor("${viewModel.seriesId}/${viewModel.brandId}")
     val noMatch = stringResource(R.string.empty_no_code_match, query)
+    val nativePool = rememberNativeAdPool()
+
+    // Native slots after 1-based positions 11, 16, 21… — never in the top 10,
+    // and only on the unfiltered list. A search narrows to the codes asked
+    // for; an ad inside filtered results would sit between a question and
+    // its answer. (ADS.md)
+    val nativeSlots = remember(state.codes.size, query) {
+        if (query.isBlank()) nativeSlotAfterPositions(state.codes.size) else emptyList()
+    }
 
     Column(
         modifier = modifier
@@ -105,12 +117,27 @@ fun CodesScreen(
                 }
             }
 
-            items(items = state.codes, key = { it.id }) { code ->
-                CodeRow(
-                    code = code,
-                    language = state.language,
-                    onClick = { onCodeClick(code) },
-                )
+            // Codes interleaved with native slots: after 1-based positions 11,
+            // 16, 21… One bordered card per filled slot, keyed by position so
+            // Back restores around them. Unfilled slots emit nothing — never a
+            // blank card, never a gap that reads as missing content.
+            state.codes.forEachIndexed { index, code ->
+                item(key = "code-${code.id}") {
+                    CodeRow(
+                        code = code,
+                        language = state.language,
+                        onClick = { onCodeClick(code) },
+                    )
+                }
+                val position = index + 1
+                if (position in nativeSlots) {
+                    val ad = nativePool.adFor(nativeSlots.indexOf(position))
+                    if (ad != null) {
+                        item(key = "native-$position") {
+                            NativeAdCard(ad = ad)
+                        }
+                    }
+                }
             }
             if (state.codes.isEmpty() && !state.isSearching) {
                 item(key = "empty") {

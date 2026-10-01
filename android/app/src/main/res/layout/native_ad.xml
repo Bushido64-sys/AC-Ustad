@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Native ad content. The card around it (border, badge row) is Compose in
+  NativeAdCard.kt — this file holds only the views the SDK must own: headline,
+  body, media, call to action, and the AdChoices slot. Sizes and colours match
+  the app's list rows (16sp ink headline, 14sp body, primary CTA) without
+  copying any row exactly: the "Ad" badge above this layout is what marks it.
+-->
+<com.google.android.gms.ads.nativead.NativeAdView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/ad_headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ibm_plex_sans_semibold"
+            android:textColor="@color/ink"
+            android:textSize="16sp"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+        <com.google.android.gms.ads.nativead.MediaView
+            android:id="@+id/ad_media"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/ad_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/ink_muted"
+            android:textSize="14sp"
+            android:maxLines="3"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/ad_cta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:minHeight="48dp"
+            android:gravity="center"
+            android:paddingHorizontal="16dp"
+            android:background="@color/blue_600"
+            android:textColor="@color/on_accent"
+            android:fontFamily="@font/ibm_plex_sans_bold"
+            android:textSize="14sp" />
+
+        <com.google.android.gms.ads.nativead.AdChoicesView
+            android:id="@+id/ad_choices"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+
+</com.google.android.gms.ads.nativead.NativeAdView>

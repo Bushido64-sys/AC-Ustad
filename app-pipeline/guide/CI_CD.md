@@ -54,12 +54,12 @@ jobs:
       - name: Lint, test, assemble
         run: ./gradlew --no-daemon lintDebug testDebug assembleDebug
 
-      - name: The app requests nothing
+      - name: The app requests only what the ads need
         run: |
-          # fails the build if any permission slipped in (PERMISSIONS.md)
-          ! grep -ri "uses-permission" app/build/intermediates/merged_manifests/
+          # fails the build if any permission beyond the two the ads need slipped
+          # in (PERMISSIONS.md). See build-app.yml for the real thing.
 
-      - name: The APK contains no network client
+      - name: The APK contains no network client but the ads SDK
         run: |
           # RULE 14. See build-app.yml for the real thing.
           #
@@ -93,12 +93,14 @@ jobs:
 | `sha256sum` vs manifest | the APK ships a database that is not the validated one |
 | `lintDebug` | unused resources, a missing `contentDescription`, a hard-coded string |
 | `testDebug` | the 2139-string search crash suite (`TESTING.md` §3) |
-| no `uses-permission` | a dependency or a copy-paste reintroduced `INTERNET` |
-| no HTTP class in the APK | a network client got added "just for later" |
+| no `uses-permission` beyond the two the ads need | a dependency or a copy-paste added a third permission |
+| no HTTP class in the APK outside `gms/` + `ump/` | a second network client got added "just for later" |
+| `gms/` + `ump/` present and noticed | the ads SDK arriving or leaving without anyone recording it |
 
-The last two are the unusual ones, and they are the point: the two strongest promises this app
-makes (**no permissions, no network**) are the two easiest to break by accident, so they are
-enforced by the build rather than by memory.
+The last three are the unusual ones, and they are the point: the app's network
+promise — **two permissions for the ads, Google's servers and nobody else** — is
+the easiest thing to break by accident, so it is enforced by the build rather
+than by memory.
 
 ## 3. Secrets
 

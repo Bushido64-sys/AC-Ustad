@@ -7,8 +7,29 @@ codes. This policy says what the app does with your information, in plain words.
 
 ## What we collect
 
-Nothing. The app has no account, no sign-in, no analytics, no crash reporting,
-and no network calls. There is nothing that could send anything anywhere.
+No account, no analytics, no crash reporting. The app itself uploads nothing
+and stores nothing anywhere but your phone.
+
+## Advertising
+
+The app shows ads to stay free, through Google AdMob. **Ad networks may see
+your device and IP address** when an ad loads — that is how advertising works,
+and it is the one deliberate exception to the offline promise. The knowledge
+base itself — every code, meaning and fix step — never needs the network:
+airplane mode answers everything, with the ad slots simply empty.
+
+## What stays on your phone
+
+- Codes you star, kept in the Saved tab.
+- Your language (English / Roman Urdu) and theme choices.
+- A copy of the bundled knowledge base, stored in the app's own cache.
+
+All of it lives on your phone. Uninstalling the app removes it.
+
+## Permissions
+
+The app uses exactly two, both for the ads: `INTERNET` and
+`ACCESS_NETWORK_STATE`. Nothing else is requested.
 
 ## What stays on your phone
 

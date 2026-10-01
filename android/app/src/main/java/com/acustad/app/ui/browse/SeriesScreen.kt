@@ -28,6 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.acustad.app.R
+import com.acustad.app.ads.NativeAdCard
+import com.acustad.app.ads.rememberNativeAdPool
 import com.acustad.app.ui.common.BorderedRow
 import com.acustad.app.ui.common.EmptyState
 import com.acustad.app.ui.common.RaisedPanel
@@ -52,6 +54,7 @@ fun SeriesScreen(
     val listState = rememberListStateFor(viewModel.brandId)
 
     val noMatch = stringResource(R.string.empty_no_model_match, query)
+    val nativePool = rememberNativeAdPool(size = 1)
 
     Column(
         modifier = modifier
@@ -103,6 +106,16 @@ fun SeriesScreen(
             if (state.series.isEmpty() && query.isBlank()) {
                 item(key = "empty-all") {
                     EmptyState(message = stringResource(R.string.empty_no_brands))
+                }
+            }
+
+            // One native card at the bottom, shaped like the rows above it but
+            // badged by construction (NativeAdCard). Omitted while unfilled.
+            if (state.series.isNotEmpty() && query.isBlank()) {
+                nativePool.adFor(0)?.let { ad ->
+                    item(key = "native-bottom") {
+                        NativeAdCard(ad = ad)
+                    }
                 }
             }
         }

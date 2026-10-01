@@ -209,6 +209,9 @@ class KbRepository private constructor(
 
     suspend fun favouriteItems(): List<FavouriteItem> = FavouritesDao(db()).items()
 
+    /** How many codes are saved. The save wall's only input (see ADS.md). */
+    suspend fun favouriteCount(): Int = FavouritesDao(db()).count()
+
     suspend fun setFavourite(codeId: Long, favourite: Boolean) {
         FavouritesDao(db()).set(codeId, favourite)
     }

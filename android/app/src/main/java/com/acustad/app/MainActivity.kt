@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.acustad.app.ads.AdsManager
 import com.acustad.app.repo.KbRepository
 import com.acustad.app.ui.AcUstadNavHost
 import com.acustad.app.ui.theme.AcUstadTheme
@@ -33,6 +34,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val repo = KbRepository.get(applicationContext)
+        // Consent first, ads second (ADS.md). The content renders regardless:
+        // banners and natives load when composed, full-screen formats preload
+        // after init, and nothing here blocks the first frame.
+        AdsManager.ensureConsent(this) {
+            AdsManager.preloadAppOpen(applicationContext)
+        }
         setContent {
             val theme by repo.theme.collectAsStateWithLifecycle()
             AcUstadTheme(dark = theme.isDark(isSystemInDarkTheme())) {

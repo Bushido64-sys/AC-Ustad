@@ -59,6 +59,14 @@ class FavouritesDao(private val db: SQLiteDatabase) {
         ).firstRow { true } == true
     }
 
+    /**
+     * How many codes are saved. The save wall reads this, not the list: the
+     * first few saves are free and the count is the whole rule (see `AdIds`).
+     */
+    suspend fun count(): Int = io {
+        db.rawQuery("SELECT COUNT(*) FROM favourites", null).firstRow { it.getInt(0) } ?: 0
+    }
+
     /** Adds or removes, in one transaction, so a tap can never half-apply. */
     suspend fun set(codeId: Long, favourite: Boolean) = io {
         db.beginTransaction()

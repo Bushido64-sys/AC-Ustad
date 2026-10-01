@@ -15,8 +15,12 @@
 > on `main`, and the working tree is clean. (A commit hash is deliberately not written here:
 > the last time one was, it was stale by two commits within a day.)
 >
-> **Next is item 6 — ads.** Items 1–5 closed, trial/paid plan archived, so the fresh
-> AdMob implementation under the new ads document is what ships next.
+> **Next is item 6 — ads, built 2026-10-01, not yet phone-checked.** AdMob
+> straight feature: banner slot, app open, capped interstitials (exit +
+> return-to-top), rewarded save-wall (3 free, needs-connection branch by
+> decision), badged native in 4 spots. Owner IDs git-ignored, debug on demo
+> units. Needs: green `build app` on main, then the ADS.md §7 checklist on a
+> real phone (validator pass on all native spots included) before any ✅.
 >
 > **2026-10-01 — Phase 9 phone-checked, ✅.** The human installed the build and
 > confirmed it good: install-over works, airplane mode full, dark/light/system,
@@ -191,7 +195,7 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
      qualifier (trap 22), (b) the Settings screen is a third surface and gets the same pass as
      the rest, and (c) `RaisedPanel` must keep stating `contentColor = onSurface`, because the
      inherited default is 4.15:1 (trap 24), pinned by `ContainerContentColorTest`** |
-| 10 · Monetisation | ⬜ **not started** | **Trial/paid plan archived 2026-10-01** (see `app-pipeline/guide/archive/PHASE_10_MONETISATION.md`). Ads ship as a straight feature under the new ads document instead — AdMob, test IDs until a Play account exists |
+| 10 · Monetisation | 🛠 built 2026-10-01, needs phone checklist | AdMob straight feature (banner, app open, interstitial, rewarded save-wall, native) per `ADS.md`. Trial/paid plan archived. CI green required + §7 ads checklist on a real phone before ✅ |
 
 ## 1a. Starting a session
 
@@ -506,7 +510,7 @@ reason several comments in the code look defensive.
 | `verify data` / `contentSha256` | a data change cannot ship without a rebuild. Byte-comparing `kb.sqlite` does **not** work: SQLite versions produce different file layouts for identical data |
 | `verify data` / `check_app_sql.py` | **79 assertions** running the app's real SQL against the real database. The only way to test SQL, since `android.database.sqlite` is a stub off-device. Includes the detail query's **column order** (after trap 15), the teaching-state count and its `code_norm` guard, the description search (trap 25) — whose SQL is **read out of `SearchDao.kt`**, not retyped, so the checker and the app cannot drift — the LIKE-only fallback for a device without FTS5 (trap 26), and the 673 space-canon codes the guard must find scoped (trap 27) |
 | `build app` / compile + lint | 0 lint errors |
-| `build app` / unit tests | **114** tests (20 search input, 17 teaching-state, 15 models, 9 schema, 8 staging, **10 search-SQL contract**, 7 theme, 6 language, 6 toggle-guard, 5 palette-contract, 4 Settings formatters, **2 row-label**, **2 codes-empty-state**, 3 content-colour — counted off the `@Test` annotations, 2026-09-30), including all 2,139 code strings and the FTS quoting. Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen**; the decision-function and SQL assertions, and every source-reading test — the 3 added with trap 24, the 10 in `SearchDaoContractTest` (traps 25, 26, 27), the 2 in `RowCountLabelTest` and the 2 in `CodesEmptyStateTest` — all still cannot see a pixel |
+| `build app` / unit tests | **115** tests (20 search input, 17 teaching-state, 15 models, 9 schema, 8 staging, **10 search-SQL contract**, 7 theme, 6 language, 6 toggle-guard, 5 palette-contract, **5 ads logic**, **2 row-label**, **2 codes-empty-state**, 3 content-colour — counted off the `@Test` annotations, 2026-10-01; the 4 Settings formatters went with the deleted Data block), including all 2,139 code strings and the FTS quoting. Note what this does and does not prove: every one of them runs off-device, and **not one opens a screen**; the decision-function and SQL assertions, and every source-reading test — the 3 added with trap 24, the 10 in `SearchDaoContractTest` (traps 25, 26, 27), the 2 in `RowCountLabelTest` and the 2 in `CodesEmptyStateTest` — all still cannot see a pixel |
 | `build app` / permissions | the app ships with nothing but AGP's own self-permission. **This is what actually enforces RULE 14** — zero permissions means zero network, since `INTERNET` is a normal permission |
 | `build app` / database hash | the APK cannot carry a stale database. On-device re-staging is a separate rule — see trap 16 |
 | `build app` / APK size | catches a duplicated 9 MB database or an accidental image library |
@@ -751,12 +755,16 @@ one.
    main, full §6 re-run and PHASE_9 §5 pre-release checklist passed on a real phone
    (install-over, airplane, dark, font 1.3, no permissions, EN/UR, favourite survives
    re-copy) — human-confirmed 2026-10-01.
-6. **Ads (AdMob, straight feature)** — next. Trial/paid plan archived 2026-10-01, so
-   this is a fresh implementation under the new ads document, not Phase 10 as written:
-   AdMob via version catalog, test IDs until a Play account exists, banner + aggressive
-   interstitials that never touch the answer path or the offline guarantee. When the SDK
-   lands it supersedes RULE 14 and `PERMISSIONS.md`, and that supersession is deliberate
-   and written down rather than a quiet workaround.
+6. **Ads (AdMob, straight feature)** — **built 2026-10-01, awaiting green CI + phone checklist.**
+   Banner slot, app open, capped interstitials (exit + return-to-top), rewarded
+   save-wall (3 free; mid-watch failure forgiven, no-fill/offline blocked by decision),
+   badged native in 4 spots — all per the new `app-pipeline/guide/ADS.md`, not Phase 10
+   as written (trial/paid archived). Owner IDs in git-ignored `ads.properties`;
+   debug serves Google demo units. When the SDK landed it superseded RULE 14 and
+   `PERMISSIONS.md`, and that supersession is deliberate and written down rather
+   than a quiet workaround. Still required before ✅: green `build app` on main
+   and the ADS.md §7 checklist on a real phone, including the native validator
+   pass on every spot.
 
 **The stray CI gap is closed.** `CI_CD.md` §1 documented a no-HTTP-client step that did not exist
 in `build-app.yml`; it is written and green as of `4620c5e`. It took two attempts and the second

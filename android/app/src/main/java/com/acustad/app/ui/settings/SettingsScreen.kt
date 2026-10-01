@@ -22,6 +22,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.acustad.app.BuildConfig
 import com.acustad.app.R
+import com.acustad.app.ads.NativeAdCard
+import com.acustad.app.ads.rememberNativeAdPool
 import com.acustad.app.model.ContentLanguage
 import com.acustad.app.model.ThemeMode
 import com.acustad.app.ui.common.BorderedPanel
@@ -55,6 +57,7 @@ fun SettingsScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val language by viewModel.language.collectAsStateWithLifecycle()
     val theme by viewModel.theme.collectAsStateWithLifecycle()
+    val nativePool = rememberNativeAdPool(size = 1)
 
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -74,6 +77,9 @@ fun SettingsScreen(
             AboutPanel(state, viewModel::load)
             PrivacyPanel()
             LicensesPanel()
+            // One native card at the bottom, shaped like the panels above it
+            // but badged by construction (NativeAdCard). Omitted while unfilled.
+            nativePool.adFor(0)?.let { NativeAdCard(ad = it) }
         }
     }
 }

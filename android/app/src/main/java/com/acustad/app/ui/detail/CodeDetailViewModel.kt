@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.acustad.app.ads.needsReward
 import com.acustad.app.model.CodeDetail
 import com.acustad.app.model.ContentLanguage
 import com.acustad.app.repo.KbRepository
@@ -45,6 +46,22 @@ class CodeDetailViewModel(
     private val _loading = MutableStateFlow(true)
     private val _failed = MutableStateFlow(false)
     private val _notesExpanded = MutableStateFlow(false)
+
+    /**
+     * The save wall (ADS.md). True while the "watch an ad to keep saving"
+     * popup is up. It opens only when starring *on* past the free saves;
+     * unstarring is always free and never passes through here.
+     */
+    private val _wallPopup = MutableStateFlow(false)
+    val wallPopup: StateFlow<Boolean> = _wallPopup.asStateFlow()
+
+    /**
+     * The offline branch of the wall: the reward was tapped but no ad could
+     * be shown, so the save waits on a connection. By decision (ADS.md) the
+     * save does not go through here — the popup says so in one line.
+     */
+    private val _needsNetPopup = MutableStateFlow(false)
+    val needsNetPopup: StateFlow<Boolean> = _needsNetPopup.asStateFlow()
 
     val notesExpanded: StateFlow<Boolean> = _notesExpanded.asStateFlow()
 
@@ -93,14 +110,55 @@ class CodeDetailViewModel(
     }
 
     /**
+     * Star on / off.
+     *
      * Optimistic: the star fills immediately, and the write is a single transaction on a
      * two-column table, so the failure case is a rollback and one line of feedback. There is no
      * `is_read` column in the shipped favourites table, so starring is also the only state a
      * saved row has.
+     *
+     * Starring *on* past the free saves opens the wall popup instead of writing: the
+     * write happens in [confirmStarAfterReward], after the reward is earned.
+     * Unstarring never passes the wall — removing a save is always free.
      */
     fun toggleFavourite() {
         val current = _detail.value ?: return
-        val next = !current.isFavourite
+        if (current.isFavourite) {
+            flipStar(next = false)
+            return
+        }
+        viewModelScope.launch {
+            val count = runCatching { repo.favouriteCount() }.getOrDefault(0)
+            if (needsReward(count)) {
+                _wallPopup.value = true
+            } else {
+                flipStar(next = true)
+            }
+        }
+    }
+
+    /** The reward was earned: performs the save the wall held. */
+    fun confirmStarAfterReward() {
+        _wallPopup.value = false
+        flipStar(next = true)
+    }
+
+    /** The reward could not be shown: the save waits on a connection. */
+    fun onRewardUnavailable() {
+        _wallPopup.value = false
+        _needsNetPopup.value = true
+    }
+
+    fun dismissWall() {
+        _wallPopup.value = false
+    }
+
+    fun dismissNeedsNet() {
+        _needsNetPopup.value = false
+    }
+
+    private fun flipStar(next: Boolean) {
+        val current = _detail.value ?: return
         _detail.value = current.copy(isFavourite = next)
         viewModelScope.launch {
             runCatching { repo.setFavourite(current.summary.id, next) }

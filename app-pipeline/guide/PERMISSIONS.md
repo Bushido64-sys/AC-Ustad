@@ -1,7 +1,8 @@
-# PERMISSIONS.md — the app requests none
+# PERMISSIONS.md — the app asks for two, for the ads, and nothing else
 
-**This app declares zero permissions. That is a feature, and the strongest privacy position
-available to a technician app that a working person is asked to trust with their phone.**
+**The source manifest declares zero permissions. The merged manifest carries exactly
+two, and both arrive with the AdMob SDK: `INTERNET` and `ACCESS_NETWORK_STATE`, for
+Google's ad servers and nothing else. That is a decision (ADS.md), not drift.**
 
 ---
 
@@ -32,10 +33,11 @@ available to a technician app that a working person is asked to trust with their
 </manifest>
 ```
 
-**There is no `<uses-permission>` element in this project's source, and there must never be
-one.** No `INTERNET`, no `ACCESS_NETWORK_STATE`, no `READ_EXTERNAL_STORAGE`, no `CAMERA`, no
-location, no `WRITE_EXTERNAL_STORAGE`, no `POST_NOTIFICATIONS`, no `VIBRATE`, no
-`QUERY_ALL_PACKAGES`.
+**There is no `<uses-permission>` element in this project's source, and there must never
+be one typed.** `INTERNET` and `ACCESS_NETWORK_STATE` reach the merged manifest from the
+AdMob SDK's own manifest — the app talks to Google's ad servers through the SDK and makes
+no network call of its own. No `READ_EXTERNAL_STORAGE`, no `CAMERA`, no location, no
+`WRITE_EXTERNAL_STORAGE`, no `POST_NOTIFICATIONS`, no `VIBRATE`, no `QUERY_ALL_PACKAGES`.
 
 ### The one entry that will appear anyway
 
@@ -50,16 +52,14 @@ the app defines for itself**, so that `registerReceiver` is safe on Android 13+ 
 `RECEIVER_EXPORTED`. It grants the app access to nothing, is never shown to a user, and does
 not appear in the installed-app permission list in a form that means anything to a technician.
 
-The CI gate in `CI_CD.md` therefore allows that one name and fails on every other. If you see
-a second permission, something genuinely wrong was added.
+The CI gate in `CI_CD.md` therefore allows three names — the AGP self-permission
+plus `INTERNET` and `ACCESS_NETWORK_STATE` — and fails on every other. If you see
+a third permission, something genuinely wrong was added.
 
-## 2. Why each of those stays out
+## 2. Why everything else stays out
 
 | Permission | Why it is not needed |
 |---|---|
-| `INTERNET` | the knowledge base is bundled; there is no server (RULE 14) |
-| `ACCESS_NETWORK_STATE` | nothing checks connectivity — there is no online state (RULE 15) |
-| `CAMERA` | **no images, no scanning, no OCR.** Codes are typed or picked from a list (`ASSETS.md`) |
 | storage read/write | the app's only file is its own cache copy of its own database |
 | `POST_NOTIFICATIONS` | no notifications, no reminders, no background work. An error-code reference has nothing to notify about |
 | location | a code's meaning depends on the brand and model, never on where you are |
@@ -83,15 +83,17 @@ a second permission, something genuinely wrong was added.
 ## 4. How to verify (do this, do not assume)
 
 ```bash
-# installed permissions must be an empty list
+# installed permissions must be exactly the two the ads need
 adb shell dumpsys package com.acustad.app | grep -A5 "requested permissions"
 
-# the merged manifest must contain no uses-permission
-grep -i "uses-permission" app/build/intermediates/merged_manifests/*/AndroidManifest.xml
+# the SOURCE manifest must contain no uses-permission (the merged one carries
+# the two the SDK brings — see §1)
+grep -i "uses-permission" app/src/main/AndroidManifest.xml
 ```
 
-Both must return nothing. Put both in `CI_CD.md` so a dependency that quietly reintroduces
-`INTERNET` fails the build instead of shipping.
+The first must show `INTERNET` and `ACCESS_NETWORK_STATE` and nothing else; the
+second must return nothing. Put both in `CI_CD.md` so a dependency that quietly
+adds a third permission fails the build instead of shipping.
 
 ## 5. If you ever think you need one
 

@@ -23,7 +23,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import android.app.Activity
+import androidx.activity.compose.BackHandler
+import androidx.compose.ui.platform.LocalContext
 import com.acustad.app.R
+import com.acustad.app.ads.AdsManager
+import com.acustad.app.ads.BannerAd
 import com.acustad.app.model.CategoryId
 import com.acustad.app.ui.browse.BrandsScreen
 import com.acustad.app.ui.browse.BrandsViewModel
@@ -102,6 +107,7 @@ object Routes {
 @Composable
 fun AcUstadNavHost(modifier: Modifier = Modifier) {
     val nav = rememberNavController()
+    val activity = LocalContext.current as? Activity
 
     // One instance for the whole app rather than one per screen, so the bottom bar's star and
     // the list are reading the same state. It also survives tab switches without a re-query.
@@ -152,6 +158,15 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
                     .padding(PaddingValues(horizontal = 16.dp, vertical = 8.dp)),
             ) {
                 composable(Routes.HOME) {
+                    // Leaving the app through the system back button: one
+                    // interstitial (cap-gated inside), then the activity
+                    // finishes. Nothing to save, nothing to confirm — the
+                    // ad is the whole stop. (ADS.md)
+                    BackHandler(enabled = activity != null) {
+                        activity?.let {
+                            AdsManager.showInterstitial(it) { it.finish() }
+                        }
+                    }
                     HomeScreen(onCategoryClick = { nav.navigate(Routes.brands(it)) })
                 }
 
@@ -253,6 +268,13 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
                 }
             }
 
+            // One banner for the whole app, pinned between the content and the
+            // bottom bar. It covers every screen identically — including the
+            // detail screen, where it sits below the content and never inside
+            // it — so there is one slot, one request, zero layout shift, and
+            // no per-screen wiring to forget. (ADS.md)
+            BannerAd()
+
             if (route == Routes.HOME || route == Routes.SAVED || route == Routes.SETTINGS) {
                 AcUstadBottomNav(
                     selected = tab,
@@ -262,7 +284,21 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
                             // Popping to Home rather than navigating to it, so tapping Browse
                             // from four levels down unwinds in one step instead of stacking a
                             // second Home on top. Already on Home it is a no-op.
-                            NavTab.BROWSE -> nav.popBackStack(Routes.HOME, inclusive = false)
+                            //
+                            // Returning to the top level from deep in the browse path
+                            // shows one interstitial first (cap-gated inside), then
+                            // unwinds underneath the dismissed ad. (ADS.md)
+                            NavTab.BROWSE -> {
+                                if (route == Routes.HOME) {
+                                    Unit
+                                } else if (activity != null) {
+                                    AdsManager.showInterstitial(activity) {
+                                        nav.popBackStack(Routes.HOME, inclusive = false)
+                                    }
+                                } else {
+                                    nav.popBackStack(Routes.HOME, inclusive = false)
+                                }
+                            }
                             NavTab.SAVED -> nav.navigate(Routes.SAVED) { launchSingleTop = true }
                             // Same rule as Saved. The bar is always visible here, so a tap while
                             // already on Settings must not stack a second copy of the screen —

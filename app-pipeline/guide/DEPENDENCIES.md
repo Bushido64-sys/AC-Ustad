@@ -19,6 +19,8 @@ screen it improves, do not add it.**
 | `androidx.navigation:navigation-compose` | the 7 screens, with typed route args carrying `uid` |
 | `androidx.sqlite:sqlite-ktx` | `SupportSQLiteOpenHelper`, `Cursor` extensions — **the only data dependency** |
 | `org.jetbrains.kotlinx:kotlinx-coroutines-android` | `Dispatchers.IO`, debounce, `Flow` |
+| `com.google.android.gms:play-services-ads` | the ad SDK — banner, app open, interstitial, rewarded, native (ADS.md). The only dependency allowed a network call |
+| `com.google.android.ump:user-messaging-platform` | the consent flow the ads require |
 | IBM Plex Sans / Sans Condensed / Mono (font files) | the typography. Bundled, not a dependency — see `ASSETS.md` |
 
 **All Compose artifacts from a single BOM.** Never mix BOM versions; never let a transitive
@@ -30,7 +32,7 @@ dependency pull a second Compose runtime.
 |---|---|
 | **Room** | 4418 read-only rows, 9 tables, no writes except `favourites`, no on-device migrations. An ORM would add codegen, a migration story and a dependency for zero benefit (`PHASE_2_DATA_LAYER.md` §1) |
 | **Hilt / Dagger / Koin** | one database handle, no network layer, no repository graph. Constructor wiring in one `Application` class is enough. **If you add DI, it must not add a code-generation step to the build** |
-| **Retrofit / OkHttp / Ktor / any HTTP client** | the app makes no network call, ever (RULE 14). If an HTTP client appears in the graph, the architecture has been broken |
+| **Retrofit / OkHttp / Ktor / any other HTTP client** | the app makes no network call of its own (RULE 14). The ad SDK brings its own stack — that is the documented exception (ADS.md), and no second one is allowed. If an HTTP client appears in the graph, the architecture has been broken |
 | **Glide / Coil / Picasso** | **no images are displayed.** Zero bitmaps, zero image loaders. `ASSETS.md` explains why |
 | **Firebase / analytics / crash reporting** | no telemetry leaves the phone (RULE 14) |
 | **DataStore / preferences library** | two settings: content language and theme. `SharedPreferences` is enough, or a `MutableStateFlow` in memory with `SharedPreferences` for persistence |

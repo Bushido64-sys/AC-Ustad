@@ -2,6 +2,7 @@ package com.acustad.app
 
 import android.app.Application
 import android.os.StrictMode
+import com.acustad.app.ads.AppOpenManager
 
 /**
  * AC Ustad — AC & solar inverter error code knowledge base.
@@ -41,5 +42,10 @@ class UstadApp : Application() {
         // Nothing to warm up: the database opens lazily on first read, off the main thread.
         // Kept intentionally un-preloaded so cold start is instant and
         // the home screen can show real counts on its first frame.
+        //
+        // App Open lives here because it is process-scoped, not screen-scoped:
+        // every foreground transition arrives as lifecycle callbacks whether
+        // any screen asked for an ad or not. (ADS.md)
+        AppOpenManager(this).register()
     }
 }

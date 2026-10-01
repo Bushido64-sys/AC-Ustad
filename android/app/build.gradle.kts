@@ -6,6 +6,30 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+// AdMob IDs. Debug builds use Google's demo units (read this session off the
+// official test-ads page), so a debug build can never generate invalid traffic
+// against the owner's account. Release reads the git-ignored ads.properties;
+// if it is absent (CI, a fresh clone) release falls back to the demo units
+// with a warning rather than failing the build — CI never builds release.
+val adsProps = java.util.Properties().apply {
+    val file = rootProject.file("ads.properties")
+    if (file.exists()) file.inputStream().use(::load)
+}
+fun adsId(key: String, demo: String): String =
+    (adsProps.getProperty(key) ?: demo).also {
+        if (!rootProject.file("ads.properties").exists() && it == demo) {
+            logger.warn("ads.properties absent: using demo $key unit")
+        }
+    }
+
+// Demo units from https://developers.google.com/admob/android/test-ads.
+const val DEMO_APP_ID = "ca-app-pub-3940256099942544~3347511713"
+const val DEMO_BANNER = "ca-app-pub-3940256099942544/9214589741"
+const val DEMO_INTERSTITIAL = "ca-app-pub-3940256099942544/1033173712"
+const val DEMO_REWARDED = "ca-app-pub-3940256099942544/5224354917"
+const val DEMO_NATIVE = "ca-app-pub-3940256099942544/2247696110"
+const val DEMO_APP_OPEN = "ca-app-pub-3940256099942544/9257395921"
+
 android {
     namespace = "com.acustad.app"
     compileSdk = 35
@@ -26,6 +50,12 @@ android {
         debug {
             applicationIdSuffix = ""
             isMinifyEnabled = false
+            manifestPlaceholders["adsAppId"] = DEMO_APP_ID
+            buildConfigField("String", "AD_UNIT_BANNER", "\"$DEMO_BANNER\"")
+            buildConfigField("String", "AD_UNIT_INTERSTITIAL", "\"$DEMO_INTERSTITIAL\"")
+            buildConfigField("String", "AD_UNIT_REWARDED", "\"$DEMO_REWARDED\"")
+            buildConfigField("String", "AD_UNIT_NATIVE", "\"$DEMO_NATIVE\"")
+            buildConfigField("String", "AD_UNIT_APP_OPEN", "\"$DEMO_APP_OPEN\"")
         }
         release {
             // Phase 9: R8 on for the release build. The phone test loop installs the debug
@@ -34,6 +64,16 @@ android {
             // keep rules (see proguard-rules.pro); fonts are kept explicitly.
             isMinifyEnabled = true
             isShrinkResources = true
+            manifestPlaceholders["adsAppId"] = adsId("appId", DEMO_APP_ID)
+            buildConfigField("String", "AD_UNIT_BANNER", "\"${adsId("banner", DEMO_BANNER)}\"")
+            buildConfigField(
+                "String",
+                "AD_UNIT_INTERSTITIAL",
+                "\"${adsId("interstitial", DEMO_INTERSTITIAL)}\"",
+            )
+            buildConfigField("String", "AD_UNIT_REWARDED", "\"${adsId("rewarded", DEMO_REWARDED)}\"")
+            buildConfigField("String", "AD_UNIT_NATIVE", "\"${adsId("native", DEMO_NATIVE)}\"")
+            buildConfigField("String", "AD_UNIT_APP_OPEN", "\"${adsId("appOpen", DEMO_APP_OPEN)}\"")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
@@ -109,4 +149,9 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     testImplementation(libs.junit)
+
+    // Ads, by decision (ADS.md). Debug serves Google's demo units; release serves
+    // the git-ignored ads.properties. UMP is the consent flow the ads require.
+    implementation(libs.google.gma.ads)
+    implementation(libs.google.ump)
 }
