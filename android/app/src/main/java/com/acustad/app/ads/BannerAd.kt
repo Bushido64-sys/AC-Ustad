@@ -1,6 +1,7 @@
 package com.acustad.app.ads
 
 import android.app.Activity
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -51,27 +52,40 @@ fun BannerAd(modifier: Modifier = Modifier) {
     }
 
     val adView = remember(adSize) {
-        AdView(context).apply {
-            setAdSize(adSize)
-            adUnitId = AdIds.banner
-            adListener = object : AdListener() {}
-            loadAd(AdRequest.Builder().build())
-        }
+        runCatching {
+            AdView(context).apply {
+                setAdSize(adSize)
+                adUnitId = AdIds.banner
+                adListener = object : AdListener() {}
+                loadAd(AdRequest.Builder().build())
+            }
+        }.getOrNull()
+    }
+
+    // The SDK failed before first paint: keep the reserved slot, show nothing.
+    // A banner that cannot exist must never take the screen down with it.
+    if (adView == null) {
+        Spacer(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(slotHeight),
+        )
+        return
     }
 
     DisposableEffect(lifecycle, adView) {
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
-                Lifecycle.Event.ON_RESUME -> adView.resume()
-                Lifecycle.Event.ON_PAUSE -> adView.pause()
-                Lifecycle.Event.ON_DESTROY -> adView.destroy()
+                Lifecycle.Event.ON_RESUME -> runCatching { adView.resume() }
+                Lifecycle.Event.ON_PAUSE -> runCatching { adView.pause() }
+                Lifecycle.Event.ON_DESTROY -> runCatching { adView.destroy() }
                 else -> Unit
             }
         }
         lifecycle.addObserver(observer)
         onDispose {
             lifecycle.removeObserver(observer)
-            adView.destroy()
+            runCatching { adView.destroy() }
         }
     }
 

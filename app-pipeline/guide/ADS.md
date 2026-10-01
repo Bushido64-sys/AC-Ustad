@@ -39,8 +39,15 @@ without warning.
   and `compileDebugKotlin` fails on every one of them. 23.6.0 has every format
   this file needs. The SDK ships its own R8 rules; nothing extra was needed.
 - `AdsManager` (`ui/ads/`) is the only door to the SDK. Screens never import
-  GMA classes. Init once, after the UMP consent flow, from `MainActivity`;
-  the content renders regardless and nothing blocks the first frame.
+  GMA classes. `UstadApp.onCreate` initialises MobileAds and preloads app-open
+  — before the first foreground transition, which is the only way a cold-start
+  ad can exist. UMP consent runs in `MainActivity` and gates personalised loads
+  from there; the SDK honours it for everything after. **No ad call anywhere
+  throws into the UI** (2026-10-01 crash audit): init, consent, every preload,
+  every show, pool callbacks, banner factory and native bind are all wrapped —
+  a failed ad is an empty slot and a callback's unhappy branch, never an
+  exception. The pool refuses late callbacks after dispose, so a screen that
+  left cannot be crashed by an ad arriving for it.
 - `AppOpenManager` registers activity callbacks in `UstadApp` and shows on
   every 0 → 1 foreground transition. `AdsManager.fullscreenShowing` refuses
   while another full-screen ad is up, so formats never stack.

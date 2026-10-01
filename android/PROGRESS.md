@@ -15,15 +15,15 @@
 > on `main`, and the working tree is clean. (A commit hash is deliberately not written here:
 > the last time one was, it was stale by two commits within a day.)
 >
-> **Next is item 6 — ads, built 2026-10-01, CI green, awaiting phone.** AdMob
-> straight feature: banner slot, app open, capped interstitials (exit +
-> return-to-top), rewarded save-wall (3 free, needs-connection branch by
-> decision), badged native in 4 spots. Owner IDs git-ignored, debug on demo
-> units. `build app` green on `7537d46` (all 17 steps) after 7 red rounds —
-> every one a gate learning the SDK's shape (Kotlin metadata → GMA 23.6.0,
-> AD_ID + AdServices + service permissions, firebase-measurement split).
-> Then the ADS.md §7 checklist on a real phone (validator pass on all native
-> spots included) before any ✅.
+> **2026-10-01 — ads crash audit + hardening (phone-reported).** Tapping a brand
+> or Settings crashed the app, and no ad showed on startup. Audit found: (1) a
+> destroy-race in `NativeAdPool` — late SDK callbacks indexing a cleared list;
+> (2) every ads entry point able to throw into the UI; (3) init+preload ordered
+> after the first foreground, so cold start could never have an ad. Fixed: pool
+> refuses late callbacks, all ads calls wrapped (a failed ad is an empty slot,
+> never an exception), init+app-open preload in `UstadApp.onCreate`, consent in
+> `MainActivity`. Needs: green CI, then the ADS.md §7 checklist + the two crash
+> taps on a real phone before any ✅.
 >
 > **2026-10-01 — Phase 9 phone-checked, ✅.** The human installed the build and
 > confirmed it good: install-over works, airplane mode full, dark/light/system,

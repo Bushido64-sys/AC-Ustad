@@ -2,6 +2,7 @@ package com.acustad.app
 
 import android.app.Application
 import android.os.StrictMode
+import com.acustad.app.ads.AdsManager
 import com.acustad.app.ads.AppOpenManager
 
 /**
@@ -43,9 +44,22 @@ class UstadApp : Application() {
         // Kept intentionally un-preloaded so cold start is instant and
         // the home screen can show real counts on its first frame.
         //
+        // Ads initialise here and not in MainActivity, because the first
+        // foreground transition fires before any consent callback returns —
+        // initialising late is exactly why the first build showed no ad on
+        // startup. Consent still runs in MainActivity and gates personalised
+        // loads from there; the GMA SDK honours the UMP state for everything
+        // loaded after it. (ADS.md)
+        runCatching {
+            AdsManager.init(this)
+            AdsManager.preloadAppOpen(this)
+        }
+        //
         // App Open lives here because it is process-scoped, not screen-scoped:
         // every foreground transition arrives as lifecycle callbacks whether
         // any screen asked for an ad or not. (ADS.md)
-        AppOpenManager(this).register()
+        runCatching {
+            AppOpenManager(this).register()
+        }
     }
 }

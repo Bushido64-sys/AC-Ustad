@@ -34,12 +34,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val repo = KbRepository.get(applicationContext)
-        // Consent first, ads second (ADS.md). The content renders regardless:
-        // banners and natives load when composed, full-screen formats preload
-        // after init, and nothing here blocks the first frame.
-        AdsManager.ensureConsent(this) {
-            AdsManager.preloadAppOpen(applicationContext)
-        }
+        // Consent runs here, on the Activity UMP requires. Initialisation
+        // already happened in UstadApp so the cold-start ad can preload; this
+        // only gates personalised loads from here on. The content renders
+        // regardless, and nothing here blocks the first frame. (ADS.md)
+        AdsManager.ensureConsent(this) {}
         setContent {
             val theme by repo.theme.collectAsStateWithLifecycle()
             AcUstadTheme(dark = theme.isDark(isSystemInDarkTheme())) {

@@ -28,8 +28,11 @@ import com.google.android.ump.UserMessagingPlatform
  *    App Open refuses to show while it is set.
  *  - **Interstitials are capped.** One show per [INTERSTITIAL_CAP_MS], so the
  *    exit ad and the return-to-top ad cannot fire back to back.
- *  - **Nothing here throws into the UI.** Every failure path calls the
- *    callback's unhappy branch, and the app continues without the ad.
+ *  - **Nothing here throws into the UI — ever.** Every entry point is wrapped,
+ *    because an ad SDK that can crash the app is worse than no ads at all.
+ *    A failed ad is an empty slot and a callback's unhappy branch, never an
+ *    exception. This is the lesson of the 2026-10-01 crash audit: the SDK is
+ *    third-party code running inside our process, so it is treated like it.
  */
 object AdsManager {
 
@@ -48,33 +51,47 @@ object AdsManager {
      * enhancement: the app must never wait on them.
      */
     fun ensureConsent(activity: Activity, done: () -> Unit) {
-        val params = ConsentRequestParameters.Builder()
-            .setTagForUnderAgeOfConsent(false)
-            .build()
-        val info = UserMessagingPlatform.getConsentInformation(activity)
-        info.requestConsentInfoUpdate(
-            activity,
-            params,
-            {
-                UserMessagingPlatform.loadAndShowConsentFormIfRequired(activity) {
+        runCatching {
+            val params = ConsentRequestParameters.Builder()
+                .setTagForUnderAgeOfConsent(false)
+                .build()
+            val info = UserMessagingPlatform.getConsentInformation(activity)
+            info.requestConsentInfoUpdate(
+                activity,
+                params,
+                {
+                    runCatching {
+                        UserMessagingPlatform.loadAndShowConsentFormIfRequired(activity) {
+                            init(activity.applicationContext)
+                            done()
+                        }
+                    }.onFailure {
+                        init(activity.applicationContext)
+                        done()
+                    }
+                },
+                {
                     init(activity.applicationContext)
                     done()
-                }
-            },
-            {
-                init(activity.applicationContext)
-                done()
-            },
-        )
+                },
+            )
+        }.onFailure {
+            // Consent itself blew up. Ads go uninitialised rather than half-set:
+            // every load path treats "never initialised" as "no ad", and the
+            // app runs exactly like the pre-ads build.
+            done()
+        }
     }
 
-    /** MobileAds, exactly once. Cheap to call, safe to repeat. */
+    /** MobileAds, exactly once. Cheap to call, safe to repeat, never throws. */
     fun init(context: Context) {
         if (initialised) return
         initialised = true
-        MobileAds.initialize(context) {}
-        preloadInterstitial(context)
-        preloadRewarded(context)
+        runCatching {
+            MobileAds.initialize(context) {}
+            preloadInterstitial(context)
+            preloadRewarded(context)
+        }
     }
 
     // ── interstitial ────────────────────────────────────────────────
@@ -83,20 +100,24 @@ object AdsManager {
 
     fun preloadInterstitial(context: Context) {
         if (interstitial != null) return
-        InterstitialAd.load(
-            context,
-            AdIds.interstitial,
-            AdRequest.Builder().build(),
-            object : InterstitialAdLoadCallback() {
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    interstitial = ad
-                }
+        runCatching {
+            InterstitialAd.load(
+                context,
+                AdIds.interstitial,
+                AdRequest.Builder().build(),
+                object : InterstitialAdLoadCallback() {
+                    override fun onAdLoaded(ad: InterstitialAd) {
+                        interstitial = ad
+                    }
 
-                override fun onAdFailedToLoad(error: LoadAdError) {
-                    interstitial = null
-                }
-            },
-        )
+                    override fun onAdFailedToLoad(error: LoadAdError) {
+                        interstitial = null
+                    }
+                },
+            )
+        }.onFailure {
+            interstitial = null
+        }
     }
 
     /**
@@ -106,7 +127,7 @@ object AdsManager {
     fun showInterstitial(activity: Activity, onDone: () -> Unit) {
         val ad = interstitial
         if (ad == null) {
-            preloadInterstitial(activity)
+            runCatching { preloadInterstitial(activity) }
             onDone()
             return
         }
@@ -119,17 +140,23 @@ object AdsManager {
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 fullscreenShowing = false
-                preloadInterstitial(activity)
+                runCatching { preloadInterstitial(activity) }
                 onDone()
             }
 
             override fun onAdFailedToShowFullScreenContent(error: com.google.android.gms.ads.AdError) {
                 fullscreenShowing = false
-                preloadInterstitial(activity)
+                runCatching { preloadInterstitial(activity) }
                 onDone()
             }
         }
-        ad.show(activity)
+        runCatching {
+            ad.show(activity)
+        }.onFailure {
+            fullscreenShowing = false
+            runCatching { preloadInterstitial(activity) }
+            onDone()
+        }
     }
 
     // ── rewarded ────────────────────────────────────────────────────
@@ -138,20 +165,24 @@ object AdsManager {
 
     fun preloadRewarded(context: Context) {
         if (rewarded != null) return
-        RewardedAd.load(
-            context,
-            AdIds.rewarded,
-            AdRequest.Builder().build(),
-            object : RewardedAdLoadCallback() {
-                override fun onAdLoaded(ad: RewardedAd) {
-                    rewarded = ad
-                }
+        runCatching {
+            RewardedAd.load(
+                context,
+                AdIds.rewarded,
+                AdRequest.Builder().build(),
+                object : RewardedAdLoadCallback() {
+                    override fun onAdLoaded(ad: RewardedAd) {
+                        rewarded = ad
+                    }
 
-                override fun onAdFailedToLoad(error: LoadAdError) {
-                    rewarded = null
-                }
-            },
-        )
+                    override fun onAdFailedToLoad(error: LoadAdError) {
+                        rewarded = null
+                    }
+                },
+            )
+        }.onFailure {
+            rewarded = null
+        }
     }
 
     fun isRewardedReady(): Boolean = rewarded != null
@@ -165,7 +196,7 @@ object AdsManager {
     fun showRewarded(activity: Activity, onEarned: () -> Unit, onUnavailable: () -> Unit) {
         val ad = rewarded
         if (ad == null) {
-            preloadRewarded(activity)
+            runCatching { preloadRewarded(activity) }
             onUnavailable()
             return
         }
@@ -174,15 +205,21 @@ object AdsManager {
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 fullscreenShowing = false
-                preloadRewarded(activity)
+                runCatching { preloadRewarded(activity) }
             }
 
             override fun onAdFailedToShowFullScreenContent(error: com.google.android.gms.ads.AdError) {
                 fullscreenShowing = false
-                preloadRewarded(activity)
+                runCatching { preloadRewarded(activity) }
             }
         }
-        ad.show(activity) { onEarned() }
+        runCatching {
+            ad.show(activity) { onEarned() }
+        }.onFailure {
+            fullscreenShowing = false
+            runCatching { preloadRewarded(activity) }
+            onUnavailable()
+        }
     }
 
     // ── app open ────────────────────────────────────────────────────
@@ -191,21 +228,25 @@ object AdsManager {
 
     fun preloadAppOpen(context: Context) {
         if (appOpen != null) return
-        AppOpenAd.load(
-            context,
-            AdIds.appOpen,
-            AdRequest.Builder().build(),
-            AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
-            object : AppOpenAd.AppOpenAdLoadCallback() {
-                override fun onAdLoaded(ad: AppOpenAd) {
-                    appOpen = ad
-                }
+        runCatching {
+            AppOpenAd.load(
+                context,
+                AdIds.appOpen,
+                AdRequest.Builder().build(),
+                AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
+                object : AppOpenAd.AppOpenAdLoadCallback() {
+                    override fun onAdLoaded(ad: AppOpenAd) {
+                        appOpen = ad
+                    }
 
-                override fun onAdFailedToLoad(error: LoadAdError) {
-                    appOpen = null
-                }
-            },
-        )
+                    override fun onAdFailedToLoad(error: LoadAdError) {
+                        appOpen = null
+                    }
+                },
+            )
+        }.onFailure {
+            appOpen = null
+        }
     }
 
     /**
@@ -215,7 +256,7 @@ object AdsManager {
     fun showAppOpenIfReady(activity: Activity) {
         if (fullscreenShowing) return
         val ad = appOpen ?: run {
-            preloadAppOpen(activity)
+            runCatching { preloadAppOpen(activity) }
             return
         }
         appOpen = null
@@ -223,15 +264,20 @@ object AdsManager {
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 fullscreenShowing = false
-                preloadAppOpen(activity)
+                runCatching { preloadAppOpen(activity) }
             }
 
             override fun onAdFailedToShowFullScreenContent(error: com.google.android.gms.ads.AdError) {
                 fullscreenShowing = false
-                preloadAppOpen(activity)
+                runCatching { preloadAppOpen(activity) }
             }
         }
-        ad.show(activity)
+        runCatching {
+            ad.show(activity)
+        }.onFailure {
+            fullscreenShowing = false
+            runCatching { preloadAppOpen(activity) }
+        }
     }
 
     // ── interstitial frequency cap ──────────────────────────────────
@@ -244,12 +290,13 @@ object AdsManager {
      * time when this show may go ahead. Purely time-based, persisted, so a
      * force-stop cannot reset it.
      */
-    internal fun takeCapSlot(context: Context, now: Long = System.currentTimeMillis()): Boolean {
-        val last = prefs(context).getLong(KEY_LAST_INTERSTITIAL, 0L)
-        if (now - last < INTERSTITIAL_CAP_MS) return false
-        prefs(context).edit().putLong(KEY_LAST_INTERSTITIAL, now).apply()
-        return true
-    }
+    internal fun takeCapSlot(context: Context, now: Long = System.currentTimeMillis()): Boolean =
+        runCatching {
+            val last = prefs(context).getLong(KEY_LAST_INTERSTITIAL, 0L)
+            if (now - last < INTERSTITIAL_CAP_MS) return false
+            prefs(context).edit().putLong(KEY_LAST_INTERSTITIAL, now).apply()
+            true
+        }.getOrDefault(true)
 
     private const val PREFS_NAME = "ac-ustad-ads"
 

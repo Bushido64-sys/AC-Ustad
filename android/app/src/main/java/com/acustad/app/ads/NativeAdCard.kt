@@ -47,29 +47,48 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     private val appContext = context.applicationContext
     val ads = mutableStateListOf<NativeAd?>().apply { repeat(size) { add(null) } }
 
+    /**
+     * Set on dispose. Late SDK callbacks check it before touching the list:
+     * without it, an ad arriving after the screen left would index into a
+     * cleared list — an IndexOutOfBounds crash from third-party timing, found
+     * in the 2026-10-01 crash audit.
+     */
+    @Volatile
+    private var destroyed = false
+
     fun load() {
-        for (i in ads.indices) {
-            if (ads[i] == null) loadOne(i)
+        if (destroyed) return
+        runCatching {
+            for (i in ads.indices) {
+                if (ads[i] == null) loadOne(i)
+            }
         }
     }
 
     private fun loadOne(index: Int) {
-        com.google.android.gms.ads.AdLoader.Builder(appContext, AdIds.native)
-            .forNativeAd { ad -> ads[index] = ad }
-            .withAdListener(object : AdListener() {
-                override fun onAdFailedToLoad(error: LoadAdError) {
-                    ads[index] = null
+        runCatching {
+            com.google.android.gms.ads.AdLoader.Builder(appContext, AdIds.native)
+                .forNativeAd { ad ->
+                    if (!destroyed && index < ads.size) ads[index] = ad
+                    else ad.destroy()
                 }
-            })
-            .withNativeAdOptions(NativeAdOptions.Builder().build())
-            .build()
-            .loadAd(AdRequest.Builder().build())
+                .withAdListener(object : AdListener() {
+                    override fun onAdFailedToLoad(error: LoadAdError) {
+                        if (!destroyed && index < ads.size) ads[index] = null
+                    }
+                })
+                .withNativeAdOptions(NativeAdOptions.Builder().build())
+                .build()
+                .loadAd(AdRequest.Builder().build())
+        }
     }
 
-    fun adFor(slot: Int): NativeAd? = ads[slot % ads.size]
+    fun adFor(slot: Int): NativeAd? =
+        if (destroyed || ads.isEmpty()) null else ads[slot % ads.size]
 
     fun destroy() {
-        ads.forEach { it?.destroy() }
+        destroyed = true
+        ads.forEach { runCatching { it?.destroy() } }
         ads.clear()
     }
 }
@@ -110,6 +129,18 @@ fun rememberNativeAdPool(size: Int = 3): NativeAdPool {
  */
 @Composable
 fun NativeAdCard(ad: NativeAd, modifier: Modifier = Modifier) {
+    // Headline is the one asset Google guarantees. Without it this is not a
+    // renderable ad — omit the card rather than showing a badge with nothing.
+    val headline = ad.headline ?: return
+    val context = LocalContext.current
+    // Inflated once per ad. If inflation itself fails, the whole card is
+    // omitted: a badge with no ad is noise, and a crash here would take down
+    // the list the ad sits in.
+    val nativeView = remember(ad) {
+        runCatching {
+            LayoutInflater.from(context).inflate(R.layout.native_ad, null) as NativeAdView
+        }.getOrNull()
+    } ?: return
     val ink = MaterialTheme.colorScheme.onSurface
     val muted = MaterialTheme.colorScheme.onSurfaceVariant
     val primary = MaterialTheme.colorScheme.primary
@@ -121,11 +152,9 @@ fun NativeAdCard(ad: NativeAd, modifier: Modifier = Modifier) {
                 AdBadge()
             }
             AndroidView(
-                factory = { context ->
-                    (LayoutInflater.from(context).inflate(R.layout.native_ad, null) as NativeAdView)
-                },
+                factory = { nativeView },
                 update = { view ->
-                    bindNativeAd(view, ad, ink, muted, primary, onPrimary)
+                    runCatching { bindNativeAd(view, ad, headline, ink, muted, primary, onPrimary) }
                 },
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -145,35 +174,48 @@ private fun AdBadge() {
 private fun bindNativeAd(
     view: NativeAdView,
     ad: NativeAd,
+    headline: String,
     ink: Color,
     muted: Color,
     primary: Color,
     onPrimary: Color,
 ) {
-    val headline = view.findViewById<TextView>(R.id.ad_headline)
+    val headlineView = view.findViewById<TextView>(R.id.ad_headline)
     val body = view.findViewById<TextView>(R.id.ad_body)
     val media = view.findViewById<MediaView>(R.id.ad_media)
     val cta = view.findViewById<TextView>(R.id.ad_cta)
     val choices = view.findViewById<AdChoicesView>(R.id.ad_choices)
 
-    headline.text = ad.headline
-    headline.setTextColor(ink.toArgb())
-    body.text = ad.body ?: ad.advertiser
-    body.setTextColor(muted.toArgb())
+    headlineView.text = headline
+    headlineView.setTextColor(ink.toArgb())
+    val bodyText = ad.body ?: ad.advertiser
+    if (bodyText != null) {
+        body.visibility = View.VISIBLE
+        body.text = bodyText
+        body.setTextColor(muted.toArgb())
+        view.bodyView = body
+    } else {
+        body.visibility = View.GONE
+    }
     if (ad.mediaContent != null) {
         media.visibility = View.VISIBLE
         media.mediaContent = ad.mediaContent
+        view.mediaView = media
     } else {
         media.visibility = View.GONE
     }
-    cta.text = ad.callToAction
-    cta.setBackgroundColor(primary.toArgb())
-    cta.setTextColor(onPrimary.toArgb())
+    val ctaText = ad.callToAction
+    if (ctaText != null) {
+        cta.visibility = View.VISIBLE
+        cta.text = ctaText
+        cta.setBackgroundColor(primary.toArgb())
+        cta.setTextColor(onPrimary.toArgb())
+        view.callToActionView = cta
+    } else {
+        cta.visibility = View.GONE
+    }
 
-    view.headlineView = headline
-    view.bodyView = body
-    view.mediaView = media
-    view.callToActionView = cta
+    view.headlineView = headlineView
     view.adChoicesView = choices
     view.setNativeAd(ad)
 }
