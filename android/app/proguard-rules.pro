@@ -7,6 +7,19 @@
 -keepclassmembers class **.R$font { *; }
 -keep class **.R$font { *; }
 
+# Phase 9 §3: release builds carry no Log output. Debug keeps every Log (the
+# search/detail failure logs are error paths, not hot paths); release strips them
+# at the bytecode level so a forgotten debug line can never cost time on a cheap
+# phone or leak a query string into logcat.
+-assumenosideeffects class android.util.Log {
+    public static *** d(...);
+    public static *** v(...);
+    public static *** i(...);
+    public static *** w(...);
+    public static *** e(...);
+    public static *** wtf(...);
+}
+
 # The shipped database is opened by path, never by class name, so no keep rules are
 # needed for it. This entry exists only to make that explicit for a future reader.
 

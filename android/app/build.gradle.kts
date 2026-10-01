@@ -14,7 +14,7 @@ android {
         applicationId = "com.acustad.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
+        versionCode = 2
         versionName = "1.0.0"
 
         // No testInstrumentationRunner yet: TESTING.md adds Compose UI tests in the phase
@@ -28,11 +28,12 @@ android {
             isMinifyEnabled = false
         }
         release {
-            // R8 on, but do NOT enable it for the first signed release: the phone test loop
-            // uses the debug APK. Turn on minify once the app is feature-complete and
-            // verified on a release build (PHASE_9 §3).
-            isMinifyEnabled = false
-            isShrinkResources = false
+            // Phase 9: R8 on for the release build. The phone test loop installs the debug
+            // APK, so this changes nothing about CI (which builds debug only) or daily
+            // testing — it hardens the artifact that ships as v1.0.0. Raw SQLite needs no
+            // keep rules (see proguard-rules.pro); fonts are kept explicitly.
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
