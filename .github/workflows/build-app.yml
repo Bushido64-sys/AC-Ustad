@@ -150,13 +150,15 @@ jobs:
           set -uo pipefail
           # RULE 14. The app must ship with nothing beyond what the ads need.
           #
-          # Four entries plus one family are allowed, and all are injected, none
+          # Four entries plus two families are allowed, and all are injected, none
           # typed: com.acustad.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION is the
           # AGP self-permission (signature-level, grants nothing); INTERNET,
-          # ACCESS_NETWORK_STATE and com.google.android.gms.permission.AD_ID are
-          # merged in by the AdMob SDK's own manifest, as is the whole
-          # android.permission.ACCESS_ADSERVICES_* family (Topics, attribution —
-          # the Privacy Sandbox APIs the SDK measures and targets with). All for
+          # ACCESS_NETWORK_STATE, com.google.android.gms.permission.AD_ID,
+          # FOREGROUND_SERVICE and WAKE_LOCK are merged in by the AdMob SDK's
+          # own manifest, as is the whole android.permission.ACCESS_ADSERVICES_*
+          # family (Topics, attribution). FOREGROUND_SERVICE and WAKE_LOCK sound
+          # heavier than they are: both are install-time normal permissions the
+          # SDK's ad processes need, neither prompts at runtime. All for
           # Google's ad servers (ADS.md). Everything else is a failure.
           #
           # The grep matches 'uses-permission android:name=' rather than 'uses-permission' so
@@ -171,7 +173,7 @@ jobs:
           FOUND=$(grep -o 'uses-permission android:name="[^"]*"' "$MANIFEST" | sort -u || true)
           echo "permissions in the merged manifest:"
           echo "${FOUND:-  (none)}"
-          BAD=$(echo "$FOUND" | grep -v -e "android:name=\"$ALLOWED_SELF\"" -e 'android:name="android.permission.INTERNET"' -e 'android:name="android.permission.ACCESS_NETWORK_STATE"' -e 'android:name="com.google.android.gms.permission.AD_ID"' -e 'android:name="android.permission.ACCESS_ADSERVICES_[^"]*"' || true)
+          BAD=$(echo "$FOUND" | grep -v -e "android:name=\"$ALLOWED_SELF\"" -e 'android:name="android.permission.INTERNET"' -e 'android:name="android.permission.ACCESS_NETWORK_STATE"' -e 'android:name="android.permission.FOREGROUND_SERVICE"' -e 'android:name="android.permission.WAKE_LOCK"' -e 'android:name="com.google.android.gms.permission.AD_ID"' -e 'android:name="android.permission.ACCESS_ADSERVICES_[^"]*"' || true)
           if [ -n "$BAD" ]; then
             CLEAN=$(echo "$BAD" | head -c 200 | tr '\n' ' ')
             echo "::error::the app must not request any permission beyond what the ads need (PERMISSIONS.md): $CLEAN"

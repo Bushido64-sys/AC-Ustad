@@ -82,9 +82,9 @@ severity/confidence words. UI labels, brand names and model names stay English.
 *Why:* a technician reads brands and models in English; the content is what needs Roman Urdu.
 
 ## RULE 14 — Ads permissions only, network for Google's ad servers only, nothing else
-The app declares **only what the AdMob SDK merges in and never types: `INTERNET`,
-`ACCESS_NETWORK_STATE`, `com.google.android.gms.permission.AD_ID` and the
-`android.permission.ACCESS_ADSERVICES_*` family (Topics, attribution)** — and makes
+The app declares **only what the AdMob SDK merges in and never types** (the §1 set
+in `PERMISSIONS.md`: network, Advertising ID, the AdServices family, and two
+install-time normal permissions the SDK's ad processes need) — and makes
 **no network call of its own**. No accounts,
 no login, no analytics, no crash reporting, no uploads.
 Everything the knowledge base needs is in the bundled database.

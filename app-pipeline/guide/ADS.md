@@ -135,7 +135,7 @@ deliberately and in the open, not by drift:
 
 | Gate | Change |
 |---|---|
-| permissions | allows AGP self-permission + INTERNET + ACCESS_NETWORK_STATE + AD_ID + ACCESS_ADSERVICES_* family, fails on anything else |
+| permissions | allows AGP self-permission + the PERMISSIONS.md §1 set (INTERNET, ACCESS_NETWORK_STATE, AD_ID, FOREGROUND_SERVICE, WAKE_LOCK, ACCESS_ADSERVICES_*), fails on anything else |
 | network/ads library | `gms/ads` + `gms/` + `ump/` moved from hard-fail to known-allowed-with-notice; okhttp, retrofit, apache-http, facebook-ads, firebase, rxjava, crashlytics, sentry still hard-fail |
 | APK size | unchanged (25 MB ceiling; SDK adds ~2 MB) |
 | compile + lint + tests | unchanged; `AdsLogicTest` pins the wall count and slot math |

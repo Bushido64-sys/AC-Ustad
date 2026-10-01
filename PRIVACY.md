@@ -28,9 +28,10 @@ All of it lives on your phone. Uninstalling the app removes it.
 
 ## Permissions
 
-The app uses only what its ads need — network access, the Advertising ID and
-the Privacy Sandbox ad APIs (Topics, attribution) — all through Google's ad
-libraries. Nothing else is requested.
+The app uses only what its ads need — network access, the Advertising ID, the
+Privacy Sandbox ad APIs (Topics, attribution) and two install-time permissions
+the ad processes need. None of them prompts at runtime, and nothing else is
+requested.
 
 ## What stays on your phone
 

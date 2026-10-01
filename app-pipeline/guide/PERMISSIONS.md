@@ -2,9 +2,10 @@
 
 **The source manifest declares zero permissions. The merged manifest carries only
 what the AdMob SDK merges in: `INTERNET`, `ACCESS_NETWORK_STATE`,
-`com.google.android.gms.permission.AD_ID` and the
-`android.permission.ACCESS_ADSERVICES_*` family (Topics, attribution — the Privacy
-Sandbox APIs the SDK measures and targets with), for Google's ad servers and
+`com.google.android.gms.permission.AD_ID`, `FOREGROUND_SERVICE`, `WAKE_LOCK` and the
+`android.permission.ACCESS_ADSERVICES_*` family (Topics, attribution). The last two
+sound heavier than they are: both are install-time normal permissions the SDK's ad
+processes need, and neither prompts at runtime. All for Google's ad servers and
 nothing else. That is a decision (ADS.md), not drift.**
 
 ---
@@ -56,10 +57,9 @@ the app defines for itself**, so that `registerReceiver` is safe on Android 13+ 
 `RECEIVER_EXPORTED`. It grants the app access to nothing, is never shown to a user, and does
 not appear in the installed-app permission list in a form that means anything to a technician.
 
-The CI gate in `CI_CD.md` therefore allows the AGP self-permission, `INTERNET`,
-`ACCESS_NETWORK_STATE`, `AD_ID` and the `ACCESS_ADSERVICES_*` family — and fails on
-everything else. If you see anything outside that set, something genuinely wrong
-was added.
+The CI gate in `CI_CD.md` therefore allows the AGP self-permission plus the §1
+set — and fails on everything else. If you see anything outside that set,
+something genuinely wrong was added.
 
 ## 2. Why everything else stays out
 
