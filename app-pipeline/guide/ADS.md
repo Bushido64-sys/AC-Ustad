@@ -136,7 +136,7 @@ deliberately and in the open, not by drift:
 | Gate | Change |
 |---|---|
 | permissions | allows AGP self-permission + the PERMISSIONS.md §1 set (INTERNET, ACCESS_NETWORK_STATE, AD_ID, FOREGROUND_SERVICE, WAKE_LOCK, ACCESS_ADSERVICES_*), fails on anything else |
-| network/ads library | `gms/ads` + `gms/` + `ump/` moved from hard-fail to known-allowed-with-notice; okhttp, retrofit, apache-http, facebook-ads, firebase, rxjava, crashlytics, sentry still hard-fail |
+| network/ads library | `gms/` + `ump/` + `firebase/installations/` + `firebase/annotations/` moved from hard-fail to known-allowed-with-notice; okhttp, retrofit, apache-http, facebook-ads, firebase analytics/messaging/crashlytics/remote-config, rxjava, crashlytics, sentry still hard-fail. A diagnostic notice lists every firebase subpackage in the APK, so the next call is made from evidence |
 | APK size | unchanged (25 MB ceiling; SDK adds ~2 MB) |
 | compile + lint + tests | unchanged; `AdsLogicTest` pins the wall count and slot math |
 

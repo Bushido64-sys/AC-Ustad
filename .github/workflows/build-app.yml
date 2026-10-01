@@ -238,7 +238,9 @@ jobs:
           FAILED=0
           for P in 'Lokhttp3/' 'Lretrofit2/' 'Lorg/apache/http/' \
                    'Lcom/facebook/ads/' \
-                   'Lcom/google/firebase/' 'Lio/reactivex/rxjava3/' \
+                   'Lcom/google/firebase/analytics/' 'Lcom/google/firebase/messaging/' \
+                   'Lcom/google/firebase/crashlytics/' 'Lcom/google/firebase/remoteconfig/' \
+                   'Lio/reactivex/rxjava3/' \
                    'Lcom/crashlytics/' 'Lio/sentry/' ; do
             if grep -qF "$P" "$WORK/all.strings"; then
               echo "::error file=build-app.yml,title=Network or ads library in the APK::found $P - RULE 14 forbids this (PERMISSIONS.md, ADS.md)"
@@ -249,11 +251,19 @@ jobs:
           [ "$FAILED" -eq 0 ] || exit 1
 
           # ── known-allowed, still reported ──
-          for P in 'Lcom/google/android/gms/' 'Lcom/google/android/ump/' ; do
+          for P in 'Lcom/google/android/gms/' 'Lcom/google/android/ump/' 'Lcom/google/firebase/installations/' 'Lcom/google/firebase/annotations/' ; do
             if grep -qF "$P" "$WORK/all.strings"; then
-              echo "::notice file=build-app.yml,title=AdMob SDK present::found $P - allowed by decision (ADS.md). Anything outside these two prefixes still fails above"
+              echo "::notice file=build-app.yml,title=AdMob SDK present::found $P - allowed by decision (ADS.md). Anything outside these prefixes still fails above"
             fi
           done
+
+          # ── diagnostic: name every firebase subpackage in the APK ──
+          #
+          # The hard-fail above names the pattern, not the class. This lists what
+          # is actually there, so the next decision is made from evidence rather
+          # than from guessing which transitive dependency brought it.
+          MATCHES=$(grep -o 'Lcom/google/firebase/[a-z]*/' "$WORK/all.strings" | sort -u | head -12 | tr '\n' ' ')
+          echo "::notice file=build-app.yml,title=Firebase descriptors in the APK::${MATCHES:-none found}"
 
           # ── report only ──
           for P in 'Ljava/net/HttpURLConnection;' 'Ljavax/net/ssl/HttpsURLConnection;' \
