@@ -86,8 +86,6 @@ class AppOpenManager(private val app: Application) : Application.ActivityLifecyc
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) = Unit
 
-    override fun onActivityResumed(activity: Activity) = Unit
-
     override fun onActivityPaused(activity: Activity) = Unit
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) = Unit
