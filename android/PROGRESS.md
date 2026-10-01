@@ -773,9 +773,9 @@ one.
    as written (trial/paid archived). Owner IDs in git-ignored `ads.properties`;
    debug serves Google demo units. When the SDK landed it superseded RULE 14 and
    `PERMISSIONS.md`, and that supersession is deliberate and written down rather
-   than a quiet workaround. Still required before ✅: green `build app` on main
-   and the ADS.md §7 checklist on a real phone, including the native validator
-   pass on every spot.
+   than a quiet workaround. CI green on `247b5ae` (all 17 steps). Still required
+   before ✅: the ADS.md §7 checklist on a real phone — NOT yet tested — including
+   the native validator pass on every spot.
 
 **The stray CI gap is closed.** `CI_CD.md` §1 documented a no-HTTP-client step that did not exist
 in `build-app.yml`; it is written and green as of `4620c5e`. It took two attempts and the second
