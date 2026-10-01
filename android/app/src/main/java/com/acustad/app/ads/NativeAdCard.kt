@@ -1,6 +1,8 @@
 package com.acustad.app.ads
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -59,6 +61,15 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     @Volatile
     private var destroyed = false
 
+    /**
+     * Retries per slot, so a failure is not final. The first load fires while
+     * MobileAds is still initialising, when failures are routine — each empty
+     * slot gets up to [MAX_RETRIES] more attempts, 15s apart. Bounded, not a
+     * timer that loads forever: a slot that cannot fill stops asking.
+     */
+    private val retries = mutableMapOf<Int, Int>()
+    private val handler = Handler(Looper.getMainLooper())
+
     fun load() {
         if (destroyed) return
         runCatching {
@@ -77,7 +88,20 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
                 }
                 .withAdListener(object : AdListener() {
                     override fun onAdFailedToLoad(error: LoadAdError) {
-                        if (!destroyed && index < ads.size) ads[index] = null
+                        if (destroyed || index >= ads.size) return
+                        ads[index] = null
+                        val attempts = (retries[index] ?: 0) + 1
+                        retries[index] = attempts
+                        if (attempts <= MAX_RETRIES) {
+                            handler.postDelayed(
+                                {
+                                    if (!destroyed && index < ads.size && ads[index] == null) {
+                                        loadOne(index)
+                                    }
+                                },
+                                RETRY_MS,
+                            )
+                        }
                     }
                 })
                 .withNativeAdOptions(NativeAdOptions.Builder().build())
@@ -91,8 +115,14 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
 
     fun destroy() {
         destroyed = true
+        handler.removeCallbacksAndMessages(null)
         ads.forEach { runCatching { it?.destroy() } }
         ads.clear()
+    }
+
+    companion object {
+        private const val MAX_RETRIES = 3
+        private const val RETRY_MS = 15_000L
     }
 }
 

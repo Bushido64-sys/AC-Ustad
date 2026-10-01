@@ -19,11 +19,17 @@
 > or Settings crashed the app, and no ad showed on startup. Audit found: (1) a
 > destroy-race in `NativeAdPool` — late SDK callbacks indexing a cleared list;
 > (2) every ads entry point able to throw into the UI; (3) init+preload ordered
-> after the first foreground, so cold start could never have an ad. Fixed: pool
-> refuses late callbacks, all ads calls wrapped (a failed ad is an empty slot,
-> never an exception), init+app-open preload in `UstadApp.onCreate`, consent in
-> `MainActivity`. Needs: green CI, then the ADS.md §7 checklist + the two crash
-> taps on a real phone before any ✅.
+> after the first foreground, so cold start could never have an ad. Fixed and
+> green (`bd6717f`).
+>
+> **2026-10-01 — ads visibility round (phone-reported).** Only the banner showed:
+> app-open missed launch, interstitial fired once then vanished behind the cap,
+> natives stayed empty. Research changed the design, not just the code: exit
+> interstitials are BANNED (disallowed example, penalty ad-serving disabled) —
+> removed, exit finishes clean. Now: fresh banner per screen (keyed by route),
+> app-open every cold start + resume + 3s retry, interstitial on detail-back
+> and return-to-top under one budget (every 2nd back, 90s cap), native slots
+> retry 3× at 15s. Needs: green CI, then ADS.md §7 on a real phone.
 >
 > **2026-10-01 — Phase 9 phone-checked, ✅.** The human installed the build and
 > confirmed it good: install-over works, airplane mode full, dark/light/system,

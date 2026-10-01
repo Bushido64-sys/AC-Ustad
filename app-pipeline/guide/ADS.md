@@ -66,20 +66,27 @@ without warning.
 
 ## 3. Placements
 
-**Banner.** One slot for the whole app, pinned between the `NavHost` and the
-bottom bar — not one slot per screen. Identical on every screen including
-detail (below the content, never inside it): one request, zero layout shift,
-no per-screen wiring to forget. The slot reserves the ad's own adaptive
-height before anything loads; an unfilled ad is empty space of the same size.
-Refresh 30s, server-side; mediated UIs keep their own refresh off.
+**Banner.** One slot, pinned between content and bottom bar — but a FRESH
+banner per screen, keyed on the route: every navigation destroys the old slot
+and loads a new request, which is where banner impressions come from. Still
+exactly one banner visible at a time (Google forbids more), still below the
+content and never inside it. The slot reserves the ad's own adaptive height
+before anything loads. Refresh is server-side (Google-optimised or 30s
+minimum — the account side, not the code); rapid navigation faster than ~60s
+per screen is the publisher's own guidance to respect, and normal browsing
+does that on its own.
 
-**App open.** Cold start after the first frame, and every return from
-background. Silent when unready — startup never waits.
+**App open.** Every cold start (attempted at start, retried once on resume
+and once more 3s later — the preload is routinely still in flight at the
+first foreground) and every real return from background (10s floor, so a
+rotation never pops one). Silent when unready — startup never waits.
 
-**Interstitial.** Exit (system back on Home, then finish) and return-to-top
-(Browse tab from deep in the path, unwinds under the dismissed ad). Capped:
-one per 3 minutes in persisted prefs, so the two can never stack. Never on
-the way down — brand → model → code → fix steps carries no ad of any kind.
+**Interstitial.** Back from a finished code (arrow and gesture share one
+path) and return-to-top — the two natural breaks. Capped twice: at most
+every 2nd back-navigation AND 90s apart, enforced in one shared budget.
+**No exit interstitial, ever:** interstitials on app exit are banned outright
+("User exits app" is the disallowed example), penalty ad serving disabled.
+The exit BackHandler finishes with no ad, always.
 
 **Rewarded (save wall).** The first 3 saves are free (`FREE_SAVES` in
 `AdIds.kt`, unit-tested). The 4th save opens a warm popup — *"You have saved
@@ -97,9 +104,9 @@ Answers — codes, meanings, fix steps — never need it, on any screen.
 
 **Native.** Code list every 5th row from #11 (`nativeSlotAfterPositions`,
 unit-tested), detail bottom below Source, models-list bottom, Settings
-bottom. Unfiltered lists only on the code screen: a search narrows to the
-codes asked for, and no ad sits between a question and its answer. Unfilled
-slots emit nothing — never a blank card.
+bottom. Unfiltered lists only on the code screen. Each empty slot retries up
+to 3 times, 15s apart, then stops asking. Unfilled slots emit nothing —
+never a blank card.
 
 ---
 
@@ -158,8 +165,9 @@ deliberately and in the open, not by drift:
 - [ ] Banner visible, bottom-pinned, on Home / brands / models / codes / Saved / Settings; content never shifts when it loads late or fails.
 - [ ] Airplane mode: every answer works, banners are empty slots, 4th save shows the needs-connection popup, first 3 saves work.
 - [ ] Star 3 codes free; 4th shows the wall popup with both buttons working; "Watch ad" (test ad) → save writes; mid-watch kill → save forgiven.
-- [ ] App open on cold start (test creative) and on return from background; never over an interstitial/rewarded.
-- [ ] Exit back on Home → interstitial (test) → app closes. Browse tab from deep → interstitial → Home.
+- [ ] App open on cold start (test creative) and on return from background; never over an interstitial/rewarded; never on rotation.
+- [ ] Back out of a finished code → interstitial (test) at most every 2nd time, then the list. Exit back on Home → NO ad, app closes.
+- [ ] Browse tab from deep → interstitial under the same budget → Home.
 - [ ] Native validator: zero issues on all four spots (test ads show the validator notification).
 - [ ] Dark mode on every ad-bearing screen; font 1.3; UR labels still English.
 - [ ] `dumpsys package` shows nothing outside the PERMISSIONS.md §1 set.

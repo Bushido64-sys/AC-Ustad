@@ -3,6 +3,8 @@ package com.acustad.app.ads
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 
 /**
  * Shows the app-open ad whenever the app comes to the foreground.
@@ -27,6 +29,16 @@ class AppOpenManager(private val app: Application) : Application.ActivityLifecyc
      * the one the start transition just showed.
      */
     private var shownThisForeground = false
+
+    /**
+     * Whether the cold-start delayed retry was posted. One shot per process:
+     * the retry exists because the preload is still in flight at the first
+     * foreground, not as a timer that loads ads on a schedule (timer-driven
+     * loads are a policy smell — this fires once, 3s after the first resume,
+     * and only if nothing showed).
+     */
+    private var coldRetryPosted = false
+    private val handler = Handler(Looper.getMainLooper())
 
     /**
      * When the app last went to the background, 0 on a fresh process. A
@@ -61,6 +73,23 @@ class AppOpenManager(private val app: Application) : Application.ActivityLifecyc
         ) {
             if (AdsManager.tryShowAppOpen(activity)) {
                 shownThisForeground = true
+            } else if (lastBackgroundAt == 0L && !coldRetryPosted) {
+                // Cold start and the preload is still flying: one delayed
+                // attempt 3s later, when it has usually landed. Fresh process
+                // only — returns already had their start-transition attempt.
+                coldRetryPosted = true
+                handler.postDelayed(
+                    {
+                        if (!shownThisForeground && !AdsManager.fullscreenShowing &&
+                            !activity.isFinishing && !activity.isDestroyed
+                        ) {
+                            if (AdsManager.tryShowAppOpen(activity)) {
+                                shownThisForeground = true
+                            }
+                        }
+                    },
+                    COLD_RETRY_MS,
+                )
             }
         }
     }
@@ -82,6 +111,7 @@ class AppOpenManager(private val app: Application) : Application.ActivityLifecyc
 
     companion object {
         internal const val MIN_BACKGROUND_MS = 10_000L
+        private const val COLD_RETRY_MS = 3_000L
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) = Unit

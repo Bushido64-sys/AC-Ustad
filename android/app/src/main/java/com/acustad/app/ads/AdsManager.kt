@@ -121,10 +121,28 @@ object AdsManager {
     }
 
     /**
-     * Shows the exit / return-to-top interstitial. [onDone] runs on every
-     * path — shown, capped, missing or failed — so callers never hang.
+     * Shows an interstitial for a back-navigation (detail → list, deep path
+     * → top level). [onDone] runs on every path — shown or skipped — so the
+     * navigation underneath always completes.
+     *
+     * Two gates, both from Google's interstitial policy, and both must pass:
+     *
+     *  - **every second back-navigation.** No more than one interstitial per
+     *    two user actions — showing after every single back tap is a listed
+     *    violation, and it explicitly covers the Back button.
+     *  - **the time cap** ([INTERSTITIAL_CAP_MS]).
+     *
+     * There is deliberately NO exit path: interstitials on app exit are
+     * banned outright ("User exits app" is the disallowed example), with ad
+     * serving disabled as the penalty. The exit BackHandler finishes the
+     * activity with no ad, always.
      */
-    fun showInterstitial(activity: Activity, onDone: () -> Unit) {
+    fun showInterstitialForBack(activity: Activity, onDone: () -> Unit) {
+        backNavCount++
+        if (backNavCount % 2 != 0) {
+            onDone()
+            return
+        }
         val ad = interstitial
         if (ad == null) {
             runCatching { preloadInterstitial(activity) }
@@ -315,8 +333,11 @@ object AdsManager {
 
     private const val PREFS_NAME = "ac-ustad-ads"
 
-    /** Three minutes between interstitials: exit and return-to-top never stack. */
-    internal const val INTERSTITIAL_CAP_MS = 3 * 60 * 1000L
+    /** 90 seconds between interstitials: two back-to-back breaks never stack. */
+    internal const val INTERSTITIAL_CAP_MS = 90 * 1000L
+
+    /** Back-navigations since process start. The show budget is every 2nd. */
+    private var backNavCount = 0
 
     private const val KEY_LAST_INTERSTITIAL = "last_interstitial"
 }

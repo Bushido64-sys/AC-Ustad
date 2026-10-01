@@ -12,6 +12,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -136,6 +137,22 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
         if (backStackEntry != null) savedViewModel.reload()
     }
 
+    /**
+     * Pop with a possible interstitial first. The ad is the back-navigation
+     * budget shared by detail-back and return-to-top (at most every 2nd back
+     * shows, 90s cap inside); the pop always completes, ad or no ad.
+     */
+    fun popWithAd(toHome: Boolean) {
+        val act = activity
+        if (act == null) {
+            if (toHome) nav.popBackStack(Routes.HOME, inclusive = false) else nav.popBackStack()
+            return
+        }
+        AdsManager.showInterstitialForBack(act) {
+            if (toHome) nav.popBackStack(Routes.HOME, inclusive = false) else nav.popBackStack()
+        }
+    }
+
     Surface(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
@@ -158,14 +175,12 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
                     .padding(PaddingValues(horizontal = 16.dp, vertical = 8.dp)),
             ) {
                 composable(Routes.HOME) {
-                    // Leaving the app through the system back button: one
-                    // interstitial (cap-gated inside), then the activity
-                    // finishes. Nothing to save, nothing to confirm — the
-                    // ad is the whole stop. (ADS.md)
+                    // Leaving the app through the system back button finishes
+                    // with NO ad: interstitials on app exit are banned outright
+                    // ("User exits app" is the disallowed example), with ad
+                    // serving disabled as the penalty. (ADS.md)
                     BackHandler(enabled = activity != null) {
-                        activity?.let {
-                            AdsManager.showInterstitial(it) { it.finish() }
-                        }
+                        activity?.finish()
                     }
                     HomeScreen(onCategoryClick = { nav.navigate(Routes.brands(it)) })
                 }
@@ -252,10 +267,15 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
                     // cannot disagree about whether the code is saved. (trap 12's cousin — two
                     // readers of one flow is fine; two writers is not.)
                     val detailState by vm.state.collectAsStateWithLifecycle()
+                    // Back from a finished code is the highest-value break in
+                    // the app: the technician just read the answer. Arrow and
+                    // system gesture share one path — at most every 2nd back
+                    // shows, then the pop completes underneath. (ADS.md)
+                    BackHandler { popWithAd(toHome = false) }
                     ScreenWithBar(
                         title = vm.seriesName.ifBlank { stringResource(R.string.heading_code) },
                         subtitle = vm.brandName.ifBlank { null },
-                        onBack = { nav.popBackStack() },
+                        onBack = { popWithAd(toHome = false) },
                         action = {
                             StarToggle(
                                 filled = detailState.detail?.isFavourite == true,
@@ -268,12 +288,17 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
                 }
             }
 
-            // One banner for the whole app, pinned between the content and the
-            // bottom bar. It covers every screen identically — including the
-            // detail screen, where it sits below the content and never inside
-            // it — so there is one slot, one request, zero layout shift, and
-            // no per-screen wiring to forget. (ADS.md)
-            BannerAd()
+            // One banner slot for the whole app, pinned between the content and
+            // the bottom bar — but a FRESH banner per screen, not one for the
+            // session. Keying on the route destroys the old slot and loads a
+            // new request on every navigation, which is where banner
+            // impressions come from; a single session-long banner earns its
+            // one impression and then sits on refresh alone. Still exactly one
+            // banner visible at a time, still below the content and never
+            // inside it. (ADS.md)
+            key(route) {
+                BannerAd()
+            }
 
             if (route == Routes.HOME || route == Routes.SAVED || route == Routes.SETTINGS) {
                 AcUstadBottomNav(
@@ -286,17 +311,14 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
                             // second Home on top. Already on Home it is a no-op.
                             //
                             // Returning to the top level from deep in the browse path
-                            // shows one interstitial first (cap-gated inside), then
-                            // unwinds underneath the dismissed ad. (ADS.md)
+                            // counts as a back-navigation: at most every 2nd
+                            // one shows, then unwinds underneath the dismissed
+                            // ad. (ADS.md)
                             NavTab.BROWSE -> {
                                 if (route == Routes.HOME) {
                                     Unit
-                                } else if (activity != null) {
-                                    AdsManager.showInterstitial(activity) {
-                                        nav.popBackStack(Routes.HOME, inclusive = false)
-                                    }
                                 } else {
-                                    nav.popBackStack(Routes.HOME, inclusive = false)
+                                    popWithAd(toHome = true)
                                 }
                             }
                             NavTab.SAVED -> nav.navigate(Routes.SAVED) { launchSingleTop = true }
