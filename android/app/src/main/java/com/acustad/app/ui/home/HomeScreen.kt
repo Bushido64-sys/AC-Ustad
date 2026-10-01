@@ -92,7 +92,7 @@ private fun ReadyContent(
             style = UstadType.title,
         )
         Text(
-            text = stringResource(R.string.home_subtitle, state.kbVersion),
+            text = stringResource(R.string.home_subtitle),
             style = UstadType.caption,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )

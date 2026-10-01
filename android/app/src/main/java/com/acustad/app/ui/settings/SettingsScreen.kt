@@ -20,6 +20,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.acustad.app.BuildConfig
 import com.acustad.app.R
 import com.acustad.app.model.ContentLanguage
 import com.acustad.app.model.ThemeMode
@@ -30,18 +31,20 @@ import com.acustad.app.ui.common.PanelColumn
 import com.acustad.app.ui.theme.UstadType
 
 /**
- * Settings: two controls a technician sets once, and the facts about the data behind them.
- * Nothing here is a feature and nothing here is decorative. (DESIGN.md §4.7)
+ * Settings: what the app is, the two controls a technician sets once, and the facts
+ * behind them. Nothing here is a feature and nothing here is decorative. (DESIGN.md §4.7)
  *
- * The order is the argument the screen makes. The two switches come first, because they are the
- * only things here a user can act on. The data version comes next, because it is what makes them
- * worth having. Sources and About come last and read as what they are.
+ * The order is the argument the screen makes. The title names the screen, like every
+ * other screen. Preferences come first, because they are the only things here a user
+ * can act on. About comes next, carrying the one merged version line — data version
+ * from the database, app version from the package, neither typed in. Privacy and
+ * Licenses close the screen and read as what they are.
  *
  * **Plain rows, 2dp borders, no illustration, no social links** — DESIGN.md §4.7. There is no
  * rate button and no "send feedback", because there is nowhere for either to go: the app has no
  * address to send anything to, and adding one would mean adding the network that RULE 14 bans.
  *
- * Every number on this screen is read from the database at runtime. None of them is typed into
+ * Every version on this screen is read at runtime. None of them is typed into
  * `strings.xml`, because a data release would move them and a string resource would not follow.
  */
 @Composable
@@ -63,66 +66,87 @@ fun SettingsScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            LanguagePanel(language, viewModel::setLanguage)
-            ThemePanel(theme, viewModel::setTheme)
-            DataPanel(state, viewModel::load)
-            AboutPanel()
-        }
-    }
-}
-
-@Composable
-private fun LanguagePanel(
-    language: ContentLanguage,
-    onSelect: (ContentLanguage) -> Unit,
-) {
-    BorderedPanel(modifier = Modifier.fillMaxWidth()) {
-        PanelColumn {
-            ContentLanguageToggle(selected = language, onSelect = onSelect)
-        }
-    }
-}
-
-@Composable
-private fun ThemePanel(theme: ThemeMode, onSelect: (ThemeMode) -> Unit) {
-    BorderedPanel(modifier = Modifier.fillMaxWidth()) {
-        PanelColumn {
-            ChoiceGroup(
-                title = stringResource(R.string.settings_theme_title),
-                options = ThemeMode.entries,
-                selected = theme,
-                labelOf = { option ->
-                    stringResource(
-                        when (option) {
-                            ThemeMode.SYSTEM -> R.string.theme_system
-                            ThemeMode.LIGHT -> R.string.theme_light
-                            ThemeMode.DARK -> R.string.theme_dark
-                        }
-                    )
-                },
-                onSelect = onSelect,
+            Text(
+                text = stringResource(R.string.settings_title),
+                style = UstadType.title,
             )
+            PreferencesPanel(language, viewModel::setLanguage, theme, viewModel::setTheme)
+            AboutPanel(state, viewModel::load)
+            PrivacyPanel()
+            LicensesPanel()
         }
     }
 }
 
 /**
- * The data block, and the only part of this screen that can fail.
+ * The two controls a technician sets once, grouped in one panel under one heading.
  *
- * A failure is shown **in place**, as one line inside the panel, with the rest of the screen
- * untouched. Blanking Settings because a query threw would take away the language and theme
- * controls — the two things that demonstrably work — in order to report a problem with the third.
+ * They used to be two identical floating cards with no grouping, which read as stray
+ * blocks once the rest of the screen joined them. One panel, one heading, same
+ * controls — the controls themselves are unchanged.
  */
 @Composable
-private fun DataPanel(state: SettingsState, onRetry: () -> Unit) {
+private fun PreferencesPanel(
+    language: ContentLanguage,
+    onLanguage: (ContentLanguage) -> Unit,
+    theme: ThemeMode,
+    onTheme: (ThemeMode) -> Unit,
+) {
     BorderedPanel(modifier = Modifier.fillMaxWidth()) {
         PanelColumn {
-            PanelHeading(stringResource(R.string.settings_data_title))
+            PanelHeading(stringResource(R.string.settings_prefs_title))
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                ContentLanguageToggle(selected = language, onSelect = onLanguage)
+                ChoiceGroup(
+                    title = stringResource(R.string.settings_theme_title),
+                    options = ThemeMode.entries,
+                    selected = theme,
+                    labelOf = { option ->
+                        stringResource(
+                            when (option) {
+                                ThemeMode.SYSTEM -> R.string.theme_system
+                                ThemeMode.LIGHT -> R.string.theme_light
+                                ThemeMode.DARK -> R.string.theme_dark
+                            }
+                        )
+                    },
+                    onSelect = onTheme,
+                )
+            }
+        }
+    }
+}
+
+/**
+ * What this app is, what it does for you, and the one merged version line.
+ *
+ * The old Data panel is gone: it showed the data version and the build date as a
+ * block of its own, sitting between the controls and About where it belonged to
+ * neither. Its one load-bearing fact — the data version, which tells a technician
+ * whether the answers they read are current — survives as the last line here, joined
+ * with the app version. The build date is dropped everywhere: it told nobody what
+ * to do.
+ *
+ * A failed read is shown **in place**, as one line, with the rest of the screen
+ * untouched. Blanking Settings because a query threw would take away the controls
+ * that demonstrably work in order to report a problem with a version line.
+ */
+@Composable
+private fun AboutPanel(state: SettingsState, onRetry: () -> Unit) {
+    BorderedPanel(modifier = Modifier.fillMaxWidth()) {
+        PanelColumn {
+            PanelHeading(stringResource(R.string.settings_about_title))
+            Text(text = stringResource(R.string.settings_about_what), style = UstadType.caption)
+            PanelHeading(stringResource(R.string.settings_about_helps_title))
+            Text(text = stringResource(R.string.settings_about_helps_1), style = UstadType.caption)
+            Text(text = stringResource(R.string.settings_about_helps_2), style = UstadType.caption)
+            Text(text = stringResource(R.string.settings_about_helps_3), style = UstadType.caption)
+            Text(text = stringResource(R.string.settings_about_helps_4), style = UstadType.caption)
             when (state) {
                 is SettingsState.Loading -> MutedLine(stringResource(R.string.loading))
 
                 is SettingsState.Failed -> {
-                    MutedLine(stringResource(R.string.settings_data_unavailable))
+                    MutedLine(stringResource(R.string.settings_version_unavailable))
                     // A `Row`, not `Modifier.align(Alignment.Start)`.
                     //
                     // `align` is declared inside `ColumnScope`, and this lambda is the *content*
@@ -148,18 +172,13 @@ private fun DataPanel(state: SettingsState, onRetry: () -> Unit) {
                 }
 
                 is SettingsState.Ready -> {
-                    val meta = state.meta
-                    Text(
-                        text = stringResource(R.string.settings_data_version, meta.kbVersion),
-                        style = UstadType.listRow,
+                    MutedLine(
+                        stringResource(
+                            R.string.settings_about_version,
+                            state.meta.kbVersion,
+                            appVersion(),
+                        )
                     )
-                    // `built_at` is a full ISO timestamp and the design asks for the build
-                    // *date*. Only the date is shown, and only when the stored string actually
-                    // has one — see `formatBuiltDate`.
-                    val built = formatBuiltDate(meta.builtAt)
-                    if (built != null) {
-                        MutedLine(stringResource(R.string.settings_data_built, built))
-                    }
                 }
             }
         }
@@ -167,38 +186,45 @@ private fun DataPanel(state: SettingsState, onRetry: () -> Unit) {
 }
 
 /**
- * What this app is, what it does for you, and what it does not do. **Removed 2026-09-29**:
- * the coverage panel that used to sit here, and the line stating the size of the shipped
- * database.
+ * The privacy promise, in the same words as PRIVACY.md.
  *
- * Both are gone on the user's instruction and it is worth recording why that is a real change
- * rather than a cosmetic one. `PHASE_7` §6 asks Settings to show coverage "so 'my model is
- * missing' is answerable by pointing at a real gap", and the size was a factual measure of what
- * the app carries. Neither is false, but neither is what someone opens Settings to find, and a
- * screen listing 62 brands and 320 model lines in the middle of a phone is a number about the
- * app rather than a fact about their machine. The data version stays: that one tells a
- * technician whether the answers they are reading are current, which is the one data fact that
- * earns its place on this screen.
- *
- * The remaining copy introduces the app and then says what it does for the person reading it.
- * No adjectives, no claims about size or coverage, and no punctuation the copy rules ban
- * (DESIGN.md §6).
+ * True today and written so it stays true: no account, no permissions, no network,
+ * nothing uploaded. The day ads land (PHASE_10, blocked on a Play account) this
+ * panel is rewritten first — the "no network" line goes the same commit the SDK
+ * arrives, never before.
  */
 @Composable
-private fun AboutPanel() {
+private fun PrivacyPanel() {
     BorderedPanel(modifier = Modifier.fillMaxWidth()) {
         PanelColumn {
-            PanelHeading(stringResource(R.string.settings_about_title))
-            Text(text = stringResource(R.string.settings_about_what), style = UstadType.caption)
-            PanelHeading(stringResource(R.string.settings_about_helps_title))
-            Text(text = stringResource(R.string.settings_about_helps_1), style = UstadType.caption)
-            Text(text = stringResource(R.string.settings_about_helps_2), style = UstadType.caption)
-            Text(text = stringResource(R.string.settings_about_helps_3), style = UstadType.caption)
-            Text(text = stringResource(R.string.settings_about_helps_4), style = UstadType.caption)
-            Text(text = stringResource(R.string.settings_about_privacy), style = UstadType.caption)
+            PanelHeading(stringResource(R.string.settings_privacy_title))
+            Text(text = stringResource(R.string.settings_privacy_1), style = UstadType.caption)
+            Text(text = stringResource(R.string.settings_privacy_2), style = UstadType.caption)
         }
     }
 }
+
+/**
+ * Who owns the app and whose code it stands on.
+ */
+@Composable
+private fun LicensesPanel() {
+    BorderedPanel(modifier = Modifier.fillMaxWidth()) {
+        PanelColumn {
+            PanelHeading(stringResource(R.string.settings_licenses_title))
+            Text(text = stringResource(R.string.settings_licenses_app), style = UstadType.caption)
+            Text(text = stringResource(R.string.settings_licenses_oss), style = UstadType.caption)
+        }
+    }
+}
+
+/**
+ * The app version as the technician reads it: versionName and versionCode together.
+ *
+ * Both come from the build config, never typed in — a data release moves the data
+ * version above, an app release moves this one, and neither can go quietly stale.
+ */
+private fun appVersion(): String = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
 
 @Composable
 private fun PanelHeading(text: String) {
@@ -217,22 +243,3 @@ private fun MutedLine(text: String) {
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
 }
-
-/**
- * The date portion of `meta.built_at`, or null when there is not one to show.
- *
- * The stored value is a full ISO timestamp (`2026-09-28T05:48:34Z`) and DESIGN.md §4.7 asks for
- * the build **date**. `take` rather than `substring`, so a value shorter than ten characters
- * yields null instead of throwing — and the screen then omits the line rather than rendering a
- * truncated date as though it were whole. (trap 5)
- *
- * The comparison is `>=` rather than `>`, so a value that is *already* a bare `YYYY-MM-DD` is
- * passed through as-is. Requiring more than ten characters would silently drop the one format
- * that is already correct.
- */
-fun formatBuiltDate(raw: String?): String? {
-    val trimmed = raw?.trim().orEmpty()
-    return if (trimmed.length >= BUILT_DATE_LENGTH) trimmed.take(BUILT_DATE_LENGTH) else null
-}
-
-private const val BUILT_DATE_LENGTH = 10

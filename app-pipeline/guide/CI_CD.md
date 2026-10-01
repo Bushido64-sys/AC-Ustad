@@ -174,7 +174,8 @@ local emulator, so the APK only ever comes from the workflow's artifact.
    inside a model → exactly one result.
 4. Star a code, force-stop, reopen → still in Saved.
 5. Toggle EN/UR → content changes, brand and model names stay English.
-6. Settings → Data version matches the knowledge base.
+6. Settings → merged version line matches the knowledge base (`meta.kb_version`)
+   and the package (`versionName` + `versionCode`).
 
 **Report bugs as words, not stack traces.** There is no crash reporting in the app
 (RULE 14), so a plain description — "E6 on Growatt shows the Sharp fix step" — is the bug

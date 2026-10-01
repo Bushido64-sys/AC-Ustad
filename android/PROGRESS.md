@@ -29,6 +29,13 @@
 >
 > **2026-10-01 fix:** first push failed compile — `BuildConfig` is not generated on
 > AGP 8.7.3 unless asked (`buildFeatures.buildConfig = true` now set). No other change.
+>
+> **2026-10-01 — Settings rebuilt, not yet phone-checked.** Title on top; Language +
+> Theme grouped in one Preferences panel; About shortened with the merged version line
+> (`Data <kb_version> · Version <name> (<code>)`, both runtime-read); new Privacy and
+> Licenses panels matching `PRIVACY.md` + `LICENSE` at the repo root. Data block and
+> build date deleted everywhere including Home. Needs: green `build app`, then §6
+> group 4 re-run on a real phone before any ✅.
 
 > **2026-09-30 (session close) — every open phone item, confirmed by the human.** The builds
 > from this session were installed and tested, and at close the human's instruction was that
@@ -609,17 +616,21 @@ called done.
 19. The bar has **three** tabs — Browse, Saved, Settings — and the Settings tab opens the
     Settings screen. Only Saved has an icon; Browse and Settings are text with the icon slot
     reserved, and all three labels sit on one baseline.
-20. **Settings** shows, in order: Language, Theme, a data block reading **Version 2026-09-26** and
-    a build date of **2026-09-28**, then About. About introduces the app and then says what it
+20. **Settings** shows, in order: title, Preferences (Language + Theme in one panel),
+    About ending in the merged version line **Data 2026-09-26 · Version 1.0.0 (2)**,
+    Privacy, Licenses. About introduces the app and then says what it
     does for the reader. **Revised 2026-09-29:** the Sources panel and the database-size line
-    were removed on the user's instruction, so this check no longer expects them — see §8. What
-    must still be true is that the data block survives the removal, and that About contains no
-    claim about size, coverage or brand count.
-21. **The data version is read from the database, not typed in.** It must match the version Home
-    shows in its subtitle, and both must match `meta.kb_version`. A number that is a literal in
-    `strings.xml` rather than a query is exactly the kind of claim this project has been wrong
-    about before — and the size line that used to sit below it was removed precisely because it
-    was a second number to keep honest.
+    were removed on the user's instruction, so this check no longer expects them — see §8.
+    **Revised 2026-10-01:** the Data block is gone with them — its fact survives as the
+    merged line, the build date is dropped everywhere, and Home no longer shows a date.
+    What must still be true is that the merged line survives every removal, and that About
+    contains no claim about size, coverage or brand count.
+21. **The data version is read from the database, not typed in, and so is the app
+    version.** The merged line's data half must match `meta.kb_version`; its app half
+    must match the package (`versionName` + `versionCode`). Home shows no date. A number
+    that is a literal in `strings.xml` rather than a query is exactly the kind of claim
+    this project has been wrong about before — and the size line that used to sit below it
+    was removed precisely because it was a second number to keep honest.
 22. **Theme → Dark.** The whole app repaints immediately, including the already-visible Home and
     Saved screens — a partial re-theme means the value was not read from the shared repository.
 23. **Theme → Light** while the *phone* is in dark mode. The app stays light: an explicit choice
@@ -627,9 +638,10 @@ called done.
 24. **Theme → System** and flip the phone's system theme. The app follows.
 25. Pull a stored theme by setting Light, then **browse away and back**: Settings still reads
     Light, and the tab's selected state is right.
-26. The Settings screen in **UR** is still **English in its labels** — "Theme", "System", "Data"
-    do not change. Only code content changes. (RULE 13)
-27. Airplane mode: Settings opens and shows the data block. Nothing on it needs a network.
+26. The Settings screen in **UR** is still **English in its labels** — "Theme", "System",
+    "Preferences", "Privacy", "Licenses" do not change. Only code content changes. (RULE 13)
+27. Airplane mode: Settings opens and shows every panel including the merged version line.
+    Nothing on it needs a network.
 
 **Group 5 — Phase 11, the visual pass. Reported passing on the phone 2026-09-30, and re-run at
 session close with check 34 confirmed on the build carrying trap 24 — no muted text on a raised

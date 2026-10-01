@@ -226,9 +226,10 @@ Order is fixed by product decision: **the technician wants the action, not the e
 - Write only to `favourites` (RULE 5).
 
 ### 4.7 Settings
-Language (EN / UR — content only, per RULE 13) · Theme (System / Light / Dark) · Data version
-from `meta.kb_version` + `meta.built_at` · About. Plain rows, 2dp borders, no illustration, no
-social links.
+Title · Preferences (Language EN / UR content-only per RULE 13, Theme System / Light /
+Dark, one panel under one heading) · About (short, plus the merged version line:
+data version from `meta.kb_version` + app version from the package) · Privacy ·
+Licenses. Plain rows, 2dp borders, no illustration, no social links.
 
 **Revised 2026-09-29, and it is a deliberate override rather than an omission.** The original
 list ended `… + meta.built_at` · Sources · About`, and two items are gone:
@@ -246,6 +247,15 @@ list ended `… + meta.built_at` · Sources · About`, and two items are gone:
 The **data version stays**: it is the single fact on this screen that tells a technician whether
 the answers they are reading right now are current. That is the standard every item here is now
 held to — *does this change what the user does?* — and coverage and file size failed it.
+
+**Revised 2026-10-01: the Data block is gone, the version line is not.** The block showed
+the data version and the build date sitting between the controls and About, belonging to
+neither. Its fact survives as one merged line at the end of About —
+`Data <kb_version> · Version <versionName> (<versionCode>)` — both read at runtime,
+neither typed in. The build date is dropped everywhere: it told nobody what to do.
+Home drops the date the same day. Privacy and Licenses join as panels with the same
+standard applied: Privacy states the no-account, no-permission, no-network promise
+out loud; Licenses names the app copyright and the third-party licenses.
 
 ## 5. Motion
 120–180ms, `FastOutSlowIn` for the panel press, nothing else. No shared-element transitions,
