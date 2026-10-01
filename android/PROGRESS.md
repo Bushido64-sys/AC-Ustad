@@ -26,6 +26,9 @@
 > `@Immutable` models, 180ms debounce). `check_app_sql.py` passes (79 assertions),
 > asset counts verified 62/320/4418. Needs: green `build app` on main, then the
 > §6 full re-run + PHASE_9 §5 checklist on a real phone before any ✅.
+>
+> **2026-10-01 fix:** first push failed compile — `BuildConfig` is not generated on
+> AGP 8.7.3 unless asked (`buildFeatures.buildConfig = true` now set). No other change.
 
 > **2026-09-30 (session close) — every open phone item, confirmed by the human.** The builds
 > from this session were installed and tested, and at close the human's instruction was that

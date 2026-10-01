@@ -48,6 +48,9 @@ android {
 
     buildFeatures {
         compose = true
+        // AGP 8+ does not generate BuildConfig unless asked. UstadApp reads
+        // BuildConfig.DEBUG for its debug-only StrictMode (PHASE_9 §2).
+        buildConfig = true
     }
 
     packaging {
