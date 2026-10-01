@@ -81,15 +81,16 @@ no italics, no letter-spacing changes, no justified text, no all-caps for body.
 severity/confidence words. UI labels, brand names and model names stay English.
 *Why:* a technician reads brands and models in English; the content is what needs Roman Urdu.
 
-## RULE 14 — Two permissions for the ads, network for Google's ad servers only, nothing else
-The app declares **exactly two permissions, `INTERNET` and `ACCESS_NETWORK_STATE`,
-merged in by the AdMob SDK's own manifest and never typed** — and makes **no network
-call of its own**. No accounts, no login, no analytics, no crash reporting, no uploads.
+## RULE 14 — Three permissions for the ads, network for Google's ad servers only, nothing else
+The app declares **exactly three permissions — `INTERNET`, `ACCESS_NETWORK_STATE` and
+`com.google.android.gms.permission.AD_ID` (Advertising ID) — merged in by the AdMob SDK's
+own manifest and never typed** — and makes **no network call of its own**. No accounts,
+no login, no analytics, no crash reporting, no uploads.
 Everything the knowledge base needs is in the bundled database.
 *Why:* the app must work in a basement with no signal, and the only network traffic
 a technician's phone should ever carry for this app is the ads that keep it free.
-The two permissions are a recorded decision (ADS.md), not drift — and the CI gates
-fail the build on any third permission or any non-ads network library.
+The three permissions are a recorded decision (ADS.md), not drift — and the CI gates
+fail the build on any fourth permission or any non-ads network library.
 
 ## RULE 15 — Offline is the only mode
 No "you appear to be offline" state exists, because there is no online state. Do not build

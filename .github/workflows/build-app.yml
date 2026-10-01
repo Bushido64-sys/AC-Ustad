@@ -150,11 +150,12 @@ jobs:
           set -uo pipefail
           # RULE 14. The app must ship with nothing beyond what the ads need.
           #
-          # Three entries are allowed and all three are injected, none typed:
+          # Four entries are allowed and all four are injected, none typed:
           # com.acustad.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION is the AGP
-          # self-permission (signature-level, grants nothing), and INTERNET plus
-          # ACCESS_NETWORK_STATE are merged in by the AdMob SDK's own manifest
-          # for Google's ad servers (ADS.md). Everything else is a failure.
+          # self-permission (signature-level, grants nothing); INTERNET,
+          # ACCESS_NETWORK_STATE and com.google.android.gms.permission.AD_ID are
+          # merged in by the AdMob SDK's own manifest for Google's ad servers
+          # (ADS.md). Everything else is a failure.
           #
           # The grep matches 'uses-permission android:name=' rather than 'uses-permission' so
           # that the explanatory comments in the source manifest cannot trigger it.
@@ -168,13 +169,14 @@ jobs:
           FOUND=$(grep -o 'uses-permission android:name="[^"]*"' "$MANIFEST" | sort -u || true)
           echo "permissions in the merged manifest:"
           echo "${FOUND:-  (none)}"
-          BAD=$(echo "$FOUND" | grep -v -e "android:name=\"$ALLOWED_SELF\"" -e 'android:name="android.permission.INTERNET"' -e 'android:name="android.permission.ACCESS_NETWORK_STATE"' || true)
+          BAD=$(echo "$FOUND" | grep -v -e "android:name=\"$ALLOWED_SELF\"" -e 'android:name="android.permission.INTERNET"' -e 'android:name="android.permission.ACCESS_NETWORK_STATE"' -e 'android:name="com.google.android.gms.permission.AD_ID"' || true)
           if [ -n "$BAD" ]; then
-            echo "::error::the app must not request any permission beyond the two the ads need (PERMISSIONS.md)"
+            CLEAN=$(echo "$BAD" | head -c 200 | tr '\n' ' ')
+            echo "::error::the app must not request any permission beyond the three the ads need (PERMISSIONS.md): $CLEAN"
             echo "$BAD"
             exit 1
           fi
-          echo "only the AGP self-permission and the two ads permissions - OK"
+          echo "only the AGP self-permission and the three ads permissions - OK"
 
       - name: The APK contains no network, ads or analytics library
         run: |

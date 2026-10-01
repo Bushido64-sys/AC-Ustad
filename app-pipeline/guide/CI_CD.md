@@ -56,7 +56,7 @@ jobs:
 
       - name: The app requests only what the ads need
         run: |
-          # fails the build if any permission beyond the two the ads need slipped
+          # fails the build if any permission beyond the three the ads need slipped
           # in (PERMISSIONS.md). See build-app.yml for the real thing.
 
       - name: The APK contains no network client but the ads SDK
@@ -93,12 +93,12 @@ jobs:
 | `sha256sum` vs manifest | the APK ships a database that is not the validated one |
 | `lintDebug` | unused resources, a missing `contentDescription`, a hard-coded string |
 | `testDebug` | the 2139-string search crash suite (`TESTING.md` §3) |
-| no `uses-permission` beyond the two the ads need | a dependency or a copy-paste added a third permission |
+| no `uses-permission` beyond the three the ads need | a dependency or a copy-paste added a fourth permission |
 | no HTTP class in the APK outside `gms/` + `ump/` | a second network client got added "just for later" |
 | `gms/` + `ump/` present and noticed | the ads SDK arriving or leaving without anyone recording it |
 
 The last three are the unusual ones, and they are the point: the app's network
-promise — **two permissions for the ads, Google's servers and nobody else** — is
+promise — **three permissions for the ads, Google's servers and nobody else** — is
 the easiest thing to break by accident, so it is enforced by the build rather
 than by memory.
 

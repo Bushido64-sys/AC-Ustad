@@ -28,8 +28,8 @@ All of it lives on your phone. Uninstalling the app removes it.
 
 ## Permissions
 
-The app uses exactly two, both for the ads: `INTERNET` and
-`ACCESS_NETWORK_STATE`. Nothing else is requested.
+The app uses exactly three, all for the ads: `INTERNET`,
+`ACCESS_NETWORK_STATE` and the Advertising ID. Nothing else is requested.
 
 ## What stays on your phone
 
