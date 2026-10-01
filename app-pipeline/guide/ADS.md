@@ -49,8 +49,12 @@ without warning.
   exception. The pool refuses late callbacks after dispose, so a screen that
   left cannot be crashed by an ad arriving for it.
 - `AppOpenManager` registers activity callbacks in `UstadApp` and shows on
-  every 0 → 1 foreground transition. `AdsManager.fullscreenShowing` refuses
-  while another full-screen ad is up, so formats never stack.
+  foreground transitions — with two guards of its own: one ad per foreground
+  visit (the resume retry never stacks on the start-transition show), and a
+  10s background floor (a rotation flickers through the background in under a
+  second and must never pop an ad). The resume retry is the cold-start second
+  chance: the preload fires milliseconds before the first start, so the ad is
+  routinely still loading when the start transition runs.
 - Preloads: interstitial + rewarded at init, app-open after consent, banners
   and natives per placement. Every show path ends in its callback — shown,
   capped, missing or failed — so callers never hang.

@@ -254,10 +254,22 @@ object AdsManager {
      * showing. Silent on every other path — cold start must never wait.
      */
     fun showAppOpenIfReady(activity: Activity) {
-        if (fullscreenShowing) return
+        tryShowAppOpen(activity)
+    }
+
+    /**
+     * Like [showAppOpenIfReady], but reports whether anything showed. The
+     * app-open manager uses it to retry on resume: the cold-start preload is
+     * still in flight at the first foreground ([preloadAppOpen] fires in
+     * `UstadApp.onCreate`, milliseconds before the first activity starts), so
+     * without a second attempt the launch ad would only ever appear on the
+     * *second* foreground.
+     */
+    internal fun tryShowAppOpen(activity: Activity): Boolean {
+        if (fullscreenShowing) return false
         val ad = appOpen ?: run {
             runCatching { preloadAppOpen(activity) }
-            return
+            return false
         }
         appOpen = null
         fullscreenShowing = true
@@ -272,11 +284,14 @@ object AdsManager {
                 runCatching { preloadAppOpen(activity) }
             }
         }
-        runCatching {
+        return runCatching {
             ad.show(activity)
-        }.onFailure {
-            fullscreenShowing = false
-            runCatching { preloadAppOpen(activity) }
+            true
+        }.getOrDefault(false).also { shown ->
+            if (!shown) {
+                fullscreenShowing = false
+                runCatching { preloadAppOpen(activity) }
+            }
         }
     }
 

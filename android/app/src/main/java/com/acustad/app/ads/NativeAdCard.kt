@@ -21,6 +21,9 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.acustad.app.R
 import com.acustad.app.ui.common.BorderedRow
 import com.acustad.app.ui.theme.UstadType
@@ -96,10 +99,23 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
 @Composable
 fun rememberNativeAdPool(size: Int = 3): NativeAdPool {
     val context = LocalContext.current
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
     val pool = remember { NativeAdPool(context, size) }
-    DisposableEffect(pool) {
+    DisposableEffect(pool, lifecycle) {
         pool.load()
-        onDispose { pool.destroy() }
+        // Second chance for empty slots: the first load fires while MobileAds
+        // is still initialising, so early failures are routine rather than
+        // final. Resume retries only the slots that stayed empty.
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                runCatching { pool.load() }
+            }
+        }
+        lifecycle.addObserver(observer)
+        onDispose {
+            lifecycle.removeObserver(observer)
+            pool.destroy()
+        }
     }
     return pool
 }
