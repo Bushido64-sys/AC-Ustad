@@ -15,6 +15,15 @@
 > on `main`, and the working tree is clean. (A commit hash is deliberately not written here:
 > the last time one was, it was stale by two commits within a day.)
 >
+> **2026-10-01 — native no-fill fix (phone-reported, untested).** All four
+> native spots showed no card at all. Cause: `NativeAdPool` built `AdLoader`
+> with the application context — native MediaView/AdChoices need the Activity
+> context, so loads silently never filled; failures were also unlogged. Fixed:
+> Activity context for the Builder, `Log.d/w` on load/fill/fail (read via
+> `adb logcat -s NativeAdPool`), pool keyed on context+size. Needs: green
+> `build app` on main, then ADS.md §7 natives on a real phone (Dawlance Splits,
+> 41 codes, search empty, 45s wait).
+>
 > **2026-10-01 — ads crash audit + hardening (phone-reported).** Tapping a brand
 > or Settings crashed the app, and no ad showed on startup. Audit found: (1) a
 > destroy-race in `NativeAdPool` — late SDK callbacks indexing a cleared list;

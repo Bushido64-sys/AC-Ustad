@@ -3,6 +3,7 @@ package com.acustad.app.ads
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -49,7 +50,13 @@ import com.google.android.gms.ads.nativead.NativeAdView
  */
 class NativeAdPool(context: Context, private val size: Int = 3) {
 
-    private val appContext = context.applicationContext
+    // AdLoader needs an Activity context, not the application context: the
+    // native template inflates MediaView + AdChoices overlay into the
+    // activity window, and loads issued from the application context
+    // silently never fill on-device (empty slots on all four placements).
+    // Keep the Activity reference only for the Builder call below, never
+    // beyond the pool lifetime (destroyed on dispose).
+    private val adContext: Context = context
     val ads = mutableStateListOf<NativeAd?>().apply { repeat(size) { add(null) } }
 
     /**
@@ -81,13 +88,22 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
 
     private fun loadOne(index: Int) {
         runCatching {
-            com.google.android.gms.ads.AdLoader.Builder(appContext, AdIds.native)
+            com.google.android.gms.ads.AdLoader.Builder(adContext, AdIds.native)
                 .forNativeAd { ad ->
-                    if (!destroyed && index < ads.size) ads[index] = ad
-                    else ad.destroy()
+                    if (!destroyed && index < ads.size) {
+                        ads[index] = ad
+                        Log.d(TAG, "native loaded slot=$index")
+                    } else {
+                        ad.destroy()
+                    }
                 }
                 .withAdListener(object : AdListener() {
                     override fun onAdFailedToLoad(error: LoadAdError) {
+                        Log.w(
+                            TAG,
+                            "native failed slot=$index code=${error.code} " +
+                                "domain=${error.domain} msg=${error.message}",
+                        )
                         if (destroyed || index >= ads.size) return
                         ads[index] = null
                         val attempts = (retries[index] ?: 0) + 1
@@ -107,6 +123,8 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
                 .withNativeAdOptions(NativeAdOptions.Builder().build())
                 .build()
                 .loadAd(AdRequest.Builder().build())
+        }.onFailure {
+            Log.w(TAG, "native load threw slot=$index", it)
         }
     }
 
@@ -121,6 +139,7 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     }
 
     companion object {
+        private const val TAG = "NativeAdPool"
         private const val MAX_RETRIES = 3
         private const val RETRY_MS = 15_000L
     }
@@ -130,7 +149,7 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
 fun rememberNativeAdPool(size: Int = 3): NativeAdPool {
     val context = LocalContext.current
     val lifecycle = LocalLifecycleOwner.current.lifecycle
-    val pool = remember { NativeAdPool(context, size) }
+    val pool = remember(context, size) { NativeAdPool(context, size) }
     DisposableEffect(pool, lifecycle) {
         pool.load()
         // Second chance for empty slots: the first load fires while MobileAds
