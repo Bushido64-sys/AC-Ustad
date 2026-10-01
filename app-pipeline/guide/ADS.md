@@ -33,9 +33,11 @@ without warning.
 
 ## 2. How it is wired
 
-- SDK: `play-services-ads` 25.5.0 (legacy; Next-Gen migration is §8) + UMP
-  3.1.0, via the version catalog. The SDK ships its own R8 rules; nothing
-  extra was needed.
+- SDK: `play-services-ads` 23.6.0 (legacy; Next-Gen migration is §8) + UMP
+  3.1.0, via the version catalog. 25.x was tried and reverted: its bundled
+  Kotlin modules carry newer metadata than the project's Kotlin 2.0.21 reads,
+  and `compileDebugKotlin` fails on every one of them. 23.6.0 has every format
+  this file needs. The SDK ships its own R8 rules; nothing extra was needed.
 - `AdsManager` (`ui/ads/`) is the only door to the SDK. Screens never import
   GMA classes. Init once, after the UMP consent flow, from `MainActivity`;
   the content renders regardless and nothing blocks the first frame.
