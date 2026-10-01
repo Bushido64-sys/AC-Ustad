@@ -1,9 +1,11 @@
-# PERMISSIONS.md — the app asks for three, for the ads, and nothing else
+# PERMISSIONS.md — only what the ads need, and nothing else
 
-**The source manifest declares zero permissions. The merged manifest carries exactly
-three, and all three arrive with the AdMob SDK: `INTERNET`, `ACCESS_NETWORK_STATE`
-and `com.google.android.gms.permission.AD_ID` (Advertising ID), for Google's ad
-servers and nothing else. That is a decision (ADS.md), not drift.**
+**The source manifest declares zero permissions. The merged manifest carries only
+what the AdMob SDK merges in: `INTERNET`, `ACCESS_NETWORK_STATE`,
+`com.google.android.gms.permission.AD_ID` and the
+`android.permission.ACCESS_ADSERVICES_*` family (Topics, attribution — the Privacy
+Sandbox APIs the SDK measures and targets with), for Google's ad servers and
+nothing else. That is a decision (ADS.md), not drift.**
 
 ---
 
@@ -54,9 +56,10 @@ the app defines for itself**, so that `registerReceiver` is safe on Android 13+ 
 `RECEIVER_EXPORTED`. It grants the app access to nothing, is never shown to a user, and does
 not appear in the installed-app permission list in a form that means anything to a technician.
 
-The CI gate in `CI_CD.md` therefore allows four names — the AGP self-permission
-plus `INTERNET`, `ACCESS_NETWORK_STATE` and `AD_ID` — and fails on every other. If you see
-a fourth permission, something genuinely wrong was added.
+The CI gate in `CI_CD.md` therefore allows the AGP self-permission, `INTERNET`,
+`ACCESS_NETWORK_STATE`, `AD_ID` and the `ACCESS_ADSERVICES_*` family — and fails on
+everything else. If you see anything outside that set, something genuinely wrong
+was added.
 
 ## 2. Why everything else stays out
 
@@ -85,18 +88,18 @@ a fourth permission, something genuinely wrong was added.
 ## 4. How to verify (do this, do not assume)
 
 ```bash
-# installed permissions must be exactly the three the ads need
-adb shell dumpsys package com.acustad.app | grep -A5 "requested permissions"
+# installed permissions must be exactly what the ads need (dumpsys lists them
+# individually, including each ACCESS_ADSERVICES_* member)
+adb shell dumpsys package com.acustad.app | grep -A8 "requested permissions"
 
 # the SOURCE manifest must contain no uses-permission (the merged one carries
-# the three the SDK brings — see §1)
+# what the SDK brings — see §1)
 grep -i "uses-permission" app/src/main/AndroidManifest.xml
 ```
 
-The first must show `INTERNET`, `ACCESS_NETWORK_STATE` and `AD_ID` and nothing
-else; the
+The first must show nothing outside the §1 set; the
 second must return nothing. Put both in `CI_CD.md` so a dependency that quietly
-adds a fourth permission fails the build instead of shipping.
+adds anything else fails the build instead of shipping.
 
 ## 5. If you ever think you need one
 

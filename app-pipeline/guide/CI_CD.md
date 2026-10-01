@@ -98,7 +98,7 @@ jobs:
 | `gms/` + `ump/` present and noticed | the ads SDK arriving or leaving without anyone recording it |
 
 The last three are the unusual ones, and they are the point: the app's network
-promise — **three permissions for the ads, Google's servers and nobody else** — is
+promise — **only what the ads need, Google's servers and nobody else** — is
 the easiest thing to break by accident, so it is enforced by the build rather
 than by memory.
 

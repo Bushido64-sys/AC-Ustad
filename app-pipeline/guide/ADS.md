@@ -135,7 +135,7 @@ deliberately and in the open, not by drift:
 
 | Gate | Change |
 |---|---|
-| permissions | allows AGP self-permission + INTERNET + ACCESS_NETWORK_STATE + AD_ID, fails on any other |
+| permissions | allows AGP self-permission + INTERNET + ACCESS_NETWORK_STATE + AD_ID + ACCESS_ADSERVICES_* family, fails on anything else |
 | network/ads library | `gms/ads` + `gms/` + `ump/` moved from hard-fail to known-allowed-with-notice; okhttp, retrofit, apache-http, facebook-ads, firebase, rxjava, crashlytics, sentry still hard-fail |
 | APK size | unchanged (25 MB ceiling; SDK adds ~2 MB) |
 | compile + lint + tests | unchanged; `AdsLogicTest` pins the wall count and slot math |
@@ -151,7 +151,7 @@ deliberately and in the open, not by drift:
 - [ ] Exit back on Home → interstitial (test) → app closes. Browse tab from deep → interstitial → Home.
 - [ ] Native validator: zero issues on all four spots (test ads show the validator notification).
 - [ ] Dark mode on every ad-bearing screen; font 1.3; UR labels still English.
-- [ ] `dumpsys package` shows exactly INTERNET + ACCESS_NETWORK_STATE + AD_ID beyond the AGP self-permission.
+- [ ] `dumpsys package` shows nothing outside the PERMISSIONS.md §1 set.
 
 ---
 
