@@ -262,7 +262,7 @@ jobs:
           # The hard-fail above names the pattern, not the class. This lists what
           # is actually there, so the next decision is made from evidence rather
           # than from guessing which transitive dependency brought it.
-          MATCHES=$(grep -o 'Lcom/google/firebase/[a-z]*/' "$WORK/all.strings" | sort -u | head -12 | tr '\n' ' ')
+          MATCHES=$(grep -o 'Lcom/google/firebase/[a-z]*/' "$WORK/all.strings" | sort -u | head -12 | tr '\n' ' ' || true)
           echo "::notice file=build-app.yml,title=Firebase descriptors in the APK::${MATCHES:-none found}"
 
           # ── report only ──
