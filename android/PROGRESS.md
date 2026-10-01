@@ -2,7 +2,7 @@
 
 **Read this first when resuming.** Last updated: 2026-10-01
 
-> **Where we are:** Phases 1–8 and 11 are built and phone-checked, and **Phase 5's search work
+> **Where we are:** Phases 1–9 and 11 are built and phone-checked, and **Phase 5's search work
 > is finished and confirmed on the phone at this session's close (2026-09-30)**: free text
 > reaches the descriptions (trap 25), the loose title step answers words apart, the empty state
 > says what was searched, a device without FTS5 still finds every word (trap 26), and the
@@ -15,8 +15,13 @@
 > on `main`, and the working tree is clean. (A commit hash is deliberately not written here:
 > the last time one was, it was stale by two commits within a day.)
 >
-> **Next in §7 is Phase 9** — release signing, the performance pass and the pre-release
-> checklist. Phase 10 stays blocked on a Play developer account.
+> **Next in §7 is Phase 10** — and it is **blocked on a Play developer account**,
+> so nothing is next until that exists. Phase 9 is ✅ (see below).
+>
+> **2026-10-01 — Phase 9 phone-checked, ✅.** The human installed the build and
+> confirmed it good: install-over works, airplane mode full, dark/light/system,
+> font 1.3 clean, no permissions, EN/UR correct, favourite survives restart.
+> The §6 full re-run passes on this build.
 >
 > **2026-10-01 — Phase 9 built, not yet phone-checked.** StrictMode (debug-only,
 > penaltyLog) in UstadApp, release R8 on (`minifyEnabled` + `shrinkResources`, Log
@@ -30,12 +35,11 @@
 > **2026-10-01 fix:** first push failed compile — `BuildConfig` is not generated on
 > AGP 8.7.3 unless asked (`buildFeatures.buildConfig = true` now set). No other change.
 >
-> **2026-10-01 — Settings rebuilt, not yet phone-checked.** Title on top; Language +
-> Theme grouped in one Preferences panel; About shortened with the merged version line
-> (`Data <kb_version> · Version <name> (<code>)`, both runtime-read); new Privacy and
-> Licenses panels matching `PRIVACY.md` + `LICENSE` at the repo root. Data block and
-> build date deleted everywhere including Home. Needs: green `build app`, then §6
-> group 4 re-run on a real phone before any ✅.
+> **2026-10-01 — Settings rebuild phone-checked, ✅.** The human confirmed the new
+> screen good and well built: title on top, Preferences grouped, About shortened with
+> the merged version line reading true values, Privacy and Licenses panels in place.
+> §6 group 4 re-run passes on this build (order, merged line, UR labels English,
+> airplane, themes, font 1.3).
 
 > **2026-09-30 (session close) — every open phone item, confirmed by the human.** The builds
 > from this session were installed and tested, and at close the human's instruction was that
@@ -158,7 +162,7 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 6 · Saved screen | ✅ phone-checked 2026-09-29 | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
 | 7 · Offline & updates | ✅ | **Trap 16 fixed** — a new APK always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and **five** CI gates now enforce them, including the network/ads gate that used to be documented and not written (trap 23) |
 | 8 · Accessibility & Roman Urdu | ✅ phone-checked 2026-09-29 | The EN/UR toggle works, persists and is partial-toggle-safe. **Settings + the theme override are built and passed the §6 group-4 checks**, including the trap-22 Light-mode fix. **The font-scale / TalkBack pass ran on the device 2026-09-29** (§7 item 4: font scale 1.0 / 1.15 / 1.3, TalkBack reading a code end to end, longest content in both languages) and passed |
-| 9 · Hardening & release | 🛠 built 2026-10-01, needs phone checklist | StrictMode debug-only, release R8 on + Log stripped, versionCode 2. Perf/stability wins already held. Green CI + §6 re-run + PHASE_9 §5 checklist still required before ✅ |
+| 9 · Hardening & release | ✅ phone-checked 2026-10-01 | StrictMode debug-only, release R8 on + Log stripped, versionCode 2. Perf/stability wins already held. CI green, §6 re-run + PHASE_9 §5 checklist passed on a real phone. |
 | 11 · UI/UX | ✅ **phone-checked 2026-09-30** | **Built 2026-09-29, steps 1–6 of the guide's 7; §6 group 5 (28–37) reported passing on the phone 2026-09-30, and check 34 confirmed on the build carrying trap 24 at this session's close.** `BorderedPanel` and `BorderedRow` were passing `Color.Transparent`; both now fill with `surface`, and the new `RaisedPanel` (level 2, `surfaceVariant`) is on the detail screen's meaning and source line where `DESIGN.md` §4.5 already said *raised*. `R.dimen` went from **zero uses to four**, so the token file is load-bearing rather than decorative. **Zero new colours.** **Also built in the same pass, all from `PHASE_11_UI_UX.md`:**
    - **The star moved into the app bar** (§6 #1, and the one the guide calls important).
      `AcUstadAppBar` had **no action slot at all**; it has exactly one now, and the star is
@@ -672,8 +676,8 @@ building on them.
 
 ## 7. Do these next, in this order
 
-> **Next is item 5 — Phase 9.** Items 1–4 are all closed (item 1 closed 2026-09-30), so the
-> first *open* item in this list is the one that ships. Item 6 stays blocked on a Play account.
+> **Items 1–5 are all closed (item 5 closed 2026-10-01).** Nothing is open except
+> item 6, which stays blocked on a Play developer account.
 
 **Phase 7 is not a feature phase, and that is why it is not above — but it is not empty either.**
 Most of it is a list of things **not to build**: the whole point is that the app never mentions
@@ -736,15 +740,15 @@ one.
    and `PHASE_8` §8 (font scale 1.0 / 1.15 / 1.3, TalkBack reading a code end to end, longest
    content in both languages) on the device, and they pass. Re-run §6 after **any** change that
    touches a screen — it is not a one-time gate.
-5. **Phase 9 release signing** — **built 2026-10-01, awaiting green CI + phone checklist.**
+5. ~~**Phase 9 release signing**~~ — **done and phone-checked 2026-10-01. ✅**
    What this build did (nothing else touched): `UstadApp` gains debug-only StrictMode
    (thread + VM, penaltyLog only); `release` build gets `minifyEnabled` + `shrinkResources`
    with Log stripped in `proguard-rules.pro` (fonts still kept, no `-dontoptimize`);
    `versionCode` 1 → 2 so `Staging` re-copies the database once on upgrade. Verified
-   pre-push: `check_app_sql.py` green (79 assertions), asset 62/320/4418. Still required
-   before ✅: green `build app` on main, full §6 re-run, and PHASE_9 §5 pre-release
-   checklist on a real phone (install-over, airplane, dark, font 1.3, no permissions,
-   EN/UR, favourite survives re-copy). Only when the feature set stops changing.
+   pre-push: `check_app_sql.py` green (79 assertions), asset 62/320/4418. CI green on
+   main, full §6 re-run and PHASE_9 §5 pre-release checklist passed on a real phone
+   (install-over, airplane, dark, font 1.3, no permissions, EN/UR, favourite survives
+   re-copy) — human-confirmed 2026-10-01.
 6. **Phase 10 monetisation** — and it is **blocked, not next**. It needs a Google Play developer
    account, and everything in it is written down in
    `app-pipeline/guide/PHASE_10_MONETISATION.md` already. Do not start it early and do not
