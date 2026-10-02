@@ -66,7 +66,9 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     internal val poolId: Int = System.identityHashCode(this)
 
     init {
-        Log.d(TAG, "pool@$poolId created size=$size")
+        // TEMPORARY diagnosis: list identity + size at birth — the read path
+        // later reports size=0, so catch whether it is born empty or emptied.
+        Log.d(TAG, "pool@$poolId created size=$size adsId=${System.identityHashCode(ads)} adsSize=${ads.size}")
     }
 
     /**
@@ -99,7 +101,7 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     fun load() {
         // TEMPORARY diagnosis: silent returns are the suspect — log every
         // entry so a dead pool going quiet shows up as load/destroyed=true.
-        Log.d(TAG, "pool@$poolId load destroyed=$destroyed")
+        Log.d(TAG, "pool@$poolId load destroyed=$destroyed adsId=${System.identityHashCode(ads)} adsSize=${ads.size}")
         if (destroyed) return
         runCatching {
             for (i in ads.indices) {
@@ -155,7 +157,7 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     fun adFor(slot: Int): NativeAd? {
         // TEMPORARY diagnosis with debugState below.
         val ad = if (destroyed || ads.isEmpty()) null else ads[slot % ads.size]
-        Log.d(TAG, "pool@$poolId adFor($slot) destroyed=$destroyed size=${ads.size} -> ${if (ad == null) "null" else "AD"}")
+        Log.d(TAG, "pool@$poolId adFor($slot) destroyed=$destroyed size=${ads.size} adsId=${System.identityHashCode(ads)} -> ${if (ad == null) "null" else "AD"}")
         return ad
     }
 
@@ -172,7 +174,7 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
                 if (ads[index]?.headline == null) "slot $index: loaded, NO HEADLINE" else "slot $index: loaded"
             else -> "slot $index: ${lastError[index] ?: "loading…"}"
         }
-        Log.d(TAG, "pool@$poolId debugState($index) destroyed=$destroyed size=${ads.size} -> $state")
+        Log.d(TAG, "pool@$poolId debugState($index) destroyed=$destroyed size=${ads.size} adsId=${System.identityHashCode(ads)} -> $state")
         return state
     }
 
