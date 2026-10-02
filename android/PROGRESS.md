@@ -29,6 +29,57 @@
 > real internet. (Trace build failed CI first: top-level trace logs used the
 > class-private TAG — qualified as NativeAdPool.TAG, visibility internal.)
 >
+> **2026-10-02 — SESSION HANDOFF, resume here.**
+> Scope (confirmed with owner): exactly two things — (1) make native ads
+> work, (2) before-upload store setup per `STORE_SETUP.md`. Nothing else.
+>
+> NATIVES STATUS: still broken, root cause open. Live adb driving proved:
+> - Banner test ads FILL on working internet (SDK, network, demo units,
+>   manifest app ID all healthy — app ID + unit IDs verified from the pulled
+>   APK; `0000…` strings are SDK-internal, not our IDs).
+> - Native loads fire and get ZERO SDK callbacks (no fill, no failure) on good
+>   internet. `loadOne` never logs → the per-slot loop never executes.
+> - Screens show `slot 0: destroyed` while the pool is alive: `destroyed=false`,
+>   destroy logged only on real back-nav teardown (correct), ctx stable across
+>   visits. Reads report `ads.size=0` with `destroyed=false` → "destroyed" is a
+>   misnomer; the slot list is empty from birth or emptied invisibly. Only
+>   destroy() clears, and it flips destroyed=true + logs — the open paradox.
+> - `loading…` has NEVER appeared on any screen in any build.
+> - Dead ends, all disproven by trace: lifecycle-owner restart (split effects
+>   changed nothing), app-vs-activity context (banner fills from the same
+>   LocalContext), stale build (hash-verified installs), missing app ID.
+> - Phone was OFFLINE during early tests (dead hotspot, ENONET) — test fill
+>   only on working internet. All artifact zips are named `ac-ustad-debug`:
+>   verify the RUN's commit hash before installing (`0e5cd1e` was missed this
+>   way — phone still had `8533923`, caught by missing `adsId=` in logs).
+> - Startup crash caught once (window content-container in setContent, first
+>   post-install launch; clean on retry — install-settling race suspected;
+>   manifest/themes verified legit). Not reproduced since.
+>
+> PENDING PROBE: `0e5cd1e` (green CI) logs list identity+size at
+> birth/load/read. Outcomes: birth `adsSize=0` → `repeat(size)` never populates
+> (replace construction); birth 1 → reads 0 → emptied invisibly (replace
+> storage); reads 1 / cards appear → stale UI, pool was innocent.
+>
+> NEXT SESSION, in order:
+> 1. `adb devices` → R8VY903HE3E. Owner installs the `0e5cd1e` artifact (check
+>    the run's hash!), USB in, working internet on.
+> 2. force-stop, `logcat -c`, cold start, drive Home→AC→search Dawlance→Series
+>    (taps 360,290 / 360,228 + text / 360,385 on 720x1600), screencap +
+>    `logcat -d 'NativeAdPool:D' '*:S'`.
+> 3. Read ctor adsSize vs read adsSize (+ids) → fix per outcome above. REMOVE
+>    ALL TEMPORARY trace logs in `NativeAdCard.kt` in the fix commit (poolId,
+>    remember/effect/load/destroy-trace/loadOne-ctx/adFor/debugState/ctor —
+>    each marked TEMPORARY; keep the slot-state debug items until fill is
+>    confirmed, their KDoc says TEMPORARY too).
+> 4. Verify cards fill on all four placements; update `ADS.md`.
+> 5. Store setup per `STORE_SETUP.md` (keystore → build.gradle → workflow →
+>    secrets → privacy → release → Amazon → AdMob).
+> Tooling notes: adb is `~/.local/scrcpy-linux-x86_64-v4.1/adb`, no `gh` CLI —
+> poll `api.github.com/repos/Bushido64-sys/AC-Ustad/actions/runs` for CI state
+> (wait for green before any install); compile errors via check-runs
+> annotations (job log download needs admin, returns 403).
+>
 > **2026-10-02 — adb audit: banners fill, natives silent + "destroyed" paradox.**
 > Drove the phone over USB on working internet: banner test ads fill on
 > every screen (SDK/network/demo units healthy — manifest app ID and all

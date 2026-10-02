@@ -18,11 +18,28 @@ render correctly.
 
 - Install the latest debug artifact, open a model list with **more than 11
   codes** (slots start after position 11), search empty, wait ~45s.
-- Expected after the lifetime fix: real ad cards, or `failed code=N`
-  (a fill problem, not a code problem), or `loading…`.
+- Expected: real ad cards, or `failed code=N` (a fill problem, not a code
+  problem), or `loading…`.
 - `NATIVE DEBUG: slot N: destroyed` must never appear on a visible screen.
 - A short list (≤ 11 codes) shows `list too short (N codes)` on DEBUG —
   that is the placement policy working, not a bug.
+
+Hard-won rules from the 2026-10-02 debug session (follow them or waste hours):
+
+- **Test fill ONLY on working internet.** An offline phone fills nothing — not
+  even banners — and every empty slot looks like a code bug. Prove internet
+  first (`ping 8.8.8.8` via adb, or a banner test ad on screen).
+- **Verify the artifact by the RUN's commit hash, not the file name.** Every
+  CI artifact zip is named `ac-ustad-debug` — check the Actions run title
+  shows the intended commit before downloading. A wrong install once cost a
+  full trace cycle (caught via log-format mismatch).
+- **Wait for green CI before installing.** Poll the Actions runs via the
+  GitHub API; a red `build app` means the phone build is stale. (No `gh` CLI
+  on this machine; compile errors surface via check-runs annotations.)
+- Current status when this list resumes: natives root cause still open —
+  see `android/PROGRESS.md` handoff entry (2026-10-02) for the proven facts,
+  the open paradox, and the exact next steps. Do not start the release work
+  below until the gate above passes.
 
 ## 1. Release keystore (assistant generates, you store)
 
