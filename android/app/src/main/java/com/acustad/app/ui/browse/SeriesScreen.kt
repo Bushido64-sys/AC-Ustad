@@ -27,10 +27,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.acustad.app.BuildConfig
 import com.acustad.app.R
 import com.acustad.app.ads.NativeAdCard
-import com.acustad.app.ads.NativeSlotDebug
 import com.acustad.app.ads.rememberNativeAdPool
 import com.acustad.app.ui.common.BorderedRow
 import com.acustad.app.ui.common.EmptyState
@@ -119,10 +117,6 @@ fun SeriesScreen(
                 if (ad != null) {
                     item(key = "native-bottom") {
                         NativeAdCard(ad = ad)
-                    }
-                } else if (BuildConfig.DEBUG) {
-                    item(key = "native-debug-bottom") {
-                        NativeSlotDebug(nativePool.debugState(0))
                     }
                 }
             }

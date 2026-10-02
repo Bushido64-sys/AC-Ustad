@@ -29,11 +29,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.acustad.app.BuildConfig
 import com.acustad.app.R
 import com.acustad.app.ads.AdsManager
 import com.acustad.app.ads.NativeAdCard
-import com.acustad.app.ads.NativeSlotDebug
 import com.acustad.app.ads.rememberNativeAdPool
 import com.acustad.app.model.BilingualText
 import com.acustad.app.model.CodeDetail
@@ -162,13 +160,10 @@ fun CodeDetailScreen(
         SourceBlock(detail, state.language)
 
         // One native ad below the source line, never inside the answer. Badged
-        // by construction (NativeAdCard). TEMPORARY: unfilled shows its state
-        // as text on DEBUG builds (no adb on the test phone).
+        // by construction (NativeAdCard).
         val bottomAd = nativePool.adFor(0)
         if (bottomAd != null) {
             NativeAdCard(ad = bottomAd)
-        } else if (BuildConfig.DEBUG) {
-            NativeSlotDebug(nativePool.debugState(0))
         }
     }
 }

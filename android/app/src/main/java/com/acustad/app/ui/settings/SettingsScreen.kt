@@ -25,7 +25,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.acustad.app.BuildConfig
 import com.acustad.app.R
 import com.acustad.app.ads.NativeAdCard
-import com.acustad.app.ads.NativeSlotDebug
 import com.acustad.app.ads.rememberNativeAdPool
 import com.acustad.app.model.ContentLanguage
 import com.acustad.app.model.ThemeMode
@@ -81,13 +80,9 @@ fun SettingsScreen(
             PrivacyPanel()
             LicensesPanel()
             // One native card at the bottom, shaped like the panels above it
-            // but badged by construction (NativeAdCard). TEMPORARY: unfilled
-            // shows its state as text on DEBUG builds (no adb on test phone).
             val bottomAd = nativePool.adFor(0)
             if (bottomAd != null) {
                 NativeAdCard(ad = bottomAd)
-            } else if (BuildConfig.DEBUG) {
-                NativeSlotDebug(nativePool.debugState(0))
             }
         }
     }

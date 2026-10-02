@@ -15,11 +15,6 @@
 > on `main`, and the working tree is clean. (A commit hash is deliberately not written here:
 > the last time one was, it was stale by two commits within a day.)
 >
-> **2026-10-02 — NATIVES FIXED, owner-confirmed on the phone.** The owner
-> reports all ads now render in their places. The trace logging is out, the
-> fix is `fix(ads): born-empty native slot list…` (34611ff). The remaining
-> TEMPORARY on-screen `NativeSlotDebug` lines can be removed whenever.
->
 > **2026-10-02 — STORE SETUP PREP (assistant side done).** Natives gate
 > passed, so the release prep went ahead: RSA-2048 PKCS12 keystore generated
 > with openssl at `~/.config/ac-ustad/release.p12` (credentials note in
@@ -34,6 +29,8 @@
 > ADS.md real-ID swap note updated. **Owner's hands needed now:** the 10
 > GitHub Secrets (6 ad IDs from `android/ads.properties` + the 4 keystore
 > values), GitHub Pages enable, then run build-release and Amazon upload.
+> TEMPORARY on-screen `NativeSlotDebug`/`debugState`/`lastError` lines are
+> now stripped too (natives confirmed working on the phone, 2026-10-02).
 >
 > **2026-10-02 — natives root cause found + fixed (trace probe outcome).**
 > The `0e5cd1e` list-identity probe returned on the live phone: pool creation

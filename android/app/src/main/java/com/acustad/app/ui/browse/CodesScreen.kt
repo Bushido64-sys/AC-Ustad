@@ -32,10 +32,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.acustad.app.BuildConfig
 import com.acustad.app.R
 import com.acustad.app.ads.NativeAdCard
-import com.acustad.app.ads.NativeSlotDebug
 import com.acustad.app.ads.nativeSlotAfterPositions
 import com.acustad.app.ads.rememberNativeAdPool
 import com.acustad.app.model.CodeSummary
@@ -146,20 +144,7 @@ fun CodesScreen(
                         item(key = "native-$position") {
                             NativeAdCard(ad = ad)
                         }
-                    } else if (BuildConfig.DEBUG) {
-                        item(key = "native-debug-$position") {
-                            NativeSlotDebug(nativePool.debugState(slotIndex))
-                        }
                     }
-                }
-            }
-            // TEMPORARY DEBUG: a short list has no slots by design (the
-            // first slot sits after position 11), which reads as "natives
-            // missing" on a phone without adb. Say so on the screen
-            // instead of silence.
-            if (BuildConfig.DEBUG && query.isBlank() && state.codes.isNotEmpty() && nativeSlots.isEmpty()) {
-                item(key = "native-debug-short") {
-                    NativeSlotDebug("list too short (${state.codes.size} codes), slots start after 11")
                 }
             }
             if (state.codes.isEmpty() && !state.isSearching) {

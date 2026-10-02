@@ -88,15 +88,6 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     private val retries = mutableMapOf<Int, Int>()
     private val handler = Handler(Looper.getMainLooper())
 
-    /**
-     * Last load failure per slot, for the on-screen diagnostic line.
-     * Without adb on the test phone, logcat is unreachable — the slot
-     * itself reports loading / failed(code) / loaded, DEBUG builds only.
-     * TEMPORARY: remove with [debugState] and [NativeSlotDebug] once the
-     * no-fill cause is confirmed on a phone.
-     */
-    private val lastError = mutableMapOf<Int, String>()
-
     fun load() {
         if (destroyed) return
         runCatching {
@@ -112,7 +103,6 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
                 .forNativeAd { ad ->
                     if (!destroyed && index < ads.size) {
                         ads[index] = ad
-                        lastError.remove(index)
                         Log.d(TAG, "native loaded slot=$index")
                     } else {
                         ad.destroy()
@@ -122,7 +112,6 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
                     override fun onAdFailedToLoad(error: LoadAdError) {
                         val msg =
                             "code=${error.code} ${error.domain} ${error.message}"
-                        lastError[index] = msg
                         Log.w(TAG, "native failed slot=$index $msg")
                         if (destroyed || index >= ads.size) return
                         ads[index] = null
@@ -150,23 +139,6 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
 
     fun adFor(slot: Int): NativeAd? =
         if (destroyed || ads.isEmpty() || slot !in ads.indices) null else ads[slot]
-
-    /**
-     * One-line slot state for the on-screen diagnostic. TEMPORARY, see
-     * [lastError]. DEBUG builds only — release never renders it.
-     */
-    fun debugState(index: Int): String {
-        // The empty-slot-list case is named honestly now: it is NOT a
-        // destroyed pool (destroyed=true only after dispose), it is a pool
-        // whose slot storage never populated — the 2026-10-02 paradox.
-        return when {
-            destroyed -> "slot $index: destroyed"
-            index >= ads.size -> "slot $index: no slot storage"
-            ads[index] != null ->
-                if (ads[index]?.headline == null) "slot $index: loaded, NO HEADLINE" else "slot $index: loaded"
-            else -> "slot $index: ${lastError[index] ?: "loading…"}"
-        }
-    }
 
     fun destroy() {
         destroyed = true
@@ -284,24 +256,6 @@ private fun AdBadge() {
         text = stringResource(R.string.ad_badge),
         style = UstadType.label,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
-    )
-}
-
-/**
- * TEMPORARY diagnostic line rendered in place of an unfilled native slot.
- * DEBUG builds only — lets a phone without adb report load vs render
- * failure on the screen itself. Remove with [NativeAdPool.debugState]
- * once the no-fill cause is confirmed.
- */
-@Composable
-fun NativeSlotDebug(text: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "NATIVE DEBUG: $text",
-        style = UstadType.label,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(12.dp),
     )
 }
 
