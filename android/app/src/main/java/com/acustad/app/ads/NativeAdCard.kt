@@ -61,6 +61,14 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     private val adContext: Context = context
     val ads = mutableStateListOf<NativeAd?>().apply { repeat(size) { add(null) } }
 
+    // TEMPORARY diagnosis (2026-10-02): pool identity for the "destroyed"
+    // trace. Removed once the destroy path is confirmed. See destroy().
+    internal val poolId: Int = System.identityHashCode(this)
+
+    init {
+        Log.d(TAG, "pool@$poolId created size=$size")
+    }
+
     /**
      * Set on dispose. Late SDK callbacks check it before touching the list:
      * without it, an ad arriving after the screen left would index into a
@@ -89,6 +97,9 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     private val lastError = mutableMapOf<Int, String>()
 
     fun load() {
+        // TEMPORARY diagnosis: silent returns are the suspect — log every
+        // entry so a dead pool going quiet shows up as load/destroyed=true.
+        Log.d(TAG, "pool@$poolId load destroyed=$destroyed")
         if (destroyed) return
         runCatching {
             for (i in ads.indices) {
@@ -155,6 +166,9 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
         }
 
     fun destroy() {
+        // TEMPORARY diagnosis: the stack says WHICH onDispose killed a live
+        // pool. Removed with poolId once the path is confirmed.
+        Log.d(TAG, "pool@$poolId destroy", Exception("destroy-trace"))
         destroyed = true
         handler.removeCallbacksAndMessages(null)
         ads.forEach { runCatching { it?.destroy() } }
@@ -172,6 +186,9 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
 fun rememberNativeAdPool(size: Int = 3): NativeAdPool {
     val context = LocalContext.current
     val pool = remember(context, size) { NativeAdPool(context, size) }
+    // TEMPORARY diagnosis: logs every recomposition — a churning remember
+    // shows up as changing pool ids under a stable caller.
+    Log.d(TAG, "remember ctx=${System.identityHashCode(context)} size=$size -> pool@${pool.poolId}")
     // Lifetime owns the pool and nothing else. Keyed on the pool ONLY:
     // adding the lifecycle here restarts this effect on an owner swap,
     // which destroys the still-referenced pool — and the restarted
@@ -180,8 +197,11 @@ fun rememberNativeAdPool(size: Int = 3): NativeAdPool {
     // single-slot placements). A replaced pool (context swap) still
     // destroys the old and loads the new, which is the correct path.
     DisposableEffect(pool) {
+        // TEMPORARY diagnosis with the remember line above.
+        Log.d(TAG, "effect-start pool@${pool.poolId}")
         pool.load()
         onDispose {
+            Log.d(TAG, "effect-dispose pool@${pool.poolId}")
             pool.destroy()
         }
     }

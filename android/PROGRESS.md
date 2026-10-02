@@ -15,6 +15,19 @@
 > on `main`, and the working tree is clean. (A commit hash is deliberately not written here:
 > the last time one was, it was stale by two commits within a day.)
 >
+> **2026-10-02 — phone is OFFLINE + pool trace build (adb-driven).**
+> Drove the app over USB: `cb0dce2` confirmed live, Series still
+> `destroyed` — but logcat shows no upstream (ENONET/UnknownHostException
+> on every probe; the WiFi is a dead hotspot), so no ad of any format can
+> fill right now, banners included. Fill testing must move to working
+> internet. `destroyed` is NOT explained by offline (destroy() ran on the
+> displayed pool), so this build adds TEMPORARY identity logging (pool
+> create/load/destroy+stack, remember ctx+pool per recomposition, effect
+> start/dispose) to catch the exact sequence live; remove after. Repo init
+> path reviewed (lazy DB open on IO, no main-thread copy) — not the
+> startup crash, which did not reproduce in 3 launches. Next: trace run on
+> real internet.
+>
 > **2026-10-02 — native "destroyed" cause found + fixed (phone-reported).**
 > All three single-slot placements (models bottom, detail bottom, settings
 > bottom) read `slot 0: destroyed`; the code list showed nothing at all.
