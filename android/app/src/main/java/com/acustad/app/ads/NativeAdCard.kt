@@ -59,17 +59,16 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     // Keep the Activity reference only for the Builder call below, never
     // beyond the pool lifetime (destroyed on dispose).
     private val adContext: Context = context
-    val ads = mutableStateListOf<NativeAd?>().apply { repeat(size) { add(null) } }
 
-    // TEMPORARY diagnosis (2026-10-02): pool identity for the "destroyed"
-    // trace. Removed once the destroy path is confirmed. See destroy().
-    internal val poolId: Int = System.identityHashCode(this)
-
-    init {
-        // TEMPORARY diagnosis: list identity + size at birth — the read path
-        // later reports size=0, so catch whether it is born empty or emptied.
-        Log.d(TAG, "pool@$poolId created size=$size adsId=${System.identityHashCode(ads)} adsSize=${ads.size}")
-    }
+    /**
+     * Slot storage. Built with the [MutableList] factory that takes the
+     * size — the apply+repeat construction it replaces was born EMPTY on
+     * device (adsSize=0 at creation, destroyed=false), so load() iterated
+     * an empty range and no AdLoader ever ran: natives never loaded and
+     * every slot read "destroyed". Do not "simplify" this back to
+     * `mutableStateListOf().apply { repeat(size) { add(null) } }`.
+     */
+    val ads = mutableStateListOf<NativeAd?>(*Array<NativeAd?>(size) { null })
 
     /**
      * Set on dispose. Late SDK callbacks check it before touching the list:
@@ -99,9 +98,6 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     private val lastError = mutableMapOf<Int, String>()
 
     fun load() {
-        // TEMPORARY diagnosis: silent returns are the suspect — log every
-        // entry so a dead pool going quiet shows up as load/destroyed=true.
-        Log.d(TAG, "pool@$poolId load destroyed=$destroyed adsId=${System.identityHashCode(ads)} adsSize=${ads.size}")
         if (destroyed) return
         runCatching {
             for (i in ads.indices) {
@@ -111,8 +107,6 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     }
 
     private fun loadOne(index: Int) {
-        // TEMPORARY diagnosis: ctx class + unit decide silent-drop vs SDK fault.
-        Log.d(TAG, "pool@$poolId loadOne($index) ctx=${adContext.javaClass.name} unit=${AdIds.native}")
         runCatching {
             com.google.android.gms.ads.AdLoader.Builder(adContext, AdIds.native)
                 .forNativeAd { ad ->
@@ -154,34 +148,27 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
         }
     }
 
-    fun adFor(slot: Int): NativeAd? {
-        // TEMPORARY diagnosis with debugState below.
-        val ad = if (destroyed || ads.isEmpty()) null else ads[slot % ads.size]
-        Log.d(TAG, "pool@$poolId adFor($slot) destroyed=$destroyed size=${ads.size} adsId=${System.identityHashCode(ads)} -> ${if (ad == null) "null" else "AD"}")
-        return ad
-    }
+    fun adFor(slot: Int): NativeAd? =
+        if (destroyed || ads.isEmpty() || slot !in ads.indices) null else ads[slot]
 
     /**
      * One-line slot state for the on-screen diagnostic. TEMPORARY, see
      * [lastError]. DEBUG builds only — release never renders it.
      */
     fun debugState(index: Int): String {
-        // TEMPORARY diagnosis: logs exactly what the composition saw — settles
-        // whether the on-screen "destroyed" comes from this pool or stale UI.
-        val state = when {
-            destroyed || index >= ads.size -> "slot $index: destroyed"
+        // The empty-slot-list case is named honestly now: it is NOT a
+        // destroyed pool (destroyed=true only after dispose), it is a pool
+        // whose slot storage never populated — the 2026-10-02 paradox.
+        return when {
+            destroyed -> "slot $index: destroyed"
+            index >= ads.size -> "slot $index: no slot storage"
             ads[index] != null ->
                 if (ads[index]?.headline == null) "slot $index: loaded, NO HEADLINE" else "slot $index: loaded"
             else -> "slot $index: ${lastError[index] ?: "loading…"}"
         }
-        Log.d(TAG, "pool@$poolId debugState($index) destroyed=$destroyed size=${ads.size} adsId=${System.identityHashCode(ads)} -> $state")
-        return state
     }
 
     fun destroy() {
-        // TEMPORARY diagnosis: the stack says WHICH onDispose killed a live
-        // pool. Removed with poolId once the path is confirmed.
-        Log.d(TAG, "pool@$poolId destroy", Exception("destroy-trace"))
         destroyed = true
         handler.removeCallbacksAndMessages(null)
         ads.forEach { runCatching { it?.destroy() } }
@@ -189,10 +176,7 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     }
 
     companion object {
-        // internal, not private: the TEMPORARY trace logs in
-        // rememberNativeAdPool (a top-level function) qualify it as
-        // NativeAdPool.TAG. Back to private with the trace removal.
-        internal const val TAG = "NativeAdPool"
+        private const val TAG = "NativeAdPool"
         private const val MAX_RETRIES = 3
         private const val RETRY_MS = 15_000L
     }
@@ -202,9 +186,6 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
 fun rememberNativeAdPool(size: Int = 3): NativeAdPool {
     val context = LocalContext.current
     val pool = remember(context, size) { NativeAdPool(context, size) }
-    // TEMPORARY diagnosis: logs every recomposition — a churning remember
-    // shows up as changing pool ids under a stable caller.
-    Log.d(NativeAdPool.TAG, "remember ctx=${System.identityHashCode(context)} size=$size -> pool@${pool.poolId}")
     // Lifetime owns the pool and nothing else. Keyed on the pool ONLY:
     // adding the lifecycle here restarts this effect on an owner swap,
     // which destroys the still-referenced pool — and the restarted
@@ -213,11 +194,8 @@ fun rememberNativeAdPool(size: Int = 3): NativeAdPool {
     // single-slot placements). A replaced pool (context swap) still
     // destroys the old and loads the new, which is the correct path.
     DisposableEffect(pool) {
-        // TEMPORARY diagnosis with the remember line above.
-        Log.d(NativeAdPool.TAG, "effect-start pool@${pool.poolId}")
         pool.load()
         onDispose {
-            Log.d(NativeAdPool.TAG, "effect-dispose pool@${pool.poolId}")
             pool.destroy()
         }
     }

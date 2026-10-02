@@ -15,6 +15,25 @@
 > on `main`, and the working tree is clean. (A commit hash is deliberately not written here:
 > the last time one was, it was stale by two commits within a day.)
 >
+> **2026-10-02 — natives root cause found + fixed (trace probe outcome).**
+> The `0e5cd1e` list-identity probe returned on the live phone: pool creation
+> logs `adsSize=0` at birth with `destroyed=false` and a stable list id —
+> the `ads` slot list was **born empty**, so `load()` looped over an empty
+> index range, no `AdLoader` ever ran, no SDK callback ever fired, and the
+> misnamed "slot 0: destroyed" line was really `index >= ads.size` on the
+> empty list. Consequence chain matches every prior observation (banners
+> fill — separate path; natives silent; `loading…` never shown; destroy
+> logs only on real back-nav). Fixed app-side: slot storage now built
+> without the `apply { repeat { } }` construction, `adFor` is bounds-safe,
+> `debugState` names the empty-storage case honestly ("no slot storage"),
+> and all TEMPORARY trace logs (poolId, remember/effect, load, loadOne-ctx,
+> adFor, debugState, destroy-trace, ctor) are removed; the on-screen
+> `NativeSlotDebug` lines stay until fill is confirmed on a phone. Note:
+> the installed APK behaved as a born-empty list while its probe strings
+> matched `0e5cd1e` — if a born-empty list recurs from a clean CI build,
+> the storage line is now isolated in a KDoc'd block that says not to
+> revert it.
+>
 > **2026-10-02 — phone is OFFLINE + pool trace build (adb-driven).**
 > Drove the app over USB: `cb0dce2` confirmed live, Series still
 > `destroyed` — but logcat shows no upstream (ENONET/UnknownHostException
