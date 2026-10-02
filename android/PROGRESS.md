@@ -26,7 +26,8 @@
 > start/dispose) to catch the exact sequence live; remove after. Repo init
 > path reviewed (lazy DB open on IO, no main-thread copy) — not the
 > startup crash, which did not reproduce in 3 launches. Next: trace run on
-> real internet.
+> real internet. (Trace build failed CI first: top-level trace logs used the
+> class-private TAG — qualified as NativeAdPool.TAG, visibility internal.)
 >
 > **2026-10-02 — native "destroyed" cause found + fixed (phone-reported).**
 > All three single-slot placements (models bottom, detail bottom, settings

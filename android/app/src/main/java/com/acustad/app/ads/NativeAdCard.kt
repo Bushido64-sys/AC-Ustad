@@ -176,7 +176,10 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     }
 
     companion object {
-        private const val TAG = "NativeAdPool"
+        // internal, not private: the TEMPORARY trace logs in
+        // rememberNativeAdPool (a top-level function) qualify it as
+        // NativeAdPool.TAG. Back to private with the trace removal.
+        internal const val TAG = "NativeAdPool"
         private const val MAX_RETRIES = 3
         private const val RETRY_MS = 15_000L
     }
@@ -188,7 +191,7 @@ fun rememberNativeAdPool(size: Int = 3): NativeAdPool {
     val pool = remember(context, size) { NativeAdPool(context, size) }
     // TEMPORARY diagnosis: logs every recomposition — a churning remember
     // shows up as changing pool ids under a stable caller.
-    Log.d(TAG, "remember ctx=${System.identityHashCode(context)} size=$size -> pool@${pool.poolId}")
+    Log.d(NativeAdPool.TAG, "remember ctx=${System.identityHashCode(context)} size=$size -> pool@${pool.poolId}")
     // Lifetime owns the pool and nothing else. Keyed on the pool ONLY:
     // adding the lifecycle here restarts this effect on an owner swap,
     // which destroys the still-referenced pool — and the restarted
@@ -198,10 +201,10 @@ fun rememberNativeAdPool(size: Int = 3): NativeAdPool {
     // destroys the old and loads the new, which is the correct path.
     DisposableEffect(pool) {
         // TEMPORARY diagnosis with the remember line above.
-        Log.d(TAG, "effect-start pool@${pool.poolId}")
+        Log.d(NativeAdPool.TAG, "effect-start pool@${pool.poolId}")
         pool.load()
         onDispose {
-            Log.d(TAG, "effect-dispose pool@${pool.poolId}")
+            Log.d(NativeAdPool.TAG, "effect-dispose pool@${pool.poolId}")
             pool.destroy()
         }
     }
