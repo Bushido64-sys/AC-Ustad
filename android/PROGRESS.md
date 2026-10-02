@@ -15,6 +15,17 @@
 > on `main`, and the working tree is clean. (A commit hash is deliberately not written here:
 > the last time one was, it was stale by two commits within a day.)
 >
+> **2026-10-02 — native blanks fix + on-screen diagnostics (phone-reported).**
+> Still zero cards on `df2712a` although banners fill and the demo native ID
+> is current on Google's test-ads page. Two changes: (1) one ad per slot —
+> the pool held 3 ads dealt round-robin across up to ~19 slots, and one
+> `NativeAd` may back exactly one view, so rebinds blanked cards; code list
+> now renders at most its first 3 slots mapped 1:1 (pool size 3 kept, docs
+> updated); (2) TEMPORARY DEBUG-gated slot-state lines (`loading…` /
+> `failed code=N` / `loaded`) on all four placements, since the test phone
+> has no adb — remove after the cause is confirmed. Needs: green `build app`,
+> then read the slot lines on Dawlance Splits (search empty, 45s).
+>
 > **2026-10-01 — native no-fill fix (phone-reported, untested).** All four
 > native spots showed no card at all. Cause: `NativeAdPool` built `AdLoader`
 > with the application context — native MediaView/AdChoices need the Activity

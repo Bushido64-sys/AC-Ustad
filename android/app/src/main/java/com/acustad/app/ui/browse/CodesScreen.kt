@@ -32,8 +32,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.acustad.app.BuildConfig
 import com.acustad.app.R
 import com.acustad.app.ads.NativeAdCard
+import com.acustad.app.ads.NativeSlotDebug
 import com.acustad.app.ads.nativeSlotAfterPositions
 import com.acustad.app.ads.rememberNativeAdPool
 import com.acustad.app.model.CodeSummary
@@ -73,8 +75,13 @@ fun CodesScreen(
     // and only on the unfiltered list. A search narrows to the codes asked
     // for; an ad inside filtered results would sit between a question and
     // its answer. (ADS.md)
+    //
+    // One ad per slot: a NativeAd may back exactly one NativeAdView, so the
+    // rendered slots are capped at the pool size (3) and mapped 1:1 — dealing
+    // the same ad to two cards blanks the first. Slots past the cap render
+    // no ad rather than a shared one.
     val nativeSlots = remember(state.codes.size, query) {
-        if (query.isBlank()) nativeSlotAfterPositions(state.codes.size) else emptyList()
+        if (query.isBlank()) nativeSlotAfterPositions(state.codes.size).take(3) else emptyList()
     }
 
     Column(
@@ -119,9 +126,10 @@ fun CodesScreen(
             }
 
             // Codes interleaved with native slots: after 1-based positions 11,
-            // 16, 21… One bordered card per filled slot, keyed by position so
-            // Back restores around them. Unfilled slots emit nothing — never a
-            // blank card, never a gap that reads as missing content.
+            // 16, 21… (capped at 3, one ad per slot — see above). One bordered
+            // card per filled slot, keyed by position so Back restores around
+            // them. TEMPORARY: an unfilled slot renders its state as text on
+            // DEBUG builds so a phone without adb reports the failure stage.
             state.codes.forEachIndexed { index, code ->
                 item(key = "code-${code.id}") {
                     CodeRow(
@@ -132,10 +140,15 @@ fun CodesScreen(
                 }
                 val position = index + 1
                 if (position in nativeSlots) {
-                    val ad = nativePool.adFor(nativeSlots.indexOf(position))
+                    val slotIndex = nativeSlots.indexOf(position)
+                    val ad = nativePool.adFor(slotIndex)
                     if (ad != null) {
                         item(key = "native-$position") {
                             NativeAdCard(ad = ad)
+                        }
+                    } else if (BuildConfig.DEBUG) {
+                        item(key = "native-debug-$position") {
+                            NativeSlotDebug(nativePool.debugState(slotIndex))
                         }
                     }
                 }

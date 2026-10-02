@@ -103,10 +103,13 @@ first 3 saves always work offline; only the walled saves need the network.
 Answers — codes, meanings, fix steps — never need it, on any screen.
 
 **Native.** Code list every 5th row from #11 (`nativeSlotAfterPositions`,
-unit-tested), detail bottom below Source, models-list bottom, Settings
-bottom. Unfiltered lists only on the code screen. Each empty slot retries up
-to 3 times, 15s apart, then stops asking. Unfilled slots emit nothing —
-never a blank card.
+unit-tested, capped at the first 3 slots), detail bottom below Source, models-list bottom, Settings
+bottom. One ad per slot — a `NativeAd` may back exactly one `NativeAdView`,
+so slots past the pool size render nothing rather than a shared ad.
+Unfiltered lists only on the code screen. Each empty slot retries up
+to 3 times, 15s apart, then stops asking. Unfilled slots emit nothing in
+release — never a blank card (DEBUG builds render a one-line slot state
+instead, since the test phone has no adb).
 
 ---
 

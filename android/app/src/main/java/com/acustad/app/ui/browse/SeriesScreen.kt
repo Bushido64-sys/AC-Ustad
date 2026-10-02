@@ -27,8 +27,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.acustad.app.BuildConfig
 import com.acustad.app.R
 import com.acustad.app.ads.NativeAdCard
+import com.acustad.app.ads.NativeSlotDebug
 import com.acustad.app.ads.rememberNativeAdPool
 import com.acustad.app.ui.common.BorderedRow
 import com.acustad.app.ui.common.EmptyState
@@ -110,11 +112,17 @@ fun SeriesScreen(
             }
 
             // One native card at the bottom, shaped like the rows above it but
-            // badged by construction (NativeAdCard). Omitted while unfilled.
+            // badged by construction (NativeAdCard). TEMPORARY: unfilled shows
+            // its state as text on DEBUG builds (no adb on the test phone).
             if (state.series.isNotEmpty() && query.isBlank()) {
-                nativePool.adFor(0)?.let { ad ->
+                val ad = nativePool.adFor(0)
+                if (ad != null) {
                     item(key = "native-bottom") {
                         NativeAdCard(ad = ad)
+                    }
+                } else if (BuildConfig.DEBUG) {
+                    item(key = "native-debug-bottom") {
+                        NativeSlotDebug(nativePool.debugState(0))
                     }
                 }
             }
