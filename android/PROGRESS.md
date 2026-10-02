@@ -29,6 +29,19 @@
 > real internet. (Trace build failed CI first: top-level trace logs used the
 > class-private TAG — qualified as NativeAdPool.TAG, visibility internal.)
 >
+> **2026-10-02 — adb audit: banners fill, natives silent + "destroyed" paradox.**
+> Drove the phone over USB on working internet: banner test ads fill on
+> every screen (SDK/network/demo units healthy — manifest app ID and all
+> demo units verified from the installed APK; zeros strings are
+> SDK-internal). Native loads fire and get ZERO callbacks (no fill, no
+> failure) on good internet; screens show `slot 0: destroyed` for pools
+> the trace proves alive (created→effect-start→load×2, correct destroy
+> only on back-nav, stable ctx across visits). Startup crash caught once:
+> window content-container in setContent on the first post-install
+> launch, clean on retry (install-settling race suspected). Next:
+> read-path probe (ctx class, unit, adFor/debugState logging) to split
+> stale-UI vs lying-read vs SDK-drop.
+>
 > **2026-10-02 — native "destroyed" cause found + fixed (phone-reported).**
 > All three single-slot placements (models bottom, detail bottom, settings
 > bottom) read `slot 0: destroyed`; the code list showed nothing at all.

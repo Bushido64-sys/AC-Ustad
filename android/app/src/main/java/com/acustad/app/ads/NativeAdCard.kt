@@ -109,6 +109,8 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
     }
 
     private fun loadOne(index: Int) {
+        // TEMPORARY diagnosis: ctx class + unit decide silent-drop vs SDK fault.
+        Log.d(TAG, "pool@$poolId loadOne($index) ctx=${adContext.javaClass.name} unit=${AdIds.native}")
         runCatching {
             com.google.android.gms.ads.AdLoader.Builder(adContext, AdIds.native)
                 .forNativeAd { ad ->
@@ -150,20 +152,29 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
         }
     }
 
-    fun adFor(slot: Int): NativeAd? =
-        if (destroyed || ads.isEmpty()) null else ads[slot % ads.size]
+    fun adFor(slot: Int): NativeAd? {
+        // TEMPORARY diagnosis with debugState below.
+        val ad = if (destroyed || ads.isEmpty()) null else ads[slot % ads.size]
+        Log.d(TAG, "pool@$poolId adFor($slot) destroyed=$destroyed size=${ads.size} -> ${if (ad == null) "null" else "AD"}")
+        return ad
+    }
 
     /**
      * One-line slot state for the on-screen diagnostic. TEMPORARY, see
      * [lastError]. DEBUG builds only — release never renders it.
      */
-    fun debugState(index: Int): String =
-        when {
+    fun debugState(index: Int): String {
+        // TEMPORARY diagnosis: logs exactly what the composition saw — settles
+        // whether the on-screen "destroyed" comes from this pool or stale UI.
+        val state = when {
             destroyed || index >= ads.size -> "slot $index: destroyed"
             ads[index] != null ->
                 if (ads[index]?.headline == null) "slot $index: loaded, NO HEADLINE" else "slot $index: loaded"
             else -> "slot $index: ${lastError[index] ?: "loading…"}"
         }
+        Log.d(TAG, "pool@$poolId debugState($index) destroyed=$destroyed size=${ads.size} -> $state")
+        return state
+    }
 
     fun destroy() {
         // TEMPORARY diagnosis: the stack says WHICH onDispose killed a live
