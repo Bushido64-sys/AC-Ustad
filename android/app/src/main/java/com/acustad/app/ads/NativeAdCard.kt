@@ -171,10 +171,25 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
 @Composable
 fun rememberNativeAdPool(size: Int = 3): NativeAdPool {
     val context = LocalContext.current
-    val lifecycle = LocalLifecycleOwner.current.lifecycle
     val pool = remember(context, size) { NativeAdPool(context, size) }
-    DisposableEffect(pool, lifecycle) {
+    // Lifetime owns the pool and nothing else. Keyed on the pool ONLY:
+    // adding the lifecycle here restarts this effect on an owner swap,
+    // which destroys the still-referenced pool — and the restarted
+    // load() no-ops on destroyed=true, so every slot then reads
+    // "destroyed" forever (the 2026-10-02 phone report on all three
+    // single-slot placements). A replaced pool (context swap) still
+    // destroys the old and loads the new, which is the correct path.
+    DisposableEffect(pool) {
         pool.load()
+        onDispose {
+            pool.destroy()
+        }
+    }
+    // Resume retry without lifetime: re-registers freely on owner change
+    // and never destroys — an observer restart must not kill loads that
+    // are still wanted.
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    DisposableEffect(lifecycle, pool) {
         // Second chance for empty slots: the first load fires while MobileAds
         // is still initialising, so early failures are routine rather than
         // final. Resume retries only the slots that stayed empty.
@@ -186,7 +201,6 @@ fun rememberNativeAdPool(size: Int = 3): NativeAdPool {
         lifecycle.addObserver(observer)
         onDispose {
             lifecycle.removeObserver(observer)
-            pool.destroy()
         }
     }
     return pool

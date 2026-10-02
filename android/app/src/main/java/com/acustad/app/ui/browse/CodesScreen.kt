@@ -153,6 +153,15 @@ fun CodesScreen(
                     }
                 }
             }
+            // TEMPORARY DEBUG: a short list has no slots by design (the
+            // first slot sits after position 11), which reads as "natives
+            // missing" on a phone without adb. Say so on the screen
+            // instead of silence.
+            if (BuildConfig.DEBUG && query.isBlank() && state.codes.isNotEmpty() && nativeSlots.isEmpty()) {
+                item(key = "native-debug-short") {
+                    NativeSlotDebug("list too short (${state.codes.size} codes), slots start after 11")
+                }
+            }
             if (state.codes.isEmpty() && !state.isSearching) {
                 item(key = "empty") {
                     if (query.isNotBlank()) {

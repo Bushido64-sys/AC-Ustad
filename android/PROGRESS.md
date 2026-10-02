@@ -15,6 +15,22 @@
 > on `main`, and the working tree is clean. (A commit hash is deliberately not written here:
 > the last time one was, it was stale by two commits within a day.)
 >
+> **2026-10-02 — native "destroyed" cause found + fixed (phone-reported).**
+> All three single-slot placements (models bottom, detail bottom, settings
+> bottom) read `slot 0: destroyed`; the code list showed nothing at all.
+> Two causes: (1) `rememberNativeAdPool` keyed its destroying
+> `DisposableEffect` on `(pool, lifecycle)` — an owner swap restarts the
+> effect on the still-referenced pool, `destroy()` runs, and the restarted
+> `load()` no-ops on `destroyed=true`: dead pool, permanent "destroyed".
+> Fixed by splitting lifetime (`DisposableEffect(pool)` destroys only) from
+> resume-retry (observer-only effect, never destroys). (2) Code-list silence
+> is placement policy — first slot sits after position 11, so lists of ≤11
+> codes have zero slots; DEBUG now renders `list too short (N codes)`
+> instead of silence. Layout (`native_ad.xml`), init order, and manifest
+> verified innocent. Needs: green `build app`, then the §0 phone check in
+> `STORE_SETUP.md` (new: the before-upload list — keystore, release CI,
+> secrets, Pages, Amazon, AdMob).
+>
 > **2026-10-02 — native blanks fix + on-screen diagnostics (phone-reported).**
 > Still zero cards on `df2712a` although banners fill and the demo native ID
 > is current on Google's test-ads page. Two changes: (1) one ad per slot —
