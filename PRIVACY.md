@@ -1,6 +1,6 @@
 # Privacy policy — AC Ustad
 
-Last updated: 2026-10-01.
+Last updated: 2026-10-02.
 
 AC Ustad is an offline reference for air conditioner and solar inverter error
 codes. This policy says what the app does with your information, in plain words.
@@ -33,18 +33,6 @@ Privacy Sandbox ad APIs (Topics, attribution) and two install-time permissions
 the ad processes need. None of them prompts at runtime, and nothing else is
 requested.
 
-## What stays on your phone
-
-- Codes you star, kept in the Saved tab.
-- Your language (English / Roman Urdu) and theme choices.
-- A copy of the bundled knowledge base, stored in the app's own cache.
-
-All of it lives on your phone. Uninstalling the app removes it.
-
-## Permissions
-
-The app requests no permissions. It works fully with no signal, in airplane mode.
-
 ## Source links
 
 26 codes carry no source link and show none. Where a source link is shown,
@@ -53,10 +41,10 @@ on its own and never fetches anything in the background.
 
 ## Third parties
 
-No data is shared with anyone, because no data leaves the phone. The app is
-built with AndroidX, Kotlin and kotlinx.coroutines (Apache License 2.0) and
-uses IBM Plex type (SIL Open Font License 1.1). None of these receive anything
-from you through this app.
+No data is shared with anyone, because no data leaves the phone except to
+Google's ad servers. The app is built with AndroidX, Kotlin and
+kotlinx.coroutines (Apache License 2.0) and uses IBM Plex type (SIL Open
+Font License 1.1). None of these receive anything from you through this app.
 
 ## Contact
 
@@ -66,6 +54,5 @@ are current.
 
 ## Changes
 
-If this policy ever changes — for example when the app carries ads, which
-needs a network connection the current app does not have — the in-app Privacy
-panel is rewritten in the same update, before anything new arrives.
+If this policy ever changes, the in-app Privacy panel is rewritten in the same
+update, before anything new arrives.

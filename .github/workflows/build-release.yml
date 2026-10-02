@@ -1,0 +1,157 @@
+name: build-release
+
+# Manual trigger only. This produces the signed release APK that Amazon
+# receives; it is never run on a push because real signing keys and real ad
+# unit IDs live in GitHub Secrets, which pull_request and push builds should
+# not need for ordinary development.
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: android
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
+    env:
+      ANDROID_HOME: /usr/local/lib/android/sdk
+      AD_APP_ID: ${{ secrets.AD_APP_ID }}
+      AD_BANNER: ${{ secrets.AD_BANNER }}
+      AD_INTERSTITIAL: ${{ secrets.AD_INTERSTITIAL }}
+      AD_REWARDED: ${{ secrets.AD_REWARDED }}
+      AD_NATIVE: ${{ secrets.AD_NATIVE }}
+      AD_APP_OPEN: ${{ secrets.AD_APP_OPEN }}
+      RELEASE_KEYSTORE_B64: ${{ secrets.RELEASE_KEYSTORE_B64 }}
+      RELEASE_STORE_PASS: ${{ secrets.RELEASE_STORE_PASS }}
+      RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+      RELEASE_KEY_PASS: ${{ secrets.RELEASE_KEY_PASS }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install the Android command line tools
+        run: |
+          set -euo pipefail
+          SDK="$ANDROID_HOME"
+          ZIP=11076708   # commandlinetools-linux-11076708_latest.zip
+          mkdir -p "$SDK/cmdline-tools"
+          curl -fsSL -o /tmp/cmdline-tools.zip \
+            "https://dl.google.com/android/repository/commandlinetools-linux-${ZIP}_latest.zip"
+          unzip -q /tmp/cmdline-tools.zip -d "$SDK/cmdline-tools"
+          mv "$SDK/cmdline-tools/cmdline-tools" "$SDK/cmdline-tools/latest"
+          rm -f /tmp/cmdline-tools.zip
+          echo "sdk.dir=$SDK" > local.properties
+          echo "ANDROID_HOME=$SDK" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$SDK" >> "$GITHUB_ENV"
+          echo "$SDK/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
+          "$SDK/cmdline-tools/latest/bin/sdkmanager" --version
+
+      - name: Accept the SDK licences
+        run: |
+          set -euo pipefail
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses | tail -3
+
+      - name: Install platform 35 and build-tools 35.0.0
+        run: |
+          set -euo pipefail
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
+            "platform-tools" \
+            "platforms;android-35" \
+            "build-tools;35.0.0"
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --list_installed
+
+      - name: Show the Gradle version the wrapper resolved
+        run: ./gradlew --no-daemon --version
+
+      - name: Decode the release keystore
+        run: |
+          set -euo pipefail
+          echo "$RELEASE_KEYSTORE_B64" | base64 -d > app/release.keystore
+          keytool -list -keystore app/release.keystore -storetype PKCS12 \
+            -storepass "$RELEASE_STORE_PASS" -alias "$RELEASE_KEY_ALIAS" | head -4
+
+      - name: Assemble the release APK
+        run: set -o pipefail; ./gradlew --no-daemon --console=plain assembleRelease 2>&1 | tee build.log
+
+      - name: Put the compiler's own error lines on the check
+        if: failure()
+        continue-on-error: true
+        run: |
+          ESC=$(printf '\033')
+          FOUND=0
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            FOUND=$((FOUND+1))
+            CLEAN=$(printf '%s' "$line" | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | head -c 220)
+            echo "::error title=compiler::${CLEAN}"
+          done <<EOF
+          $(grep -E '^e: |error: |^> Task .* FAILED|Caused by:' build.log 2>/dev/null | head -25)
+          EOF
+          if [ "$FOUND" -eq 0 ]; then
+            echo "::notice title=compiler::no compiler error lines found in build.log - see the step log"
+          else
+            echo "surfaced $FOUND compiler error line(s)"
+          fi
+
+      - name: Run lint and the unit tests
+        run: |
+          set -o pipefail
+          ./gradlew --no-daemon --console=plain lintRelease testDebugUnitTest 2>&1 | tee -a build.log
+
+      - name: Verify the APK signature (v2)
+        run: |
+          set -euo pipefail
+          APK=app/build/outputs/apk/release/app-release.apk
+          [ -f "$APK" ] || { echo "::error::no APK at $APK"; exit 1; }
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$APK"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --require-v2-signing "$APK" \
+            && echo "v2 signature present - OK"
+
+      - name: The release APK contains no demo ad IDs
+        run: |
+          set -uo pipefail
+          APK=app/build/outputs/apk/release/app-release.apk
+          WORK=$(mktemp -d)
+          trap 'rm -rf "$WORK"' EXIT
+          unzip -qo "$APK" -d "$WORK" 'classes*.dex'
+          FOUND=0
+          find "$WORK" -name 'classes*.dex' -print0 | xargs -0 strings \
+            | grep -qF "ca-app-pub-3940256099942544" && FOUND=1
+          if [ "$FOUND" -ne 0 ]; then
+            echo "::error::the release APK still contains Google demo ad unit IDs - real IDs were not injected"
+            exit 1
+          fi
+          echo "no demo ad IDs in the release APK - OK"
+
+      - name: Release APK is a sane size
+        run: |
+          ls -lh app/build/outputs/apk/release/app-release.apk
+          MAX=$((25 * 1024 * 1024))
+          SIZE=$(stat -c%s app/build/outputs/apk/release/app-release.apk)
+          if [ "$SIZE" -gt "$MAX" ]; then
+            echo "::error::release APK is $((SIZE / 1048576)) MB - something is duplicated"
+            exit 1
+          fi
+          echo "size $((SIZE / 1048576)) MB - OK"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ac-ustad-release
+          path: android/app/build/outputs/apk/release/app-release.apk
+          retention-days: 30
+          if-no-files-found: error

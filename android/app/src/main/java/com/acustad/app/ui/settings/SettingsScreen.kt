@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -15,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -198,6 +200,10 @@ private fun AboutPanel(state: SettingsState, onRetry: () -> Unit) {
     }
 }
 
+/** The hosted privacy page. It must match what PRIVACY.html is published as. */
+private const val PRIVACY_POLICY_URL =
+    "https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html"
+
 /**
  * The privacy promise, in the same words as PRIVACY.md.
  *
@@ -213,6 +219,16 @@ private fun PrivacyPanel() {
             PanelHeading(stringResource(R.string.settings_privacy_title))
             Text(text = stringResource(R.string.settings_privacy_1), style = UstadType.caption)
             Text(text = stringResource(R.string.settings_privacy_2), style = UstadType.caption)
+            val uriHandler = LocalUriHandler.current
+            val openLabel = stringResource(R.string.settings_privacy_view_full)
+            TextButton(
+                onClick = { runCatching { uriHandler.openUri(PRIVACY_POLICY_URL) } },
+                modifier = Modifier
+                    .heightIn(min = 48.dp)
+                    .semantics { contentDescription = openLabel },
+            ) {
+                Text(text = openLabel, style = UstadType.label)
+            }
         }
     }
 }

@@ -184,8 +184,9 @@ deliberately and in the open, not by drift:
   app change; adapters that ship an SDK need a dependency + a gate review
   each. Initialise-then-load order in `AdsManager` already satisfies what
   bidding adapters require.
-- **Real-ID swap**: replace `ads.properties` values — zero code change. Keep
-  debug on demo units forever.
+- **Real-ID swap**: release CI reads the real IDs from GitHub Secrets
+  (`AD_APP_ID`/`AD_BANNER`/…), with local `ads.properties` as the fallback —
+  zero code change. Keep debug on demo units forever.
 - **app-ads.txt + transparent seller info**: owner's domain work, outside the
   codebase. DSPs bid less without it.
 - **Banner refresh**: console-side per ad unit — Google-optimised or 30s

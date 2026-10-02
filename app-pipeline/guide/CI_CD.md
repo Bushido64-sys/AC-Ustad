@@ -104,8 +104,13 @@ than by memory.
 
 ## 3. Secrets
 
-None. The build needs no key, no token, no account. If a workflow ever needs one, that is a
-sign something is being fetched from the network at build time — investigate it.
+The debug build needs no key, no token, no account. The **release** build (`build-release.yml`,
+manual trigger only) is the one job that reads secrets — the six ad values (`AD_APP_ID`,
+`AD_BANNER`, `AD_INTERSTITIAL`, `AD_REWARDED`, `AD_NATIVE`, `AD_APP_OPEN`) and the four signing
+values (`RELEASE_KEYSTORE_B64`, `RELEASE_STORE_PASS`, `RELEASE_KEY_ALIAS`, `RELEASE_KEY_PASS`).
+`build.gradle.kts` reads the ad IDs as environment variables first, then `ads.properties`,
+then demo units. If a debug workflow ever needs a secret, that is a sign something is being
+fetched from the network at build time — investigate it.
 
 ## 4. Versions to keep current
 
@@ -142,10 +147,11 @@ the new manifest alongside the new data.
 
 ## 7. Release
 
-There is no store release in scope. A release is: `versionCode` bumped, a green run, a tag
-`v1.0.0`, and a commit that updates the database if the data changed (`meta.kb_version` is the marker). The artifact is
-downloaded from the workflow and installed over the previous build — `adb install -r`, no
-uninstall, so favourites and settings survive (`PHASE_6_FAVOURITES.md` §1).
+The release path is `.github/workflows/build-release.yml`, manual trigger only: same SDK/lint/test
+gates as `build-app.yml`, plus `assembleRelease`, `apksigner verify` (v2 required), a gate that
+the release APK contains **no demo ad IDs**, and the `ac-ustad-release` artifact (30 days).
+Every later upload: bump `versionCode` by ≥1. Before the first upload: §0 natives gate passes,
+the secret values are in place, `PRIVACY.html` is live (STORE_SETUP.md §1–§4).
 
 ## 8. How the human installs and tests it
 

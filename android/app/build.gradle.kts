@@ -16,12 +16,25 @@ val adsProps = Properties().apply {
     val file = rootProject.file("ads.properties")
     if (file.exists()) file.inputStream().use(::load)
 }
-fun adsId(key: String, demo: String): String =
-    (adsProps.getProperty(key) ?: demo).also {
-        if (!rootProject.file("ads.properties").exists() && it == demo) {
-            logger.warn("ads.properties absent: using demo $key unit")
+fun adsId(key: String, demo: String): String {
+    val envKey = when (key) {
+        "appId" -> "AD_APP_ID"
+        "banner" -> "AD_BANNER"
+        "interstitial" -> "AD_INTERSTITIAL"
+        "rewarded" -> "AD_REWARDED"
+        "native" -> "AD_NATIVE"
+        "appOpen" -> "AD_APP_OPEN"
+        else -> key.uppercase()
+    }
+    // CI and store builds inject real unit IDs through the environment; the
+    // local ads.properties remains the fallback for a dev machine; demo units
+    // are the last resort so a release can never hard-fail the machine.
+    return (System.getenv(envKey) ?: adsProps.getProperty(key) ?: demo).also {
+        if (it == demo && System.getenv(envKey) == null && adsProps.getProperty(key) == null) {
+            logger.warn("using demo $key unit: no $envKey env var and no ads.properties")
         }
     }
+}
 
 // Demo units from https://developers.google.com/admob/android/test-ads.
 val DEMO_APP_ID = "ca-app-pub-3940256099942544~3347511713"
@@ -47,6 +60,23 @@ android {
         vectorDrawables { useSupportLibrary = false }
     }
 
+    signingConfigs {
+        // Applied only when all four secrets exist (CI release job); debug
+        // builds and local dev keep Android's debug signing untouched.
+        val releaseKeystore = System.getenv("RELEASE_KEYSTORE_B64")
+        if (releaseKeystore != null && System.getenv("RELEASE_STORE_PASS") != null &&
+            System.getenv("RELEASE_KEY_ALIAS") != null && System.getenv("RELEASE_KEY_PASS") != null
+        ) {
+            getByName("release") {
+                storeFile = file("release.keystore")
+                storeType = "PKCS12"
+                storePassword = System.getenv("RELEASE_STORE_PASS")
+                keyAlias = System.getenv("RELEASE_KEY_ALIAS")
+                keyPassword = System.getenv("RELEASE_KEY_PASS")
+            }
+        }
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix = ""
@@ -65,6 +95,9 @@ android {
             // keep rules (see proguard-rules.pro); fonts are kept explicitly.
             isMinifyEnabled = true
             isShrinkResources = true
+            if (System.getenv("RELEASE_KEYSTORE_B64") != null) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             manifestPlaceholders["adsAppId"] = adsId("appId", DEMO_APP_ID)
             buildConfigField("String", "AD_UNIT_BANNER", "\"${adsId("banner", DEMO_BANNER)}\"")
             buildConfigField(
