@@ -81,12 +81,15 @@ jobs:
       - name: Decode the release keystore
         run: |
           set -euo pipefail
-          echo "$RELEASE_KEYSTORE_B64" | base64 -d > app/release.keystore
+          echo "b64 length: ${#RELEASE_KEYSTORE_B64}, storepass chars: ${#RELEASE_STORE_PASS}, alias chars: ${#RELEASE_KEY_ALIAS}"
+          echo "$RELEASE_KEYSTORE_B64" | base64 -d > app/release.keystore \
+            || { echo "::error title=decode::RELEASE_KEYSTORE_B64 is not valid base64 - re-paste it from GITHUB_SECRETS.txt as one long line"; exit 1; }
           ls -la app/release.keystore
-          echo "::error title=diagnose::storepass chars: $(printf '%s' "$RELEASE_STORE_PASS" | wc -c)  alias chars: $(printf '%s' "$RELEASE_KEY_ALIAS" | wc -c)"
+          openssl pkcs12 -in app/release.keystore -info -nokeys -passin "pass:$RELEASE_STORE_PASS" -noout \
+            || { echo "::error title=decode::the decoded keystore does not open with RELEASE_STORE_PASS - check both secrets match GITHUB_SECRETS.txt"; exit 1; }
           keytool -list -keystore app/release.keystore -storetype PKCS12 \
             -storepass "$RELEASE_STORE_PASS" -alias "$RELEASE_KEY_ALIAS" > keytool.out 2>&1 \
-            || { echo "::error::keytool failed - the decoded keystore or the password does not match the pasted secret:"; cat keytool.out; exit 1; }
+            || { echo "::error title=diagnose::keytool rejected the keystore/password/alias - see the message below"; cat keytool.out; exit 1; }
           head -4 keytool.out
 
       - name: Assemble the release APK
