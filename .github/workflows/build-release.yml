@@ -82,8 +82,12 @@ jobs:
         run: |
           set -euo pipefail
           echo "$RELEASE_KEYSTORE_B64" | base64 -d > app/release.keystore
+          # No pipe into head: pipefail turns head's early exit into a SIGPIPE
+          # failure for keytool. Write to a file, then peek at it.
           keytool -list -keystore app/release.keystore -storetype PKCS12 \
-            -storepass "$RELEASE_STORE_PASS" -alias "$RELEASE_KEY_ALIAS" | head -4
+            -storepass "$RELEASE_STORE_PASS" -alias "$RELEASE_KEY_ALIAS" > keytool.out 2>&1 \
+            || { cat keytool.out; exit 1; }
+          head -4 keytool.out
 
       - name: Assemble the release APK
         run: set -o pipefail; ./gradlew --no-daemon --console=plain assembleRelease 2>&1 | tee build.log
