@@ -67,7 +67,7 @@ android {
         if (releaseKeystore != null && System.getenv("RELEASE_STORE_PASS") != null &&
             System.getenv("RELEASE_KEY_ALIAS") != null && System.getenv("RELEASE_KEY_PASS") != null
         ) {
-            getByName("release") {
+            maybeCreate("release").apply {
                 storeFile = file("release.keystore")
                 storeType = "PKCS12"
                 storePassword = System.getenv("RELEASE_STORE_PASS")
