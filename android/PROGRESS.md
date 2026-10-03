@@ -4,7 +4,7 @@
 
 > **Where we are:** App is **submitted to the Amazon Appstore** (5-day review estimate, 2026-10-03). Release builds feed AdMob; no release ads are serving yet because the AdMob account is stuck in verification — `app-ads.txt` is live at `https://bushido64-sys.github.io/app-ads.txt` and the crawl is the pending step, not a code bug. CI `build app`/`verify data` green on `e4823f1` (new launcher icon). No Play Store account yet — that and the ads flip are the two gates before anything ships again. Debug-demo AdMob fills fine; release-real fills as soon as AdMob verifies.
 >
-> Repo cleaned on 2026-10-03: AI-AGENT-PROMPTS.txt, PRIVACY.md and STORE_SETUP.md are back at root; the ad-hoc `assignments/` folder is merged into `ac-ustad-impo-docs/`; every secret-bearing file (keystore, PAT, GITHUB_SECRETS, app auth key, Unit-ID) lives outside the repo in `~/.config/ac-ustad/` and is never committed. Do NOT re-add it.
+> Repo cleaned on 2026-10-03: AI-AGENT-PROMPTS.txt, PRIVACY.md and STORE_SETUP.md are back at root; the ad-hoc `assignments/` folder is merged into `ac-ustad-impo-docs/`; every secret-bearing file lives outside the tracked tree in two places — `~/.config/ac-ustad/` (canonical) and a git-ignored working copy at `local-secrets/` (release.p12, STORE_SECRETS.txt, GITHUB_SECRETS.txt, ci-token, AppstoreAuthenticationKey.pem, Amazon IDs.txt, Unit-ID.txt). Do NOT re-add them.
 >
 > AdMob unit IDs and the release signing config come from GitHub Secrets on the manual `build-release` workflow, which now produces a verified v2 APK (`ac-ustad-release`). Phone is not connected this session; fill-through on the release APK is the confirmation owed by AdMob.
 >
