@@ -82,7 +82,7 @@ jobs:
         run: |
           set -euo pipefail
           echo "b64 length: ${#RELEASE_KEYSTORE_B64}, storepass chars: ${#RELEASE_STORE_PASS}, alias chars: ${#RELEASE_KEY_ALIAS}"
-          echo "$RELEASE_KEYSTORE_B64" | base64 -d > app/release.keystore \
+          printf '%s' "$RELEASE_KEYSTORE_B64" | tr -d '[:space:]' | base64 -d > app/release.keystore \
             || { echo "::error title=decode::RELEASE_KEYSTORE_B64 is not valid base64 - re-paste it from GITHUB_SECRETS.txt as one long line"; exit 1; }
           ls -la app/release.keystore
           openssl pkcs12 -in app/release.keystore -info -nokeys -passin "pass:$RELEASE_STORE_PASS" -noout \
