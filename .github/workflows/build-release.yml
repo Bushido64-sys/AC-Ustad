@@ -82,11 +82,11 @@ jobs:
         run: |
           set -euo pipefail
           echo "$RELEASE_KEYSTORE_B64" | base64 -d > app/release.keystore
-          # No pipe into head: pipefail turns head's early exit into a SIGPIPE
-          # failure for keytool. Write to a file, then peek at it.
+          ls -la app/release.keystore
+          echo "::error title=diagnose::storepass chars: $(printf '%s' "$RELEASE_STORE_PASS" | wc -c)  alias chars: $(printf '%s' "$RELEASE_KEY_ALIAS" | wc -c)"
           keytool -list -keystore app/release.keystore -storetype PKCS12 \
             -storepass "$RELEASE_STORE_PASS" -alias "$RELEASE_KEY_ALIAS" > keytool.out 2>&1 \
-            || { cat keytool.out; exit 1; }
+            || { echo "::error::keytool failed - the decoded keystore or the password does not match the pasted secret:"; cat keytool.out; exit 1; }
           head -4 keytool.out
 
       - name: Assemble the release APK
