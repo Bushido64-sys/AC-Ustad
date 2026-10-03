@@ -128,7 +128,11 @@ jobs:
           set -euo pipefail
           APK=app/build/outputs/apk/release/app-release.apk
           [ -f "$APK" ] || { echo "::error::no APK at $APK"; exit 1; }
-          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$APK"
+          echo "keystore secret set: $([ -n "$RELEASE_KEYSTORE_B64" ] && echo yes || echo no)"
+          unzip -l "$APK" | grep -E 'META-INF/.*\.(RSA|DSA|EC|SF)' || echo "::error title=sign::no signature files inside the APK - the release signing config did not apply"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$APK" > signer.out 2>&1 \
+            || { cat signer.out; echo "::error title=sign::apksigner failed to verify the release APK"; exit 1; }
+          cat signer.out
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --require-v2-signing "$APK" \
             && echo "v2 signature present - OK"
 
