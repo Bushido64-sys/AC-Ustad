@@ -134,8 +134,8 @@ jobs:
             || RC=$?
           cat signer.out | while IFS= read -r l; do echo "::notice title=apksigner::${l:0:200}"; done
           [ -n "${RC:-}" ] && { echo "::error title=sign::apksigner failed to verify the release APK"; exit 1; }
-          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --require-v2-signing "$APK" > v2.out 2>&1 \
-            && echo "v2 signature present - OK" || { cat v2.out; echo "::error title=sign::v2 signature missing from the release APK"; exit 1; }
+          grep -q "Verified using v2 scheme (APK Signature Scheme v2): true" signer.out \
+            && echo "v2 signature present - OK" || { echo "::error title=sign::v2 signature missing from the release APK"; exit 1; }
 
       - name: The release APK contains no demo ad IDs
         run: |
