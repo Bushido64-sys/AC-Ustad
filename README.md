@@ -1,128 +1,69 @@
-# AC Ustad — AC & Inverter Error Code Knowledge Base
+# AC Ustad — Offline AC & Solar Inverter Error Code Reference
 
-Offline knowledge base of **error/fault codes** for air conditioners and solar/UPS inverters,
-focused on **Pakistani market brands first**, then international brands sold in Pakistan.
-This data will power a future Android app for AC/inverter technicians ("AC Ustad").
-
----
+A free, offline reference app for air-conditioner and solar-inverter technicians in Pakistan. A unit throws a code (E6, F4, Error 200, a blinking LED) and the app tells you what it means, why it happens, and what to do about it — in English or Roman Urdu, with no signal. All content ships inside a bundled database; nothing is fetched at runtime. Ad-supported only, no account, no analytics.
 
 ## What this repository is
 
-- **Research + structured data only.** No Android app code lives here (yet).
-  The app will be built later from build files (e.g. `agent.md`, `Design.md`, phases 1–10)
-  that the project owner will supply. When those arrive, start from **`docs/PROGRESS.md`**.
-- Every brand is **one folder** containing its error codes, organized **series/model-wise**
-  as JSON files (Android-friendly; DOCX/PDF can be exported later for sharing/printing).
-- Every code entry is bilingual: **English + Roman Urdu** (Roman Urdu is the primary
-  display language for technicians; English kept for official terms and search).
+Everything: the researched knowledge base, the Android app, the iOS-independent build pipeline, the CI gates, and the store submission docs.
 
-## Why JSON (not DOCX)
-
-DOCX cannot be read natively inside an Android app (Apache POI is effectively broken on
-Android). JSON is parsed instantly, validates against a schema, and loads into an Android
-Room/SQLite database for offline search. Zoom/font-size/"field mode" are **app UI features**
-that work regardless of the data format.
-
-## Folder structure
+## Quick map
 
 ```
 .
-├── README.md                     ← you are here
-├── docs/
-│   ├── PROGRESS.md               ← LIVE status: where work stopped, what's next (start here to resume)
-│   ├── BRAND-ROADMAP.md          ← ordered list of every brand + phase + ☐/☑ status
-│   ├── SCHEMA.md                 ← field definitions, severity levels, language rules
-│   ├── AUTHORING-GUIDE.md        ← how to write one brand's files correctly
-│   ├── RESEARCH-PROTOCOL.md      ← source checklist so no error code is left behind
-│   └── sources/<brand>.md        ← traceable list of sources used per brand
-├── schema/brand.schema.json      ← JSON Schema every data file must pass
-├── data/
-│   ├── index.json                ← list of all brands (app's brand picker data)
-│   ├── ac/<brand>/               ← e.g. data/ac/dawlance/
-│   │   ├── brand.json            ← brand metadata + list of series files
-│   │   └── <series>.json         ← one file per series/model line = all its codes
-│   └── inverter/<brand>/         ← e.g. data/inverter/inverex/
-├── tools/validate.py             ← validates all data files against the schema
-├── app-pipeline/                ← APP-READY PACKAGE (SQLite + JSON + data contract)
-│   └── guide/                   ← 20-document Android build guide (AGENTS.md is the entry point)
-├── android/                     ← THE ANDROID APP (Kotlin + Compose). CI builds it; the phone tests it
-│   ├── PROGRESS.md              ← APP STATUS: phases, traps, checks, next tasks
-│   └── app/src/main/assets/db/  ← the app's copy of kb.sqlite, hash-checked in CI
-├── research-raw/                ← source PDFs/screenshots kept out of the data tree
-├── AI-AGENT-PROMPTS.txt        ← START HERE. A map, not a brief: read it and it
-│                                   routes you to every other file and the next task
-└── exports/                     ← generated DOCX/PDF (future; not committed)
+├── AI-AGENT-PROMPTS.txt   <- START HERE. One-file resume map: read it, it routes you.
+├── android/               <- THE ANDROID APP (Kotlin + Compose). CI builds it; the phone tests it.
+│   ├── PROGRESS.md        <- APP STATUS: phases, traps, checks, next tasks. Always current.
+│   └── app/               <- source + the app's copy of the shipped database
+├── app-pipeline/          <- APP-READY PACKAGE: kb.sqlite, JSON, data contract, 20-doc build guide
+│   └── guide/             <- AGENTS.md (entry point), RULES.md, ADS.md, DESIGN.md, ...
+├── data/                  <- researched source of truth (JSON, never edited by hand)
+├── schema/                <- JSON Schema every data file must pass
+├── tools/validate.py      <- validates all data files against the schema
+├── docs/                  <- knowledge-base research docs (PROGRESS, sources, FAQ)
+├── research-raw/          <- source PDFs/screenshots, out of the data tree, not in git
+├── exports/               <- generated DOCX/PDF artifacts (regenerable, not committed)
+├── ac-ustad-impo-docs/    <- store-listing copy + owner checklist (AMAZON_DESCRIPTION, STORE_SUBMISSION)
+├── .github/workflows/     <- verify-data.yml, build-app.yml (debug CI), build-release.yml (signed release)
+└── local-secrets/         <- YOUR working copies of keys/secrets. Gitignored; never commit.
 ```
 
-## The Android app
+## App status (2026-10-03)
 
-The app is in `android/`, in this same repository, so the data and the code that reads it
-move together. **Start at `android/PROGRESS.md`** — phase status, the file map, the traps that
-will bite you, the on-device checks, and the ordered next tasks.
+- All build phases (1–9, 11) are built and phone-checked. Ads (AdMob) shipped as a straight feature — debug fills Google's demo units, release is wired for real units.
+- The app is **submitted to the Amazon Appstore** (5-day review estimate 2026-10-03).
+- Release ads are not flowing yet because the AdMob account is still in verification — `app-ads.txt` is live at `https://bushido64-sys.github.io/app-ads.txt` and the pending piece is Google's crawl/approval, not a code bug.
+- Google Play target is next: once AdMob serves real ads on the release APK, a Play Console account can ship the same app with the same real units.
 
-**CI builds, your phone tests.** There is no Android SDK on the development machine and no
-emulator, so the APK only ever comes from the workflow artifact: push → wait for the green
-**build app** check → download the `ac-ustad-debug` artifact → `adb install -r app-debug.apk`.
+Read `android/PROGRESS.md` for traps, CI gates, and the phone test checklist.
 
-Two workflows guard this repository:
+## Build / CI
 
-| Workflow | What it protects |
-|---|---|
-| `verify-data` | the knowledge base: schema validation, reproducible build, row counts, secret scan |
-| `build app` | the APK: compiles, lints, unit-tests, and refuses a permission, a stale database or a bloated APK |
+| Workflow | Trigger | What it proves |
+|---|---|---|
+| `verify data` | every push/PR | the KB validates: schema, reproducible build, row counts, secret scan |
+| `build app` | every push/PR | debug compile, lint, 115 unit tests, permission/network/database-hash/size gates |
+| `build-release` | manual (`Run workflow`) | signed release APK: R8, apksigner v2 verified, no demo ad IDs, `ac-ustad-release` artifact |
 
-## How the Android app consumes this
+Developers: `python3 -m venv .venv && .venv/bin/pip install jsonschema`, validate with `.venv/bin/python tools/validate.py`. No Android SDK on a dev machine — CI is the compiler, the phone is the test rig.
 
-**Ready now** — `app-pipeline/` is the app-ready package, and `app-pipeline/guide/` is the
-finished 20-document build guide. Start at `app-pipeline/guide/AGENTS.md`.
+## Publish URLs
 
-1. Copy `app-pipeline/db/kb.sqlite` → `app/src/main/assets/db/kb.sqlite` and open it
-   **read-only** (only the `favourites` table is ever written).
-2. `brands` (62 companies, `categories` JSON) → category / brand list.
-3. `series` (320 model lines, `model_patterns` for nameplate matching) → series list.
-4. `codes` (4418 rows) + `causes` / `solutions` → code list and code detail
-   (title/meaning/causes/solutions in **en + Roman Urdu**, severity badge, confidence, source).
-5. `code_fts` (+ `aliases`) → search. **Search is scoped to the level you are on:**
-   brands page searches brand names, model page searches model names, code page searches codes
-   **inside that series only**. There is deliberately **no global code search**, because one
-   code string means different things per brand (`E6` alone appears on 16 brands, `E1` on 20)
-   and grouping them still leaves the technician guessing which machine they are standing in
-   front of. Exact/prefix code lookups go through `aliases`; free text goes through `code_fts`
-   with the input quoted (454 of 2139 code strings crash FTS unquoted).
-6. `data-manifest.json` → data version, row counts and SHA-256 of each generated file.
+- Privacy policy: `https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html`
+- App ads: `https://bushido64-sys.github.io/app-ads.txt`
+- Landing: `https://bushido64-sys.github.io/`
 
-`python3 app-pipeline/build_kb.py` regenerates the whole package from `data/` after any change.
-`AI-AGENT-PROMPTS.txt` in the repo root contains ready-to-paste prompts for the reviewer and
-builder AI agents, and points at the guide.
+## Conventions (short — full rules in `app-pipeline/guide/RULES.md`)
 
-## Commands
+- Never invent content; every code the user sees comes from `kb.sqlite` and must carry English + Roman Urdu causes and fix steps.
+- A code is `(brand, series, code)`, never the code string alone.
+- Search is scoped to the current level; no global code search. This is the product.
+- The database is read-only except `favourites`. Colors/sizes come only from `design_tokens.xml`.
+- Zero permissions get declared — what AdMob merges in is the floor and the ceiling.
 
-```bash
-# One-time setup (creates .venv with jsonschema)
-python3 -m venv .venv && .venv/bin/pip install jsonschema
+## Legal
 
-# Validate every JSON data file against the schema (run before marking any brand done)
-.venv/bin/python tools/validate.py
-```
+Error codes and factual meanings are facts; marketing prose is ours. Sources are attributed, manufacturer PDFs are never committed, and the app carries an unofficial-independent disclaimer — qualified technicians only.
 
-## Conventions (summary — details in docs/SCHEMA.md)
+---
 
-- Brand folder names: lowercase, no spaces (`dawlance`, `inverex`, `crown-micro`).
-- Series file names: lowercase-kebab (`powercon-inverter.json`).
-- Error codes are stored **exactly as displayed** (`E1`, `F0`, `H6`, `CH53`, `07`,
-  `LED: 6 blinks` variants go in `aliases`).
-- `severity`: `info` | `self_clear` | `check_restart` | `stop_pro` | `danger`.
-- Every entry carries a `source` (manual/URL) for traceability.
-- Informal states (defrost `FH`/`DF`, filter-clean `CF`) are `isFault: false`, not errors.
-
-## Legal note
-
-Error codes and their factual meanings are facts (not copyrightable); manual prose/designs are.
-Always **paraphrase** causes/solutions in our own words, attribute the source, never bundle
-manufacturer PDFs or logos, and include an app disclaimer: unofficial, independent, not
-affiliated with any manufacturer; lethal voltages — qualified technicians only.
-
-## Project status
-
-See **`docs/PROGRESS.md`** for live status and **`docs/BRAND-ROADMAP.md`** for the full
-brand queue (Pakistani brands first, international later).
+Should the repo be public? **It can stay public**, and here's why: nothing harmful is in it if you keep the discipline — keys, tokens, and the real unit IDs live in `local-secrets/` (gitignored) and `~/.config/ac-ustad/`, neither tracked. Public buys you portfolio visibility and an easy Pages site. If you ever want the research notes and docs page locked away, flip it to private in Settings → Danger Zone; the app and JSON still work offline either way. The one rule that overrides this: if any secret ever reaches the history, rotate it.
