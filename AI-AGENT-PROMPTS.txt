@@ -8,20 +8,22 @@ repository. This file is a map, not a brief: it tells you where the answers live
 Do not ask the human to recap anything — read, then act.
 
 --------------------------------------------------------------------------------
-CURRENT STATE (2026-10-03) — read this before anything else
+CURRENT STATE (2026-11-04) — read this before anything else
 --------------------------------------------------------------------------------
 
-- The app is SUBMITTED to the Amazon Appstore. Amazon's estimate is ~5 business
-  days for review. No more work is scheduled until either AdMob approves the
-  account / app-ads.txt, or Amazon review needs a fix.
-- AdMob release ads are NOT live yet. The app keeps returning no fill because
-  the AdMob account has not completed verification yet. app-ads.txt is live at
-  https://bushido64-sys.github.io/app-ads.txt; the crawl / verification is
-  what's pending. Demo units in DEBUG fill fine. Do NOT rebuild or "fix" ads
-  because of this — it is an AdMob approval delay, not a code bug.
-- No Play Store account yet. After AdMob serves real ads on the release build,
-  the same AdMob unit IDs ship alongside a Play Console account and the app
-  goes to Google Play with the same artifacts.
+- The app is SUBMITTED to the Amazon Appstore. AdMob release ads are still
+  waiting on account verification; app-ads.txt is live at
+  https://bushido64-sys.github.io/app-ads.txt. Demo units in DEBUG fill fine.
+  Do NOT rebuild or "fix" ads because of this — it is an AdMob approval delay,
+  not a code bug.
+- Google Play: the Play Console account is open. The signed store build is
+  version 1.0.1 (versionCode 4), produced by the manual build-release workflow
+  (run 41838466649, artifact ac-ustad-release). Upload ac-ustad-1.0.1.aab for
+  Play; the APK is for Amazon/sideload only.
+- The launcher icon, 44 dp home-header mark, 512 store icon and 1024x500
+  feature graphic use the new surface compass from brand/logo/final/.
+- Quick store info: APP_INFO.txt. Full Play checklist, hashes and Console
+  steps: PLAYSTORE_PUBLISHING.txt.
 - Signing keystore, ad IDs, secrets and the Amazon App Store auth key live
   OUTSIDE the tracked tree in two places: ~/.config/ac-ustad/ (canonical) and
   a git-ignored working copy at ./local-secrets/ (release.p12, STORE_SECRETS.txt,
@@ -31,9 +33,9 @@ CURRENT STATE (2026-10-03) — read this before anything else
 - Owner-side store docs and listing copy live in ac-ustad-impo-docs/
   (STORE_SUBMISSION.md, AMAZON_DESCRIPTION.txt). The old assignments/ folder
   was consolidated into it.
-- A green release workflow run (name build-release) means a signed, verified
-  release APK in the ac-ustad-release artifact. CI on push still only builds
-  debug (build app + verify data).
+- A green build-release run means a signed, verified release APK and AAB in
+  the ac-ustad-release artifact. CI on push still only builds debug
+  (build app + verify data).
 
 --------------------------------------------------------------------------------
 WHAT THE HUMAN SAYS
