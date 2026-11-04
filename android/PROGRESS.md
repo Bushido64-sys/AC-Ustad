@@ -4,7 +4,9 @@
 
 > **2026-11-04 — PLAY STORE BUILD READY.** `versionCode 4`, `versionName 1.0.1`,
 > `compileSdk`/`targetSdk` 36 (Google Play requires API 36 for new apps since
-> 2026-08-31), AGP 8.10.1 / Gradle 8.11.1. The manual `build-release` workflow now
+> 2026-08-31), AGP 8.10.1 / Gradle 8.11.1. The launcher icon and the 44 dp home
+> header now use the new **surface compass** from `brand/logo/final/`; the
+> signed `1.0.1 (4)` AAB is run `41838466649`. The manual `build-release` workflow now
 > builds **both** `ac-ustad-1.0.1.apk` (Amazon/sideload) and `ac-ustad-1.0.1.aab`
 > (Google Play), verifies both signatures, and fails if either contains demo ad
 > IDs or targets below API 36. The uncommitted `__aux` rename was reverted: AUX is
@@ -12,13 +14,19 @@
 > 4,418 codes. Publishing steps and store copy live in root
 > `PLAYSTORE_PUBLISHING.txt`.
 
-> **Where we are:** App is **submitted to the Amazon Appstore** (5-day review estimate, 2026-10-03). Release builds feed AdMob; no release ads are serving yet because the AdMob account is stuck in verification — `app-ads.txt` is live at `https://bushido64-sys.github.io/app-ads.txt` and the crawl is the pending step, not a code bug. CI `build app`/`verify data` green on `e4823f1` (new launcher icon). No Play Store account yet — that and the ads flip are the two gates before anything ships again. Debug-demo AdMob fills fine; release-real fills as soon as AdMob verifies.
+> **Where we are:** App is **submitted to the Amazon Appstore** (5-day review estimate, 2026-10-03). Release builds feed AdMob; no release ads are serving yet because the AdMob account is stuck in verification — `app-ads.txt` is live at `https://bushido64-sys.github.io/app-ads.txt` and the crawl is the pending step, not a code bug. CI `build app` green on `f09634d`; the signed `1.0.1 (4)` AAB is run `41838466649`.
+> The Play Console account is open; app setup, Data safety and closed testing are
+> the next gate. The launcher icon and 44 dp home header now use the surface
+> compass. Debug-demo AdMob fills fine; release-real fills as soon as AdMob
+> verifies.
 >
 > Repo cleaned on 2026-10-03: AI-AGENT-PROMPTS.txt, PRIVACY.md and STORE_SETUP.md are back at root; the ad-hoc `assignments/` folder is merged into `ac-ustad-impo-docs/`; every secret-bearing file lives outside the tracked tree in two places — `~/.config/ac-ustad/` (canonical) and a git-ignored working copy at `local-secrets/` (release.p12, STORE_SECRETS.txt, GITHUB_SECRETS.txt, ci-token, AppstoreAuthenticationKey.pem, Amazon IDs.txt, Unit-ID.txt). Do NOT re-add them.
 >
 > AdMob unit IDs and the release signing config come from GitHub Secrets on the manual `build-release` workflow, which now produces a verified v2 APK (`ac-ustad-release`). Phone is not connected this session; fill-through on the release APK is the confirmation owed by AdMob.
 >
-> `build_config` note for the session: with the new launcher PNG commit (e4823f1) the installed on-device icon updates, but the store listing / Amazon icon is the same PNG uploaded into the console — it does not depend on the APK.
+> `build_config` note: the surface compass is now the launcher icon (adaptive +
+> legacy densities). The store listing icon is the separate 512 PNG at
+> `screenshots_1200x1920/icons/icon_512x512.png`; it does not depend on the APK.
 
 > **Where we are:** Phases 1–9 and 11 are built and phone-checked, and **Phase 5's search work
 > is finished and confirmed on the phone at this session's close (2026-09-30)**: free text

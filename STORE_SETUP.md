@@ -8,6 +8,8 @@ Current state (2026-11-04): `versionCode = 4`, `versionName = "1.0.1"`, package
 `com.acustad.app`, `minSdk 26`, `targetSdk 36` (Google Play's current minimum).
 The manual `build-release.yml` workflow now produces **both** artifacts:
 `ac-ustad-1.0.1.apk` for Amazon/sideload and `ac-ustad-1.0.1.aab` for Google Play.
+The launcher icon, home header, 512 store icon and 1024×500 feature graphic use
+the new **surface compass** from `brand/logo/final/`.
 See the repository root `PLAYSTORE_PUBLISHING.txt` for the Play Console checklist.
 
 ---

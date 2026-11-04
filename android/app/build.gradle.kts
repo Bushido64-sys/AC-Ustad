@@ -94,7 +94,7 @@ android {
         release {
             // Phase 9: R8 on for the release build. The phone test loop installs the debug
             // APK, so this changes nothing about CI (which builds debug only) or daily
-            // testing — it hardens the artifact that ships as v1.0.0. Raw SQLite needs no
+            // testing — it hardens the artifact that ships as v1.0.1. Raw SQLite needs no
             // keep rules (see proguard-rules.pro); fonts are kept explicitly.
             isMinifyEnabled = true
             isShrinkResources = true

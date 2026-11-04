@@ -14,6 +14,7 @@ Everything: the researched knowledge base, the Android app, the iOS-independent 
 ├── android/               <- THE ANDROID APP (Kotlin + Compose). CI builds it; the phone tests it.
 │   ├── PROGRESS.md        <- APP STATUS: phases, traps, checks, next tasks. Always current.
 │   └── app/               <- source + the app's copy of the shipped database
+├── brand/logo/            <- THE COMPASS brand kit: logo, app icon, favicon, guidelines
 ├── app-pipeline/          <- APP-READY PACKAGE: kb.sqlite, JSON, data contract, 20-doc build guide
 │   └── guide/             <- AGENTS.md (entry point), RULES.md, ADS.md, DESIGN.md, ...
 ├── data/                  <- researched source of truth (JSON, never edited by hand)
@@ -31,7 +32,8 @@ Everything: the researched knowledge base, the Android app, the iOS-independent 
 
 - All build phases (1–9, 11) are built and phone-checked. Ads (AdMob) shipped as a straight feature — debug fills Google's demo units, release is wired for real units.
 - The app is **submitted to the Amazon Appstore**. AdMob release ads are still waiting on account verification; `app-ads.txt` is live at `https://bushido64-sys.github.io/app-ads.txt`.
-- **Google Play build is ready:** `versionCode 4`, `versionName 1.0.1`, package `com.acustad.app`, `targetSdk 36` (Play's current minimum). The manual `build-release` workflow now produces both `ac-ustad-1.0.1.apk` (Amazon) and `ac-ustad-1.0.1.aab` (Google Play).
+- **Google Play build is ready:** `versionCode 4`, `versionName 1.0.1`, package `com.acustad.app`, `targetSdk 36` (Play's current minimum). The manual `build-release` workflow produces both `ac-ustad-1.0.1.apk` (Amazon) and `ac-ustad-1.0.1.aab` (Google Play).
+- The launcher icon and the home header use the new **surface compass** from `brand/logo/final/`. The 512 store icon and 1024×500 feature graphic are in `screenshots_1200x1920/icons/`.
 - Publishing steps, store copy, data-safety answers, and the signing fingerprint are in **`PLAYSTORE_PUBLISHING.txt`** at the repository root.
 
 Read `android/PROGRESS.md` for traps, CI gates, and the phone test checklist.

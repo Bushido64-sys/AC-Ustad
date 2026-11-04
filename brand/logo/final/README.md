@@ -74,11 +74,22 @@ final/
 - Master files are SVG. Use PNGs for quick uploads and the SVGs for print/vector work.
 - Trademark clearance is not guaranteed; run a professional search before a wide launch.
 
+## Integrated into the app
+
+The surface compass is now live in the Android app:
+
+- **Launcher icon:** `android/app/src/main/res/mipmap-*` (mdpi–xxxhdpi) plus the adaptive icon at `mipmap-anydpi-v26/ic_launcher.xml`.
+- **Home header:** 44 dp mark before “AC Ustad” in `HomeScreen.kt`, using `res/drawable/ic_ustad_mark.xml`.
+- **Store icon:** `screenshots_1200x1920/icons/icon_512x512.png`.
+- **Feature graphic:** `screenshots_1200x1920/icons/feature_graphic_1024x500.png`.
+- **Build:** `1.0.1` (`versionCode 4`), signed AAB run `41838466649`.
+
 ## App identity (for the store listing)
 
 - Package: `com.acustad.app`
-- Version: `1.0.1` (`versionCode 3`)
+- Version: `1.0.1` (`versionCode 4`)
 - Target: Android 16 (API 36)
-- Play icon: `ac-ustad-app-icon-512.png`
+- Play icon: `screenshots_1200x1920/icons/icon_512x512.png`
+- Feature graphic: `screenshots_1200x1920/icons/feature_graphic_1024x500.png`
 - Privacy: https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html
 - Support: atif.support@proton.me

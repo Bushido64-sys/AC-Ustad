@@ -47,6 +47,8 @@ codes read, one banner, no crash.
 
 - New app submission with the release APK (`versionCode = 4` is fine for
   an update; Amazon rejects a versionCode it has already seen).
+- The launcher and store icons are the new surface compass; the 1024×500
+  feature graphic is updated too.
 - Privacy URL: the Pages link above.
 - Ad / data questionnaires, answered truthfully: contains ads (AdMob), no
   account, no analytics, network only for ads. The app needs **no Amazon-

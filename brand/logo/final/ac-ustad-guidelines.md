@@ -126,6 +126,7 @@ Do not put the orange needle on the blue tile. The app-icon version uses a white
 
 ## 10. Handover notes
 
+- The surface app icon is now the Android launcher icon (adaptive + legacy densities) and the 44 dp mark before “AC Ustad” on the home screen.
 - The compass ring is a **stroke-based master**; expand it to outlines before embroidery, vinyl cutting or any process that ignores stroke settings.
 - The wordmark is already outlined; no font is needed to display it.
 - Masters are SVG; export PDF/EPS from a vector editor only if a printer asks.
