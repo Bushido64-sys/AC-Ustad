@@ -1,14 +1,17 @@
 package com.acustad.app.ui.home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -87,15 +91,7 @@ private fun ReadyContent(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Text(
-            text = stringResource(R.string.app_name),
-            style = UstadType.title,
-        )
-        Text(
-            text = stringResource(R.string.home_subtitle),
-            style = UstadType.caption,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
+        HomeHeader(subtitle = stringResource(R.string.home_subtitle))
 
         CategoryPanel(
             title = stringResource(R.string.category_ac),
@@ -109,6 +105,28 @@ private fun ReadyContent(
             codes = counts.inverterCodes,
             onClick = { onCategoryClick(CategoryId.INVERTER) },
         )
+    }
+}
+
+@Composable
+private fun HomeHeader(subtitle: String) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        Image(
+            painter = painterResource(R.drawable.ic_ustad_mark),
+            contentDescription = null,
+            modifier = Modifier.size(44.dp),
+        )
+        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text(text = stringResource(R.string.app_name), style = UstadType.title)
+            Text(
+                text = subtitle,
+                style = UstadType.caption,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
     }
 }
 
@@ -135,17 +153,7 @@ private fun LoadingBlock() {
     // A bordered panel with the app name, not a centred spinner: a shimmer is the generic
     // look this design avoids (DESIGN.md §5).
     BorderedPanel(modifier = Modifier.fillMaxWidth()) {
-        PanelColumn {
-            Text(
-                text = stringResource(R.string.app_name),
-                style = UstadType.title,
-            )
-            Text(
-                text = stringResource(R.string.loading),
-                style = UstadType.caption,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
+        HomeHeader(subtitle = stringResource(R.string.loading))
     }
 }
 
