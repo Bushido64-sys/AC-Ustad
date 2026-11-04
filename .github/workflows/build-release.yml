@@ -205,6 +205,9 @@ jobs:
           mkdir -p artifacts
           cp app/build/outputs/apk/release/app-release.apk artifacts/ac-ustad-1.0.1.apk
           cp app/build/outputs/bundle/release/app-release.aab artifacts/ac-ustad-1.0.1.aab
+          # Play Console accepts this as the deobfuscation file for R8 builds,
+          # so production crash reports show real class/method names.
+          cp app/build/outputs/mapping/release/mapping.txt artifacts/mapping-1.0.1.txt
           ls -lh artifacts
 
       # `uses:` steps do NOT inherit defaults.run.working-directory, so this path
