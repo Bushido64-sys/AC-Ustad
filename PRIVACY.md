@@ -1,6 +1,6 @@
 # Privacy policy — AC Ustad
 
-Last updated: 2026-10-02.
+Last updated: 2026-11-04.
 
 AC Ustad is an offline reference for air conditioner and solar inverter error
 codes. This policy says what the app does with your information, in plain words.
@@ -46,11 +46,21 @@ Google's ad servers. The app is built with AndroidX, Kotlin and
 kotlinx.coroutines (Apache License 2.0) and uses IBM Plex type (SIL Open
 Font License 1.1). None of these receive anything from you through this app.
 
+## Data deletion
+
+The app has no account and stores nothing on a server, so there is no
+server-side data to delete. Codes you saved, your language and your theme
+live only on your phone: uninstall the app or clear its storage in Android
+Settings to remove them. To reset or delete the advertising ID used for ads,
+open Android Settings → Privacy → Ads.
+
+To ask a privacy question or request deletion, email
+**atif.support@proton.me**.
+
 ## Contact
 
-There is no account system and no data to correct or delete on any server.
 The data version shown in Settings tells you whether the answers on your phone
-are current.
+are current. For any privacy request, use the email above.
 
 ## Changes
 
