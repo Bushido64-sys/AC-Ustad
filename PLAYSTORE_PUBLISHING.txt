@@ -1,0 +1,526 @@
+================================================================================
+ AC USTAD - GOOGLE PLAY PUBLISHING PACK
+ Version 1.0.1 (versionCode 3) - prepared 2026-11-04
+================================================================================
+
+This file contains everything needed to publish AC Ustad on Google Play:
+build identity, artifact names, signing fingerprints, copy-paste store listing
+text, graphic asset paths, and the exact App content / Data safety / Content
+rating answers.
+
+Read section 1 first, then follow sections 4-11 in order.
+
+--------------------------------------------------------------------------------
+ 1. BUILD IDENTITY (do not change after the first upload)
+--------------------------------------------------------------------------------
+
+  App name (launcher) ........ AC Ustad
+  Package / applicationId .... com.acustad.app
+  Version name ............... 1.0.1
+  Version code ............... 3
+  Minimum Android ............ 8.0 (API 26, minSdk 26)
+  Target Android ............. 16 (API 36, targetSdk 36)
+  Compile SDK ................ 36
+  Build tools ................ 36.0.0
+  AGP / Gradle ............... 8.10.1 / 8.11.1
+  ABI ........................ universal (no native libraries)
+  Size ....................... APK ~6.3 MB (6,612,960 bytes),
+                               AAB ~9.5 MB (9,930,713 bytes)
+  Permissions ................ INTERNET, ACCESS_NETWORK_STATE, AD_ID,
+                               FOREGROUND_SERVICE, WAKE_LOCK,
+                               ACCESS_ADSERVICES_* (Topics, attribution),
+                               plus AGP's own signature-level self-permission.
+                               No runtime permissions. No location, camera,
+                               storage, contacts or notifications.
+  Ads ........................ Yes - Google AdMob (banner, interstitial,
+                               rewarded, native, app open) with UMP consent
+  In-app purchases ........... No
+  Account / login ............ No
+  Analytics / crash SDK ...... None
+  Knowledge base ............. 62 brands, 320 model lines, 4,418 codes
+                               (kbVersion 2026-09-26, validated 2026-11-04)
+  Languages .................. English + Roman Urdu (in-app)
+
+  IMPORTANT: com.acustad.app is permanent. Play will not let you change it
+  after the first upload. versionCode 3 is already used by this build; the
+  next upload must use 4 or higher.
+
+--------------------------------------------------------------------------------
+ 2. ARTIFACTS FROM GITHUB ACTIONS
+--------------------------------------------------------------------------------
+
+  Workflow ................... .github/workflows/build-release.yml
+  Trigger .................... Actions -> build-release -> Run workflow
+  Run URL .................... https://github.com/Bushido64-sys/AC-Ustad/actions/runs/41784304330
+  Run commit ................. 3a6dbcc (main)
+  Artifact name .............. ac-ustad-release (kept 30 days)
+  Files inside the artifact:
+    ac-ustad-1.0.1.aab ....... UPLOAD THIS TO GOOGLE PLAY (9,930,713 bytes)
+    ac-ustad-1.0.1.apk ....... sideload / Amazon Appstore only (6,612,960 bytes)
+    mapping-1.0.1.txt ........ R8 deobfuscation file (47,167,664 bytes)
+
+  SHA-256 (verify after download):
+    ac-ustad-1.0.1.aab ....... fcf767ff035f2403ca318623d8d1a71480ca5d3081030b84b33bb263239c144f
+    ac-ustad-1.0.1.apk ....... dbd19c48f9a13b8ae7adc13adee935b59a1ad6a8fbe582f6cae4902d18e40e63
+    mapping-1.0.1.txt ........ 36225caf44750b1f4246725ff072959c14135f9c0b6293dec774de0f9ce001d6
+
+  How to download:
+    1. Open the Run URL above (must show a green check).
+    2. Scroll to "Artifacts" at the bottom.
+    3. Download "ac-ustad-release.zip" and unzip it.
+    4. Verify the AAB signature (optional but recommended):
+         jarsigner -verify -verbose -certs ac-ustad-1.0.1.aab
+       Expected: "jar verified".
+    5. Verify the signing certificate:
+         keytool -printcert -jarfile ac-ustad-1.0.1.aab
+       Expected SHA-256: (see section 3).
+
+  The workflow already enforces all of this before it uploads the artifact:
+  signed APK (v2), signed AAB, package com.acustad.app, versionCode 3,
+  targetSdk 36, no Google demo ad IDs, and a sane file size.
+
+--------------------------------------------------------------------------------
+ 3. SIGNING
+--------------------------------------------------------------------------------
+
+  Upload key alias ........... ac-ustad
+  Keystore type .............. PKCS12
+  Key algorithm .............. RSA 2048-bit / SHA256withRSA
+  Certificate SHA-256 ........ 4A:4B:6B:E5:01:0A:6E:9E:63:99:C7:37:34:A2:1B:EC:
+                               6E:D3:37:01:A4:44:85:3D:1C:95:4B:29:E9:1D:49:A6
+  Valid from / until ......... 2026-10-02 / 2051-10-02
+
+  Keystore copies (same file, NEVER commit or share):
+    local-secrets/release.p12
+    android/app/release.keystore  (git-ignored, created only in CI)
+  Password, alias and base64 are in local-secrets/STORE_SECRETS.txt.
+
+  Google Play App Signing:
+    - Enroll in Play App Signing (the default when you create the app).
+    - Google then holds the APP SIGNING key; the key above becomes your
+      UPLOAD key. You keep signing future uploads with it.
+    - After the first upload, Play Console -> Setup -> App integrity shows the
+      App signing key certificate SHA-256. Copy it into your password manager.
+    - If you lose the upload key, you can request an upload key reset in Play
+      Console. The app signing key itself cannot be reset - back it up.
+
+  Do not lose this keystore. Without it you cannot upload updates unless Play
+  lets you reset the upload key.
+
+--------------------------------------------------------------------------------
+ 4. PLAY CONSOLE - CREATE THE APP
+--------------------------------------------------------------------------------
+
+  1. Sign in at https://play.google.com/console with the developer account.
+  2. All apps -> Create app.
+  3. Fill:
+       App name ................ AC Ustad
+       Default language ........ English (United States) - en-US
+       App or game ............. App
+       Free or paid ............ Free
+  4. Tick the Developer Program Policies and US export laws declarations.
+  5. Create app.
+  6. Left menu -> Setup -> App signing -> enroll in Play App Signing.
+  7. Left menu -> Monitor and improve -> Policy and programs -> App content.
+     Complete every card using sections 7, 8 and 9 below.
+  8. Left menu -> Grow -> Store presence -> Main store listing.
+     Paste the copy from section 5 and upload the assets from section 6.
+
+  Account note: a NEW personal developer account (created after 13 Nov 2023)
+  must run a closed test with at least 12 testers for 14 continuous days
+  before it can apply for production access. An organization account does
+  not have this requirement. Check Play Console -> Publishing overview for
+  the exact status of this account.
+
+--------------------------------------------------------------------------------
+ 5. STORE LISTING (copy-paste)
+--------------------------------------------------------------------------------
+
+  App name (max 30 chars):
+  AC Ustad: AC & Inverter Codes
+
+  Short description (max 80 chars):
+  Offline AC & solar inverter error codes and fixes in English or Roman Urdu.
+
+  Full description (max 4000 chars):
+  AC Ustad is an offline error-code reference for air-conditioner and
+  solar-inverter technicians. When a unit shows a fault code such as E6, F4,
+  Error 200, ID013, or a blinking LED pattern, AC Ustad tells you what it
+  means, what causes it, and how to fix it - in plain English or Roman Urdu,
+  with no internet connection required.
+
+  BUILT FOR THE FIELD
+  The complete knowledge base is bundled in the app: 62 brands, 320 model
+  lines and 4,418 error codes. Open it in airplane mode and every answer is
+  still there. No account, no sign-up, no waiting for a server.
+
+  SCOPED TO THE EXACT UNIT
+  The same code can mean completely different things on different machines.
+  AC Ustad always identifies a code by (brand, model line, code), never by the
+  code string alone, so you read the answer for the unit in front of you -
+  not an average across brands.
+
+  EVERY CODE INCLUDES
+  - A severity label: DANGER, STOP, CHECK, CLEARS, INFO or INDICATOR
+  - A plain-language meaning
+  - Numbered, step-by-step fix instructions
+  - Possible causes
+  - A source reference from the service manual
+
+  ENGLISH AND ROMAN URDU
+  Switch the whole app in one tap. Meanings, fix steps, causes and severity
+  words all change together, and your choice is remembered offline.
+
+  SEARCH AND SAVE
+  Search brands, model lines and codes from any screen, with technician
+  keywords such as "air leakage" or "water pump". Star the codes you use most
+  and find them in the Saved tab; swipe to remove with undo.
+
+  PRIVATE BY DESIGN
+  No account. No analytics. No crash reporting. No tracking beyond the ads
+  that keep the app free. Your saved codes and settings stay on your phone.
+  The knowledge base never needs the network: in airplane mode the ad slots
+  are simply empty and every code still works.
+
+  ADS
+  AC Ustad is free and supported by Google AdMob. Ad networks may see your
+  device and IP address when an ad loads. The app asks for consent where
+  required and requests no runtime permissions.
+
+  COVERAGE
+  Air conditioners and solar inverters from 62 brands used across Pakistan
+  and the region, including split ACs, inverter ACs, VRF systems and hybrid
+  solar inverters. Every code is sourced from manufacturer manuals and
+  service documentation.
+
+  WHO IT IS FOR
+  AC technicians, solar installers, service engineers, shopkeepers and anyone
+  who needs a straight answer from a fault code without carrying a folder of
+  manuals.
+
+  Works offline. Free. No account. English + Roman Urdu.
+
+  What's new (max 500 chars):
+  First Google Play release.
+  - 62 brands, 320 model lines and 4,418 error codes, fully offline
+  - English and Roman Urdu, switch in one tap
+  - Severity, meaning, causes and numbered fix steps for every code
+  - Save codes, and search inside brands, model lines and codes
+  - No account, no tracking, no runtime permissions
+
+  Category ................... Books & Reference
+  Tags (pick the closest) .... Reference, Education, Productivity
+  Contact email .............. atif.support@proton.me
+  Website .................... https://bushido64-sys.github.io/
+  Privacy policy URL ......... https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html
+  App-ads.txt (already live) . https://bushido64-sys.github.io/app-ads.txt
+
+  Countries / regions ........ All countries (the content is Pakistan-focused
+                               but works anywhere and is useful to any
+                               technician working on these brands)
+
+  Optional: add an Urdu (ur-PK) listing later if you translate the store copy.
+  The in-app Roman Urdu is not Urdu script, so an English listing is honest.
+
+--------------------------------------------------------------------------------
+ 6. GRAPHIC ASSETS
+--------------------------------------------------------------------------------
+
+  All paths are in the repository root.
+
+  App icon (required) ........ icons/icon_512x512.png
+                               512 x 512 PNG, RGBA, ~128 KB
+  Feature graphic (required) . icons/feature_graphic_1024x500.png
+                               1024 x 500 PNG, RGB, ~124 KB
+  Phone screenshots (required, 2-8) ... screenshots_1200x1920/screenshot_01.png
+                                        .../screenshot_02.png
+                                        .../screenshot_03.png
+                                        .../screenshot_04.png
+                                        .../screenshot_05.png
+                                        .../screenshot_06.png
+                               1200 x 1920 each (9:16), well above Play's
+                               320 px minimum and below the 3840 px maximum.
+  Extra icon ................. icons/icon_114x114.png (Amazon/small uses)
+
+  Play limits: icon <= 1 MB, feature graphic <= 15 MB, each screenshot
+  <= 8 MB. All files above pass.
+
+  Not required but recommended later: 7-inch and 10-inch tablet screenshots,
+  and a 30-second promo video on YouTube.
+
+--------------------------------------------------------------------------------
+ 7. APP CONTENT DECLARATIONS (exact answers)
+--------------------------------------------------------------------------------
+
+  Privacy policy
+    URL: https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html
+    (live, returns HTTP 200, no login, not a PDF)
+
+  Ads
+    Does your app contain ads? .......... YES
+    (Google AdMob banner, interstitial, rewarded, native, app open)
+
+  App access
+    All functionality is available without special access? ... YES
+    (no login, no account, no restricted area)
+
+  Target audience and content
+    Age groups .......................... 18 and over ONLY
+    Is your app designed for children? .. NO
+    Does your app appeal to children? ... NO
+    (A professional technician reference; selecting only 18+ avoids the
+     Families policy and its extra ad-SDK certification requirements.)
+
+  News app ............................... NO
+  COVID-19 contact tracing / status ..... NO
+  Government app ......................... NO
+  Financial features ..................... NONE
+  Health features ........................ NO
+  Data safety ............................ see section 8
+  Content rating ......................... see section 9
+  Advertising ID ......................... YES - used for advertising/marketing
+  Permissions declaration form ........... NOT REQUIRED (no high-risk or
+                                           sensitive permissions)
+  Play App Signing ....................... ENROLL (default)
+
+--------------------------------------------------------------------------------
+ 8. DATA SAFETY (exact answers)
+--------------------------------------------------------------------------------
+
+  Overview answers:
+    Does your app collect or share required user data types? ... YES
+    Is all user data encrypted in transit? ..................... YES
+    Do you provide a way for users to request data deletion? ... YES
+      Deletion request URL:
+        https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html
+      The page explains that the app stores no data on a server, how to clear
+      on-device data (uninstall / clear storage), how to reset the advertising
+      ID, and the support email atif.support@proton.me for any request.
+
+  Data types to declare (all are collected AND shared with Google AdMob):
+
+  --------------------------------------------------------------------------
+  Data type                    | Collected | Shared | Required | Purposes
+  --------------------------------------------------------------------------
+  Location -> Approximate      | YES       | YES    | YES      | Advertising
+  location                     |           |        |          | or marketing;
+                               |           |        |          | Analytics;
+                               |           |        |          | Fraud
+                               |           |        |          | prevention
+  --------------------------------------------------------------------------
+  App activity -> App          | YES       | YES    | YES      | Advertising
+  interactions (app launch,    |           |        |          | or marketing;
+  taps, video views)           |           |        |          | Analytics;
+                               |           |        |          | Fraud
+                               |           |        |          | prevention
+  --------------------------------------------------------------------------
+  App info and performance ->  | YES       | YES    | YES      | Analytics;
+  Diagnostics (launch time,    |           |        |          | Fraud
+  hang rate, energy usage)     |           |        |          | prevention
+  --------------------------------------------------------------------------
+  Device or other IDs ->       | YES       | YES    | YES      | Advertising
+  Device or other IDs          |           |        |          | or marketing;
+  (advertising ID, app set ID) |           |        |          | Analytics;
+                               |           |        |          | Fraud
+                               |           |        |          | prevention
+  --------------------------------------------------------------------------
+
+  For every row:
+    - Processed ephemerally ................. NO
+    - Data is encrypted in transit .......... YES (TLS)
+    - Users can request deletion ............ YES (privacy policy URL above;
+                                              no server-side app data is stored)
+    - Is the data required or optional ...... REQUIRED (ads fund the free app)
+
+  Do NOT declare these - the app does not collect them:
+    Name, email, phone, address, precise location, health, messages, photos,
+    videos, audio, files, calendar, contacts, web browsing, installed apps,
+    in-app search history (search runs on-device only), other user-generated
+    content, purchase history, financial info.
+
+  Advertising ID declaration (separate card):
+    Does your app use the Android advertising ID? ... YES
+    Purpose ........................................ Advertising or marketing
+    Users can reset/delete it in Android Settings -> Privacy -> Ads.
+
+  Note: these answers match Google's official AdMob Data safety guidance
+  (IP -> approximate location; product interactions -> app interactions;
+  diagnostics -> app info and performance; advertising/app set ID ->
+  device or other IDs).
+
+--------------------------------------------------------------------------------
+ 9. CONTENT RATING (IARC questionnaire - exact answers)
+--------------------------------------------------------------------------------
+
+  Category: Utility, Productivity, Communication, or Other
+
+    Violence ....................................... NO
+    Blood / gore ................................... NO
+    Sexual content / nudity ........................ NO
+    Profanity ...................................... NO
+    Controlled substances (drugs, alcohol, tobacco) . NO
+    Gambling ....................................... NO
+    Horror / fear .................................. NO
+    Crude humour ................................... NO
+    User-generated content ......................... NO
+    Online user interaction / chat / social ........ NO
+    Users can share personal information ........... NO
+    Shares the user's location ..................... NO
+    In-app purchases / digital goods ............... NO
+    Contains ads ................................... YES
+    Unrestricted web access / in-app browser ....... NO
+      (source links open in the user's own browser via ACTION_VIEW; the app
+       has no browser and no unrestricted web view)
+    Miscellaneous inappropriate content ............ NO
+
+  Expected result: Everyone / PEGI 3 / IARC 3+ / USK 0 / ACB G.
+  If the questionnaire offers a "Reference / Educational" content category,
+  choose it - the answers above still apply.
+
+--------------------------------------------------------------------------------
+ 10. TESTING TRACKS AND PRODUCTION
+--------------------------------------------------------------------------------
+
+  Recommended order:
+
+  1. Internal testing (fastest, up to 100 testers)
+     Release -> Testing -> Internal testing -> Create new release.
+     Upload ac-ustad-1.0.1.aab.
+     Add your own Google account as a tester, roll out, install from the
+     opt-in link, and check:
+       - app opens in airplane mode
+       - all 4,418 codes are readable
+       - English / Roman Urdu switches
+       - Saved tab, swipe-to-remove and undo work
+       - one banner ad appears when online
+       - no crash on first launch
+
+  2. Closed testing (required before production for new personal accounts)
+     Release -> Testing -> Closed testing -> Create new release.
+     Add at least 12 testers (their Google accounts) and keep the test running
+     for 14 continuous days. Then apply for production access on the
+     Publishing overview page.
+
+  3. Production
+     Release -> Production -> Create new release.
+     Upload the same ac-ustad-1.0.1.aab (or promote the tested release).
+     Add the R8 mapping file:
+       App bundle explorer -> Downloads -> Upload deobfuscation file
+       (or the "Deobfuscation file" field on the release) ->
+       mapping-1.0.1.txt
+     Review the pre-launch report, then roll out.
+
+  Play review usually takes a few hours to a few days for a new app.
+
+--------------------------------------------------------------------------------
+ 11. UPLOAD CHECKLIST
+--------------------------------------------------------------------------------
+
+  Before upload:
+    [ ] The build-release run is green (Run URL in section 2).
+    [ ] Artifact ac-ustad-release.zip downloaded and unzipped.
+    [ ] ac-ustad-1.0.1.aab exists and its SHA-256 matches section 2.
+    [ ] jarsigner -verify says "jar verified".
+    [ ] keytool -printcert shows the SHA-256 in section 3.
+    [ ] Privacy policy URL loads in an incognito browser.
+    [ ] Icon, feature graphic and 2-6 screenshots are ready (section 6).
+
+  In Play Console:
+    [ ] App created with package com.acustad.app and default language en-US.
+    [ ] Play App Signing enrolled.
+    [ ] Store listing copy pasted (section 5).
+    [ ] Graphics uploaded (section 6).
+    [ ] Privacy policy URL saved.
+    [ ] Ads = YES.
+    [ ] App access = all functionality available without restrictions.
+    [ ] Target audience = 18+ only.
+    [ ] News / COVID / government / financial / health = NO / NONE.
+    [ ] Data safety completed (section 8).
+    [ ] Content rating completed (section 9).
+    [ ] Advertising ID declaration = YES.
+    [ ] Internal testing release uploaded and installed on a real phone.
+    [ ] Closed testing completed (only if the account requires it).
+    [ ] Production release created and rolled out.
+
+  After the first upload:
+    [ ] Copy the App signing key SHA-256 from Setup -> App integrity.
+    [ ] Save the upload key SHA-256 from section 3.
+    [ ] Keep the keystore and password backed up in two places.
+
+--------------------------------------------------------------------------------
+ 12. UPDATES AFTER 1.0.1
+--------------------------------------------------------------------------------
+
+  1. Change the app code/data.
+  2. Bump versionCode by at least 1 in android/app/build.gradle.kts
+     (3 -> 4 -> 5 ...). Play rejects a versionCode it has already seen.
+     Bump versionName too (for example 1.0.2).
+  3. Update the staged file names in .github/workflows/build-release.yml
+     (ac-ustad-1.0.1.aab -> ac-ustad-1.0.2.aab, same for .apk and mapping).
+  4. Commit, push, run build-release, download the new artifact.
+  5. Upload the new .aab to Production (or a testing track first).
+  6. Upload the new mapping file with the release.
+
+  Data-only updates that do not change the app still need a versionCode bump
+  because the database is bundled in the APK/AAB.
+
+--------------------------------------------------------------------------------
+ 13. COMMON REJECTIONS AND FIXES
+--------------------------------------------------------------------------------
+
+  "App must target Android 16 (API 36) or higher"
+    The AAB already targets 36. If this appears, you uploaded an old file.
+    Re-download from the run in section 2 and check targetSdkVersion 36.
+
+  "You need to use Play App Signing"
+    Setup -> App signing -> enroll, then re-upload the same AAB.
+
+  "Version code 3 has already been used"
+    Bump versionCode to 4, rebuild, upload the new AAB.
+
+  "Missing privacy policy"
+    Paste the URL from section 5 in App content -> Privacy policy.
+
+  "Data safety is incomplete"
+    Complete every card in section 8, including the advertising ID card.
+
+  "App contains ads but ads declaration is missing"
+    App content -> Ads -> YES.
+
+  "Invalid or missing deobfuscation file"
+    Upload mapping-1.0.1.txt on the release, or ignore it (optional; only
+    affects crash report readability).
+
+  "App is not available in your country"
+    Check Store settings -> Countries / regions includes the target country.
+
+  "Pre-launch report shows a crash"
+    Read the stack trace with mapping-1.0.1.txt, fix, bump versionCode,
+    rebuild, re-upload.
+
+--------------------------------------------------------------------------------
+ 14. FACTS AND LINKS
+--------------------------------------------------------------------------------
+
+  Repository ................. https://github.com/Bushido64-sys/AC-Ustad
+  Actions .................... https://github.com/Bushido64-sys/AC-Ustad/actions
+  Privacy policy ............ https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html
+  App-ads.txt ............... https://bushido64-sys.github.io/app-ads.txt
+  Landing page .............. https://bushido64-sys.github.io/
+  Support email ............. atif.support@proton.me
+
+  Data validation (2026-11-04):
+    62 brand folders, 320 model lines, 4,418 codes, 10,450 causes,
+    11,776 fix steps, 7,707 aliases. tools/validate.py: 0 errors,
+    0 warnings. app-pipeline/check_app_sql.py: every check passed.
+    contentSha256 6276669cb7d33c106e833680624705e3919ee1dc571d98bbe2c9c754ae248831
+
+  Internal docs:
+    STORE_SETUP.md ........... Amazon + Play setup notes
+    app-pipeline/guide/CI_CD.md ... release pipeline details
+    app-pipeline/guide/PERMISSIONS.md ... permission decisions
+    android/PROGRESS.md ...... build status and version history
+
+================================================================================
+ END OF PUBLISHING PACK
+================================================================================
