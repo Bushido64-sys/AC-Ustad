@@ -207,9 +207,12 @@ jobs:
           cp app/build/outputs/bundle/release/app-release.aab artifacts/ac-ustad-1.0.1.aab
           ls -lh artifacts
 
+      # `uses:` steps do NOT inherit defaults.run.working-directory, so this path
+      # must be absolute. The files are staged in android/artifacts/ by the
+      # previous step, which does run inside android/.
       - uses: actions/upload-artifact@v4
         with:
           name: ac-ustad-release
-          path: artifacts/
+          path: ${{ github.workspace }}/android/artifacts/
           retention-days: 30
           if-no-files-found: error
