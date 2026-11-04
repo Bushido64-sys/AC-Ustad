@@ -45,7 +45,7 @@ codes read, one banner, no crash.
 
 ## 4. Amazon Appstore submission
 
-- New app submission with the release APK (`versionCode = 3` is fine for
+- New app submission with the release APK (`versionCode = 4` is fine for
   an update; Amazon rejects a versionCode it has already seen).
 - Privacy URL: the Pages link above.
 - Ad / data questionnaires, answered truthfully: contains ads (AdMob), no
