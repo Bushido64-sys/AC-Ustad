@@ -61,7 +61,7 @@ fun HomeScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                // Insets are handled explicitly: targetSdk 35 means Android 15 draws edge to
+                // Insets are handled explicitly: targetSdk 36 means Android 16 draws edge to
                 // edge whether we like it or not.
                 .windowInsetsPadding(WindowInsets.safeDrawing)
                 .padding(PaddingValues(16.dp)),

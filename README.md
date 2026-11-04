@@ -27,12 +27,12 @@ Everything: the researched knowledge base, the Android app, the iOS-independent 
 └── local-secrets/         <- YOUR working copies of keys/secrets. Gitignored; never commit.
 ```
 
-## App status (2026-10-03)
+## App status (2026-11-04)
 
 - All build phases (1–9, 11) are built and phone-checked. Ads (AdMob) shipped as a straight feature — debug fills Google's demo units, release is wired for real units.
-- The app is **submitted to the Amazon Appstore** (5-day review estimate 2026-10-03).
-- Release ads are not flowing yet because the AdMob account is still in verification — `app-ads.txt` is live at `https://bushido64-sys.github.io/app-ads.txt` and the pending piece is Google's crawl/approval, not a code bug.
-- Google Play target is next: once AdMob serves real ads on the release APK, a Play Console account can ship the same app with the same real units.
+- The app is **submitted to the Amazon Appstore**. AdMob release ads are still waiting on account verification; `app-ads.txt` is live at `https://bushido64-sys.github.io/app-ads.txt`.
+- **Google Play build is ready:** `versionCode 3`, `versionName 1.0.1`, package `com.acustad.app`, `targetSdk 36` (Play's current minimum). The manual `build-release` workflow now produces both `ac-ustad-1.0.1.apk` (Amazon) and `ac-ustad-1.0.1.aab` (Google Play).
+- Publishing steps, store copy, data-safety answers, and the signing fingerprint are in **`PLAYSTORE_PUBLISHING.txt`** at the repository root.
 
 Read `android/PROGRESS.md` for traps, CI gates, and the phone test checklist.
 
@@ -42,7 +42,7 @@ Read `android/PROGRESS.md` for traps, CI gates, and the phone test checklist.
 |---|---|---|
 | `verify data` | every push/PR | the KB validates: schema, reproducible build, row counts, secret scan |
 | `build app` | every push/PR | debug compile, lint, 115 unit tests, permission/network/database-hash/size gates |
-| `build-release` | manual (`Run workflow`) | signed release APK: R8, apksigner v2 verified, no demo ad IDs, `ac-ustad-release` artifact |
+| `build-release` | manual (`Run workflow`) | signed store artifacts: R8, apksigner v2 verified APK **and** signed AAB, targetSdk 36 gate, no demo ad IDs, `ac-ustad-release` artifact |
 
 Developers: `python3 -m venv .venv && .venv/bin/pip install jsonschema`, validate with `.venv/bin/python tools/validate.py`. No Android SDK on a dev machine — CI is the compiler, the phone is the test rig.
 

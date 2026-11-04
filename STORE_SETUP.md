@@ -4,9 +4,11 @@ What has to happen, in order, before AC Ustad goes to the Amazon Appstore.
 Sections marked **(assistant)** are my work in this repo. Sections marked
 **(you)** need the owner's hands (secrets, toggles, uploads).
 
-Current state: `versionCode = 2`, `versionName = "1.0.0"`, package
-`com.acustad.app`. CI (`build-app.yml`) builds **debug only** — there is no
-release build yet.
+Current state (2026-11-04): `versionCode = 3`, `versionName = "1.0.1"`, package
+`com.acustad.app`, `minSdk 26`, `targetSdk 36` (Google Play's current minimum).
+The manual `build-release.yml` workflow now produces **both** artifacts:
+`ac-ustad-1.0.1.apk` for Amazon/sideload and `ac-ustad-1.0.1.aab` for Google Play.
+See the repository root `PLAYSTORE_PUBLISHING.txt` for the Play Console checklist.
 
 ---
 
@@ -120,14 +122,17 @@ Pages before shipping the release build.
 ## 5. Build + spot-check (you)
 
 1. Actions → **build-release** → Run workflow → wait for green.
-2. Download `ac-ustad-release`, install over the debug build on the phone.
+2. Download `ac-ustad-release`; it contains `ac-ustad-1.0.1.apk` (install over
+   the debug build on the phone) and `ac-ustad-1.0.1.aab` (Google Play upload).
 3. Spot-check: opens offline, codes read, one banner visible, no crash.
    (Full ADS.md §7 re-run only if ad code changed since last pass.)
+4. For Google Play, follow root `PLAYSTORE_PUBLISHING.txt` (upload the `.aab`,
+   not the `.apk`).
 
 ## 6. Amazon upload (you)
 
-- New app submission with the release APK (`versionCode = 2` is fine for
-  the **first** upload).
+- New app submission with the release APK (`versionCode = 3` for this build;
+  Amazon rejects a versionCode it has already seen).
 - Paste the Pages privacy URL into the listing's privacy field.
 - Answer the ads/data questionnaires truthfully: contains ads (AdMob),
   no account, no analytics, INTERNET only for ads (see PERMISSIONS.md).

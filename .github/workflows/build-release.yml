@@ -1,9 +1,11 @@
 name: build-release
 
-# Manual trigger only. This produces the signed release APK that Amazon
-# receives; it is never run on a push because real signing keys and real ad
-# unit IDs live in GitHub Secrets, which pull_request and push builds should
-# not need for ordinary development.
+# Manual trigger only. This produces the signed release artifacts:
+#   - app-release.apk  for Amazon Appstore / sideload
+#   - app-release.aab  for Google Play (Play does not accept APKs)
+# It is never run on a push because real signing keys and real ad unit IDs
+# live in GitHub Secrets, which pull_request and push builds should not need
+# for ordinary development.
 
 on:
   workflow_dispatch:
@@ -66,13 +68,13 @@ jobs:
           yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses | tail -3
 
-      - name: Install platform 35 and build-tools 35.0.0
+      - name: Install platform 36 and build-tools 36.0.0
         run: |
           set -euo pipefail
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
             "platform-tools" \
-            "platforms;android-35" \
-            "build-tools;35.0.0"
+            "platforms;android-36" \
+            "build-tools;36.0.0"
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --list_installed
 
       - name: Show the Gradle version the wrapper resolved
@@ -92,8 +94,8 @@ jobs:
             || { echo "::error title=diagnose::keytool rejected the keystore/password/alias - see the message below"; cat keytool.out; exit 1; }
           head -4 keytool.out
 
-      - name: Assemble the release APK
-        run: set -o pipefail; ./gradlew --no-daemon --console=plain assembleRelease 2>&1 | tee build.log
+      - name: Assemble the release APK and AAB
+        run: set -o pipefail; ./gradlew --no-daemon --console=plain assembleRelease bundleRelease 2>&1 | tee build.log
 
       - name: Put the compiler's own error lines on the check
         if: failure()
@@ -130,43 +132,84 @@ jobs:
           [ -f "$APK" ] || { echo "::error::no APK at $APK"; exit 1; }
           echo "keystore secret set: $([ -n "$RELEASE_KEYSTORE_B64" ] && echo yes || echo no)"
           unzip -l "$APK" | grep -E 'META-INF/' | head -10 || true
-          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$APK" > signer.out 2>&1 \
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose --print-certs "$APK" > signer.out 2>&1 \
             || RC=$?
           cat signer.out | while IFS= read -r l; do echo "::notice title=apksigner::${l:0:200}"; done
           [ -n "${RC:-}" ] && { echo "::error title=sign::apksigner failed to verify the release APK"; exit 1; }
           grep -q "Verified using v2 scheme (APK Signature Scheme v2): true" signer.out \
             && echo "v2 signature present - OK" || { echo "::error title=sign::v2 signature missing from the release APK"; exit 1; }
 
-      - name: The release APK contains no demo ad IDs
+      - name: Verify the AAB signature (Google Play upload)
+        run: |
+          set -euo pipefail
+          AAB=app/build/outputs/bundle/release/app-release.aab
+          [ -f "$AAB" ] || { echo "::error::no AAB at $AAB"; exit 1; }
+          jarsigner -verify -verbose -certs "$AAB" > aab-signer.out 2>&1 \
+            || { echo "::error title=sign::jarsigner failed to verify the release AAB"; tail -40 aab-signer.out; exit 1; }
+          grep -q "jar verified" aab-signer.out \
+            && echo "AAB is signed and verified - OK" \
+            || { echo "::error title=sign::the release AAB is not signed"; tail -40 aab-signer.out; exit 1; }
+          keytool -printcert -jarfile "$AAB" | grep -E "Owner:|SHA256:" | head -4 \
+            | while IFS= read -r l; do echo "::notice title=aab-cert::${l:0:200}"; done
+
+      - name: Check package identity and Play target API
+        run: |
+          set -euo pipefail
+          APK=app/build/outputs/apk/release/app-release.apk
+          BADGING=$("$ANDROID_HOME/build-tools/36.0.0/aapt2" dump badging "$APK")
+          echo "$BADGING" | head -5
+          echo "$BADGING" | grep -q "package: name='com.acustad.app'" \
+            || { echo "::error::the APK package is not com.acustad.app"; exit 1; }
+          echo "$BADGING" | grep -q "versionCode='3'" \
+            || { echo "::error::the APK versionCode is not 3 - bump it in android/app/build.gradle.kts"; exit 1; }
+          echo "$BADGING" | grep -q "targetSdkVersion:'36'" \
+            || { echo "::error::targetSdk is not 36 - Google Play rejects new apps below API 36"; exit 1; }
+          echo "package, versionCode 3 and targetSdk 36 - OK"
+
+      - name: The release artifacts contain no demo ad IDs
         run: |
           set -uo pipefail
           APK=app/build/outputs/apk/release/app-release.apk
+          AAB=app/build/outputs/bundle/release/app-release.aab
           WORK=$(mktemp -d)
           trap 'rm -rf "$WORK"' EXIT
-          unzip -qo "$APK" -d "$WORK" 'classes*.dex'
           FOUND=0
-          find "$WORK" -name 'classes*.dex' -print0 | xargs -0 strings \
+          unzip -qo "$APK" -d "$WORK/apk" 'classes*.dex'
+          find "$WORK/apk" -name 'classes*.dex' -print0 | xargs -0 strings \
+            | grep -qF "ca-app-pub-3940256099942544" && FOUND=1
+          unzip -qo "$AAB" -d "$WORK/aab" 'base/dex/*.dex'
+          find "$WORK/aab" -name '*.dex' -print0 | xargs -0 strings \
             | grep -qF "ca-app-pub-3940256099942544" && FOUND=1
           if [ "$FOUND" -ne 0 ]; then
-            echo "::error::the release APK still contains Google demo ad unit IDs - real IDs were not injected"
+            echo "::error::the release artifacts still contain Google demo ad unit IDs - real IDs were not injected"
             exit 1
           fi
-          echo "no demo ad IDs in the release APK - OK"
+          echo "no demo ad IDs in the APK or AAB - OK"
 
-      - name: Release APK is a sane size
+      - name: Release artifacts are a sane size
         run: |
-          ls -lh app/build/outputs/apk/release/app-release.apk
+          ls -lh app/build/outputs/apk/release/app-release.apk app/build/outputs/bundle/release/app-release.aab
           MAX=$((25 * 1024 * 1024))
-          SIZE=$(stat -c%s app/build/outputs/apk/release/app-release.apk)
-          if [ "$SIZE" -gt "$MAX" ]; then
-            echo "::error::release APK is $((SIZE / 1048576)) MB - something is duplicated"
-            exit 1
-          fi
-          echo "size $((SIZE / 1048576)) MB - OK"
+          for F in app/build/outputs/apk/release/app-release.apk app/build/outputs/bundle/release/app-release.aab; do
+            SIZE=$(stat -c%s "$F")
+            if [ "$SIZE" -gt "$MAX" ]; then
+              echo "::error::$(basename "$F") is $((SIZE / 1048576)) MB - something is duplicated"
+              exit 1
+            fi
+            echo "$(basename "$F"): $((SIZE / 1048576)) MB - OK"
+          done
+
+      - name: Stage the store artifacts with versioned names
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          cp app/build/outputs/apk/release/app-release.apk artifacts/ac-ustad-1.0.1.apk
+          cp app/build/outputs/bundle/release/app-release.aab artifacts/ac-ustad-1.0.1.aab
+          ls -lh artifacts
 
       - uses: actions/upload-artifact@v4
         with:
           name: ac-ustad-release
-          path: android/app/build/outputs/apk/release/app-release.apk
+          path: artifacts/
           retention-days: 30
           if-no-files-found: error

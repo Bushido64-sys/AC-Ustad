@@ -157,7 +157,7 @@ fun AcUstadNavHost(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
     ) {
-        // Insets are applied once, out here, rather than on every screen: targetSdk 35 means
+        // Insets are applied once, out here, rather than on every screen: targetSdk 36 means
         // Android 15 draws edge to edge whether the app likes it or not, and the bottom bar has
         // to clear the gesture bar while every other screen keeps its own padding.
         // `windowInsetsPadding` consumes what it applies, so a screen that also applies it

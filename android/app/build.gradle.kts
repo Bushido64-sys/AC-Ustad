@@ -46,14 +46,17 @@ val DEMO_APP_OPEN = "ca-app-pub-3940256099942544/9257395921"
 
 android {
     namespace = "com.acustad.app"
-    compileSdk = 35
+    compileSdk = 36
+    buildToolsVersion = "36.0.0"
 
     defaultConfig {
         applicationId = "com.acustad.app"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 2
-        versionName = "1.0.0"
+        // Google Play requires new apps to target Android 16 (API 36) from
+        // 31 August 2026. Keep this at 36 or Play will reject the bundle.
+        targetSdk = 36
+        versionCode = 3
+        versionName = "1.0.1"
 
         // No testInstrumentationRunner yet: TESTING.md adds Compose UI tests in the phase
         // that needs them. The database tests run on the JVM against the real kb.sqlite.

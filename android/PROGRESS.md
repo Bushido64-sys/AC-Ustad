@@ -1,6 +1,16 @@
 # PROGRESS — AC Ustad app
 
-**Read this first when resuming.** Last updated: 2026-10-03
+**Read this first when resuming.** Last updated: 2026-11-04
+
+> **2026-11-04 — PLAY STORE BUILD READY.** `versionCode 3`, `versionName 1.0.1`,
+> `compileSdk`/`targetSdk` 36 (Google Play requires API 36 for new apps since
+> 2026-08-31), AGP 8.10.1 / Gradle 8.11.1. The manual `build-release` workflow now
+> builds **both** `ac-ustad-1.0.1.apk` (Amazon/sideload) and `ac-ustad-1.0.1.aab`
+> (Google Play), verifies both signatures, and fails if either contains demo ad
+> IDs or targets below API 36. The uncommitted `__aux` rename was reverted: AUX is
+> back in the data tree and `tools/validate.py` passes at 62 brands / 320 series /
+> 4,418 codes. Publishing steps and store copy live in root
+> `PLAYSTORE_PUBLISHING.txt`.
 
 > **Where we are:** App is **submitted to the Amazon Appstore** (5-day review estimate, 2026-10-03). Release builds feed AdMob; no release ads are serving yet because the AdMob account is stuck in verification — `app-ads.txt` is live at `https://bushido64-sys.github.io/app-ads.txt` and the crawl is the pending step, not a code bug. CI `build app`/`verify data` green on `e4823f1` (new launcher icon). No Play Store account yet — that and the ads flip are the two gates before anything ships again. Debug-demo AdMob fills fine; release-real fills as soon as AdMob verifies.
 >
@@ -335,7 +345,7 @@ green gate proves the app builds; only a human proves a screen works. See trap 1
 | 6 · Saved screen | ✅ phone-checked 2026-09-29 | The Saved list, swipe-to-remove with Undo that restores the original position, and a bottom nav on the two top-level screens |
 | 7 · Offline & updates | ✅ | **Trap 16 fixed** — a new APK always re-stages the database, keyed on `versionCode` and not file length. The offline *promises* all hold and **five** CI gates now enforce them, including the network/ads gate that used to be documented and not written (trap 23) |
 | 8 · Accessibility & Roman Urdu | ✅ phone-checked 2026-09-29 | The EN/UR toggle works, persists and is partial-toggle-safe. **Settings + the theme override are built and passed the §6 group-4 checks**, including the trap-22 Light-mode fix. **The font-scale / TalkBack pass ran on the device 2026-09-29** (§7 item 4: font scale 1.0 / 1.15 / 1.3, TalkBack reading a code end to end, longest content in both languages) and passed |
-| 9 · Hardening & release | ✅ phone-checked 2026-10-01 | StrictMode debug-only, release R8 on + Log stripped, versionCode 2. Perf/stability wins already held. CI green, §6 re-run + PHASE_9 §5 checklist passed on a real phone. |
+| 9 · Hardening & release | ✅ phone-checked 2026-10-01 | StrictMode debug-only, release R8 on + Log stripped, versionCode 3 (1.0.1) for the Play build. Perf/stability wins already held. CI green, §6 re-run + PHASE_9 §5 checklist passed on a real phone. |
 | 11 · UI/UX | ✅ **phone-checked 2026-09-30** | **Built 2026-09-29, steps 1–6 of the guide's 7; §6 group 5 (28–37) reported passing on the phone 2026-09-30, and check 34 confirmed on the build carrying trap 24 at this session's close.** `BorderedPanel` and `BorderedRow` were passing `Color.Transparent`; both now fill with `surface`, and the new `RaisedPanel` (level 2, `surfaceVariant`) is on the detail screen's meaning and source line where `DESIGN.md` §4.5 already said *raised*. `R.dimen` went from **zero uses to four**, so the token file is load-bearing rather than decorative. **Zero new colours.** **Also built in the same pass, all from `PHASE_11_UI_UX.md`:**
    - **The star moved into the app bar** (§6 #1, and the one the guide calls important).
      `AcUstadAppBar` had **no action slot at all**; it has exactly one now, and the star is
@@ -796,7 +806,7 @@ called done.
     Settings screen. Only Saved has an icon; Browse and Settings are text with the icon slot
     reserved, and all three labels sit on one baseline.
 20. **Settings** shows, in order: title, Preferences (Language + Theme in one panel),
-    About ending in the merged version line **Data 2026-09-26 · Version 1.0.0 (2)**,
+    About ending in the merged version line **Data 2026-09-26 · Version 1.0.1 (3)**,
     Privacy, Licenses. About introduces the app and then says what it
     does for the reader. **Revised 2026-09-29:** the Sources panel and the database-size line
     were removed on the user's instruction, so this check no longer expects them — see §8.

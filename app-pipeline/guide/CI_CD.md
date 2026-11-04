@@ -148,10 +148,13 @@ the new manifest alongside the new data.
 ## 7. Release
 
 The release path is `.github/workflows/build-release.yml`, manual trigger only: same SDK/lint/test
-gates as `build-app.yml`, plus `assembleRelease`, `apksigner verify` (v2 required), a gate that
-the release APK contains **no demo ad IDs**, and the `ac-ustad-release` artifact (30 days).
-Every later upload: bump `versionCode` by ≥1. Before the first upload: §0 natives gate passes,
-the secret values are in place, `PRIVACY.html` is live (STORE_SETUP.md §1–§4).
+gates as `build-app.yml`, plus `assembleRelease` and `bundleRelease`, `apksigner verify` (v2
+required for the APK), `jarsigner -verify` for the AAB, a targetSdk 36 gate, a gate that both
+artifacts contain **no demo ad IDs**, and the `ac-ustad-release` artifact (30 days) containing
+`ac-ustad-1.0.1.apk` (Amazon/sideload) and `ac-ustad-1.0.1.aab` (Google Play). Every later
+upload: bump `versionCode` by ≥1. Before the first upload: §0 natives gate passes, the secret
+values are in place, `PRIVACY.html` is live (STORE_SETUP.md §1–§4). The Play Console checklist
+is root `PLAYSTORE_PUBLISHING.txt`.
 
 ## 8. How the human installs and tests it
 
