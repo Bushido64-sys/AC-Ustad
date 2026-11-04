@@ -206,8 +206,14 @@ jobs:
           cp app/build/outputs/apk/release/app-release.apk artifacts/ac-ustad-1.0.1.apk
           cp app/build/outputs/bundle/release/app-release.aab artifacts/ac-ustad-1.0.1.aab
           # Play Console accepts this as the deobfuscation file for R8 builds,
-          # so production crash reports show real class/method names.
-          cp app/build/outputs/mapping/release/mapping.txt artifacts/mapping-1.0.1.txt
+          # so production crash reports show real class/method names. If AGP
+          # ever moves it, warn instead of failing the whole release.
+          MAPPING=$(find app/build/outputs/mapping -name mapping.txt 2>/dev/null | head -1)
+          if [ -n "$MAPPING" ]; then
+            cp "$MAPPING" artifacts/mapping-1.0.1.txt
+          else
+            echo "::warning::no mapping.txt found - crash reports will be obfuscated"
+          fi
           ls -lh artifacts
 
       # `uses:` steps do NOT inherit defaults.run.working-directory, so this path
