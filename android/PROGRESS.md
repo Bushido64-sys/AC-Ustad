@@ -1,6 +1,6 @@
 # PROGRESS — AC Ustad app
 
-**Read this first when resuming.** Last updated: 2026-11-04
+**Read this first when resuming.** Last updated: 2026-11-10
 
 > **2026-11-10 — PLAY STORE BUILD READY.** `versionCode 6`, `versionName 1.0.2`,
 > `compileSdk`/`targetSdk` 36 (Google Play requires API 36 for new apps since

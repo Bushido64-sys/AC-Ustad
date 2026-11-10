@@ -11,6 +11,54 @@ rating answers.
 Read section 1 first, then follow sections 4-11 in order.
 
 --------------------------------------------------------------------------------
+ 0. YOUR SIDE OF THE WORK (the only manual steps left)
+--------------------------------------------------------------------------------
+
+  Everything in the repo is done. These are the console clicks only you can do.
+
+  STEP 1 - Upload the build to closed testing
+    a. Download ac-ustad-release.zip from run 42805106562 (section 2) and
+       unzip it. Use ac-ustad-1.0.2.aab - versionCode 6.
+       Do NOT use any earlier 1.0.2 download; versionCode 5 was superseded.
+    b. Play Console -> Testing -> Closed testing -> Create new release.
+    c. Upload ac-ustad-1.0.2.aab, add release notes, save, review, roll out.
+    d. Testers tab -> add at least 12 real Google accounts (yours included).
+    e. Keep the test running 14 continuous days. Stopping resets the clock.
+       Only after that can you apply for production access.
+
+  STEP 2 - Add the developer website (unlocks AdMob app-ads.txt)
+    Play Console -> Grow users -> Store presence -> Store settings ->
+    Store listing contact details -> Website:
+        https://bushido64-sys.github.io/
+    AdMob cannot verify app-ads.txt without this, no matter how correct the
+    file is.
+
+  STEP 3 - Add the Terms of service URL
+    Play Console -> Monitor and improve -> Policy and programs -> App content
+    -> Terms of service:
+        https://bushido64-sys.github.io/AC-Ustad/TERMS.html
+
+  STEP 4 - Create the AdMob consent message (privacy URL lives here)
+    AdMob -> Privacy & messaging -> European regulations -> Manage/Create.
+    Select AC Ustad -> in the app table, the "Privacy policy URL" column ->
+        https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html
+    Save, confirm, then Publish the message.
+
+  STEP 5 - Link the app to the Play listing (after Play publishes)
+    AdMob -> Apps -> View all apps -> AC Ustad -> "Add store" ->
+    search com.acustad.app -> Add. Allow 24-48 h, then
+    App settings -> app-ads.txt -> Check for updates.
+
+  STEP 6 - Back up the signing key
+    Copy local-secrets/release.p12 and local-secrets/STORE_SECRETS.txt to two
+    separate safe places (password manager + offline drive). Without them you
+    cannot ship updates. Never commit them - this repo is public.
+
+  Ads appear after: Play listing is public + website is in Play contact
+  details + app-ads.txt verifies + AdMob account is verified. Expect up to
+  24 h for the crawl, a few days for a new AdMob account.
+
+--------------------------------------------------------------------------------
  1. BUILD IDENTITY (do not change after the first upload)
 --------------------------------------------------------------------------------
 
@@ -24,8 +72,8 @@ Read section 1 first, then follow sections 4-11 in order.
   Build tools ................ 36.0.0
   AGP / Gradle ............... 8.10.1 / 8.11.1
   ABI ........................ universal (no native libraries)
-  Size ....................... APK ~6.1 MB (6,446,988 bytes),
-                               AAB ~9.4 MB (9,808,279 bytes)
+  Size ....................... APK ~6.1 MB (6,447,488 bytes),
+                               AAB ~9.4 MB (9,809,835 bytes)
   Permissions ................ INTERNET, ACCESS_NETWORK_STATE, AD_ID,
                                FOREGROUND_SERVICE, WAKE_LOCK,
                                ACCESS_ADSERVICES_* (Topics, attribution),
