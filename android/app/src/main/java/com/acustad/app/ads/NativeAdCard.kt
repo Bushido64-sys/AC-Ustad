@@ -31,7 +31,6 @@ import com.acustad.app.R
 import com.acustad.app.ui.common.BorderedRow
 import com.acustad.app.ui.theme.UstadType
 import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.nativead.AdChoicesView
 import com.google.android.gms.ads.nativead.MediaView
@@ -131,7 +130,7 @@ class NativeAdPool(context: Context, private val size: Int = 3) {
                 })
                 .withNativeAdOptions(NativeAdOptions.Builder().build())
                 .build()
-                .loadAd(AdRequest.Builder().build())
+                .loadAd(AdsManager.adRequest())
         }.onFailure {
             Log.w(TAG, "native load threw slot=$index", it)
         }

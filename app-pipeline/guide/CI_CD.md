@@ -152,7 +152,7 @@ gates as `build-app.yml`, plus `assembleRelease` and `bundleRelease`, `apksigner
 required for the APK), `jarsigner -verify` for the AAB, a targetSdk 36 gate, a gate that both
 artifacts contain **no demo ad IDs**, and the `ac-ustad-release` artifact (30 days) containing
 `ac-ustad-1.0.2.apk` (Amazon/sideload) and `ac-ustad-1.0.2.aab` (Google Play). The
-current store build is `1.0.2 (versionCode 5)`. Every later upload: bump
+current store build is `1.0.2 (versionCode 6)`. Every later upload: bump
 `versionCode` by ≥1. Before the first upload: §0 natives gate passes, the secret
 values are in place, `PRIVACY.html` is live (STORE_SETUP.md §1–§4). The Play Console checklist
 is root `PLAYSTORE_PUBLISHING.txt`.

@@ -4,7 +4,7 @@ What has to happen, in order, before AC Ustad goes to the Amazon Appstore.
 Sections marked **(assistant)** are my work in this repo. Sections marked
 **(you)** need the owner's hands (secrets, toggles, uploads).
 
-Current state (2026-11-10): `versionCode = 5`, `versionName = "1.0.2"`, package
+Current state (2026-11-10): `versionCode = 6`, `versionName = "1.0.2"`, package
 `com.acustad.app`, `minSdk 26`, `targetSdk 36` (Google Play's current minimum).
 The manual `build-release.yml` workflow now produces **both** artifacts:
 `ac-ustad-1.0.2.apk` for Amazon/sideload and `ac-ustad-1.0.2.aab` for Google Play.
@@ -133,7 +133,7 @@ Pages before shipping the release build.
 
 ## 6. Amazon upload (you)
 
-- New app submission with the release APK (`versionCode = 5` for this build;
+- New app submission with the release APK (`versionCode = 6` for this build;
   Amazon rejects a versionCode it has already seen).
 - Paste the Pages privacy URL into the listing's privacy field.
 - Answer the ads/data questionnaires truthfully: contains ads (AdMob),

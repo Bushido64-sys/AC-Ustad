@@ -1,6 +1,6 @@
 ================================================================================
  AC USTAD - GOOGLE PLAY PUBLISHING PACK
- Version 1.0.2 (versionCode 5) - prepared 2026-11-10
+ Version 1.0.2 (versionCode 6) - prepared 2026-11-10
 ================================================================================
 
 This file contains everything needed to publish AC Ustad on Google Play:
@@ -17,7 +17,7 @@ Read section 1 first, then follow sections 4-11 in order.
   App name (launcher) ........ AC Ustad
   Package / applicationId .... com.acustad.app
   Version name ............... 1.0.2
-  Version code ............... 5
+  Version code ............... 6
   Minimum Android ............ 8.0 (API 26, minSdk 26)
   Target Android ............. 16 (API 36, targetSdk 36)
   Compile SDK ................ 36
@@ -45,7 +45,7 @@ Read section 1 first, then follow sections 4-11 in order.
   Feature graphic ............ screenshots_1200x1920/icons/feature_graphic_1024x500.png
 
   IMPORTANT: com.acustad.app is permanent. Play will not let you change it
-  after the first upload. versionCode 5 is used by this build; any new build
+  after the first upload. versionCode 6 is used by this build; any new build
   you upload must use 5 or higher. The same AAB can be promoted across tracks.
 
 --------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ Read section 1 first, then follow sections 4-11 in order.
        Expected SHA-256: (see section 3).
 
   The workflow already enforces all of this before it uploads the artifact:
-  signed APK (v2), signed AAB, package com.acustad.app, versionCode 5,
+  signed APK (v2), signed AAB, package com.acustad.app, versionCode 6,
   targetSdk 36, no Google demo ad IDs, and a sane file size.
 
 --------------------------------------------------------------------------------
@@ -473,7 +473,7 @@ Read section 1 first, then follow sections 4-11 in order.
 
   1. Change the app code/data.
   2. Bump versionCode by at least 1 in android/app/build.gradle.kts
-     (5 -> 6 -> 7 ...). Play rejects a versionCode it has already seen.
+     (6 -> 7 -> 8 ...). Play rejects a versionCode it has already seen.
      Bump versionName too (for example 1.0.3).
   3. Update the staged file names in .github/workflows/build-release.yml
      (ac-ustad-1.0.2.aab -> ac-ustad-1.0.3.aab, same for .apk and mapping).
@@ -563,6 +563,11 @@ Read section 1 first, then follow sections 4-11 in order.
      https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html
      This is required by Google's EU user consent policy and is what the
      in-app consent form links to.
+
+     Consent fallback (already in the code): if the consent lookup or form
+     fails, ad requests carry the "npa" flag, so Google serves a
+     non-personalized ad instead of a personalized one. Ads still appear;
+     revenue per impression is just lower.
 
   3. The app is confirmed for monetisation
      AdMob -> Apps -> AC Ustad. If AdMob asks you to confirm the app, do it.

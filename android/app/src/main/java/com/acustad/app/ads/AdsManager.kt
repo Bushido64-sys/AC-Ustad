@@ -3,6 +3,8 @@ package com.acustad.app.ads
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Bundle
+import com.google.ads.mediation.admob.AdMobAdapter
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
@@ -19,10 +21,13 @@ import com.google.android.ump.UserMessagingPlatform
  * Every ad in the app goes through here. Screens never touch the GMA SDK
  * directly: they ask this object to preload or show, and get plain callbacks.
  *
- * Four rules this file exists to enforce:
+ * Five rules this file exists to enforce:
  *
  *  - **Init once, load after consent.** [ensureConsent] runs the UMP flow and
  *    only then initialises MobileAds. No ad loads before that.
+ *  - **No consent, no personalization.** [adRequest] adds the "npa" flag until
+ *    UMP confirms ads may be requested, so a failed consent lookup still serves
+ *    a non-personalized ad rather than a personalized one.
  *  - **A full-screen ad is never stacked on another.** [fullscreenShowing] is
  *    set while an interstitial, rewarded or app-open ad is on screen, and
  *    App Open refuses to show while it is set.
@@ -39,10 +44,38 @@ object AdsManager {
     @Volatile
     private var initialised = false
 
+    /**
+     * True once UMP says ads may be requested at all. Defaults to false so the
+     * very first request — and every failure path — is non-personalized.
+     *
+     * The GMA SDK personalises from the consent signal itself, so this flag only
+     * decides whether we fall back to the explicit "npa" request. Without it, a
+     * consent lookup that fails (offline first launch, blocked form, no message
+     * configured) would still request personalized ads, which Google's EU user
+     * consent policy forbids for EEA/UK users.
+     */
+    @Volatile
+    private var consentAllowsAds = false
+
     /** True while any full-screen ad is showing. Read by App Open. */
     @Volatile
     var fullscreenShowing = false
         private set
+
+    /**
+     * Every ad request in the app goes through here. When consent is missing
+     * or unknown, the request carries the documented "npa" flag, so Google
+     * serves a non-personalized ad instead of skipping the slot entirely.
+     */
+    fun adRequest(): AdRequest {
+        val builder = AdRequest.Builder()
+        if (!consentAllowsAds) {
+            val extras = Bundle()
+            extras.putString("npa", "1")
+            builder.addNetworkExtrasBundle(AdMobAdapter::class.java, extras)
+        }
+        return builder.build()
+    }
 
     /**
      * Runs the UMP consent flow, then initialises MobileAds and preloads the
@@ -62,15 +95,24 @@ object AdsManager {
                 {
                     runCatching {
                         UserMessagingPlatform.loadAndShowConsentFormIfRequired(activity) {
+                            // The user has answered, or no form was needed. Let
+                            // the SDK decide personalization from the signal; we
+                            // only record whether ads may be requested at all.
+                            consentAllowsAds = runCatching { info.canRequestAds() }
+                                .getOrDefault(false)
                             init(activity.applicationContext)
                             done()
                         }
                     }.onFailure {
+                        // Form could not load. Ads may still run, non-personalized.
+                        consentAllowsAds = false
                         init(activity.applicationContext)
                         done()
                     }
                 },
                 {
+                    // Consent lookup failed. Ads may still run, non-personalized.
+                    consentAllowsAds = false
                     init(activity.applicationContext)
                     done()
                 },
@@ -104,7 +146,7 @@ object AdsManager {
             InterstitialAd.load(
                 context,
                 AdIds.interstitial,
-                AdRequest.Builder().build(),
+                adRequest(),
                 object : InterstitialAdLoadCallback() {
                     override fun onAdLoaded(ad: InterstitialAd) {
                         interstitial = ad
@@ -187,7 +229,7 @@ object AdsManager {
             RewardedAd.load(
                 context,
                 AdIds.rewarded,
-                AdRequest.Builder().build(),
+                adRequest(),
                 object : RewardedAdLoadCallback() {
                     override fun onAdLoaded(ad: RewardedAd) {
                         rewarded = ad
@@ -250,7 +292,7 @@ object AdsManager {
             AppOpenAd.load(
                 context,
                 AdIds.appOpen,
-                AdRequest.Builder().build(),
+                adRequest(),
                 AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
                 object : AppOpenAd.AppOpenAdLoadCallback() {
                     override fun onAdLoaded(ad: AppOpenAd) {

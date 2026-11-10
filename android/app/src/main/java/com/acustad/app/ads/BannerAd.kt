@@ -16,7 +16,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 
@@ -57,7 +56,7 @@ fun BannerAd(modifier: Modifier = Modifier) {
                 setAdSize(adSize)
                 adUnitId = AdIds.banner
                 adListener = object : AdListener() {}
-                loadAd(AdRequest.Builder().build())
+                loadAd(AdsManager.adRequest())
             }
         }.getOrNull()
     }

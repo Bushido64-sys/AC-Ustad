@@ -2,7 +2,7 @@
 
 **Read this first when resuming.** Last updated: 2026-11-04
 
-> **2026-11-10 — PLAY STORE BUILD READY.** `versionCode 5`, `versionName 1.0.2`,
+> **2026-11-10 — PLAY STORE BUILD READY.** `versionCode 6`, `versionName 1.0.2`,
 > `compileSdk`/`targetSdk` 36 (Google Play requires API 36 for new apps since
 > 2026-08-31), AGP 8.10.1 / Gradle 8.11.1. The launcher icon and the 44 dp home
 > header now use the new **surface compass** from `brand/logo/final/`; the
@@ -14,8 +14,8 @@
 > 4,418 codes. Publishing steps and store copy live in root
 > `PLAYSTORE_PUBLISHING.txt`.
 
-> **Where we are:** App is **submitted to the Amazon Appstore** (5-day review estimate, 2026-10-03). Release builds feed AdMob; no release ads are serving yet because the AdMob account is stuck in verification — `app-ads.txt` is live at `https://bushido64-sys.github.io/app-ads.txt` and the crawl is the pending step, not a code bug. CI `build app` green on the docs commits; the signed `1.0.2 (5)` AAB is run
-> `42797205244`.
+> **Where we are:** App is **submitted to the Amazon Appstore** (5-day review estimate, 2026-10-03). Release builds feed AdMob; no release ads are serving yet because the AdMob account is stuck in verification — `app-ads.txt` is live at `https://bushido64-sys.github.io/app-ads.txt` and the crawl is the pending step, not a code bug. CI `build app` green on the docs commits; the signed `1.0.2 (6)` AAB is the latest
+> `build-release` run.
 > The Play Console account is open; app setup, Data safety and closed testing are
 > the next gate. The launcher icon and 44 dp home header now use the surface
 > compass. Debug-demo AdMob fills fine; release-real fills as soon as AdMob

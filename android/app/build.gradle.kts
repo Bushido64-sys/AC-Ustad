@@ -55,7 +55,7 @@ android {
         // Google Play requires new apps to target Android 16 (API 36) from
         // 31 August 2026. Keep this at 36 or Play will reject the bundle.
         targetSdk = 36
-        versionCode = 5
+        versionCode = 6
         versionName = "1.0.2"
 
         // No testInstrumentationRunner yet: TESTING.md adds Compose UI tests in the phase
