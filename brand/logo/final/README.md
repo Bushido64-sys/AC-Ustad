@@ -82,12 +82,12 @@ The surface compass is now live in the Android app:
 - **Home header:** 44 dp mark before “AC Ustad” in `HomeScreen.kt`, using `res/drawable/ic_ustad_mark.xml`.
 - **Store icon:** `screenshots_1200x1920/icons/icon_512x512.png`.
 - **Feature graphic:** `screenshots_1200x1920/icons/feature_graphic_1024x500.png`.
-- **Build:** `1.0.1` (`versionCode 4`), signed AAB run `41838466649`.
+- **Build:** `1.0.2` (`versionCode 5`), from the latest `build-release` run.
 
 ## App identity (for the store listing)
 
 - Package: `com.acustad.app`
-- Version: `1.0.1` (`versionCode 4`)
+- Version: `1.0.2` (`versionCode 5`)
 - Target: Android 16 (API 36)
 - Play icon: `screenshots_1200x1920/icons/icon_512x512.png`
 - Feature graphic: `screenshots_1200x1920/icons/feature_graphic_1024x500.png`

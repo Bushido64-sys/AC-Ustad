@@ -199,13 +199,16 @@ private fun AboutPanel(state: SettingsState, onRetry: () -> Unit) {
 private const val PRIVACY_POLICY_URL =
     "https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html"
 
+/** The hosted terms page. It must match what TERMS.html is published as. */
+private const val TERMS_OF_SERVICE_URL =
+    "https://bushido64-sys.github.io/AC-Ustad/TERMS.html"
+
 /**
  * The privacy promise, in the same words as PRIVACY.md.
  *
- * True today and written so it stays true: no account, no permissions, no network,
- * nothing uploaded. The day ads land (see the ads document) this
- * panel is rewritten first — the "no network" line goes the same commit the SDK
- * arrives, never before.
+ * Kept true to what the app actually does: no account and no sign-in of our
+ * own, but Google AdMob collects data to serve the ads, so the panel says so
+ * and points at the full policy for the detail.
  */
 @Composable
 private fun PrivacyPanel() {
@@ -223,6 +226,15 @@ private fun PrivacyPanel() {
                     .semantics { contentDescription = openLabel },
             ) {
                 Text(text = openLabel, style = UstadType.label)
+            }
+            val termsLabel = stringResource(R.string.settings_privacy_view_terms)
+            TextButton(
+                onClick = { runCatching { uriHandler.openUri(TERMS_OF_SERVICE_URL) } },
+                modifier = Modifier
+                    .heightIn(min = 48.dp)
+                    .semantics { contentDescription = termsLabel },
+            ) {
+                Text(text = termsLabel, style = UstadType.label)
             }
         }
     }

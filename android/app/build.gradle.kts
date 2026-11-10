@@ -55,8 +55,8 @@ android {
         // Google Play requires new apps to target Android 16 (API 36) from
         // 31 August 2026. Keep this at 36 or Play will reject the bundle.
         targetSdk = 36
-        versionCode = 4
-        versionName = "1.0.1"
+        versionCode = 5
+        versionName = "1.0.2"
 
         // No testInstrumentationRunner yet: TESTING.md adds Compose UI tests in the phase
         // that needs them. The database tests run on the JVM against the real kb.sqlite.
@@ -94,7 +94,7 @@ android {
         release {
             // Phase 9: R8 on for the release build. The phone test loop installs the debug
             // APK, so this changes nothing about CI (which builds debug only) or daily
-            // testing — it hardens the artifact that ships as v1.0.1. Raw SQLite needs no
+            // testing — it hardens the artifact that ships as v1.0.2. Raw SQLite needs no
             // keep rules (see proguard-rules.pro); fonts are kept explicitly.
             isMinifyEnabled = true
             isShrinkResources = true

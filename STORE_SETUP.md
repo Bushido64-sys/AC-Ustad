@@ -4,10 +4,10 @@ What has to happen, in order, before AC Ustad goes to the Amazon Appstore.
 Sections marked **(assistant)** are my work in this repo. Sections marked
 **(you)** need the owner's hands (secrets, toggles, uploads).
 
-Current state (2026-11-04): `versionCode = 4`, `versionName = "1.0.1"`, package
+Current state (2026-11-10): `versionCode = 5`, `versionName = "1.0.2"`, package
 `com.acustad.app`, `minSdk 26`, `targetSdk 36` (Google Play's current minimum).
 The manual `build-release.yml` workflow now produces **both** artifacts:
-`ac-ustad-1.0.1.apk` for Amazon/sideload and `ac-ustad-1.0.1.aab` for Google Play.
+`ac-ustad-1.0.2.apk` for Amazon/sideload and `ac-ustad-1.0.2.aab` for Google Play.
 The launcher icon, home header, 512 store icon and 1024×500 feature graphic use
 the new **surface compass** from `brand/logo/final/`.
 See the repository root `PLAYSTORE_PUBLISHING.txt` for the Play Console checklist.
@@ -124,8 +124,8 @@ Pages before shipping the release build.
 ## 5. Build + spot-check (you)
 
 1. Actions → **build-release** → Run workflow → wait for green.
-2. Download `ac-ustad-release`; it contains `ac-ustad-1.0.1.apk` (install over
-   the debug build on the phone) and `ac-ustad-1.0.1.aab` (Google Play upload).
+2. Download `ac-ustad-release`; it contains `ac-ustad-1.0.2.apk` (install over
+   the debug build on the phone) and `ac-ustad-1.0.2.aab` (Google Play upload).
 3. Spot-check: opens offline, codes read, one banner visible, no crash.
    (Full ADS.md §7 re-run only if ad code changed since last pass.)
 4. For Google Play, follow root `PLAYSTORE_PUBLISHING.txt` (upload the `.aab`,
@@ -133,11 +133,11 @@ Pages before shipping the release build.
 
 ## 6. Amazon upload (you)
 
-- New app submission with the release APK (`versionCode = 4` for this build;
+- New app submission with the release APK (`versionCode = 5` for this build;
   Amazon rejects a versionCode it has already seen).
 - Paste the Pages privacy URL into the listing's privacy field.
 - Answer the ads/data questionnaires truthfully: contains ads (AdMob),
-  no account, no analytics, INTERNET only for ads (see PERMISSIONS.md).
+  no account and no sign-in; INTERNET only for ads (see PERMISSIONS.md).
 - **Every later upload: bump `versionCode` by ≥1** (one-line change in
   `android/app/build.gradle.kts`), or Amazon rejects it.
 

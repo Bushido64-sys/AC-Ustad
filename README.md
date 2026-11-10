@@ -1,6 +1,6 @@
 # AC Ustad — Offline AC & Solar Inverter Error Code Reference
 
-A free, offline reference app for air-conditioner and solar-inverter technicians in Pakistan. A unit throws a code (E6, F4, Error 200, a blinking LED) and the app tells you what it means, why it happens, and what to do about it — in English or Roman Urdu, with no signal. All content ships inside a bundled database; nothing is fetched at runtime. Ad-supported only, no account, no analytics.
+A free, offline reference app for air-conditioner and solar-inverter technicians in Pakistan. A unit throws a code (E6, F4, Error 200, a blinking LED) and the app tells you what it means, why it happens, and what to do about it — in English or Roman Urdu, with no signal. All content ships inside a bundled database; nothing is fetched at runtime. Ad-supported only, no account and no sign-in; the ads use Google AdMob.
 
 ## What this repository is
 
@@ -32,7 +32,7 @@ Everything: the researched knowledge base, the Android app, the iOS-independent 
 
 - All build phases (1–9, 11) are built and phone-checked. Ads (AdMob) shipped as a straight feature — debug fills Google's demo units, release is wired for real units.
 - The app is **submitted to the Amazon Appstore**. AdMob release ads are still waiting on account verification; `app-ads.txt` is live at `https://bushido64-sys.github.io/app-ads.txt`.
-- **Google Play build is ready:** `versionCode 4`, `versionName 1.0.1`, package `com.acustad.app`, `targetSdk 36` (Play's current minimum). The manual `build-release` workflow produces both `ac-ustad-1.0.1.apk` (Amazon) and `ac-ustad-1.0.1.aab` (Google Play).
+- **Google Play build is ready:** `versionCode 5`, `versionName 1.0.2`, package `com.acustad.app`, `targetSdk 36` (Play's current minimum). The manual `build-release` workflow produces both `ac-ustad-1.0.2.apk` (Amazon) and `ac-ustad-1.0.2.aab` (Google Play).
 - The launcher icon and the home header use the new **surface compass** from `brand/logo/final/`. The 512 store icon and 1024×500 feature graphic are in `screenshots_1200x1920/icons/`.
 - Publishing steps, store copy, data-safety answers, and the signing fingerprint are in **`PLAYSTORE_PUBLISHING.txt`** at the repository root.
 

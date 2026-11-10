@@ -1,6 +1,6 @@
 ================================================================================
  AC USTAD - GOOGLE PLAY PUBLISHING PACK
- Version 1.0.1 (versionCode 4) - prepared 2026-11-04
+ Version 1.0.2 (versionCode 5) - prepared 2026-11-10
 ================================================================================
 
 This file contains everything needed to publish AC Ustad on Google Play:
@@ -16,8 +16,8 @@ Read section 1 first, then follow sections 4-11 in order.
 
   App name (launcher) ........ AC Ustad
   Package / applicationId .... com.acustad.app
-  Version name ............... 1.0.1
-  Version code ............... 4
+  Version name ............... 1.0.2
+  Version code ............... 5
   Minimum Android ............ 8.0 (API 26, minSdk 26)
   Target Android ............. 16 (API 36, targetSdk 36)
   Compile SDK ................ 36
@@ -45,7 +45,7 @@ Read section 1 first, then follow sections 4-11 in order.
   Feature graphic ............ screenshots_1200x1920/icons/feature_graphic_1024x500.png
 
   IMPORTANT: com.acustad.app is permanent. Play will not let you change it
-  after the first upload. versionCode 4 is used by this build; any new build
+  after the first upload. versionCode 5 is used by this build; any new build
   you upload must use 5 or higher. The same AAB can be promoted across tracks.
 
 --------------------------------------------------------------------------------
@@ -58,28 +58,28 @@ Read section 1 first, then follow sections 4-11 in order.
   Run commit ................. f09634d (main)
   Artifact name .............. ac-ustad-release (kept 30 days)
   Files inside the artifact:
-    ac-ustad-1.0.1.aab ....... UPLOAD THIS TO GOOGLE PLAY (9,808,279 bytes)
-    ac-ustad-1.0.1.apk ....... sideload / Amazon Appstore only (6,446,988 bytes)
-    mapping-1.0.1.txt ........ R8 deobfuscation file (47,760,805 bytes)
+    ac-ustad-1.0.2.aab ....... UPLOAD THIS TO GOOGLE PLAY (9,808,279 bytes)
+    ac-ustad-1.0.2.apk ....... sideload / Amazon Appstore only (6,446,988 bytes)
+    mapping-1.0.2.txt ........ R8 deobfuscation file (47,760,805 bytes)
 
   SHA-256 (verify after download):
-    ac-ustad-1.0.1.aab ....... 7fe75559b0c2f51f48a7812e98971209006f4ecf6af7c81ee45daa7c85ec6fae
-    ac-ustad-1.0.1.apk ....... d3bfec8956ff35601c0b7ab37db5bb0549328d22d81c6620c9b711c48473d18a
-    mapping-1.0.1.txt ........ 53a03fb97a35705483f6f8b36c949ff9515693f308ef8009b3f796ee7ca55102
+    ac-ustad-1.0.2.aab ....... 7fe75559b0c2f51f48a7812e98971209006f4ecf6af7c81ee45daa7c85ec6fae
+    ac-ustad-1.0.2.apk ....... d3bfec8956ff35601c0b7ab37db5bb0549328d22d81c6620c9b711c48473d18a
+    mapping-1.0.2.txt ........ 53a03fb97a35705483f6f8b36c949ff9515693f308ef8009b3f796ee7ca55102
 
   How to download:
     1. Open the Run URL above (must show a green check).
     2. Scroll to "Artifacts" at the bottom.
     3. Download "ac-ustad-release.zip" and unzip it.
     4. Verify the AAB signature (optional but recommended):
-         jarsigner -verify -verbose -certs ac-ustad-1.0.1.aab
+         jarsigner -verify -verbose -certs ac-ustad-1.0.2.aab
        Expected: "jar verified".
     5. Verify the signing certificate:
-         keytool -printcert -jarfile ac-ustad-1.0.1.aab
+         keytool -printcert -jarfile ac-ustad-1.0.2.aab
        Expected SHA-256: (see section 3).
 
   The workflow already enforces all of this before it uploads the artifact:
-  signed APK (v2), signed AAB, package com.acustad.app, versionCode 4,
+  signed APK (v2), signed AAB, package com.acustad.app, versionCode 5,
   targetSdk 36, no Google demo ad IDs, and a sane file size.
 
 --------------------------------------------------------------------------------
@@ -126,6 +126,11 @@ Read section 1 first, then follow sections 4-11 in order.
   6. Left menu -> Setup -> App signing -> enroll in Play App Signing.
   7. Left menu -> Monitor and improve -> Policy and programs -> App content.
      Complete every card using sections 7, 8 and 9 below.
+  7b. Left menu -> Grow users -> Store presence -> Store settings ->
+     Store listing contact details -> Website:
+         https://bushido64-sys.github.io/
+     This is the developer website AdMob crawls for app-ads.txt. Without it
+     the file cannot be verified, no matter how correct the file is.
   8. Left menu -> Grow -> Store presence -> Main store listing.
      Paste the copy from section 5 and upload the assets from section 6.
 
@@ -215,7 +220,10 @@ Read section 1 first, then follow sections 4-11 in order.
   Tags (pick the closest) .... Reference, Education, Productivity
   Contact email .............. atif.support@proton.me
   Website .................... https://bushido64-sys.github.io/
+                               (also paste this in Store settings -> Store listing
+                                contact details - that is what AdMob crawls)
   Privacy policy URL ......... https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html
+  Terms of service URL ....... https://bushido64-sys.github.io/AC-Ustad/TERMS.html
   App-ads.txt (already live) . https://bushido64-sys.github.io/app-ads.txt
 
   Countries / regions ........ All countries (the content is Pakistan-focused
@@ -258,6 +266,12 @@ Read section 1 first, then follow sections 4-11 in order.
   Privacy policy
     URL: https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html
     (live, returns HTTP 200, no login, not a PDF)
+
+  Terms of service (trader status card)
+    URL: https://bushido64-sys.github.io/AC-Ustad/TERMS.html
+    (live, returns HTTP 200, no login, not a PDF)
+    The page covers as-is / no warranty, safety, liability, acceptable use,
+    ads, governing law and the support email.
 
   Ads
     Does your app contain ads? .......... YES
@@ -388,7 +402,7 @@ Read section 1 first, then follow sections 4-11 in order.
 
   1. Internal testing (fastest, up to 100 testers)
      Release -> Testing -> Internal testing -> Create new release.
-     Upload ac-ustad-1.0.1.aab.
+     Upload ac-ustad-1.0.2.aab.
      Add your own Google account as a tester, roll out, install from the
      opt-in link, and check:
        - app opens in airplane mode
@@ -406,11 +420,11 @@ Read section 1 first, then follow sections 4-11 in order.
 
   3. Production
      Release -> Production -> Create new release.
-     Upload the same ac-ustad-1.0.1.aab (or promote the tested release).
+     Upload the same ac-ustad-1.0.2.aab (or promote the tested release).
      Add the R8 mapping file:
        App bundle explorer -> Downloads -> Upload deobfuscation file
        (or the "Deobfuscation file" field on the release) ->
-       mapping-1.0.1.txt
+       mapping-1.0.2.txt
      Review the pre-launch report, then roll out.
 
   Play review usually takes a few hours to a few days for a new app.
@@ -422,7 +436,7 @@ Read section 1 first, then follow sections 4-11 in order.
   Before upload:
     [ ] The build-release run is green (Run URL in section 2).
     [ ] Artifact ac-ustad-release.zip downloaded and unzipped.
-    [ ] ac-ustad-1.0.1.aab exists and its SHA-256 matches section 2.
+    [ ] ac-ustad-1.0.2.aab exists and its SHA-256 matches section 2.
     [ ] jarsigner -verify says "jar verified".
     [ ] keytool -printcert shows the SHA-256 in section 3.
     [ ] Privacy policy URL loads in an incognito browser.
@@ -434,6 +448,9 @@ Read section 1 first, then follow sections 4-11 in order.
     [ ] Store listing copy pasted (section 5).
     [ ] Graphics uploaded (section 6).
     [ ] Privacy policy URL saved.
+    [ ] Terms of service URL saved (App content -> Terms of service).
+    [ ] Store settings -> Store listing contact details -> Website is
+        https://bushido64-sys.github.io/ (this is what AdMob crawls).
     [ ] Ads = YES.
     [ ] App access = all functionality available without restrictions.
     [ ] Target audience = 18+ only.
@@ -451,15 +468,15 @@ Read section 1 first, then follow sections 4-11 in order.
     [ ] Keep the keystore and password backed up in two places.
 
 --------------------------------------------------------------------------------
- 12. UPDATES AFTER 1.0.1
+ 12. UPDATES AFTER 1.0.2
 --------------------------------------------------------------------------------
 
   1. Change the app code/data.
   2. Bump versionCode by at least 1 in android/app/build.gradle.kts
-     (4 -> 5 -> 6 ...). Play rejects a versionCode it has already seen.
-     Bump versionName too (for example 1.0.2).
+     (5 -> 6 -> 7 ...). Play rejects a versionCode it has already seen.
+     Bump versionName too (for example 1.0.3).
   3. Update the staged file names in .github/workflows/build-release.yml
-     (ac-ustad-1.0.1.aab -> ac-ustad-1.0.2.aab, same for .apk and mapping).
+     (ac-ustad-1.0.2.aab -> ac-ustad-1.0.3.aab, same for .apk and mapping).
   4. Commit, push, run build-release, download the new artifact.
   5. Upload the new .aab to Production (or a testing track first).
   6. Upload the new mapping file with the release.
@@ -491,14 +508,14 @@ Read section 1 first, then follow sections 4-11 in order.
     App content -> Ads -> YES.
 
   "Invalid or missing deobfuscation file"
-    Upload mapping-1.0.1.txt on the release, or ignore it (optional; only
+    Upload mapping-1.0.2.txt on the release, or ignore it (optional; only
     affects crash report readability).
 
   "App is not available in your country"
     Check Store settings -> Countries / regions includes the target country.
 
   "Pre-launch report shows a crash"
-    Read the stack trace with mapping-1.0.1.txt, fix, bump versionCode,
+    Read the stack trace with mapping-1.0.2.txt, fix, bump versionCode,
     rebuild, re-upload.
 
 --------------------------------------------------------------------------------
@@ -508,6 +525,7 @@ Read section 1 first, then follow sections 4-11 in order.
   Repository ................. https://github.com/Bushido64-sys/AC-Ustad
   Actions .................... https://github.com/Bushido64-sys/AC-Ustad/actions
   Privacy policy ............ https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html
+  Terms of service .......... https://bushido64-sys.github.io/AC-Ustad/TERMS.html
   App-ads.txt ............... https://bushido64-sys.github.io/app-ads.txt
   Landing page .............. https://bushido64-sys.github.io/
   Support email ............. atif.support@proton.me
@@ -523,6 +541,50 @@ Read section 1 first, then follow sections 4-11 in order.
     app-pipeline/guide/CI_CD.md ... release pipeline details
     app-pipeline/guide/PERMISSIONS.md ... permission decisions
     android/PROGRESS.md ...... build status and version history
+
+--------------------------------------------------------------------------------
+ 15. ADMOB CONSOLE - GET ADS SERVING
+--------------------------------------------------------------------------------
+
+  Ads will not appear until all four of these are true. Check them in order.
+
+  1. app-ads.txt is verified
+     AdMob -> Apps -> (AC Ustad) -> App settings -> app-ads.txt
+     Status must say "Verified" / "Authorized". It stays unverified until:
+       - the app is PUBLISHED on Google Play (any track that makes the
+         listing public is enough for the crawler), and
+       - the developer website is in the Play listing contact details
+         (section 4, step 7b).
+     Crawl takes up to 24 hours after both. "Check for updates" forces it.
+
+  2. Privacy policy URL is set
+     AdMob -> Privacy & messaging -> (European regulations / GDPR message)
+     -> Manage -> the "Privacy policy URL" column -> paste
+     https://bushido64-sys.github.io/AC-Ustad/PRIVACY.html
+     This is required by Google's EU user consent policy and is what the
+     in-app consent form links to.
+
+  3. The app is confirmed for monetisation
+     AdMob -> Apps -> AC Ustad. If AdMob asks you to confirm the app, do it.
+     Apps added before publication sit in an unconfirmed state and serve no
+     ads. After Play publishes the listing, AdMob can link the app to the
+     store entry automatically; if it does not, use
+     Apps -> (app) -> App settings -> Link to store listing.
+
+  4. The AdMob account itself is verified
+     AdMob -> Account -> Account information. Identity / address / payment
+     verification must be complete. Until it is, ads can fill with no revenue
+     or not fill at all. This is an AdMob-side review, not an app bug.
+
+  Expected timeline: Play publishes -> up to 24h for the app-ads.txt crawl ->
+  ads start filling. A new account can take a few days longer.
+
+  If ads still do not fill after a week:
+    - AdMob -> Apps -> AC Ustad -> Ad units: confirm the unit IDs match the
+      release build (they are in local-secrets/Unit-ID.txt).
+    - Check the app is not in "Limited ads" mode (no consent recorded).
+    - Do not install the release build from anywhere except Play for testing;
+      fresh installs from an unknown source can be flagged.
 
 ================================================================================
  END OF PUBLISHING PACK

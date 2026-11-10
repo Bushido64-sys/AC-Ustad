@@ -160,11 +160,11 @@ jobs:
           echo "$BADGING" | head -5
           echo "$BADGING" | grep -q "package: name='com.acustad.app'" \
             || { echo "::error::the APK package is not com.acustad.app"; exit 1; }
-          echo "$BADGING" | grep -q "versionCode='4'" \
-            || { echo "::error::the APK versionCode is not 4 - bump it in android/app/build.gradle.kts"; exit 1; }
+          echo "$BADGING" | grep -q "versionCode='5'" \
+            || { echo "::error::the APK versionCode is not 5 - bump it in android/app/build.gradle.kts"; exit 1; }
           echo "$BADGING" | grep -q "targetSdkVersion:'36'" \
             || { echo "::error::targetSdk is not 36 - Google Play rejects new apps below API 36"; exit 1; }
-          echo "package, versionCode 4 and targetSdk 36 - OK"
+          echo "package, versionCode 5 and targetSdk 36 - OK"
 
       - name: The release artifacts contain no demo ad IDs
         run: |
@@ -203,14 +203,14 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts
-          cp app/build/outputs/apk/release/app-release.apk artifacts/ac-ustad-1.0.1.apk
-          cp app/build/outputs/bundle/release/app-release.aab artifacts/ac-ustad-1.0.1.aab
+          cp app/build/outputs/apk/release/app-release.apk artifacts/ac-ustad-1.0.2.apk
+          cp app/build/outputs/bundle/release/app-release.aab artifacts/ac-ustad-1.0.2.aab
           # Play Console accepts this as the deobfuscation file for R8 builds,
           # so production crash reports show real class/method names. If AGP
           # ever moves it, warn instead of failing the whole release.
           MAPPING=$(find app/build/outputs/mapping -name mapping.txt 2>/dev/null | head -1)
           if [ -n "$MAPPING" ]; then
-            cp "$MAPPING" artifacts/mapping-1.0.1.txt
+            cp "$MAPPING" artifacts/mapping-1.0.2.txt
           else
             echo "::warning::no mapping.txt found - crash reports will be obfuscated"
           fi

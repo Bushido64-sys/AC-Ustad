@@ -140,7 +140,7 @@ validator), because a violation disables serving or closes the account:
 The *"requests no permissions"* claim died the commit the SDK arrived —
 deliberately and in the open, not by drift:
 
-- Settings Privacy panel + `PRIVACY.md`: *"No account and no analytics. The
+- Settings Privacy panel + `PRIVACY.md`: *"No account and no sign-in. The
   app shows ads to stay free: ad networks may see your device and IP
   address."*
 - `PERMISSIONS.md` + RULE 14 rewritten as decisions: INTERNET and

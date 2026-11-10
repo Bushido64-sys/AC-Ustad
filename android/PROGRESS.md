@@ -2,19 +2,20 @@
 
 **Read this first when resuming.** Last updated: 2026-11-04
 
-> **2026-11-04 — PLAY STORE BUILD READY.** `versionCode 4`, `versionName 1.0.1`,
+> **2026-11-10 — PLAY STORE BUILD READY.** `versionCode 5`, `versionName 1.0.2`,
 > `compileSdk`/`targetSdk` 36 (Google Play requires API 36 for new apps since
 > 2026-08-31), AGP 8.10.1 / Gradle 8.11.1. The launcher icon and the 44 dp home
 > header now use the new **surface compass** from `brand/logo/final/`; the
-> signed `1.0.1 (4)` AAB is run `41838466649`. The manual `build-release` workflow now
-> builds **both** `ac-ustad-1.0.1.apk` (Amazon/sideload) and `ac-ustad-1.0.1.aab`
+> signed AAB comes from the latest `build-release` run. The manual `build-release`
+> workflow builds **both** `ac-ustad-1.0.2.apk` (Amazon/sideload) and `ac-ustad-1.0.2.aab`
 > (Google Play), verifies both signatures, and fails if either contains demo ad
 > IDs or targets below API 36. The uncommitted `__aux` rename was reverted: AUX is
 > back in the data tree and `tools/validate.py` passes at 62 brands / 320 series /
 > 4,418 codes. Publishing steps and store copy live in root
 > `PLAYSTORE_PUBLISHING.txt`.
 
-> **Where we are:** App is **submitted to the Amazon Appstore** (5-day review estimate, 2026-10-03). Release builds feed AdMob; no release ads are serving yet because the AdMob account is stuck in verification — `app-ads.txt` is live at `https://bushido64-sys.github.io/app-ads.txt` and the crawl is the pending step, not a code bug. CI `build app` green on `f09634d`; the signed `1.0.1 (4)` AAB is run `41838466649`.
+> **Where we are:** App is **submitted to the Amazon Appstore** (5-day review estimate, 2026-10-03). Release builds feed AdMob; no release ads are serving yet because the AdMob account is stuck in verification — `app-ads.txt` is live at `https://bushido64-sys.github.io/app-ads.txt` and the crawl is the pending step, not a code bug. CI `build app` green on the docs commits; the signed `1.0.2 (5)` AAB is the latest
+> `build-release` artifact.
 > The Play Console account is open; app setup, Data safety and closed testing are
 > the next gate. The launcher icon and 44 dp home header now use the surface
 > compass. Debug-demo AdMob fills fine; release-real fills as soon as AdMob
